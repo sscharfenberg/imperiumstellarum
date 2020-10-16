@@ -1,0 +1,36 @@
+/**
+ *
+ * app icon component
+ *
+ **/
+
+.icon {
+    display: inline-block;
+
+    width: 2.4rem;
+    height: 2.4rem;
+
+    fill: currentColor;
+
+    vertical-align: middle;
+
+    &.tiny {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    &.small {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    &.large {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    &.xlarge {
+        width: 6.4rem;
+        height: 6.4rem;
+    }
+}

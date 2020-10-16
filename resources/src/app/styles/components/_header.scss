@@ -1,0 +1,144 @@
+/**
+ *
+ * app header component
+ *
+ **/
+
+.header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    right: 0;
+    z-index: z("header");
+
+    height: 5.6rem;
+    padding: 1rem;
+    margin: 0;
+
+    list-style: none;
+
+    @include themed() {
+        background: t("g-bunker");
+    }
+
+    &__item {
+        display: flex;
+        position: relative;
+        align-items: center;
+
+        margin-left: 1rem;
+
+        &:first-child {
+            margin-left: 0; // this is a problem.
+        }
+
+        &--left {
+            margin-right: auto;
+
+            @include respond-to("medium") {
+                margin-left: auto;
+            }
+        }
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+
+        flex-shrink: 0;
+
+        text-decoration: none;
+
+        > img {
+            width: 36px;
+            height: 36px;
+
+            @include respond-to("medium") {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        > span {
+            display: none;
+
+            margin-left: 12px;
+
+            font-size: 2.4rem;
+            font-weight: 400;
+
+            transition: text-shadow map-get($animation-speeds, "fast") linear;
+
+            @include themed() {
+                color: t("b-viking");
+            }
+
+            @include respond-to("medium") {
+                display: block;
+            }
+
+            &:hover {
+                @include themed() {
+                    text-shadow: t("s-shine-1dp");
+                }
+            }
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+
+        padding: 0.5rem;
+        border: 1px solid transparent;
+
+        outline: 0;
+        cursor: pointer;
+
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+        text-decoration: none;
+
+        transition: background-color map-get($animation-speeds, "fast") linear,
+            color map-get($animation-speeds, "fast") linear,
+            border-color map-get($animation-speeds, "fast") linear;
+
+        @include respond-to("medium") {
+            padding: 0.5rem 1rem;
+        }
+
+        &.both {
+            > span {
+                display: none;
+            }
+
+            > .icon {
+                margin-right: 0;
+            }
+
+            @include respond-to("medium") {
+                > span {
+                    display: block;
+                }
+
+                > .icon {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+
+        @include themed() {
+            background: t("g-raven");
+            color: t("t-light");
+            border-color: t("b-darkbg");
+        }
+
+        &:hover:not([disabled]),
+        &.open {
+            @include themed() {
+                background: t("g-ebony");
+                color: t("b-christine");
+            }
+        }
+    }
+}

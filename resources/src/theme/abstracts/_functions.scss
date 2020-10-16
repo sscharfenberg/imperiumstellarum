@@ -1,0 +1,66 @@
+/******************************************************************************
+ *
+ * functions for use in other scss files (simple stuff)
+ *
+ *****************************************************************************/
+@import "config";
+
+/*
+ * Native `url(..)` function wrapper
+ * @param {String} $base - base URL for the asset
+ * @param {String} $type - asset type folder (e.g. `fonts/`)
+ * @param {String} $path - asset path
+ * @return {Url}
+ */
+@function asset($base, $type, $path) {
+    @return url($base + $type + $path);
+}
+
+/*
+ * Returns URL to an image based on its path
+ * @param {String} $path - image path
+ * @param {String} $base [$base-url] - base URL
+ * @return {Url}
+ * @require $base-url
+ *
+ */
+@function image($path, $base: "./") {
+    @return asset($base, "static/", $path);
+}
+
+/*
+ * Returns URL to a font based on its path
+ * @param {String} $path - font path
+ * @param {String} $base [$base-url] - base URL
+ * @return {Url}
+ * @require $base-url
+ */
+@function font($path, $base: "") {
+    @return asset($base, "../../static/fonts/", $path);
+}
+
+/*
+ * output z-index from map in _configl.scss
+ * @usage:
+ *
+ * .overlay {
+ *   z-index: z("overlay");
+ * }
+ */
+@function z($key: "default") {
+    @if map-has-key($z-layers, $key) {
+        @return map-get($z-layers, $key);
+    }
+
+    @warn "Unknown `#{$key}` in $z-layers.";
+
+    @return null;
+}
+
+/*
+ * theme function - outputs themed styles, for dark and light theme
+ * https://medium.com/@katiemctigue/how-to-create-a-dark-mode-in-sass-609f131a3995
+ */
+@function t($key) {
+    @return map-get($theme-map, $key);
+}

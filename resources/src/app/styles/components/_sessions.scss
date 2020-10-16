@@ -1,0 +1,69 @@
+/**
+ *
+ * admin sessions component
+ *
+ **/
+
+.sessions {
+    width: 100%;
+    padding: 1rem;
+    margin: 2rem 0;
+
+    @include themed() {
+        background: t("g-sunken");
+    }
+
+    > header > h1 {
+        margin: 0 0 2rem 0;
+
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    &__list {
+        padding: 0;
+        margin: 0;
+
+        list-style: none;
+    }
+}
+
+.session {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem;
+    border: 1px solid transparent;
+    margin: 0 0 0.5rem 0;
+
+    @include themed() {
+        background: t("g-bunker");
+        border-color: t("b-darkbg");
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__details {
+        margin-left: 1rem;
+
+        small,
+        cite {
+            display: block;
+
+            font-size: 1.3rem;
+        }
+
+        small {
+            @include themed() {
+                color: t("t-subdued");
+            }
+        }
+    }
+
+    &__ip {
+        margin-left: auto;
+    }
+}

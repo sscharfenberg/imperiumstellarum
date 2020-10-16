@@ -1,0 +1,160 @@
+/**
+ *
+ * app pagehead component
+ *
+ **/
+
+.page-head {
+    border-left: 0.5rem solid transparent;
+    margin-bottom: 1rem;
+
+    @include themed() {
+        background: t("g-sunken");
+        color: t("t-light");
+        border-left-color: t("b-viking");
+    }
+
+    @include respond-to("small") {
+        border-left-width: 0.8rem;
+        margin-bottom: 2rem;
+    }
+
+    &__title {
+        padding: 0.5rem;
+        margin: 0;
+
+        font-size: 2rem;
+        font-weight: 300;
+        line-height: 1.2;
+
+        @include respond-to("small") {
+            padding: 1.5rem 2rem;
+
+            font-size: 3rem;
+        }
+    }
+
+    &__description {
+        padding: 0.5rem;
+        margin: 0;
+
+        @include respond-to("small") {
+            padding: 0 2rem 1.5rem 2rem;
+        }
+    }
+
+    &__breadcrumbs {
+        display: flex;
+        flex-wrap: wrap;
+
+        padding: 0.5rem 0.5rem 0 0.5rem;
+
+        @include respond-to("small") {
+            padding: 1rem 2rem 0 2rem;
+        }
+    }
+
+    &__crumb {
+        $baseheight: 2.6rem;
+        $bigheight: 3.2rem;
+
+        display: flex;
+        position: relative;
+        align-items: center;
+
+        box-sizing: border-box;
+        height: $baseheight;
+        padding: 0 0.6rem;
+
+        font-size: 1.4rem;
+        text-decoration: none;
+
+        transition: background-color map-get($animation-speeds, "fast") linear,
+            color map-get($animation-speeds, "fast") linear;
+
+        @include themed() {
+            background: t("g-deep");
+            color: t("t-light");
+        }
+
+        @include respond-to("small") {
+            height: $bigheight;
+            padding: 0 1rem;
+
+            font-size: 1.6rem;
+        }
+
+        &:not(:first-child) {
+            padding-left: 1.3rem;
+
+            @include respond-to("small") {
+                padding-left: 1.8rem;
+            }
+        }
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            z-index: z("form");
+
+            width: 0;
+            height: 0;
+            border-width: #{$baseheight / 2} 0.7rem;
+
+            border-style: solid;
+
+            content: " ";
+
+            transition: border-color map-get($animation-speeds, "fast") linear;
+
+            @include themed() {
+                border-color: transparent transparent transparent #{t("g-deep")};
+            }
+
+            @include respond-to("small") {
+                border-width: #{$bigheight / 2} 0.8rem;
+            }
+        }
+
+        &:nth-child(2n) {
+            @include themed() {
+                background: t("g-raven");
+            }
+
+            &::after {
+                @include themed() {
+                    border-color: transparent transparent transparent
+                        t("g-raven");
+                }
+            }
+        }
+
+        &:hover {
+            @include themed() {
+                background: t("g-iron");
+                color: t("g-black");
+            }
+
+            &::before {
+                left: 0;
+            }
+
+            &::after {
+                @include themed() {
+                    border-left-color: t("g-iron");
+                }
+            }
+        }
+    }
+
+    .icon {
+        width: 1.6rem;
+        height: 1.6rem;
+
+        @include respond-to("small") {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+}

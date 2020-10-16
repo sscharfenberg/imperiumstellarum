@@ -1,0 +1,32 @@
+/**
+ *
+ * admin symbol component
+ *
+ **/
+
+.symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.2rem;
+
+    &.error {
+        @include themed() {
+            background: t("s-error");
+        }
+    }
+
+    &.success {
+        @include themed() {
+            background: t("s-success");
+        }
+    }
+
+    &.inline {
+        display: inline-block;
+
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+}

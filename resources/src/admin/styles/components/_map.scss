@@ -1,0 +1,104 @@
+/**
+ *
+ * admin map component
+ *
+ **/
+
+.map {
+    padding-bottom: 1rem;
+
+    @include themed() {
+        background: radial-gradient(
+            ellipse 35px 35px at 25px 25px,
+            transparent 0%,
+            transparent 99%,
+            t("g-sunken") 100%
+        );
+    }
+
+    > header {
+        display: flex;
+
+        min-height: 7rem;
+
+        font-size: 2.4rem;
+        font-weight: 300;
+        line-height: 5.2rem;
+
+        > h1 {
+            margin: 0 0 2rem 1rem;
+
+            font-size: 2.4rem;
+            font-weight: 300;
+        }
+    }
+
+    &__totals {
+        display: inline-block;
+
+        padding: 1rem;
+        margin: 0 1rem 1rem 1rem;
+
+        @include themed() {
+            background: t("g-deep");
+        }
+    }
+
+    &__wrapper {
+        overflow: auto;
+        max-height: 1170px;
+        margin: 0 1rem;
+
+        @extend %scrollbar;
+    }
+
+    &__table {
+        $border: 1px solid transparent;
+
+        border-top: $border;
+        border-left: $border;
+
+        border-collapse: collapse;
+
+        @include themed() {
+            border-color: t("g-abbey");
+        }
+
+        td,
+        th {
+            padding: 0;
+            border-right: $border;
+            border-bottom: $border;
+
+            text-align: center;
+
+            vertical-align: middle;
+
+            @include themed() {
+                border-color: t("g-abbey");
+            }
+        }
+
+        td {
+            width: 17px;
+            height: 17px;
+
+            font-size: 12px;
+        }
+    }
+
+    &__actions {
+        padding-top: 2rem;
+        margin: 2rem 0;
+
+        @include themed() {
+            border-top: 2px solid t("g-ebony");
+        }
+
+        button {
+            @include respond-to("medium") {
+                margin-left: 30%;
+            }
+        }
+    }
+}

@@ -1,0 +1,109 @@
+/**
+ *
+ * app flash component
+ *
+ **/
+
+.flash {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+
+    width: 100%;
+    max-width: map-get($breakpoints, "small");
+    margin: 0 auto 1.5rem auto;
+    transform: translateX(-50%);
+
+    @include themed() {
+        border: 5px solid t("s-success");
+
+        background: t("g-deep");
+        color: t("t-light");
+    }
+
+    &__wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: z("overlay");
+    }
+
+    &__backdrop {
+        position: relative;
+
+        width: 100vw;
+        height: 100vh;
+
+        @include themed() {
+            background: rgba(t("g-black"), 0.6);
+        }
+    }
+
+    header > h1 {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        padding: 2rem;
+        margin: 0;
+
+        font-size: 2.4rem;
+        font-weight: 300;
+
+        @include themed() {
+            border-bottom: 1px solid t("s-success");
+        }
+
+        > .state-icon svg {
+            display: inherit;
+
+            margin-right: 1rem;
+        }
+
+        > .close {
+            margin-left: auto;
+        }
+    }
+
+    &.warning {
+        @include themed() {
+            border-color: t("s-warning");
+        }
+
+        header > h1 {
+            @include themed() {
+                border-bottom-color: t("s-warning");
+            }
+
+            > .state-icon svg {
+                @include themed() {
+                    color: t("s-warning");
+                }
+            }
+        }
+    }
+
+    &.error {
+        @include themed() {
+            border-color: t("s-error");
+        }
+
+        header > h1 {
+            @include themed() {
+                border-bottom-color: t("s-error");
+            }
+
+            > .state-icon svg {
+                @include themed() {
+                    color: t("s-error");
+                }
+            }
+        }
+    }
+
+    .message {
+        padding: 2rem;
+    }
+}

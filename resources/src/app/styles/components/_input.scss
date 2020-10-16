@@ -1,0 +1,55 @@
+/**
+ *
+ * app input component
+ *
+ **/
+
+input.form-control,
+select.form-select {
+    height: 4.2rem;
+    padding: 1rem 0.5rem;
+    border: 0;
+    border-left: 10px solid transparent;
+    flex-grow: 1;
+
+    line-height: 1.4;
+
+    transition: background map-get($animation-speeds, "fast") linear,
+        border-left-color map-get($animation-speeds, "fast") linear,
+        color map-get($animation-speeds, "fast") linear;
+
+    @include themed() {
+        background: t("g-iron");
+    }
+
+    &:focus {
+        outline: 0;
+
+        @include themed() {
+            background: t("g-white");
+            color: t("g-black");
+            border-left-color: t("b-viking");
+        }
+
+        &::placeholder {
+            @include themed() {
+                color: t("g-tint");
+            }
+        }
+
+        + .addon {
+            @include themed() {
+                background: t("g-white");
+                color: t("g-black");
+            }
+        }
+    }
+
+    &.invalid {
+        color: #000;
+
+        @include themed() {
+            background: lighten(t("s-error"), 25%);
+        }
+    }
+}

@@ -1,0 +1,261 @@
+/**
+ *
+ * app form styles
+ *
+ **/
+
+.app-form {
+    width: 100%;
+    margin: 4rem 0;
+
+    @include themed() {
+        background: t("g-sunken");
+    }
+
+    &.less-margins {
+        margin: 2rem 0;
+    }
+
+    &.has-headline {
+        @include themed() {
+            background: radial-gradient(
+                ellipse 35px 35px at 25px 25px,
+                transparent 0%,
+                transparent 99%,
+                t("g-sunken") 100%
+            );
+        }
+    }
+
+    &.narrow {
+        max-width: map-get($breakpoints, "medium");
+        margin: 4rem auto;
+    }
+
+    &.in-section {
+        margin: 0;
+    }
+
+    > .headline {
+        display: flex;
+
+        min-height: 7rem;
+
+        font-size: 2.4rem;
+        font-weight: 300;
+        line-height: 5.2rem;
+
+        > span {
+            display: inline-block;
+
+            margin-left: 1rem;
+        }
+
+        @include respond-to("small") {
+            font-size: 3rem;
+        }
+    }
+
+    > .intro {
+        padding: 1rem;
+        border: 1px solid transparent;
+        margin: 0 1rem;
+
+        @include themed() {
+            background: t("g-bunker");
+            border-color: t("b-darkbg");
+        }
+    }
+
+    // form row with inputs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        padding: 2rem 1rem;
+
+        @include respond-to("medium") {
+            flex-direction: row;
+        }
+
+        &.has-divider {
+            @include themed() {
+                border-bottom: 2px solid t("g-ebony");
+            }
+        }
+
+        > .label {
+            display: flex;
+            align-items: center;
+
+            flex: 1 1 30%;
+
+            > label {
+                display: inline-block;
+
+                width: 100%;
+                padding: 0.5rem 0;
+
+                @include respond-to("medium") {
+                    padding: 0;
+                }
+            }
+        }
+
+        > .input {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            padding: 0.5rem 0;
+            flex: 1 1 70%;
+
+            &--justify {
+                justify-content: space-between;
+            }
+
+            &--right {
+                justify-content: flex-end;
+            }
+
+            @include respond-to("medium") {
+                padding: 0;
+            }
+
+            &.no-label {
+                @include respond-to("medium") {
+                    margin-left: 30%;
+                }
+            }
+        }
+
+        .addon {
+            height: 4.2rem;
+            padding: 0 1rem;
+
+            line-height: 4.2rem;
+
+            transition: background map-get($animation-speeds, "fast") linear,
+                color map-get($animation-speeds, "fast") linear;
+
+            &.invalid {
+                color: #000;
+
+                @include themed() {
+                    background: lighten(t("s-error"), 25%);
+                }
+            }
+
+            @include themed() {
+                background: t("g-iron");
+                color: t("g-black");
+
+                .icon.error {
+                    color: t("s-error");
+                }
+
+                .icon.ok {
+                    color: t("s-success");
+                }
+            }
+        }
+
+        .meter {
+            display: none;
+
+            min-height: 0;
+            padding: 0 0 0 0;
+            flex-basis: 100%;
+
+            @include respond-to("medium") {
+                padding: 0.4rem 0 0 30%;
+            }
+        }
+
+        > .descr {
+            padding: 0.5rem;
+            border: 1px solid transparent;
+            margin-top: 1rem;
+            flex: 1 1 100%;
+
+            font-size: 1.4rem;
+
+            @include themed() {
+                color: t("t-tint");
+                border-color: t("b-darkbg");
+            }
+
+            .links {
+                @include respond-to("medium") {
+                    margin-left: 30%;
+                }
+
+                .text-link {
+                    padding: 0.5rem 0;
+                }
+            }
+        }
+
+        > .error {
+            flex-basis: 100%;
+
+            @include respond-to("medium") {
+                margin-left: 30%;
+            }
+        }
+    }
+
+    // simple text row ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    .text-row {
+        padding: 1rem;
+
+        &.has-divider {
+            @include themed() {
+                border-bottom: 2px solid t("g-ebony");
+            }
+        }
+    }
+
+    // form error messages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ul.errors {
+        padding: 0.5rem;
+        margin: 1rem 0 0 0;
+
+        list-style: none;
+
+        @include respond-to("medium") {
+            padding: 1rem;
+        }
+
+        @include themed() {
+            border: 1px solid t("s-error");
+
+            background: t("g-ebony");
+            color: t("s-warning");
+        }
+
+        > li {
+            display: flex;
+            align-items: center;
+
+            padding: 0.5rem 0;
+            margin-bottom: 0.5rem;
+
+            @include themed() {
+                border-bottom: 1px solid t("s-error");
+            }
+
+            .icon {
+                margin-right: 1rem;
+                flex: 0 0 24px;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+                margin-bottom: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,97 @@
+/**
+ *
+ * admin table component
+ *
+ **/
+
+.admin-table {
+    $border: 1px solid transparent;
+
+    width: 100%;
+    border-top: $border;
+    border-left: $border;
+    margin-bottom: 2rem;
+
+    border-collapse: collapse;
+
+    @include themed() {
+        border-color: t("g-abbey");
+    }
+
+    // generic td/th styling
+    td,
+    th {
+        display: block;
+        position: relative;
+
+        padding: 1rem;
+        border-right: $border;
+        border-bottom: $border;
+
+        font-weight: 300;
+        text-align: left;
+
+        vertical-align: middle;
+
+        transition: background-color map-get($animation-speeds, "fast") linear;
+
+        @include respond-to("medium") {
+            display: table-cell;
+        }
+
+        @include themed() {
+            background: t("g-bunker");
+            border-color: t("g-abbey");
+        }
+    }
+
+    tbody tr:nth-child(2n) td {
+        @include themed() {
+            background: t("g-ebony");
+        }
+    }
+
+    thead th {
+        position: relative;
+
+        &.sortable {
+            padding-right: 2.6rem;
+
+            &.sorted {
+                font-style: italic;
+
+                @include themed() {
+                    background: t("g-raven");
+                }
+            }
+        }
+
+        @include themed() {
+            background: t("g-deep");
+        }
+    }
+
+    td.locale img {
+        width: 30px;
+        height: 15px;
+        border: 1px solid transparent;
+
+        @include themed() {
+            border-color: t("b-darkbg");
+        }
+    }
+
+    td.suspension svg {
+        @include themed() {
+            color: t("s-warning");
+        }
+    }
+
+    tbody tr[data-id]:hover td {
+        cursor: pointer;
+
+        @include themed() {
+            background: t("g-deep");
+        }
+    }
+}

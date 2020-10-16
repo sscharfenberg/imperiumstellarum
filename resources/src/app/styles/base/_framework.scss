@@ -1,0 +1,72 @@
+/**
+ *
+ * app main css
+ *
+ **/
+
+html {
+    box-sizing: border-box;
+
+    font-size: 62.5%; // @ default 16px 1 rem => 10px
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: map-get($fonts, "text");
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-decoration-skip-ink: auto;
+
+    @extend %scrollbar;
+
+    @include themed() {
+        background: t("bg-body");
+        background-size: 304px 304px;
+        color: t("t-light");
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+    flex: 1 1 auto;
+
+    &__body {
+        width: 100%;
+        max-width: #{map-get($breakpoints, "max")};
+        margin: 0 auto;
+        flex: 1 1 auto;
+    }
+
+    &__content {
+        @include respond-to("large") {
+            width: calc(100% - 24rem);
+            margin-left: auto;
+        }
+    }
+
+    &__page {
+        padding: 0.5rem 0.5rem 2rem 0.5rem;
+
+        @include respond-to("small") {
+            padding: 1.5rem 1.5rem 4rem 1.5rem;
+        }
+    }
+}
+
+.iconsprite {
+    display: none;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}

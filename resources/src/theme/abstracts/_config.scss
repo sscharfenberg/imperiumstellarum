@@ -1,0 +1,155 @@
+/******************************************************************************
+ *
+ * BASE variables for use in other scss files
+ *
+ *****************************************************************************/
+
+/*
+ * themes
+ */
+$themes: (
+    dark: (
+        // brand colors
+        b-viking: #6fc3df,
+        b-gorse: #ffe64d,
+        b-christine: #df740c,
+        // greyscale
+        g-white: #fff,
+        g-astral: #f6f6f6,
+        g-mystic: #ededed,
+        g-infra: #dadada,
+        g-fog: #c7c7bf,
+        g-iron: #afb2b2,
+        g-charcoal: #757c84,
+        g-asher: #555f61,
+        g-abbey: #4c4f56,
+        g-raven: #373d3f,
+        g-deep: #252a2b,
+        g-sunken: #141721,
+        g-bunker: #12141c,
+        g-ebony: #06060f,
+        g-black: #000,
+        // text colors
+        t-bright: #eaf0f2,
+        t-light: #cdd0d0,
+        t-tint: #939393,
+        t-subdued: #737676,
+        t-twilight: #373737,
+        t-dark: #182226,
+        // misc
+        bg-body: #06060f url("../../theme/bg-body-dark.svg"),
+        s-shine-1dp: 0 0 15px #df740c,
+        // states
+        s-active: #195529,
+        s-inactive: #383e46,
+        s-success: #4b9b29,
+        s-warning: #f2b01e,
+        s-building: #857c49,
+        s-error: #a51900,
+        // meter
+        m-low: #a51900,
+        m-moderate: #ebed49,
+        m-high: #4b9b29,
+        // borders
+        b-lightbg: rgba(#000, 0.2),
+        b-darkbg: rgba(#fff, 0.2),
+    ),
+    light: (
+        // brand colors
+        b-viking: #31497a,
+        b-gorse: #ffe64d,
+        b-christine: #df740c,
+        // greyscale
+        g-white: #000,
+        g-astral: #06060f,
+        g-mystic: #12141c,
+        g-infra: #141721,
+        g-fog: #252a2b,
+        g-iron: #373d3f,
+        g-charcoal: #4c4f56,
+        g-asher: #555f61,
+        g-abbey: #757c84,
+        g-raven: #afb2b2,
+        g-deep: #c7c7bf,
+        g-sunken: #dadada,
+        g-bunker: #ededed,
+        g-ebony: #f6f6f6,
+        g-black: #fff,
+        // text colors
+        t-bright: #182226,
+        t-light: #373737,
+        t-tint: #737676,
+        t-subdued: #939393,
+        t-twilight: #cdd0d0,
+        t-dark: #eaf0f2,
+        // misc
+        bg-body: #fff url("../../theme/bg-body-light.svg"),
+        s-shine-1dp: 0 0 15px #df740c,
+        // states
+        s-active: #195529,
+        s-inactive: #383e46,
+        s-success: #4b9b29,
+        s-warning: #f2b01e,
+        s-building: #857c49,
+        s-error: #f00,
+        // meter
+        m-low: #a51900,
+        m-moderate: #ebed49,
+        m-high: #4b9b29,
+        // borders
+        b-lightbg: rgba(#fff, 0.3),
+        b-darkbg: rgba(#000, 0.3),
+    ),
+);
+
+/*
+ * animation speeds for transition-duration and animation-duration
+ */
+$animation-speeds: (
+    "fast": 150ms,
+    "quick": 250ms,
+    "medium": 450ms,
+    "portly": 650ms,
+    "slow": 1000ms,
+    "delayed": 1500ms,
+);
+
+/*
+ * fonts
+ */
+$fonts: (
+    "mono": #{"Courier",
+    monospace},
+    "text": #{"Roboto",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif},
+);
+
+// refers to min-width (mobile-first) breakpoints.
+$breakpoints: (
+    "small": 480px,
+    "medium": 769px,
+    "large": 1025px,
+    "xlarge": 1241px,
+    "max": 1441px,
+);
+
+$z-layers: (
+    "bottomless": -9999,
+    "underground": -10,
+    "background": -1,
+    "default": 0,
+    "form": 1,
+    "header": 6,
+    "drawer": 10,
+    "footer": 11,
+    "dropdown": 200,
+    "overlay": 1000,
+    "modal": 2000,
+);

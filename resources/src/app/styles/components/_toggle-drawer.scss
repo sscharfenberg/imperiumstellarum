@@ -1,0 +1,88 @@
+/**
+ *
+ * Toggle drawer button
+ *
+ **/
+
+button#toggleDrawerBtn {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    width: 4rem;
+    height: 3.4rem;
+    padding: 0.5rem;
+    border: 0;
+    flex-shrink: 0;
+
+    background: none;
+    outline: 0;
+    cursor: pointer;
+
+    @include respond-to("large") {
+        display: none;
+    }
+
+    //@include respond-to("small") {
+    //    width: 4rem;
+    //    height: 3.4rem;
+    //}
+
+    > span {
+        display: block;
+
+        width: calc(100% - 1px);
+        height: 5px;
+        border: 1px solid transparent;
+
+        background: transparent;
+        border-radius: 3px;
+
+        transition: border-color map-get($animation-speeds, "fast") linear,
+            background-color map-get($animation-speeds, "fast") linear,
+            transform map-get($animation-speeds, "fast") linear,
+            opacity map-get($animation-speeds, "fast") linear;
+
+        @include themed() {
+            border-color: t("g-charcoal");
+        }
+    }
+
+    &:hover > span {
+        @include themed() {
+            background: t("g-abbey");
+            border-color: t("b-viking");
+        }
+    }
+
+    &.open {
+        &:hover > span {
+            opacity: 1;
+
+            @include themed() {
+                background: t("b-gorse");
+            }
+        }
+
+        > span {
+            opacity: 0.4;
+
+            @include themed() {
+                background: t("b-viking");
+                border-color: t("b-viking");
+            }
+
+            &:nth-child(1) {
+                transform: translateY(10px) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+    }
+}

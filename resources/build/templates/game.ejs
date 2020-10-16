@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+    <head>
+        <title>Imperium Stellarum</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="Imperium Stellarum - a turn-based multiplayer browser game of galactic conquest." />
+        <% if (!htmlWebpackPlugin.options.devServer) { %><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/assets/favicons/site.webmanifest">
+        <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#6fc3df">
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico"><% } %>
+        <meta name="apple-mobile-web-app-title" content="Imperium Stellarum">
+        <meta name="application-name" content="Imperium Stellarum">
+        <meta name="msapplication-TileColor" content="#12141c">
+        <% if (!htmlWebpackPlugin.options.devServer) { %><meta name="msapplication-config" content="/assets/favicons/browserconfig.xml"><% } %>
+        <meta name="theme-color" content="#12141c">
+        <% if (!htmlWebpackPlugin.options.devServer) {
+            for (index in htmlWebpackPlugin.files.css) { %>
+            <link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[index] %>" />
+        <% } } %>
+    </head>
+    <body>
+        <% if (htmlWebpackPlugin.options.devServer) {
+            for (index in htmlWebpackPlugin.files.js) {
+        %><script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[index] %>" defer></script>
+        <% } %>
+        <script type="text/javascript" src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js" defer></script>
+        <% } else {
+            for (index in htmlWebpackPlugin.files.js) {
+        %><%= index %><script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[index] %>" defer></script>
+        <% } } %>
+    </body>
+</html>

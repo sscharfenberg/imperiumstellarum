@@ -1,0 +1,174 @@
+/**
+ *
+ * Header Submenu styles shared between several components
+ *
+ **/
+
+.submenu {
+    $arrowSize: 6px;
+
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    z-index: 1;
+    opacity: 0;
+
+    width: 100px;
+    padding: 0;
+    margin: #{$arrowSize} 0 0;
+
+    list-style: none;
+
+    @include respond-to("small") {
+        left: 16px;
+    }
+
+    &.open {
+        display: block;
+        opacity: 1;
+    }
+
+    &.opening,
+    &.closing {
+        display: block;
+
+        backface-visibility: visible !important;
+        opacity: 1;
+
+        animation-duration: map-get($animation-speeds, "fast");
+        animation-fill-mode: both;
+    }
+
+    &.opening {
+        animation-name: openSubmenu;
+    }
+
+    &.closing {
+        animation-name: closeSubmenu;
+    }
+
+    &::before {
+        display: block;
+        position: absolute;
+        top: -#{$arrowSize};
+
+        width: 0;
+        height: 0;
+        border-width: 0 #{$arrowSize} #{$arrowSize};
+
+        border-style: solid;
+
+        content: " ";
+
+        @include themed() {
+            border-color: transparent transparent t("g-abbey") transparent;
+        }
+    }
+
+    &__item {
+        display: block;
+
+        border: 2px solid transparent;
+        border-bottom-width: 0;
+
+        @include themed() {
+            border-color: t("g-abbey");
+        }
+
+        &:last-child {
+            border-bottom-width: 2px;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+
+            padding: 0.5rem 1rem;
+
+            text-decoration: none;
+
+            transition: background-color map-get($animation-speeds, "fast")
+                linear;
+
+            @include themed() {
+                background: t("g-raven");
+                color: t("t-light");
+            }
+
+            > img {
+                display: inline-block;
+
+                width: 30px;
+                height: 15px;
+                border: 1px solid transparent;
+                margin-right: 8px;
+
+                filter: grayscale(70%);
+                border-radius: 2px;
+
+                @include themed() {
+                    border-color: t("g-white");
+                }
+            }
+
+            &:hover:not(.active) {
+                @include themed() {
+                    background: t("g-bunker");
+                }
+
+                > img {
+                    filter: none;
+                }
+            }
+
+            &.active {
+                pointer-events: none;
+
+                @include themed() {
+                    background: t("g-black");
+                }
+
+                > img {
+                    filter: none;
+                }
+            }
+        }
+    }
+}
+
+/*
+ * Animation for opening dropdowns
+ */
+@keyframes openSubmenu {
+    from {
+        opacity: 0;
+
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+
+        animation-timing-function: ease-in;
+    }
+
+    to {
+        opacity: 1;
+
+        transform: perspective(400px);
+    }
+}
+
+/*
+ * Animation for closing dropdowns
+ */
+@keyframes closeSubmenu {
+    from {
+        opacity: 1;
+
+        transform: perspective(400px);
+    }
+
+    to {
+        opacity: 0;
+
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    }
+}

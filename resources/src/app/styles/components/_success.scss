@@ -1,0 +1,39 @@
+/**
+ *
+ * app success animation
+ *
+ **/
+
+svg.success {
+    .checkmark {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+
+        animation: successDash #{map-get($animation-speeds, "portly")} ease-in-out
+            forwards;
+        animation-delay: 0.5s;
+
+        @include themed() {
+            stroke: t("s-success");
+        }
+    }
+
+    .circle {
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+
+        animation: successDash #{map-get($animation-speeds, "portly")} ease-in-out
+            forwards;
+        animation-delay: 0.5s;
+
+        @include themed() {
+            stroke: t("s-success");
+        }
+    }
+}
+
+@keyframes successDash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}

@@ -1,0 +1,68 @@
+/**
+ *
+ * app text sections
+ *
+ **/
+
+.text-section {
+    margin: 0 0 2rem 0;
+
+    &__head > h1 {
+        display: flex;
+        align-items: center;
+
+        margin: 0 0 1rem 0;
+
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.2;
+
+        &::after {
+            display: block;
+
+            height: 0.2rem;
+            margin-left: 1rem;
+            flex-grow: 1;
+
+            content: " ";
+
+            @include themed() {
+                background: linear-gradient(
+                    to right,
+                    t("b-gorse") 0%,
+                    t("b-christine") 80%
+                );
+            }
+        }
+    }
+
+    &__main {
+        padding: 1rem;
+
+        @include themed() {
+            background: rgba(t("g-bunker"), 0.6);
+        }
+
+        > p {
+            max-width: map-get($breakpoints, "medium");
+            margin: 0 0 2rem 0;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        > ul {
+            max-width: map-get($breakpoints, "medium");
+            margin: 2rem 0;
+
+            > li {
+                margin: 0 0 2rem 0;
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,204 @@
+/**
+ *
+ * app drawer component
+ *
+ **/
+
+.drawer {
+    display: flex;
+    position: fixed;
+    top: 5.6rem;
+    bottom: 0;
+    z-index: z("drawer");
+    flex-direction: column;
+
+    width: 0;
+    padding-bottom: 7rem;
+    transform: translateX(-100vw);
+
+    transition: transform map-get($animation-speeds, "fast"),
+        width map-get($animation-speeds, "fast");
+
+    @include themed() {
+        background: t("g-bunker");
+        color: t("t-light");
+    }
+
+    &.open {
+        width: 240px;
+        transform: translateX(0);
+    }
+
+    @include respond-to("large") {
+        width: 240px;
+        padding-bottom: 4.2rem;
+        transform: translateX(0);
+    }
+
+    &__head {
+        padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    }
+
+    // current time ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    .time-data {
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        border-top: 2px solid transparent;
+
+        @include respond-to("small") {
+            padding: 1.5rem 2rem;
+        }
+
+        @include themed() {
+            border-top-color: t("g-ebony");
+        }
+
+        > ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0;
+            margin: 0;
+
+            list-style: none;
+
+            font-size: 1.5rem;
+
+            @include themed() {
+                color: t("t-subdued");
+            }
+        }
+    }
+
+    // game data: current turn, time for next turn ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    .game-data {
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        border-top: 2px solid transparent;
+
+        @include respond-to("small") {
+            padding: 1.5rem 2rem;
+        }
+
+        @include themed() {
+            border-top-color: t("g-ebony");
+        }
+
+        > ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 0 0.5rem 0;
+            margin: 0;
+
+            list-style: none;
+
+            font-size: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            @include themed() {
+                color: t("t-tint");
+            }
+
+            > li {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .turn {
+            padding: 0.2rem 0.5rem;
+
+            @include themed() {
+                background: t("g-raven");
+                color: t("b-viking");
+            }
+
+            > .icon {
+                margin-right: 0.5rem;
+
+                @include themed() {
+                    color: t("t-light");
+                }
+            }
+        }
+    }
+}
+
+// drawer navigation: links to game areas ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.drawer-list {
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    &__item {
+        border-top: 2px solid transparent;
+
+        @include themed() {
+            border-top-color: t("g-ebony");
+        }
+
+        &:last-child {
+            border-bottom: 2px solid transparent;
+
+            @include themed() {
+                border-bottom-color: t("g-ebony");
+            }
+        }
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+
+        padding: 0.7rem 1rem 0.7rem 1rem;
+        border-left: 0.5rem solid transparent;
+
+        text-decoration: none;
+
+        transition: background-color map-get($animation-speeds, "fast") linear,
+            border-left-color map-get($animation-speeds, "fast") linear,
+            color map-get($animation-speeds, "fast") linear;
+
+        > .icon {
+            margin-right: 0.5rem;
+
+            transition: color map-get($animation-speeds, "fast") linear;
+        }
+
+        @include respond-to("small") {
+            padding: 1.7rem 1.5rem 1.7rem 1.5rem;
+            border-left: 0.5rem solid transparent;
+
+            > .icon {
+                margin-right: 1.5rem;
+            }
+        }
+
+        @include themed() {
+            background: t("g-bunker");
+            color: t("t-light");
+            border-left-color: t("g-bunker");
+        }
+
+        &:hover {
+            @include themed() {
+                background: t("g-deep");
+                color: t("b-viking");
+                border-left-color: t("g-deep");
+            }
+        }
+
+        &.router-link-exact-active {
+            @include themed() {
+                background: t("g-ebony");
+                color: t("b-christine");
+                border-left-color: t("b-christine");
+            }
+        }
+    }
+}

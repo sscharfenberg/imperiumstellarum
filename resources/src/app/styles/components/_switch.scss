@@ -1,0 +1,102 @@
+/**
+ *
+ * app switch component
+ *
+ **/
+
+.app-switch {
+    display: flex;
+    align-items: center;
+
+    label.off,
+    label.on {
+        display: flex;
+        align-items: center;
+
+        height: 30px;
+        padding: 1rem;
+
+        cursor: pointer;
+
+        transition: background-color map-get($animation-speeds, "fast") linear;
+    }
+
+    label.off {
+        @include themed() {
+            background: t("g-iron");
+            color: t("t-dark");
+        }
+    }
+
+    label.on {
+        @include themed() {
+            background: t("g-deep");
+            color: t("t-light");
+        }
+    }
+
+    label.switch {
+        display: block;
+        position: relative;
+
+        width: 70px;
+        height: 30px;
+        border: 2px solid transparent;
+
+        cursor: pointer;
+
+        @include themed() {
+            border-color: t("g-iron");
+        }
+
+        &::after {
+            position: absolute;
+            top: 50%;
+            left: 2px;
+
+            width: 20px;
+            height: 20px;
+            transform: translate3d(0, -50%, 0);
+
+            content: " ";
+
+            transition: transform map-get($animation-speeds, "fast") linear;
+
+            @include themed() {
+                background: linear-gradient(
+                    to bottom right,
+                    t("b-gorse") 0%,
+                    t("b-christine") 100%
+                );
+            }
+        }
+    }
+
+    input[type="checkbox"] {
+        visibility: hidden;
+
+        width: 0;
+        height: 0;
+        margin: 0;
+
+        &:checked {
+            ~ label.switch::after {
+                transform: translate3d(42px, -50%, 0);
+            }
+
+            ~ label.off {
+                @include themed() {
+                    background: t("g-deep");
+                    color: t("t-light");
+                }
+            }
+
+            ~ label.on {
+                @include themed() {
+                    background: t("g-iron");
+                    color: t("t-dark");
+                }
+            }
+        }
+    }
+}

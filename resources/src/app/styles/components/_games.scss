@@ -1,0 +1,55 @@
+/**
+ *
+ * app header component
+ *
+ **/
+
+.games {
+    $border: 1px solid transparent;
+
+    width: 100%;
+    border-top: $border;
+    border-left: $border;
+    margin-bottom: 2rem;
+
+    border-collapse: collapse;
+
+    @include themed() {
+        border-color: t("g-abbey");
+    }
+
+    td {
+        display: block;
+
+        padding: 1rem;
+        border-right: $border;
+        border-bottom: $border;
+
+        transition: background-color map-get($animation-speeds, "fast") linear;
+
+        &:last-of-type {
+            border-right: $border;
+        }
+
+        @include respond-to("medium") {
+            display: table-cell;
+
+            border-right: 0;
+        }
+
+        @include themed() {
+            background: t("g-bunker");
+            border-color: t("g-abbey");
+        }
+    }
+
+    &__enlist {
+        width: 16rem;
+
+        text-align: right;
+
+        .app-btn {
+            display: inline-flex;
+        }
+    }
+}

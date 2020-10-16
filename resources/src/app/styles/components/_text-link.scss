@@ -1,0 +1,19 @@
+/**
+ *
+ * app text links
+ *
+ **/
+
+.text-link {
+    display: inline-block;
+
+    padding: 0.5rem;
+
+    @include themed() {
+        color: t("b-viking");
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+}

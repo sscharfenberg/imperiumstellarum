@@ -1,0 +1,100 @@
+/**
+ *
+ * app pagehead component
+ *
+ **/
+
+.app-btn {
+    display: flex;
+    align-items: center;
+
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    border: 1px solid transparent;
+
+    outline: 0;
+    cursor: pointer;
+
+    font-size: 1.8rem;
+    text-decoration: none;
+
+    transition: background-color map-get($animation-speeds, "fast") linear,
+        color map-get($animation-speeds, "fast") linear,
+        border-color map-get($animation-speeds, "fast") linear;
+
+    @include themed() {
+        background: t("g-raven");
+        color: t("t-light");
+        border-color: t("b-darkbg");
+    }
+
+    > span {
+        display: flex;
+        align-items: center;
+
+        > svg {
+            margin-left: 1rem;
+        }
+    }
+
+    // icon and text
+    &.both {
+        padding-right: 1.5rem;
+
+        .icon {
+            margin-right: 0.5rem;
+        }
+    }
+
+    // smaller button
+    &.small {
+        padding: 0.5rem;
+
+        &.both {
+            padding-right: 1rem;
+        }
+    }
+
+    &:hover:not([disabled]) {
+        @include themed() {
+            background: t("g-ebony");
+            color: t("b-christine");
+        }
+    }
+
+    // primary button
+    &.primary {
+        @include themed() {
+            background: t("b-viking");
+            color: t("t-dark");
+            border-color: t("g-white");
+        }
+
+        &:hover:not([disabled]) {
+            @include themed() {
+                border-color: t("b-darkbg");
+            }
+        }
+    }
+
+    &[disabled] {
+        opacity: 0.6;
+
+        cursor: not-allowed;
+    }
+
+    // several buttons as adjactent siblings
+    //+ .app-btn {
+    //}
+}
+
+.app-btn-group .app-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin: 0.5rem 0 0 0.5rem;
+
+    &--end {
+        justify-content: flex-end;
+    }
+}

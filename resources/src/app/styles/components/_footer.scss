@@ -1,0 +1,91 @@
+/**
+ *
+ * app footer component
+ *
+ **/
+
+.footer {
+    display: flex;
+    z-index: z("footer");
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    height: 7rem;
+    padding: 0.5rem 1rem;
+
+    @include themed() {
+        background: t("g-bunker");
+        color: t("g-charcoal");
+    }
+
+    @include respond-to("medium") {
+        flex-direction: row;
+
+        height: 4.2rem;
+    }
+
+    &__address {
+        order: 1;
+
+        font-style: normal;
+
+        @include themed() {
+            color: t("g-abbey");
+        }
+
+        > span {
+            display: inline-block;
+
+            margin: 0 0.5rem;
+
+            @include themed() {
+                color: t("b-christine");
+            }
+        }
+
+        @include respond-to("medium") {
+            order: 0;
+        }
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        padding: 0;
+        margin: 0;
+
+        list-style: none;
+
+        @include respond-to("medium") {
+            justify-content: flex-end;
+        }
+
+        > li {
+            margin: 0 0 0 1rem;
+
+            > a {
+                display: block;
+
+                padding: 0.5rem 1rem;
+
+                text-decoration: none;
+
+                transition: background-color map-get($animation-speeds, "fast")
+                    linear;
+
+                @include themed() {
+                    color: t("g-charcoal");
+                }
+
+                &:hover {
+                    @include themed() {
+                        background: t("g-raven");
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,119 @@
+/**
+ *
+ * admin suspensions component
+ *
+ **/
+
+.suspensions {
+    width: 100%;
+    padding: 1rem;
+    margin: 2rem 0;
+
+    @include themed() {
+        background: t("g-sunken");
+    }
+
+    &__intro {
+        padding: 1rem;
+        border: 1px solid transparent;
+        margin: 0 0 2rem 0;
+
+        @include themed() {
+            background: t("g-bunker");
+            border-color: t("b-darkbg");
+        }
+    }
+
+    &__title > h1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        margin: 0 0 2rem 0;
+
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    &__suspended {
+        display: flex;
+        align-items: center;
+
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+
+        font-size: 1.6rem;
+
+        .icon {
+            margin-right: 1rem;
+        }
+
+        @include themed() {
+            color: t("s-error");
+            border-color: t("s-error");
+        }
+    }
+
+    &__table {
+        $border: 1px solid transparent;
+
+        width: 100%;
+        border-top: $border;
+        border-left: $border;
+
+        border-collapse: collapse;
+
+        @include themed() {
+            border-color: t("g-abbey");
+        }
+
+        > tbody td,
+        > thead th {
+            display: block;
+            position: relative;
+
+            padding: 1rem;
+            border-right: $border;
+            border-bottom: $border;
+
+            font-weight: 300;
+            text-align: left;
+
+            vertical-align: top;
+
+            transition: background-color map-get($animation-speeds, "fast")
+                linear;
+
+            @include respond-to("medium") {
+                display: table-cell;
+            }
+
+            @include themed() {
+                background: t("g-bunker");
+                border-color: t("g-abbey");
+            }
+        }
+
+        > thead th {
+            white-space: nowrap;
+
+            @include themed() {
+                background: t("g-deep");
+            }
+        }
+
+        tbody tr:nth-child(2n) td {
+            @include themed() {
+                background: t("g-ebony");
+            }
+        }
+
+        tbody tr.active > td {
+            @include themed() {
+                background: t("s-error");
+            }
+        }
+    }
+}
