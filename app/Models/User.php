@@ -19,13 +19,43 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $table = 'users';
 
     /**
+     * @var string $email
+     */
+    private $email;
+
+    /**
+     * @var string $password
+     */
+    private $password;
+
+    /**
+     * @var string $locale
+     */
+    private $locale;
+
+    /**
+     * @var boolean $game_mail_optin
+     */
+    private $game_mail_optin;
+
+    /**
+     * @var string $selected_player
+     */
+    private $selected_player;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
         //'name', 'email', 'password',
-        'id', 'email', 'password', 'locale', 'game_mail_optin'
+        'id',
+        'email',
+        'password',
+        'locale',
+        'game_mail_optin',
+        'selected_player'
     ];
 
     /**
@@ -34,7 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'role'
+        'password',
+        'remember_token',
+        'role'
     ];
 
     /**
@@ -44,6 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'game_mail_optin' => 'boolean'
     ];
 
     /**
@@ -62,9 +95,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Suspension')->orderByDesc('until');
     }
 
-
     /**
-     * @function checks if the user has an active suspension
+     * @function checks if the user has an active suspension.
+     * TODO: make this accessible; currently we can't access this function from relations
      * @return bool
      */
     public function isSuspended() {
@@ -73,7 +106,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
-
 
     /**
      * helper functions for role permissions

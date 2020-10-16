@@ -39,20 +39,33 @@
         </ul>
     </li>
     @auth
-        <li class="header__item">
-            <button class="header__link both has-submenu">
-                <x-icon name="games" size="2" />
-                <span>g1</span>
-            </button>
-            <ul class="submenu left">
-                <li class="submenu__item">
-                    <a class="active" href="/game/1">g1</a>
-                </li>
-                <li class="submenu__item">
-                    <a href="/game/2">g2</a>
-                </li>
-            </ul>
-        </li>
+        @if(count(Auth::user()->players) > 0)
+            <li class="header__item">
+                <button class="header__link both has-submenu">
+                    <x-icon name="games" size="2" />
+                    <span>
+                        @foreach(Auth::user()->players as $player)
+                            @if($player->id === Auth::user()->selected_player)
+                                g{{ $player->game->number }}
+                            @endif
+                        @endforeach
+                    </span>
+                </button>
+                @if(count(Auth::user()->players) > 1)
+                    <ul class="submenu left">
+                        @foreach(Auth::user()->players as $player)
+                            <li class="submenu__item">
+                                <a
+                                    class="{{ Auth::user()->selected_player === $player->id ? 'active' : '' }}"
+                                    href="{{ route('select-game', ['game' => $player->game->id]) }}">
+                                    g{{ $player->game->number }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </li>
+        @endif
     @endauth
     @guest
         <li class="header__item">

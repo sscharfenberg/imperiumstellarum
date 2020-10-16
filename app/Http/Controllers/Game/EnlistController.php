@@ -90,10 +90,13 @@ class EnlistController extends Controller
             'ticker' => $request->input(['ticker']),
         ]);
 
-        // add default settings for player - storage, techLevels
+        // add default settings for player - storage, techLevels, selected_player
         $d = new PlayerDefaultService;
         Store::insert($d->stores($player->id));
         TechLevel::insert($d->techLevels($player->id));
+        $user = Auth::user();
+        $user->selected_player = $player->id;
+        $user->save();
 
         // all done!
         return redirect()->route('dashboard')
@@ -111,6 +114,11 @@ class EnlistController extends Controller
                 ->with('severity', 'error');
         }
         $player->delete();
+        $user = Auth::user();
+        if ($user->selected_player === $player->id) {
+            $user->selected_player = null;
+            $user->save();
+        }
         return redirect()->back()
             ->with('status', __('app.quit.success', ['game' => $player->game->number]))
             ->with('severity', 'success');

@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
                 ->default(config('app.supportedRoles')[0]);
             $table->string('password',180);
             $table->boolean('game_mail_optin')->default(false);
+            $table->uuid('selected_player')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -85,6 +85,9 @@ Route::middleware(['auth','verified', 'suspended'])->group(function () {
     // quit game
     Route::post('/game/player/{player}/delete', [\App\Http\Controllers\Game\EnlistController::class, 'delete'])
         ->name('quit');
+    // select game
+    Route::get('/game/{game}/select', [\App\Http\Controllers\Game\SelectGameController::class, 'select'])
+        ->name('select-game');
 });
 
 /**
