@@ -10,7 +10,9 @@ webpack-stats.json
 storage/*.key
 
 # env files
-.env*
+.env
+.env.local
+.env.prod
 
 # Log files
 npm-debug.log*
