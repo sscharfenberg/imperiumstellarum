@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\PasswordStrengthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +18,10 @@ use App\Http\Controllers\Auth\PasswordStrengthController;
 //});
 
 // verify password strength
-Route::post('/passwordStrength', [PasswordStrengthController::class, 'verify']);
+Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthController::class, 'verify']);
+// update drawer status for user
+Route::post('/drawer', [App\Http\Controllers\DrawerController::class, 'update'])
+    ->middleware(['auth']);
 
 // protected auth routes
 Route::middleware(['auth','verified'])->group(function () {

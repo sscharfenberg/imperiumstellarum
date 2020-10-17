@@ -46,7 +46,7 @@ body {
         flex: 1 1 auto;
     }
 
-    &__content {
+    &__content.drawer-open {
         @include respond-to("large") {
             width: calc(100% - 24rem);
             margin-left: auto;

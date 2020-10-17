@@ -39,6 +39,11 @@ class User extends Authenticatable implements MustVerifyEmail
     private $game_mail_optin;
 
     /**
+     * @var boolean $drawer_open
+     */
+    private $drawer_open;
+
+    /**
      * @var string $selected_player
      */
     private $selected_player;

@@ -24,12 +24,12 @@
         %><link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[index] %>" />
         <% } } } %>
     </head>
-    <body>
+    <body{{ Auth::user() ? ' data-user-id='.Auth::user()->id : '' }}>
         <div class="wrapper">
             @include('shared.header')
             <main class="wrapper__body">
                 @include('shared.drawer')
-                <section class="wrapper__content">
+                <section class="wrapper__content{{ Auth::user() && Auth::user()->drawer_open ? ' drawer-open' : '' }}">
                     <div class="wrapper__page">
                         <x-flash>{{ session('status') }}</x-flash>
                         @yield('content')

@@ -30,9 +30,7 @@
     }
 
     @include respond-to("large") {
-        width: 240px;
         padding-bottom: 4.2rem;
-        transform: translateX(0);
     }
 
     &__head {
@@ -43,13 +41,14 @@
     .time-data {
         padding: 1rem 1.5rem 1rem 1.5rem;
         border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
 
         @include respond-to("small") {
             padding: 1.5rem 2rem;
         }
 
         @include themed() {
-            border-top-color: t("g-ebony");
+            border-color: t("g-ebony");
         }
 
         > ul {
@@ -73,14 +72,14 @@
     // game data: current turn, time for next turn ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     .game-data {
         padding: 1rem 1.5rem 1rem 1.5rem;
-        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
 
         @include respond-to("small") {
             padding: 1.5rem 2rem;
         }
 
         @include themed() {
-            border-top-color: t("g-ebony");
+            border-color: t("g-ebony");
         }
 
         > ul {
@@ -136,17 +135,18 @@
     list-style: none;
 
     &__item {
-        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
 
         @include themed() {
-            border-top-color: t("g-ebony");
+            border-bottom-color: t("g-ebony");
         }
 
-        &:last-child {
-            border-bottom: 2px solid transparent;
+        &--margin {
+            border-top: 2px solid transparent;
+            margin-top: 4rem;
 
             @include themed() {
-                border-bottom-color: t("g-ebony");
+                border-top-color: t("g-ebony");
             }
         }
     }
@@ -168,6 +168,10 @@
             margin-right: 0.5rem;
 
             transition: color map-get($animation-speeds, "fast") linear;
+
+            @include themed() {
+                color: t("b-gorse");
+            }
         }
 
         @include respond-to("small") {

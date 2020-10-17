@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'role' => random_int(0,9) == 9 ? 'mod' : 'user',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'game_mail_optin' => random_int(0,1) == 1,
+            'drawer_open' => 1,
             'remember_token' => Str::random(10),
             'created_at' => Carbon::now()->subDays(random_int(2, 30))
         ];

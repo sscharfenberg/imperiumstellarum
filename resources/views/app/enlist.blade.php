@@ -90,7 +90,7 @@
                     class="form-control @error('empire_name') invalid @enderror"
                     placeholder="@lang('app.enlist.namePlaceholder')"
                     value="{{ old('empire_name') }}" />
-                <aside class="addon @error('empire_name') invalid @enderror"><x-icon name="mail" size="2" /></aside>
+                <aside class="addon @error('empire_name') invalid @enderror"><x-icon name="empire" size="2" /></aside>
             </div>
             @error('empire_name')
             <div class="error">
@@ -117,7 +117,7 @@
                     class="form-control @error('ticker') invalid @enderror"
                     placeholder="@lang('app.enlist.tickerPlaceholder')"
                     value="{{ old('ticker') }}" />
-                <aside class="addon @error('ticker') invalid @enderror"><x-icon name="mail" size="2" /></aside>
+                <aside class="addon @error('ticker') invalid @enderror"><x-icon name="lightbulb" size="2" /></aside>
             </div>
             @error('ticker')
             <div class="error">

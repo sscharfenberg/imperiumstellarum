@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    flex-wrap: wrap;
 
     height: 7rem;
     padding: 0.5rem 1rem;
@@ -28,7 +29,12 @@
     &__address {
         order: 1;
 
+        font-size: 1.4rem;
         font-style: normal;
+
+        @include respond-to("small") {
+            font-size: 1.6rem;
+        }
 
         @include themed() {
             color: t("g-abbey");
@@ -71,10 +77,15 @@
 
                 padding: 0.5rem 1rem;
 
+                font-size: 1.4rem;
                 text-decoration: none;
 
                 transition: background-color map-get($animation-speeds, "fast")
                     linear;
+
+                @include respond-to("small") {
+                    font-size: 1.6rem;
+                }
 
                 @include themed() {
                     color: t("g-charcoal");

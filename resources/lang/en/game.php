@@ -47,8 +47,8 @@ return [
         'navTitle' => 'Starmap'
     ],
 
-    'galnet' => [
-        'navTitle' => 'Galnet'
+    'diplomacy' => [
+        'navTitle' => 'Diplomacy'
     ],
 
 ];

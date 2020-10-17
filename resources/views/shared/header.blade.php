@@ -1,6 +1,9 @@
 <ul class="header">
     <li class="header__item">
-        <button id="toggleDrawerBtn" :aria-label="@lang("app.header.drawerButton")">
+        <button
+            id="toggleDrawerBtn"
+            :aria-label="@lang("app.header.drawerButton")"
+            class="{{ Auth::user() && Auth::user()->drawer_open ? 'open' : '' }}">
             <span></span>
             <span></span>
             <span></span>
