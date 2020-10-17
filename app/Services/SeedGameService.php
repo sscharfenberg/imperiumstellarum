@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class SeedGameService {
 
-
     /**
      * @function get a random type - spectral type for stars, planet type for planets
      * @param int $owner
@@ -164,63 +163,5 @@ class SeedGameService {
             Planet::insert($planet);
         }
     }
-
-
-    //public function seedPlayerColony (Game $game)
-    //{
-    //    $playerStars = $game->stars()->where('home_system', true)->get();
-    //    foreach($playerStars as $star) {
-    //        $planets = $star->planets()->get();
-    //        var_dump($star->spectral);
-    //        $highest = 0;
-    //        $highestId = 0;
-    //        foreach($planets as $planet) {
-    //            $resourceScores = array_map(function($p) {
-    //                return $p['slots'] * $p['value'];
-    //            }, $planet->resources);
-    //            $score = array_reduce($resourceScores, function($carry, $score) {
-    //                return $carry += $score;
-    //            });
-    //            $planet['score'] = $score ? $score : 0;
-    //            if ($score > $highest) {
-    //                $highest = $score;
-    //                $highestId = $planet->id;
-    //            }
-    //        }
-    //        var_dump($highest, $highestId); // <- this is the hightest score of planets
-    //    }
-    //    dd();
-    //}
-
-    /**
-     * @function select the starting colony from the planets of a star
-     * by scoring resourceslots/values
-     * @param Star $star
-     */
-    public function seedPlayerColony (Star $star)
-    {
-        $planets = $star->planets()->get();
-        $highest = 0;
-        $highestId = 0;
-        foreach($planets as $planet) {
-            $resourceScores = array_map(function($p) {
-                return $p['slots'] * $p['value'];
-            }, $planet->resources);
-            $score = array_reduce($resourceScores, function($carry, $score) {
-                return $carry += $score;
-            });
-            $planet['score'] = $score ? $score : 0;
-            if ($score > $highest) {
-                $highest = $score;
-                $highestId = $planet->id;
-            }
-        }
-        $colony = Planet::find($highestId);
-        $colony->population = 10;
-        $colony->save();
-        // TODO: add starting shipyard
-        // TODO: select star ^.^
-    }
-
 
 }

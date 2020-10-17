@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Game;
+use App\Models\Turn;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use App\Models\Game;
 
 class GamesController extends Controller
 {
@@ -20,8 +21,12 @@ class GamesController extends Controller
         $order = $request->input(['order']) ? $request->input(['order']) : 'desc';
         $perPage = $request->input(['perPage']) ? $request->input(['perPage']) : '20';
         $games = Game::orderBy($sortBy, $order)->paginate($perPage);
+        $gameIds = $games->map(function($game) {
+            return $game->id;
+        });
+        $turns = Turn::whereNull('processed')->whereIn('game_id', $gameIds)->get();
         return view('admin.game.list', compact(
-            'games', 'sortBy', 'order', 'perPage'
+            'games', 'turns', 'sortBy', 'order', 'perPage'
         ));
     }
 
@@ -38,8 +43,12 @@ class GamesController extends Controller
         $order = $exploded[1];
         $perPage = $request->input(['perPage']);
         $games = Game::orderBy($sortBy, $order)->paginate($perPage);
+        $gameIds = $games->map(function($game) {
+            return $game->id;
+        });
+        $turns = Turn::whereNull('processed')->whereIn('game_id', $gameIds)->get();
         return view('admin.game.list', compact(
-            'games', 'sortBy', 'order', 'perPage'
+            'games', 'turns', 'sortBy', 'order', 'perPage'
         ));
     }
 

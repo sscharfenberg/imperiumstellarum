@@ -15,7 +15,7 @@ class SuspensionSeeder extends Seeder
     public function run()
     {
         Suspension::factory()
-            ->times(2500)
+            ->times(250)
             ->create();
     }
 }

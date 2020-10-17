@@ -153,6 +153,9 @@ return [
             'turn_due' => 'Turn Due',
             'seeded' => 'Seeded?'
         ],
+        'tbody' => [
+            'notStarted' => 'N/A'
+        ],
         'pagination' => [
             'num' => 'showing :games of :total games',
             'sort' => 'sorted by ":sort" :dir'
@@ -191,12 +194,17 @@ return [
             'intro' => 'All dates (created, updated, turn due and start date) are in servertime (UTC). They will not be automatically converted to your time. Unckecking \'processing\' does not abort turn calculation - this should only be used if the turn calculation is finished, but \'processing\' wasn\'t set to false.',
             'createdLabel' => 'Created at',
             'updatedLabel' => 'Updated at',
+            'startDateLabel' => 'Start Date',
             'seededLabel' => 'Seeded?',
             'canEnlistLabel' => 'Can players enlist?',
+            'canEnlistDescription' => 'Games set to \'Can Enlist\' appear in the dashboard of players and are joinable.',
             'activeLabel' => 'Game is active?',
-            'turnDueLabel' => 'Turn Due',
+            'activeDescription' => 'Games set to \'Active\' will be checked every minute if they need to be started, turn processed etc.',
             'processingLabel' => 'Game is processing?',
-            'startDateLabel' => 'Start Date',
+            'processingDescription' => 'Games set to \'Processing\' are currently calculated by the server. They are \'locked\' for players - no new orders can be placed while the game is processing.',
+            'turnDueLabel' => 'Turn Due',
+            'currentTurnLabel' => 'Current Turn',
+            'gameNotStarted' => 'Game has not started yet.',
             'playersLabel' => 'Players',
             'submit' => 'Save Changes',
             'seed' => 'Create Preview Map',

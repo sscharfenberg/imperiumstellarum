@@ -25,7 +25,7 @@ class SuspensionFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => random_int(2,15000),
+            'user_id' => random_int(2,1534),
             'until' => Carbon::now()->addDays(random_int(1,30)),
             'issuer_id' => random_int(1,9),
             'issuer_reason' => Str::random(15),

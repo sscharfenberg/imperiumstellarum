@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 
+use App\Models\Turn;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -53,7 +54,6 @@ class GameController extends Controller
                 'number' => $gameNumber,
                 'dimensions' => $request->input(['dimensions']),
                 'start_date' => $start_date,
-                'turn_due' => Carbon::parse($start_date)->addMinute($request->input(['turn_duration'])),
                 'turn_duration' => $request->input(['turn_duration'])
             ]);
             return redirect()->route('game-edit', ['game' => $game->id])
@@ -76,7 +76,8 @@ class GameController extends Controller
                 ->with('status', __('admin.game.notfound'))
                 ->with('severity', 'error');
         } else {
-            return view('admin.game.details', compact('game'));
+            $turn = Turn::whereNull('processed')->where('game_id', $game->id)->first();
+            return view('admin.game.details', compact('game', 'turn'));
         }
     }
 

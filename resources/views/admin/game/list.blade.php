@@ -59,27 +59,10 @@
                         <label class="desc" for="sort_number_desc"></label>
                     </div>
                 </th>
-                <th>
-                    @lang('admin.games.thead.active')
-                </th>
-                <th>
-                    @lang('admin.games.thead.processing')
-                </th>
-                <th>
-                    @lang('admin.games.thead.can_enlist')
-                </th>
-                <th>
-                    @lang('admin.games.thead.players')
-                </th>
-                <th class="sortable{{ $sortBy == 'turn' ? ' sorted' : '' }}">
-                    @lang('admin.games.thead.turn')
-                    <div class="sort">
-                        <input type="radio" name="sort" value="turn--asc" id="sort_turn_asc" {{ $sortBy == 'turn' && $order == 'asc' ? 'checked' : '' }} />
-                        <label class="asc" for="sort_turn_asc"></label>
-                        <input type="radio" name="sort" value="turn--desc" id="sort_turn_desc" {{ $sortBy == 'turn' && $order == 'desc' ? 'checked' : '' }} />
-                        <label class="desc" for="sort_turn_desc"></label>
-                    </div>
-                </th>
+                <th>@lang('admin.games.thead.active')</th>
+                <th>@lang('admin.games.thead.processing')</th>
+                <th>@lang('admin.games.thead.can_enlist')</th>
+                <th>@lang('admin.games.thead.players')</th>
                 <th class="sortable{{ $sortBy == 'start_date' ? ' sorted' : '' }}">
                     @lang('admin.games.thead.start_date')
                     <div class="sort">
@@ -89,18 +72,9 @@
                         <label class="desc" for="sort_start_date_desc"></label>
                     </div>
                 </th>
-                <th class="sortable{{ $sortBy == 'turn_due' ? ' sorted' : '' }}">
-                    @lang('admin.games.thead.turn_due')
-                    <div class="sort">
-                        <input type="radio" name="sort" value="turn_due--asc" id="sort_turn_due_asc" {{ $sortBy == 'turn_due' && $order == 'asc' ? 'checked' : '' }} />
-                        <label class="asc" for="sort_turn_due_asc"></label>
-                        <input type="radio" name="sort" value="turn_due--desc" id="sort_turn_due_desc" {{ $sortBy == 'turn_due' && $order == 'desc' ? 'checked' : '' }} />
-                        <label class="desc" for="sort_turn_due_desc"></label>
-                    </div>
-                </th>
-                <th>
-                    @lang('admin.games.thead.seeded')
-                </th>
+                <th>@lang('admin.games.thead.turn')</th>
+                <th>@lang('admin.games.thead.turn_due')</th>
+                <th>@lang('admin.games.thead.seeded')</th>
             </tr>
             </thead>
             <tbody>
@@ -144,7 +118,6 @@
                         <td>
                             {{ $game->players()->count() }} / {{ $game->max_players }}
                         </td>
-                        <td>{{ $game->turn }}</td>
                         <td>
                             <time
                                 datetime="{{ \Carbon\Carbon::parse($game->start_date)->format('d.m.Y H:i:s') }}"
@@ -153,11 +126,30 @@
                             </time>
                         </td>
                         <td>
-                            <time
-                                datetime="{{ \Carbon\Carbon::parse($game->turn_due)->format('d.m.Y H:i:s') }}"
-                                title="{{ \Carbon\Carbon::parse($game->turn_due)->format('d.m.Y H:i:s') }}">
-                                {{ \Carbon\Carbon::parse($game->turn_due)->diffForHumans() }}
-                            </time>
+                            @if(count($game->turns) === 0)
+                                @lang('admin.games.tbody.notStarted')
+                            @else
+                                @foreach($turns as $turn)
+                                    @if($turn->game_id === $game->id)
+                                        {{ $turn->number }}
+                                    @endif
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if(count($game->turns) === 0)
+                                @lang('admin.games.tbody.notStarted')
+                            @else
+                                @foreach($turns as $turn)
+                                    @if($turn->game_id === $game->id)
+                                        <time
+                                            datetime="{{ \Carbon\Carbon::parse($turn->due)->format('d.m.Y H:i:s') }}"
+                                            title="{{ \Carbon\Carbon::parse($turn->due)->format('d.m.Y H:i:s') }}">
+                                            {{ \Carbon\Carbon::parse($turn->due)->diffForHumans() }}
+                                        </time>
+                                    @endif
+                                @endforeach
+                            @endif
                         </td>
                         <td>
                             @if($game->stars)

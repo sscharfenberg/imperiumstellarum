@@ -164,6 +164,7 @@
                     error="">
                 </x-checkbox>
             </div>
+            <div class="descr">@lang('admin.game.edit.canEnlistDescription')</div>
         </div>
 
         <div class="form-row has-divider">
@@ -178,6 +179,7 @@
                     error="">
                 </x-checkbox>
             </div>
+            <div class="descr">@lang('admin.game.edit.activeDescription')</div>
         </div>
 
         <div class="form-row has-divider">
@@ -192,14 +194,34 @@
                     error="">
                 </x-checkbox>
             </div>
+            <div class="descr">@lang('admin.game.edit.processingDescription')</div>
         </div>
+
+        @if($turn)
+            <div class="form-row has-divider">
+                <div class="label">
+                    <label>@lang("admin.game.edit.currentTurnLabel")</label>
+                </div>
+                <div class="input">
+                    {{ $turn->number }}
+                </div>
+            </div>
+        @endif
 
         <div class="form-row has-divider">
             <div class="label">
                 <label>@lang("admin.game.edit.turnDueLabel")</label>
             </div>
             <div class="input">
-                {{ \Carbon\Carbon::parse($game->turn_due)->format('d.m.Y H:i') }}
+                @if(count($game->turns) === 0)
+                    @lang('admin.game.edit.gameNotStarted')
+                @else
+                    <time
+                        datetime="{{ \Carbon\Carbon::parse($turn->due)->format('d.m.Y H:i:s') }}"
+                        title="{{ \Carbon\Carbon::parse($turn->due)->format('d.m.Y H:i:s') }}">
+                        {{ \Carbon\Carbon::parse($turn->due)->diffForHumans() }}
+                    </time>
+                @endif
             </div>
         </div>
 

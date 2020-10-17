@@ -42,17 +42,9 @@ class Game extends Model
      */
     private $processing;
     /**
-     * @var int $turn
-     */
-    private $turn;
-    /**
      * @var int $turn_duration
      */
     private $turn_duration;
-    /**
-     * @var string $turn_due
-     */
-    private $turn_due;
     /**
      * @var int $max_players
      */
@@ -80,7 +72,6 @@ class Game extends Model
         'start_date',
         'turn_duration',
         'number',
-        'turn_due',
         'active',
         'can_enlist',
         'processing',
@@ -93,7 +84,6 @@ class Game extends Model
      * @var array
      */
     protected $casts = [
-        'turn_due' => 'datetime',
         'start_date' => 'datetime',
         'active' => 'boolean',
         'can_enlist' => 'boolean',
@@ -106,7 +96,7 @@ class Game extends Model
      * @var array
      */
     protected $dates = [
-        'turn_due', 'start_date'
+        'start_date'
     ];
 
     /**
@@ -123,6 +113,14 @@ class Game extends Model
     public function stars()
     {
         return $this->hasMany('App\Models\Star');
+    }
+
+    /**
+     * Get the turns for this game
+     */
+    public function turns()
+    {
+        return $this->hasMany('App\Models\Turn');
     }
 
 }
