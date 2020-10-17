@@ -19,7 +19,10 @@ return [
     'drawer' => [
         'localTime' => 'Local time',
         'currentTurn' => 'Current turn',
-        'nextTurn' => 'Next turn'
+        'nextTurn' => 'Next turn',
+        'forums' => 'Forums',
+        'github' => 'Github',
+        'bugs' => 'Bugtracker'
     ],
 
     'footer' => [

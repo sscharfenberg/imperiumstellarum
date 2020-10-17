@@ -60,17 +60,17 @@
         @endif
         <li class="drawer-list__item drawer-list__item--margin">
             <a href="https://discuss.imperiumstellarum.io" class="drawer-list__link">
-                <x-icon name="chat" size="2" /> Forums
+                <x-icon name="chat" size="2" /> @lang('app.drawer.forums')
             </a>
         </li>
         <li class="drawer-list__item">
             <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link">
-                <x-icon name="save" size="2" /> Github
+                <x-icon name="save" size="2" /> @lang('app.drawer.github')
             </a>
         </li>
         <li class="drawer-list__item">
             <a href="https://www.mantisbt.org/" class="drawer-list__link">
-                <x-icon name="bug" size="2" /> Bugtracking
+                <x-icon name="bug" size="2" /> @lang('app.drawer.bugs')
             </a>
         </li>
         <li class="drawer-list__item">
