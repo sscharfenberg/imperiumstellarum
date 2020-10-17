@@ -2,7 +2,7 @@
 .DS_Store
 node_modules
 public/hot
-vendor
+/vendor
 webpack-bundles.report.html
 webpack-stats.json
 
@@ -32,4 +32,4 @@ pnpm-debug.log*
 # generated files
 public/assets
 public/storage
-
+/resources/views/layouts
