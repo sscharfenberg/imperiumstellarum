@@ -1,5 +1,3 @@
-
-
 <?php
 
 return [
@@ -136,62 +134,62 @@ return [
             'rule-name' => 'custom-message',
         ],
         'email' => [
-            'email' => 'This does not seem to be a valid email address.',
-            'required' => 'The email address is required.',
-            'unique' => 'This email has already been registered.'
+            'email' => 'Das scheint keine gültige E-Mail-Adresse zu sein.',
+            'required' => 'Die E-Mail-Adresse wird benötigt.',
+            'unique' => 'Diese E-Mail-Adresse wurde bereits registriert.'
         ],
         'password' => [
-            'required' => 'The password is required.',
-            'confirmed' => 'The repeated password below does not match the password field.',
-            'strength' => 'Your password is not strong enough. Please use a stronger password by adding numbers, letters etc.'
+            'required' => 'Das Passwort wird benötigt.',
+            'confirmed' => 'Das wiederholte Passwort unterhalb ist nicht identisch mit dem eingegebenen Passwort oberhalb.',
+            'strength' => 'Ihr Passwort ist nicht sicher genug. Bitte verwenden Sie ein stärkeres Passwort, zum Beispiel in dem Sie Zahlen/Buchstaben/Sonderzeichen hinzufügen.'
         ],
         'confirmed' => [
-            'accepted' => 'Please accept our privacy policy and the terms of use.'
+            'accepted' => 'Bitte akzeptieren Sie unsere Datenschutzbedingen und die Nutzungsbedingungen.'
         ],
         'new-password' => [
-            'required' => 'The password is required.',
-            'confirmed' => 'The repeated password below does not match the password field.',
-            'strength' => 'Your password is not strong enough. Please use a stronger password by adding numbers, letters etc.'
+            'required' => 'Das Passwort wird benötigt.',
+            'confirmed' => 'Das wiederholte Passwort unterhalb ist nicht identisch mit dem eingegebenen Passwort oberhalb.',
+            'strength' => 'Ihr Passwort ist nicht sicher genug. Bitte verwenden Sie ein stärkeres Passwort, zum Beispiel in dem Sie Zahlen/Buchstaben/Sonderzeichen hinzufügen.'
         ],
         'duration' => [
-            'required' => 'Please specify a duration.'
+            'required' => 'Bitte geben Sie eine Dauer an.'
         ],
         'reason' => [
-            'required' => 'Please enter the reason.',
-            'min' => 'The reason must have at least :min characters.',
-            'max' => 'The reason should not be longer than :max characters.'
+            'required' => 'Bitte geben Sie den Grund an.',
+            'min' => 'Der Grund muss mindestens :min enthalten.',
+            'max' => 'Der Grund darf nicht länger als :max Zeichen sein.'
         ],
         'dimensions' => [
-            'required' => 'Please specify the map dimensions.',
-            'numeric' => 'Dimensions should be a number.',
-            'min' => 'Dimensions should be at least :min.',
-            'max' => 'Dimensions should not be more than :max.'
+            'required' => 'Bitte geben Sie die Kartengröße an.',
+            'numeric' => 'Die Größe der Karte muss eine Zahl sein.',
+            'min' => 'Größe der Karte sollte mindestens :min sein.',
+            'max' => 'Größe der Karte sollte nicht mehr als :max sein.'
         ],
         'start_date' => [
-            'required' => 'Please specify the start date.',
-            'date' => 'This does not seem to be a valid date.',
-            'date_format' => 'The date format is not correct - it should be DD.MM.YYYY HH:MM.',
-            'after_or_equal' => 'The start date must not be in the past.'
+            'required' => 'Bitte geben Sie das Startdatum an.',
+            'date' => 'Das scheint kein gültiges Datum zu sein.',
+            'date_format' => 'Das Format des Datums ist nicht korrekt - es sollte DD.MM.YYYY HH:MM sein.',
+            'after_or_equal' => 'Das Start Datum darf nicht in der Vergangenheit sein.'
         ],
         'turn_duration' => [
-            'required' => 'Please specify the turn duration in minutes.',
-            'numeric' => 'Turn duration should be a number.',
-            'min' => 'Turn Duration should be at least :min.',
-            'max' => 'Turn Duration should not be more than :max.'
+            'required' => 'Bitte geben Sie die Rundendauer in Minuten an.',
+            'numeric' => 'Rundendauer sollte eine Zahl sein.',
+            'min' => 'Rundendauer sollte mindestens :min sein.',
+            'max' => 'Rundendauer sollte nicht größer als :max sein.'
         ],
         'empire_name' => [
-            'required' => 'Please specify the name of your empire.',
-            'string' => 'Turn empire name should be a string.',
-            'min' => 'The empire name should have at least :min characters.',
-            'max' => 'The empire name must not be longer than :max characters.',
-            'not_in' => 'This empire name has already been taken.'
+            'required' => 'Bitte geben Sie den Namen Ihres Imperiums an.',
+            'string' => 'Der Name des Imperiums sollte eine Zeichenkette sein.',
+            'min' => 'Der Name des Imperiums sollte mindestens :min Zeichen enthalten.',
+            'max' => 'Der Name des Imperiums sollte nicht länger als :max Zeichen sein.',
+            'not_in' => 'Dieser Imperiums Name wird bereits verwendet.'
         ],
         'ticker' => [
-            'required' => 'Please specify the ticker for your empire.',
-            'string' => 'The ticker should be a string.',
-            'min' => 'The ticker should have at least :min characters.',
-            'max' => 'The ticker must not be longer than :max characters.',
-            'not_in' => 'This ticker has already been taken.'
+            'required' => 'Bitte geben Sie den Ticker für Ihr Imperium an.',
+            'string' => 'Der Ticker sollte eine Zeichenkette sein.',
+            'min' => 'Der Ticker sollte mindestens :min Zeichen enthalten.',
+            'max' => 'Der Ticker darf nicht länger als :max Zeichen sein.',
+            'not_in' => 'Dieser Ticker wird bereits verwendet.'
         ]
     ],
 

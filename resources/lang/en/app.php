@@ -246,13 +246,13 @@ return [
         ],
         'dataUse' => [
             'title' => 'How will we use your data?',
-            'paragraph1' => 'Our Company collects your Email address so that we can use it as a unique identifier for your account.',
+            'paragraph1' => 'We collect your Email address so that we can use it as a unique identifier for your account.',
             'paragraph2' => 'We will send you email notifications when your Email address needs to be verified or when you have forgotten your password. We will also send you game-related Emails when you have activated this feature in your dashboard.',
             'paragraph3' => 'We will not share your data with anyone unless forced to do so by german law enforcement authorities.'
         ],
         'dataStorage' => [
             'title' => 'How do we store your data?',
-            'paragraph1' => 'We store your data in our database. The database is service is hosted on the same server that this website uses. It is not accessible from the internet, only from the website.'
+            'paragraph1' => 'We store your data in our database. The database is hosted on the same server that this website uses. It is not accessible from the internet, only from the website.'
         ],
         'dataProtection' => [
             'title' => 'What are your data protection rights?',
@@ -290,9 +290,9 @@ return [
         ],
         'cookiesHow'=> [
             'title' => 'How do we use cookies?',
-            'paragraph1' => 'Our Company uses cookies in a range of ways to improve your experience on our website, including:',
+            'paragraph1' => 'We use cookies in a range of ways to improve your experience on our website, including:',
             'bullet1' => 'Keeping you signed in.',
-            'bullet2' => 'Remembering your login information in a secure format.',
+            'bullet2' => 'Remembering your login information in a secure format, if you choose to be remembered upon login.',
             'bullet3' => 'Protecting you against cross-site request forgery.'
         ],
         'cookiesTypes' => [
