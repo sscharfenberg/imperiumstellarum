@@ -126,7 +126,7 @@ return [
             'introduction' => 'Wir bedauern Ihnen mitteilen zu müssen das Ihr Benutzerkonto für Imperium Stellarum für :days Tage gesperrt worden ist, mit sofortiger Wirkung.',
             'introductionForever' => 'Wir bedauern Ihnen mitteilen zu müssen das Ihr Benutzerkonto für Imperium Stellarum mit sofortiger Wirkung für immer gesperrt wurde.',
             'reason' => 'Der Grund für diese Sperre lautet: \':reason\'.',
-            'appeal' => 'Falls Sie denken das diese Sperre irrtümlich ausgesprochen wurde steht es Ihnen frei diese Sperre im Forum zu hinterfragen - bitte kontaktieren Sie einen Administrator. Bitte stellen Sie sich das Sie sich unserer Nutzungsbedingungen bewusst sind.',
+            'appeal' => 'Falls Sie denken das diese Sperre irrtümlich ausgesprochen wurde steht es Ihnen frei diese Sperre im Forum zu hinterfragen - bitte kontaktieren Sie einen Administrator. Bitte stellen Sie sicher dass Sie sich unserer Nutzungsbedingungen bewusst sind.',
             'action' => 'Imperium Stellarum Stab',
             'until' => 'Die Sperre wird bis :until anhalten. Bis zu diesem Datum werden Sie nicht in der Lage sein sich in die Website / das Spiel einzuloggen. Das Diskussionsforum ist von dieser Sperre nicht betroffen.',
         ],

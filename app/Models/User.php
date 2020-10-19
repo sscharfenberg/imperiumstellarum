@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The table associated with the model.
@@ -17,16 +18,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string
      */
     protected $table = 'users';
-
-    /**
-     * @var string $email
-     */
-    private $email;
-
-    /**
-     * @var string $password
-     */
-    private $password;
 
     /**
      * @var string $locale
