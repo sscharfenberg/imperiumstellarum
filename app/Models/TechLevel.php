@@ -6,6 +6,27 @@ use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TechLevel
+ *
+ * @property string $id
+ * @property string $player_id
+ * @property string $type
+ * @property int $level
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Player $player
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class TechLevel extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,16 +44,6 @@ class TechLevel extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var string $type
-     */
-    private $type;
-
-    /**
-     * @var string $level
-     */
-    private $level;
 
     /**
      * The attributes that are mass assignable.

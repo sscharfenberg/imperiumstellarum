@@ -6,6 +6,29 @@ use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Suspension
+ *
+ * @property string $id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon $until
+ * @property string $issuer_id
+ * @property string $issuer_reason
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereIssuerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereIssuerReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereUntil($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Suspension extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,11 +46,6 @@ class Suspension extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var boolean
-     */
-    private $lifted;
 
     /**
      * The attributes that are mass assignable.

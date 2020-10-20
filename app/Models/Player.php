@@ -6,6 +6,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 
+/**
+ * App\Models\Player
+ *
+ * @property string $id
+ * @property int $user_id
+ * @property string $game_id
+ * @property string $name
+ * @property string $ticker
+ * @property float $research_priority
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Game $game
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
+ * @property-read int|null $stars_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Store[] $stores
+ * @property-read int|null $stores_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TechLevel[] $techLevels
+ * @property-read int|null $tech_levels_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereResearchPriority($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereTicker($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Player extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,21 +55,6 @@ class Player extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var string $name
-     */
-    private $name;
-
-    /**
-     * @var string $ticker
-     */
-    private $ticker;
-
-    /**
-     * @var array $research_priority
-     */
-    private $research_priority;
 
     /**
      * The attributes that are mass assignable.

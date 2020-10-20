@@ -6,6 +6,29 @@ use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Turn
+ *
+ * @property string $id
+ * @property string $game_id
+ * @property int $number
+ * @property \Illuminate\Support\Carbon $due
+ * @property \Illuminate\Support\Carbon|null $processed
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Game $game
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereDue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereProcessed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Turn whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Turn extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,21 +46,6 @@ class Turn extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var integer $number
-     */
-    private $number;
-
-    /**
-     * @var string $due
-     */
-    private $due;
-
-    /**
-     * @var string $processed
-     */
-    private $processed;
 
     /**
      * The attributes that are mass assignable.

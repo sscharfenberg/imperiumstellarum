@@ -7,6 +7,44 @@ use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Game
+ *
+ * @property string $id
+ * @property int $number
+ * @property bool $active
+ * @property bool $can_enlist
+ * @property bool $processing
+ * @property int $turn_duration
+ * @property int $max_players
+ * @property int $dimensions
+ * @property string|null $map
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
+ * @property-read int|null $players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
+ * @property-read int|null $stars_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Turn[] $turns
+ * @property-read int|null $turns_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereCanEnlist($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereDimensions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereMap($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereMaxPlayers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereProcessing($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereTurnDuration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Game extends Model
 {
     use HasFactory, UsesUuid;
@@ -24,43 +62,6 @@ class Game extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var int $number
-     */
-    private $number;
-    /**
-     * @var boolean $active
-     */
-    private $active;
-    /**
-     * @var boolean $can_enlist
-     */
-    private $can_enlist;
-    /**
-     * @var boolean $processing
-     */
-    private $processing;
-    /**
-     * @var int $turn_duration
-     */
-    private $turn_duration;
-    /**
-     * @var int $max_players
-     */
-    private $max_players;
-    /**
-     * @var int $dimensions
-     */
-    private $dimensions;
-    /**
-     * @var string $start_date
-     */
-    private $start_date;
-    /**
-     * @var string $map
-     */
-    private $map;
 
     /**
      * The attributes that are mass assignable.

@@ -6,6 +6,29 @@ use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Store
+ *
+ * @property string $id
+ * @property string $player_id
+ * @property string $resource_type
+ * @property int $storage
+ * @property int $storage_level
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Player $player
+ * @method static \Illuminate\Database\Eloquent\Builder|Store newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Store newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Store query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereResourceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereStorage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereStorageLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Store whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Store extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,21 +46,6 @@ class Store extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var string $resource_type
-     */
-    private $resource_type;
-
-    /**
-     * @var int $storage
-     */
-    private $storage;
-
-    /**
-     * @var int $storage_level
-     */
-    private $storage_level;
 
     /**
      * The attributes that are mass assignable.

@@ -6,6 +6,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 
+/**
+ * App\Models\Planet
+ *
+ * @property string $id
+ * @property string $game_id
+ * @property string $star_id
+ * @property string $type
+ * @property int $orbital_index
+ * @property array|null $resources
+ * @property float $population
+ * @property float $food_consumption
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Game $game
+ * @property-read \App\Models\Star $star
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereFoodConsumption($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereOrbitalIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet wherePopulation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereResources($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereStarId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Planet whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Planet extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,31 +53,6 @@ class Planet extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var string $type
-     */
-    private $type;
-
-    /**
-     * @var int $orbital_index
-     */
-    private $orbital_index;
-
-    /**
-     * @var string $resources
-     */
-    private $resources;
-
-    /**
-     * @var float $population
-     */
-    private $population;
-
-    /**
-     * @var float $food_consumption
-     */
-    private $food_consumption;
 
     /**
      * The attributes that are mass assignable.

@@ -6,6 +6,38 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 
+/**
+ * App\Models\Star
+ *
+ * @property string $id
+ * @property string $game_id
+ * @property string|null $owner_id
+ * @property int $coord_x
+ * @property int $coord_y
+ * @property bool $home_system
+ * @property string $spectral
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Game $game
+ * @property-read \App\Models\Player|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Planet[] $planets
+ * @property-read int|null $planets_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Star newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Star newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Star query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereCoordX($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereCoordY($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereHomeSystem($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereSpectral($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Star extends Model
 {
     use HasFactory, UsesUuid;
@@ -23,31 +55,6 @@ class Star extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
-    /**
-     * @var int $coord_x
-     */
-    private $coord_x;
-
-    /**
-     * @var int $coord_y
-     */
-    private $coord_y;
-
-    /**
-     * @var boolean $home_system
-     */
-    private $home_system;
-
-    /**
-     * @var string $spectral
-     */
-    private $spectral;
-
-    /**
-     * @var string $name
-     */
-    private $name;
 
     /**
      * The attributes that are mass assignable.
