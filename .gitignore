@@ -8,6 +8,7 @@ webpack-stats.json
 
 # keys
 storage/*.key
+imperiumstellarum.io
 
 # env files
 .env
