@@ -190,12 +190,12 @@ return [
             'players' => 'Spieler',
             'stars' => 'Sterne',
             'start' => 'Start',
-            'enlist' => 'Spiel Beitreten'
+            'enlist' => 'Beitreten'
         ],
         'players' => [
             'sectionTitle' => 'Meine Spiele',
             'sectionSubtitle' => 'Hier listen wir Spiele auf denen Sie beigetreten sind.',
-            'quit' => 'Spiel verlassen',
+            'quit' => 'Verlassen',
             'quitTitle' => 'Spiel g:game Verlassen',
             'quitWarning' => 'Sind Sie sicher das Sie das Spiel verlassen wollen? Sie verlieren möglicherweise Ihren Platz für das Spiel. Falls das Spiel bereits gestartet ist, wird Ihr Imperium gelöscht.',
             'quitSubmit' => 'g:game Verlassen'

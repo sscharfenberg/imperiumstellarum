@@ -48,7 +48,7 @@ const showSubmenu = (triggerNode) => {
  * @return {HTMLElement} submenu
  */
 const getSubmenuByTrigger = (triggerNode) => {
-    return triggerNode.parentNode.childNodes[3]; // very fragile
+    return triggerNode.parentNode.querySelector(SELECTOR_SUBMENU);
 };
 
 /**
@@ -70,7 +70,9 @@ export const initSubmenus = () => {
     for (let i = 0; i < triggers.length; i++) {
         // click event handler for each submenu trigger
         triggers[i].onclick = function () {
-            let openMenuLinks = document.querySelectorAll("." + CLASSNAME_OPEN);
+            let openMenuLinks = document.querySelectorAll(
+                SELECTOR_SUBMENU + "." + CLASSNAME_OPEN
+            );
             // was it open before click?
             if (!this.classList.contains(CLASSNAME_OPEN)) {
                 // if there where open menus before click
