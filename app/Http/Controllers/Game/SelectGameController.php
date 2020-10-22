@@ -21,7 +21,6 @@ class SelectGameController extends Controller
     {
         $user = Auth::user();
         $player = Player::where('user_id', $user->id)->where('game_id', $id)->first();
-        // TODO: get player!
         if (!$player) {
             return redirect()->back()
                 ->with('status', __('admin.game.notfound'))
@@ -29,7 +28,7 @@ class SelectGameController extends Controller
         }
         $user->selected_player = $player->id;
         $user->save();
-        return redirect()->back();
+        return redirect()->route('show-game', ['game' => $id, 'any' => 'empire']);
     }
 
 }

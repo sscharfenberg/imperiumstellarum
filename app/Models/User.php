@@ -121,6 +121,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+
+    /**
+     * @function get the selected game
+     * @return Game|null
+     */
+    public function selectedGame()
+    {
+        $player = $this->players->filter(function ($value, $key) {
+            return $value['id'] === $this->selected_player;
+        })->first();
+        if (!$player) return null;
+        return Game::find($player->game_id);
+    }
+
+
     /**
      * helper functions for role permissions
      * @return bool

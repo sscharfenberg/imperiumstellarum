@@ -104,6 +104,7 @@ class StartGame
         $this->seedPlayerStars($game);
         Log::notice('Finished selecting starting systems for all enlisted players.');
         $game->processing = false;
+        $game->map = null;
         $game->save();
         Log::info('Unset \'processing\'. for g'.$game->number);
         Log::notice('Finished starting game g'.$game->number);

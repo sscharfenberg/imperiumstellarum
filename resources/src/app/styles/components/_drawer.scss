@@ -134,20 +134,20 @@
 
     list-style: none;
 
+    &--bottom {
+        border-top: 2px solid transparent;
+        margin-top: 4rem;
+
+        @include themed() {
+            border-top-color: t("g-ebony");
+        }
+    }
+
     &__item {
         border-bottom: 2px solid transparent;
 
         @include themed() {
             border-bottom-color: t("g-ebony");
-        }
-
-        &--margin {
-            border-top: 2px solid transparent;
-            margin-top: 4rem;
-
-            @include themed() {
-                border-top-color: t("g-ebony");
-            }
         }
     }
 
@@ -197,7 +197,7 @@
             }
         }
 
-        &.router-link-exact-active {
+        &.active {
             @include themed() {
                 background: t("g-ebony");
                 color: t("b-christine");
