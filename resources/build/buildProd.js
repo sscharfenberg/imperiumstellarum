@@ -25,8 +25,8 @@ console.log(
 
 webpack(webpackConfig, function (err, stats) {
     if (err) throw err;
-    console.log(stats.toString(cfg.webpackStats));
     console.log();
+    console.log(stats.toString(cfg.webpackStats));
     console.log(
         `[webpack] now serving files via ${chalk.yellow("Apache / Laravel")}.`
     );

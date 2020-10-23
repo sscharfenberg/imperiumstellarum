@@ -12,6 +12,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 // imports
 const cfg = require("../config");
 // variables
@@ -60,29 +61,6 @@ const webpackCommonConfig = {
         // These rules can modify how the module is created.
         // They can apply loaders to the module, or modify the parser.
         rules: [
-            // http://eslint.org
-            // https://www.npmjs.com/package/eslint-loader
-            // It"s important to do this before Babel processes the JS.
-            {
-                test: /\.(js|vue)$/,
-                enforce: "pre",
-                exclude: /node_modules/,
-                include: path.resolve(PROJECTROOT, "resources/src"),
-                use: [
-                    {
-                        // http://eslint.org/docs/user-guide/configuring
-                        loader: require.resolve("eslint-loader"),
-                        options: {
-                            formatter: "stylish",
-                            configFile: path.resolve(
-                                PROJECTROOT,
-                                "resources/build/config/.eslintrc.js"
-                            ),
-                        },
-                    },
-                ],
-            },
-
             {
                 // https://github.com/vuejs/vue-loader
                 // https://vue-loader.vuejs.org/en/
@@ -162,6 +140,16 @@ const webpackCommonConfig = {
     },
 
     plugins: [
+        // http://eslint.org
+        // https://github.com/webpack-contrib/eslint-webpack-plugin
+        new ESLintPlugin({
+            formatter: "stylish",
+            overrideConfigFile: path.resolve(
+                PROJECTROOT,
+                "resources/build/config/.eslintrc.js"
+            ),
+        }),
+
         // https://vue-loader.vuejs.org/guide/#manual-setup
         new VueLoaderPlugin(),
 

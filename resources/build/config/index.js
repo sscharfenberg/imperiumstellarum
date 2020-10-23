@@ -11,6 +11,7 @@ module.exports = {
     devServerHost: "localhost",
     devServerPort: 7777,
     webpackStats: {
+        //preset: "minimal",
         excludeAssets: [
             (name) => {
                 return (
@@ -23,7 +24,7 @@ module.exports = {
         colors: true,
         modules: false,
         children: false,
-        chunks: false,
+        chunks: true,
         chunkModules: false,
     },
 };

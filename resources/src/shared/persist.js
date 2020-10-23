@@ -3,8 +3,8 @@
  * persist settings
  *
  *****************************************************************************/
-import { name } from "../../../package.json";
-const storageKey = name.toUpperCase();
+import pkg from "../../../package.json";
+const storageKey = pkg.name.toUpperCase();
 
 /*
  * the default state

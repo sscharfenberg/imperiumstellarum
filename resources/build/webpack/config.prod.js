@@ -30,6 +30,8 @@ module.exports = merge(common, {
 
     devtool: "source-map",
 
+    stats: "verbose",
+
     // https://webpack.js.org/configuration/module/
     module: {
         // An array of Rules which are matched to requests when modules are created.
@@ -44,6 +46,7 @@ module.exports = merge(common, {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             hmr: false,
+                            esModule: false,
                         },
                     },
                     // https://webpack.js.org/loaders/css-loader/
@@ -147,7 +150,6 @@ module.exports = merge(common, {
 @copyright ${pkg.author.name} | https://www.imperiumstellarum.io
 @license ${pkg.license}
 @compiled ${dateformat(new Date(), "isoDateTime")}
-@hash [hash]
 @chunkHash [chunkhash]
 █▀▀▄░░░░░░░░░░░▄▀▀█
 ░█░░░▀▄░▄▄▄▄▄░▄▀░░░█
