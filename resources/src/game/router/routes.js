@@ -7,24 +7,20 @@ export default [
         path: "/empire",
         name: "Empire",
         component: () =>
-            import(
-                /* webpackChunkName: "empire" */ "@/game/pages/Empire/Empire"
-            ),
+            import(/* webpackChunkName: "empire" */ "Pages/Empire/Empire"),
     },
     {
         path: "/fleets",
         name: "Fleets",
         component: () =>
-            import(
-                /* webpackChunkName: "fleets" */ "@/game/pages/Fleets/Fleets"
-            ),
+            import(/* webpackChunkName: "fleets" */ "Pages/Fleets/Fleets"),
     },
     {
         path: "/diplomacy",
         name: "Diplomacy",
         component: () =>
             import(
-                /* webpackChunkName: "galnet" */ "@/game/pages/Diplomacy/Diplomacy"
+                /* webpackChunkName: "galnet" */ "Pages/Diplomacy/Diplomacy"
             ),
     },
     {
@@ -32,7 +28,7 @@ export default [
         name: "Research",
         component: () =>
             import(
-                /* webpackChunkName: "research" */ "@/game/pages/Research/Research"
+                /* webpackChunkName: "research" */ "Pages/Research/Research"
             ),
     },
     {
@@ -40,15 +36,13 @@ export default [
         name: "Shipyards",
         component: () =>
             import(
-                /* webpackChunkName: "shipyards" */ "@/game/pages/Shipyards/Shipyards"
+                /* webpackChunkName: "shipyards" */ "Pages/Shipyards/Shipyards"
             ),
     },
     {
         path: "/starmap",
         name: "Starmap",
         component: () =>
-            import(
-                /* webpackChunkName: "starmap" */ "@/game/pages/Starmap/Starmap"
-            ),
+            import(/* webpackChunkName: "starmap" */ "Pages/Starmap/Starmap"),
     },
 ];

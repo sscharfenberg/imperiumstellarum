@@ -3,14 +3,13 @@
  * "admin" entrypoint
  *
  *****************************************************************************/
-require("../bootstrap");
-require("@/admin/styles/main.scss");
-import { initTableSort } from "@/admin/modules/tablesort";
-import { initPerPage } from "@/admin/modules/perpage";
-import { initTrHref } from "@/admin/modules/tr-href";
-import { initDatePicker } from "@/admin/modules/datepicker";
-import { initSliders } from "@/admin/modules/slider";
-import { initSeed } from "@/admin/modules/seed";
+require("./styles/main.scss");
+import { initTableSort } from "./modules/tablesort";
+import { initPerPage } from "./modules/perpage";
+import { initTrHref } from "./modules/tr-href";
+import { initDatePicker } from "./modules/datepicker";
+import { initSliders } from "./modules/slider";
+import { initSeed } from "./modules/seed";
 
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("input[name=sort]")) initTableSort();

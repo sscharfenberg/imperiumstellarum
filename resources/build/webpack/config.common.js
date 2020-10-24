@@ -48,7 +48,11 @@ const webpackCommonConfig = {
         alias: {
             vue$: "vue/dist/vue.runtime.esm-bundler.js",
             "@": path.resolve(PROJECTROOT, "resources/src"),
-            Components: path.resolve(PROJECTROOT, "resources/src/components"),
+            Components: path.resolve(
+                PROJECTROOT,
+                "resources/src/game/components"
+            ),
+            Pages: path.resolve(PROJECTROOT, "resources/src/game/pages"),
         },
     },
 
@@ -148,6 +152,7 @@ const webpackCommonConfig = {
                 PROJECTROOT,
                 "resources/build/config/.eslintrc.js"
             ),
+            extensions: ["js", "vue"],
         }),
 
         // https://vue-loader.vuejs.org/guide/#manual-setup

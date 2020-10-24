@@ -20,7 +20,7 @@ class StartGame
      * @param Game $game
      * @return Turn
      */
-    private function createInitialTurn ($game)
+    private function createInitialTurn (Game $game)
     {
         return Turn::create([
             'game_id' => $game->id,
@@ -70,7 +70,6 @@ class StartGame
         $homeSystems = $game->stars->filter(function ($value) {
             return $value['home_system'] === true;
         });
-        var_dump(count($homeSystems));
         foreach($players as $player) {
             // determine which of the available systems will be player starting system
             $systemIndex = random_int(0, count($homeSystems) - 1);

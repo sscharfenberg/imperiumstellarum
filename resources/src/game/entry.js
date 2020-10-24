@@ -3,7 +3,6 @@
  * "game" entrypoint
  *
  *****************************************************************************/
-require("../bootstrap");
 import { createApp } from "vue";
 import { i18n } from "./i18n";
 import router from "./router";

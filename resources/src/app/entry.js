@@ -4,16 +4,16 @@
  *
  *****************************************************************************/
 require("../bootstrap");
-require("@/app/styles/main.scss");
-import { initSubmenus } from "@/app/modules/submenu";
-import { initThemeToggle } from "@/app/modules/theme";
-import { initDrawer } from "@/app/modules/drawer";
-import { initLocalTime } from "@/app/modules/localtime";
-import { initSpectral } from "@/app/modules/spectral";
-import { initFlash } from "@/app/modules/flash";
-import { initPasswordStrength } from "@/app/modules/password-strength";
-import { initSubmitButton } from "@/app/modules/button";
-import { initModal } from "@/app/modules/modal";
+require("./styles/main.scss");
+import { initSubmenus } from "./modules/submenu";
+import { initThemeToggle } from "./modules/theme";
+import { initDrawer } from "./modules/drawer";
+import { initLocalTime } from "./modules/localtime";
+import { initSpectral } from "./modules/spectral";
+import { initFlash } from "./modules/flash";
+import { initPasswordStrength } from "./modules/password-strength";
+import { initSubmitButton } from "./modules/button";
+import { initModal } from "./modules/modal";
 
 document.addEventListener("DOMContentLoaded", () => {
     initSubmenus();

@@ -68,63 +68,6 @@
             }
         }
     }
-
-    // game data: current turn, time for next turn ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    .game-data {
-        padding: 1rem 1.5rem 1rem 1.5rem;
-        border-bottom: 2px solid transparent;
-
-        @include respond-to("small") {
-            padding: 1.5rem 2rem;
-        }
-
-        @include themed() {
-            border-color: t("g-ebony");
-        }
-
-        > ul {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 0 0.5rem 0;
-            margin: 0;
-
-            list-style: none;
-
-            font-size: 1.5rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            @include themed() {
-                color: t("t-tint");
-            }
-
-            > li {
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .turn {
-            padding: 0.2rem 0.5rem;
-
-            @include themed() {
-                background: t("g-raven");
-                color: t("b-viking");
-            }
-
-            > .icon {
-                margin-right: 0.5rem;
-
-                @include themed() {
-                    color: t("t-light");
-                }
-            }
-        }
-    }
 }
 
 // drawer navigation: links to game areas ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -58,6 +58,24 @@
 }
 
 /*
+ * static color values that are not affected by selected theme
+ * @usage:
+ *
+ * .link {
+ *     color: palette("dark", "b-viking");
+ * }
+ */
+@function palette($theme, $color: "base") {
+    @if map-has-key($themes, $theme) {
+        @return map-get(map-get($themes, $theme), $color);
+    }
+
+    @warn "Unknown `#{$theme}` in $palettes.";
+
+    @return null;
+}
+
+/*
  * theme function - outputs themed styles, for dark and light theme
  * https://medium.com/@katiemctigue/how-to-create-a-dark-mode-in-sass-609f131a3995
  */

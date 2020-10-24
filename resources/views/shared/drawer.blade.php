@@ -1,4 +1,5 @@
 <nav class="drawer{{ Auth::user() && Auth::user()->drawer_open ? ' open' : '' }}">
+
     <aside class="time-data">
         <ul>
             <li>@lang("app.drawer.localTime")</li>
@@ -7,58 +8,50 @@
             </li>
         </ul>
     </aside>
-    @if(Auth::user() && Auth::user()->selectedGame())
-        <aside class="game-data">
-            <ul>
-                <li>@lang("app.drawer.currentTurn")</li>
-                <li class="turn">
-                    <x-icon name="turn" size="2" />
-                    892
+
+    @if(Auth::user() && Auth::user()->selectedGame() && count(Auth::user()->selectedGame()->turns) > 0 && $inGame)
+        <div id="gameDataTeleportTarget"></div>
+    @endif
+
+    @if(Auth::user() && Auth::user()->selectedGame() && count(Auth::user()->selectedGame()->turns) > 0)
+        @if(!$inGame)
+            <ul class="drawer-list">
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/empire" class="drawer-list__link{{ Request::is('*/empire') ? " active" : "" }}">
+                        <x-icon name="empire" size="2" /> @lang("game.empire.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/shipyards" class="drawer-list__link{{ Request::is('*/shipyards') ? " active" : "" }}">
+                        <x-icon name="shipyards" size="2" /> @lang("game.shipyards.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/fleets" class="drawer-list__link{{ Request::is('*/fleets') ? " active" : "" }}">
+                        <x-icon name="fleets" size="2" /> @lang("game.fleets.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/research" class="drawer-list__link{{ Request::is('*/research') ? " active" : "" }}">
+                        <x-icon name="research" size="2" /> @lang("game.research.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/starmap" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
+                        <x-icon name="starmap" size="2" /> @lang("game.starmap.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item drawer-list__item--both-borders">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/diplomacy" class="drawer-list__link{{ Request::is('*/diplomacy') ? " active" : "" }}">
+                        <x-icon name="diplomacy" size="2" /> @lang("game.diplomacy.navTitle")
+                    </a>
                 </li>
             </ul>
-            <ul>
-                <li>
-                    @lang("app.drawer.nextTurn")<br />
-                    ------------------- (tbd!)
-                </li>
-                <li><time datetime="00:05:25">00:05:25</time></li>
-            </ul>
-        </aside>
+        @else
+            <div id="drawerTeleportTarget"></div>
+        @endif
     @endif
-    @if(Auth::user() && Auth::user()->selectedGame())
-        <ul class="drawer-list" id="drawerPortal">
-            <li class="drawer-list__item">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/empire" class="drawer-list__link{{ Request::is('*/empire') ? " active" : "" }}">
-                     <x-icon name="empire" size="2" /> @lang("game.empire.navTitle")
-                </a>
-            </li>
-            <li class="drawer-list__item">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/shipyards" class="drawer-list__link{{ Request::is('*/shipyards') ? " active" : "" }}">
-                     <x-icon name="shipyards" size="2" /> @lang("game.shipyards.navTitle")
-                </a>
-            </li>
-            <li class="drawer-list__item">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/fleets" class="drawer-list__link{{ Request::is('*/fleets') ? " active" : "" }}">
-                     <x-icon name="fleets" size="2" /> @lang("game.fleets.navTitle")
-                </a>
-            </li>
-            <li class="drawer-list__item">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/research" class="drawer-list__link{{ Request::is('*/research') ? " active" : "" }}">
-                     <x-icon name="research" size="2" /> @lang("game.research.navTitle")
-                </a>
-            </li>
-            <li class="drawer-list__item">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/starmap" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
-                     <x-icon name="starmap" size="2" /> @lang("game.starmap.navTitle")
-                </a>
-            </li>
-            <li class="drawer-list__item drawer-list__item--both-borders">
-                <a href="/game/{{ Auth::user()->selectedGame()->id }}/diplomacy" class="drawer-list__link{{ Request::is('*/diplomacy') ? " active" : "" }}">
-                     <x-icon name="galnet" size="2" /> @lang("game.diplomacy.navTitle")
-                </a>
-            </li>
-        </ul>
-    @endif
+
     <ul class="drawer-list drawer-list--bottom">
         <li class="drawer-list__item">
             <a href="https://discuss.imperiumstellarum.io" class="drawer-list__link">
@@ -79,4 +72,5 @@
             <x-switch ref-id="themeToggle" is-checked="1" label-on="D" label-off="L" data="theme-toggle"/>
         </li>
     </ul>
+
 </nav>

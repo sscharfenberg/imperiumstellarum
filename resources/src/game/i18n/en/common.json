@@ -1,5 +1,12 @@
 {
+    "drawer": {
+        "currentTurn": "Current turn",
+        "nextTurn": "Next turn"
+    },
     "header": {
-        "test": "Hallo Welt"
+        "fetchData": {
+            "fetch": "Refresh",
+            "fetching": "Loading"
+        }
     }
 }

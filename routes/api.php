@@ -26,4 +26,9 @@ Route::post('/drawer', [App\Http\Controllers\DrawerController::class, 'update'])
 // protected auth routes
 Route::middleware(['auth','verified'])->group(function () {
     Route::post('/test', [\App\Http\Controllers\LoginStatusController::class, 'test']);
+
+    // initial game data
+    Route::get('/game/empire', [\App\Http\Controllers\Game\EmpireController::class, 'gameData']);
+
+
 });

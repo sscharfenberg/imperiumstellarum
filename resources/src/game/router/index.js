@@ -9,6 +9,7 @@ const gameId = document.getElementById("game").dataset.gameId;
 const router = createRouter({
     history: createWebHistory(`/game/${gameId}`),
     routes,
+    linkExactActiveClass: "active",
 });
 
 /*

@@ -15,22 +15,11 @@ class GameController extends Controller
     /**
      * @param Request $request
      * @param string $gameId
-     * @return \Illuminate\Contracts\View\View|RedirectResponse
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Request $request, string $gameId)
     {
-        $game = Game::find($gameId);
-        $user = Auth::user();
-        if (!$game) {
-            return redirect()->back()
-                ->with('status', __('admin.game.notfound'))
-                ->with('severity', 'error');
-        } else {
-            $selectedPlayer = $user->players->filter(function ($player) use ($user) {
-                return $player['id'] === $user->selected_player;
-            })->first();
-            return View::make('game.game', compact('game', 'selectedPlayer'));
-        }
+        return View::make('game.game', compact('gameId'));
     }
 
 }
