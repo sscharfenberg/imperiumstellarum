@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Game;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Player;
-use App\Models\Store;
+use App\Models\PlayerResource;
 use App\Models\TechLevel;
 use App\Services\PlayerDefaultService;
 use Illuminate\Http\RedirectResponse;
@@ -92,7 +92,7 @@ class EnlistController extends Controller
 
         // add default settings for player - storage, techLevels, selected_player
         $d = new PlayerDefaultService;
-        Store::insert($d->stores($player->id));
+        PlayerResource::insert($d->resources($player->id));
         TechLevel::insert($d->techLevels($player->id));
         $user = Auth::user();
         $user->selected_player = $player->id;

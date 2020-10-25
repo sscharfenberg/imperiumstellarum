@@ -16,16 +16,18 @@ const ANIMATION_DURATION = 150; // needs to be synched to @keyframes in resource
  */
 const hideSubmenu = (triggerNode) => {
     const menu = getSubmenuByTrigger(triggerNode);
-    menu.classList.add(CLASSNAME_CLOSING);
-    triggerNode.classList.remove(CLASSNAME_OPEN);
-    setTimeout(() => {
-        menu.classList.remove(
-            CLASSNAME_OPEN,
-            CLASSNAME_CLOSING,
-            CLASSNAME_OPENING
-        );
-        menu.setAttribute("aria-hidden", "true");
-    }, ANIMATION_DURATION);
+    if (menu) {
+        menu.classList.add(CLASSNAME_CLOSING);
+        triggerNode.classList.remove(CLASSNAME_OPEN);
+        setTimeout(() => {
+            menu.classList.remove(
+                CLASSNAME_OPEN,
+                CLASSNAME_CLOSING,
+                CLASSNAME_OPENING
+            );
+            menu.setAttribute("aria-hidden", "true");
+        }, ANIMATION_DURATION);
+    }
 };
 
 /**
@@ -34,12 +36,14 @@ const hideSubmenu = (triggerNode) => {
  */
 const showSubmenu = (triggerNode) => {
     const menu = getSubmenuByTrigger(triggerNode);
-    triggerNode.classList.add(CLASSNAME_OPEN);
-    menu.classList.add(CLASSNAME_OPEN, CLASSNAME_OPENING);
-    setTimeout(() => {
-        menu.classList.remove(CLASSNAME_OPENING);
-        menu.setAttribute("aria-hidden", "false");
-    }, ANIMATION_DURATION);
+    if (menu) {
+        triggerNode.classList.add(CLASSNAME_OPEN);
+        menu.classList.add(CLASSNAME_OPEN, CLASSNAME_OPENING);
+        setTimeout(() => {
+            menu.classList.remove(CLASSNAME_OPENING);
+            menu.setAttribute("aria-hidden", "false");
+        }, ANIMATION_DURATION);
+    }
 };
 
 /**
@@ -57,15 +61,9 @@ const getSubmenuByTrigger = (triggerNode) => {
 export const initSubmenus = () => {
     const submenus = document.querySelectorAll(SELECTOR_SUBMENU);
     const triggers = document.querySelectorAll(SELECTOR_SUBMENU_TRIGGER);
-    console.log("initializing submenus");
 
     // fail silently if no submenus, no triggers or # of triggers/submenus is different
-    if (
-        submenus.length === 0 ||
-        triggers.length === 0 ||
-        submenus.length !== triggers.length
-    )
-        return;
+    if (submenus.length === 0 || triggers.length === 0) return;
 
     for (let i = 0; i < triggers.length; i++) {
         // click event handler for each submenu trigger

@@ -1,11 +1,33 @@
 <?php
 namespace App\Services;
 
+use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 
 class ApiService {
+
+    /**
+     * @param Player $player
+     * @return Collection
+     */
+    public function getResources (Player $player)
+    {
+        return $player->resources->map(function ($store) {
+            return [
+                'type' => $store->resource_type,
+                'amount' => $store->storage,
+                'max' => config(
+                    'rules.player.resourceTypes.'.$store->resource_type.'.'.$store->storage_level.'.amount'
+                ),
+                'level' => $store->storage_level,
+                'maxLevel' => array_key_last(config('rules.player.resourceTypes.'.$store->resource_type))
+            ];
+        });
+    }
+
 
     /**
      * @function create default stores of a player
@@ -28,13 +50,12 @@ class ApiService {
                 'turnDue' => $currentTurn->due->diffInSeconds(Carbon::now()),
             ],
             'player' => [
-                'name' => $player->name,
-                'ticker' => $player->ticker,
+                'empireName' => $player->name,
+                'empireTicker' => $player->ticker,
                 'researchPriority' => $player->research_priority
-            ]
+            ],
+            'resources' => $this->getResources($player)
         ];
     }
-
-
 
 }

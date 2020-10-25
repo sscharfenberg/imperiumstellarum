@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Store
+ * App\Models\PlayerResource
  *
  * @property string $id
  * @property string $player_id
@@ -17,19 +17,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Player $player
- * @method static \Illuminate\Database\Eloquent\Builder|Store newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Store newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Store query()
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store wherePlayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereResourceType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereStorage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereStorageLevel($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Store whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereResourceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereStorage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereStorageLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Store extends Model
+class PlayerResource extends Model
 {
     use HasFactory, UsesUuid;
 
@@ -38,7 +38,7 @@ class Store extends Model
      *
      * @var string
      */
-    protected $table = 'stores';
+    protected $table = 'player_resources';
 
     /**
      * The primary key associated with the table.

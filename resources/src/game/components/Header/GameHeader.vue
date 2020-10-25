@@ -7,9 +7,10 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import Icon from "Components/Icon/Icon";
 import FetchButton from "./FetchButton";
+import PlayerResources from "./Resources/PlayerResources";
 export default {
     name: "GameHeader",
-    components: { Icon, FetchButton },
+    components: { Icon, FetchButton, PlayerResources },
     props: {
         area: {
             type: String,
@@ -39,26 +40,11 @@ export default {
     <header :class="className">
         <aside class="area">
             <icon :name="area" :size="1" />
-            {{ area }}
+            {{ t(area + ".title") }}
         </aside>
         <fetch-button :area="area" />
         <h1>[{{ ticker }}] {{ name }}</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-            asperiores culpa excepturi illum natus officiis placeat, quia soluta
-            tempora vitae! Alias aperiam at atque cum earum eius est
-            exercitationem, fuga, illum iusto maxime, minima minus molestiae
-            mollitia natus nulla odit quia ullam vero voluptate. Molestiae
-            perspiciatis praesentium quas vero vitae.
-        </p>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-            asperiores culpa excepturi illum natus officiis placeat, quia soluta
-            tempora vitae! Alias aperiam at atque cum earum eius est
-            exercitationem, fuga, illum iusto maxime, minima minus molestiae
-            mollitia natus nulla odit quia ullam vero voluptate. Molestiae
-            perspiciatis praesentium quas vero vitae.
-        </p>
+        <player-resources />
     </header>
 </template>
 
@@ -69,29 +55,46 @@ header {
     align-items: flex-start;
     flex-wrap: wrap;
 
-    border: 1px solid palette("dark", "g-raven");
+    border: 2px solid transparent;
 
-    background: palette("dark", "g-bunker") none 50% 50% no-repeat;
+    background: transparent none 50% 50% no-repeat;
     background-size: cover;
-    color: palette("dark", "t-light");
+
+    @include themed() {
+        background-color: t("g-bunker");
+        color: t("t-light");
+        border-color: t("g-deep");
+    }
 
     &.empire {
-        background-image: url("bg/empire.jpg");
+        @include themed() {
+            background-image: t("empire");
+        }
     }
     &.fleets {
-        background-image: url("bg/fleets.jpg");
+        @include themed() {
+            background-image: t("fleets");
+        }
     }
     &.shipyards {
-        background-image: url("bg/shipyards.jpg");
+        @include themed() {
+            background-image: t("shipyards");
+        }
     }
     &.research {
-        background-image: url("bg/research.jpg");
+        @include themed() {
+            background-image: t("research");
+        }
     }
     &.starchart {
-        background-image: url("bg/starchart.jpg");
+        @include themed() {
+            background-image: t("starchart");
+        }
     }
     &.galnet {
-        background-image: url("bg/galnet.jpg");
+        @include themed() {
+            background-image: t("diplomacy");
+        }
     }
 }
 
@@ -105,12 +108,13 @@ header {
     clip-path: polygon(0% 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
 
     font-size: 2rem;
+    font-weight: 300;
     line-height: 1;
     text-transform: capitalize;
 
     @include themed() {
-        background: t("g-raven");
-        color: t("t-bright");
+        background: rgba(t("g-raven"), 0.4);
+        color: t("t-light");
     }
 
     .icon {
@@ -130,11 +134,14 @@ h1 {
     font-size: 2.8rem;
 
     font-weight: 400;
-    line-height: 1;
-    text-shadow: 1px 1px 0 palette("dark", "g-bunker"),
-        -1px 1px 0 palette("dark", "g-bunker"),
-        -1px -1px 0 palette("dark", "g-bunker"),
-        1px -1px 0 palette("dark", "g-bunker");
+    line-height: 1.4;
     letter-spacing: 0.2rem;
+
+    @include themed() {
+        color: t("t-light");
+
+        text-shadow: 1px 1px 0 t("g-bunker"), -1px 1px 0 t("g-bunker"),
+            -1px -1px 0 t("g-bunker"), 1px -1px 0 t("g-bunker");
+    }
 }
 </style>

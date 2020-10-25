@@ -13,16 +13,7 @@ export default {
             .get("/api/game/empire")
             .then((response) => {
                 if (response.status === 200) {
-                    const data = response.data;
-                    const meta = {
-                        gameNumber: data.game.number,
-                        gameTurn: data.game.turn,
-                        turnDue: data.game.turnDue,
-                        empireName: data.player.name,
-                        empireTicker: data.player.ticker,
-                        empireResearchPrio: data.player.researchPriority,
-                    };
-                    commit("SET_GAME_META_DATA", meta, { root: true });
+                    commit("SET_GAME_META_DATA", response.data, { root: true });
                 }
             })
             .catch((e) => {

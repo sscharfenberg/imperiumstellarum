@@ -20,8 +20,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read \App\Models\Game $game
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
  * @property-read int|null $stars_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Store[] $stores
- * @property-read int|null $stores_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerResource[] $resources
+ * @property-read int|null $resources_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TechLevel[] $techLevels
  * @property-read int|null $tech_levels_count
  * @property-read \App\Models\User $user
@@ -101,11 +101,11 @@ class Player extends Model
     }
 
     /**
-     * Get the stores for this player
+     * Get the resources for this player
      */
-    public function stores()
+    public function resources()
     {
-        return $this->hasMany('App\Models\Store');
+        return $this->hasMany('App\Models\PlayerResource');
     }
 
     /**
@@ -115,4 +115,13 @@ class Player extends Model
     {
         return $this->hasMany('App\Models\TechLevel');
     }
+
+    /**
+     * Get the storage upgrades for this player
+     */
+    public function storageUpgrades()
+    {
+        return $this->hasMany('App\Models\StorageUpgrades');
+    }
+
 }

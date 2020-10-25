@@ -11,12 +11,12 @@ class PlayerDefaultService {
      * @param string $playerId
      * @return array
      */
-    public function stores (string $playerId)
+    public function resources (string $playerId)
     {
         $rules = config('rules.player.resourceTypes');
-        $stores = [];
+        $resources = [];
         foreach($rules as $key => $rule) {
-            $stores[] = [
+            $resources[] = [
                 'id' => Str::uuid(),
                 'player_id' => $playerId,
                 'resource_type' => $key,
@@ -26,7 +26,7 @@ class PlayerDefaultService {
                 'updated_at' => now()
             ];
         }
-        return $stores;
+        return $resources;
     }
 
 

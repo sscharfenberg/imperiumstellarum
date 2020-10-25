@@ -7,6 +7,18 @@
         "fetchData": {
             "fetch": "Neu Laden",
             "fetching": "Lade Daten"
+        },
+        "storageUpgrades": {
+            "label": "{num} storage upgrades installed",
+            "buttonAriaLabel": "Click to upgrade storagen"
         }
+    },
+    "resourceTypes": {
+        "label": "Resourcentyp",
+        "minerals": "Mineralien",
+        "energy": "Energie",
+        "food": "Nahrung",
+        "research": "Forschung",
+        "turns": "Runden"
     }
 }

@@ -13,6 +13,8 @@
     left: 0;
     z-index: z("overlay");
 
+    backdrop-filter: blur(2px);
+
     text-align: left;
 
     &__backdrop {
@@ -24,7 +26,7 @@
         height: 100vh;
 
         @include themed() {
-            background: rgba(t("g-black"), 0.6);
+            //background: rgba(t("g-black"), 0.6);
         }
     }
 
@@ -36,12 +38,11 @@
         border: 1rem solid transparent;
         margin: 10vh 2rem 0 2rem;
 
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-            0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
         @include themed() {
             background: t("g-sunken");
             border-color: t("g-deep");
+
+            box-shadow: 0 0 15px rgba(t("g-fog"), 0.2);
         }
     }
 
@@ -69,7 +70,12 @@
     }
 
     &__body {
+        overflow: auto;
+
+        max-height: 60vh;
         padding: 1.5rem;
+
+        @extend %scrollbar;
     }
 
     // override default styles for forms in modal.
@@ -82,6 +88,19 @@
 
         .app-btn {
             margin: 0.5rem 0 0 0;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 1rem;
+        border-top: 2px solid transparent;
+
+        @include themed() {
+            border-color: t("g-deep");
         }
     }
 }

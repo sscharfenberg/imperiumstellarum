@@ -102,6 +102,7 @@ class StartGame
         Log::notice('Selecting starting systems for all enlisted players.');
         $this->seedPlayerStars($game);
         Log::notice('Finished selecting starting systems for all enlisted players.');
+        // save game after all processing is done.
         $game->processing = false;
         $game->map = null;
         $game->save();

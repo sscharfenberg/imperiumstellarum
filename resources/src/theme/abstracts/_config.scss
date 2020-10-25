@@ -53,6 +53,13 @@ $themes: (
         // borders
         b-lightbg: rgba(#000, 0.2),
         b-darkbg: rgba(#fff, 0.2),
+        // header backgrounds
+        diplomacy: url("./bg/dark-diplomacy.jpg"),
+        empire: url("./bg/dark-empire.jpg"),
+        fleets: url("./bg/dark-fleets.jpg"),
+        research: url("./bg/dark-research.jpg"),
+        shipyards: url("./bg/dark-shipyards.jpg"),
+        starchart: url("./bg/dark-starchart.jpg"),
     ),
     light: (
         // brand colors
@@ -86,9 +93,9 @@ $themes: (
         bg-body: #fff url("../../theme/bg-body-light.svg"),
         s-shine-1dp: 0 0 15px #df740c,
         // states
-        s-active: #195529,
+        s-active: #45b562,
         s-inactive: #383e46,
-        s-success: #4b9b29,
+        s-success: #90d974,
         s-warning: #f2b01e,
         s-building: #857c49,
         s-error: #f00,
@@ -99,6 +106,13 @@ $themes: (
         // borders
         b-lightbg: rgba(#fff, 0.3),
         b-darkbg: rgba(#000, 0.3),
+        // header backgrounds
+        diplomacy: url("./bg/light-diplomacy.jpg"),
+        empire: url("./bg/light-empire.jpg"),
+        fleets: url("./bg/light-fleets.jpg"),
+        research: url("./bg/light-research.jpg"),
+        shipyards: url("./bg/light-shipyards.jpg"),
+        starchart: url("./bg/light-starchart.jpg"),
     ),
 );
 
