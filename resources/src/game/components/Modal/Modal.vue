@@ -9,10 +9,6 @@ import GameButton from "Components/Button/GameButton";
 export default {
     name: "ModalDialogue",
     props: {
-        refId: {
-            type: String,
-            required: true,
-        },
         title: {
             type: String,
             required: true,
@@ -42,7 +38,7 @@ export default {
 </script>
 
 <template>
-    <div class="modal" data-modal="{{ refId }}" :style="{ display: 'block' }">
+    <div class="modal" :style="{ display: 'block' }">
         <div class="modal__backdrop">
             <div class="modal__dialog">
                 <header class="modal__head">
@@ -56,8 +52,8 @@ export default {
                 </main>
                 <nav class="modal__actions" v-if="renderActions">
                     <game-button
-                        @click="showModal = false"
-                        text-string="Cancel"
+                        @click="$emit('close')"
+                        :text-string="t('common.modal.cancel')"
                         icon-name="cancel"
                     />
                     <slot name="actions"></slot>
@@ -66,3 +62,32 @@ export default {
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.stats {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    padding: 0;
+    margin: 0 0 1.6rem 0;
+
+    list-style: none;
+
+    > li {
+        padding: 0.4rem;
+        margin: 0 0.4rem 0.4rem 0;
+
+        text-align: center;
+
+        &:nth-child(2n) {
+            margin-right: 0;
+        }
+
+        @include themed() {
+            border: 1px solid t("g-abbey");
+
+            background: t("g-deep");
+        }
+    }
+}
+</style>

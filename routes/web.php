@@ -88,7 +88,12 @@ Route::middleware(['auth','verified', 'suspended'])->group(function () {
     // select game
     Route::get('/game/{game}/select', [\App\Http\Controllers\Game\SelectGameController::class, 'select'])
         ->name('select-game');
+});
 
+/**
+ * Game route
+ */
+Route::middleware(['auth','verified', 'suspended', 'gameStarted', 'enlisted'])->group(function () {
     // game routes
     Route::get('/game/{game}/{any}', [\App\Http\Controllers\Game\GameController::class, 'show'])
         ->where('any', '.*')

@@ -128,7 +128,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function selectedGame()
     {
-        $player = $this->players->filter(function ($value, $key) {
+        $player = $this->players->filter(function ($value) {
             return $value['id'] === $this->selected_player;
         })->first();
         if (!$player) return null;

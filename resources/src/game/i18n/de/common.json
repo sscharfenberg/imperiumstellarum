@@ -10,7 +10,18 @@
         },
         "storageUpgrades": {
             "label": "{num} storage upgrades installed",
-            "buttonAriaLabel": "Click to upgrade storagen"
+            "buttonAriaLabel": "Click to upgrade storagen",
+            "title": {
+                "energy": "Energie-Speicher verbessern",
+                "food": "Nahrungs-Silos erweitern",
+                "minerals": "Mineralien-Lager erweitern",
+                "research": "Forschungs-Vorrat vergrößern"
+            },
+            "currentLevel": "Aktuelle Stufe",
+            "currentStorage": "Aktueller Speicher",
+            "newLevel": "Neue Stufe",
+            "newStorage": "Neuer Speicher",
+            "install": "Installieren"
         }
     },
     "resourceTypes": {
@@ -20,5 +31,11 @@
         "food": "Nahrung",
         "research": "Forschung",
         "turns": "Runden"
+    },
+    "costs": {
+        "label": "Kosten"
+    },
+    "modal": {
+        "cancel": "Abbrechen"
     }
 }

@@ -64,5 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'suspended' => \App\Http\Middleware\CheckSuspension::class,
+        'gameStarted' => \App\Http\Middleware\Game\GameStarted::class,
+        'enlisted' => \App\Http\Middleware\Game\Enlisted::class,
     ];
 }

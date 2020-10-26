@@ -14,20 +14,9 @@ return [
     'empire' => [
         'navTitle' => 'Imperium',
         'title' =>  'Unser Imperium',
-        'star' =>   [
-            'spectralType' =>  'Spektraltyp',
-            'name' =>   [
-                'edit' =>  'Name des Sterns bearbeiten',
-                'inputPlaceHolder' =>  'Geben Sie den neuen Namen des Sterns ein',
-                'cancel' =>  'Bearbeiten abbrechen und Änderungen verwerfen',
-                'save' =>  'Name des Sterns abspeichern',
-                'validation' =>   [
-                    'minLength' =>  'Der Name des Stern muss mindestens :min Zeichen enthalten.',
-                    'maxLength' =>  'Der Name des Sterns darf nicht länger als :max Zeichen enthalten.',
-                    'required' =>  'Der Name des Sterns ist erforderlich.'
-                ]
-            ],
-            'location' =>  'Ort des Sterns'
+        'error' => [
+            'notStarted' => 'Das Spiel hat noch nicht begonnen.',
+            'noPlayer' => 'Sie haben sich in das Spiel nicht eingeschrieben.'
         ]
     ],
 

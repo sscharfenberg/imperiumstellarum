@@ -23,12 +23,10 @@ Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthCont
 Route::post('/drawer', [App\Http\Controllers\DrawerController::class, 'update'])
     ->middleware(['auth']);
 
-// protected auth routes
-Route::middleware(['auth','verified'])->group(function () {
-    Route::post('/test', [\App\Http\Controllers\LoginStatusController::class, 'test']);
+// api game routes
+Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])->group(function () {
 
-    // initial game data
-    Route::get('/game/empire', [\App\Http\Controllers\Game\EmpireController::class, 'gameData']);
-
+    // empire game data
+    Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\EmpireController::class, 'gameData']);
 
 });

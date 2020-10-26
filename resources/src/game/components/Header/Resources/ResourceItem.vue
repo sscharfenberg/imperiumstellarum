@@ -6,8 +6,7 @@ import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
 import StorageLevels from "./StorageLevels";
-import Modal from "Components/Modal/Modal";
-import GameButton from "Components/Button/GameButton";
+import UpgradeStorage from "./UpgradeStorage";
 export default {
     name: "PlayerResource",
     props: {
@@ -32,7 +31,7 @@ export default {
             required: true,
         },
     },
-    components: { Icon, StorageLevels, Modal, GameButton },
+    components: { Icon, StorageLevels, UpgradeStorage },
     setup(props) {
         const resourceBarWidth = computed(() => {
             return `${100 - (props.amount / props.max) * 100}%`;
@@ -81,18 +80,14 @@ export default {
         <span
             class="res"
             :title="
-                buttonDisabled
-                    ? ''
-                    : t('common.resourceTypes.label') +
-                      ': ' +
-                      t('common.resourceTypes.' + type)
+                t('common.resourceTypes.label') +
+                ': ' +
+                t('common.resourceTypes.' + type)
             "
             :aria-label="
-                buttonDisabled
-                    ? ''
-                    : t('common.resourceTypes.label') +
-                      ': ' +
-                      t('common.resourceTypes.' + type)
+                t('common.resourceTypes.label') +
+                ': ' +
+                t('common.resourceTypes.' + type)
             "
         >
             <span
@@ -121,38 +116,15 @@ export default {
             :max-level="maxLevel"
         />
     </button>
-    <modal
+    <upgrade-storage
         v-if="showModal"
-        :ref-id="`ResourceModal${type.toUpperCase()}`"
-        :title="type"
+        :type="type"
+        :amount="amount"
+        :max="max"
+        :storage-level="storageLevel"
+        :max-level="maxLevel"
         @close="showModal = false"
-    >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem corporis
-        eius enim et eveniet exercitationem id laudantium non officia optio quae
-        quidem quod ratione recusandae, sapiente similique sint voluptates.
-        Alias animi autem, commodi dolor dolore doloribus, est facilis fuga hic
-        iure magnam nesciunt officia provident quam quasi quos sed tempora vero?
-        Adipisci distinctio dolorem doloribus ducimus eius facilis magni minus
-        modi molestias, nemo nostrum quas quasi, quod soluta tempora tempore,
-        totam. Dolorem iusto magnam nostrum soluta. Dolore itaque nisi numquam
-        quod similique sunt. Debitis earum molestiae necessitatibus nulla
-        tempore? Cum nam nesciunt officia praesentium recusandae saepe
-        temporibus vitae voluptate voluptatibus! Lorem ipsum dolor sit amet,
-        consectetur adipisicing elit. Autem corporis eius enim et eveniet
-        exercitationem id laudantium non officia optio quae quidem quod ratione
-        recusandae, sapiente similique sint voluptates. Alias animi autem,
-        commodi dolor dolore doloribus, est facilis fuga hic iure magnam
-        nesciunt officia provident quam quasi quos sed tempora vero? Adipisci
-        distinctio dolorem doloribus ducimus eius facilis magni minus modi
-        molestias, nemo nostrum quas quasi, quod soluta tempora tempore, totam.
-        Dolorem iusto magnam nostrum soluta. Dolore itaque nisi numquam quod
-        similique sunt. Debitis earum molestiae necessitatibus nulla tempore?
-        Cum nam nesciunt officia praesentium recusandae saepe temporibus vitae
-        voluptate voluptatibus!
-        <template v-slot:actions>
-            <game-button text-string="Upgrade" icon-name="done" />
-        </template>
-    </modal>
+    />
 </template>
 
 <style lang="scss" scoped>

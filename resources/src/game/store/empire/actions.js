@@ -9,8 +9,9 @@ export default {
      */
     GET_GAME_DATA: function ({ commit }) {
         commit("SET_REQUESTING", true);
+        const gameId = document.getElementById("game").dataset.gameId;
         window.axios
-            .get("/api/game/empire")
+            .get(`/api/game/${gameId}/empire`)
             .then((response) => {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });

@@ -10,7 +10,18 @@
         },
         "storageUpgrades": {
             "label": "{num} Lager Erweiterungen installiert",
-            "buttonAriaLabel": "Klicken um Lager zu verbessern"
+            "buttonAriaLabel": "Klicken um Lager zu verbessern",
+            "title": {
+                "energy": "Increase energy storage",
+                "food": "Enlarge food silos",
+                "minerals": "Increase mineral storage",
+                "research": "Enlarge research stash"
+            },
+            "currentLevel": "Current Level",
+            "currentStorage": "Current Storage",
+            "newLevel": "New Level",
+            "newStorage": "New Storage",
+            "install": "Install upgrade"
         }
     },
     "resourceTypes": {
@@ -20,5 +31,11 @@
         "food": "food",
         "research": "research",
         "turns": "turns"
+    },
+    "costs": {
+        "label": "Costs"
+    },
+    "modal": {
+        "cancel": "Cancel"
     }
 }

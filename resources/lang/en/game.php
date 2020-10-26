@@ -14,20 +14,9 @@ return [
     'empire' => [
         'navTitle' => 'Empire',
         'title' =>  'Our Empire',
-        'star' =>   [
-            'spectralType' =>  'Spectral type',
-            'name' =>   [
-                'edit' =>  'Edit star name',
-                'inputPlaceHolder' =>  'Enter new star name',
-                'cancel' =>  'Cancel editing and discard changes',
-                'save' =>  'Save star name',
-                'validation' =>   [
-                    'minLength' =>  'Star name must have at least  [min ] characters.',
-                    'maxLength' =>  'Star name must not have more than  [max ] characters.',
-                    'required' =>  'Star name is required.'
-                ]
-            ],
-            'location' =>  'Star Location'
+        'error' => [
+            'notStarted' => 'This game has not yet begun.',
+            'noPlayer' => 'You are not enlisted to this game.'
         ]
     ],
 
