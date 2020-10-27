@@ -1,29 +1,27 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Collection;
 
 class ApiService {
 
+
     /**
+     * @function get and format storage upgrades in construction for a player
      * @param Player $player
-     * @return Collection
+     * @return mixed
      */
-    public function getResources (Player $player)
+    public function storageUpgrades (Player $player)
     {
-        return $player->resources->map(function ($store) {
+        return $player->storageUpgrades->map(function($upgrade) {
             return [
-                'type' => $store->resource_type,
-                'amount' => $store->storage,
-                'max' => config(
-                    'rules.player.resourceTypes.'.$store->resource_type.'.'.$store->storage_level.'.amount'
-                ),
-                'level' => $store->storage_level,
-                'maxLevel' => array_key_last(config('rules.player.resourceTypes.'.$store->resource_type))
+                'resourceType' => $upgrade->resource_type,
+                'newLevel' => $upgrade->new_level,
+                'untilComplete' => $upgrade->until_complete
             ];
         });
     }
@@ -42,6 +40,7 @@ class ApiService {
         $currentTurn = $game->turns->filter(function($turn) {
             return $turn->processed === null;
         })->first();
+        $r = new ResourceService();
 
         return [
             'game' => [
@@ -54,8 +53,10 @@ class ApiService {
                 'empireTicker' => $player->ticker,
                 'researchPriority' => $player->research_priority
             ],
-            'resources' => $this->getResources($player)
+            'resources' => $r->getResources($player),
+            'storageUpgrades' => $this->storageUpgrades($player)
         ];
     }
+
 
 }

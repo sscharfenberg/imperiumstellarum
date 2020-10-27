@@ -2,6 +2,12 @@
  * Vuex actions
  *****************************************************************************/
 
+/**
+ * @function get gameId from #game
+ * @returns {string}
+ */
+const getGameId = () => document.getElementById("game").dataset.gameId;
+
 export default {
     /*
      * GET game data from api
@@ -9,9 +15,8 @@ export default {
      */
     GET_GAME_DATA: function ({ commit }) {
         commit("SET_REQUESTING", true);
-        const gameId = document.getElementById("game").dataset.gameId;
         window.axios
-            .get(`/api/game/${gameId}/empire`)
+            .get(`/api/game/${getGameId()}/empire`)
             .then((response) => {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });

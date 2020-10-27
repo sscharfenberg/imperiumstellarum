@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StorageUpgrade extends Model
 {
-    use HasFactory;
+    use HasFactory, UsesUuid;
 
     /**
      * The table associated with the model.
@@ -52,6 +53,7 @@ class StorageUpgrade extends Model
      * @var array
      */
     protected $fillable = [
+        'player_id',
         'resource_type',
         'new_level',
         'until_complete',

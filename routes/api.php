@@ -13,18 +13,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+/**
+ * public api routes.
+ */
 
 // verify password strength
 Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthController::class, 'verify']);
-// update drawer status for user
-Route::post('/drawer', [App\Http\Controllers\DrawerController::class, 'update'])
-    ->middleware(['auth']);
 
-// api game routes
+
+/**
+ * authenticated api routes
+ */
+
+Route::middleware(['auth', 'suspended'])->group(function () {
+    // update drawer status for user
+    Route::post('/drawer', [App\Http\Controllers\DrawerController::class, 'update']);
+});
+
+/**
+ * game api routes.
+ */
+
 Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])->group(function () {
+
+    /**
+     * common api calls, not area specific
+     */
+
+    // install storage upgrade
+    Route::post('/game/{game}/storage_upgrade',
+        [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
+
+    /**
+     * empire api calls
+     */
 
     // empire game data
     Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\EmpireController::class, 'gameData']);

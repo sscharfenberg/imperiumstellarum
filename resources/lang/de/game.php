@@ -11,6 +11,14 @@ return [
     |
     */
 
+    'commonErrors' => [
+        'noFunds' => 'Sie haben nicht genügend Resourcen.',
+        'header' => [
+            'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
+            'level' => 'Diese Verbesserung kann nicht installiert werden.'
+        ]
+    ],
+
     'empire' => [
         'navTitle' => 'Imperium',
         'title' =>  'Unser Imperium',

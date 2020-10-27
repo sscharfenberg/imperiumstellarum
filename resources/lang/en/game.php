@@ -11,6 +11,14 @@ return [
     |
     */
 
+    'commonErrors' => [
+        'noFunds' => 'You can\'t afford this.',
+        'header' => [
+            'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
+            'level' => 'This storage level can not be constructed.'
+        ]
+    ],
+
     'empire' => [
         'navTitle' => 'Empire',
         'title' =>  'Our Empire',

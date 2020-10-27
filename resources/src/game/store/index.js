@@ -5,6 +5,7 @@ import { createStore } from "vuex";
 import empire from "./empire";
 import state from "./state";
 import mutations from "./mutations";
+import actions from "./actions";
 
 /*
  * create vuex store
@@ -12,6 +13,7 @@ import mutations from "./mutations";
 const store = createStore({
     state,
     mutations,
+    actions,
     modules: {
         empire,
     },

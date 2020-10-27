@@ -70,18 +70,14 @@ export default {
 
     padding: 0;
     margin: 0 0 1.6rem 0;
+    grid-gap: 0.4rem;
 
     list-style: none;
 
     > li {
         padding: 0.4rem;
-        margin: 0 0.4rem 0.4rem 0;
 
         text-align: center;
-
-        &:nth-child(2n) {
-            margin-right: 0;
-        }
 
         @include themed() {
             border: 1px solid t("g-abbey");

@@ -121,7 +121,7 @@ class Player extends Model
      */
     public function storageUpgrades()
     {
-        return $this->hasMany('App\Models\StorageUpgrades');
+        return $this->hasMany('App\Models\StorageUpgrade');
     }
 
 }

@@ -34,8 +34,8 @@ export default {
     },
     components: { Modal, GameButton, Costs },
     setup(props) {
-        const state = useStore().state;
-        const resources = computed(() => state.resources);
+        const store = useStore();
+        const resources = computed(() => store.state.resources);
         const nextLevel = computed(() => {
             const nextLevel = props.storageLevel + 1;
             if (nextLevel > props.maxLevel) return -1;
@@ -52,7 +52,10 @@ export default {
                     .amount
         );
         const onSubmit = () => {
-            alert("install upgrade " + props.type);
+            store.dispatch("INSTALL_STORAGE_UPGRADE", {
+                type: props.type,
+                level: nextLevel.value,
+            });
         };
         const isAffordable = computed(() => {
             const costs =
