@@ -21,7 +21,8 @@
             "currentStorage": "Aktueller Speicher",
             "newLevel": "Neue Stufe",
             "newStorage": "Neuer Speicher",
-            "install": "Installieren"
+            "install": "Installieren",
+            "untilComplete": "Runden bis zur Fertigstellung"
         }
     },
     "resourceTypes": {

@@ -21,7 +21,8 @@
             "currentStorage": "Current Storage",
             "newLevel": "New Level",
             "newStorage": "New Storage",
-            "install": "Install upgrade"
+            "install": "Install upgrade",
+            "untilComplete": "Turns until completion"
         }
     },
     "resourceTypes": {

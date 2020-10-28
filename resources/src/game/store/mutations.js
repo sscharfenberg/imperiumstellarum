@@ -3,7 +3,7 @@
  *****************************************************************************/
 
 export default {
-    /*
+    /**
      * SET GAME NUMBER
      * @param {Object} state - Vuex state
      * @param {Object} payload
@@ -22,5 +22,26 @@ export default {
         state.empireTicker = payload.player.empireTicker;
         state.empireResearchPriority = payload.player.researchPriority;
         state.resources = payload.resources;
+        state.storageUpgrades = payload.storageUpgrades;
+    },
+
+    /**
+     * SET PLAYER RESOURCES
+     * @param state
+     * @param {array} payload
+     * @constructor
+     */
+    SET_RESOURCES: (state, payload) => {
+        state.resources = payload;
+    },
+
+    /**
+     * SET PLAYER RESOURCES
+     * @param state
+     * @param {array} payload
+     * @constructor
+     */
+    SET_STORAGE_UPGRADES: (state, payload) => {
+        state.storageUpgrades = payload;
     },
 };

@@ -33,7 +33,7 @@ export default {
         },
     },
     components: { Modal, GameButton, Costs },
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
         const resources = computed(() => store.state.resources);
         const nextLevel = computed(() => {
@@ -56,7 +56,11 @@ export default {
                 type: props.type,
                 level: nextLevel.value,
             });
+            emit("close");
         };
+        const storageUpgrade = computed(() =>
+            store.getters.storageUpgradeByType(props.type)
+        );
         const isAffordable = computed(() => {
             const costs =
                 window.rules.player.resourceTypes[props.type][nextLevel.value]
@@ -80,6 +84,7 @@ export default {
             newStorage,
             onSubmit,
             isAffordable,
+            storageUpgrade,
             ...useI18n(),
         };
     },
@@ -102,6 +107,25 @@ export default {
                     max
                 }}
             </li>
+            <li
+                v-if="storageUpgrade.newLevel"
+                class="stats__two-col featured"
+                :aria-label="
+                    t('common.header.storageUpgrades.untilComplete') +
+                    ': ' +
+                    storageUpgrade.untilComplete
+                "
+            >
+                {{ t("common.header.storageUpgrades.untilComplete") }}:
+                {{ storageUpgrade.untilComplete }}<br />
+                <span
+                    v-for="n in storageUpgrade.untilComplete"
+                    class="stats__dot"
+                    role="presentation"
+                    aria-hidden="true"
+                    :key="n"
+                />
+            </li>
             <li>
                 {{ t("common.header.storageUpgrades.newLevel") }}<br />{{
                     nextLevel
@@ -118,7 +142,7 @@ export default {
             <game-button
                 :text-string="t('common.header.storageUpgrades.install')"
                 icon-name="done"
-                :disabled="!isAffordable"
+                :disabled="!isAffordable || storageUpgrade.newLevel"
                 @click="onSubmit"
             />
         </template>

@@ -14,4 +14,5 @@ export default {
     empireTicker: "",
     empireResearchPriority: 1,
     resources: [],
+    storageUpgrades: [],
 };

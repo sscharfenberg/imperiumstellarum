@@ -24,9 +24,12 @@ export default {
             .post(`/api/game/${getGameId()}/storage_upgrade`, payload)
             .then((response) => {
                 if (response.status === 200) {
-                    //commit("SET_STORAGE_UPGRADE_INSTALLING", response.data);
                     console.log(response.data);
-                    console.log(commit);
+                    commit("SET_RESOURCES", response.data.resources);
+                    commit(
+                        "SET_STORAGE_UPGRADES",
+                        response.data.storageUpgrades
+                    );
                 }
             })
             .catch((e) => {

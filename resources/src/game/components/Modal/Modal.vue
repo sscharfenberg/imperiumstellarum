@@ -66,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .stats {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
 
     padding: 0;
     margin: 0 0 1.6rem 0;
@@ -83,6 +83,38 @@ export default {
             border: 1px solid t("g-abbey");
 
             background: t("g-deep");
+        }
+
+        &.featured {
+            @include themed() {
+                border-color: t("g-infra");
+            }
+        }
+    }
+
+    > li.stats__two-col {
+        grid-column: 1 / span 2;
+
+        padding: 0.4rem 0.8rem 0 0.8rem;
+    }
+
+    &__dot {
+        display: inline-block;
+
+        width: 4px;
+        height: 4px;
+        margin: 0 4px 4px 0;
+
+        border-radius: 50%;
+
+        text-indent: -1000em;
+
+        @include themed() {
+            background: linear-gradient(
+                to bottom,
+                t("s-warning") 0%,
+                t("s-error") 100%
+            );
         }
     }
 }
