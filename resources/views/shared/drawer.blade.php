@@ -54,17 +54,17 @@
 
     <ul class="drawer-list drawer-list--bottom">
         <li class="drawer-list__item">
-            <a href="https://discuss.imperiumstellarum.io" class="drawer-list__link">
+            <a href="https://discuss.imperiumstellarum.io" class="drawer-list__link" rel="noopener">
                 <x-icon name="chat" size="2" /> @lang('app.drawer.forums')
             </a>
         </li>
         <li class="drawer-list__item">
-            <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link">
+            <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link" rel="noopener">
                 <x-icon name="save" size="2" /> @lang('app.drawer.github')
             </a>
         </li>
         <li class="drawer-list__item">
-            <a href="https://www.mantisbt.org/" class="drawer-list__link">
+            <a href="https://www.mantisbt.org/" class="drawer-list__link" rel="noopener">
                 <x-icon name="bug" size="2" /> @lang('app.drawer.bugs')
             </a>
         </li>
