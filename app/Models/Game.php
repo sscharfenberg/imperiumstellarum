@@ -117,11 +117,28 @@ class Game extends Model
     }
 
     /**
+     * Get the planets for this game
+     */
+    public function planets()
+    {
+        return $this->hasMany('App\Models\Planet');
+    }
+
+
+    /**
      * Get the turns for this game
      */
     public function turns()
     {
         return $this->hasMany('App\Models\Turn');
+    }
+
+    /**
+     * Get the storageUpgrades for this game
+     */
+    public function storageUpgrades()
+    {
+        return $this->hasMany('App\Models\storageUpgrade');
     }
 
 }

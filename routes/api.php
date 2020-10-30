@@ -49,6 +49,6 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
      */
 
     // empire game data
-    Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\EmpireController::class, 'gameData']);
+    Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\Empire\EmpireController::class, 'gameData']);
 
 });

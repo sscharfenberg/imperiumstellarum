@@ -11,7 +11,7 @@ use \App\Http\Traits\UsesUuid;
  *
  * @property string $id
  * @property string $game_id
- * @property string|null $owner_id
+ * @property string|null $player_id
  * @property int $coord_x
  * @property int $coord_y
  * @property bool $home_system
@@ -33,7 +33,7 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereHomeSystem($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Star whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Star wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereSpectral($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -63,7 +63,7 @@ class Star extends Model
      */
     protected $fillable = [
         'game_id',
-        'owner_id',
+        'player_id',
         'coord_x',
         'coord_y',
         'home_system',

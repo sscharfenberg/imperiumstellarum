@@ -6,6 +6,7 @@ use App\Models\Game;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Actions\Game\StartGame;
+use App\Actions\Game\ProcessTurn;
 
 class Heartbeat extends Command
 {
@@ -38,6 +39,7 @@ class Heartbeat extends Command
      *
      * @return int
      * @throws \Exception
+     * @return void
      */
     public function handle()
     {
@@ -60,10 +62,11 @@ class Heartbeat extends Command
 
             // check if we need to process a turn.
             elseif (count($game->turns) > 0 && $dueTurn) {
-                Log::info('HEARTBEAT: processing turn for g'.$game->number);
+                Log::info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
+                $t = new ProcessTurn;
+                $t->handle($game, $dueTurn);
             }
 
         }
-        return 0;
     }
 }

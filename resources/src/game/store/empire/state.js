@@ -7,8 +7,6 @@
  */
 export default {
     requesting: false,
-    empireId: undefined,
-    empireName: "",
     stars: [],
     planets: [],
 };

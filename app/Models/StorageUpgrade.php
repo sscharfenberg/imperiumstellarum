@@ -54,16 +54,25 @@ class StorageUpgrade extends Model
      */
     protected $fillable = [
         'player_id',
+        'game_id',
         'resource_type',
         'new_level',
         'until_complete',
     ];
 
     /**
-     * Get the game that owns the player.
+     * Get the player that owns the storage upgrade.
      */
     public function player()
     {
         return $this->belongsTo('App\Models\Player');
+    }
+
+    /**
+     * Get the game that this storage upgrade belongs to.
+     */
+    public function game()
+    {
+        return $this->belongsTo('App\Models\Game');
     }
 }

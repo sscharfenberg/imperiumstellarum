@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Game;
 
 use App\Models\Player;
-use App\Http\Controllers\Controller;
 use App\Models\StorageUpgrade;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Services\ResourceService;
 use App\Services\ApiService;
 
@@ -104,12 +105,15 @@ class StorageUpgradeController extends Controller
         // create the storage upgrade order
         StorageUpgrade::create([
             'player_id' => $player->id,
+            'game_id' => $player->game->id,
             'resource_type' => $input['type'],
             'new_level' => $input['level'],
             'until_complete' => config(
                 'rules.player.resourceTypes.'.$input['type'].'.'.$input['level'].'.costs.turns'
             )
         ]);
+
+        Log::info('API: Empire ['.$player->ticker.'] ordered a '.$input['type'].' storage upgrade @ lvl'.$input['level']);
 
         $r = new ResourceService();
         $a = new ApiService();

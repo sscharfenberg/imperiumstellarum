@@ -19,7 +19,7 @@ class CreateStarsTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->uuid('id')->primary();
             $table->uuid('game_id');
-            $table->uuid('owner_id')->nullable();
+            $table->uuid('player_id')->nullable();
             $table->smallInteger('coord_x');
             $table->smallInteger('coord_y');
             $table->boolean('home_system');
@@ -27,7 +27,7 @@ class CreateStarsTable extends Migration
             $table->string('name', 40);
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
-            $table->foreign('owner_id')->references('id')->on('players')
+            $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->timestamps();
             Schema::enableForeignKeyConstraints();

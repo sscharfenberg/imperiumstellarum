@@ -19,9 +19,14 @@ class CreateStorageUpgradesTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->uuid('id')->primary();
             $table->uuid('player_id');
+            $table->uuid('game_id');
             $table->enum('resource_type', array_keys(config('rules.player.resourceTypes')));
             $table->tinyInteger('new_level');
             $table->tinyInteger('until_complete');
+            $table->foreign('player_id')->references('id')->on('players')
+                ->onDelete('cascade');
+            $table->foreign('game_id')->references('id')->on('games')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

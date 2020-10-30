@@ -78,7 +78,7 @@ class StartGame
             $homeSystems = $homeSystems->reject(function($system) use ($playerHome) {
                 return $system->id === $playerHome->id;
             });
-            $playerHome->owner_id = $player->id;
+            $playerHome->player_id = $player->id;
             $playerHome->save();
             Log::info('Chose Star '.$playerHome->name.' as player starting system.');
             $this->seedPlayerColony($playerHome);

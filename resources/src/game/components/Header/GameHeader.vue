@@ -56,9 +56,14 @@ header {
     flex-wrap: wrap;
 
     border: 2px solid transparent;
+    margin: 0 0 1.6rem 0;
 
     background: transparent none 50% 50% no-repeat;
     background-size: cover;
+
+    @include respond-to("small") {
+        margin: 0 0 3.2rem 0;
+    }
 
     @include themed() {
         background-color: t("g-bunker");

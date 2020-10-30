@@ -2,4 +2,7 @@
  * Vuex getters
  *****************************************************************************/
 
-export default {};
+export default {
+    starById: (state) => (id) =>
+        state.stars.find((star) => star.id === id) || {},
+};
