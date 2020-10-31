@@ -1,6 +1,6 @@
 <script>
 /******************************************************************************
- * Page: ListStars
+ * PageComponent: ListStars
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";

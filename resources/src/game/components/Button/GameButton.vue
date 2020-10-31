@@ -43,11 +43,7 @@ export default {
 
 <template>
     <button class="btn" :class="[typeModifier, sizeClass]">
-        <icon
-            v-if="iconName"
-            :name="iconName"
-            :size="size === 0 ? 0 : size - 1"
-        />
+        <icon v-if="iconName" :name="iconName" :size="size" />
         <span v-if="textString">{{ textString }}</span>
     </button>
 </template>
@@ -94,12 +90,6 @@ $btnBaseHeight: 3.4rem;
         }
     }
 
-    &--icon {
-        @include themed() {
-            color: t("t-tint");
-        }
-    }
-
     &[disabled] {
         opacity: 0.3;
 
@@ -130,6 +120,33 @@ $btnBaseHeight: 3.4rem;
 
     > span {
         line-height: 1;
+    }
+
+    &--icon {
+        width: 3.4rem;
+        height: 3.4rem;
+        padding: 0 0.8rem;
+
+        border-radius: 50%;
+
+        @include themed() {
+            color: t("t-tint");
+        }
+
+        &.tiny {
+            width: 2.6rem;
+            height: 2.6rem;
+        }
+
+        &.small {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        &.large {
+            width: 4.2rem;
+            height: 4.2rem;
+        }
     }
 }
 </style>

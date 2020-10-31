@@ -1,7 +1,6 @@
 /******************************************************************************
  * Vuex actions
  *****************************************************************************/
-
 /**
  * @function get gameId from #game
  * @returns {string}
@@ -9,9 +8,9 @@
 const getGameId = () => document.getElementById("game").dataset.gameId;
 
 export default {
-    /*
-     * GET game data from api
-     * @param {Object} ctx - Vuex context
+    /**
+     * @function GET game data from api
+     * @param {Function} commit - Vuex commit
      */
     GET_GAME_DATA: function ({ commit }) {
         commit("SET_REQUESTING", true);
@@ -30,5 +29,18 @@ export default {
             .finally(() => {
                 commit("SET_REQUESTING", false);
             });
+    },
+
+    /**
+     * @function POST changed star name to api
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     * @param {String} payload.id
+     * @param {String} payload.name
+     * @constructor
+     */
+    CHANGE_STAR_NAME: function ({ commit }, payload) {
+        console.log(payload);
+        commit("SET_CHANGING_STAR", payload.id);
     },
 };

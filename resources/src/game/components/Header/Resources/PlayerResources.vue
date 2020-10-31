@@ -9,8 +9,8 @@ export default {
     name: "PlayerResources",
     components: { ResourceItem },
     setup() {
-        const state = useStore().state;
-        const resources = computed(() => state.resources);
+        const store = useStore();
+        const resources = computed(() => store.getters.sortResources);
         return {
             resources,
         };

@@ -1,4 +1,15 @@
 {
     "title": "Empire",
-    "navTitle": "Empire"
+    "navTitle": "Empire",
+    "stars": "Stars of our empire",
+    "star": {
+        "spectralType": "Spectral type",
+        "name": {
+            "edit": "Edit star name",
+            "inputPlaceHolder": "Enter new star name",
+            "cancel": "Cancel editing and discard changes",
+            "save": "Save star name"
+        },
+        "location": "Star Location"
+    }
 }

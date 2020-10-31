@@ -26,10 +26,12 @@ export default {
         const className = computed(() => props.area.toLowerCase());
         const name = computed(() => state.empireName);
         const ticker = computed(() => state.empireTicker);
+        const requesting = computed(() => state[props.area].requesting);
         return {
             className,
             name,
             ticker,
+            requesting,
             ...useI18n(),
         };
     },
@@ -43,7 +45,10 @@ export default {
             {{ t(area + ".title") }}
         </aside>
         <fetch-button :area="area" />
-        <h1>[{{ ticker }}] {{ name }}</h1>
+        <h1>
+            <span v-if="ticker">[{{ ticker }}]</span>
+            <span v-if="name">{{ name }}</span>
+        </h1>
         <player-resources />
     </header>
 </template>

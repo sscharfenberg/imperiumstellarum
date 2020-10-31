@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import ListStars from "./Stars/ListStars";
 import AreaSection from "Components/AreaSection/AreaSection";
@@ -13,10 +13,12 @@ export default {
     components: { GameHeader, AreaSection, ListStars },
     setup() {
         const store = useStore();
+        const requesting = computed(() => store.state.empire.requesting);
         onBeforeMount(() => {
             store.dispatch("empire/GET_GAME_DATA");
         });
         return {
+            requesting,
             ...useI18n(),
         };
     },
@@ -25,7 +27,7 @@ export default {
 
 <template>
     <game-header headline="Fuddel Faddel" area="empire" />
-    <area-section headline="Fuddel faddel">
+    <area-section :headline="t('empire.stars')" :requesting="requesting">
         <list-stars />
     </area-section>
 </template>

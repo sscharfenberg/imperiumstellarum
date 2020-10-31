@@ -1,4 +1,15 @@
 {
     "title": "Imperium",
-    "navTitle": "Imperium"
+    "navTitle": "Imperium",
+    "stars": "Sternensysteme unseres Imperiums",
+    "star": {
+        "spectralType": "Spektralklasse",
+        "name": {
+            "edit": "Name des Sterns ändern",
+            "inputPlaceHolder": "Bitte geben Sie den neuen Namen des Sterns ein",
+            "cancel": "Ändern abbrechen und Änderungen verwerfen",
+            "save": "Name speichern"
+        },
+        "location": "Sternenposition"
+    }
 }

@@ -18,8 +18,7 @@ export default {
      * @constructor
      */
     INSTALL_STORAGE_UPGRADE: function ({ commit }, payload) {
-        // TODO: Requesting?
-        // TODO: commit resoures and storage upgrades
+        commit("empire/SET_REQUESTING", true);
         window.axios
             .post(`/api/game/${getGameId()}/storage_upgrade`, payload)
             .then((response) => {
@@ -36,7 +35,7 @@ export default {
                 console.error(e);
             })
             .finally(() => {
-                //commit("SET_REQUESTING", false);
+                commit("empire/SET_REQUESTING", false);
                 console.log("done");
             });
     },
