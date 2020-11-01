@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'suspended' => \App\Http\Middleware\CheckSuspension::class,
         'gameStarted' => \App\Http\Middleware\Game\GameStarted::class,
         'enlisted' => \App\Http\Middleware\Game\Enlisted::class,
+        'notProcessing' => \App\Http\Middleware\Game\NotProcessing::class,
     ];
 }

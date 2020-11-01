@@ -31,18 +31,10 @@ Route::middleware(['auth', 'suspended'])->group(function () {
 });
 
 /**
- * game api routes.
+ * game api routes without processing.
  */
 
 Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])->group(function () {
-
-    /**
-     * common api calls, not area specific
-     */
-
-    // install storage upgrade
-    Route::post('/game/{game}/storage_upgrade',
-        [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
 
     /**
      * empire api calls
@@ -50,5 +42,16 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
 
     // empire game data
     Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\Empire\EmpireController::class, 'gameData']);
+
+});
+
+/**
+ * game api routes with processing check.
+ */
+Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', 'notProcessing'])->group(function () {
+
+    // install storage upgrade
+    Route::post('/game/{game}/storage_upgrade',
+        [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
 
 });

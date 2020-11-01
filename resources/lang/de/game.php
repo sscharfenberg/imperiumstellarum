@@ -11,12 +11,16 @@ return [
     |
     */
 
-    'commonErrors' => [
-        'noFunds' => 'Sie haben nicht genügend Resourcen.',
-        'header' => [
-            'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
-            'level' => 'Diese Verbesserung kann nicht installiert werden.'
-        ]
+    'common' => [
+        'errors' => [
+            'noFunds' => 'Sie haben nicht genügend Resourcen.',
+            'processing' => 'Die Runde wird gerade berechnet, bitte warten Sie ein wenig.',
+            'header' => [
+                'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
+                'level' => 'Diese Verbesserung kann nicht installiert werden.'
+            ]
+        ],
+        'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.'
     ],
 
     'empire' => [

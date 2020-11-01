@@ -88,29 +88,30 @@ class StorageUpgradeController extends Controller
 
         if (!$this->levelIsInstallable($player, $input['type'], $input['level'])) {
             return response()
-                ->json(['error' => __('game.commonErrors.header.level')], 419);
+                ->json(['error' => __('game.common.errors.header.level')], 419);
         }
         if (!$this->playerCanAfford($player, $input['type'], $input['level'])) {
             return response()
-                ->json(['error' => __('game.commonErrors.noFunds')], 419);
+                ->json(['error' => __('game.common.errors.noFunds')], 419);
         }
         if (!$this->buildAvailable($player, $input['type'])) {
             return response()
-                ->json(['error' => __('game.commonErrors.header.alreadyBuilding')], 419);
+                ->json(['error' => __('game.common.errors.header.alreadyBuilding')], 419);
         }
 
         // pay for the storage upgrade with resources
         $this->pay($player, $input['type'],  $input['level']);
 
         // create the storage upgrade order
+        $untilComplete = config(
+            'rules.player.resourceTypes.'.$input['type'].'.'.$input['level'].'.costs.turns'
+        );
         StorageUpgrade::create([
             'player_id' => $player->id,
             'game_id' => $player->game->id,
             'resource_type' => $input['type'],
             'new_level' => $input['level'],
-            'until_complete' => config(
-                'rules.player.resourceTypes.'.$input['type'].'.'.$input['level'].'.costs.turns'
-            )
+            'until_complete' => $untilComplete
         ]);
 
         Log::info('API: Empire ['.$player->ticker.'] ordered a '.$input['type'].' storage upgrade @ lvl'.$input['level']);
@@ -119,7 +120,8 @@ class StorageUpgradeController extends Controller
         $a = new ApiService();
         return response()->json([
             'storageUpgrades' => $a->storageUpgrades($player),
-            'resources' => $r->getResources($player)
+            'resources' => $r->getResources($player),
+            'message' => __('game.common.storageUpgradeOrdered', ['num' => $untilComplete])
         ], 200);
 
     }

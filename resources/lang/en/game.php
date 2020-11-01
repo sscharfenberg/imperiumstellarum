@@ -11,12 +11,16 @@ return [
     |
     */
 
-    'commonErrors' => [
-        'noFunds' => 'You can\'t afford this.',
-        'header' => [
-            'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
-            'level' => 'This storage level can not be constructed.'
-        ]
+    'common' => [
+        'errors' => [
+            'noFunds' => 'You can\'t afford this.',
+            'processing' => 'The turn is currently being processed, please wait a while.',
+            'header' => [
+                'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
+                'level' => 'This storage level can not be constructed.'
+            ]
+        ],
+        'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.'
     ],
 
     'empire' => [
