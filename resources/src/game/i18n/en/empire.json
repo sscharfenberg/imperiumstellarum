@@ -11,5 +11,18 @@
             "save": "Save star name"
         },
         "location": "Star Location"
+    },
+    "planet": {
+        "typeLabel": "Planetary Type",
+        "types": {
+            "terrestrial": "Terrestrial",
+            "gas": "Gas",
+            "ice": "Ice",
+            "iron": "Iron",
+            "desert": "Desert",
+            "toxic": "Toxic",
+            "carbon": "Carbon",
+            "tomb": "Tomb"
+        }
     }
 }

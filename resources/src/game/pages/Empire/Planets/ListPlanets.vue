@@ -4,11 +4,13 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import ShowPlanet from "./ShowPlanet";
 export default {
     name: "ListPlanets",
     props: {
         starId: String,
     },
+    components: { ShowPlanet },
     setup(props) {
         const store = useStore();
         const planets = computed(() =>
@@ -26,17 +28,23 @@ export default {
 </script>
 
 <template>
-    <ul class="planets">
-        <li v-for="planet in planets" :key="planet.id">
-            {{ starName }} - {{ planet.orbitalIndex }} || {{ planet.type }}
-        </li>
+    <ul class="planets" v-if="planets.length">
+        <show-planet
+            v-for="planet in planets"
+            :key="planet.id"
+            :planet-id="planet.id"
+            :star-name="starName"
+        />
     </ul>
 </template>
 
 <style lang="scss" scoped>
 .planets {
+    display: flex;
+    flex-direction: column;
+
     padding: 0;
-    margin: 1.3rem 0 0 0;
+    margin: 1rem 0 0 0;
     flex: 0 0 100%;
 
     list-style: none;

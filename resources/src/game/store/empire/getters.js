@@ -23,4 +23,8 @@ export default {
     // get name of star by id
     starNameById: (state) => (id) =>
         state.stars.find((star) => star.id === id).name || "",
+
+    // get planet by id
+    planetById: (state) => (id) =>
+        state.planets.find((planet) => planet.id === id),
 };

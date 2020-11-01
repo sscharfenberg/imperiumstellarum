@@ -422,21 +422,4 @@
         </div>
     </x-modal>
 
-
-    @auth
-        <main>
-            <p>Authed as {{ Auth::user()->email }}</p>
-        </main>
-    @endauth
-
-    <button id="apiTest">TEST private API</button>
-    <script type="text/javascript">
-        function apiTest () {
-            window.axios.post("/api/test").then(response => {
-                console.log(response.data);
-            });
-        }
-        document.getElementById("apiTest").addEventListener("click", apiTest);
-    </script>
-
 @endsection
