@@ -116,6 +116,16 @@ module.exports = merge(common, {
             filename: "[name].[chunkhash].css",
         }),
 
+        // https://webpack.js.org/plugins/copy-webpack-plugin/
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(PROJECTROOT, "resources/src/static"),
+                    to: path.resolve(PROJECTROOT, "public/assets/"),
+                },
+            ],
+        }),
+
         // https://github.com/Klathmon/imagemin-webpack-plugin
         new ImageminPlugin({
             gifsicle: { interlaced: true },
@@ -128,16 +138,6 @@ module.exports = merge(common, {
                     quality: 65, // 65 is quite low, watch for image quality
                     progressive: true,
                 }),
-            ],
-        }),
-
-        // https://webpack.js.org/plugins/copy-webpack-plugin/
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve(PROJECTROOT, "resources/src/static"),
-                    to: path.resolve(PROJECTROOT, "public/assets/"),
-                },
             ],
         }),
 

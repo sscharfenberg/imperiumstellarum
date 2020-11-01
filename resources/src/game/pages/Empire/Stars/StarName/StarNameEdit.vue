@@ -80,25 +80,25 @@ export default {
 .star-name {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 
-    flex-grow: 1;
+    overflow: hidden;
+    flex: 1 1 auto;
 }
 
 .expand {
-    margin-right: 0.8rem;
+    margin-right: 0.4rem;
 
-    @include respond-to("small") {
+    @include respond-to("medium") {
         margin-right: 1.6rem;
     }
 }
 
 .name {
+    width: 100%;
     height: 4.8rem;
     padding: 0;
     border: 0;
-    margin-right: 0.8rem;
-    flex-grow: 1;
+    margin-right: 0.4rem;
 
     background: transparent;
     outline: 0;
@@ -109,6 +109,10 @@ export default {
     @include themed() {
         color: t("b-viking");
     }
+
+    @include respond-to("medium") {
+        margin-right: 0.8rem;
+    }
 }
 
 .cancel {
@@ -116,6 +120,10 @@ export default {
 }
 
 .done {
-    margin-left: 0.8rem;
+    margin-left: 0.4rem;
+
+    @include respond-to("medium") {
+        margin-right: 0.8rem;
+    }
 }
 </style>

@@ -41,7 +41,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
      */
 
     // empire game data
-    Route::get('/game/{game}/empire', [\App\Http\Controllers\Game\Empire\EmpireController::class, 'gameData']);
+    Route::get('/game/{game}/empire',
+        [\App\Http\Controllers\Game\Empire\EmpireController::class, 'gameData']);
+
+    // change star name
+    Route::post('/game/{game}/empire/star_name',
+        [\App\Http\Controllers\Game\Empire\StarNameController::class, 'handle']);
 
 });
 

@@ -29,6 +29,7 @@
         "nouislider": "^14.6.2",
         "poisson-disk-sampling": "^2.2.2",
         "vue": "^3.0.2",
+        "vue-draggable-next": "^1.0.8",
         "vue-i18n": "^9.0.0-beta.6",
         "vue-router": "^4.0.0-rc.1",
         "vuex": "^4.0.0-beta.4"

@@ -14,11 +14,13 @@ export default {
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.empire.requesting);
+        const numStars = computed(() => store.state.empire.stars.length);
         onBeforeMount(() => {
             store.dispatch("empire/GET_GAME_DATA");
         });
         return {
             requesting,
+            numStars,
             ...useI18n(),
         };
     },
@@ -27,7 +29,10 @@ export default {
 
 <template>
     <game-header headline="Fuddel Faddel" area="empire" />
-    <area-section :headline="t('empire.stars')" :requesting="requesting">
+    <area-section
+        :headline="t('empire.stars', { num: numStars })"
+        :requesting="requesting"
+    >
         <list-stars />
     </area-section>
 </template>

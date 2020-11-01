@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\FormatApiResponseService;
 
 class EmpireController extends Controller
 {
@@ -20,25 +21,14 @@ class EmpireController extends Controller
         foreach($stars as $star) {
             $planets = $planets->concat($star->planets);
         }
+
+        $f = new FormatApiResponseService;
         $returnData = [
-            'stars' => $stars->map(function ($star) {
-                return [
-                    'id' => $star->id,
-                    'x' => $star->coord_x,
-                    'y' => $star->coord_y,
-                    'spectral' => $star->spectral,
-                    'name' => $star->name
-                ];
+            'stars' => $stars->map(function ($star) use ($f) {
+                return $f->formatStar($star);
             }),
-            'planets' => $planets->map(function ($planet) {
-                return [
-                    'id' => $planet->id,
-                    'starId' => $planet->star_id,
-                    'orbitalIndex' => $planet->orbital_index,
-                    'type' => $planet->type,
-                    'population' => $planet->population,
-                    'resources' => $planet->resources
-                ];
+            'planets' => $planets->map(function ($planet) use ($f) {
+                return $f->formatPlanet($planet);
             })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));

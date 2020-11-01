@@ -16,4 +16,5 @@ export default {
     expandedStars: savedState.expandedStars || [],
     editingStarId: "",
     changingStarId: "",
+    starsSorted: savedState.starsSorted || [],
 };

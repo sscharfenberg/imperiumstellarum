@@ -5,6 +5,7 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import StarSpectral from "./StarSpectral";
+import StarDragHandle from "./StarDragHandle";
 import StarName from "./StarName/StarName";
 import StarNameEdit from "./StarName/StarNameEdit";
 import StarLocation from "./StarLocation";
@@ -18,6 +19,7 @@ export default {
     components: {
         StarNameEdit,
         StarSpectral,
+        StarDragHandle,
         StarName,
         StarLocation,
         ListPlanets,
@@ -46,28 +48,30 @@ export default {
 </script>
 
 <template>
-    <li class="star">
-        <star-spectral :spectral="star.spectral" />
-        <star-name
-            v-if="!isStarEditing && !isStarChanging"
-            :star-id="star.id"
-        />
-        <star-name-edit
-            v-if="isStarEditing && !isStarChanging"
-            :star-id="star.id"
-            :star-name="star.name"
-        />
-        <loading v-if="isStarChanging" size="38" class="loading" />
-        <star-location :x="star.x" :y="star.y" />
+    <div class="system">
+        <div class="star">
+            <star-spectral :spectral="star.spectral" />
+            <star-drag-handle />
+            <star-name
+                v-if="!isStarEditing && !isStarChanging"
+                :star-id="star.id"
+            />
+            <star-name-edit
+                v-if="isStarEditing && !isStarChanging"
+                :star-id="star.id"
+                :star-name="star.name"
+            />
+            <loading v-if="isStarChanging" :size="38" class="loading" />
+            <star-location :x="star.x" :y="star.y" />
+        </div>
         <list-planets v-if="isExpanded" :star-id="star.id" />
-    </li>
+    </div>
 </template>
 
 <style lang="scss" scoped>
-.star {
+.system {
     display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
 
     margin: 0 0 0.8rem 0;
 
@@ -83,6 +87,9 @@ export default {
             t("g-sunken") 100%
         );
     }
+}
+.star {
+    display: flex;
 }
 .loading {
     margin: 0.5rem auto;

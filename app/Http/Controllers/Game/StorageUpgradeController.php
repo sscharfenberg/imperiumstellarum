@@ -6,6 +6,7 @@ use App\Models\Player;
 use App\Models\StorageUpgrade;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Services\ResourceService;
@@ -81,6 +82,11 @@ class StorageUpgradeController extends Controller
     }
 
 
+    /**
+     * @function handle storage upgrade installation
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function install (Request $request)
     {
         $player = Player::find(Auth::user()->selected_player);

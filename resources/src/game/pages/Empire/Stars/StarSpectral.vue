@@ -40,7 +40,7 @@ export default {
     z-index: z("form");
 
     height: 48px;
-    margin-right: 2rem;
+    margin-right: 1.2rem;
     flex: 0 0 48px;
 
     background: url("@/theme/spectral-types.png") 0 0 no-repeat;
@@ -49,6 +49,10 @@ export default {
     border-bottom-right-radius: 50%;
 
     text-indent: -1000em;
+
+    @include respond-to("medium") {
+        margin-right: 2rem;
+    }
 
     &--O {
         background-position: 0 0;

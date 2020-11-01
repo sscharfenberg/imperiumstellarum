@@ -21,10 +21,10 @@ class GameStarted
         $game = Game::find($request->route('game'));
         if (count($game->turns) === 0) {
             if ($request->wantsJson()) {
-                return response()->json(['error' => __('game.empire.error.notStarted')], 419);
+                return response()->json(['error' => __('game.common.errors.notStarted')], 419);
             } else {
                 return redirect()->back()
-                    ->with('status', __('game.empire.error.notStarted'))
+                    ->with('status', __('game.common.errors.notStarted'))
                     ->with('severity', 'error');
             }
         } else {

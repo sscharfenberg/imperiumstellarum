@@ -26,9 +26,12 @@ return [
     'empire' => [
         'navTitle' => 'Empire',
         'title' =>  'Our Empire',
-        'error' => [
-            'notStarted' => 'This game has not yet begun.',
-            'noPlayer' => 'You are not enlisted to this game.'
+        'errors' => [
+            'star' => [
+                'owner' => 'You do not own this star.',
+                'required' => 'The star name must not be empty',
+                'between' => 'The star name must have between :min and :max characters.',
+            ]
         ]
     ],
 

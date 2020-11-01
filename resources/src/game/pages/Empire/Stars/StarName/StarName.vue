@@ -62,15 +62,15 @@ export default {
 .star-name {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
 
-    flex-grow: 1;
+    overflow: hidden;
+    flex: 1 1 auto;
 }
 
 .expand {
-    margin-right: 0.8rem;
+    margin-right: 0.4rem;
 
-    @include respond-to("small") {
+    @include respond-to("medium") {
         margin-right: 1.6rem;
     }
 }

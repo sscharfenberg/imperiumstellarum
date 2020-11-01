@@ -6,6 +6,7 @@ use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Services\FormatApiResponseService;
 
 class ApiService {
 
@@ -17,12 +18,9 @@ class ApiService {
      */
     public function storageUpgrades (Player $player)
     {
-        return $player->storageUpgrades->map(function($upgrade) {
-            return [
-                'resourceType' => $upgrade->resource_type,
-                'newLevel' => $upgrade->new_level,
-                'untilComplete' => $upgrade->until_complete
-            ];
+        $f = new FormatApiResponseService;
+        return $player->storageUpgrades->map(function($upgrade) use ($f) {
+            return $f->formatStorageUpgrades($upgrade);
         });
     }
 

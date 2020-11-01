@@ -9,7 +9,7 @@ import router from "./router";
 import store from "./store";
 import App from "./App.vue";
 
-console.log("game entry");
+console.log("bootstrapping game");
 /*
  * mount VueJs app
  */

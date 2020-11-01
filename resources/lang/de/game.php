@@ -15,6 +15,8 @@ return [
         'errors' => [
             'noFunds' => 'Sie haben nicht genügend Resourcen.',
             'processing' => 'Die Runde wird gerade berechnet, bitte warten Sie ein wenig.',
+            'notStarted' => 'Das Spiel hat noch nicht begonnen.',
+            'noPlayer' => 'Sie haben sich in das Spiel nicht eingeschrieben.',
             'header' => [
                 'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
                 'level' => 'Diese Verbesserung kann nicht installiert werden.'
@@ -26,9 +28,12 @@ return [
     'empire' => [
         'navTitle' => 'Imperium',
         'title' =>  'Unser Imperium',
-        'error' => [
-            'notStarted' => 'Das Spiel hat noch nicht begonnen.',
-            'noPlayer' => 'Sie haben sich in das Spiel nicht eingeschrieben.'
+        'errors' => [
+            'star' => [
+                'owner' => 'Sie sind nicht der Besitzer dieses Sterns.',
+                'required' => 'Der Name des Sterns darf nicht leer sein.',
+                'between' => 'Der Name des Sterns muss zwischen :min und :max Zeichen haben.',
+            ]
         ]
     ],
 

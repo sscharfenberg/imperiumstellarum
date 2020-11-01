@@ -22,10 +22,10 @@ class Enlisted
         $player = $game->players->find(Auth::user()->selected_player);
         if (!$player) {
             if ($request->wantsJson()) {
-                return response()->json(['error' => __('game.empire.error.noPlayer')], 419);
+                return response()->json(['error' => __('game.common.errors.noPlayer')], 419);
             } else {
                 return redirect()->back()
-                    ->with('status', __('game.empire.error.noPlayer'))
+                    ->with('status', __('game.common.errors.noPlayer'))
                     ->with('severity', 'error');
             }
         } else {

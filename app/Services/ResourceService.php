@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Player;
 use Illuminate\Database\Eloquent\Collection;
+use App\Services\FormatApiResponseService;
 
 class ResourceService {
 
@@ -13,16 +14,9 @@ class ResourceService {
      */
     public function getResources (Player $player)
     {
-        return $player->resources->map(function ($store) {
-            return [
-                'type' => $store->resource_type,
-                'amount' => $store->storage,
-                'max' => config(
-                    'rules.player.resourceTypes.'.$store->resource_type.'.'.$store->storage_level.'.amount'
-                ),
-                'level' => $store->storage_level,
-                'maxLevel' => array_key_last(config('rules.player.resourceTypes.'.$store->resource_type))
-            ];
+        $f = new FormatApiResponseService;
+        return $player->resources->map(function ($res) use ($f) {
+            return $f->formatPlayerResource($res);
         });
     }
 
@@ -53,7 +47,6 @@ class ResourceService {
      */
     public function subtractResources(Player $player, array $costs)
     {
-
         foreach($costs as $resType => $amount) {
             $playerResource = $player->resources->where('resource_type', $resType)->first();
             $playerResource->storage -= $amount;

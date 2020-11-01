@@ -54,7 +54,7 @@ export default {
     /**
      * @function SET STAR EDITING
      * @param {Object} state - vuex module "empire" state
-     * @param {Object} payload - id of star
+     * @param {String} payload - id of star
      * @constructor
      */
     SET_EDITING_STAR: (state, payload) => {
@@ -64,10 +64,34 @@ export default {
     /**
      * @function SET STAR CHANGING
      * @param {Object} state - vuex module "empire" state
-     * @param {Object} payload - id of star
+     * @param {String} payload - id of star
      * @constructor
      */
     SET_CHANGING_STAR: (state, payload) => {
         state.changingStarId = payload;
+    },
+
+    /**
+     * @function UPDATE STAR
+     * @param {Object} state - vuex module "empire" state
+     * @param {Object} payload - star
+     * @constructor
+     */
+    CHANGE_STAR: (state, payload) => {
+        Object.assign(
+            state.stars.find((star) => star.id === payload.id),
+            payload
+        );
+    },
+
+    /**
+     * @function SET STARS ORDER
+     * @param {Object} state - vuex module "empire" state
+     * @param {Array} payload - array of starIds
+     * @constructor
+     */
+    SET_STARS_ORDER: (state, payload) => {
+        state.starsSorted = payload;
+        saveState(state.starsSorted, "starsSorted");
     },
 };

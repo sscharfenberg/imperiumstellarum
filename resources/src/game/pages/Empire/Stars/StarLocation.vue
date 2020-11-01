@@ -22,8 +22,8 @@ export default {
 <template>
     <aside
         class="location"
-        :aria-label="t('empire.star.location')"
-        :title="t('empire.star.location')"
+        :aria-label="t('empire.star.location') + ': x=' + x + ', y=' + y"
+        :title="t('empire.star.location') + ': x=' + x + ', y=' + y"
     >
         <div class="location-inner">
             <icon class="location-icon" name="location" />
@@ -34,17 +34,20 @@ export default {
 
 <style lang="scss" scoped>
 .location {
-    display: flex;
+    display: none;
     align-items: center;
 
     padding: 0;
 
     @include themed() {
-        background-color: t("g-sunken");
         color: t("t-subdued");
     }
 
     @include respond-to("small") {
+        display: flex;
+    }
+
+    @include respond-to("medium") {
         padding: 0 1rem;
     }
 }

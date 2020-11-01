@@ -43,7 +43,20 @@ export default {
      * @constructor
      */
     CHANGE_STAR_NAME: function ({ commit }, payload) {
-        console.log(payload);
         commit("SET_CHANGING_STAR", payload.id);
+        window.axios
+            .post(`/api/game/${getGameId()}/empire/star_name`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("CHANGE_STAR", response.data.star);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.errors.name[0], "error");
+            })
+            .finally(() => {
+                commit("SET_CHANGING_STAR", "");
+            });
     },
 };
