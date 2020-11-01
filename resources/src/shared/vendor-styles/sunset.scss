@@ -1,0 +1,68 @@
+/* stylelint-disable */
+.noty_theme__sunset.noty_bar {
+    margin: 4px 0;
+    overflow: hidden;
+    border-radius: 0;
+    position: relative;
+
+    .noty_body {
+        padding: 10px 10px 15px 10px;
+        font-size: 16px;
+        font-weight: 300;
+        //text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .noty_buttons {
+        padding: 10px;
+    }
+}
+
+.noty_theme__sunset.noty_type__alert,
+.noty_theme__sunset.noty_type__notification {
+    @include themed() {
+        background-color: t("g-ebony");
+        color: t("g-white");
+    }
+
+    .noty_progressbar {
+        @include themed() {
+            background-color: t("g-white");
+        }
+    }
+}
+
+.noty_theme__sunset.noty_type__warning {
+    @include themed() {
+        background-color: t("s-warning");
+        color: palette("dark", "t-dark");
+    }
+}
+
+.noty_theme__sunset.noty_type__error {
+    @include themed() {
+        background-color: t("s-error");
+        color: palette("dark", "t-bright");
+    }
+}
+
+.noty_theme__sunset.noty_type__info,
+.noty_theme__sunset.noty_type__information {
+    @include themed() {
+        background-color: t("g-black");
+        color: t("b-viking");
+    }
+
+    .noty_progressbar {
+        @include themed() {
+            background-color: t("g-white");
+        }
+    }
+}
+
+.noty_theme__sunset.noty_type__success {
+    @include themed() {
+        background-color: t("s-active");
+        color: t("t-bright");
+    }
+}
+/* stylelint-enable */

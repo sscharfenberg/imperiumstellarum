@@ -1,6 +1,7 @@
 /******************************************************************************
  * Vuex actions
  *****************************************************************************/
+import { notify } from "@/shared/notification";
 
 /**
  * @function get gameId from #game
@@ -33,6 +34,7 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
+                notify(e.response.data.error, "error");
             })
             .finally(() => {
                 commit("empire/SET_REQUESTING", false);

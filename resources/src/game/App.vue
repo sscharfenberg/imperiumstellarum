@@ -21,3 +21,8 @@ export default {
     <drawer-game-navigation />
     <router-view />
 </template>
+
+<style lang="scss">
+@import "@/shared/vendor-styles/noty.scss";
+@import "@/shared/vendor-styles/sunset.scss";
+</style>

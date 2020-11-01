@@ -1,6 +1,8 @@
 /******************************************************************************
  * Vuex actions
  *****************************************************************************/
+import { notify } from "@/shared/notification";
+
 /**
  * @function get gameId from #game
  * @returns {string}
@@ -25,6 +27,7 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
+                notify(e.response.data.error, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
