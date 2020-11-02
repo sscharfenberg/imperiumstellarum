@@ -23,6 +23,21 @@
             "toxic": "Toxic",
             "carbon": "Carbon",
             "tomb": "Tomb"
+        },
+        "population": {
+            "label": "Colony population: {num}",
+            "colony": {
+                "title": "Colony {name}",
+                "pop": "Population",
+                "effectivePop": "Effective population"
+            },
+            "colonyTitle": "Colony {name}",
+            "food": {
+                "title": "Food consumption",
+                "perPop": "per population and turn",
+                "total": "total",
+                "change": "population change"
+            }
         }
     }
 }

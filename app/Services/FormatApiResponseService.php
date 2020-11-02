@@ -39,6 +39,7 @@ class FormatApiResponseService {
             'orbitalIndex' => $planet->orbital_index,
             'type' => $planet->type,
             'population' => $planet->population,
+            'foodConsumption' => $planet->food_consumption,
             'resources' => $planet->resources
         ];
     }

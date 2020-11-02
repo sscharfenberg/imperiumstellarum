@@ -94,4 +94,10 @@ export default {
         state.starsSorted = payload;
         saveState(state.starsSorted, "starsSorted");
     },
+
+    SET_FOOD_CONSUMPTION: (state, payload) => {
+        state.planets.find(
+            (planet) => planet.id === payload.planetId
+        ).foodConsumption = payload.foodConsumption;
+    },
 };

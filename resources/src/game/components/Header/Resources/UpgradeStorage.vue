@@ -109,7 +109,7 @@ export default {
             </li>
             <li
                 v-if="storageUpgrade.newLevel"
-                class="stats__two-col featured"
+                class="stats__two-col stats__dots featured"
                 :aria-label="
                     t('common.header.storageUpgrades.untilComplete') +
                     ': ' +

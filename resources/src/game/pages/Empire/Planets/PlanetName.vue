@@ -2,6 +2,7 @@
 /******************************************************************************
  * PageComponent: PlanetName
  *****************************************************************************/
+import { convertLatinToRoman } from "@/game/helpers/format";
 export default {
     name: "PlanetName",
     props: {
@@ -9,7 +10,7 @@ export default {
         index: Number,
     },
     setup() {
-        return {};
+        return { convertLatinToRoman };
     },
 };
 </script>
@@ -17,7 +18,7 @@ export default {
 <template>
     <div class="planet__name planet__item">
         <span>{{ starName }}</span>
-        &nbsp;- {{ index }}
+        &nbsp;- {{ convertLatinToRoman(index) }}
     </div>
 </template>
 
@@ -26,13 +27,13 @@ export default {
     display: flex;
     align-items: center;
 
-    height: 3.6rem;
+    height: 4rem;
     padding: 0.5rem 1rem;
     border: 2px solid transparent;
 
     @include themed() {
         background-color: rgba(t("g-mystic"), 0.05);
-        color: t("t-lighter");
+        color: t("t-light");
         border-color: t("g-abbey");
     }
 

@@ -6,13 +6,14 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import PlanetType from "./PlanetType";
 import PlanetName from "./PlanetName";
+import ShowPopulation from "./Population/ShowPopulation";
 export default {
     name: "ShowPlanet",
     props: {
         planetId: String,
         starName: String,
     },
-    components: { PlanetType, PlanetName },
+    components: { PlanetType, PlanetName, ShowPopulation },
     setup(props) {
         const store = useStore();
         const planet = computed(() =>
@@ -30,6 +31,11 @@ export default {
         <planet-type :planet-id="planetId" />
         <div class="planet__data">
             <planet-name :star-name="starName" :index="planet.orbitalIndex" />
+            <show-population
+                :planet-id="planet.id"
+                v-if="planet.population"
+                :star-name="starName"
+            />
         </div>
     </li>
 </template>
@@ -52,6 +58,7 @@ export default {
     margin: 0 0.5rem 0.5rem 0;
 
     font-size: 16px;
+    font-weight: 300;
 
     &:last-of-type {
         margin-right: 0;

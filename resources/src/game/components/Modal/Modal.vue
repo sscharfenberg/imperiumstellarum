@@ -63,7 +63,7 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .stats {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -92,9 +92,11 @@ export default {
         }
     }
 
-    > li.stats__two-col {
+    li.stats__two-col {
         grid-column: 1 / span 2;
+    }
 
+    li.stats__dots {
         padding: 0.4rem 0.8rem 0 0.8rem;
     }
 

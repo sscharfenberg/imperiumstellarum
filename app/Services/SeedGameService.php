@@ -162,7 +162,7 @@ class SeedGameService {
         $planets = [];
         foreach ($stars as $star) {
             $numPlanets = $this->getNumPlanets($star->spectral, $star->home_system);
-            for ($i = 0; $i < $numPlanets; $i++) {
+            for ($i = 1; $i < $numPlanets; $i++) {
                 $planets[] = $this->randomPlanet($game->id, $star->id, $i, $star->home_system);
             }
         };

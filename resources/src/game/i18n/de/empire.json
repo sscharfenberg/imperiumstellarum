@@ -23,6 +23,20 @@
             "toxic": "Toxisch",
             "carbon": "Karbon",
             "tomb": "Grabwelt"
+        },
+        "population": {
+            "label": "Kolonie Bevölkerung: {num}",
+            "colony": {
+                "title": "Kolonie {name}",
+                "pop": "Bevölkerung",
+                "effectivePop": "Effektive Bevölkerung"
+            },
+            "food": {
+                "title": "Nahrungsverbrauch",
+                "perPop": "pro Bevölkerung und Runde",
+                "total": "Gesamt",
+                "change": "Bevölkerungszuwachs"
+            }
         }
     }
 }

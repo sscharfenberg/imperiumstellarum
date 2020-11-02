@@ -59,4 +59,9 @@ export default {
                 commit("SET_CHANGING_STAR", "");
             });
     },
+
+    SET_FOOD_CONSUMPTION: function ({ commit }, payload) {
+        console.log("change consumption", payload);
+        commit("SET_FOOD_CONSUMPTION", payload);
+    },
 };
