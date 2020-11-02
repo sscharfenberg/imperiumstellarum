@@ -102,8 +102,6 @@
             </div>
         </div>
 
-        {{ old('npcDistanceMin') }}
-
         <div class="form-row has-divider">
             <div class="label">
                 <label for="dimensions">@lang("admin.game.seed.npcDistanceLabel")</label>

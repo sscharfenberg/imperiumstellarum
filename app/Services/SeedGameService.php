@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 class SeedGameService {
 
     /**
+     * size of chunks for database operations
+     * @var int
+     */
+    private $chunkSize = 100;
+
+    /**
      * @function get a random type - spectral type for stars, planet type for planets
      * @param int $owner
      * @param array $conf
@@ -138,8 +144,9 @@ class SeedGameService {
                 'updated_at' => now()
             ];
         }, $points);
-        foreach($stars as $star) {
-            Star::insert($star);
+        $chunks = array_chunk($stars, $this->chunkSize);
+        foreach($chunks as $chunk) {
+            Star::insert($chunk);
         }
     }
 
@@ -159,8 +166,9 @@ class SeedGameService {
                 $planets[] = $this->randomPlanet($game->id, $star->id, $i, $star->home_system);
             }
         };
-        foreach($planets as $planet) {
-            Planet::insert($planet);
+        $chunks = array_chunk($planets, $this->chunkSize);
+        foreach($chunks as $chunk) {
+            Planet::insert($chunk);
         }
     }
 
