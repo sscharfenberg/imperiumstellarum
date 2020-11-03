@@ -35,8 +35,9 @@
             "food": {
                 "title": "Food consumption",
                 "perPop": "per population and turn",
-                "total": "total",
-                "change": "population change"
+                "total": "Total food consumption",
+                "change": "Population change",
+                "submit": "Change Consumption"
             }
         }
     }

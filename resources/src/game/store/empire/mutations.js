@@ -95,6 +95,14 @@ export default {
         saveState(state.starsSorted, "starsSorted");
     },
 
+    /**
+     * @function SET FOOD CONSUMPTION OF PLANET
+     * @param {Object} state - vuex module "empire" state
+     * @param {Object} payload
+     * @param {String} payload.planetId
+     * @param {Number} payload.foodConsumption
+     * @constructor
+     */
     SET_FOOD_CONSUMPTION: (state, payload) => {
         state.planets.find(
             (planet) => planet.id === payload.planetId

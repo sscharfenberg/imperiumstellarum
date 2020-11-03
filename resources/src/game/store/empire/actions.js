@@ -62,6 +62,20 @@ export default {
 
     SET_FOOD_CONSUMPTION: function ({ commit }, payload) {
         console.log("change consumption", payload);
-        commit("SET_FOOD_CONSUMPTION", payload);
+        window.axios
+            .post(`/api/game/${getGameId()}/empire/food_consumption`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response.data);
+                    commit("SET_FOOD_CONSUMPTION", {
+                        planetId: payload.planetId,
+                        foodConsumption: payload.foodConsumption,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.error(e.response.data.error);
+                notify(e.response.data.error, "error");
+            });
     },
 };

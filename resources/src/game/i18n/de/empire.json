@@ -34,8 +34,9 @@
             "food": {
                 "title": "Nahrungsverbrauch",
                 "perPop": "pro Bevölkerung und Runde",
-                "total": "Gesamt",
-                "change": "Bevölkerungszuwachs"
+                "total": "Nahrungsverbrauch Gesamt",
+                "change": "Bevölkerungszuwachs",
+                "submit": "Nahrungsverbrauch ändern"
             }
         }
     }

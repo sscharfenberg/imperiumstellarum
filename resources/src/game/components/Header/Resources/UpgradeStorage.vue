@@ -143,6 +143,7 @@ export default {
                 :text-string="t('common.header.storageUpgrades.install')"
                 icon-name="done"
                 :disabled="!isAffordable || storageUpgrade.newLevel"
+                :primary="true"
                 @click="onSubmit"
             />
         </template>

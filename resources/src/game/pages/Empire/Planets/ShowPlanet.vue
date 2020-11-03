@@ -36,6 +36,7 @@ export default {
                 v-if="planet.population"
                 :star-name="starName"
             />
+            TODO: Resources
         </div>
     </li>
 </template>

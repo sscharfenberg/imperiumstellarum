@@ -31,6 +31,11 @@ return [
                 'owner' => 'You do not own this star.',
                 'required' => 'The star name must not be empty',
                 'between' => 'The star name must have between :min and :max characters.',
+            ],
+            'planet' => [
+                'owner' => 'You do not own this planet.',
+                'between' => 'Food consumption needs to be between :min and :max.',
+                'noPopulation' => 'This planet does not have a population.'
             ]
         ]
     ],

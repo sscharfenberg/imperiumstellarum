@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { computed } from "vue";
 import Icon from "Components/Icon/Icon";
+import Loading from "Components/Loading/Loading";
 export default {
     name: "GameButton",
     props: {
@@ -13,13 +14,22 @@ export default {
             type: Number, // [0..3]
             default: 2,
         },
+        primary: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
     },
-    components: { Icon },
+    components: { Icon, Loading },
     setup(props) {
         const typeModifier = computed(() => {
-            return props.iconName && !props.textString
-                ? "btn--icon"
-                : "btn--text";
+            let typeClass = props.primary ? "btn--primary " : "";
+            typeClass +=
+                props.iconName && !props.textString ? "btn--icon" : "btn--text";
+            return typeClass;
         });
         const sizeClass = computed(() => {
             switch (props.size) {
@@ -33,9 +43,22 @@ export default {
                     return "large";
             }
         });
+        const loadingSize = computed(() => {
+            switch (props.size) {
+                case 0:
+                    return 2.6;
+                case 1:
+                    return 3;
+                case 2:
+                    return 3.4;
+                case 3:
+                    return 4.2;
+            }
+        });
         return {
             typeModifier,
             sizeClass,
+            loadingSize,
         };
     },
 };
@@ -43,7 +66,8 @@ export default {
 
 <template>
     <button class="btn" :class="[typeModifier, sizeClass]">
-        <icon v-if="iconName" :name="iconName" :size="size" />
+        <icon v-if="iconName && !loading" :name="iconName" :size="size" />
+        <loading v-if="loading" :size="loadingSize" />
         <span v-if="textString">{{ textString }}</span>
     </button>
 </template>
@@ -146,6 +170,21 @@ $btnBaseHeight: 3.4rem;
         &.large {
             width: 4.2rem;
             height: 4.2rem;
+        }
+    }
+
+    &--primary {
+        @include themed() {
+            background: t("b-viking");
+            color: t("t-dark");
+            border-color: t("g-white");
+        }
+
+        &:hover:not([disabled]) {
+            @include themed() {
+                color: t("b-christine");
+                border-color: t("b-darkbg");
+            }
         }
     }
 }

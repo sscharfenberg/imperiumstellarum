@@ -33,6 +33,11 @@ return [
                 'owner' => 'Sie sind nicht der Besitzer dieses Sterns.',
                 'required' => 'Der Name des Sterns darf nicht leer sein.',
                 'between' => 'Der Name des Sterns muss zwischen :min und :max Zeichen haben.',
+            ],
+            'planet' => [
+                'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
+                'between' => 'Nahrungsverbrauch muss zwischen :min und :max liegen.',
+                'noPopulation' => 'Dieser Planet hat keine Bevölkerung.'
             ]
         ]
     ],
