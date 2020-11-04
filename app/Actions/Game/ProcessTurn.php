@@ -40,6 +40,20 @@ class ProcessTurn
 
 
     /**
+     * @function call populationGrowth
+     * @param Game $game
+     * @param Turn $turn
+     * @return void
+     */
+    private function handleColonies(Game $game, Turn $turn)
+    {
+        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 2: Population Growth.');
+        $s = new \App\Actions\Turn\PopulationGrowth;
+        $s->handle($game, $turn);
+    }
+
+
+    /**
      * @function handle game start
      * @param  Game $game
      * @param Turn $turn
@@ -53,7 +67,10 @@ class ProcessTurn
         $game->save();
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turn);
-        // #2 process harvest resource
+        // #2 population growth
+        $this->handleColonies($game, $turn);
+        // #3 process harvest resource
+
         // ...
 
 

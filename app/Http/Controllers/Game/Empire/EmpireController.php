@@ -29,7 +29,8 @@ class EmpireController extends Controller
             }),
             'planets' => $planets->map(function ($planet) use ($f) {
                 return $f->formatPlanet($planet);
-            })
+            }),
+            'harvesters' => []
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

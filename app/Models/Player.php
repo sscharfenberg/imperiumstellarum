@@ -37,6 +37,10 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
+ * @property-read int|null $harvesters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StorageUpgrade[] $storageUpgrades
+ * @property-read int|null $storage_upgrades_count
  */
 class Player extends Model
 {
@@ -122,6 +126,14 @@ class Player extends Model
     public function storageUpgrades()
     {
         return $this->hasMany('App\Models\StorageUpgrade');
+    }
+
+    /**
+     * Get the harvesters for this player
+     */
+    public function harvesters()
+    {
+        return $this->hasMany('App\Models\Harvester');
     }
 
 }

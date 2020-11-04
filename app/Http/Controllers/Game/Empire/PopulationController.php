@@ -8,33 +8,19 @@ use App\Models\Player;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\Game\UsesPopulationGrowth;
 
 class PopulationController extends Controller
 {
-
-    /**
-     * @function calculate new population from "foodConsumption per population"
-     * @param float $population
-     * @param float $foodPerPop
-     * @return float
-     */
-    public function calculateNewPopulation (float $population, float $foodPerPop)
-    {
-        $starvingMultiplier = 0.8;
-        $newPop = $foodPerPop < 1
-            ? $population * (1 + ((log($foodPerPop) * 3) / 100))
-            : $population + ((exp($foodPerPop - 3) / $population) / 20);
-        $newPop = $foodPerPop < 0.01 ? $population * $starvingMultiplier : $newPop;
-        return round($newPop, 8);
-    }
+    use UsesPopulationGrowth;
 
 
     /**
-     * @function answer public xhr request with new population and change.
+     * @function answer public xhr request with projected new population and change.
      * @param Request $request
      * @return JsonResponse
      */
-    public function newPopulation(Request $request)
+    public function projectNewPopulation(Request $request)
     {
         $population = $request->input(['population']);
         $foodPerPop = $request->input(['food']);
@@ -82,6 +68,7 @@ class PopulationController extends Controller
     {
         return $planet->population > 0;
     }
+
 
     /**
      * @function handle change food consumption xhr request

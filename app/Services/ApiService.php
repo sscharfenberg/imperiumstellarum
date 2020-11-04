@@ -40,11 +40,19 @@ class ApiService {
         })->first();
         $r = new ResourceService();
 
+        // absolute=false does not work for diffInSeconds on php7.3
+        // https://github.com/briannesbitt/Carbon/issues/1503
+        // so, we'll work around this for now.
+        $turnDue = $currentTurn->due->diffInSeconds(Carbon::now());
+        if (now() > $currentTurn->due) {
+            $turnDue = -$turnDue;
+        }
+
         return [
             'game' => [
                 'number' => $game->number,
                 'turn' => $currentTurn->number,
-                'turnDue' => $currentTurn->due->diffInSeconds(Carbon::now()),
+                'turnDue' => $turnDue,
             ],
             'player' => [
                 'empireName' => $player->name,

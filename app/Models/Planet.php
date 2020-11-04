@@ -35,6 +35,8 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Planet whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Planet whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
+ * @property-read int|null $harvesters_count
  */
 class Planet extends Model
 {
@@ -94,6 +96,14 @@ class Planet extends Model
     public function star()
     {
         return $this->belongsTo('App\Models\Star');
+    }
+
+    /**
+     * Get the harvesters for this planet
+     */
+    public function harvesters()
+    {
+        return $this->hasMany('App\Models\Harvester');
     }
 
 }

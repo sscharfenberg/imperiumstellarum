@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthController::class, 'verify']);
 // calculate new population
 Route::post('/game/populationChange',
-    [\App\Http\Controllers\Game\Empire\PopulationController::class, 'newPopulation']);
+    [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
 
 
 /**

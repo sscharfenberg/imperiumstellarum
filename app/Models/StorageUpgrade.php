@@ -28,6 +28,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|StorageUpgrade whereUntilComplete($value)
  * @method static \Illuminate\Database\Eloquent\Builder|StorageUpgrade whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $game_id
+ * @property-read \App\Models\Game $game
+ * @method static \Illuminate\Database\Eloquent\Builder|StorageUpgrade whereGameId($value)
  */
 class StorageUpgrade extends Model
 {

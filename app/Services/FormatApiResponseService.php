@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Harvester;
 use App\Models\Planet;
 use App\Models\PlayerResource;
 use App\Models\Star;
@@ -73,6 +74,22 @@ class FormatApiResponseService {
             ),
             'level' => $res->storage_level,
             'maxLevel' => array_key_last(config('rules.player.resourceTypes.'.$res->resource_type))
+        ];
+    }
+
+    /**
+     * @function format api response for harvesters
+     * @param Harvester $harvester
+     * @return array
+     */
+    public function formatHarvester (Harvester $harvester)
+    {
+        return [
+            'id' => $harvester->id,
+            'planetId' => $harvester->planet_id,
+            'resourceType' => $harvester->resource_type,
+            'slotEfficiency' => $harvester->slot_efficiency,
+            'untilComplete' => $harvester->until_complete
         ];
     }
 }

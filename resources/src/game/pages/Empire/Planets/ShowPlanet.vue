@@ -7,13 +7,14 @@ import { computed } from "vue";
 import PlanetType from "./PlanetType";
 import PlanetName from "./PlanetName";
 import ShowPopulation from "./Population/ShowPopulation";
+import ListResources from "./Resources/ListResources";
 export default {
     name: "ShowPlanet",
     props: {
         planetId: String,
         starName: String,
     },
-    components: { PlanetType, PlanetName, ShowPopulation },
+    components: { PlanetType, PlanetName, ShowPopulation, ListResources },
     setup(props) {
         const store = useStore();
         const planet = computed(() =>
@@ -36,7 +37,11 @@ export default {
                 v-if="planet.population"
                 :star-name="starName"
             />
-            TODO: Resources
+            <list-resources
+                :resources="planet.resources"
+                v-if="planet.resources.length"
+                :planet-id="planetId"
+            />
         </div>
     </li>
 </template>

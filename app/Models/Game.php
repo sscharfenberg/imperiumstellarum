@@ -44,6 +44,12 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereTurnDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
+ * @property-read int|null $harvesters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Planet[] $planets
+ * @property-read int|null $planets_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StorageUpgrade[] $storageUpgrades
+ * @property-read int|null $storage_upgrades_count
  */
 class Game extends Model
 {
@@ -139,6 +145,14 @@ class Game extends Model
     public function storageUpgrades()
     {
         return $this->hasMany('App\Models\storageUpgrade');
+    }
+
+    /**
+     * Get the harvesters for this game
+     */
+    public function harvesters()
+    {
+        return $this->hasMany('App\Models\Harvester');
     }
 
 }
