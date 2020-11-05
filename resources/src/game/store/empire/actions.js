@@ -60,6 +60,14 @@ export default {
             });
     },
 
+    /**
+     * @function POST set planet food consumption
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     * @param {String} payload.planetId
+     * @param {Number} payload.foodConsumption
+     * @constructor
+     */
     SET_FOOD_CONSUMPTION: function ({ commit }, payload) {
         window.axios
             .post(`/api/game/${getGameId()}/empire/food_consumption`, payload)
@@ -68,6 +76,31 @@ export default {
                     commit("SET_FOOD_CONSUMPTION", {
                         planetId: payload.planetId,
                         foodConsumption: payload.foodConsumption,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.error(e.response.data.error);
+                notify(e.response.data.error, "error");
+            });
+    },
+
+    /**
+     * @function POST install harvester request
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     * @param {String} payload.planetId
+     * @param {Number} payload.resourceType
+     * @constructor
+     */
+    INSTALL_HARVESTER: function ({ commit }, payload) {
+        console.log(payload, commit);
+        window.axios
+            .post(`/api/game/${getGameId()}/empire/food_consumption`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("INSTALL_HARVESTER", {
+                        harvester: response.data,
                     });
                 }
             })

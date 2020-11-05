@@ -108,4 +108,14 @@ export default {
             (planet) => planet.id === payload.planetId
         ).foodConsumption = payload.foodConsumption;
     },
+
+    /**
+     * @function SET FOOD CONSUMPTION OF PLANET
+     * @param {Object} state - vuex module "empire" state
+     * @param {Object} payload - the new harvester from server
+     * @constructor
+     */
+    ADD_HARVESTER: (state, payload) => {
+        state.harvesters.push(payload);
+    },
 };

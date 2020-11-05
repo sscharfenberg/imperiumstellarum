@@ -17,6 +17,10 @@
 
     text-align: left;
 
+    @include themed() {
+        background: rgba(t("g-black"), 0.4);
+    }
+
     &__backdrop {
         display: flex;
         align-items: flex-start;

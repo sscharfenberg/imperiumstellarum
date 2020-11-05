@@ -30,6 +30,7 @@ export default {
     height: 4rem;
     padding: 0.5rem 1rem;
     border: 2px solid transparent;
+    margin-bottom: 0.5rem;
 
     @include themed() {
         background-color: rgba(t("g-mystic"), 0.05);

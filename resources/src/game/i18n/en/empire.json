@@ -39,6 +39,28 @@
                 "change": "Population change",
                 "submit": "Change Consumption"
             }
+        },
+        "harvesters": {
+            "names": {
+                "minerals": "Mining Station",
+                "energy": "Power plant",
+                "food": "Biosphere",
+                "research": "Research Station"
+            },
+            "building": "Building",
+            "untilComplete": "{turns} turn(s) until completion",
+            "install": "Install {type}",
+            "installModal": {
+                "title": "Install {type}",
+                "question": "Install {type} on planet {planet}?",
+                "submit": "Install"
+            },
+            "production": {
+                "title": "Production",
+                "base": "Base production for {type}",
+                "resGrade": "Resource grade:",
+                "finalProd": "Effective production"
+            }
         }
     }
 }

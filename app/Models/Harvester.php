@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $game_id
  * @property string $player_id
  * @property string $resource_type
- * @property float $slot_efficiency
+ * @property int $production
  * @property int $until_complete
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Harvester wherePlanetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Harvester wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Harvester whereResourceType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Harvester whereSlotEfficiency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Harvester whereProduction($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Harvester whereUntilComplete($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Harvester whereUpdatedAt($value)
  * @mixin \Eloquent

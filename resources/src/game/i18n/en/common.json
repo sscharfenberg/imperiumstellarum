@@ -34,7 +34,9 @@
         "turns": "turns"
     },
     "costs": {
-        "label": "Costs"
+        "label": "Costs",
+        "ariaLabel": "{type} costs: {amount}",
+        "duration": "Duration: {turns} turns"
     },
     "modal": {
         "cancel": "Cancel"

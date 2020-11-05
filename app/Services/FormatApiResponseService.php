@@ -88,7 +88,7 @@ class FormatApiResponseService {
             'id' => $harvester->id,
             'planetId' => $harvester->planet_id,
             'resourceType' => $harvester->resource_type,
-            'slotEfficiency' => $harvester->slot_efficiency,
+            'production' => $harvester->production,
             'untilComplete' => $harvester->until_complete
         ];
     }

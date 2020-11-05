@@ -38,6 +38,28 @@
                 "change": "Bevölkerungszuwachs",
                 "submit": "Nahrungsverbrauch ändern"
             }
+        },
+        "harvesters": {
+            "names": {
+                "minerals": "Bergwerk",
+                "energy": "Kraftwerk",
+                "food": "Biosphäre",
+                "research": "Forschungsstation"
+            },
+            "building": "Im Bau",
+            "untilComplete": "{turns} Runde(n) bis zur Fertigstellung",
+            "install": "{type} installieren",
+            "installModal": {
+                "title": "{type} installieren",
+                "question": "{type} auf Planet {planet} installieren?",
+                "submit": "Installieren"
+            },
+            "production": {
+                "title": "Produktion",
+                "base": "Grundwert {type}",
+                "resGrade": "Resourcen Wirkungsgrad:",
+                "finalProd": "Effektive Produktion"
+            }
         }
     }
 }

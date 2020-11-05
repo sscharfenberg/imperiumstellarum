@@ -8,6 +8,7 @@ import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
 import Costs from "Components/Costs/Costs";
+import { isEntityAffordable } from "@/game/helpers/isAffordable";
 export default {
     name: "UpgradeStorage",
     props: {
@@ -61,23 +62,9 @@ export default {
         const storageUpgrade = computed(() =>
             store.getters.storageUpgradeByType(props.type)
         );
-        const isAffordable = computed(() => {
-            const costs =
-                window.rules.player.resourceTypes[props.type][nextLevel.value]
-                    .costs;
-            let isAffordable = true;
-            for (const resourceType in costs) {
-                if (
-                    resourceType !== "turns" &&
-                    costs[resourceType] >
-                        resources.value.find((res) => res.type === resourceType)
-                            .amount
-                ) {
-                    isAffordable = false;
-                }
-            }
-            return isAffordable;
-        });
+        const isAffordable = computed(() =>
+            isEntityAffordable(upgradeCosts.value, resources.value)
+        );
         return {
             nextLevel,
             upgradeCosts,

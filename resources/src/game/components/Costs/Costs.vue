@@ -39,15 +39,30 @@ export default {
             :key="cost"
             :class="{
                 affordable:
-                    key === 'turns' ||
-                    (key !== 'turns' &&
-                        resources.filter((res) => res.type === key)[0].amount >=
-                            cost),
+                    key !== 'turns' &&
+                    resources.filter((res) => res.type === key)[0].amount >=
+                        cost,
                 insufficient:
                     key !== 'turns' &&
                     resources.filter((res) => res.type === key)[0].amount <
                         cost,
             }"
+            :title="
+                key !== 'turns'
+                    ? t('common.costs.ariaLabel', {
+                          type: t('common.resourceTypes.' + key),
+                          amount: cost,
+                      })
+                    : t('common.costs.duration', { turns: cost })
+            "
+            :aria-label="
+                key !== 'turns'
+                    ? t('common.costs.ariaLabel', {
+                          type: t('common.resourceTypes.' + key),
+                          amount: cost,
+                      })
+                    : t('common.costs.duration', { turns: cost })
+            "
         >
             {{ cost }}
             <icon :name="'res-' + key" :size="1" />

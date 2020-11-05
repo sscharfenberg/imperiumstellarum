@@ -34,7 +34,9 @@
         "turns": "Runden"
     },
     "costs": {
-        "label": "Kosten"
+        "label": "Kosten",
+        "ariaLabel": "{type}-Kosten: {amount}",
+        "duration": "Dauer: {turns} Runden"
     },
     "modal": {
         "cancel": "Abbrechen"

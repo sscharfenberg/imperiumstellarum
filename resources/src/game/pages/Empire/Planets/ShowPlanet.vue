@@ -61,13 +61,9 @@ export default {
 
 <style lang="scss">
 .planet__item {
-    margin: 0 0.5rem 0.5rem 0;
+    margin-right: 0.5rem;
 
     font-size: 16px;
     font-weight: 300;
-
-    &:last-of-type {
-        margin-right: 0;
-    }
 }
 </style>
