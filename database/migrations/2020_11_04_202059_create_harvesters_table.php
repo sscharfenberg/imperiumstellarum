@@ -22,7 +22,7 @@ class CreateHarvestersTable extends Migration
             $table->uuid('game_id');
             $table->uuid('player_id');
             $table->enum('resource_type', array_keys(config('rules.harvesters')));
-            $table->smallInteger('production');
+            $table->float('production', 4,2);
             $table->tinyInteger('until_complete');
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onDelete('cascade');

@@ -32,6 +32,15 @@ export default {
     },
 
     /**
+     * @function SET PLAYER PLANETS
+     * @param {Object} state - vuex module "empire" state
+     * @param {Array} payload
+     */
+    SET_HARVESTERS: (state, payload) => {
+        state.harvesters = payload;
+    },
+
+    /**
      * @function TOGGLE STAR EXPANSION
      * @param {Object} state - vuex module "empire" state
      * @param {Object} payload

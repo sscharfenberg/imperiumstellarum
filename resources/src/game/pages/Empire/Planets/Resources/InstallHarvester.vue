@@ -8,6 +8,7 @@ import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
 import Costs from "Components/Costs/Costs";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 import { isEntityAffordable } from "@/game/helpers/isAffordable";
 export default {
     name: "InstallHarvester",
@@ -16,7 +17,7 @@ export default {
         planetId: String,
         planetName: String,
     },
-    components: { Modal, Costs, GameButton },
+    components: { Modal, Costs, GameButton, Icon },
     setup(props, { emit }) {
         const store = useStore();
         const installCosts = computed(
@@ -72,6 +73,11 @@ export default {
         @close="$emit('close')"
     >
         <ul class="stats">
+            <li class="stats--two-col stats--padded stats--centered">
+                <icon :name="`res-${resourceType}`" />
+                &nbsp;
+                {{ t("empire.planet.harvesters.production.title") }}
+            </li>
             <li>
                 {{
                     t("empire.planet.harvesters.production.base", {
@@ -90,7 +96,7 @@ export default {
                 }}<br />
                 {{ efficiency }}
             </li>
-            <li class="stats__two-col featured">
+            <li class="stats--two-col featured">
                 {{ t("empire.planet.harvesters.production.finalProd") }}:
                 {{ Math.floor(finalProd) }}
             </li>

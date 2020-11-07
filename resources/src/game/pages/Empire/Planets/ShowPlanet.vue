@@ -39,8 +39,8 @@ export default {
             />
             <list-resources
                 :resources="planet.resources"
-                v-if="planet.resources.length"
                 :planet-id="planetId"
+                v-if="planet.resources.length"
             />
         </div>
     </li>

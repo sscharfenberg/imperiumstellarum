@@ -1,15 +1,14 @@
 <script>
 /******************************************************************************
- * PageComponent: EmptyResourceSlot
+ * PageComponent: ShowEmptyResourceSlot
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
 import InstallHarvester from "./InstallHarvester";
-import { convertLatinToRoman } from "@/game/helpers/format";
 export default {
-    name: "EmptyResourceSlot",
+    name: "ShowEmptyResourceSlot",
     props: {
         resourceType: String,
         planetId: String,
@@ -26,15 +25,8 @@ export default {
         const planet = computed(() =>
             store.getters["empire/planetById"](props.planetId)
         );
-        const starId = computed(() => planet.value.starId);
-        const starName = computed(
-            () => store.getters["empire/starById"](starId.value).name
-        );
-        const planetName = computed(
-            () =>
-                starName.value +
-                " - " +
-                convertLatinToRoman(planet.value.orbitalIndex)
+        const planetName = computed(() =>
+            store.getters["empire/planetNameById"](planet.value.id)
         );
         const showModal = ref(false);
         return {
@@ -66,23 +58,18 @@ button {
 
     height: 4rem;
     padding: 0.5rem 1rem;
-    border: 2px solid transparent;
+    border: 2px dashed transparent;
 
     cursor: pointer;
 
     transition: background-color map-get($animation-speeds, "fast") linear,
-        border-color map-get($animation-speeds, "fast") linear;
+        border-color map-get($animation-speeds, "fast") linear,
+        border-style map-get($animation-speeds, "fast") linear;
 
     @include themed() {
-        background-color: rgba(t("g-mystic"), 0.05);
+        background-color: rgba(t("g-deep"), 0.7);
         color: t("t-light");
-        border-color: t("g-abbey");
-    }
-
-    .icon {
-        opacity: 0.3;
-
-        transition: opacity map-get($animation-speeds, "fast") linear;
+        border-color: t("g-asher");
     }
 
     &:hover:not([disabled]),
@@ -91,12 +78,9 @@ button {
 
         outline: 0;
 
-        .icon {
-            opacity: 1;
-        }
-
         @include themed() {
-            background: t("g-bunker");
+            background: t("g-ebony");
+            border-style: solid;
             border-color: t("g-fog");
         }
     }

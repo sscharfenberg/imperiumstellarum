@@ -251,7 +251,7 @@ return [
             'paragraph3' => 'Wir teilen Ihre Daten nicht mit Dritten, es sei denn wir werden von deutschen Strafverfolgungsbehörden dazu verpflichtet.'
         ],
         'dataStorage' => [
-            'title' => 'Wir speichern wir Ihre Daten?',
+            'title' => 'Wie speichern wir Ihre Daten?',
             'paragraph1' => 'Wir speichern Ihre Daten in unserer Datenbank. Die Datenbank ist auf dem gleichen Server eingerichtet den auch diese Website verwendet. Die Datenbank akzeptiert keine Verbindungen aus dem Internet, nur von der Website selbst.'
         ],
         'dataProtection' => [

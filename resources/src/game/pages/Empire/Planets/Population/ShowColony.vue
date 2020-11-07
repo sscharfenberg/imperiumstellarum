@@ -88,11 +88,11 @@ export default {
                     Math.floor(planet.population)
                 }}
             </li>
-            <li class="stats__two-col hdl">
+            <li class="stats--two-col hdl">
                 <icon name="res-food" />
                 {{ t("empire.planet.population.food.title") }}
             </li>
-            <li class="stats__two-col perpop">
+            <li class="stats--two-col perpop">
                 <label :for="`setFood-number-${planetId}`">{{
                     t("empire.planet.population.food.perPop")
                 }}</label>

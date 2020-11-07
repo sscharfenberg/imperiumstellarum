@@ -10,9 +10,6 @@ export default {
             type: Array,
             required: true,
         },
-        harvesters: {
-            type: Array,
-        },
         planetId: {
             type: String,
             required: true,
@@ -29,10 +26,9 @@ export default {
     <ul class="resources planet__item">
         <resource-type
             v-for="resource in resources"
-            :key="resource.type"
+            :key="resource.resourceType"
             :resource-type="resource.resourceType"
             :slots="resource.slots"
-            :harvesters="[]"
             :planet-id="planetId"
         />
     </ul>

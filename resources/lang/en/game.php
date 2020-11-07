@@ -36,6 +36,10 @@ return [
                 'owner' => 'You do not own this planet.',
                 'between' => 'Food consumption needs to be between :min and :max.',
                 'noPopulation' => 'This planet does not have a population.'
+            ],
+            'harvester' => [
+                'owner' => 'You do not own this planet.',
+                'slot' => 'You can\'t install a harvester of this type.'
             ]
         ]
     ],

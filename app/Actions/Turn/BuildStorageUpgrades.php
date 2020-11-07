@@ -4,7 +4,6 @@ namespace App\Actions\Turn;
 
 use App\Models\Game;
 use App\Models\StorageUpgrade;
-use App\Models\Turn;
 use Illuminate\Support\Facades\Log;
 
 class BuildStorageUpgrades
@@ -37,16 +36,18 @@ class BuildStorageUpgrades
     /**
      * @function handle storage upgrades
      * @param Game $game
-     * @param Turn $turn
      * @return void
      */
-    public function handle(Game $game, Turn $turn)
+    public function handle(Game $game)
     {
         // decrement 'until_complete' by 1
         $decrementedUpgrades = StorageUpgrade::where('game_id', $game->id)->decrement('until_complete');
         if ($decrementedUpgrades) {
             Log::notice('Decreased \'until_complete\' for '.$decrementedUpgrades.' storage upgrades.');
+        } else {
+            Log::notice('No storage upgrades building.');
         }
+
         // handle finished upgrades
         $finishedUpgrades = StorageUpgrade::where('game_id', $game->id)
             ->where('until_complete', 0)->get();

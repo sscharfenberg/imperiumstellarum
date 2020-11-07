@@ -92,12 +92,22 @@ export default {
         }
     }
 
-    li.stats__two-col {
+    li.stats--two-col {
         grid-column: 1 / span 2;
     }
 
     li.stats__dots {
         padding: 0.4rem 0.8rem 0 0.8rem;
+    }
+
+    li.stats--centered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    li.stats--padded {
+        padding: 0.8rem;
     }
 
     &__dot {

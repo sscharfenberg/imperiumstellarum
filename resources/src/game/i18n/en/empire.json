@@ -47,13 +47,16 @@
                 "food": "Biosphere",
                 "research": "Research Station"
             },
-            "building": "Building",
+            "building": "Building {type}",
             "untilComplete": "{turns} turn(s) until completion",
             "install": "Install {type}",
             "installModal": {
                 "title": "Install {type}",
                 "question": "Install {type} on planet {planet}?",
                 "submit": "Install"
+            },
+            "infoModal": {
+                "title": "{type} on planet {name}"
             },
             "production": {
                 "title": "Production",

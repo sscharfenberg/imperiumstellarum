@@ -5,11 +5,10 @@ namespace App\Actions\Turn;
 use App\Models\Game;
 use App\Models\Planet;
 use App\Models\Player;
-use App\Models\Turn;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\Game\UsesPopulationGrowth;
 
-class PopulationGrowth
+class Colonies
 {
     use UsesPopulationGrowth;
 
@@ -17,10 +16,9 @@ class PopulationGrowth
     /**
      * @function handle population growth
      * @param Game $game
-     * @param Turn $turn
      * @return void
      */
-    public function handle(Game $game, Turn $turn)
+    public function handle(Game $game)
     {
         $planets = Planet::where('game_id', $game->id)
             ->where('population', '>', 0)->get();

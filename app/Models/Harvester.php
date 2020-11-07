@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $game_id
  * @property string $player_id
  * @property string $resource_type
- * @property int $production
+ * @property float $production
  * @property int $until_complete
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -59,8 +59,11 @@ class Harvester extends Model
      * @var array
      */
     protected $fillable = [
+        'planet_id',
+        'player_id',
+        'game_id',
         'resource_type',
-        'slot_efficiency',
+        'production',
         'until_complete',
     ];
 

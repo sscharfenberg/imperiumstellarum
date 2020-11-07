@@ -33,7 +33,7 @@ export default {
     margin-bottom: 0.5rem;
 
     @include themed() {
-        background-color: rgba(t("g-mystic"), 0.05);
+        background-color: rgba(t("g-deep"), 0.7);
         color: t("t-light");
         border-color: t("g-abbey");
     }

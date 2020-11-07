@@ -55,6 +55,10 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::post('/game/{game}/empire/food_consumption',
         [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
 
+    // install harvester
+    Route::post('game/{game}/empire/harvester',
+        [\App\Http\Controllers\Game\Empire\HarvesterController::class, 'install']);
+
 });
 
 /**

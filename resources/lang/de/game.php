@@ -38,6 +38,10 @@ return [
                 'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
                 'between' => 'Nahrungsverbrauch muss zwischen :min und :max liegen.',
                 'noPopulation' => 'Dieser Planet hat keine Bevölkerung.'
+            ],
+            'harvester' => [
+                'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
+                'slot' => 'Es kann kein Ernter dieses Typs installiert werden.'
             ]
         ]
     ],

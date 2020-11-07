@@ -17,4 +17,5 @@ export default {
     editingStarId: "",
     changingStarId: "",
     starsSorted: savedState.starsSorted || [],
+    harvesters: [],
 };

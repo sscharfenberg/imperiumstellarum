@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Player;
+use App\Models\PlayerResource;
 use Illuminate\Database\Eloquent\Collection;
 use App\Services\FormatApiResponseService;
 
@@ -9,6 +10,7 @@ class ResourceService {
 
 
     /**
+     * @function get all resources of a player and format it
      * @param Player $player
      * @return Collection
      */
@@ -18,6 +20,20 @@ class ResourceService {
         return $player->resources->map(function ($res) use ($f) {
             return $f->formatPlayerResource($res);
         });
+    }
+
+
+    /**
+     * @function enforce maximum values for resource storage
+     * @param PlayerResource $res
+     * @return int
+     */
+    public function enforceStorageMax (PlayerResource $res)
+    {
+        $max = config('rules.player.resourceTypes.'.$res->resource_type.'.'.$res->storage_level.'.amount');
+        $amount = $res->storage;
+        $amount = $amount > $max ? $max : $amount;
+        return intval(round($amount));
     }
 
 

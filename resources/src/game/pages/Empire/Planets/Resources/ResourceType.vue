@@ -2,24 +2,30 @@
 /******************************************************************************
  * PageComponent: ResourceType
  *****************************************************************************/
+import { useStore } from "vuex";
 import { computed } from "vue";
-import EmptyResourceSlot from "./EmptyResourceSlot";
+import ShowEmptyResourceSlot from "./ShowEmptyResourceSlot";
+import ShowHarvester from "./ShowHarvester";
 export default {
     name: "ResourceType",
     props: {
         resourceType: String,
         slots: Number,
-        harvesters: {
-            type: Array,
-        },
         planetId: String,
     },
-    components: { EmptyResourceSlot },
+    components: { ShowEmptyResourceSlot, ShowHarvester },
     setup(props) {
+        const store = useStore();
+        const harvesters = computed(() =>
+            store.getters["empire/harvestersByPlanetId"](props.planetId).filter(
+                (harvester) => harvester.resourceType === props.resourceType
+            )
+        );
         const emptySlots = computed(
-            () => props.slots - props.harvesters.length
+            () => props.slots - harvesters.value.length
         );
         return {
+            harvesters,
             emptySlots,
         };
     },
@@ -29,10 +35,20 @@ export default {
 <template>
     <li
         class="resource-type"
+        v-for="harvester in harvesters"
+        :key="harvester.id"
+    >
+        <show-harvester
+            :resource-type="resourceType"
+            :harvester-id="harvester.id"
+        />
+    </li>
+    <li
+        class="resource-type"
         v-for="n in emptySlots"
         :key="`resourceSlot${planetId}${resourceType}-${n}`"
     >
-        <empty-resource-slot
+        <show-empty-resource-slot
             :planet-id="planetId"
             :resource-type="resourceType"
         />

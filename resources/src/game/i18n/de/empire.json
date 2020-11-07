@@ -46,13 +46,16 @@
                 "food": "Biosphäre",
                 "research": "Forschungsstation"
             },
-            "building": "Im Bau",
+            "building": "{type} im Bau",
             "untilComplete": "{turns} Runde(n) bis zur Fertigstellung",
             "install": "{type} installieren",
             "installModal": {
                 "title": "{type} installieren",
                 "question": "{type} auf Planet {planet} installieren?",
                 "submit": "Installieren"
+            },
+            "infoModal": {
+                "title": "{type} auf Planet {name}"
             },
             "production": {
                 "title": "Produktion",

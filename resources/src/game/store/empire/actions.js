@@ -23,6 +23,7 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_STARS", response.data.stars);
                     commit("SET_PLANETS", response.data.planets);
+                    commit("SET_HARVESTERS", response.data.harvesters);
                 }
             })
             .catch((e) => {
@@ -94,13 +95,13 @@ export default {
      * @constructor
      */
     INSTALL_HARVESTER: function ({ commit }, payload) {
-        console.log(payload, commit);
         window.axios
-            .post(`/api/game/${getGameId()}/empire/food_consumption`, payload)
+            .post(`/api/game/${getGameId()}/empire/harvester`, payload)
             .then((response) => {
                 if (response.status === 200) {
-                    commit("INSTALL_HARVESTER", {
-                        harvester: response.data,
+                    commit("ADD_HARVESTER", response.data.harvester);
+                    commit("SET_RESOURCES", response.data.resources, {
+                        root: true,
                     });
                 }
             })

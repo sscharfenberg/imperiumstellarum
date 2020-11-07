@@ -1,6 +1,7 @@
 /******************************************************************************
  * Vuex getters
  *****************************************************************************/
+import { convertLatinToRoman } from "@/game/helpers/format";
 
 export default {
     // get star by id
@@ -27,4 +28,19 @@ export default {
     // get planet by id
     planetById: (state) => (id) =>
         state.planets.find((planet) => planet.id === id),
+
+    // get harvesters of a planet
+    harvestersByPlanetId: (state) => (id) =>
+        state.harvesters.filter((harvester) => harvester.planetId === id),
+
+    // get harvester by id
+    harvesterById: (state) => (id) =>
+        state.harvesters.find((harvester) => harvester.id === id),
+
+    // get planetName by planetId
+    planetNameById: (state) => (id) => {
+        const planet = state.planets.find((planet) => planet.id === id);
+        const star = state.stars.find((star) => star.id === planet.starId);
+        return `${star.name} - ${convertLatinToRoman(planet.orbitalIndex)}`;
+    },
 };
