@@ -21,7 +21,7 @@ class CreatePlanetsTable extends Migration
             $table->uuid('game_id');
             $table->uuid('star_id');
             $table->string('type', 11);
-            $table->tinyInteger('orbital_index');
+            $table->unsignedTinyInteger('orbital_index');
             $table->string('resources', 220)->nullable(); // json column
             $table->float('population', 8,6)->default(0);
             $table->float('food_consumption', 8, 6)->default(1);
@@ -30,8 +30,8 @@ class CreatePlanetsTable extends Migration
             $table->foreign('star_id')->references('id')->on('stars')
                 ->onDelete('cascade');
             $table->timestamps();
-            Schema::enableForeignKeyConstraints();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

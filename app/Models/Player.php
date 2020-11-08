@@ -41,6 +41,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $harvesters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StorageUpgrade[] $storageUpgrades
  * @property-read int|null $storage_upgrades_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
+ * @property-read int|null $shipyards_count
  */
 class Player extends Model
 {
@@ -134,6 +136,14 @@ class Player extends Model
     public function harvesters()
     {
         return $this->hasMany('App\Models\Harvester');
+    }
+
+    /**
+     * Get the shipyards for this player
+     */
+    public function shipyards()
+    {
+        return $this->hasMany('App\Models\Shipyard');
     }
 
 }

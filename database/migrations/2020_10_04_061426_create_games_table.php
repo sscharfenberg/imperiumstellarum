@@ -29,6 +29,7 @@ class CreateGamesTable extends Migration
             $table->datetime('start_date');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

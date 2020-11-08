@@ -21,11 +21,12 @@ class CreatePlayerResourcesTable extends Migration
             $table->uuid('player_id');
             $table->enum('resource_type', array_keys(config('rules.player.resourceTypes')));
             $table->integer('storage')->default(0);
-            $table->tinyInteger('storage_level')->default(0);
+            $table->unsignedTinyInteger('storage_level')->default(0);
             $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

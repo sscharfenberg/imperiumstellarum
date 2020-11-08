@@ -20,8 +20,8 @@ class CreateStarsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('game_id');
             $table->uuid('player_id')->nullable();
-            $table->smallInteger('coord_x');
-            $table->smallInteger('coord_y');
+            $table->unsignedTinyInteger('coord_x');
+            $table->unsignedTinyInteger('coord_y');
             $table->boolean('home_system');
             $table->char('spectral', 1);
             $table->string('name', 40);
@@ -30,8 +30,8 @@ class CreateStarsTable extends Migration
             $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->timestamps();
-            Schema::enableForeignKeyConstraints();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

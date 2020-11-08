@@ -20,11 +20,12 @@ class CreateTechLevelsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('player_id');
             $table->enum('type', array_keys(config('rules.tech.areas')));
-            $table->tinyInteger('level')->default(0);
+            $table->unsignedTinyInteger('level')->default(0);
             $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
