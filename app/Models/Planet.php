@@ -37,6 +37,8 @@ use \App\Http\Traits\UsesUuid;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
  * @property-read int|null $harvesters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
+ * @property-read int|null $shipyards_count
  */
 class Planet extends Model
 {
@@ -104,6 +106,14 @@ class Planet extends Model
     public function harvesters()
     {
         return $this->hasMany('App\Models\Harvester');
+    }
+
+    /**
+     * Get the shipyards for this planet
+     */
+    public function shipyards()
+    {
+        return $this->hasMany('App\Models\Shipyard');
     }
 
 }

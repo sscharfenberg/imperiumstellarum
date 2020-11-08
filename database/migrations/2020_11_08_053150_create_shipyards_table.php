@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStarsTable extends Migration
+class CreateShipyardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,21 @@ class CreateStarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stars', function (Blueprint $table) {
+        Schema::create('shipyards', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->uuid('id')->primary();
+            $table->uuid('planet_id');
             $table->uuid('game_id');
-            $table->uuid('player_id')->nullable();
-            $table->unsignedTinyInteger('coord_x');
-            $table->unsignedTinyInteger('coord_y');
-            $table->boolean('home_system');
-            $table->char('spectral', 1);
-            $table->string('name', 40);
+            $table->uuid('player_id');
+            $table->boolean('small')->default(false);
+            $table->boolean('medium')->default(false);
+            $table->boolean('large')->default(false);
+            $table->boolean('xlarge')->default(false);
+            $table->unsignedSmallInteger('until_complete');
+            $table->foreign('planet_id')->references('id')->on('planets')
+                ->onDelete('cascade');
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')
@@ -41,6 +44,6 @@ class CreateStarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stars');
+        Schema::dropIfExists('shipyards');
     }
 }

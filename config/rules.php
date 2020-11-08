@@ -612,6 +612,51 @@ return [
             ],
             'baseProduction' => 10
         ]
+    ],
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for Shipyards
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'shipyards' => [
+        'hullTypes' => [
+            'small' => [
+                'costs' => [
+                    'energy' => 400,
+                    'minerals' => 600,
+                    'research' => 200,
+                    'turns' => 96
+                ],
+            ],
+            'medium' => [
+                'costs' => [
+                    'energy' => 800,
+                    'minerals' => 1200,
+                    'research' => 400,
+                    'turns' => 192
+                ],
+            ],
+            'large' => [
+                'costs' => [
+                    'energy' => 1200,
+                    'minerals' => 1800,
+                    'research' => 600,
+                    'turns' => 384
+                ],
+            ],
+            'xlarge' => [
+                'costs' => [
+                    'energy' => 2000,
+                    'minerals' => 3000,
+                    'research' => 1000,
+                    'turns' => 768
+                ],
+            ]
+        ]
     ]
 
 ];

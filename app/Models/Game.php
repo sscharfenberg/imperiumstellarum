@@ -50,6 +50,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $planets_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StorageUpgrade[] $storageUpgrades
  * @property-read int|null $storage_upgrades_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
+ * @property-read int|null $shipyards_count
  */
 class Game extends Model
 {
@@ -153,6 +155,14 @@ class Game extends Model
     public function harvesters()
     {
         return $this->hasMany('App\Models\Harvester');
+    }
+
+    /**
+     * Get the shipyards for this game
+     */
+    public function shipyards()
+    {
+        return $this->hasMany('App\Models\Shipyard');
     }
 
 }
