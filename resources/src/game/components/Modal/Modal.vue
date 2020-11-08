@@ -86,28 +86,32 @@ export default {
         }
 
         &.featured {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             @include themed() {
                 border-color: t("g-infra");
             }
         }
-    }
 
-    li.stats--two-col {
-        grid-column: 1 / span 2;
-    }
+        &.stats--two-col {
+            grid-column: 1 / span 2;
+        }
 
-    li.stats__dots {
-        padding: 0.4rem 0.8rem 0 0.8rem;
-    }
+        &.stats__dots {
+            padding: 0.4rem 0.8rem 0 0.8rem;
+        }
 
-    li.stats--centered {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        &.stats--centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    li.stats--padded {
-        padding: 0.8rem;
+        &.stats--padded {
+            padding: 0.8rem;
+        }
     }
 
     &__dot {

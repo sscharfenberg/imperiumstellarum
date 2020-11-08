@@ -1,52 +1,41 @@
 <script>
 /******************************************************************************
- * PageComponent: ShowEmptyResourceSlot
+ * PageComponent: InstallShipyard
  *****************************************************************************/
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useStore } from "vuex";
-import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
-import InstallHarvester from "./InstallHarvester";
+import InstallShipyardModal from "./InstallShipyardModal";
 export default {
-    name: "ShowEmptyResourceSlot",
+    name: "InstallShipyard",
     props: {
-        resourceType: String,
         planetId: String,
     },
-    components: { Icon, InstallHarvester },
-    setup(props) {
-        const i18n = useI18n();
-        const store = useStore();
-        const btnLabel = i18n.t("empire.planet.harvesters.install", {
-            type: i18n.t(
-                "empire.planet.harvesters.names." + props.resourceType
-            ),
-        });
-        const planet = computed(() =>
-            store.getters["empire/planetById"](props.planetId)
-        );
-        const planetName = computed(() =>
-            store.getters["empire/planetNameById"](planet.value.id)
-        );
+    components: { Icon, InstallShipyardModal },
+    setup() {
         const showModal = ref(false);
+        const i18n = useI18n();
+        const btnTitle = i18n.t("empire.planet.shipyard.build");
         return {
             showModal,
-            btnLabel,
-            planetName,
+            btnTitle,
         };
     },
 };
 </script>
 
 <template>
-    <button :title="btnLabel" :aria-label="btnLabel" @click="showModal = true">
-        <icon :name="`res-${resourceType}`" />
+    <button
+        class="planet__shipyard"
+        @click="showModal = true"
+        :title="btnTitle"
+        :aria-label="btnTitle"
+    >
+        <icon name="shipyards" />
     </button>
-    <install-harvester
+    <install-shipyard-modal
         v-if="showModal"
-        :resource-type="resourceType"
         :planet-id="planetId"
-        :planet-name="planetName"
         @close="showModal = false"
     />
 </template>
@@ -73,8 +62,7 @@ button {
         border-color: t("g-asher");
     }
 
-    &:hover:not([disabled]),
-    &:focus:not([disabled]) {
+    &:hover:not([disabled]) {
         opacity: 0.8;
 
         @include themed() {

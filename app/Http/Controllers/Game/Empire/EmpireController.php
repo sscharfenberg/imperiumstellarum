@@ -32,6 +32,9 @@ class EmpireController extends Controller
             }),
             'harvesters' => $player->harvesters->map(function ($harvester) use ($f) {
                 return $f->formatHarvester($harvester);
+            }),
+            'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
+                return $f->formatShipyard($shipyard);
             })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));

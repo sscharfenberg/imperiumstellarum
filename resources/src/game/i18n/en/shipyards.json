@@ -1,4 +1,11 @@
 {
     "title": "Shipyards",
-    "navTitle": "Shipyards"
+    "navTitle": "Shipyards",
+    "hulls": {
+        "ark": "Ark",
+        "small": "Destroyer",
+        "medium": "Cruiser",
+        "large": "Battleship",
+        "xlarge": "Capital ship"
+    }
 }

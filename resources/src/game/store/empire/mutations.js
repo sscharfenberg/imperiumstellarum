@@ -32,15 +32,6 @@ export default {
     },
 
     /**
-     * @function SET PLAYER PLANETS
-     * @param {Object} state - vuex module "empire" state
-     * @param {Array} payload
-     */
-    SET_HARVESTERS: (state, payload) => {
-        state.harvesters = payload;
-    },
-
-    /**
      * @function TOGGLE STAR EXPANSION
      * @param {Object} state - vuex module "empire" state
      * @param {Object} payload
@@ -119,12 +110,40 @@ export default {
     },
 
     /**
-     * @function SET FOOD CONSUMPTION OF PLANET
+     * @function SET HARVESTERS
+     * @param {Object} state - vuex module "empire" state
+     * @param {Array} payload
+     */
+    SET_HARVESTERS: (state, payload) => {
+        state.harvesters = payload;
+    },
+
+    /**
+     * @function ADD HARVESTER
      * @param {Object} state - vuex module "empire" state
      * @param {Object} payload - the new harvester from server
      * @constructor
      */
     ADD_HARVESTER: (state, payload) => {
         state.harvesters.push(payload);
+    },
+
+    /**
+     * @function SET SHIPYARDS
+     * @param {Object} state - vuex module "empire" state
+     * @param {Array} payload
+     */
+    SET_SHIPYARDS: (state, payload) => {
+        state.shipyards = payload;
+    },
+
+    /**
+     * @function ADD SHIPYARD
+     * @param {Object} state - vuex module "empire" state
+     * @param {Object} payload - the new harvester from server
+     * @constructor
+     */
+    ADD_SHIPYARD: (state, payload) => {
+        state.shipyards.push(payload);
     },
 };

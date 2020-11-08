@@ -2,17 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Harvester;
-use App\Models\Planet;
-use App\Models\PlayerResource;
 use App\Models\Star;
+use App\Models\Planet;
 use App\Models\StorageUpgrade;
+use App\Models\PlayerResource;
+use App\Models\Harvester;
+use App\Models\Shipyard;
 
 class FormatApiResponseService {
 
 
     /**
-     * @function format api response for Star
+     * @function format api response for a Star
      * @param Star $star
      * @return array
      */
@@ -28,7 +29,7 @@ class FormatApiResponseService {
     }
 
     /**
-     * @function format api response for Planet
+     * @function format api response for a Planet
      * @param Planet $planet
      * @return array
      */
@@ -46,7 +47,7 @@ class FormatApiResponseService {
     }
 
     /**
-     * @function format api response for StorageUpgrade
+     * @function format api response for a StorageUpgrade
      * @param StorageUpgrade $upgrade
      * @return array
      */
@@ -60,7 +61,7 @@ class FormatApiResponseService {
     }
 
     /**
-     * @function format api response for StorageUpgrade
+     * @function format api response for a PlayerResource
      * @param PlayerResource $res
      * @return array
      */
@@ -78,7 +79,7 @@ class FormatApiResponseService {
     }
 
     /**
-     * @function format api response for harvesters
+     * @function format api response for a harvester
      * @param Harvester $harvester
      * @return array
      */
@@ -90,6 +91,25 @@ class FormatApiResponseService {
             'resourceType' => $harvester->resource_type,
             'production' => $harvester->production,
             'untilComplete' => $harvester->until_complete
+        ];
+    }
+
+
+    /**
+     * @function format api response for a shipyard
+     * @param Shipyard $shipyard
+     * @return array
+     */
+    public function formatShipyard (Shipyard $shipyard)
+    {
+        return [
+            'id' => $shipyard->id,
+            'planetId' => $shipyard->planet_id,
+            'small' => $shipyard->small,
+            'medium' => $shipyard->medium,
+            'large' => $shipyard->large,
+            'xlarge' => $shipyard->xlarge,
+            'untilComplete' => $shipyard->until_complete
         ];
     }
 }

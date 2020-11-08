@@ -64,6 +64,7 @@ export default {
     border: 2px solid transparent;
     margin-bottom: 0.5rem;
 
+    outline: 0;
     cursor: pointer;
 
     transition: background-color map-get($animation-speeds, "fast") linear,
@@ -77,8 +78,6 @@ export default {
 
     &:hover,
     &:focus {
-        outline: 0;
-
         @include themed() {
             background: t("g-bunker");
             border-color: t("g-fog");

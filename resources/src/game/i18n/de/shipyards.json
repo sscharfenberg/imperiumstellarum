@@ -1,4 +1,11 @@
 {
     "title": "Werften",
-    "navTitle": "Werften"
+    "navTitle": "Werften",
+    "hulls": {
+        "ark": "Arche",
+        "small": "Zerstörer",
+        "medium": "Kreuzer",
+        "large": "Schlachtschiff",
+        "xlarge": "Großkampfschiff"
+    }
 }

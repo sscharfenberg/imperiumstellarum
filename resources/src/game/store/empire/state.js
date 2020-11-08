@@ -18,4 +18,5 @@ export default {
     changingStarId: "",
     starsSorted: savedState.starsSorted || [],
     harvesters: [],
+    shipyards: [],
 };

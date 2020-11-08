@@ -43,4 +43,8 @@ export default {
         const star = state.stars.find((star) => star.id === planet.starId);
         return `${star.name} - ${convertLatinToRoman(planet.orbitalIndex)}`;
     },
+
+    // get Shipyard by planetId
+    shipyardByPlanetId: (state) => (id) =>
+        state.shipyards.find((shipyard) => shipyard.planetId === id),
 };

@@ -64,6 +64,26 @@
                 "resGrade": "Resource grade:",
                 "finalProd": "Effective production"
             }
+        },
+        "shipyard": {
+            "build": "Construct shipyard",
+            "title": "Construct shipyard on planet {name}",
+            "explanation": "Please choose the shipyard size. Shipyards can be upgraded later.",
+            "types": {
+                "small": "Destroyer Shipyard",
+                "medium": "Cruiser Shipyard",
+                "large": "Battleship Shipyard",
+                "xlarge": "Capital Shipyard"
+            },
+            "submit": "Construct shipyard",
+            "info": {
+                "title": "{type} on planet {name}",
+                "building": "Building",
+                "untilComplete": "Turns until completion",
+                "availableHulls": "Ship hulls that can be built in this shipyard",
+                "upgrade": "Upgrade to {type}",
+                "submit": "Upgrade"
+            }
         }
     }
 }

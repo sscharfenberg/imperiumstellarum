@@ -8,13 +8,20 @@ import PlanetType from "./PlanetType";
 import PlanetName from "./PlanetName";
 import ShowPopulation from "./Population/ShowPopulation";
 import ListResources from "./Resources/ListResources";
+import ShipyardSlot from "./Shipyard/ShipyardSlot";
 export default {
     name: "ShowPlanet",
     props: {
         planetId: String,
         starName: String,
     },
-    components: { PlanetType, PlanetName, ShowPopulation, ListResources },
+    components: {
+        PlanetType,
+        PlanetName,
+        ShowPopulation,
+        ListResources,
+        ShipyardSlot,
+    },
     setup(props) {
         const store = useStore();
         const planet = computed(() =>
@@ -42,6 +49,7 @@ export default {
                 :planet-id="planetId"
                 v-if="planet.resources.length"
             />
+            <shipyard-slot :planet-id="planetId" />
         </div>
     </li>
 </template>

@@ -63,6 +63,26 @@
                 "resGrade": "Resourcen Wirkungsgrad:",
                 "finalProd": "Effektive Produktion"
             }
+        },
+        "shipyard": {
+            "build": "Werft errichten",
+            "title": "Werf auf Planet {name} errichten",
+            "explanation": "Bitte wählen Sie die Größe der Werft. Die Werft kann später noch vergrößert werden.",
+            "types": {
+                "small": "Zerstörer Werft",
+                "medium": "Kreuzer Werft",
+                "large": "Schlachtschiff Werft",
+                "xlarge": "Großkampfschiff Werft"
+            },
+            "submit": "Werft errichten",
+            "info": {
+                "title": "{type} auf Planet {name}",
+                "building": "Im Bau",
+                "untilComplete": "Runden bis zur Fertigstellung",
+                "availableHulls": "Schiffe die in dieser Werft gebaut werden können",
+                "upgrade": "Aufrüsten zu {type}",
+                "submit": "Aufrüsten"
+            }
         }
     }
 }

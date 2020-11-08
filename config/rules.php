@@ -627,34 +627,52 @@ return [
             'small' => [
                 'costs' => [
                     'energy' => 400,
-                    'minerals' => 600,
+                    'minerals' => 400,
                     'research' => 200,
-                    'turns' => 96
+                    'turns' => 72
                 ],
             ],
             'medium' => [
                 'costs' => [
                     'energy' => 800,
-                    'minerals' => 1200,
+                    'minerals' => 800,
                     'research' => 400,
-                    'turns' => 192
+                    'turns' => 144
                 ],
+                'upgradeCosts' => [
+                    'energy' => 400,
+                    'minerals' => 400,
+                    'research' => 200,
+                    'turns' => 72
+                ]
             ],
             'large' => [
                 'costs' => [
-                    'energy' => 1200,
-                    'minerals' => 1800,
-                    'research' => 600,
-                    'turns' => 384
+                    'energy' => 1600,
+                    'minerals' => 1600,
+                    'research' => 800,
+                    'turns' => 288
                 ],
+                'upgradeCosts' => [
+                    'energy' => 800,
+                    'minerals' => 800,
+                    'research' => 400,
+                    'turns' => 144
+                ]
             ],
             'xlarge' => [
                 'costs' => [
-                    'energy' => 2000,
-                    'minerals' => 3000,
-                    'research' => 1000,
-                    'turns' => 768
+                    'energy' => 3200,
+                    'minerals' => 3200,
+                    'research' => 1600,
+                    'turns' => 576
                 ],
+                'upgradeCosts' => [
+                    'energy' => 1600,
+                    'minerals' => 1600,
+                    'research' => 800,
+                    'turns' => 288
+                ]
             ]
         ]
     ]

@@ -2,7 +2,7 @@
     <title>Cruiser</title>
     <desc>"Cruiser" Icon (author: Sven Scharfenberg)</desc>
     <g>
-        <path d="M0.5,0.5 l18,0 l5,5.5 l-5,5.5 l-18,0 l0,-11z" fill="#e1d37f" stroke="#ff0000" stroke-width="0.5" stroke-linejoin="round" />
-        <path d="M10,0.5 l-4,11 l2.5,0 l4,-11 l-2.5,0z" fill="#ff0000" />
+        <path d="M0.5,0.5 l18,0 l5,5.5 l-5,5.5 l-18,0 l0,-11z" fill="#e1d37f" stroke="#a51900" stroke-width="0.5" stroke-linejoin="round" />
+        <path d="M10,0.5 l-4,11 l2.5,0 l4,-11 l-2.5,0z" fill="#a51900" />
     </g>
 </svg>

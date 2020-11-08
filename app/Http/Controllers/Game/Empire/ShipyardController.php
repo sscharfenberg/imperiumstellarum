@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Game\Empire;
 
 use App\Http\Controllers\Controller;
-use App\Models\Harvester;
 use App\Models\Planet;
 use App\Models\Player;
+use App\Models\Shipyard;
 use App\Services\FormatApiResponseService;
 use App\Services\ResourceService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HarvesterController extends Controller
+class ShipyardController extends Controller
 {
 
     /**
@@ -29,23 +29,13 @@ class HarvesterController extends Controller
     }
 
     /**
-     * @function verify there is an empty slot for the harvester
-     * @param Player $player
+     * @function verify the planet does not already have a shipyard
      * @param Planet $planet
-     * @param string $resourceType
-     * @return false
+     * @return bool
      */
-    private function harvesterInstallable(Player $player, Planet $planet, string $resourceType)
+    private function shipyardInstallable(Planet $planet)
     {
-        $numPlayerHarvesters = count($player->harvesters
-            ->where('planet_id', $planet->id)
-            ->where('resource_type', $resourceType)
-        );
-        $resourceSlots = array_filter($planet->resources, function($res) use ($resourceType) {
-            return $res["resourceType"] === $resourceType;
-        });
-        $numSlots = array_values($resourceSlots)[0]['slots'];
-        return $numSlots > $numPlayerHarvesters;
+        return count($planet->shipyards) === 0;
     }
 
     /**
@@ -57,7 +47,7 @@ class HarvesterController extends Controller
     private function playerCanAfford (Player $player, string $type)
     {
         $costs = array_filter(
-            config('rules.harvesters.'.$type.'.costs'), function($resType) {
+            config('rules.shipyards.hullTypes.'.$type.'.costs'), function($resType) {
             return $resType !== 'turns';
         }, ARRAY_FILTER_USE_KEY);
         $r = new ResourceService();
@@ -73,15 +63,16 @@ class HarvesterController extends Controller
     private function pay (Player $player, string $type)
     {
         $costs = array_filter(
-            config('rules.harvesters.'.$type.'.costs'), function($resType) {
+            config('rules.shipyards.hullTypes.'.$type.'.costs'), function($resType) {
             return $resType !== 'turns';
         }, ARRAY_FILTER_USE_KEY);
         $r = new ResourceService();
         $r->subtractResources($player, $costs);
     }
 
+
     /**
-     * @function handle install harvester xhr request
+     * @function handle build shipyard xhr request
      * @param Request $request
      * @return JsonResponse
      */
@@ -90,49 +81,64 @@ class HarvesterController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();
         $planet = Planet::find($input['planetId']);
-        $resourceType = $input['resourceType'];
+        $type = $input['type'];
 
-        // verification
+        // verify
         if (!$this->playerOwnsPlanet($player, $planet)) {
             return response()
-                ->json(['error' => __('game.empire.errors.harvester.owner')], 419);
+                ->json(['error' => __('game.empire.errors.shipyard.owner')], 419);
         }
-        if (!$this->harvesterInstallable($player, $planet, $resourceType)) {
+        if (!$this->shipyardInstallable($planet)) {
             return response()
-                ->json(['error' => __('game.empire.errors.harvester.slot')], 419);
+                ->json(['error' => __('game.empire.errors.shipyard.alreadyInstalled')], 419);
         }
-        if (!$this->playerCanAfford($player, $resourceType)) {
+        if (!$this->playerCanAfford($player, $type)) {
             return response()
                 ->json(['error' => __('game.common.errors.noFunds')], 419);
         }
 
         // pay for the harvester
-        $this->pay($player, $resourceType);
+        $this->pay($player, $type);
 
-        // install harvester
-        $harvesterRules = config('rules.harvesters.'.$resourceType);
-        $resourceSlot = array_filter($planet->resources, function($res) use ($resourceType) {
-            return $res["resourceType"] === $resourceType;
-        });
-        $efficiency = array_values($resourceSlot)[0]['value'];
-        // we calculate harvester production so we don't have to calculate it during turn processing
-        // (unless we decide to have tech levels for resources)
-        $harvester = Harvester::create([
+        // create the shipdyard
+        $turns = config('rules.shipyards.hullTypes.'.$type.'.costs.turns');
+        $shipyard = Shipyard::create([
             'planet_id' => $planet->id,
             'game_id' => $planet->game->id,
             'player_id' => $player->id,
-            'resource_type' => $resourceType,
-            'production' => round($harvesterRules['baseProduction'] * $efficiency, 2),
-            'until_complete' => $harvesterRules['costs']['turns'],
+            'small' => true,
+            'medium' => $type === 'medium' || $type === 'large' || $type === 'xlarge',
+            'large' => $type === 'large' || $type === 'xlarge',
+            'xlarge' => $type === 'xlarge',
+            'until_complete' => $turns,
         ]);
 
+        // provide information to client about new shipyard and resources
         $f = new FormatApiResponseService;
         $r = new ResourceService;
         return response()->json([
-            'harvester' => $f->formatHarvester($harvester),
-            'resources' => $r->getResources($player)
+            'shipyard' => $f->formatShipyard($shipyard),
+            'resources' => $r->getResources($player),
+            'message' => __('game.empire.shipyardInstalled', [ 'num' => $turns ])
         ]);
+    }
 
+
+    /**
+     * @function handle upgrade shipyard xhr request
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function upgrade (Request $request)
+    {
+        $player = Player::find(Auth::user()->selected_player);
+        $input = $request->input();
+        $planet = Planet::find($input['planetId']);
+        $type = $input['type'];
+
+        return response()->json([
+            'message' => 'not yet implemented'
+        ]);
     }
 
 }

@@ -55,10 +55,6 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::post('/game/{game}/empire/food_consumption',
         [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
 
-    // install harvester
-    Route::post('game/{game}/empire/harvester',
-        [\App\Http\Controllers\Game\Empire\HarvesterController::class, 'install']);
-
 });
 
 /**
@@ -66,8 +62,24 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
  */
 Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', 'notProcessing'])->group(function () {
 
+    /**
+     * empire api calls
+     */
+
     // install storage upgrade
     Route::post('/game/{game}/storage_upgrade',
         [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
+
+    // install harvester
+    Route::post('/game/{game}/empire/harvester',
+        [\App\Http\Controllers\Game\Empire\HarvesterController::class, 'install']);
+
+    // build shipyard
+    Route::post('/game/{game}/empire/shipyard',
+        [\App\Http\Controllers\Game\Empire\ShipyardController::class, 'install']);
+
+    // upgrade shipyard
+    Route::post('/game/{game}/empire/shipyard/upgrade',
+        [\App\Http\Controllers\Game\Empire\ShipyardController::class, 'upgrade']);
 
 });

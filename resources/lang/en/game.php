@@ -15,6 +15,8 @@ return [
         'errors' => [
             'noFunds' => 'You can\'t afford this.',
             'processing' => 'The turn is currently being processed, please wait a while.',
+            'notStarted' => 'The game has not yet started.',
+            'noPlayer' => 'Your are not enlisted in this game.',
             'header' => [
                 'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
                 'level' => 'This storage level can not be constructed.'
@@ -40,8 +42,13 @@ return [
             'harvester' => [
                 'owner' => 'You do not own this planet.',
                 'slot' => 'You can\'t install a harvester of this type.'
+            ],
+            'shipyard' => [
+                'owner' => 'You do not own this planet.',
+                'alreadyInstalled' => 'There is already a shipyard on this planet.',
             ]
-        ]
+        ],
+        'shipyardInstalled' => 'You have started building a new shipyard. It will be ready in :num turns.'
     ],
 
     'shipyards' => [

@@ -42,8 +42,13 @@ return [
             'harvester' => [
                 'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
                 'slot' => 'Es kann kein Ernter dieses Typs installiert werden.'
+            ],
+            'shipyard' => [
+                'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
+                'alreadyInstalled' => 'Auf diesem Planeten gibt es bereits eine Werft.',
             ]
-        ]
+        ],
+        'shipyardInstalled' => 'Sie haben begonnen eine neue Werft zu bauen. Sie wird in :num Runden bereit stehen.'
     ],
 
     'shipyards' => [

@@ -36,7 +36,7 @@ export default {
         <li
             class="cost"
             v-for="(cost, key) in costs"
-            :key="cost"
+            :key="key"
             :class="{
                 affordable:
                     key !== 'turns' &&
