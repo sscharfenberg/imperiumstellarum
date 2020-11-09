@@ -1,6 +1,11 @@
 {
     "title": "Imperium",
     "navTitle": "Imperium",
+    "summary": {
+        "title": "Wirtschafts Zusammenfassung",
+        "production": "durch {num} Ernter",
+        "foodConsumption": "Nahrungsverbrauch"
+    },
     "stars": "Sternensysteme unseres Imperiums ({num})",
     "star": {
         "spectralType": "Spektralklasse",
@@ -9,6 +14,10 @@
             "inputPlaceHolder": "Bitte geben Sie den neuen Namen des Sterns ein",
             "cancel": "Ändern abbrechen und Änderungen verwerfen",
             "save": "Name speichern"
+        },
+        "summary": {
+            "shipyards": "{num} Werft(en)",
+            "population": "{num} effektive Bevölkerung"
         },
         "location": "Sternenposition"
     },

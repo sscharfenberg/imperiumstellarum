@@ -46,9 +46,11 @@ return [
             'shipyard' => [
                 'owner' => 'You do not own this planet.',
                 'alreadyInstalled' => 'There is already a shipyard on this planet.',
+                'noUpgrade' => 'This is not a valid shipyard upgrade.'
             ]
         ],
-        'shipyardInstalled' => 'You have started building a new shipyard. It will be ready in :num turns.'
+        'shipyardInstalled' => 'You have started building a new shipyard. It will be ready in :num turns.',
+        'shipyardUpgrading' => 'You have started upgrading a shipyard. It will be ready in :num turns.'
     ],
 
     'shipyards' => [

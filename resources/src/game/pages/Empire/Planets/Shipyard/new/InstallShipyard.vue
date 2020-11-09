@@ -48,6 +48,7 @@ button {
     height: 4rem;
     padding: 0.5rem 1rem;
     border: 2px dashed transparent;
+    margin: 0 0.5rem 0.5rem 0;
 
     outline: 0;
     cursor: pointer;

@@ -152,7 +152,7 @@ export default {
             .post(`/api/game/${getGameId()}/empire/shipyard/upgrade`, payload)
             .then((response) => {
                 if (response.status === 200) {
-                    //commit("ADD_SHIPYARD", response.data.shipyard);
+                    commit("MODIFY_SHIPYARD", response.data.shipyard);
                     commit("SET_RESOURCES", response.data.resources, {
                         root: true,
                     });

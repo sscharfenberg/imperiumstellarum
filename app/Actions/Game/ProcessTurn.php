@@ -17,13 +17,13 @@ class ProcessTurn
      */
     private function createNewTurn (Game $game, Turn $turn)
     {
+        Log::info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
         return Turn::create([
             'game_id' => $game->id,
             'number' => $turn->number + 1,
             'due' => now()->addMinutes($game->turn_duration)
         ]);
     }
-
 
     /**
      * @function call BuildStorageUpgrades
@@ -38,7 +38,6 @@ class ProcessTurn
         $s->handle($game);
     }
 
-
     /**
      * @function call harvester processing
      * @param Game $game
@@ -52,7 +51,6 @@ class ProcessTurn
         $s->handle($game);
     }
 
-
     /**
      * @function call populationGrowth
      * @param Game $game
@@ -65,6 +63,15 @@ class ProcessTurn
         $s = new \App\Actions\Turn\Colonies;
         $s->handle($game);
     }
+
+
+    private function processShipyards(Game $game, Turn $turn)
+    {
+        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 4: Build Shipyards.');
+        $s = new \App\Actions\Turn\BuildShipyards;
+        $s->handle($game);
+    }
+
 
 
     /**
@@ -86,6 +93,8 @@ class ProcessTurn
         $this->processHarvesters($game, $turn);
         // #3 population growth
         $this->handleColonies($game, $turn);
+        // #4 build shipyards
+        $this->processShipyards($game, $turn);
 
         // ...
 

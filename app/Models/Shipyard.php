@@ -37,6 +37,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereXlarge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUntilComplete($value)
  */
 class Shipyard extends Model
 {

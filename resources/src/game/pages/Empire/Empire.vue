@@ -7,10 +7,11 @@ import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import ListStars from "./Stars/ListStars";
+import ShowSummary from "./Summary/ShowSummary";
 import AreaSection from "Components/AreaSection/AreaSection";
 export default {
     name: "PageEmpire",
-    components: { GameHeader, AreaSection, ListStars },
+    components: { GameHeader, AreaSection, ListStars, ShowSummary },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.empire.requesting);
@@ -28,10 +29,16 @@ export default {
 </script>
 
 <template>
-    <game-header headline="Fuddel Faddel" area="empire" />
+    <game-header area="empire" />
     <area-section
-        :headline="t('empire.stars', { num: numStars })"
+        :headline="t('empire.summary.title')"
         :requesting="requesting"
+    >
+        <show-summary />
+    </area-section>
+    <area-section
+        :requesting="requesting"
+        :headline="t('empire.stars', { num: numStars })"
     >
         <list-stars />
     </area-section>

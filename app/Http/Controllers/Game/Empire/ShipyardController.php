@@ -35,41 +35,24 @@ class ShipyardController extends Controller
      */
     private function shipyardInstallable(Planet $planet)
     {
-        return count($planet->shipyards) === 0;
+        return $planet->shipyard === null;
     }
 
     /**
-     * @function verify player has the necessary resources
-     * @param Player $player
+     * @function verify the indicated type is indeed the direct upgrade without skipping a shipyard type
+     * @param Planet $planet
      * @param string $type
-     * @return bool
+     * @return boolean
      */
-    private function playerCanAfford (Player $player, string $type)
+    private function shipyardUpgradeable(Planet $planet, string $type)
     {
-        $costs = array_filter(
-            config('rules.shipyards.hullTypes.'.$type.'.costs'), function($resType) {
-            return $resType !== 'turns';
-        }, ARRAY_FILTER_USE_KEY);
-        $r = new ResourceService();
-        if (!$r->playerCanAfford($player, $costs)) return false;
-        return true;
+        $shipyard = $planet->shipyard;
+        if (!$shipyard) return false;
+        if ($type === "medium" && $shipyard->small && !$shipyard->medium && !$shipyard->large && !$shipyard->xlarge) return true;
+        if ($type === "large" && $shipyard->small && $shipyard->medium && !$shipyard->large && !$shipyard->xlarge) return true;
+        if ($type === "xlarge" && $shipyard->small && $shipyard->medium && $shipyard->large && !$shipyard->xlarge) return true;
+        return false;
     }
-
-    /**
-     * @function pay by subtracting resources from the player
-     * @param Player $player
-     * @param string $type
-     */
-    private function pay (Player $player, string $type)
-    {
-        $costs = array_filter(
-            config('rules.shipyards.hullTypes.'.$type.'.costs'), function($resType) {
-            return $resType !== 'turns';
-        }, ARRAY_FILTER_USE_KEY);
-        $r = new ResourceService();
-        $r->subtractResources($player, $costs);
-    }
-
 
     /**
      * @function handle build shipyard xhr request
@@ -82,6 +65,14 @@ class ShipyardController extends Controller
         $input = $request->input();
         $planet = Planet::find($input['planetId']);
         $type = $input['type'];
+        $r = new ResourceService;
+        $f = new FormatApiResponseService;
+
+        // calculate costs
+        $costs = array_filter(
+            config('rules.shipyards.hullTypes.'.$type.'.costs'), function($resType) {
+            return $resType !== 'turns';
+        }, ARRAY_FILTER_USE_KEY);
 
         // verify
         if (!$this->playerOwnsPlanet($player, $planet)) {
@@ -92,13 +83,13 @@ class ShipyardController extends Controller
             return response()
                 ->json(['error' => __('game.empire.errors.shipyard.alreadyInstalled')], 419);
         }
-        if (!$this->playerCanAfford($player, $type)) {
+        if (!$r->playerCanAfford($player, $costs)) {
             return response()
                 ->json(['error' => __('game.common.errors.noFunds')], 419);
         }
 
-        // pay for the harvester
-        $this->pay($player, $type);
+        // pay for the shipyard installation
+        $r->subtractResources($player, $costs);
 
         // create the shipdyard
         $turns = config('rules.shipyards.hullTypes.'.$type.'.costs.turns');
@@ -114,12 +105,10 @@ class ShipyardController extends Controller
         ]);
 
         // provide information to client about new shipyard and resources
-        $f = new FormatApiResponseService;
-        $r = new ResourceService;
         return response()->json([
             'shipyard' => $f->formatShipyard($shipyard),
             'resources' => $r->getResources($player),
-            'message' => __('game.empire.shipyardInstalled', [ 'num' => $turns ])
+            'message' => __('game.empire.shipyardInstalling', [ 'num' => $turns ])
         ]);
     }
 
@@ -135,9 +124,46 @@ class ShipyardController extends Controller
         $input = $request->input();
         $planet = Planet::find($input['planetId']);
         $type = $input['type'];
+        $r = new ResourceService;
+        $f = new FormatApiResponseService;
 
+        // calculate costs
+        $costs = array_filter(
+            config('rules.shipyards.hullTypes.'.$type.'.upgradeCosts'), function($resType) {
+            return $resType !== 'turns';
+        }, ARRAY_FILTER_USE_KEY);
+
+        // verify
+        if (!$this->playerOwnsPlanet($player, $planet)) {
+            return response()
+                ->json(['error' => __('game.empire.errors.shipyard.owner')], 419);
+        }
+        if (!$this->shipyardUpgradeable($planet, $type)) {
+            return response()
+                ->json(['error' => __('game.empire.errors.shipyard.noUpgrade')], 419);
+        }
+        if (!$r->playerCanAfford($player, $costs)) {
+            return response()
+                ->json(['error' => __('game.common.errors.noFunds')], 419);
+        }
+
+        // pay for the shipyard upgrade
+        $r->subtractResources($player, $costs);
+
+        // upgrade the shipyard
+        $shipyard = $planet->shipyard;
+        if ($type === "medium") $shipyard->medium = true;
+        elseif ($type === "large") $shipyard->large = true;
+        elseif ($type === "xlarge") $shipyard->xlarge = true;
+        $turns = config('rules.shipyards.hullTypes.'.$type.'.upgradeCosts.turns');
+        $shipyard->until_complete = $turns;
+        $shipyard->save();
+
+        // provide information to client about new shipyard and resources
         return response()->json([
-            'message' => 'not yet implemented'
+            'shipyard' => $f->formatShipyard($shipyard),
+            'resources' => $r->getResources($player),
+            'message' => __('game.empire.shipyardUpgrading', [ 'num' => $turns ])
         ]);
     }
 

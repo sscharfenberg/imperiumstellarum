@@ -8,6 +8,7 @@ import StarSpectral from "./StarSpectral";
 import StarDragHandle from "./StarDragHandle";
 import StarName from "./StarName/StarName";
 import StarNameEdit from "./StarName/StarNameEdit";
+import ShortStarSummary from "./ShortStarSummary";
 import StarLocation from "./StarLocation";
 import ListPlanets from "@/game/pages/Empire/Planets/ListPlanets";
 import Loading from "Components/Loading/Loading";
@@ -21,6 +22,7 @@ export default {
         StarSpectral,
         StarDragHandle,
         StarName,
+        ShortStarSummary,
         StarLocation,
         ListPlanets,
         Loading,
@@ -61,6 +63,7 @@ export default {
                 :star-id="star.id"
                 :star-name="star.name"
             />
+            <short-star-summary :star-id="star.id" />
             <loading v-if="isStarChanging" :size="38" class="loading" />
             <star-location :x="star.x" :y="star.y" />
         </div>

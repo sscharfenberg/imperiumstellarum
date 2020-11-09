@@ -146,4 +146,17 @@ export default {
     ADD_SHIPYARD: (state, payload) => {
         state.shipyards.push(payload);
     },
+
+    /**
+     * @function MODIFY SHIPYARD
+     * @param {Object} state - vuex module "empire" state
+     * @param {Object} payload - the new harvester from server
+     * @constructor
+     */
+    MODIFY_SHIPYARD: (state, payload) => {
+        Object.assign(
+            state.shipyards.find((shipyard) => shipyard.id === payload.id),
+            payload
+        );
+    },
 };

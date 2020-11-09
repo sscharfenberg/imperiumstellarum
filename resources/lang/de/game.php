@@ -46,9 +46,11 @@ return [
             'shipyard' => [
                 'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
                 'alreadyInstalled' => 'Auf diesem Planeten gibt es bereits eine Werft.',
+                'noUpgrade' => 'Das ist keine gültige Aufrüstung der Werft.'
             ]
         ],
-        'shipyardInstalled' => 'Sie haben begonnen eine neue Werft zu bauen. Sie wird in :num Runden bereit stehen.'
+        'shipyardInstalling' => 'Sie haben begonnen eine neue Werft zu bauen. Sie wird in :num Runden bereit stehen.',
+        'shipyardUpgrading' => 'Sie haben begonnen eine Werft aufzurüsten. Sie wird in :num Runden bereit stehen.'
     ],
 
     'shipyards' => [

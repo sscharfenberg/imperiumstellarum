@@ -24,7 +24,6 @@ export default {
             const planetName = store.getters["empire/planetNameById"](
                 props.planetId
             );
-            console.log(planetName);
             return i18n.t("empire.planet.shipyard.info.title", {
                 type: i18n.t("empire.planet.shipyard.types." + type.value),
                 name: planetName,
@@ -78,6 +77,7 @@ export default {
     height: 4rem;
     padding: 0.5rem 1rem;
     border: 2px solid transparent;
+    margin: 0 0.5rem 0.5rem 0;
 
     outline: 0;
     cursor: pointer;
@@ -114,8 +114,12 @@ export default {
         }
     }
 
-    .icon:nth-child(2) {
-        margin-left: 1rem;
+    .icon:nth-child(1) {
+        margin-right: 1rem;
+
+        @include themed() {
+            color: t("b-viking");
+        }
     }
 }
 </style>

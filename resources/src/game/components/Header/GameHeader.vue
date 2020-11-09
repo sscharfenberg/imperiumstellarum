@@ -16,10 +16,6 @@ export default {
             type: String,
             required: true,
         },
-        headline: {
-            type: String,
-            required: true,
-        },
     },
     setup(props) {
         const state = useStore().state;

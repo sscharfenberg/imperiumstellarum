@@ -1,6 +1,11 @@
 {
     "title": "Empire",
     "navTitle": "Empire",
+    "summary": {
+        "title": "Economy Summary",
+        "production": "from {num} harvesters",
+        "foodConsumption": "Food consumption"
+    },
     "stars": "Stars of our empire ({num})",
     "star": {
         "spectralType": "Spectral type",
@@ -9,6 +14,10 @@
             "inputPlaceHolder": "Enter new star name",
             "cancel": "Cancel editing and discard changes",
             "save": "Save star name"
+        },
+        "summary": {
+            "shipyards": "{num} shipyards",
+            "population": "{num} effective population"
         },
         "location": "Star Location"
     },

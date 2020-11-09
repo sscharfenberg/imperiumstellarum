@@ -37,9 +37,10 @@ export default {
 <style lang="scss" scoped>
 .resources {
     display: flex;
+    flex-wrap: wrap;
 
     padding: 0;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
 
     list-style: none;
 }
