@@ -60,7 +60,7 @@ export default {
                 <span class="consumption">-{{ foodConsumption }}</span>
                 {{ $t("empire.summary.foodConsumption") }}
             </span>
-            <span v-if="resourceType === 'research'"> <br />tbd </span>
+            <span v-if="resourceType === 'research'"> <br />[tbd] </span>
         </div>
     </li>
 </template>

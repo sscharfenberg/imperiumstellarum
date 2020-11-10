@@ -37,7 +37,11 @@ export default {
             return Math.floor(num);
         });
         const shipyardLabel = computed(() =>
-            i18n.t("empire.star.summary.shipyards", { num: numShipyards.value })
+            i18n.t(
+                "empire.star.summary.shipyards",
+                { num: numShipyards.value },
+                numShipyards.value
+            )
         );
         const populationLabel = computed(() =>
             i18n.t("empire.star.summary.population", { num: population.value })

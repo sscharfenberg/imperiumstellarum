@@ -21,7 +21,7 @@ export default {
         const fetchGameData = () => {
             store.dispatch(props.area + "/GET_GAME_DATA");
         };
-        const fetching = computed(() => store.state.empire.requesting);
+        const fetching = computed(() => store.state[props.area].requesting);
         return {
             fetchGameData,
             fetching,

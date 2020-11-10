@@ -4,7 +4,9 @@
     "summary": {
         "title": "Economy Summary",
         "production": "from {num} harvesters",
-        "foodConsumption": "Food consumption"
+        "foodConsumption": "Food consumption",
+        "population": "Population",
+        "colonies": "population in {num} Colony | population in {num} Colonies"
     },
     "stars": "Stars of our empire ({num})",
     "star": {
@@ -16,7 +18,7 @@
             "save": "Save star name"
         },
         "summary": {
-            "shipyards": "{num} shipyards",
+            "shipyards": "{num} shipyard | {num} shipyards",
             "population": "{num} effective population"
         },
         "location": "Star Location"
@@ -57,7 +59,7 @@
                 "research": "Research Station"
             },
             "building": "Building {type}",
-            "untilComplete": "{turns} turn(s) until completion",
+            "untilComplete": "one turn until completion | {turns} turns until completion",
             "install": "Install {type}",
             "installModal": {
                 "title": "Install {type}",

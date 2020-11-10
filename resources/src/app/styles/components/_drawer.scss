@@ -148,4 +148,16 @@
             }
         }
     }
+
+    &__version {
+        padding: 0.7rem 1rem 0.7rem 1.5rem;
+
+        @include respond-to("small") {
+            padding: 1.7rem 1.5rem 1.7rem 2rem;
+        }
+
+        @include themed() {
+            color: t("t-twilight");
+        }
+    }
 }

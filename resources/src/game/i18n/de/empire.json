@@ -2,9 +2,11 @@
     "title": "Imperium",
     "navTitle": "Imperium",
     "summary": {
-        "title": "Wirtschafts Zusammenfassung",
+        "title": "Wirtschafts Überblick",
         "production": "durch {num} Ernter",
-        "foodConsumption": "Nahrungsverbrauch"
+        "foodConsumption": "Nahrungsverbrauch",
+        "population": "Bevölkerung",
+        "colonies": "Bevölkerung in {num} Kolonie | Bevölkerung in {num} Kolonieen"
     },
     "stars": "Sternensysteme unseres Imperiums ({num})",
     "star": {
@@ -16,7 +18,7 @@
             "save": "Name speichern"
         },
         "summary": {
-            "shipyards": "{num} Werft(en)",
+            "shipyards": "{num} Werft | {num} Werften",
             "population": "{num} effektive Bevölkerung"
         },
         "location": "Sternenposition"
@@ -56,7 +58,7 @@
                 "research": "Forschungsstation"
             },
             "building": "{type} im Bau",
-            "untilComplete": "{turns} Runde(n) bis zur Fertigstellung",
+            "untilComplete": "Eine Runde bis zur Fertigstellung | {turns} Runden bis zur Fertigstellung",
             "install": "{type} installieren",
             "installModal": {
                 "title": "{type} installieren",

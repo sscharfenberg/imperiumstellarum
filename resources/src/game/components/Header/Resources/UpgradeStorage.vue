@@ -103,8 +103,15 @@ export default {
                     storageUpgrade.untilComplete
                 "
             >
-                {{ t("common.header.storageUpgrades.untilComplete") }}:
-                {{ storageUpgrade.untilComplete }}<br />
+                <div class="untilComplete">
+                    {{
+                        t(
+                            "common.header.storageUpgrades.untilComplete",
+                            storageUpgrade.untilComplete
+                        )
+                    }}:
+                    {{ storageUpgrade.untilComplete }}
+                </div>
                 <span
                     v-for="n in storageUpgrade.untilComplete"
                     class="stats__dot"
@@ -136,3 +143,10 @@ export default {
         </template>
     </modal>
 </template>
+
+<style lang="scss" scoped>
+.untilComplete {
+    margin-bottom: 0.5rem;
+    flex: 0 0 100%;
+}
+</style>

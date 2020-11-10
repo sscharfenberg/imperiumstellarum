@@ -89,6 +89,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
 
             @include themed() {
                 border-color: t("g-infra");
@@ -107,6 +108,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         &.stats--padded {

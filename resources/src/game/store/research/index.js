@@ -1,26 +1,17 @@
 /******************************************************************************
- * Vuex store entrypoint
+ * Vuex module "research"
+ * https://vuex.vuejs.org/guide/modules.html
  *****************************************************************************/
-import { createStore } from "vuex";
-import empire from "./empire";
-import research from "./research";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
 import getters from "./getters";
 
-/*
- * create vuex store
- */
-const store = createStore({
+export default {
+    namespaced: true,
+    // module assets
     state,
     mutations,
     actions,
     getters,
-    modules: {
-        empire,
-        research,
-    },
-});
-
-export default store;
+};

@@ -55,6 +55,14 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::post('/game/{game}/empire/food_consumption',
         [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
 
+    /**
+     * research api calls
+     */
+
+    // empire game data
+    Route::get('/game/{game}/research',
+        [\App\Http\Controllers\Game\Research\ResearchController::class, 'gameData']);
+
 });
 
 /**

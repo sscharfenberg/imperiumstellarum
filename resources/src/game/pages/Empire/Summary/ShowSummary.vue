@@ -5,9 +5,10 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import SummarizeResources from "./SummarizeResources";
+import SummarizePopulation from "./SummarizePopulation";
 export default {
     name: "ShowSummary",
-    components: { SummarizeResources },
+    components: { SummarizeResources, SummarizePopulation },
     setup() {
         const store = useStore();
         const resources = computed(() =>
@@ -27,6 +28,7 @@ export default {
             :key="res"
             :resource-type="res"
         />
+        <summarize-population />
     </ul>
 </template>
 

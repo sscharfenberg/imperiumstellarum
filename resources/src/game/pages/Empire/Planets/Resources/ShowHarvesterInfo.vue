@@ -57,15 +57,22 @@ export default {
         <ul class="stats">
             <li
                 v-if="harvester.untilComplete"
-                class="stats--two-col stats--padded stats__dots"
+                class="stats--two-col stats--padded stats__dots featured"
                 :aria-label="
                     t('empire.planet.harvesters.untilComplete') +
                     ': ' +
                     harvester.untilComplete
                 "
             >
-                {{ t("empire.planet.harvesters.untilComplete") }}:
-                {{ harvester.untilComplete }}<br />
+                <div class="stats-hdl">
+                    {{
+                        t(
+                            "empire.planet.harvesters.untilComplete",
+                            { turns: harvester.untilComplete },
+                            harvester.untilComplete
+                        )
+                    }}
+                </div>
                 <span
                     v-for="n in harvester.untilComplete"
                     class="stats__dot"
@@ -107,5 +114,14 @@ export default {
 <style lang="scss" scoped>
 .stats {
     margin-bottom: 0;
+}
+
+.stats--centered .icon {
+    margin-right: 1rem;
+}
+
+.stats-hdl {
+    margin-bottom: 0.5rem;
+    flex: 0 0 100%;
 }
 </style>
