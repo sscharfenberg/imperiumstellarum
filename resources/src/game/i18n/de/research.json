@@ -1,4 +1,9 @@
 {
     "title": "Forschung",
-    "navTitle": "Forschung"
+    "navTitle": "Forschung",
+    "priority": {
+        "label": "Forschungs Priorität",
+        "costs": "Resourcenkosten pro Runde",
+        "work": "Effektive Forschungsergebnisse"
+    }
 }

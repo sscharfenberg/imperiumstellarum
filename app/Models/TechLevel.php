@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TechLevel whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
+ * @property-read int|null $researches_count
  */
 class TechLevel extends Model
 {
@@ -61,6 +63,14 @@ class TechLevel extends Model
     public function player()
     {
         return $this->belongsTo('App\Models\Player');
+    }
+
+    /**
+     * Get the research orders that correspond to this tech level.
+     */
+    public function researches()
+    {
+        return $this->hasMany('App\Models\Research');
     }
 
 

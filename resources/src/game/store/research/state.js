@@ -11,4 +11,5 @@
  */
 export default {
     requesting: false,
+    totalPopulation: 0,
 };

@@ -7,9 +7,10 @@ import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
+import ResearchPriority from "./Priority/ResearchPriority";
 export default {
     name: "PageResearch",
-    components: { GameHeader, AreaSection },
+    components: { GameHeader, AreaSection, ResearchPriority },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.research.requesting);
@@ -26,7 +27,10 @@ export default {
 
 <template>
     <game-header area="research" />
-    <area-section headline="Research!" :requesting="requesting">
-        todo
+    <area-section
+        :headline="t('research.priority.label')"
+        :requesting="requesting"
+    >
+        <research-priority />
     </area-section>
 </template>

@@ -52,6 +52,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $storage_upgrades_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
  * @property-read int|null $shipyards_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
+ * @property-read int|null $researches_count
  */
 class Game extends Model
 {
@@ -163,6 +165,14 @@ class Game extends Model
     public function shipyards()
     {
         return $this->hasMany('App\Models\Shipyard');
+    }
+
+    /**
+     * Get the research orders for this game
+     */
+    public function researches()
+    {
+        return $this->hasMany('App\Models\Research');
     }
 
 }

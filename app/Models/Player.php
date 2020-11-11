@@ -43,6 +43,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $storage_upgrades_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
  * @property-read int|null $shipyards_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
+ * @property-read int|null $researches_count
  */
 class Player extends Model
 {
@@ -144,6 +146,14 @@ class Player extends Model
     public function shipyards()
     {
         return $this->hasMany('App\Models\Shipyard');
+    }
+
+    /**
+     * Get the research orders for this player
+     */
+    public function researches()
+    {
+        return $this->hasMany('App\Models\Research');
     }
 
 }

@@ -21,6 +21,7 @@ export default {
             .then((response) => {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
+                    commit("SET_POPULATION", response.data.totalPopulation);
                 }
             })
             .catch((e) => {

@@ -12,4 +12,13 @@ export default {
     SET_REQUESTING: (state, payload) => {
         state.requesting = payload;
     },
+
+    /**
+     * @function SET PLAYER TOTAL POPULATION
+     * @param {Object} state - vuex module "research" state
+     * @param {Number} payload
+     */
+    SET_POPULATION: (state, payload) => {
+        state.totalPopulation = payload;
+    },
 };

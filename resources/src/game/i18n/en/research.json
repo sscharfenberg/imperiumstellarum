@@ -1,4 +1,9 @@
 {
     "title": "Research",
-    "navTitle": "Research"
+    "navTitle": "Research",
+    "priority": {
+        "label": "Research Priority",
+        "costs": "Resource cost per turn",
+        "work": "Effective research"
+    }
 }
