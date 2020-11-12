@@ -32,4 +32,29 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function SET research priority
+     * @param {Function} commit - Vuex commit
+     * @param {Number} payload
+     */
+    SET_RESEARCH_PRIORITY: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/setResearchPriority`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("SET_RESEARCH_PRIORITY", payload.researchPriority, {
+                        root: true,
+                    });
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

@@ -4,6 +4,7 @@
     "priority": {
         "label": "Forschungs Priorität",
         "costs": "Resourcenkosten pro Runde",
-        "work": "Effektive Forschungsergebnisse"
+        "work": "Effektive Forschungsergebnisse",
+        "change": "Forschungs Priorität ändern"
     }
 }

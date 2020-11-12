@@ -523,7 +523,7 @@ return [
         'queue' => 5, // max queue length
         'researchPriority' => [
             'min' => 0.5,
-            'max' => 5,
+            'max' => 10,
             'default' => 1
         ],
 

@@ -62,7 +62,12 @@ return [
     ],
 
     'research' => [
-        'navTitle' => 'Research'
+        'navTitle' => 'Research',
+        'errors' => [
+            'priority' => [
+                'invalid' => 'Forschungs Priorität ist ungültig.'
+            ],
+        ]
     ],
 
     'starmap' => [

@@ -44,4 +44,14 @@ export default {
     SET_STORAGE_UPGRADES: (state, payload) => {
         state.storageUpgrades = payload;
     },
+
+    /**
+     * SET PLAYER RESEARCH PRIORITY
+     * @param state
+     * @param {Number} payload
+     * @constructor
+     */
+    SET_RESEARCH_PRIORITY: (state, payload) => {
+        state.empireResearchPriority = payload;
+    },
 };

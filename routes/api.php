@@ -22,6 +22,9 @@ Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthCont
 // calculate new population
 Route::post('/game/populationChange',
     [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
+// calculate effective research
+Route::post('/game/effectiveResearch',
+    [\App\Http\Controllers\Game\Research\ResearchController::class, 'projectEffectiveResearch']);
 
 
 /**
@@ -89,5 +92,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // upgrade shipyard
     Route::post('/game/{game}/empire/shipyard/upgrade',
         [\App\Http\Controllers\Game\Empire\ShipyardController::class, 'upgrade']);
+
+    /**
+     * research api calls
+     */
+
+    Route::post('/game/{game}/setResearchPriority',
+        [\App\Http\Controllers\Game\Research\ResearchPriorityController::class, 'change']);
 
 });

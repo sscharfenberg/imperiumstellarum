@@ -4,6 +4,11 @@
     "priority": {
         "label": "Research Priority",
         "costs": "Resource cost per turn",
-        "work": "Effective research"
+        "work": "Effective research",
+        "change": "Change research priority",
+        "error": {
+            "invalid": "Research priority is invalid."
+        },
+        "success": "Research priority was changed."
     }
 }

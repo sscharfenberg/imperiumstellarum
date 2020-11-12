@@ -55,8 +55,6 @@ export default {
         padding: 1rem;
         border: 1px solid transparent;
 
-        background: palette("grey", "sunken");
-
         @include themed() {
             background-color: t("g-sunken");
             border-color: t("g-abbey");
