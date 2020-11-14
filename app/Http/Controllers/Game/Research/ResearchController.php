@@ -9,51 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
-use App\Http\Traits\Game\UsesEffectiveResearch;
+use App\Http\Traits\Game\UsesTotalPopulation;
 
 class ResearchController extends Controller
 {
 
-    use UsesEffectiveResearch;
-
-
-    /**
-     * @function get players total population
-     * @param Player $player
-     * @return mixed
-     */
-    private function getTotalPopulation(Player $player)
-    {
-        $stars = $player->stars;
-        $planets = collect();
-        foreach($stars as $star) {
-            $planets = $planets->concat($star->planets);
-        }
-        return $planets->filter(function($planet) {
-            return $planet->population > 0;
-        })->reduce(function ($carry, $planet) {
-            return $carry + $planet->population;
-        });
-    }
-
-
-    /**
-     * @function answer XHR with effective research
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function projectEffectiveResearch(Request $request)
-    {
-        $player = Auth::user()->players->find(Auth::user()->selected_player);
-        $priority = $request->input(['priority']);
-        $totalPopulation = $request->input(['totalPopulation']);
-        if ($totalPopulation === 0) $totalPopulation = $this->getTotalPopulation($player);
-        $effectiveResearch = $this->calculateEffectiveResearch($priority, $totalPopulation);
-        return response()->json([
-            'effectiveResearch' => $effectiveResearch
-        ]);
-    }
-
+    use UsesTotalPopulation;
 
     /**
      * @function api gameData for "research" area
@@ -65,11 +26,14 @@ class ResearchController extends Controller
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);
         $player = Auth::user()->players->find(Auth::user()->selected_player);
-        $totalPopulation = $this->getTotalPopulation($player);
 
-        //$f = new FormatApiResponseService;
+        $f = new FormatApiResponseService;
         $returnData = [
-            'totalPopulation' => round($totalPopulation, 8)
+            'totalPopulation' => round($this->getTotalPopulation($player), 8),
+            'techLevels' => $player->techLevels->map(function ($techLevel) use ($f) {
+                return $f->formatTechLevel($techLevel);
+            }),
+            'researchJobs' => []
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

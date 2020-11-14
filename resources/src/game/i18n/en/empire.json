@@ -5,6 +5,7 @@
         "title": "Economy Summary",
         "production": "from {num} harvesters",
         "foodConsumption": "Food consumption",
+        "researchConsumption": "for research",
         "population": "Population",
         "colonies": "population in {num} Colony | population in {num} Colonies"
     },

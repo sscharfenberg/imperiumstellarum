@@ -6,5 +6,23 @@
         "costs": "Resourcenkosten pro Runde",
         "work": "Effektive Forschungsergebnisse",
         "change": "Forschungs Priorität ändern"
+    },
+    "queue": {
+        "hdl": "Forschungs Aufträge"
+    },
+    "tl": {
+        "hdl": "Technologien",
+        "laser": "Laser",
+        "plasma": "Plasma",
+        "railgun": "Massebeschleuniger",
+        "missile": "Raketen",
+        "armour": "Panzerung",
+        "shields": "Schutzschilde",
+        "researchBtn": "TL{level} Erforschen"
+    },
+    "enqueue": {
+        "title": "{type} Tech Level {level} zu den Forschungs Aufträgen hinzufügen?",
+        "costs": "Nötige Forschungsergebnisse",
+        "submit": "TL{level} hinzufügen"
     }
 }

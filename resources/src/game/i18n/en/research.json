@@ -10,5 +10,23 @@
             "invalid": "Research priority is invalid."
         },
         "success": "Research priority was changed."
+    },
+    "queue": {
+        "hdl": "Research jobs"
+    },
+    "tl": {
+        "hdl": "Technologieen",
+        "laser": "Laser",
+        "plasma": "Plasma",
+        "railgun": "Railgun",
+        "missile": "Missile",
+        "armour": "Armour",
+        "shields": "Shields",
+        "researchBtn": "Research TL{level}"
+    },
+    "enqueue": {
+        "title": "Add {type} Tech Level {level} to the research queue?",
+        "costs": "Effective research results needed",
+        "submit": "Enqueue TL{level}"
     }
 }

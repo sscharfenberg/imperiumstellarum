@@ -24,7 +24,7 @@ Route::post('/game/populationChange',
     [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
 // calculate effective research
 Route::post('/game/effectiveResearch',
-    [\App\Http\Controllers\Game\Research\ResearchController::class, 'projectEffectiveResearch']);
+    [\App\Http\Controllers\Game\Research\EffectiveResearchController::class, 'projectEffectiveResearch']);
 
 
 /**
@@ -99,5 +99,8 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
 
     Route::post('/game/{game}/setResearchPriority',
         [\App\Http\Controllers\Game\Research\ResearchPriorityController::class, 'change']);
+
+    Route::post('/game/{game}/research/enqueue',
+        [\App\Http\Controllers\Game\Research\EnqueueController::class, 'handle']);
 
 });

@@ -12,7 +12,7 @@ export default {
     turnDue: 0,
     empireName: "",
     empireTicker: "",
-    empireResearchPriority: 1,
+    empireResearchPriority: 0,
     resources: [],
     storageUpgrades: [],
 };

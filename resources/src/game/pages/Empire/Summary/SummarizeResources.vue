@@ -37,10 +37,27 @@ export default {
                     return acc + val;
                 }, 0)
         );
+        const researchPriority = computed(
+            () => store.state.empireResearchPriority
+        );
+        const colonies = computed(() =>
+            store.state.empire.planets.filter((planet) => planet.population > 0)
+        );
+        const totalPopulation = computed(() => {
+            return colonies.value
+                .map((planet) => Math.floor(planet.population))
+                .reduce((acc, val) => {
+                    return acc + val;
+                }, 0);
+        });
+        const researchConsumption = computed(() =>
+            Math.ceil(researchPriority.value * totalPopulation.value)
+        );
         return {
             harvesters,
             production,
             foodConsumption,
+            researchConsumption,
         };
     },
 };
@@ -60,7 +77,11 @@ export default {
                 <span class="consumption">-{{ foodConsumption }}</span>
                 {{ $t("empire.summary.foodConsumption") }}
             </span>
-            <span v-if="resourceType === 'research'"> <br />[tbd] </span>
+            <span v-if="resourceType === 'research'">
+                <br />
+                <span class="consumption">-{{ researchConsumption }}</span>
+                {{ $t("empire.summary.researchConsumption") }}
+            </span>
         </div>
     </li>
 </template>

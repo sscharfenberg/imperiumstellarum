@@ -1,0 +1,126 @@
+<script>
+/******************************************************************************
+ * PageComponent: ShowTechArea
+ *****************************************************************************/
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
+import Icon from "Components/Icon/Icon";
+import GameButton from "Components/Button/GameButton";
+import ListTechLevels from "./ListTechLevels";
+import ResearchTechLevel from "./ResearchTechLevel";
+export default {
+    name: "ShowTechArea",
+    props: {
+        techLevelId: String,
+    },
+    components: { Icon, GameButton, ListTechLevels, ResearchTechLevel },
+    setup(props) {
+        const store = useStore();
+        const showModal = ref(false);
+        const tl = computed(() =>
+            store.getters["research/techLevelById"](props.techLevelId)
+        );
+        const researchJobs = computed(() =>
+            store.getters["research/researchJobByType"](tl.value.type)
+        );
+        const rules = window.rules.tech;
+        const nextLevel = computed(() => {
+            let current = tl.value.level;
+            if (researchJobs.value.length) {
+                current = researchJobs.value.sort((a, b) => {
+                    return a.level - b.level;
+                })[0].level;
+            }
+            return current + 1;
+        });
+        return {
+            rules,
+            tl,
+            nextLevel,
+            showModal,
+        };
+    },
+};
+</script>
+
+<template>
+    <li class="tech-area" :class="{ finished: nextLevel > rules.bounds.max }">
+        <icon :name="`tech-${tl.type}`" :size="4" />
+        <section class="overview">
+            <h4>{{ $t("research.tl." + tl.type) }}</h4>
+            <game-button
+                v-if="nextLevel < rules.bounds.max"
+                :text-string="
+                    $t('research.tl.researchBtn', { level: nextLevel })
+                "
+                @click="showModal = true"
+            />
+            <list-tech-levels :current="tl.level" />
+        </section>
+        <research-tech-level
+            :level="nextLevel"
+            :type="tl.type"
+            v-if="showModal"
+            @close="showModal = false"
+        />
+    </li>
+</template>
+
+<style lang="scss" scoped>
+.tech-area {
+    display: flex;
+    //align-items: flex-start;
+
+    padding: 0.8rem;
+    border: 1px solid transparent;
+    margin-bottom: 0.8rem;
+
+    @include respond-to("medium") {
+        padding: 1.6rem;
+        margin-bottom: 1.6rem;
+    }
+
+    @include themed() {
+        background: t("g-sunken");
+    }
+
+    &.finished {
+        @include themed() {
+            border-color: t("g-raven");
+        }
+    }
+
+    .icon {
+        height: 32px;
+        flex: 0 0 32px;
+
+        @include respond-to("medium") {
+            height: 64px;
+            flex: 0 0 64px;
+        }
+    }
+}
+.overview {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    margin-left: 0.8rem;
+    flex-grow: 1;
+
+    @include respond-to("medium") {
+        margin-left: 1.6rem;
+    }
+
+    > h4 {
+        margin: 0;
+
+        font-weight: 300;
+
+        @include respond-to("medium") {
+            font-size: 2.2rem;
+        }
+    }
+}
+</style>

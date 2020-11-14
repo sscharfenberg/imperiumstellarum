@@ -12,4 +12,6 @@
 export default {
     requesting: false,
     totalPopulation: 0,
+    techLevels: [],
+    researchJobs: [],
 };

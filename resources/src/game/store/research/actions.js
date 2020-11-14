@@ -22,6 +22,8 @@ export default {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_POPULATION", response.data.totalPopulation);
+                    commit("SET_TECH_LEVELS", response.data.techLevels);
+                    commit("SET_RESEARCH_JOBS", response.data.researchJobs);
                 }
             })
             .catch((e) => {
@@ -47,6 +49,29 @@ export default {
                     commit("SET_RESEARCH_PRIORITY", payload.researchPriority, {
                         root: true,
                     });
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    /**
+     * @function SET research priority
+     * @param {Function} commit - Vuex commit
+     * @param {Number} payload
+     */
+    ENQUEUE_TECHLEVEL: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/research/enqueue`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("SET_RESEARCH_JOBS", response.data.researchJobs);
                 }
             })
             .catch((e) => {

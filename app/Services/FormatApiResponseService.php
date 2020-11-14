@@ -8,6 +8,7 @@ use App\Models\StorageUpgrade;
 use App\Models\PlayerResource;
 use App\Models\Harvester;
 use App\Models\Shipyard;
+use App\Models\TechLevel;
 
 class FormatApiResponseService {
 
@@ -110,6 +111,21 @@ class FormatApiResponseService {
             'large' => $shipyard->large,
             'xlarge' => $shipyard->xlarge,
             'untilComplete' => $shipyard->until_complete
+        ];
+    }
+
+
+    /**
+     * @function format api response for a techLevel
+     * @param TechLevel $techLevel
+     * @return array
+     */
+    public function formatTechLevel (TechLevel $techLevel)
+    {
+        return [
+            'id' => $techLevel->id,
+            'type' => $techLevel->type,
+            'level' => $techLevel->level
         ];
     }
 }

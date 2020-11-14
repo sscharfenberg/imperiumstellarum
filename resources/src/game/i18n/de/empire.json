@@ -5,6 +5,7 @@
         "title": "Wirtschafts Überblick",
         "production": "durch {num} Ernter",
         "foodConsumption": "Nahrungsverbrauch",
+        "researchConsumption": "für Forschung",
         "population": "Bevölkerung",
         "colonies": "Bevölkerung in {num} Kolonie | Bevölkerung in {num} Kolonieen"
     },
