@@ -60,7 +60,7 @@
         </li>
         <li class="drawer-list__item">
             <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link" rel="noopener">
-                <x-icon name="save" size="2" /> @lang('app.drawer.github')
+                <x-icon name="github" size="2" /> @lang('app.drawer.github')
             </a>
         </li>
         <li class="drawer-list__item">
