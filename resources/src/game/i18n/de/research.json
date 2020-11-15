@@ -8,7 +8,13 @@
         "change": "Forschungs Priorität ändern"
     },
     "queue": {
-        "hdl": "Forschungs Aufträge"
+        "hdl": "Forschungs Aufträge",
+        "delete": {
+            "hdl": "{type} Tech Level {level} löschen?",
+            "explanation": "Der Forschungsauftrag wird aus der Warteschleife entfernt, geleistete Forschungsarbeit verfällt.",
+            "lostWork": "Verfallende Forschungsarbeit",
+            "submit": "Forschungsauftrag löschen"
+        }
     },
     "tl": {
         "hdl": "Technologien",
@@ -18,11 +24,16 @@
         "missile": "Raketen",
         "armour": "Panzerung",
         "shields": "Schutzschilde",
-        "researchBtn": "TL{level} Erforschen"
+        "researchBtn": "TL{level} Erforschen",
+        "levelLabel": "TL{level}",
+        "learned": "erforscht",
+        "learning": "in Warteschleife",
+        "available": "noch nicht erforscht"
     },
     "enqueue": {
         "title": "{type} Tech Level {level} zu den Forschungs Aufträgen hinzufügen?",
         "costs": "Nötige Forschungsergebnisse",
+        "explanation": "Der neue Forschungs Auftrag wird am Ende der Warteschleife eingefügt.",
         "submit": "TL{level} hinzufügen"
     }
 }

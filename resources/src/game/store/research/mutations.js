@@ -37,6 +37,16 @@ export default {
      * @param {Number} payload
      */
     SET_RESEARCH_JOBS: (state, payload) => {
+        console.log("setting research jobs to", payload);
         state.researchJobs = payload;
+    },
+
+    /**
+     * @function ADD PLAYER RESEARCH JOB
+     * @param {Object} state - vuex module "research" state
+     * @param {Number} payload
+     */
+    ADD_RESEARCH_JOB: (state, payload) => {
+        state.researchJobs.push(payload);
     },
 };

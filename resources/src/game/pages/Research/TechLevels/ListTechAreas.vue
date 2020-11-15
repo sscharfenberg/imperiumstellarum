@@ -28,7 +28,6 @@ export default {
             :tech-level-id="area.id"
         />
     </ul>
-    {{ techLevels }}
 </template>
 
 <style lang="scss" scoped>

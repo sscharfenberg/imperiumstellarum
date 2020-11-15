@@ -67,6 +67,17 @@ return [
             'priority' => [
                 'invalid' => 'Forschungs Priorität ist ungültig.'
             ],
+            'enqueue' => [
+                'area' => 'This area does not exist.',
+                'alreadyResearched' => 'This level is already researched or enqueued.',
+                'bounds' => 'This level is not valid.',
+                'max' => 'Already researching the maximum number of jobs allowed.',
+            ],
+            'order' => [
+                'owned' => 'Some of these research jobs are not owned by you.',
+                'order' => 'Research job order is invalid. You need to research lower levels first.',
+                'max' => 'You can\'t queue more than :num research jobs.',
+            ]
         ]
     ],
 

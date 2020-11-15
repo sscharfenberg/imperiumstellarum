@@ -42,6 +42,7 @@ export default {
                 return sortedStars;
             },
             set: (val) => {
+                console.log(val);
                 store.commit("empire/SET_STARS_ORDER", val);
             },
         });
@@ -81,6 +82,6 @@ export default {
     }
 }
 .flip-list-move {
-    transition: transform 0.5s;
+    transition: transform 0.2s;
 }
 </style>

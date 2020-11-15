@@ -1,30 +1,28 @@
 <script>
 /******************************************************************************
- * PageComponent: ResearchTechLevel
+ * PageComponent: DeleteQueueItem
  *****************************************************************************/
 import { useStore } from "vuex";
+import { computed } from "vue";
 import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
 export default {
-    name: "ResearchTechLevel",
+    name: "DeleteQueueItem",
     props: {
-        level: Number,
-        type: String,
+        jobId: String,
     },
     components: { Modal, GameButton },
     setup(props, { emit }) {
         const store = useStore();
-        const workRequired = () =>
-            window.rules.tech.areas[props.type].costs[props.level - 1];
+        const job = computed(() =>
+            store.getters["research/researchJobById"](props.jobId)
+        );
         const onSubmit = () => {
-            store.dispatch("research/ENQUEUE_TECHLEVEL", {
-                type: props.type,
-                level: props.level,
-            });
+            store.dispatch("research/DELETE_RESEARCH_JOB", { id: props.jobId });
             emit("close");
         };
         return {
-            workRequired,
+            job,
             onSubmit,
         };
     },
@@ -34,33 +32,27 @@ export default {
 <template>
     <modal
         :title="
-            $t('research.enqueue.title', {
-                type: $t('research.tl.' + type),
-                level,
+            $t('research.queue.delete.hdl', {
+                type: $t('research.tl.' + job.type),
+                level: job.level,
             })
         "
         @close="$emit('close')"
     >
         <ul class="stats">
-            <li>{{ $t("research.enqueue.costs") }}</li>
-            <li class="stats--centered featured">{{ workRequired() }}</li>
-            <li class="stats--two-col">
-                {{ $t("research.enqueue.explanation") }}
+            <li class="stats--two-col featured stats--padded">
+                {{ $t("research.queue.delete.explanation") }}
             </li>
+            <li>{{ $t("research.queue.delete.lostWork") }}:</li>
+            <li class="stats--centered">{{ job.work }}</li>
         </ul>
         <template v-slot:actions>
             <game-button
-                :text-string="$t('research.enqueue.submit', { level })"
-                icon-name="done"
+                :text-string="$t('research.queue.delete.submit')"
+                icon-name="delete"
                 :primary="true"
                 @click="onSubmit"
             />
         </template>
     </modal>
 </template>
-
-<style lang="scss" scoped>
-.stats {
-    margin-bottom: 0;
-}
-</style>

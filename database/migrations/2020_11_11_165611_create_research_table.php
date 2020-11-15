@@ -23,7 +23,8 @@ class CreateResearchTable extends Migration
             $table->uuid('tech_level_id');
             $table->enum('type', array_keys(config('rules.tech.areas')));
             $table->unsignedTinyInteger('level')->default(1);
-            $table->float('remaining',8,4,true);
+            $table->unsignedSmallInteger('remaining')->default(0);
+            $table->unsignedSmallInteger('work')->default(0);
             $table->unsignedTinyInteger('order');
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

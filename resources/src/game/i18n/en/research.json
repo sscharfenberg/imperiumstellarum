@@ -12,7 +12,13 @@
         "success": "Research priority was changed."
     },
     "queue": {
-        "hdl": "Research jobs"
+        "hdl": "Research jobs",
+        "delete": {
+            "hdl": "Delete {type} Tech Level {level}?",
+            "explanation": "The research job will be deleted, all progress will be lost.",
+            "lostWork": "Research work lost",
+            "submit": "Delete Research Job"
+        }
     },
     "tl": {
         "hdl": "Technologieen",
@@ -22,11 +28,16 @@
         "missile": "Missile",
         "armour": "Armour",
         "shields": "Shields",
-        "researchBtn": "Research TL{level}"
+        "researchBtn": "Research TL{level}",
+        "levelLabel": "TL{level}",
+        "learned": "researched",
+        "learning": "queued",
+        "available": "not yet researched"
     },
     "enqueue": {
         "title": "Add {type} Tech Level {level} to the research queue?",
         "costs": "Effective research results needed",
+        "explanation": "The new research job will be inserted at the bottom of the queue.",
         "submit": "Enqueue TL{level}"
     }
 }

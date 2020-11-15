@@ -2,18 +2,41 @@
 /******************************************************************************
  * PageComponent: ListTechLevels
  *****************************************************************************/
+import { useStore } from "vuex";
+import { computed } from "vue";
 export default {
     name: "ListTechLevels",
     props: {
         current: Number,
+        type: String,
     },
-    setup() {
+    setup(props) {
+        const store = useStore();
+        const researchLevels = computed(() =>
+            store.getters["research/researchJobsByType"](props.type).map(
+                (job) => job.level
+            )
+        );
         const min = window.rules.tech.bounds.min;
         const max = window.rules.tech.bounds.max;
         return {
             min,
             max,
+            researchLevels,
         };
+    },
+    methods: {
+        label(level) {
+            let label = this.$t("research.tl.levelLabel", { level }) + ": ";
+            if (level <= this.current) {
+                label += this.$t("research.tl.learned");
+            } else if (this.researchLevels.includes(level)) {
+                label += this.$t("research.tl.learning");
+            } else {
+                label += this.$t("research.tl.available");
+            }
+            return label;
+        },
     },
 };
 </script>
@@ -24,7 +47,11 @@ export default {
         <li
             v-for="level in max"
             :key="level"
-            :class="{ learned: level <= current }"
+            :class="{
+                learned: level <= current,
+                learning: researchLevels.includes(level),
+            }"
+            :aria-label="label(level)"
         >
             {{ level }}
         </li>
@@ -60,6 +87,7 @@ export default {
         @include themed() {
             background-color: t("g-bunker");
             color: t("t-bright");
+            border-color: t("g-deep");
         }
 
         @include respond-to("medium") {
@@ -75,6 +103,14 @@ export default {
         @include themed() {
             background: t("s-active");
             border-color: t("s-success");
+        }
+    }
+
+    .learning {
+        @include themed() {
+            border: 2px dashed t("s-warning");
+
+            background: t("s-building");
         }
     }
 }

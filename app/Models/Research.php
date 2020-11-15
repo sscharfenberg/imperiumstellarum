@@ -15,12 +15,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tech_level_id
  * @property string $type
  * @property int $level
- * @property float $remaining
+ * @property int $remaining
+ * @property int $work
  * @property int $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
+ * @property-read \App\Models\TechLevel $techLevel
  * @method static \Illuminate\Database\Eloquent\Builder|Research newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Research newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Research query()
@@ -31,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereRemaining($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Research whereWork($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereOrder($value)
  * @mixin \Eloquent
  */
@@ -64,6 +67,7 @@ class Research extends Model
         'type',
         'level',
         'remaining',
+        'work',
         'order',
     ];
 

@@ -21,22 +21,28 @@ export default {
             store.getters["research/techLevelById"](props.techLevelId)
         );
         const researchJobs = computed(() =>
-            store.getters["research/researchJobByType"](tl.value.type)
+            store.getters["research/researchJobsByType"](tl.value.type)
         );
         const rules = window.rules.tech;
         const nextLevel = computed(() => {
             let current = tl.value.level;
             if (researchJobs.value.length) {
-                current = researchJobs.value.sort((a, b) => {
-                    return a.level - b.level;
-                })[0].level;
+                current = Math.max(
+                    ...researchJobs.value.map((job) => job.level)
+                );
             }
             return current + 1;
         });
+        const isQueueMaxed = computed(
+            () =>
+                store.getters["research/researchJobsOrdered"].length ===
+                window.rules.tech.queue
+        );
         return {
             rules,
             tl,
             nextLevel,
+            isQueueMaxed,
             showModal,
         };
     },
@@ -49,13 +55,13 @@ export default {
         <section class="overview">
             <h4>{{ $t("research.tl." + tl.type) }}</h4>
             <game-button
-                v-if="nextLevel < rules.bounds.max"
+                v-if="nextLevel < rules.bounds.max && !isQueueMaxed"
                 :text-string="
                     $t('research.tl.researchBtn', { level: nextLevel })
                 "
                 @click="showModal = true"
             />
-            <list-tech-levels :current="tl.level" />
+            <list-tech-levels :current="tl.level" :type="tl.type" />
         </section>
         <research-tech-level
             :level="nextLevel"

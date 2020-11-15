@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Research;
 use App\Models\Star;
 use App\Models\Planet;
 use App\Models\StorageUpgrade;
@@ -95,7 +96,6 @@ class FormatApiResponseService {
         ];
     }
 
-
     /**
      * @function format api response for a shipyard
      * @param Shipyard $shipyard
@@ -114,7 +114,6 @@ class FormatApiResponseService {
         ];
     }
 
-
     /**
      * @function format api response for a techLevel
      * @param TechLevel $techLevel
@@ -126,6 +125,24 @@ class FormatApiResponseService {
             'id' => $techLevel->id,
             'type' => $techLevel->type,
             'level' => $techLevel->level
+        ];
+    }
+
+    /**
+     * @function format api response for a research job
+     * @param Research $research
+     * @return array
+     */
+    public function formatResearchJob (Research $research)
+    {
+        return [
+            'id' => $research->id,
+            'techLevelId' => $research->tech_level_id,
+            'type' => $research->type,
+            'level' => $research->level,
+            'remaining' => $research->remaining,
+            'work' => $research->work,
+            'order' => $research->order
         ];
     }
 }

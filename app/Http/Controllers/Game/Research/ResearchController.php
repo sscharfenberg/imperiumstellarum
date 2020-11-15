@@ -33,7 +33,9 @@ class ResearchController extends Controller
             'techLevels' => $player->techLevels->map(function ($techLevel) use ($f) {
                 return $f->formatTechLevel($techLevel);
             }),
-            'researchJobs' => []
+            'researchJobs' => $player->researches->map(function ($research) use ($f) {
+                return $f->formatResearchJob($research);
+            })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

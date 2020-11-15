@@ -97,10 +97,20 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
      * research api calls
      */
 
+    // set research priority
     Route::post('/game/{game}/setResearchPriority',
         [\App\Http\Controllers\Game\Research\ResearchPriorityController::class, 'change']);
 
+    // enqueue research job
     Route::post('/game/{game}/research/enqueue',
         [\App\Http\Controllers\Game\Research\EnqueueController::class, 'handle']);
+
+    // change queue sort order
+    Route::post('/game/{game}/research/order',
+        [\App\Http\Controllers\Game\Research\QueueOrderController::class, 'handle']);
+
+    // delete research job
+    Route::post('/game/{game}/research/delete',
+        [\App\Http\Controllers\Game\Research\DeleteController::class, 'handle']);
 
 });

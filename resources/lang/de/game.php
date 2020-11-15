@@ -67,6 +67,17 @@ return [
             'priority' => [
                 'invalid' => 'Forschungs Priorität ist ungültig.'
             ],
+            'enqueue' => [
+                'area' => 'Diese Technologie existiert nicht.',
+                'alreadyResearched' => 'Diese Stufe ist bereits erforscht oder in der Warteschleife.',
+                'bounds' => 'Diese Stufe ist nicht gültig.',
+                'max' => 'Sie haben bereits die maximale Zahl an Forschungen in der Warteschleife.',
+            ],
+            'order' => [
+                'owned' => 'Einer oder mehrere Forschungsaufträge gehört nicht Ihnen.',
+                'order' => 'Die Reihenfolge in der Warteschleife ist ungültig. Sie müssen niedrigere Stufen zuerst erforschen.',
+                'max' => 'Sie können nicht mehr als :num Forschungsaufträge in der Warteschleife haben.',
+            ]
         ]
     ],
 

@@ -21,7 +21,15 @@ export default {
     techLevelById: (state) => (id) =>
         state.techLevels.find((tl) => tl.id === id) || {},
 
+    // get sorted research jobs in queue order
+    researchJobsOrdered: (state) =>
+        state.researchJobs.sort((a, b) => a.order - b.order),
+
     // get research job by type
-    researchJobByType: (state) => (type) =>
-        state.researchJobs.filter((job) => job.type === type) || {},
+    researchJobsByType: (state) => (type) =>
+        state.researchJobs.filter((job) => job.type === type) || [],
+
+    // get research job by id
+    researchJobById: (state) => (id) =>
+        state.researchJobs.find((job) => job.id === id) || {},
 };
