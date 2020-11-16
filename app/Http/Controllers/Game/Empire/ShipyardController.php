@@ -11,6 +11,7 @@ use App\Services\ResourceService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ShipyardController extends Controller
 {
@@ -103,6 +104,8 @@ class ShipyardController extends Controller
             'xlarge' => $type === 'xlarge',
             'until_complete' => $turns,
         ]);
+
+        Log::info("Empire $player->ticker has started building a shipyard: ".json_encode($shipyard, JSON_PRETTY_PRINT));
 
         // provide information to client about new shipyard and resources
         return response()->json([

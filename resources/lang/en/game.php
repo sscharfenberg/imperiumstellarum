@@ -77,6 +77,10 @@ return [
                 'owned' => 'Some of these research jobs are not owned by you.',
                 'order' => 'Research job order is invalid. You need to research lower levels first.',
                 'max' => 'You can\'t queue more than :num research jobs.',
+            ],
+            'delete' => [
+                'owned' => 'You do not own this research job',
+                'order' => 'You have a research job of higher level enqueued.'
             ]
         ]
     ],

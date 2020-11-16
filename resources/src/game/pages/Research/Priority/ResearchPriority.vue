@@ -3,7 +3,7 @@
  * PageComponent: ResearchPriority
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
-import { computed, onBeforeMount, ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import debounce from "lodash/debounce";
 export default {
@@ -11,9 +11,6 @@ export default {
     setup() {
         const store = useStore();
         const rules = window.rules.tech.researchPriority;
-        //const statePriority = computed(
-        //    () => store.state.empireResearchPriority
-        //);
         const priority = computed({
             get: () => store.state.empireResearchPriority,
             set: debounce((val) => {
@@ -27,40 +24,14 @@ export default {
         const totalPopulation = computed(
             () => store.state.research.totalPopulation
         );
-        const getEffectiveResearch = () => {
-            isRequesting.value = true;
-            window.axios
-                .post("/api/game/effectiveResearch", {
-                    priority: parseFloat(priority.value),
-                    totalPopulation: totalPopulation.value,
-                })
-                .then((response) => {
-                    calculatedResults.value = response.data.effectiveResearch;
-                })
-                .catch((e) => {
-                    console.error(e);
-                })
-                .finally(() => {
-                    isRequesting.value = false;
-                });
-        };
-        onBeforeMount(() => {
-            getEffectiveResearch();
-        });
-        const onChange = debounce(() => {
-            getEffectiveResearch();
-        }, 200);
         const calculatedCosts = computed(() => {
             return Math.ceil(priority.value * totalPopulation.value);
         });
-        const calculatedResults = ref(0);
         return {
             rules,
             priority,
             isRequesting,
             calculatedCosts,
-            calculatedResults,
-            onChange,
             ...useI18n(),
         };
     },
@@ -83,7 +54,6 @@ export default {
                 step="0.1"
                 v-model="priority"
                 :disabled="isRequesting"
-                @change="onChange"
             />
             <input
                 type="number"
@@ -95,15 +65,11 @@ export default {
                 step="0.5"
                 v-model="priority"
                 :disabled="isRequesting"
-                @change="onChange"
             />
         </div>
         <div class="result">
             <div class="costs">
                 {{ $t("research.priority.costs") }}: {{ calculatedCosts }}
-            </div>
-            <div class="work">
-                {{ $t("research.priority.work") }}: {{ calculatedResults }}
             </div>
         </div>
     </div>

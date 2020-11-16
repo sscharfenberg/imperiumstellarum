@@ -9,6 +9,7 @@ use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EnqueueController extends Controller
 {
@@ -109,7 +110,7 @@ class EnqueueController extends Controller
             'order' => $jobOrder
         ]);
 
-        //$jobs = $player->researches();
+        Log::info("Empire $player->ticker has queued research job $job->type TL $job->level");
 
         $f = new FormatApiResponseService;
         return response()->json([

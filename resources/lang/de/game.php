@@ -77,6 +77,10 @@ return [
                 'owned' => 'Einer oder mehrere Forschungsaufträge gehört nicht Ihnen.',
                 'order' => 'Die Reihenfolge in der Warteschleife ist ungültig. Sie müssen niedrigere Stufen zuerst erforschen.',
                 'max' => 'Sie können nicht mehr als :num Forschungsaufträge in der Warteschleife haben.',
+            ],
+            'delete' => [
+                'owned' => 'Dieser Forschungsauftrag gehört nicht Ihnen.',
+                'order' => 'Sie haben einen Forschungsauftrag mit höherer Stufe in der Warteschleife.'
             ]
         ]
     ],

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ResearchPriorityController extends Controller
 {
@@ -44,6 +45,8 @@ class ResearchPriorityController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $player->research_priority = $priority;
         $player->save();
+
+        Log::info("Empire $player->ticker has changed research priority to $priority");
 
         return response()->json([
             'message' => __('game.research.researchPriorityChanged')

@@ -45,7 +45,7 @@ export default {
         );
         const totalPopulation = computed(() => {
             return colonies.value
-                .map((planet) => Math.floor(planet.population))
+                .map((planet) => planet.population)
                 .reduce((acc, val) => {
                     return acc + val;
                 }, 0);

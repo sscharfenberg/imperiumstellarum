@@ -47,8 +47,8 @@ class ProcessTurn
     private function processHarvesters(Game $game, Turn $turn)
     {
         Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 2: Process Harvesters.');
-        $s = new \App\Actions\Turn\ProcessHarvesters;
-        $s->handle($game);
+        $h = new \App\Actions\Turn\ProcessHarvesters;
+        $h->handle($game);
     }
 
     /**
@@ -60,11 +60,15 @@ class ProcessTurn
     private function handleColonies(Game $game, Turn $turn)
     {
         Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 3: Population Growth.');
-        $s = new \App\Actions\Turn\Colonies;
-        $s->handle($game);
+        $c = new \App\Actions\Turn\Colonies;
+        $c->handle($game);
     }
 
-
+    /**
+     * @function process shipyard builds
+     * @param Game $game
+     * @param Turn $turn
+     */
     private function processShipyards(Game $game, Turn $turn)
     {
         Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 4: Build Shipyards.');
@@ -72,7 +76,17 @@ class ProcessTurn
         $s->handle($game);
     }
 
-
+    /**
+     * @function process research
+     * @param Game $game
+     * @param Turn $turn
+     */
+    private function processResearch(Game $game, Turn $turn)
+    {
+        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 5: PROCESS RESEARCH.');
+        $s = new \App\Actions\Turn\ProcessResearch;
+        $s->handle($game);
+    }
 
     /**
      * @function handle game start
@@ -95,6 +109,10 @@ class ProcessTurn
         $this->handleColonies($game, $turn);
         // #4 build shipyards
         $this->processShipyards($game, $turn);
+        // #5 do research
+        $this->processResearch($game, $turn);
+
+
 
         // ...
 

@@ -22,9 +22,6 @@ Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthCont
 // calculate new population
 Route::post('/game/populationChange',
     [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
-// calculate effective research
-Route::post('/game/effectiveResearch',
-    [\App\Http\Controllers\Game\Research\EffectiveResearchController::class, 'projectEffectiveResearch']);
 
 
 /**

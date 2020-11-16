@@ -11,6 +11,7 @@ use App\Services\ResourceService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HarvesterController extends Controller
 {
@@ -91,6 +92,8 @@ class HarvesterController extends Controller
         $input = $request->input();
         $planet = Planet::find($input['planetId']);
         $resourceType = $input['resourceType'];
+        $f = new FormatApiResponseService;
+        $r = new ResourceService;
 
         // verification
         if (!$this->playerOwnsPlanet($player, $planet)) {
@@ -126,8 +129,8 @@ class HarvesterController extends Controller
             'until_complete' => $harvesterRules['costs']['turns'],
         ]);
 
-        $f = new FormatApiResponseService;
-        $r = new ResourceService;
+        Log::info("Empire $player->ticker has started building a harvester: ".json_encode($f->formatHarvester($harvester), JSON_PRETTY_PRINT));
+
         return response()->json([
             'harvester' => $f->formatHarvester($harvester),
             'resources' => $r->getResources($player)
