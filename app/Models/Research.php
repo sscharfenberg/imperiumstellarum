@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereWork($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Research whereOrder($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Research whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Research whereUpdatedAt($value)
  */
 class Research extends Model
 {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Game;
 
+use App\Rules\Uppercase;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Player;
@@ -75,7 +76,14 @@ class EnlistController extends Controller
                 'string',
                 'min:'.config('rules.player.ticker.min'),
                 'max:'.config('rules.player.ticker.max'),
-                Rule::notIn($tickers)
+                Rule::notIn($tickers),
+                new Uppercase
+            ],
+            'colour' => [
+                'required',
+                'string',
+                'size:'.config('rules.player.colour'),
+                'regex:/[a-fA-F0-9]\b/i'
             ]
         ]);
         if ($validator->fails()) {
@@ -88,6 +96,7 @@ class EnlistController extends Controller
             'game_id' => $game->id,
             'name' => $request->input(['empire_name']),
             'ticker' => $request->input(['ticker']),
+            'colour' => $request->input(['colour'])
         ]);
 
         // add default settings for player - storage, techLevels, selected_player
@@ -105,6 +114,13 @@ class EnlistController extends Controller
     }
 
 
+    /**
+     * @function quit game, delete player
+     * @param Request $request
+     * @param $playerId
+     * @return RedirectResponse
+     * @throws \Exception
+     */
     public function delete (Request $request, $playerId)
     {
         $player = Player::find($playerId);

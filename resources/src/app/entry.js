@@ -14,6 +14,8 @@ import { initFlash } from "./modules/flash";
 import { initPasswordStrength } from "./modules/password-strength";
 import { initSubmitButton } from "./modules/button";
 import { initModal } from "./modules/modal";
+import { initTextToUpperCase } from "./modules/ticker";
+import { initColourPicker } from "./modules/colour-picker";
 
 document.addEventListener("DOMContentLoaded", () => {
     initSubmenus();
@@ -27,4 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector(".password-strength")) initPasswordStrength();
     if (document.querySelector(".app-btn--submit")) initSubmitButton();
     if (document.querySelector("button[data-modal]")) initModal();
+    if (document.querySelector("input[type=text].uppercase")) initTextToUpperCase();
+    if (document.querySelector("[data-colour]")) initColourPicker();
 });

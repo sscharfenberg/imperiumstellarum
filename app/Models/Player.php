@@ -14,6 +14,7 @@ use \App\Http\Traits\UsesUuid;
  * @property string $game_id
  * @property string $name
  * @property string $ticker
+ * @property string $colour
  * @property float $research_priority
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -34,6 +35,7 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereResearchPriority($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereTicker($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereColour($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  * @mixin \Eloquent
@@ -74,7 +76,8 @@ class Player extends Model
         'game_id',
         'name',
         'ticker',
-        'research_priority'
+        'research_priority',
+        'colour'
     ];
 
     /**

@@ -22,6 +22,7 @@ class CreatePlayersTable extends Migration
             $table->uuid('game_id');
             $table->string('name', config('rules.player.name.max'));
             $table->string('ticker', config('rules.player.ticker.max'));
+            $table->string('colour', 6);
             $table->float('research_priority', 8, 6)
                 ->default(config('rules.tech.researchPriority.default'));
             $table->foreign('user_id')->references('id')->on('users')

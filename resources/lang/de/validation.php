@@ -189,7 +189,14 @@ return [
             'string' => 'Der Ticker sollte eine Zeichenkette sein.',
             'min' => 'Der Ticker sollte mindestens :min Zeichen enthalten.',
             'max' => 'Der Ticker darf nicht länger als :max Zeichen sein.',
-            'not_in' => 'Dieser Ticker wird bereits verwendet.'
+            'not_in' => 'Dieser Ticker wird bereits verwendet.',
+            'uppercase' => 'Buchstaben im Ticker müssen groß geschrieben sein.'
+        ],
+        'colour' => [
+            'required' => 'Bitte wählen Sie eine Farbe für Ihr Imperium.',
+            'string' => 'Die Farbe muss eine Zeichenkette sein.',
+            'size' => 'Die Farbe muss genau sechs Zeichen haben.',
+            'regex' => 'Die Farbe darf nur 0-9 und a-f enthalten.',
         ]
     ],
 

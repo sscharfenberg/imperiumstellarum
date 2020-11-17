@@ -114,7 +114,7 @@
                     required
                     aria-required="true"
                     maxlength="{{ config('rules.player.ticker.max') }}"
-                    class="form-control @error('ticker') invalid @enderror"
+                    class="form-control uppercase @error('ticker') invalid @enderror"
                     placeholder="@lang('app.enlist.tickerPlaceholder')"
                     value="{{ old('ticker') }}" />
                 <aside class="addon @error('ticker') invalid @enderror"><x-icon name="lightbulb" size="2" /></aside>
@@ -127,6 +127,37 @@
             </div>
             @enderror
             <div class="descr">@lang("app.enlist.tickerDescription", ['min' => config('rules.player.ticker.min'), 'max' => config('rules.player.ticker.max') ])</div>
+        </div>
+
+        <div class="form-row has-divider">
+            <div class="label">
+                <label for="colour">
+                    @lang("app.enlist.colourLabel")
+                    <span class="colour-preview"></span>
+                </label>
+            </div>
+            <div class="input">
+                <input
+                    type="text"
+                    name="colour"
+                    id="colour"
+                    maxlength="{{ config('rules.player.colour') }}"
+                    class="form-control @error('colour') invalid @enderror"
+                    placeholder="@lang('app.enlist.colourPlaceholder')"
+                    value="{{ old('colour') }}"
+
+                    data-colour />
+                <aside class="addon @error('colour') invalid @enderror"><x-icon name="palette" size="2" /></aside>
+            </div>
+            <div class="colour-picker" data-colour></div>
+            @error('colour')
+            <div class="error">
+                <ul class="errors">
+                    <li><x-icon name="warning" size="2" /> {{ $message }}</li>
+                </ul>
+            </div>
+            @enderror
+            <div class="descr">@lang("app.enlist.colourDescription")</div>
         </div>
 
         <div class="form-row">

@@ -8,6 +8,7 @@
  * @function init
  */
 export const initSubmitButton = () => {
+    console.log("initializing submit button handling");
     const _forms = document.querySelectorAll("form");
     for (let i = 0; i < _forms.length; ++i) {
         _forms[i].addEventListener("submit", () => {

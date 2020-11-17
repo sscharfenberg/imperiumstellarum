@@ -26,10 +26,12 @@ export default {
                     job.value.level - 1
                 ]
         );
+        const isRequesting = computed(() => store.state.research.requesting);
         return {
             job,
             researchCosts,
             showModal,
+            isRequesting
         };
     },
 };
@@ -37,7 +39,7 @@ export default {
 
 <template>
     <div class="queue-item">
-        <icon name="drag" class="drag" />
+        <icon name="drag" class="drag" :class="{disabled: isRequesting}" />
         <icon :name="`tech-${job.type}`" class="type" />
         <div class="level" aria-hidden="true">{{ job.level }}</div>
         <linear-progress
@@ -87,6 +89,10 @@ export default {
 
         @include respond-to("medium") {
             margin-right: 1.6rem;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
         }
     }
 

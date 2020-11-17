@@ -23,8 +23,10 @@ export default {
                 );
             },
         });
+        const isRequesting = computed(() => store.state.research.requesting);
         return {
             researchJobs,
+            isRequesting
         };
     },
     methods: {
@@ -44,6 +46,8 @@ export default {
         drag-class="drag"
         v-if="researchJobs.length > 0"
         :set-data="setData"
+        :disabled="isRequesting"
+        :aria-disabled="isRequesting"
     >
         <transition-group type="transition" name="flip-list">
             <queue-item

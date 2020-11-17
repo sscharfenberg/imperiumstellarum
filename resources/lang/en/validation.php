@@ -191,7 +191,14 @@ return [
             'string' => 'The ticker should be a string.',
             'min' => 'The ticker should have at least :min characters.',
             'max' => 'The ticker must not be longer than :max characters.',
-            'not_in' => 'This ticker has already been taken.'
+            'not_in' => 'This ticker has already been taken.',
+            'uppercase' => 'The ticker must not have lowercase letters'
+        ],
+        'colour' => [
+            'required' => 'Please choose a colour for your empire.',
+            'string' => 'The colour should be a string.',
+            'size' => 'The colour should have exactly six letters.',
+            'regex' => 'The colour can only contain 0-9 and a-f.',
         ]
     ],
 
