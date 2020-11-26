@@ -46,10 +46,10 @@ export default {
             </li>
             <li class="drawer-list__item">
                 <router-link
-                    :to="{ name: 'Starmap' }"
+                    :to="{ name: 'Starchart' }"
                     class="drawer-list__link"
                 >
-                    <icon name="starmap" /> {{ t("starmap.navTitle") }}
+                    <icon name="starchart" /> {{ t("starchart.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">

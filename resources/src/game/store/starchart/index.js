@@ -1,28 +1,17 @@
 /******************************************************************************
- * Vuex store entrypoint
+ * Vuex module "starchart"
+ * https://vuex.vuejs.org/guide/modules.html
  *****************************************************************************/
-import { createStore } from "vuex";
-import empire from "./empire";
-import research from "./research";
-import starchart from "./starchart";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
 import getters from "./getters";
 
-/*
- * create vuex store
- */
-const store = createStore({
+export default {
+    namespaced: true,
+    // module assets
     state,
     mutations,
     actions,
     getters,
-    modules: {
-        empire,
-        research,
-        starchart,
-    },
-});
-
-export default store;
+};

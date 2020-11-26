@@ -40,9 +40,11 @@ export default [
             ),
     },
     {
-        path: "/starmap",
-        name: "Starmap",
+        path: "/starchart",
+        name: "Starchart",
         component: () =>
-            import(/* webpackChunkName: "starmap" */ "Pages/Starmap/Starmap"),
+            import(
+                /* webpackChunkName: "starmap" */ "Pages/Starchart/Starchart"
+            ),
     },
 ];

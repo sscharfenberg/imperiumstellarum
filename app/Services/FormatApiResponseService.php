@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Player;
 use App\Models\Research;
 use App\Models\Star;
 use App\Models\Planet;
@@ -143,6 +144,22 @@ class FormatApiResponseService {
             'remaining' => $research->remaining,
             'work' => $research->work,
             'order' => $research->order
+        ];
+    }
+
+
+    /**
+     * @function format api response for a player (that isn't the current player)
+     * @param Player $player
+     * @return array
+     */
+    public function formatPlayer (Player $player)
+    {
+        return [
+            'id' => $player->id,
+            'ticker' => $player->ticker,
+            'name' => $player->name,
+            'colour' => $player->colour
         ];
     }
 }

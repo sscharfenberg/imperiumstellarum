@@ -63,6 +63,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::get('/game/{game}/research',
         [\App\Http\Controllers\Game\Research\ResearchController::class, 'gameData']);
 
+    /**
+     * starmap api calls
+     */
+    Route::get('/game/{game}/starchart',
+        [\App\Http\Controllers\Game\Starchart\StarchartController::class, 'gameData']);
+
 });
 
 /**

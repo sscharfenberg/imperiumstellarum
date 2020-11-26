@@ -37,8 +37,8 @@
                     </a>
                 </li>
                 <li class="drawer-list__item">
-                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/starmap" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
-                        <x-icon name="starmap" size="2" /> @lang("game.starmap.navTitle")
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/starchart" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
+                        <x-icon name="starchart" size="2" /> @lang("game.starchart.navTitle")
                     </a>
                 </li>
                 <li class="drawer-list__item drawer-list__item--both-borders">

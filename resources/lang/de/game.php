@@ -85,7 +85,7 @@ return [
         ]
     ],
 
-    'starmap' => [
+    'starchart' => [
         'navTitle' => 'Sternenkarte'
     ],
 
