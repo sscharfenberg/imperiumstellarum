@@ -30,4 +30,13 @@ export default {
     SET_PLAYERS: (state, payload) => {
         state.players = payload;
     },
+
+    /**
+     * @function SET game dimensions
+     * @param {Object} state - vuex module "research" state
+     * @param {Array} payload
+     */
+    SET_DIMENSIONS: (state, payload) => {
+        state.dimensions = payload;
+    },
 };

@@ -17,11 +17,13 @@ export default {
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.starchart.requesting);
+        const dimensions = computed(() => store.state.starchart.dimensions);
         onBeforeMount(() => {
             store.dispatch("starchart/GET_GAME_DATA");
         });
         return {
             requesting,
+            dimensions,
         };
     },
 };
@@ -33,6 +35,6 @@ export default {
         :headline="$t('starchart.map.label')"
         :requesting="requesting"
     >
-        <star-map />
+        <star-map v-if="dimensions" :dimensions="dimensions" />
     </area-section>
 </template>
