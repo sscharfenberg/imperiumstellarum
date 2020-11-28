@@ -25,6 +25,7 @@
         "axios": "^0.21.0",
         "date-fns": "^2.16.1",
         "flatpickr": "^4.6.6",
+        "interactjs": "^1.10.0",
         "lodash": "^4.17.20",
         "noty": "^3.2.0-beta",
         "nouislider": "^14.6.2",

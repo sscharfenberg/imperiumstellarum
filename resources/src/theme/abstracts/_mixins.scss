@@ -4,8 +4,7 @@
  *
  *****************************************************************************/
 @import "config";
-//@import "functions";
-// styleline:disable no-vendor-prefixes
+/* stylelint-disable */
 
 // retina image
 @mixin retina-image(
@@ -24,9 +23,7 @@
         only screen and (min-resolution: 1.5dppx) {
         @if $retina-filename {
             background-image: url("#{$retina-filename}.#{$extension}");
-        }
-
-        @else {
+        } @else {
             background-image: url("#{$filename}#{$retina-suffix}.#{$extension}");
         }
         background-size: $background-size;
@@ -42,11 +39,37 @@
         @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
             @content;
         }
-    }
-
-    @else {
+    } @else {
         @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`."
             + " Please make sure it is defined in `$breakpoints` map.";
+    }
+}
+
+//
+// Example usage:
+//    // Contain all floats within .wrapper
+//    .wrapper {
+//      @extend %clearfix;
+//      .content,
+//      .sidebar {
+//        float : left;
+//      }
+//    }
+%clearfix {
+    zoom: 1;
+
+    &::before,
+    &::after {
+        display: block;
+
+        overflow: hidden;
+        height: 0;
+
+        content: "\0020";
+    }
+
+    &::after {
+        clear: both;
     }
 }
 
@@ -124,3 +147,5 @@
         }
     }
 }
+
+/* stylelint-enable */

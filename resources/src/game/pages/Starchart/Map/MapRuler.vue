@@ -1,0 +1,121 @@
+<script>
+/******************************************************************************
+ * PageComponent: MapRuler
+ *****************************************************************************/
+import { computed } from "vue";
+export default {
+    name: "MapRuler",
+    props: {
+        direction: String, // "horizontal" || "vertical"
+        dimensions: Number, // map dimensions. the number of <li>s we have to render
+        offset: Number, // offset from camera 0
+        tileSize: Number, // pixel size for a <li>
+    },
+    setup(props) {
+        const offsetStyle = computed(() => {
+            if (props.direction === "horizontal")
+                return "left: -" + props.offset + "px";
+            if (props.direction === "vertical")
+                return "top: -" + props.offset + "px";
+        });
+        const tileStyle = computed(() => {
+            if (props.direction === "horizontal")
+                return "flex: 0 0 " + props.tileSize + "px";
+            if (props.direction === "vertical")
+                return "height: " + props.tileSize + "px";
+        });
+        return {
+            offsetStyle,
+            tileStyle,
+        };
+    },
+};
+</script>
+
+<template>
+    <aside class="ruler-stage" :class="direction">
+        <ul class="ruler" :class="direction" :style="offsetStyle">
+            <li v-for="coord in dimensions" :key="coord" :style="tileStyle">
+                {{ coord }}
+            </li>
+        </ul>
+    </aside>
+</template>
+
+<style lang="scss" scoped>
+.ruler-stage {
+    position: relative;
+
+    overflow: hidden;
+
+    &.vertical {
+        float: left;
+
+        width: 2.4rem;
+        height: 100%;
+    }
+
+    &.horizontal {
+        width: calc(100% - 2.8rem);
+        height: 2.4rem;
+        margin-left: 2.8rem;
+
+        @include respond-to("medium") {
+            width: calc(100% - 3.2rem);
+            margin-left: 3.2rem;
+        }
+    }
+
+    @include themed() {
+        border: 1px solid t("g-deep");
+
+        background-color: t("g-bunker");
+    }
+}
+
+.ruler {
+    display: flex;
+    position: absolute;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    > li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 14px;
+        line-height: 1;
+
+        @include themed() {
+            color: t("t-subdued");
+        }
+    }
+
+    &.horizontal > li {
+        height: 2.4rem;
+
+        border-right: 1px solid transparent;
+
+        @include themed() {
+            border-right-color: t("g-deep");
+        }
+    }
+
+    &.vertical {
+        flex-wrap: wrap;
+
+        > li {
+            border-bottom: 1px solid transparent;
+            flex: 0 0 100%;
+
+            @include themed() {
+                border-bottom-color: t("g-deep");
+            }
+        }
+    }
+}
+</style>

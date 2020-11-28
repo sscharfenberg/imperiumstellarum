@@ -6,13 +6,13 @@ import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
-import StarMap from "./Map/StarMap";
+import MapStage from "./Map/MapStage";
 export default {
     name: "PageStarchart",
     components: {
         GameHeader,
         AreaSection,
-        StarMap,
+        MapStage,
     },
     setup() {
         const store = useStore();
@@ -35,6 +35,6 @@ export default {
         :headline="$t('starchart.map.label')"
         :requesting="requesting"
     >
-        <star-map v-if="dimensions" :dimensions="dimensions" />
+        <map-stage v-if="dimensions" :dimensions="dimensions" />
     </area-section>
 </template>

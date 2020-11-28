@@ -10,6 +10,9 @@ import { storageAvailable } from "@/shared/persist";
 const defaultState = {
     expandedStars: [],
     starsSorted: [],
+    cameraX: 0,
+    cameraY: 0,
+    zoomLevel: 2,
 };
 
 /**
