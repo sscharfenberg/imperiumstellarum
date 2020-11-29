@@ -1,5 +1,5 @@
 /******************************************************************************
- * Vuex module "empire" state
+ * Vuex module "starchart" state
  *****************************************************************************/
 import { getState } from "@/game/store/persistState";
 
@@ -15,5 +15,5 @@ export default {
     players: [],
     cameraX: savedState.cameraX || 0,
     cameraY: savedState.cameraY || 0,
-    zoomLevel: savedState.zoomLevel || 2,
+    zoomLevel: savedState.zoomLevel,
 };

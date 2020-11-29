@@ -24,6 +24,7 @@ class FormatApiResponseService {
     {
         return [
             'id' => $star->id,
+            'ownerId' => $star->player_id ?? "",
             'x' => $star->coord_x,
             'y' => $star->coord_y,
             'spectral' => $star->spectral,

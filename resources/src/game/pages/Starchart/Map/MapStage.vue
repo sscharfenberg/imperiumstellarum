@@ -33,12 +33,9 @@ export default {
         });
         const cameraX = computed(() => store.state.starchart.cameraX);
         const cameraY = computed(() => store.state.starchart.cameraY);
-        const offsetX = computed(() => cameraX.value * tileSize.value);
-        const offsetY = computed(() => cameraY.value * tileSize.value);
+
         return {
             tileSize,
-            offsetX,
-            offsetY,
             cameraX,
             cameraY,
             zoom,
@@ -48,29 +45,37 @@ export default {
 </script>
 
 <template>
+    {{ cameraX }}, {{ cameraY }} @ {{ zoom }}
     <div class="map">
         <div class="map__wrapper">
             <map-ruler
                 direction="horizontal"
                 :dimensions="dimensions"
-                :offset="offsetX"
+                :offset="cameraX"
                 :tile-size="tileSize"
             />
             <div class="bottom">
                 <map-ruler
                     direction="vertical"
                     :dimensions="dimensions"
-                    :offset="offsetY"
+                    :offset="cameraY"
                     :tile-size="tileSize"
                 />
                 <div class="map__content" id="mapWrapper">
                     <draggable-map
+                        :zoom="zoom"
                         :dimensions="dimensions"
                         :tileSize="tileSize"
                         :cameraX="cameraX"
                         :cameraY="cameraY"
                     />
-                    <zoom-navigation :zoom="zoom" />
+                    <zoom-navigation
+                        :zoom="zoom"
+                        :dimensions="dimensions"
+                        :tileSize="tileSize"
+                        :cameraX="cameraX"
+                        :cameraY="cameraY"
+                    />
                 </div>
             </div>
         </div>

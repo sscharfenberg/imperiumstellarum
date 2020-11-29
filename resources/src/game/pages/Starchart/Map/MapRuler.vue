@@ -14,9 +14,9 @@ export default {
     setup(props) {
         const offsetStyle = computed(() => {
             if (props.direction === "horizontal")
-                return "left: -" + props.offset + "px";
+                return "transform: translate3d(-" + props.offset + "px, 0, 0)";
             if (props.direction === "vertical")
-                return "top: -" + props.offset + "px";
+                return "transform: translate3d(0, -" + props.offset + "px, 0)";
         });
         const tileStyle = computed(() => {
             if (props.direction === "horizontal")
@@ -34,9 +34,16 @@ export default {
 
 <template>
     <aside class="ruler-stage" :class="direction">
-        <ul class="ruler" :class="direction" :style="offsetStyle">
+        <ul
+            class="ruler"
+            :class="direction"
+            :style="offsetStyle"
+            :id="`mapRuler${
+                direction.charAt(0).toUpperCase() + direction.slice(1)
+            }`"
+        >
             <li v-for="coord in dimensions" :key="coord" :style="tileStyle">
-                {{ coord }}
+                {{ coord - 1 }}
             </li>
         </ul>
     </aside>

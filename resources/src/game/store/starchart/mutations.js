@@ -49,4 +49,18 @@ export default {
         state.zoomLevel = payload;
         saveState(state.zoomLevel, "zoomLevel");
     },
+
+    /**
+     * @function SET camera
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Object} payload
+     * @param {Number} payload.x
+     * @param {Number} payload.y
+     */
+    SET_CAMERA: (state, payload) => {
+        state.cameraX = payload.x;
+        state.cameraY = payload.y;
+        saveState(state.cameraX, "cameraX");
+        saveState(state.cameraY, "cameraY");
+    },
 };
