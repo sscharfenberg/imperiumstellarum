@@ -6,13 +6,14 @@
 import pkg from "../../../../package.json";
 const storageKey = pkg.name.toUpperCase() + "_GAME";
 import { storageAvailable } from "@/shared/persist";
+// TODO: make getState and setState game specific!
 
 const defaultState = {
     expandedStars: [],
     starsSorted: [],
     cameraX: 0,
     cameraY: 0,
-    zoomLevel: 2,
+    zoomLevel: 3,
 };
 
 /**

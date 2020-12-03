@@ -261,7 +261,7 @@
                         class="app-btn both primary"
                         href="{{ route('preview-map', ['game' => $game->id]) }}"
                         style="margin-left: auto;">
-                        <x-icon name="starmap" size="2" />
+                        <x-icon name="starchart" size="2" />
                         <span>
                             @lang('admin.game.edit.seed')
                         </span>

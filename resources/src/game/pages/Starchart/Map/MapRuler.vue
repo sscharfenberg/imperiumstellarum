@@ -63,13 +63,13 @@ export default {
     }
 
     &.horizontal {
-        width: calc(100% - 2.8rem);
+        width: calc(100% - 28px);
         height: 2.4rem;
-        margin-left: 2.8rem;
+        margin-left: 28px;
 
         @include respond-to("medium") {
-            width: calc(100% - 3.2rem);
-            margin-left: 3.2rem;
+            width: calc(100% - 32px);
+            margin-left: 32px;
         }
     }
 

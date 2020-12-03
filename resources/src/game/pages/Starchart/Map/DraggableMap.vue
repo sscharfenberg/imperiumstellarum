@@ -10,6 +10,7 @@ import "@interactjs/modifiers";
 import "@interactjs/dev-tools";
 import interact from "@interactjs/interact";
 import MapGrid from "./MapGrid";
+import MapContents from "./MapContents";
 export default {
     name: "DraggableMap",
     props: {
@@ -19,7 +20,7 @@ export default {
         cameraY: Number,
         tileSize: Number, // pixel size for a tile
     },
-    components: { MapGrid },
+    components: { MapGrid, MapContents },
     setup(props) {
         const store = useStore();
         //const stageSize = () =>
@@ -133,6 +134,13 @@ export default {
 <template>
     <div class="map__actual" :style="mapStyles" id="draggableMap">
         <map-grid
+            :dimensions="dimensions"
+            :tileSize="tileSize"
+            :cameraX="cameraX"
+            :cameraY="cameraY"
+        />
+        <map-contents
+            :zoom="zoom"
             :dimensions="dimensions"
             :tileSize="tileSize"
             :cameraX="cameraX"

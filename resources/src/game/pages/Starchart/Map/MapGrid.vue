@@ -28,22 +28,20 @@ export default {
         <line
             class="grid-line"
             v-for="n in dimensions - 1"
-            :key="`vertRuler${n}`"
+            :key="`vLine${n}`"
             :x1="tileSize * n - 0.5"
             y1="0"
             :x2="tileSize * n - 0.5"
             :y2="gridSize"
-            stroke="#ffffff"
         />
         <line
             class="grid-line"
             v-for="n in dimensions - 1"
-            :key="`horzRuler${n}`"
+            :key="`hLine${n}`"
             x1="0"
             :y1="tileSize * n - 0.5"
             :x2="gridSize"
             :y2="tileSize * n - 0.5"
-            stroke="#ffffff"
         />
     </svg>
 </template>

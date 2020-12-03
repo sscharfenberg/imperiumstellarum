@@ -28,7 +28,11 @@ class SelectGameController extends Controller
         }
         $user->selected_player = $player->id;
         $user->save();
-        return redirect()->route('show-game', ['game' => $id, 'any' => 'empire']);
+        if (count($player->game->turns) > 0) {
+            return redirect()->route('show-game', ['game' => $id, 'any' => 'empire']);
+        } else {
+            return redirect()->route('dashboard');
+        }
     }
 
 }
