@@ -4,9 +4,9 @@
  *
  *****************************************************************************/
 import pkg from "../../../../package.json";
-const storageKey = pkg.name.toUpperCase() + "_GAME";
+const gameNumber = document.getElementById("game").dataset.gameNumber;
+const storageKey = pkg.name.toUpperCase() + "_GAME" + gameNumber;
 import { storageAvailable } from "@/shared/persist";
-// TODO: make getState and setState game specific!
 
 const defaultState = {
     expandedStars: [],

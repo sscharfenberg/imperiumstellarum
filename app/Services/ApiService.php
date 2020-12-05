@@ -57,7 +57,8 @@ class ApiService {
             'player' => [
                 'empireName' => $player->name,
                 'empireTicker' => $player->ticker,
-                'researchPriority' => $player->research_priority
+                'researchPriority' => $player->research_priority,
+                'id' => $player->id
             ],
             'resources' => $r->getResources($player),
             'storageUpgrades' => $this->storageUpgrades($player)

@@ -12,6 +12,7 @@ const savedState = getState();
 export default {
     requesting: false,
     stars: [],
+    starsShown: [],
     players: [],
     cameraX: savedState.cameraX || 0,
     cameraY: savedState.cameraY || 0,

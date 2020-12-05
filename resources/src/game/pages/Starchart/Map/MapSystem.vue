@@ -2,18 +2,36 @@
 /******************************************************************************
  * PageComponent: MapSystem
  *****************************************************************************/
+import { useStore } from "vuex";
+import { computed } from "vue";
 export default {
     name: "MapSystem",
     props: {
+        zoom: Number, // 0..4
         id: String,
         bgPos: String,
         top: String,
         left: String,
-        borderColor: String,
+        ownerId: String,
+        ownerColour: String,
         ticker: String,
     },
-    setup() {
-        return {};
+    setup(props) {
+        const store = useStore();
+        const empireId = computed(() => store.state.empireId);
+        const starClass = computed(() => {
+            if (empireId.value === props.ownerId) {
+                return "my";
+            }
+            return "";
+        });
+        const bgColour = computed(() =>
+            props.zoom <= 2 ? props.ownerColour : "transparent"
+        );
+        return {
+            bgColour,
+            starClass,
+        };
     },
 };
 </script>
@@ -21,11 +39,15 @@ export default {
 <template>
     <div
         class="star"
+        :class="starClass"
         :style="{
             '--bgPos': bgPos,
+            '--ownerColour': ownerColour,
             top: top,
             left: left,
+            backgroundColor: bgColour,
         }"
+        :title="ticker"
     >
         <aside class="ticker" v-if="ticker">{{ ticker }}</aside>
     </div>
@@ -44,12 +66,9 @@ export default {
     background: url("@/theme/spectral-types.png") var(--bgPos) no-repeat;
     background-size: var(--cssTileSize);
     border-style: dashed;
+    border-color: var(--ownerColour);
 
     text-align: right;
-
-    @include themed() {
-        border-color: t("b-viking");
-    }
 
     &.my {
         border-style: solid;

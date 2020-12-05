@@ -1,12 +1,12 @@
 <script>
 /******************************************************************************
- * PageComponent: MapContent
+ * PageComponent: MapData
  *****************************************************************************/
-import { computed, onUpdated } from "vue";
-import MapSystem from "./MapSystem";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import MapSystem from "./MapSystem";
 export default {
-    name: "MapContent",
+    name: "MapData",
     props: {
         zoom: Number, // 0..4
         dimensions: Number, // map dimensions in coords
@@ -17,14 +17,16 @@ export default {
     components: { MapSystem },
     setup(props) {
         const store = useStore();
-        const stars = computed(() => store.state.starchart.stars);
+        const stars = computed(
+            () => store.getters["starchart/starsWithOwners"]
+        );
         // number values
         const borderWidth = computed(() => (props.zoom >= 3 ? 3 : 1));
         const availableTilePixels = computed(
             () => props.tileSize - 1 - 2 * borderWidth.value
         );
         // css values
-        const cssTileSize = computed(() => availableTilePixels.value + "px"); // star is off-center -.-
+        const cssTileSize = computed(() => availableTilePixels.value + "px");
         const bgPos = computed(() => {
             return {
                 O: "0 0",
@@ -38,8 +40,12 @@ export default {
             };
         });
         const cssBorderWidth = computed(() => borderWidth.value + "px");
-        onUpdated(() => {
-            console.log("updated, redraw map!");
+        onMounted(() => {
+            console.log("mounted mapdata");
+            store.commit(
+                "starchart/SET_STARS_SHOWN",
+                store.state.starchart.stars
+            );
         });
         return {
             stars,
@@ -62,11 +68,14 @@ export default {
         <map-system
             v-for="star in stars"
             :key="star.id"
+            :zoom="zoom"
             :bg-pos="bgPos[star.spectral]"
             :id="star.id"
             :top="tileSize * star.y + 'px'"
             :left="tileSize * star.x + 'px'"
-            :ticker="'WANK'"
+            :ticker="star.ownerTicker"
+            :owner-id="star.ownerId"
+            :owner-colour="star.ownerColour"
         />
     </div>
 </template>

@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { zoomToTileSize } from "./useMap";
 import MapRuler from "./MapRuler";
 import DraggableMap from "./DraggableMap";
 import ZoomNavigation from "./ZoomNavigation";
@@ -16,24 +17,9 @@ export default {
     setup() {
         const store = useStore();
         const zoom = computed(() => store.state.starchart.zoomLevel);
-        const tileSize = computed(() => {
-            switch (zoom.value) {
-                case 0:
-                    return 20;
-                case 1:
-                    return 35;
-                case 2:
-                default:
-                    return 50;
-                case 3:
-                    return 65;
-                case 4:
-                    return 80;
-            }
-        });
+        const tileSize = computed(() => zoomToTileSize(zoom.value));
         const cameraX = computed(() => store.state.starchart.cameraX);
         const cameraY = computed(() => store.state.starchart.cameraY);
-
         return {
             tileSize,
             cameraX,

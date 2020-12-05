@@ -19,7 +19,8 @@ class GameController extends Controller
      */
     public function show(Request $request, string $gameId)
     {
-        return View::make('game.game', compact('gameId'));
+        $gameNumber = Game::find($gameId)->number;
+        return View::make('game.game', compact(['gameId', 'gameNumber']));
     }
 
 }

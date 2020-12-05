@@ -15,11 +15,14 @@ export default {
      * @param {Number} payload.player.researchPriority
      */
     SET_GAME_META_DATA: (state, payload) => {
+        // game
         state.gameNumber = payload.game.number;
         state.gameTurn = payload.game.turn;
         state.turnDue = payload.game.turnDue;
+        // empire
         state.empireName = payload.player.empireName;
         state.empireTicker = payload.player.empireTicker;
+        state.empireId = payload.player.id;
         state.empireResearchPriority = payload.player.researchPriority;
         state.resources = payload.resources;
         state.storageUpgrades = payload.storageUpgrades;

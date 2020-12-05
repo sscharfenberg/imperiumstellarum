@@ -10,7 +10,7 @@ import "@interactjs/modifiers";
 import "@interactjs/dev-tools";
 import interact from "@interactjs/interact";
 import MapGrid from "./MapGrid";
-import MapContents from "./MapContents";
+import MapData from "./MapData";
 export default {
     name: "DraggableMap",
     props: {
@@ -20,7 +20,7 @@ export default {
         cameraY: Number,
         tileSize: Number, // pixel size for a tile
     },
-    components: { MapGrid, MapContents },
+    components: { MapGrid, MapData },
     setup(props) {
         const store = useStore();
         //const stageSize = () =>
@@ -99,6 +99,11 @@ export default {
 
             console.log(`drag end: x=${x}, y=${y}`);
             store.commit("starchart/SET_CAMERA", { x: -x, y: -y });
+            // filter and commit stars to show.
+            store.commit(
+                "starchart/SET_STARS_SHOWN",
+                store.state.starchart.stars
+            );
         };
 
         /**
@@ -139,7 +144,7 @@ export default {
             :cameraX="cameraX"
             :cameraY="cameraY"
         />
-        <map-contents
+        <map-data
             :zoom="zoom"
             :dimensions="dimensions"
             :tileSize="tileSize"

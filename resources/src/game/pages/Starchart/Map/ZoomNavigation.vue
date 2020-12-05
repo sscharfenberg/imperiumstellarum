@@ -4,6 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { onMounted, computed } from "vue";
+import {
+    zoomToTileSize,
+    convertCameraToCenteredCoords,
+    convertCenteredCoordsToCamera,
+} from "./useMap";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ZoomNavigation",
@@ -21,86 +26,6 @@ export default {
         const zoomOutDisabled = computed(() => props.zoom === 0);
 
         /**
-         * @function get TileSize from zoomLevel
-         * @param {Number} zoom
-         * @returns {Number}
-         */
-        const getTileSizeFromZoom = (zoom) => {
-            if (zoom < 0 || zoom > 4) return false;
-            switch (zoom) {
-                case 0:
-                    return 20;
-                case 1:
-                    return 35;
-                case 2:
-                default:
-                    return 50;
-                case 3:
-                    return 65;
-                case 4:
-                    return 80;
-            }
-        };
-
-        /**
-         * @function get the approximately centered coords from camera offset
-         * @param {Number} x
-         * @param {Number} y
-         * @param {Number} tileSize
-         * @returns {Object}
-         */
-        const convertCameraToCenteredCoords = (x, y, tileSize) => {
-            const currentViewPortSize = document.getElementById("mapWrapper")
-                .offsetWidth;
-            return {
-                x: Math.round(
-                    x / tileSize + currentViewPortSize / (tileSize * 2)
-                ),
-                y: Math.round(
-                    y / tileSize + currentViewPortSize / (tileSize * 2)
-                ),
-            };
-        };
-
-        /**
-         * @function get the camera offsets from centered coords
-         * @param {Number} x
-         * @param {Number} y
-         * @param {Number} tileSize
-         * @returns {Object}
-         */
-        const convertCenteredCoordsToCamera = (x, y, tileSize) => {
-            const currentViewPortSize = document.getElementById("mapWrapper")
-                .offsetWidth;
-            const centerCoord = currentViewPortSize / tileSize / 2;
-            const coordsOffScreenX = x - centerCoord;
-            const coordsOffScreenY = y - centerCoord;
-            let cameraX = parseInt(coordsOffScreenX * tileSize, 10);
-            let cameraY = parseInt(coordsOffScreenY * tileSize, 10);
-            // check if we would have empty space to the right
-            if (tileSize * props.dimensions < cameraX + currentViewPortSize) {
-                cameraX = parseInt(
-                    tileSize * props.dimensions - currentViewPortSize,
-                    10
-                );
-            }
-            // ... or below the map
-            if (tileSize * props.dimensions < cameraY + currentViewPortSize) {
-                cameraY = parseInt(
-                    tileSize * props.dimensions - currentViewPortSize,
-                    10
-                );
-            }
-            // make sure we don't get negative numbers (negative camera => outside of map)
-            if (cameraX < 0) cameraX = 0;
-            if (cameraY < 0) cameraY = 0;
-            return {
-                x: cameraX,
-                y: cameraY,
-            };
-        };
-
-        /**
          * @function change zoom level
          * @param {Number} newZoomLevel
          */
@@ -108,12 +33,15 @@ export default {
             const coords = convertCameraToCenteredCoords(
                 props.cameraX,
                 props.cameraY,
-                props.tileSize
+                props.tileSize,
+                document.getElementById("mapWrapper").offsetWidth
             );
             const newCamera = convertCenteredCoordsToCamera(
                 coords.x,
                 coords.y,
-                getTileSizeFromZoom(newZoomLevel)
+                zoomToTileSize(newZoomLevel),
+                document.getElementById("mapWrapper").offsetWidth,
+                props.dimensions
             );
             store.commit("starchart/SET_CAMERA", {
                 x: newCamera.x,
@@ -123,6 +51,11 @@ export default {
             _map.setAttribute("data-x", -newCamera.x);
             _map.setAttribute("data-y", -newCamera.y);
             store.commit("starchart/SET_ZOOM", newZoomLevel);
+            // filter and commit stars to show.
+            store.commit(
+                "starchart/SET_STARS_SHOWN",
+                store.state.starchart.stars
+            );
         };
 
         /**
@@ -141,7 +74,6 @@ export default {
          * @function mounted hook: add event listener for mousewheel
          */
         onMounted(() => {
-            // TODO: return false if map < viewport
             document
                 .getElementById("mapWrapper")
                 .addEventListener("wheel", onWheelZoom);

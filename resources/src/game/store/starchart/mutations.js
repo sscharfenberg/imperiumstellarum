@@ -2,6 +2,10 @@
  * Vuex mutations
  *****************************************************************************/
 import { saveState } from "@/game/store/persistState";
+import {
+    filterStarsByViewport,
+    zoomToTileSize,
+} from "Pages/Starchart/Map/useMap";
 
 export default {
     /**
@@ -62,5 +66,23 @@ export default {
         state.cameraY = payload.y;
         saveState(state.cameraX, "cameraX");
         saveState(state.cameraY, "cameraY");
+    },
+
+    /**
+     * @function SET filtered stars
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload - array of all stars
+     * @param {Number} payload.x
+     * @param {Number} payload.y
+     */
+    SET_STARS_SHOWN: (state, payload) => {
+        state.starsShown = filterStarsByViewport(
+            payload,
+            state.cameraX,
+            state.cameraY,
+            zoomToTileSize(state.zoomLevel),
+            document.getElementById("mapWrapper").offsetWidth,
+            state.dimensions
+        );
     },
 };
