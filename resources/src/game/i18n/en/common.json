@@ -40,5 +40,9 @@
     },
     "modal": {
         "cancel": "Cancel"
+    },
+    "dropdown": {
+        "placeHolder": "Please select",
+        "searchPlaceHolder": "Type to search"
     }
 }

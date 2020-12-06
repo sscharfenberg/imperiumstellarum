@@ -27,6 +27,15 @@ export default {
     },
 
     /**
+     * @function SET PLAYER stars
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_PLAYER_STARS: (state, payload) => {
+        state.playerStars = payload;
+    },
+
+    /**
      * @function SET ALL players
      * @param {Object} state - vuex module "starchart" state
      * @param {Array} payload

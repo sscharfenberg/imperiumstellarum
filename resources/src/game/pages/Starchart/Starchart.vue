@@ -7,11 +7,13 @@ import { onBeforeMount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
 import MapStage from "./Map/MapStage";
+import FocussableStars from "./Focus/FocussableStars";
 export default {
     name: "PageStarchart",
     components: {
         GameHeader,
         AreaSection,
+        FocussableStars,
         MapStage,
     },
     setup() {
@@ -35,6 +37,7 @@ export default {
         :headline="$t('starchart.map.label')"
         :requesting="requesting"
     >
+        <focussable-stars v-if="dimensions" />
         <map-stage v-if="dimensions" :dimensions="dimensions" />
     </area-section>
 </template>

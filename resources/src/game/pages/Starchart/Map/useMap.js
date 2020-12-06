@@ -114,6 +114,7 @@ export const filterStarsByViewport = (
 
     // don't filter anything if there is 200 stars or less.
     if (stars.length <= 200) {
+        console.log("less than 200 stars, not filtering.");
         return stars;
     }
 

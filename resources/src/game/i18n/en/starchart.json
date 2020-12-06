@@ -1,6 +1,11 @@
 {
     "title": "Starmap",
     "navTitle": "Starmap",
+    "focus": {
+        "stars": {
+            "label": "Focus map on star"
+        }
+    },
     "map": {
         "label": "Starmap"
     }

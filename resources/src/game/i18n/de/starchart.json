@@ -1,6 +1,11 @@
 {
     "title": "Sternenkarte",
     "navTitle": "Sternenkarte",
+    "focus": {
+        "stars": {
+            "label": "Karte auf Stern zentrieren"
+        }
+    },
     "map": {
         "label": "Sternenkarte"
     }

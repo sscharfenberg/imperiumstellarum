@@ -24,6 +24,7 @@ export default {
                     commit("SET_STARS", response.data.stars);
                     commit("SET_PLAYERS", response.data.players);
                     commit("SET_DIMENSIONS", response.data.dimensions);
+                    commit("SET_PLAYER_STARS", response.data.playerStars);
                 }
             })
             .catch((e) => {

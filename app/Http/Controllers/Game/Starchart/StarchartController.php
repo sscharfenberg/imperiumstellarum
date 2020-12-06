@@ -23,10 +23,14 @@ class StarchartController extends Controller
     {
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);
+
         $gameId = $request->route('game');
         $game = Game::find($gameId);
         $players = Player::where('game_id', $gameId)->get();
         $stars = Game::find($gameId)->stars;
+        $user = Auth::user();
+        $player = $user->players->find($user->selected_player);
+        $playerStars = $player->stars;
 
         $f = new FormatApiResponseService;
         $returnData = [
@@ -36,7 +40,10 @@ class StarchartController extends Controller
             'players' => $players->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             }),
-            'dimensions' => $game->dimensions
+            'dimensions' => $game->dimensions,
+            'playerStars' => $playerStars->map(function ($star) use ($f) {
+                return $f->formatStar($star);
+            })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

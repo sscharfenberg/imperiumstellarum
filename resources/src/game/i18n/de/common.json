@@ -40,5 +40,9 @@
     },
     "modal": {
         "cancel": "Abbrechen"
+    },
+    "dropdown": {
+        "placeHolder": "Bitte wählen",
+        "searchPlaceHolder": "Tippen zum suchen"
     }
 }
