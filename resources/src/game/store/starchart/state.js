@@ -18,6 +18,6 @@ export default {
     cameraX: savedState.cameraX || 0,
     cameraY: savedState.cameraY || 0,
     zoomLevel: savedState.zoomLevel,
-    focusMapX: undefined,
-    focusMapY: undefined,
+    flashCoordX: null,
+    flashCoordY: null,
 };

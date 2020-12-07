@@ -47,8 +47,8 @@ export default {
     flex-direction: column;
 
     box-sizing: border-box;
-    padding: 4px;
-    border: 2px solid transparent;
+    padding: 5px;
+    border: 1px solid transparent;
 
     outline: none;
     cursor: pointer;
@@ -225,8 +225,8 @@ export default {
 
     .vue-dropdown {
         position: absolute;
-        top: 34px !important;
-        left: -2px;
+        top: 35px !important;
+        left: -1px;
         z-index: z("form");
 
         box-sizing: border-box;
@@ -236,7 +236,7 @@ export default {
         max-width: 400px;
         max-height: 50vh;
         padding: 0;
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         margin: 0;
 
         list-style-type: none;
@@ -252,11 +252,13 @@ export default {
     }
 
     .vue-dropdown-item {
-        padding: 6px;
-        border-bottom: 2px solid transparent;
+        padding: 5px 6px;
+        border-bottom: 1px solid transparent;
 
         list-style-type: none;
         cursor: pointer;
+
+        font-weight: 300;
 
         transition: background-color map-get($animation-speeds, "fast") linear,
             color map-get($animation-speeds, "fast") linear;

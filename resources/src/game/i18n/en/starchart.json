@@ -2,9 +2,9 @@
     "title": "Starmap",
     "navTitle": "Starmap",
     "focus": {
-        "stars": {
-            "label": "Focus map on star"
-        }
+        "stars": "Focus map on star",
+        "coords": "Focus map on coordinates",
+        "go": "Go"
     },
     "map": {
         "label": "Starmap"

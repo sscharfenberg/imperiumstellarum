@@ -2,9 +2,9 @@
     "title": "Sternenkarte",
     "navTitle": "Sternenkarte",
     "focus": {
-        "stars": {
-            "label": "Karte auf Stern zentrieren"
-        }
+        "stars": "Karte auf Stern zentrieren",
+        "coords": "Karte auf Koordinaten zentrieren",
+        "go": "Los"
     },
     "map": {
         "label": "Sternenkarte"

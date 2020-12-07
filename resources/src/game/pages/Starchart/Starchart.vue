@@ -37,7 +37,7 @@ export default {
         :headline="$t('starchart.map.label')"
         :requesting="requesting"
     >
-        <focussable-stars v-if="dimensions" />
+        <focussable-stars v-if="dimensions" :dimensions="dimensions" />
         <map-stage v-if="dimensions" :dimensions="dimensions" />
     </area-section>
 </template>

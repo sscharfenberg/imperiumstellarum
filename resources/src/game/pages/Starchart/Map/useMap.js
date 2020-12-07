@@ -82,6 +82,21 @@ export const convertCenteredCoordsToCamera = (
 };
 
 /**
+ * @function get multiplier that determines how many viewports of stars are pre-rendered so they show while dragging
+ * this has a huge influence on render performance. handle with care.
+ * @param {Number} numStars - the number of stars
+ * @returns {number} - float multiplier
+ */
+const getFilterMultiplier = (numStars) => {
+    if (numStars <= 1000) {
+        return 0.5;
+    } else if (numStars <= 2500) {
+        return 0.25;
+    }
+    return 0; // > 2500
+};
+
+/**
  * @function filter stars
  * for performance reasons we want to only have stars in the current viewport
  * and one viewport to top/right/left/bottom
@@ -117,6 +132,8 @@ export const filterStarsByViewport = (
         console.log("less than 200 stars, not filtering.");
         return stars;
     }
+    const factor = getFilterMultiplier(stars.length);
+    console.log(factor);
 
     // calculate the coordinates in the top left.
     const topLeftX = Math.floor(cameraX / tileSize);
@@ -124,16 +141,22 @@ export const filterStarsByViewport = (
     const viewPortCoords = Math.ceil(viewPortSize / tileSize);
     // calculate bounds: xMin, xMax, yMin, yMax.
     const bounds = {
-        xMin: topLeftX - Math.floor(viewPortCoords * 0.75),
+        xMin:
+            topLeftX - Math.floor(viewPortCoords * factor) < 0
+                ? 0
+                : topLeftX - Math.floor(viewPortCoords * factor),
         xMax:
-            topLeftX + Math.ceil(viewPortCoords * 1.25) > mapDimensions
+            topLeftX + Math.ceil(viewPortCoords * (1 + factor)) > mapDimensions
                 ? mapDimensions
-                : topLeftX + Math.ceil(viewPortCoords * 1.25),
-        yMin: topLeftY - Math.floor(viewPortCoords * 0.75),
+                : topLeftX + Math.ceil(viewPortCoords * (1 + factor)),
+        yMin:
+            topLeftY - Math.floor(viewPortCoords * factor) < 0
+                ? 0
+                : topLeftY - Math.floor(viewPortCoords * factor),
         yMax:
-            topLeftY + Math.ceil(viewPortCoords * 1.25) > mapDimensions
+            topLeftY + Math.ceil(viewPortCoords * (1 + factor)) > mapDimensions
                 ? mapDimensions
-                : topLeftY + Math.ceil(viewPortCoords * 1.25),
+                : topLeftY + Math.ceil(viewPortCoords * (1 + factor)),
     };
 
     // filter stars according to bounds

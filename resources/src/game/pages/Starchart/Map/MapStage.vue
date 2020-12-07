@@ -31,7 +31,6 @@ export default {
 </script>
 
 <template>
-    {{ cameraX }}, {{ cameraY }} @ {{ zoom }}
     <div class="map">
         <div class="map__wrapper">
             <map-ruler
