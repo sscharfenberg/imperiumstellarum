@@ -8,5 +8,17 @@
     },
     "map": {
         "label": "Sternenkarte"
+    },
+    "star": {
+        "title": "Details zum Stern",
+        "spectral": {
+            "label": "Spektralklasse",
+            "value": "Typ {type}"
+        },
+        "ownerName": {
+            "label": "Besitzer",
+            "none": "Keiner"
+        },
+        "ownerTicker": "Ticker des Besitzers"
     }
 }

@@ -133,7 +133,6 @@ export const filterStarsByViewport = (
         return stars;
     }
     const factor = getFilterMultiplier(stars.length);
-    console.log(factor);
 
     // calculate the coordinates in the top left.
     const topLeftX = Math.floor(cameraX / tileSize);

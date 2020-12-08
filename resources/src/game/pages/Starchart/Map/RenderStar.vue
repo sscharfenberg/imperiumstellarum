@@ -1,11 +1,12 @@
 <script>
 /******************************************************************************
- * PageComponent: MapSystem
+ * PageComponent: RenderStar
  *****************************************************************************/
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import StarInfoModal from "./StarInfoModal";
 export default {
-    name: "MapSystem",
+    name: "RenderStar",
     props: {
         zoom: Number, // 0..4
         id: String,
@@ -16,8 +17,10 @@ export default {
         ownerColour: String,
         ticker: String,
     },
+    components: { StarInfoModal },
     setup(props) {
         const store = useStore();
+        const showModal = ref(false);
         const empireId = computed(() => store.state.empireId);
         const starClass = computed(() => {
             if (empireId.value === props.ownerId) {
@@ -29,6 +32,7 @@ export default {
             props.zoom <= 2 ? props.ownerColour : "transparent"
         );
         return {
+            showModal,
             bgColour,
             starClass,
         };
@@ -37,7 +41,7 @@ export default {
 </script>
 
 <template>
-    <div
+    <button
         class="star"
         :class="starClass"
         :style="{
@@ -48,9 +52,15 @@ export default {
             backgroundColor: bgColour,
         }"
         :title="ticker"
+        @click="showModal = true"
     >
         <aside class="ticker" v-if="ticker">{{ ticker }}</aside>
-    </div>
+    </button>
+    <star-info-modal
+        v-if="showModal"
+        @close="showModal = false"
+        :star-id="id"
+    />
 </template>
 
 <style lang="scss" scoped>
@@ -61,17 +71,26 @@ export default {
     overflow: hidden;
     width: var(--cssTileSize);
     height: var(--cssTileSize);
+    padding: 0;
     border-width: var(--borderWidth);
 
-    background: url("@/theme/spectral-types.png") var(--bgPos) no-repeat;
+    background: transparent url("@/theme/spectral-types.png") var(--bgPos)
+        no-repeat;
     background-size: var(--cssTileSize);
     border-style: dashed;
     border-color: var(--ownerColour);
+
+    cursor: pointer;
 
     text-align: right;
 
     &.my {
         border-style: solid;
+    }
+
+    &:active,
+    &:focus {
+        outline: 0;
     }
 }
 
@@ -85,7 +104,8 @@ export default {
     font-size: calc(var(--cssTileSize) / 5);
 
     @include themed() {
-        background: rgba(t("g-raven"), 0.5);
+        background: rgba(t("g-raven"), 0.7);
+        color: t("g-white");
     }
 }
 </style>

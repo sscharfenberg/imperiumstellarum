@@ -114,6 +114,16 @@ export default {
         &.stats--padded {
             padding: 0.8rem;
         }
+
+        &.text-left {
+            justify-content: flex-start;
+
+            text-align: left;
+        }
+
+        &.justified {
+            justify-content: space-between;
+        }
     }
 
     &__dot {

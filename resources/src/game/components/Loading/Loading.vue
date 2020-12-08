@@ -40,7 +40,7 @@ $duration: 1.4s;
 .spinner {
     display: block;
 
-    animation: rotator $duration linear infinite;
+    //animation: rotator $duration linear infinite;
 }
 
 @keyframes rotator {

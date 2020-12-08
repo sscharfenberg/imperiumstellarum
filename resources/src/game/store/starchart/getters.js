@@ -19,4 +19,8 @@ export default {
             }
             return star;
         }),
+
+    // get star by id
+    starById: (state) => (id) =>
+        state.stars.find((star) => star.id === id) || {},
 };

@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import MapSystem from "./MapSystem";
+import RenderStar from "./RenderStar";
 export default {
     name: "MapData",
     props: {
@@ -14,7 +14,7 @@ export default {
         cameraY: Number,
         tileSize: Number, // pixel size for a tile
     },
-    components: { MapSystem },
+    components: { RenderStar },
     setup(props) {
         const store = useStore();
         const stars = computed(
@@ -65,7 +65,7 @@ export default {
             '--borderWidth': cssBorderWidth,
         }"
     >
-        <map-system
+        <render-star
             v-for="star in stars"
             :key="star.id"
             :zoom="zoom"

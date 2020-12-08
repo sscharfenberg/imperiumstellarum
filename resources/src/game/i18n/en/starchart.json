@@ -8,5 +8,17 @@
     },
     "map": {
         "label": "Starmap"
+    },
+    "star": {
+        "title": "Star Details",
+        "spectral": {
+            "label": "Spectral Class",
+            "value": "Type {type}"
+        },
+        "ownerName": {
+            "label": "Owner",
+            "none": "None"
+        },
+        "ownerTicker": "Owner Ticker"
     }
 }
