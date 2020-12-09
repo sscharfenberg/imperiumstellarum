@@ -20,4 +20,6 @@ export default {
     zoomLevel: savedState.zoomLevel,
     flashCoordX: null,
     flashCoordY: null,
+    jumpCoordX: null,
+    jumpCoordY: null,
 };

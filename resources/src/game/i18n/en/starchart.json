@@ -19,6 +19,8 @@
             "label": "Owner",
             "none": "None"
         },
-        "ownerTicker": "Owner Ticker"
+        "ownerTicker": "Owner Ticker",
+        "numPlanets": "Number of planets",
+        "population": "Total Population"
     }
 }

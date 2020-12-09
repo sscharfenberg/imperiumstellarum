@@ -3,6 +3,8 @@
  * PageComponent: StarLocation
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
+import router from "@/game/router";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "StarLocation",
@@ -11,8 +13,17 @@ export default {
         y: Number,
     },
     components: { Icon },
-    setup() {
+    setup(props) {
+        const store = useStore();
+        const onClick = () => {
+            store.commit("starchart/JUMP_COORDS", {
+                x: props.x,
+                y: props.y,
+            });
+            router.push({ name: "Starchart" });
+        };
         return {
+            onClick,
             ...useI18n(),
         };
     },
@@ -20,16 +31,17 @@ export default {
 </script>
 
 <template>
-    <aside
+    <button
         class="location"
         :aria-label="t('empire.star.location') + ': x=' + x + ', y=' + y"
         :title="t('empire.star.location') + ': x=' + x + ', y=' + y"
+        @click="onClick"
     >
         <div class="location-inner">
             <icon class="location-icon" name="location" />
             <span>{{ x }}/{{ y }}</span>
         </div>
-    </aside>
+    </button>
 </template>
 
 <style lang="scss" scoped>
@@ -38,8 +50,13 @@ export default {
     align-items: center;
 
     padding: 0;
+    border: 0;
+
+    outline: 0;
+    cursor: pointer;
 
     @include themed() {
+        background: t("g-sunken");
         color: t("t-subdued");
     }
 
@@ -50,6 +67,13 @@ export default {
     @include respond-to("medium") {
         padding: 0 1rem;
     }
+
+    &:hover .location-inner {
+        @include themed() {
+            background-color: t("g-ebony");
+            color: t("g-bright");
+        }
+    }
 }
 
 .location-inner {
@@ -58,6 +82,9 @@ export default {
 
     padding: 0.5rem;
     margin: 0.8rem 0;
+
+    transition: background-color map-get($animation-speeds, "fast") linear,
+        color map-get($animation-speeds, "fast") linear;
 
     @include themed() {
         background-color: t("g-bunker");

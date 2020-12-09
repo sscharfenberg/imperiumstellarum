@@ -133,4 +133,26 @@ export default {
             state.flashCoordY = null;
         }, 1000);
     },
+
+    /**
+     * @function JUMP TO COORDS
+     * this mutation gets called from other pages
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Object} payload
+     * @param {Number} payload.x - coordinate
+     * @param {Number} payload.y - coordinate
+     */
+    JUMP_COORDS: (state, payload) => {
+        state.jumpCoordX = payload.x;
+        state.jumpCoordY = payload.y;
+    },
+
+    /**
+     * @function RESET JUMP TO COORDS
+     * @param {Object} state - vuex module "starchart" state
+     */
+    RESET_JUMP_COORDS: (state) => {
+        state.jumpCoordX = null;
+        state.jumpCoordY = null;
+    },
 };

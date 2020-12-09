@@ -24,22 +24,26 @@ export default {
         const modalTitle = computed(() => {
             return `${i18n.t("starchart.star.title")}: „${star.value.name}“`;
         });
+        const numPlanets = ref(0);
+        const population = ref(0);
         const spectralClass = computed(
             () => "spectral--" + star.value.spectral
         );
         onMounted(() => {
             const gameId = document.getElementById("game").dataset.gameId;
-            requesting.value = true;
+            requesting.value = true; // show loader
+            // get star details from server
             window.axios
                 .get(`/api/game/${gameId}/star/${star.value.id}/details`)
                 .then((response) => {
-                    console.log(response);
+                    numPlanets.value = response.data.planets;
+                    population.value = response.data.population;
                 })
                 .catch((e) => {
                     console.error(e);
                 })
                 .finally(() => {
-                    requesting.value = false;
+                    requesting.value = false; // hide loader again
                 });
         });
         return {
@@ -47,6 +51,8 @@ export default {
             requesting,
             star,
             spectralClass,
+            numPlanets,
+            population,
             ...useI18n(),
         };
     },
@@ -84,6 +90,15 @@ export default {
                 <li class="text-left featured" v-if="star.ownerTicker">
                     {{ star.ownerTicker }}
                 </li>
+                <li class="text-left" v-if="numPlanets">
+                    {{ $t("starchart.star.numPlanets") }}
+                </li>
+                <li class="text-left" v-if="numPlanets">{{ numPlanets }}</li>
+                <li class="text-left" v-if="population">
+                    {{ $t("starchart.star.population") }}
+                </li>
+                <li class="text-left" v-if="population">{{ population }}</li>
+                <li class="stats--two-col">todo: my fleets, send fleet etc.</li>
             </ul>
             <loading :size="32" v-if="requesting" />
         </modal>
@@ -138,5 +153,9 @@ export default {
     &--Y {
         background-position: 0 -168px;
     }
+}
+
+.stats {
+    margin-bottom: 0;
 }
 </style>

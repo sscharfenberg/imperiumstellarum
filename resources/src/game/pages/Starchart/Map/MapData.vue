@@ -20,6 +20,8 @@ export default {
         const stars = computed(
             () => store.getters["starchart/starsWithOwners"]
         );
+        const x = computed(() => store.state.starchart.jumpCoordX);
+        const y = computed(() => store.state.starchart.jumpCoordY);
         // number values
         const borderWidth = computed(() => (props.zoom >= 3 ? 3 : 1));
         const availableTilePixels = computed(
@@ -42,10 +44,22 @@ export default {
         const cssBorderWidth = computed(() => borderWidth.value + "px");
         onMounted(() => {
             console.log("mounted mapdata");
-            store.commit(
-                "starchart/SET_STARS_SHOWN",
-                store.state.starchart.stars
-            );
+            // did we come here from a different page?
+            if (x.value && y.value) {
+                // focus coordinates on map. this includes filtering, so we don't need to do it again
+                store.commit("starchart/FOCUS_COORDS", {
+                    x: x.value,
+                    y: y.value,
+                });
+                // reset jump coords so we don't focus coords again when revisiting the page.
+                store.commit("starchart/RESET_JUMP_COORDS");
+            } else {
+                // filter stars
+                store.commit(
+                    "starchart/SET_STARS_SHOWN",
+                    store.state.starchart.stars
+                );
+            }
         });
         return {
             stars,

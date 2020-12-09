@@ -19,6 +19,8 @@
             "label": "Besitzer",
             "none": "Keiner"
         },
-        "ownerTicker": "Ticker des Besitzers"
+        "ownerTicker": "Ticker des Besitzers",
+        "numPlanets": "Anzahl Planeten",
+        "population": "Gesamt Bevölkerung"
     }
 }
