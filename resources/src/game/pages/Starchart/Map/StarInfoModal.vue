@@ -16,14 +16,10 @@ export default {
     components: { Modal, Loading },
     setup(props) {
         const store = useStore();
-        const i18n = useI18n();
         const requesting = ref(false);
         const star = computed(() =>
             store.getters["starchart/starById"](props.starId)
         );
-        const modalTitle = computed(() => {
-            return `${i18n.t("starchart.star.title")}: „${star.value.name}“`;
-        });
         const numPlanets = ref(0);
         const population = ref(0);
         const spectralClass = computed(
@@ -47,7 +43,6 @@ export default {
                 });
         });
         return {
-            modalTitle,
             requesting,
             star,
             spectralClass,
@@ -61,7 +56,10 @@ export default {
 
 <template>
     <teleport to="#StarChartModal">
-        <modal :title="modalTitle" @close="$emit('close')">
+        <modal
+            :title="t('starchart.star.title', { name: star.name })"
+            @close="$emit('close')"
+        >
             <ul class="stats" v-if="!requesting">
                 <li class="stats--centered text-left">
                     {{ $t("starchart.star.spectral.label") }}

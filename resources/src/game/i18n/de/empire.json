@@ -22,7 +22,7 @@
             "shipyards": "{num} Werft | {num} Werften",
             "population": "{num} effektive Bevölkerung"
         },
-        "location": "Sternenposition"
+        "location": "Springe zu Sternenposition"
     },
     "planet": {
         "typeLabel": "Planetarer Typ",

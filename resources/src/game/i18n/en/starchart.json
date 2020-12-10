@@ -10,7 +10,8 @@
         "label": "Starmap"
     },
     "star": {
-        "title": "Star Details",
+        "title": "Star Scan: {name}",
+        "buttonLabel": "Click to scan star.",
         "spectral": {
             "label": "Spectral Class",
             "value": "Type {type}"

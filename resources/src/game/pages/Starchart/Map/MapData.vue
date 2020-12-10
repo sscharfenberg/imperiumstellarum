@@ -88,6 +88,7 @@ export default {
             :top="tileSize * star.y + 'px'"
             :left="tileSize * star.x + 'px'"
             :ticker="star.ownerTicker"
+            :name="star.name"
             :owner-id="star.ownerId"
             :owner-colour="star.ownerColour"
         />

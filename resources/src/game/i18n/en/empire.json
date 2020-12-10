@@ -22,7 +22,7 @@
             "shipyards": "{num} shipyard | {num} shipyards",
             "population": "{num} effective population"
         },
-        "location": "Star Location"
+        "location": "Jump to star location"
     },
     "planet": {
         "typeLabel": "Planetary Type",

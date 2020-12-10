@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import StarInfoModal from "./StarInfoModal";
 export default {
     name: "RenderStar",
@@ -16,25 +17,32 @@ export default {
         ownerId: String,
         ownerColour: String,
         ticker: String,
+        name: String,
     },
     components: { StarInfoModal },
     setup(props) {
         const store = useStore();
+        const i18n = useI18n();
         const showModal = ref(false);
         const empireId = computed(() => store.state.empireId);
-        const starClass = computed(() => {
-            if (empireId.value === props.ownerId) {
-                return "my";
-            }
-            return "";
-        });
+        const starClass = computed(() =>
+            empireId.value === props.ownerId ? "my" : ""
+        );
         const bgColour = computed(() =>
             props.zoom <= 2 ? props.ownerColour : "transparent"
         );
+        const starTitle = computed(() => {
+            let title = `${props.name}: ${i18n.t(
+                "starchart.star.buttonLabel"
+            )}`;
+            if (props.ownerId) title = `[${props.ticker}] ${title}`;
+            return title;
+        });
         return {
             showModal,
             bgColour,
             starClass,
+            starTitle,
         };
     },
 };
@@ -51,7 +59,8 @@ export default {
             left: left,
             backgroundColor: bgColour,
         }"
-        :title="ticker"
+        :title="starTitle"
+        :aria-label="starTitle"
         @click="showModal = true"
     >
         <aside class="ticker" v-if="ticker">{{ ticker }}</aside>

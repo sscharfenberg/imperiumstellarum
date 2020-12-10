@@ -10,7 +10,8 @@
         "label": "Sternenkarte"
     },
     "star": {
-        "title": "Details zum Stern",
+        "buttonLabel": "Klicken um Stern zu scannen.",
+        "title": "Sternen Scan: {name}",
         "spectral": {
             "label": "Spektralklasse",
             "value": "Typ {type}"
