@@ -22,7 +22,7 @@ class ShipyardController extends Controller
      * @param Planet $planet
      * @return bool
      */
-    private function playerOwnsPlanet(Player $player, Planet $planet)
+    private function playerOwnsPlanet(Player $player, Planet $planet): bool
     {
         $playerStar = $player->stars->find($planet->star->id);
         if ($playerStar) return true;
@@ -34,7 +34,7 @@ class ShipyardController extends Controller
      * @param Planet $planet
      * @return bool
      */
-    private function shipyardInstallable(Planet $planet)
+    private function shipyardInstallable(Planet $planet): bool
     {
         return $planet->shipyard === null;
     }
@@ -45,7 +45,7 @@ class ShipyardController extends Controller
      * @param string $type
      * @return boolean
      */
-    private function shipyardUpgradeable(Planet $planet, string $type)
+    private function shipyardUpgradeable(Planet $planet, string $type): bool
     {
         $shipyard = $planet->shipyard;
         if (!$shipyard) return false;
@@ -60,7 +60,7 @@ class ShipyardController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function install (Request $request)
+    public function install (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();
@@ -121,7 +121,7 @@ class ShipyardController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function upgrade (Request $request)
+    public function upgrade (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();

@@ -32,8 +32,10 @@ export default {
             window.axios
                 .get(`/api/game/${gameId}/star/${star.value.id}/details`)
                 .then((response) => {
-                    numPlanets.value = response.data.planets;
-                    population.value = response.data.population;
+                    if (response.status === 200) {
+                        numPlanets.value = response.data.planets;
+                        population.value = response.data.population;
+                    }
                 })
                 .catch((e) => {
                     console.error(e);
@@ -98,7 +100,10 @@ export default {
                 <li class="text-left" v-if="population">{{ population }}</li>
                 <li class="stats--two-col">todo: my fleets, send fleet etc.</li>
             </ul>
-            <loading :size="32" v-if="requesting" />
+            <div class="scanning" v-if="requesting">
+                <loading :size="32" />
+                <span>Scanning Star...</span>
+            </div>
         </modal>
     </teleport>
 </template>
@@ -155,5 +160,19 @@ export default {
 
 .stats {
     margin-bottom: 0;
+}
+
+.scanning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spinner {
+        margin: 0;
+    }
+
+    > span {
+        margin-left: 16px;
+    }
 }
 </style>
