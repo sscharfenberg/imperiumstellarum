@@ -676,6 +676,82 @@ return [
                 ]
             ]
         ]
+    ],
+
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for Ship Modules
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'modules' => [
+
+        /*
+         * offensive modules
+         */
+        'offensive' => [
+
+            /*
+             * small weapons
+             */
+            's-plasma' => [
+                'hullType' => 'small',
+                'cost' => [
+                    'energy' => 35,
+                    'minerals' => 15
+                ],
+                'type' => 'plasma',
+                'baseDmg' => 10,
+                'range' => 1
+            ],
+            's-missile' => [
+                'hullType' => 'small',
+                'cost' => [
+                    'energy' => 25,
+                    'minerals' => 25
+                ],
+                'type' => 'missile',
+                'baseDmg' => 8,
+                'range' => 2
+            ],
+            's-railgun' => [
+                'hullType' => 'small',
+                'cost' => [
+                    'energy' => 15,
+                    'minerals' => 35
+                ],
+                'type' => 'railgun',
+                'baseDmg' => 7,
+                'range' => 3
+            ],
+            's-laser' => [
+                'hullType' => 'small',
+                'cost' => [
+                    'energy' => 30,
+                    'minerals' => 20
+                ],
+                'type' => 'laser',
+                'baseDmg' => 6,
+                'range' => 4
+            ],
+
+            /*
+             * medium weapons
+             */
+            'm-plasma' => [
+                'hullType' => 'medium',
+                'cost' => [
+                    'energy' => 70,
+                    'minerals' => 30
+                ],
+                'type' => 'plasma',
+                'baseDmg' => 20,
+                'range' => 2
+            ],
+        ]
     ]
 
 ];

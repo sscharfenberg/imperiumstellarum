@@ -14,6 +14,7 @@ const defaultState = {
     cameraX: 0,
     cameraY: 0,
     zoomLevel: 3,
+    shipyardPage: 0,
 };
 
 /**
