@@ -325,7 +325,7 @@ return [
     'imprint' => [
         'navTitle' => 'Impressum',
         'title' => 'Impressum',
-        'paragraph1' => 'Nach § 5 TMG',
+        'paragraph1' => 'Verwantwortlich für Inhalte nach § 5 TMG',
         'paragraph2' => 'Vertreten durch',
         'contact' => 'Kontakt',
         'disclaimer' => 'Haftungsausschluß',

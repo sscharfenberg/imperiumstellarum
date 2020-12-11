@@ -114,6 +114,12 @@ export default {
         // set camera offset and save it.
         state.cameraX = camera.x;
         state.cameraY = camera.y;
+        document
+            .getElementById("draggableMap")
+            .setAttribute("data-x", "-" + camera.x.toString());
+        document
+            .getElementById("draggableMap")
+            .setAttribute("data-y", "-" + camera.y.toString());
         saveState(state.cameraX, "cameraX");
         saveState(state.cameraY, "cameraY");
         // re-filter stars after moving the map

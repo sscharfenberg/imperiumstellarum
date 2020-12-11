@@ -2,19 +2,22 @@
 /******************************************************************************
  * Page: Shipyards
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
+import { onBeforeMount } from "vue";
+import GameHeader from "Components/Header/GameHeader";
 export default {
     name: "PageShipyards",
+    components: { GameHeader },
     setup() {
-        return {
-            ...useI18n(),
-        };
+        const store = useStore();
+        onBeforeMount(() => {
+            store.dispatch("shipyards/GET_GAME_DATA");
+        });
+        return {};
     },
 };
 </script>
 
 <template>
-    <article class="page">
-        <h1>{{ t("shipyards.title") }}</h1>
-    </article>
+    <game-header area="shipyards" />
 </template>

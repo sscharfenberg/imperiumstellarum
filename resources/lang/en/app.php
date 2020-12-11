@@ -325,20 +325,16 @@ return [
     'imprint' => [
         'navTitle' => 'Legal Notice',
         'title' => 'Legal Notice',
-        'paragraph1' => 'According to § 5 TMG',
+        'paragraph1' => 'Responsible for contents according to german § 5 TMG',
         'paragraph2' => 'Represented by',
         'contact' => 'Contact',
         'disclaimer' => 'Disclaimer',
         'attribution' => 'Attribution',
         'paragraph3' => 'All images and icons used that where not created by the author can be found on the github attribution page.',
         'headline4' => 'Liability for contents',
-        //'headline4' => 'Haftung für Inhalte',
         'paragraph4' => 'The contents of our pages were created with great care. However, we cannot accept any liability for the correctness, completeness and actuality of the content. As a service provider, we are responsible for our own content on these pages in accordance with general law in accordance with Section 7, Paragraph 1 of the German Telemedia Act. According to §§ 8 to 10 TMG, as a service provider, we are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use of information in accordance with general laws remain unaffected. Liability in this regard is only possible from the point in time at which we become aware of a specific legal violation. We will remove this content immediately upon becoming aware of such legal violations.',
-        //'paragraph4' => 'Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.'
         'headline5' => 'Liability for Links',
-        //'headline5' => 'Haftung für Links',
         'paragraph5' => 'Our offer contains links to external third party websites, over whose content we have no influence. Therefore we cannot accept any liability for this external content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time they were linked. No illegal content was found at the time the link was created. Permanent monitoring of the content of the linked pages is not reasonable without concrete evidence of a violation of the law. If we become aware of legal violations, we will remove such links immediately.',
-        //'paragraph5' => 'Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.'
         'generatedby' => 'Website legal notice by impressum-generator.de'
     ],
 

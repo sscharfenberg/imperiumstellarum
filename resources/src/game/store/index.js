@@ -5,6 +5,7 @@ import { createStore } from "vuex";
 import empire from "./empire";
 import research from "./research";
 import starchart from "./starchart";
+import shipyards from "./shipyards";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
@@ -22,6 +23,7 @@ const store = createStore({
         empire,
         research,
         starchart,
+        shipyards,
     },
 });
 

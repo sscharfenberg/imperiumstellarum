@@ -241,7 +241,7 @@ return [
     |
     */
 
-    'version' => '0.2.0',
+    'version' => '0.2.5',
     'supportedLocales' => ['en', 'de'],
     'supportedRoles' => ['user', 'mod', 'admin']
 

@@ -20,7 +20,7 @@ class FormatApiResponseService {
      * @param Star $star
      * @return array
      */
-    public function formatStar (Star $star)
+    public function formatStar (Star $star): array
     {
         return [
             'id' => $star->id,
@@ -37,7 +37,7 @@ class FormatApiResponseService {
      * @param Planet $planet
      * @return array
      */
-    public function formatPlanet (Planet $planet)
+    public function formatPlanet (Planet $planet): array
     {
         return [
             'id' => $planet->id,
@@ -55,7 +55,7 @@ class FormatApiResponseService {
      * @param StorageUpgrade $upgrade
      * @return array
      */
-    public function formatStorageUpgrades (StorageUpgrade $upgrade)
+    public function formatStorageUpgrades (StorageUpgrade $upgrade): array
     {
         return [
             'resourceType' => $upgrade->resource_type,
@@ -69,7 +69,7 @@ class FormatApiResponseService {
      * @param PlayerResource $res
      * @return array
      */
-    public function formatPlayerResource (PlayerResource $res)
+    public function formatPlayerResource (PlayerResource $res): array
     {
         return [
             'type' => $res->resource_type,
@@ -87,7 +87,7 @@ class FormatApiResponseService {
      * @param Harvester $harvester
      * @return array
      */
-    public function formatHarvester (Harvester $harvester)
+    public function formatHarvester (Harvester $harvester): array
     {
         return [
             'id' => $harvester->id,
@@ -103,7 +103,7 @@ class FormatApiResponseService {
      * @param Shipyard $shipyard
      * @return array
      */
-    public function formatShipyard (Shipyard $shipyard)
+    public function formatShipyard (Shipyard $shipyard): array
     {
         return [
             'id' => $shipyard->id,
@@ -121,7 +121,7 @@ class FormatApiResponseService {
      * @param TechLevel $techLevel
      * @return array
      */
-    public function formatTechLevel (TechLevel $techLevel)
+    public function formatTechLevel (TechLevel $techLevel): array
     {
         return [
             'id' => $techLevel->id,
@@ -135,7 +135,7 @@ class FormatApiResponseService {
      * @param Research $research
      * @return array
      */
-    public function formatResearchJob (Research $research)
+    public function formatResearchJob (Research $research): array
     {
         return [
             'id' => $research->id,
@@ -148,13 +148,12 @@ class FormatApiResponseService {
         ];
     }
 
-
     /**
      * @function format api response for a player (that isn't the current player)
      * @param Player $player
      * @return array
      */
-    public function formatPlayer (Player $player)
+    public function formatPlayer (Player $player): array
     {
         return [
             'id' => $player->id,
@@ -163,4 +162,5 @@ class FormatApiResponseService {
             'colour' => $player->colour
         ];
     }
+
 }

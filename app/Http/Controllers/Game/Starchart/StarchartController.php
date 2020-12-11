@@ -19,7 +19,7 @@ class StarchartController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function gameData (Request $request)
+    public function gameData (Request $request): JsonResponse
     {
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);
