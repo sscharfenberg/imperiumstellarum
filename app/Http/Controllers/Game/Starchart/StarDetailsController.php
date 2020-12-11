@@ -27,8 +27,7 @@ class StarDetailsController extends Controller
         if ($exactPop === 0) $population = 0;
         if ($exactPop > 0 && $exactPop <= 4) $population = '0-4';
         if ($exactPop > 4 && $exactPop <= 8) $population = '4-8';
-        if ($exactPop > 8 && $exactPop <= 12) $population = '9-12';
-        if ($exactPop > 12 && $exactPop <= 16) $population = '12-16';
+        if ($exactPop > 8 && $exactPop <= 12) $population = '8-12';
         if ($exactPop > 12 && $exactPop <= 16) $population = '12-16';
         if ($exactPop > 16 && $exactPop <= 20) $population = '16-20';
         if ($exactPop > 20 && $exactPop <= 24) $population = '20-24';
@@ -42,8 +41,6 @@ class StarDetailsController extends Controller
             'planets' => $numPlanets,
             'population' => $population,
         ]);
-
-
 
     }
 

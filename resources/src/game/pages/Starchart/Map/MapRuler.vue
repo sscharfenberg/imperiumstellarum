@@ -10,6 +10,7 @@ export default {
         dimensions: Number, // map dimensions. the number of <li>s we have to render
         offset: Number, // offset from camera 0
         tileSize: Number, // pixel size for a <li>
+        zoom: Number, // [0..4]
     },
     setup(props) {
         const offsetStyle = computed(() => {
@@ -19,8 +20,12 @@ export default {
                 return "transform: translate3d(0, -" + props.offset + "px, 0)";
         });
         const tileStyle = computed(() => {
-            if (props.direction === "horizontal")
-                return "flex: 0 0 " + props.tileSize + "px";
+            if (props.direction === "horizontal") {
+                let style = "flex: 0 0 " + props.tileSize + "px;";
+                style += " width: " + props.tileSize + "px;";
+                if (props.zoom === 0) style += "font-size: 12px;";
+                return style;
+            }
             if (props.direction === "vertical")
                 return "height: " + props.tileSize + "px";
         });
@@ -84,6 +89,7 @@ export default {
     display: flex;
     position: absolute;
 
+    overflow: hidden;
     padding: 0;
     margin: 0;
 
@@ -98,7 +104,7 @@ export default {
         line-height: 1;
 
         @include themed() {
-            color: t("t-subdued");
+            color: t("t-tint");
         }
     }
 

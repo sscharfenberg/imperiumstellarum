@@ -38,6 +38,7 @@ export default {
                 :dimensions="dimensions"
                 :offset="cameraX"
                 :tile-size="tileSize"
+                :zoom="zoom"
             />
             <div class="bottom">
                 <map-ruler
