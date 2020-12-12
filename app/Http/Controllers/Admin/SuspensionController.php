@@ -22,7 +22,7 @@ class SuspensionController extends Controller
      * @param int $userId
      * @return RedirectResponse
      */
-    public function suspend (Request $request, int $userId)
+    public function suspend (Request $request, int $userId): RedirectResponse
     {
         $validator = Validator::make($request->input(), [
             'duration' => ['required'],
@@ -58,9 +58,11 @@ class SuspensionController extends Controller
      * delete a suspension
      * @param Request $request
      * @param string $suspension
+     * @throws \Exception
      * @return RedirectResponse
      */
-    public function delete (Request $request, string $suspension) {
+    public function delete (Request $request, string $suspension): RedirectResponse
+    {
         $suspension = Suspension::find($suspension);
         $user = $suspension->user;
         if (!$suspension || !$user) {

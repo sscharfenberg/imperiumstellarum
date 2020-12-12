@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Game;
 use Illuminate\Contracts\View\View;
 
-
 class HomeController extends Controller
 {
     /**
@@ -16,7 +15,7 @@ class HomeController extends Controller
      *
      * @return View
      */
-    public function show()
+    public function show(): View
     {
         $userCount = User::count();
         $unverifiedUserCount = User::where('email_verified_at', null)->count();

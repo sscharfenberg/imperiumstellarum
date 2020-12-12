@@ -10,7 +10,12 @@ use App\Services\FormatApiResponseService;
 
 class EmpireController extends Controller
 {
-    public function gameData (Request $request)
+    /**
+     * @function get empire game data
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function gameData (Request $request): \Illuminate\Http\JsonResponse
     {
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);

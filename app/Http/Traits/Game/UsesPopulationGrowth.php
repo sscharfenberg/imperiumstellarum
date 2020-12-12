@@ -2,8 +2,6 @@
 
 namespace App\Http\Traits\Game;
 
-use Illuminate\Support\Str;
-
 trait UsesPopulationGrowth
 {
 
@@ -13,7 +11,7 @@ trait UsesPopulationGrowth
      * @param float $foodPerPop
      * @return float
      */
-    public function calculateNewPopulation (float $population, float $foodPerPop)
+    public function calculateNewPopulation (float $population, float $foodPerPop): float
     {
         $starvingMultiplier = 0.8;
         $newPop = $foodPerPop < 1

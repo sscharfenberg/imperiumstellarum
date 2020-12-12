@@ -19,7 +19,7 @@ class EnqueueController extends Controller
      * @param string $type
      * @return bool
      */
-    private function areaExists (string $type)
+    private function areaExists (string $type): bool
     {
         return array_key_exists($type, config('rules.tech.areas'));
     }
@@ -29,7 +29,7 @@ class EnqueueController extends Controller
      * @param int $level
      * @return bool
      */
-    private function isWithinBounds (int $level)
+    private function isWithinBounds (int $level): bool
     {
         if (!is_numeric($level)) return false;
         return $level >= config('rules.tech.bounds.min')
@@ -43,7 +43,7 @@ class EnqueueController extends Controller
      * @param int $level
      * @return bool
      */
-    private function isResearchable (Player $player, string $type, int $level)
+    private function isResearchable (Player $player, string $type, int $level): bool
     {
         $currentLevel = $player->techLevels->where('type', $type)->first()->level;
         $researches = $player->researches->where('type', $type)
@@ -59,7 +59,7 @@ class EnqueueController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function verifyResearchQueueMax (Player $player)
+    private function verifyResearchQueueMax (Player $player): bool
     {
         $numResearchJobs = count($player->researches);
         return $numResearchJobs < config('rules.tech.queue');
@@ -70,7 +70,7 @@ class EnqueueController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function handle(Request $request)
+    public function handle(Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $type = $request->input('type');

@@ -15,7 +15,7 @@ class ProcessTurn
      * @param Turn $turn
      * @return Turn
      */
-    private function createNewTurn (Game $game, Turn $turn)
+    private function createNewTurn (Game $game, Turn $turn): Turn
     {
         Log::info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
         return Turn::create([
@@ -68,6 +68,7 @@ class ProcessTurn
      * @function process shipyard builds
      * @param Game $game
      * @param Turn $turn
+     * @return void
      */
     private function processShipyards(Game $game, Turn $turn)
     {
@@ -80,6 +81,7 @@ class ProcessTurn
      * @function process research
      * @param Game $game
      * @param Turn $turn
+     * @return void
      */
     private function processResearch(Game $game, Turn $turn)
     {

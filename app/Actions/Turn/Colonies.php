@@ -22,7 +22,6 @@ class Colonies
     {
         $planets = Planet::where('game_id', $game->id)
             ->where('population', '>', 0)->get();
-        $players = $game->players;
 
         foreach($planets as $planet) {
             $playerId = $planet->star->player_id;

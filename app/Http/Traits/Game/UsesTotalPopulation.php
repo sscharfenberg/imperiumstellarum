@@ -10,20 +10,16 @@ trait UsesTotalPopulation
     /**
      * @function get players total population
      * @param Player $player
-     * @return mixed
+     * @return float
      */
-    private function getTotalPopulation(Player $player)
+    private function getTotalPopulation(Player $player): float
     {
         $stars = $player->stars;
         $planets = collect();
         foreach($stars as $star) {
             $planets = $planets->concat($star->planets);
         }
-        return $planets->filter(function($planet) {
-            return $planet->population > 0;
-        })->reduce(function ($carry, $planet) {
-            return $carry + $planet->population;
-        });
+        return $planets->sum('population');
     }
 
 

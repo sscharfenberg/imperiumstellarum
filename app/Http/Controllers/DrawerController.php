@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DrawerController extends Controller
 {
-    public function update (Request $request)
+
+    /**
+     * @function update user drawer status
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update (Request $request): \Illuminate\Http\JsonResponse
     {
         $drawerStatus = $request->input(['drawer']);
         $user = Auth::user();

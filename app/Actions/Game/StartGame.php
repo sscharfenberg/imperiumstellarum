@@ -2,8 +2,6 @@
 
 namespace App\Actions\Game;
 
-
-
 use App\Models\Game;
 use App\Models\Planet;
 use App\Models\Star;
@@ -20,7 +18,7 @@ class StartGame
      * @param Game $game
      * @return Turn
      */
-    private function createInitialTurn (Game $game)
+    private function createInitialTurn (Game $game): Turn
     {
         return Turn::create([
             'game_id' => $game->id,
@@ -33,6 +31,7 @@ class StartGame
      * @function select the starting colony from the planets of a star
      * by scoring resourceslots/values
      * @param Star $star
+     * @return void
      */
     public function seedPlayerColony (Star $star)
     {
@@ -63,6 +62,7 @@ class StartGame
      * @function seed player colonies.
      * @param $game
      * @throws \Exception
+     * @return void
      */
     private function seedPlayerStars ($game) {
         Log::notice('Seeding player starting colonies.');
@@ -89,6 +89,7 @@ class StartGame
      * @function handle game start
      * @param  Game $game
      * @throws \Exception
+     * @return void
      */
     public function handle(Game $game)
     {

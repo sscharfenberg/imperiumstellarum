@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Jenssegers\Agent\Agent;
@@ -19,7 +19,7 @@ class UserController extends Controller
      * @param int $userId
      * @return \Illuminate\View\View
      */
-    public function details(Request $request, int $userId)
+    public function details(Request $request, int $userId): \Illuminate\View\View
     {
         $sessions = [];
         if (config('session.driver') == 'database') {
@@ -51,7 +51,7 @@ class UserController extends Controller
      * Change specific user
      * @param Request $request
      * @param int $userId
-     * @return View|RedirectResponse
+     * @return \Illuminate\View\View|RedirectResponse
      */
     public function change(Request $request, int $userId)
     {

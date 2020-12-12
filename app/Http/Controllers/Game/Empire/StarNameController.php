@@ -40,7 +40,7 @@ class StarNameController extends Controller
      * @param string $starId
      * @return bool
      */
-    private function playerOwnsStar (Player $player, string $starId)
+    private function playerOwnsStar (Player $player, string $starId): bool
     {
         $playerStar = $player->stars->find($starId);
         if ($playerStar) return true;
@@ -54,7 +54,7 @@ class StarNameController extends Controller
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function handle (Request $request)
+    public function handle (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();

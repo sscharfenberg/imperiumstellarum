@@ -37,7 +37,6 @@ class Heartbeat extends Command
     /**
      * Execute the console command.
      *
-     * @return int
      * @throws \Exception
      * @return void
      */

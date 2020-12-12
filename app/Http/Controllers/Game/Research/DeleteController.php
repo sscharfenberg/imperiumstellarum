@@ -20,7 +20,7 @@ class DeleteController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function jobIsPlayerOwned (string $jobId, Player $player)
+    private function jobIsPlayerOwned (string $jobId, Player $player): bool
     {
         return $player->researches->containsStrict('id', $jobId);
     }
@@ -31,7 +31,7 @@ class DeleteController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function hasNoHigherLevelEnqueued(Research $job, Player $player)
+    private function hasNoHigherLevelEnqueued(Research $job, Player $player): bool
     {
         $queue = $player->researches->filter(function ($queueJob) use ($job) {
             return $queueJob->type == $job->type;
@@ -43,7 +43,7 @@ class DeleteController extends Controller
     }
 
 
-    public function handle(Request $request)
+    public function handle(Request $request): \Illuminate\Http\JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $jobId = $request->input("id");

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
-
 use App\Models\Turn;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +21,7 @@ class GameController extends Controller
      *
      * @return View
      */
-    public function showCreate()
+    public function showCreate(): View
     {
         return view('admin.game.create');
     }
@@ -32,7 +31,7 @@ class GameController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $tzOffset = intval($request->input(['start_date_timezone_offset']));
         $validator = Validator::make($request->input(), [
@@ -155,7 +154,8 @@ class GameController extends Controller
      * @param string $id
      * @return RedirectResponse
      */
-    public function generatePreview(Request $request, string $id) {
+    public function generatePreview(Request $request, string $id): RedirectResponse
+    {
         $game = Game::find($id);
         if(!$game) {
             return redirect()->back()
@@ -178,7 +178,8 @@ class GameController extends Controller
      * @throws \Exception
      * @return RedirectResponse
      */
-    public function seedGame(Request $request, string $id) {
+    public function seedGame(Request $request, string $id): RedirectResponse
+    {
         $game = Game::find($id);
         if(!$game || !$game->map) {
             return redirect()->back()

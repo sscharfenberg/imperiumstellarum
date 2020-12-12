@@ -20,7 +20,7 @@ class PopulationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function projectNewPopulation(Request $request)
+    public function projectNewPopulation(Request $request): JsonResponse
     {
         $population = $request->input(['population']);
         $foodPerPop = $request->input(['food']);
@@ -38,7 +38,7 @@ class PopulationController extends Controller
      * @param Planet $planet
      * @return bool
      */
-    private function playerOwnsPlanet(Player $player, Planet $planet)
+    private function playerOwnsPlanet(Player $player, Planet $planet): bool
     {
         $playerStar = $player->stars->find($planet->star->id);
         if ($playerStar) return true;
@@ -51,7 +51,7 @@ class PopulationController extends Controller
      * @param float $foodConsumption
      * @return bool
      */
-    private function consumptionValid(float $foodConsumption)
+    private function consumptionValid(float $foodConsumption): bool
     {
         if (!is_numeric($foodConsumption)) return false;
         return $foodConsumption >= config('rules.planets.food.min')
@@ -64,7 +64,7 @@ class PopulationController extends Controller
      * @param Planet $planet
      * @return bool
      */
-    private function planetHasPopulation(Planet $planet)
+    private function planetHasPopulation(Planet $planet): bool
     {
         return $planet->population > 0;
     }
@@ -75,7 +75,7 @@ class PopulationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function changeFoodConsumption(Request $request)
+    public function changeFoodConsumption(Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();

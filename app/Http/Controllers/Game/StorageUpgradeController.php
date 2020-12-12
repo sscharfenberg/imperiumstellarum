@@ -23,7 +23,7 @@ class StorageUpgradeController extends Controller
      * @param int $level
      * @return bool
      */
-    private function levelIsInstallable (Player $player, string $type, int $level)
+    private function levelIsInstallable (Player $player, string $type, int $level): bool
     {
         $res = $player->resources()->where('resource_type', $type)->first();
         $maxLevel = array_key_last(config('rules.player.resourceTypes.'.$type));
@@ -39,7 +39,7 @@ class StorageUpgradeController extends Controller
      * @param int $level
      * @return bool
      */
-    private function playerCanAfford (Player $player, string $type, int $level)
+    private function playerCanAfford (Player $player, string $type, int $level): bool
     {
         $costs = array_filter(
             config('rules.player.resourceTypes.'.$type.'.'.$level.'.costs'), function($resType) {
@@ -57,7 +57,7 @@ class StorageUpgradeController extends Controller
      * @param string $type
      * @return bool
      */
-    private function buildAvailable (Player $player, string $type)
+    private function buildAvailable (Player $player, string $type): bool
     {
         $upgradesBuilding = $player->storageUpgrades()->where('resource_type', $type)->get();
         if (count($upgradesBuilding) !== 0) return false;
@@ -87,7 +87,7 @@ class StorageUpgradeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function install (Request $request)
+    public function install (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();

@@ -25,7 +25,7 @@ class DashboardController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Request $request)
+    public function show(Request $request): \Illuminate\Contracts\View\View
     {
         $sessions = DB::Table('sessions')
             ->where('user_id', Auth::user()->id)
@@ -66,7 +66,7 @@ class DashboardController extends Controller
      * @param  Request  $request
      * @return RedirectResponse
      */
-    public function password(Request $request)
+    public function password(Request $request): RedirectResponse
     {
         $input = $request->input();
         $user = Auth::user();
@@ -94,7 +94,7 @@ class DashboardController extends Controller
      * @param  Request  $request
      * @return RedirectResponse
      */
-    public function notification(Request $request)
+    public function notification(Request $request): RedirectResponse
     {
         $input = $request->input();
         $user = Auth::user();
@@ -111,7 +111,7 @@ class DashboardController extends Controller
      * @param  Request  $request
      * @return RedirectResponse
      */
-    public function email(Request $request)
+    public function email(Request $request): RedirectResponse
     {
         $input = $request->input();
         $user = Auth::user();
@@ -140,7 +140,7 @@ class DashboardController extends Controller
      * @param  Request  $request
      * @return RedirectResponse
      */
-    public function delete(Request $request)
+    public function delete(Request $request): RedirectResponse
     {
         $user = Auth::user();
         $user->delete();

@@ -19,7 +19,7 @@ class QueueOrderController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function verifyResearchQueueMax (array $jobIds)
+    private function verifyResearchQueueMax (array $jobIds): bool
     {
         return count($jobIds) <= config('rules.tech.queue');
     }
@@ -30,7 +30,7 @@ class QueueOrderController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function jobsArePlayerOwned (array $jobIds, Player $player)
+    private function jobsArePlayerOwned (array $jobIds, Player $player): bool
     {
         $jobs = $player->researches;
         foreach($jobIds as $jobId) {
@@ -45,7 +45,7 @@ class QueueOrderController extends Controller
      * @param Player $player
      * @return bool
      */
-    private function isSortOrderCorrect (array $jobIds, Player $player)
+    private function isSortOrderCorrect (array $jobIds, Player $player): bool
     {
         $tls = $player->techLevels;
         $jobs = $player->researches;
@@ -73,7 +73,7 @@ class QueueOrderController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function handle(Request $request)
+    public function handle(Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $newOrder = $request->input();

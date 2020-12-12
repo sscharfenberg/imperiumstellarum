@@ -15,7 +15,8 @@ class LocaleController extends Controller
      * @param string $locale
      * @return RedirectResponse
      */
-    public function change(string $locale) {
+    public function change(string $locale): RedirectResponse
+    {
         $userId = Auth::id();
         if (in_array($locale, config()->get('app.supportedLocales'))) {
             if ($userId) {

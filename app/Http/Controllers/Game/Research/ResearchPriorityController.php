@@ -17,7 +17,7 @@ class ResearchPriorityController extends Controller
      * @param float $priority
      * @return bool
      */
-    private function isPriorityValid (float $priority)
+    private function isPriorityValid (float $priority): bool
     {
         $rules = config('rules.tech.researchPriority');
         if (!is_float($priority)) return false;
@@ -31,7 +31,7 @@ class ResearchPriorityController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function change (Request $request)
+    public function change (Request $request): \Illuminate\Http\JsonResponse
     {
         $priority = $request->input(['researchPriority']);
 

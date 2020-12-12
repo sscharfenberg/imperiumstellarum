@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class EnlistController extends Controller
 {
@@ -41,7 +40,7 @@ class EnlistController extends Controller
      * @param string $gameId
      * @return RedirectResponse
      */
-    public function create(Request $request, string $gameId)
+    public function create(Request $request, string $gameId): RedirectResponse
     {
         $game = Game::find($gameId);
         if (!$game) {
@@ -121,7 +120,7 @@ class EnlistController extends Controller
      * @return RedirectResponse
      * @throws \Exception
      */
-    public function delete (Request $request, $playerId)
+    public function delete (Request $request, $playerId): RedirectResponse
     {
         $player = Player::find($playerId);
         if (!$player) {

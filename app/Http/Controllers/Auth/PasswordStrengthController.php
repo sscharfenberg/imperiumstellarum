@@ -17,7 +17,8 @@ class PasswordStrengthController extends Controller
      * @param  Request  $request
      * @return JsonResponse
      */
-    public function verify(Request $request) {
+    public function verify(Request $request): JsonResponse
+    {
         $rules = new PasswordStrength;
         $zxcvbnInstance = new Zxcvbn();
         $password = $request->json('password');

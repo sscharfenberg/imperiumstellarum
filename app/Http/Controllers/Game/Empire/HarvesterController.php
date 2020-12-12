@@ -22,7 +22,7 @@ class HarvesterController extends Controller
      * @param Planet $planet
      * @return bool
      */
-    private function playerOwnsPlanet(Player $player, Planet $planet)
+    private function playerOwnsPlanet(Player $player, Planet $planet): bool
     {
         $playerStar = $player->stars->find($planet->star->id);
         if ($playerStar) return true;
@@ -36,7 +36,7 @@ class HarvesterController extends Controller
      * @param string $resourceType
      * @return false
      */
-    private function harvesterInstallable(Player $player, Planet $planet, string $resourceType)
+    private function harvesterInstallable(Player $player, Planet $planet, string $resourceType): bool
     {
         $numPlayerHarvesters = count($player->harvesters
             ->where('planet_id', $planet->id)
@@ -55,7 +55,7 @@ class HarvesterController extends Controller
      * @param string $type
      * @return bool
      */
-    private function playerCanAfford (Player $player, string $type)
+    private function playerCanAfford (Player $player, string $type): bool
     {
         $costs = array_filter(
             config('rules.harvesters.'.$type.'.costs'), function($resType) {
@@ -86,7 +86,7 @@ class HarvesterController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function install (Request $request)
+    public function install (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $input = $request->input();

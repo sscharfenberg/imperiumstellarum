@@ -16,7 +16,7 @@ class UsersController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function show(Request $request)
+    public function show(Request $request): \Illuminate\View\View
     {
         $sortBy = $request->input(['sortBy']) ? $request->input(['sortBy']) : 'created_at';
         $order = $request->input(['order']) ? $request->input(['order']) : 'desc';
@@ -52,7 +52,7 @@ class UsersController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function sortFilter(Request $request)
+    public function sortFilter(Request $request): \Illuminate\View\View
     {
         $formInput = $request->input(['sort']);
         $exploded = explode("--", $formInput);

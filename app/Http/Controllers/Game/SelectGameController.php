@@ -17,7 +17,7 @@ class SelectGameController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function select (Request $request, $id)
+    public function select (Request $request, $id): RedirectResponse
     {
         $user = Auth::user();
         $player = Player::where('user_id', $user->id)->where('game_id', $id)->first();

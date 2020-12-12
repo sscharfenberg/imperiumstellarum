@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Game;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use Illuminate\Http\RedirectResponse;
 
 class GameController extends Controller
 {
@@ -17,7 +15,7 @@ class GameController extends Controller
      * @param string $gameId
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Request $request, string $gameId)
+    public function show(Request $request, string $gameId): \Illuminate\Contracts\View\View
     {
         $gameNumber = Game::find($gameId)->number;
         return View::make('game.game', compact(['gameId', 'gameNumber']));

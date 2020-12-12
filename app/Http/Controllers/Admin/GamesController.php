@@ -15,7 +15,7 @@ class GamesController extends Controller
      * @param Request $request
      * @return View
      */
-    public function show(Request $request)
+    public function show(Request $request): View
     {
         $sortBy = $request->input(['sortBy']) ? $request->input(['sortBy']) : 'number';
         $order = $request->input(['order']) ? $request->input(['order']) : 'desc';
@@ -35,7 +35,7 @@ class GamesController extends Controller
      * @param Request $request
      * @return View
      */
-    public function sortFilter(Request $request)
+    public function sortFilter(Request $request): View
     {
         $formInput = $request->input(['sort']);
         $exploded = explode("--", $formInput);

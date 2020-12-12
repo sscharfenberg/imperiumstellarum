@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Game\Research;
 
 use App\Http\Controllers\Controller;
-use App\Models\Player;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +20,7 @@ class ResearchController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function gameData (Request $request)
+    public function gameData (Request $request): JsonResponse
     {
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);
