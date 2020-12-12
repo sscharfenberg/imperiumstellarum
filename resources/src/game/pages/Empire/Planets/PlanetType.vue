@@ -50,21 +50,21 @@ export default {
 .orbit {
     overflow: hidden;
 
-    width: 4.8rem;
-    margin-right: 0.4rem;
-    flex: 0 0 4.8rem;
+    width: 48px;
+    margin-right: 4px;
+    flex: 0 0 48px;
 
     background: url("./bg/orbit.svg") 0 0 no-repeat;
 
     @include respond-to("medium") {
-        margin-right: 0.8rem;
+        margin-right: 8px;
     }
 }
 .planet-type {
     display: inline-block;
 
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 48px;
+    height: 48px;
 
     background: transparent url("./bg/planets.png") 0 0 no-repeat;
 

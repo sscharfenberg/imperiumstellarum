@@ -6,14 +6,14 @@
 
 .app-form {
     width: 100%;
-    margin: 4rem 0;
+    margin: 40px 0;
 
     @include themed() {
         background: t("g-sunken");
     }
 
     &.less-margins {
-        margin: 2rem 0;
+        margin: 20px 0;
     }
 
     &.has-headline {
@@ -29,7 +29,7 @@
 
     &.narrow {
         max-width: map-get($breakpoints, "medium");
-        margin: 4rem auto;
+        margin: 40px auto;
     }
 
     &.in-section {
@@ -39,27 +39,27 @@
     > .headline {
         display: flex;
 
-        min-height: 7rem;
+        min-height: 70px;
 
-        font-size: 2.4rem;
+        font-size: 24px;
         font-weight: 300;
-        line-height: 5.2rem;
+        line-height: 52px;
 
         > span {
             display: inline-block;
 
-            margin-left: 1rem;
+            margin-left: 10px;
         }
 
         @include respond-to("small") {
-            font-size: 3rem;
+            font-size: 30px;
         }
     }
 
     > .intro {
-        padding: 1rem;
+        padding: 10px;
         border: 1px solid transparent;
-        margin: 0 1rem;
+        margin: 0 10px;
 
         @include themed() {
             background: t("g-bunker");
@@ -74,7 +74,7 @@
         flex-direction: column;
         flex-wrap: wrap;
 
-        padding: 2rem 1rem;
+        padding: 20px 10px;
 
         @include respond-to("medium") {
             flex-direction: row;
@@ -96,7 +96,7 @@
                 display: inline-block;
 
                 width: 100%;
-                padding: 0.5rem 0;
+                padding: 5px 0;
 
                 @include respond-to("medium") {
                     padding: 0;
@@ -109,9 +109,9 @@
                     .colour-preview {
                         display: inline-block;
 
-                        width: 4.2rem;
-                        height: 4.2rem;
-                        margin-left: 1rem;
+                        width: 42px;
+                        height: 42px;
+                        margin-left: 10px;
                     }
                 }
             }
@@ -122,7 +122,7 @@
             align-items: center;
             flex-wrap: wrap;
 
-            padding: 0.5rem 0;
+            padding: 5px 0;
             flex: 1 1 70%;
 
             &--justify {
@@ -145,10 +145,10 @@
         }
 
         .addon {
-            height: 4.2rem;
-            padding: 0 1rem;
+            height: 42px;
+            padding: 0 10px;
 
-            line-height: 4.2rem;
+            line-height: 42px;
 
             transition: background map-get($animation-speeds, "fast") linear,
                 color map-get($animation-speeds, "fast") linear;
@@ -183,27 +183,27 @@
             flex-basis: 100%;
 
             @include respond-to("medium") {
-                padding: 0.4rem 0 0 30%;
+                padding: 4px 0 0 30%;
             }
         }
 
         .colour-picker {
             padding: 0;
-            margin-top: 1rem;
+            margin-top: 10px;
             flex-basis: 100%;
 
             @include respond-to("medium") {
-                padding: 0.4rem 0 0 30%;
+                padding: 4px 0 0 30%;
             }
         }
 
         > .descr {
-            padding: 0.5rem;
+            padding: 5px;
             border: 1px solid transparent;
-            margin-top: 1rem;
+            margin-top: 10px;
             flex: 1 1 100%;
 
-            font-size: 1.4rem;
+            font-size: 14px;
 
             @include themed() {
                 color: t("t-tint");
@@ -216,7 +216,7 @@
                 }
 
                 .text-link {
-                    padding: 0.5rem 0;
+                    padding: 5px 0;
                 }
             }
         }
@@ -232,7 +232,7 @@
 
     // simple text row ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     .text-row {
-        padding: 1rem;
+        padding: 10px;
 
         &.has-divider {
             @include themed() {
@@ -243,13 +243,13 @@
 
     // form error messages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ul.errors {
-        padding: 0.5rem;
-        margin: 1rem 0 0 0;
+        padding: 5px;
+        margin: 10px 0 0 0;
 
         list-style: none;
 
         @include respond-to("medium") {
-            padding: 1rem;
+            padding: 10px;
         }
 
         @include themed() {
@@ -263,15 +263,15 @@
             display: flex;
             align-items: center;
 
-            padding: 0.5rem 0;
-            margin-bottom: 0.5rem;
+            padding: 5px 0;
+            margin-bottom: 5px;
 
             @include themed() {
                 border-bottom: 1px solid t("s-error");
             }
 
             .icon {
-                margin-right: 1rem;
+                margin-right: 10px;
                 flex: 0 0 24px;
             }
 

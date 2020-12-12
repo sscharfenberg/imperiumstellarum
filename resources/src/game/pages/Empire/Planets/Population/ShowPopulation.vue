@@ -59,10 +59,10 @@ export default {
     display: flex;
     align-items: center;
 
-    height: 4rem;
-    padding: 0.5rem 1rem;
+    height: 40px;
+    padding: 5px 10px;
     border: 2px solid transparent;
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
 
     outline: 0;
     cursor: pointer;

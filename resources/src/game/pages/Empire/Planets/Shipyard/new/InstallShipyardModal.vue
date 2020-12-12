@@ -101,7 +101,7 @@ p {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        grid-gap: 0.4rem;
+        grid-gap: 4px;
     }
 
     &__size {
@@ -109,7 +109,7 @@ p {
         align-items: center;
         justify-content: center;
 
-        min-height: 4rem;
+        min-height: 40px;
 
         cursor: pointer;
 
@@ -134,7 +134,7 @@ p {
         }
 
         > .icon {
-            margin-right: 1rem;
+            margin-right: 10px;
         }
     }
 }
@@ -153,6 +153,6 @@ input[type="radio"]:checked + label {
 }
 
 .costs {
-    margin-top: 1.6rem;
+    margin-top: 16px;
 }
 </style>

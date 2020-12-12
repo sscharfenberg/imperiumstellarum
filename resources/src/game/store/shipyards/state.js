@@ -13,4 +13,8 @@ export default {
     requesting: false,
     shipyards: [],
     page: savedState.shipyardPage || 0,
+    design: {
+        hullType: "",
+        className: "",
+    },
 };

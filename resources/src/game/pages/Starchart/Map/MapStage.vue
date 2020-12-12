@@ -91,22 +91,22 @@ export default {
         bottom: 0;
         left: 0;
 
-        padding: 0.4rem;
+        padding: 4px;
 
         @include respond-to("medium") {
-            padding: 0.8rem;
+            padding: 8px;
         }
     }
 
     .bottom {
         //display: flex;
 
-        height: calc(100% - 2.8rem);
+        height: calc(100% - 28px);
         margin-top: 4px;
         //flex: 0 0 100%;
 
         @include respond-to("medium") {
-            height: calc(100% - 3.2rem);
+            height: calc(100% - 32px);
             margin-top: 8px;
         }
 

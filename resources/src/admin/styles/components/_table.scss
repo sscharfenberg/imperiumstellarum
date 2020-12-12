@@ -10,7 +10,7 @@
     width: 100%;
     border-top: $border;
     border-left: $border;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 
     border-collapse: collapse;
 
@@ -24,7 +24,7 @@
         display: block;
         position: relative;
 
-        padding: 1rem;
+        padding: 10px;
         border-right: $border;
         border-bottom: $border;
 
@@ -55,7 +55,7 @@
         position: relative;
 
         &.sortable {
-            padding-right: 2.6rem;
+            padding-right: 26px;
 
             &.sorted {
                 font-style: italic;

@@ -54,11 +54,11 @@ export default {
 
 <style lang="scss" scoped>
 .game-data {
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 10px 15px;
     border-bottom: 2px solid transparent;
 
     @include respond-to("small") {
-        padding: 1.5rem 2rem;
+        padding: 15px 20px;
     }
 
     @include themed() {
@@ -70,12 +70,12 @@ export default {
         align-items: center;
         justify-content: space-between;
 
-        padding: 0 0 1rem 0;
+        padding: 0 0 10px 0;
         margin: 0;
 
         list-style: none;
 
-        font-size: 1.5rem;
+        font-size: 15px;
 
         &:last-child {
             padding-bottom: 0;
@@ -92,7 +92,7 @@ export default {
     }
 
     .turn {
-        padding: 0.2rem 0.5rem;
+        padding: 2px 5px;
 
         @include themed() {
             background: t("g-raven");
@@ -100,7 +100,7 @@ export default {
         }
 
         > .icon {
-            margin-right: 0.5rem;
+            margin-right: 5px;
 
             @include themed() {
                 color: t("t-light");

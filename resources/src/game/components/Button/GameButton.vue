@@ -73,7 +73,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-$btnBaseHeight: 3.4rem;
+$btnBaseHeight: 34px;
 
 .btn {
     display: inline-flex;
@@ -81,7 +81,7 @@ $btnBaseHeight: 3.4rem;
     justify-content: center;
 
     height: $btnBaseHeight;
-    padding: 0 1.2rem 0 0.8rem;
+    padding: 0 12px 0 8px;
     border: 1px solid transparent;
 
     cursor: pointer;
@@ -121,24 +121,24 @@ $btnBaseHeight: 3.4rem;
     }
 
     &.tiny {
-        height: 2.6rem;
+        height: 26px;
 
-        font-size: 1.4rem;
+        font-size: 14px;
     }
 
     &.small {
-        height: 3rem;
+        height: 3px;
     }
 
     &.large {
-        height: 4.2rem;
+        height: 42px;
 
-        font-size: 2rem;
+        font-size: 2px;
     }
 
     &--text {
         > svg {
-            margin-right: 0.5rem;
+            margin-right: 5px;
         }
     }
 
@@ -147,9 +147,9 @@ $btnBaseHeight: 3.4rem;
     }
 
     &--icon {
-        width: 3.4rem;
-        height: 3.4rem;
-        padding: 0 0.8rem;
+        width: 34px;
+        height: 34px;
+        padding: 0 8px;
 
         border-radius: 50%;
 
@@ -158,18 +158,18 @@ $btnBaseHeight: 3.4rem;
         }
 
         &.tiny {
-            width: 2.6rem;
-            height: 2.6rem;
+            width: 26px;
+            height: 26px;
         }
 
         &.small {
-            width: 3rem;
-            height: 3rem;
+            width: 30px;
+            height: 30px;
         }
 
         &.large {
-            width: 4.2rem;
-            height: 4.2rem;
+            width: 42px;
+            height: 42px;
         }
     }
 

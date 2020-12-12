@@ -101,11 +101,11 @@ h3 {
 }
 
 .icon {
-    margin-right: 1rem;
+    margin-right: 10px;
 }
 
 .statistics {
-    margin-top: 0.8rem;
+    margin-top: 8px;
     flex: 0 0 100%;
 
     text-align: center;

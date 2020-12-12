@@ -86,24 +86,24 @@ export default {
 }
 
 .expand {
-    margin-right: 0.4rem;
+    margin-right: 4px;
 
     @include respond-to("medium") {
-        margin-right: 1.6rem;
+        margin-right: 16px;
     }
 }
 
 .name {
     width: 100%;
-    height: 4.8rem;
+    height: 48px;
     padding: 0;
     border: 0;
-    margin-right: 0.4rem;
+    margin-right: 4px;
 
     background: transparent;
     outline: 0;
 
-    font-size: 2.4rem;
+    font-size: 24px;
     line-height: 1;
 
     @include themed() {
@@ -111,7 +111,7 @@ export default {
     }
 
     @include respond-to("medium") {
-        margin-right: 0.8rem;
+        margin-right: 8px;
     }
 }
 
@@ -120,10 +120,10 @@ export default {
 }
 
 .done {
-    margin-left: 0.4rem;
+    margin-left: 4px;
 
     @include respond-to("medium") {
-        margin-right: 0.8rem;
+        margin-right: 8px;
     }
 }
 </style>

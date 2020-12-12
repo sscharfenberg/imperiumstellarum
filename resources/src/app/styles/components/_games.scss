@@ -10,7 +10,7 @@
     width: 100%;
     border-top: $border;
     border-left: $border;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 
     border-collapse: collapse;
 
@@ -21,7 +21,7 @@
     td {
         display: block;
 
-        padding: 1rem;
+        padding: 10px;
         border-right: $border;
         border-bottom: $border;
 
@@ -44,7 +44,7 @@
     }
 
     &__enlist {
-        width: 16rem;
+        width: 160px;
 
         text-align: right;
 

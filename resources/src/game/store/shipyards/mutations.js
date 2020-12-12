@@ -33,4 +33,24 @@ export default {
         state.page = payload;
         saveState(state.page, "shipyardPage");
     },
+
+    /**
+     * @function SET DESIGN hulltype
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_DESIGN_HULLTYPE: (state, payload) => {
+        state.design.hullType = payload;
+    },
+
+    /**
+     * @function SET DESIGN hulltype
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_DESIGN_CLASSNAME: (state, payload) => {
+        state.design.className = payload;
+    },
 };

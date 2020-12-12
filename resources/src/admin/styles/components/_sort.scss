@@ -11,7 +11,7 @@
     right: 5px;
     flex-direction: column;
 
-    padding: 0.2rem;
+    padding: 2px;
     transform: translateY(-50%);
 
     @include themed() {
@@ -58,7 +58,7 @@
 
         &.asc {
             &::before {
-                border-width: 0 0.8rem 0.8rem;
+                border-width: 0 8px 8px;
 
                 border-color: transparent;
 
@@ -76,7 +76,7 @@
 
         &.desc {
             &::before {
-                border-width: 0.8rem 0.8rem 0;
+                border-width: 8px 8px 0;
 
                 border-color: transparent;
 

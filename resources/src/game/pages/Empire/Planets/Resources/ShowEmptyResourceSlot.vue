@@ -56,8 +56,8 @@ button {
     display: flex;
     align-items: center;
 
-    height: 4rem;
-    padding: 0.5rem 1rem;
+    height: 40px;
+    padding: 5px 10px;
     border: 2px dashed transparent;
 
     outline: 0;

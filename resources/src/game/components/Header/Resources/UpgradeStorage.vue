@@ -146,7 +146,7 @@ export default {
 
 <style lang="scss" scoped>
 .untilComplete {
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
     flex: 0 0 100%;
 }
 </style>

@@ -68,10 +68,10 @@ export default {
 }
 
 .expand {
-    margin-right: 0.4rem;
+    margin-right: 4px;
 
     @include respond-to("medium") {
-        margin-right: 1.6rem;
+        margin-right: 16px;
     }
 }
 
@@ -81,10 +81,10 @@ export default {
 
 .name {
     overflow: hidden;
-    height: 4.8rem;
+    height: 48px;
 
-    font-size: 2.4rem;
-    line-height: 4.8rem;
+    font-size: 24px;
+    line-height: 48px;
     white-space: nowrap;
     text-overflow: ellipsis;
 

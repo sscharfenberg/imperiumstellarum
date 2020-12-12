@@ -10,7 +10,17 @@
     },
     "design": {
         "navTitle": "Planen",
-        "title": "Bauplan erstellen"
+        "title": "Bauplan erstellen",
+        "hullType": {
+            "headline": "Schiffstyp wählen",
+            "radioLabel": "Klicken um {type} als Schiffstyp zu wählen"
+        },
+        "className": {
+            "headline": "Name der Klasse wählen",
+            "placeHolder": "Schiffsklasse",
+            "readonly": "Bitte zuerst den Schiffstyp wählen",
+            "randomize": "Zufälligen Namen für Schiffsklasse verwenden."
+        }
     },
     "build": {
         "navTitle": "Konstruieren",

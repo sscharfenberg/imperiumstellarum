@@ -77,13 +77,13 @@ export default {
     display: flex;
     //align-items: flex-start;
 
-    padding: 0.8rem;
+    padding: 80px;
     border: 1px solid transparent;
-    margin-bottom: 0.8rem;
+    margin-bottom: 8px;
 
     @include respond-to("medium") {
-        padding: 1.6rem;
-        margin-bottom: 1.6rem;
+        padding: 16px;
+        margin-bottom: 16px;
     }
 
     @include themed() {
@@ -112,11 +112,11 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
 
-    margin-left: 0.8rem;
+    margin-left: 8px;
     flex-grow: 1;
 
     @include respond-to("medium") {
-        margin-left: 1.6rem;
+        margin-left: 16px;
     }
 
     > h4 {
@@ -125,7 +125,7 @@ export default {
         font-weight: 300;
 
         @include respond-to("medium") {
-            font-size: 2.2rem;
+            font-size: 22px;
         }
     }
 }

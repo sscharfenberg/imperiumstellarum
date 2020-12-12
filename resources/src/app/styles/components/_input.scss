@@ -6,8 +6,8 @@
 
 input.form-control,
 select.form-select {
-    height: 4.2rem;
-    padding: 1rem 0.5rem;
+    height: 42px;
+    padding: 10px 5px;
     border: 0;
     border-left: 10px solid transparent;
     flex-grow: 1;
@@ -43,6 +43,10 @@ select.form-select {
                 color: t("g-black");
             }
         }
+    }
+
+    &[readonly] {
+        cursor: not-allowed;
     }
 
     &.invalid {

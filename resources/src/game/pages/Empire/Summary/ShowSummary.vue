@@ -38,12 +38,12 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
     padding: 0;
-    grid-gap: 0.8rem;
+    grid-gap: 8px;
 
     list-style: none;
 
     @include respond-to("medium") {
-        grid-gap: 1.6rem;
+        grid-gap: 16px;
     }
 
     > li {
@@ -52,7 +52,7 @@ export default {
         justify-content: center;
         flex-wrap: wrap;
 
-        padding: 1rem;
+        padding: 10px;
         border: 1px solid transparent;
 
         @include themed() {

@@ -31,10 +31,10 @@ export default {
 
 <style lang="scss" scoped>
 .area-section {
-    margin: 1.6rem 0;
+    margin: 16px 0;
 
     @include respond-to("medium") {
-        margin: 3.2rem 0;
+        margin: 32px 0;
     }
 }
 
@@ -42,7 +42,7 @@ h2 {
     display: flex;
     align-items: center;
 
-    margin: 0 0 0.8rem 0;
+    margin: 0 0 8px 0;
 
     font-weight: 300;
     line-height: 1.4;
@@ -52,11 +52,11 @@ h2 {
     }
 
     @include respond-to("medium") {
-        margin: 0 0 1.6rem 0;
+        margin: 0 0 16px 0;
     }
 
     > svg {
-        margin-right: 0.8rem;
+        margin-right: 8px;
     }
 }
 </style>

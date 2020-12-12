@@ -133,12 +133,12 @@ export default {
 
     padding: 0;
     border: 0;
-    margin: 0 0.6rem 0.6rem 0;
+    margin: 0 6px 6px 0;
 
     background: transparent;
     cursor: pointer;
 
-    font-size: 1.5rem;
+    font-size: 15px;
     font-weight: 300;
     line-height: 1.4;
 
@@ -176,8 +176,8 @@ export default {
     align-items: center;
     justify-content: center;
 
-    width: 19rem;
-    padding: 0.5rem;
+    width: 190px;
+    padding: 5px;
     border: 1px solid transparent;
 
     transition: background-color linear map-get($animation-speeds, "fast");
@@ -210,13 +210,13 @@ export default {
     &__icon {
         display: block;
 
-        margin-right: 0.5rem;
+        margin-right: 5px;
     }
 
     &__type {
         display: block;
 
-        padding-right: 0.5rem;
+        padding-right: 5px;
     }
 
     &__type,

@@ -76,10 +76,10 @@ export default {
     display: flex;
     flex-direction: column;
 
-    margin: 0 0 0.8rem 0;
+    margin: 0 0 8px 0;
 
     @include respond-to("small") {
-        margin-bottom: 1.6rem;
+        margin-bottom: 16px;
     }
 
     @include themed() {
@@ -95,6 +95,6 @@ export default {
     display: flex;
 }
 .loading {
-    margin: 0.5rem auto;
+    margin: 5px auto;
 }
 </style>

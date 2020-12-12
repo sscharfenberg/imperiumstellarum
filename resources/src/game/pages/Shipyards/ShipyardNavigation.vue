@@ -75,7 +75,7 @@ export default {
             border-color map-get($animation-speeds, "fast") linear;
 
         @include themed() {
-            background-color: t("g-bunker");
+            background-color: t("g-sunken");
             color: t("t-light");
             border-color: t("g-raven");
         }

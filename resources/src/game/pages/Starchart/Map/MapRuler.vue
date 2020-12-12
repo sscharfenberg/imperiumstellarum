@@ -63,13 +63,13 @@ export default {
     &.vertical {
         float: left;
 
-        width: 2.4rem;
+        width: 24px;
         height: 100%;
     }
 
     &.horizontal {
         width: calc(100% - 28px);
-        height: 2.4rem;
+        height: 24px;
         margin-left: 28px;
 
         @include respond-to("medium") {
@@ -109,7 +109,7 @@ export default {
     }
 
     &.horizontal > li {
-        height: 2.4rem;
+        height: 24px;
 
         border-right: 1px solid transparent;
 

@@ -57,13 +57,13 @@ header {
     flex-wrap: wrap;
 
     border: 2px solid transparent;
-    margin: 0 0 1.6rem 0;
+    margin: 0 0 16px 0;
 
     background: transparent none 50% 50% no-repeat;
     background-size: cover;
 
     @include respond-to("small") {
-        margin: 0 0 3.2rem 0;
+        margin: 0 0 32px 0;
     }
 
     @include themed() {
@@ -113,7 +113,7 @@ header {
 
     clip-path: polygon(0% 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
 
-    font-size: 2rem;
+    font-size: 20px;
     font-weight: 300;
     line-height: 1;
     text-transform: capitalize;
@@ -124,7 +124,7 @@ header {
     }
 
     .icon {
-        margin-right: 0.8rem;
+        margin-right: 8px;
 
         @include themed() {
             color: t("b-viking");
@@ -133,15 +133,15 @@ header {
 }
 
 h1 {
-    padding: 1.6rem;
+    padding: 16px;
     margin: 0;
     flex: 0 1 100%;
 
-    font-size: 2.8rem;
+    font-size: 28px;
 
     font-weight: 400;
     line-height: 1.4;
-    letter-spacing: 0.2rem;
+    letter-spacing: 2px;
 
     @include themed() {
         color: t("t-light");

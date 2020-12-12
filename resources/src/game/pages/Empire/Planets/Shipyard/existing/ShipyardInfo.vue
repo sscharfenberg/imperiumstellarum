@@ -149,17 +149,17 @@ export default {
     justify-content: center;
     flex-wrap: wrap;
 
-    padding: 0 0.4rem;
+    padding: 0 4px;
 
     > span {
         display: flex;
         align-items: center;
         justify-content: center;
 
-        margin: 0.4rem 0.8rem;
+        margin: 4px 8px;
 
         .icon {
-            margin-right: 0.5rem;
+            margin-right: 5px;
         }
     }
 }

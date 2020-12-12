@@ -31,7 +31,7 @@ export default {
             job,
             researchCosts,
             showModal,
-            isRequesting
+            isRequesting,
         };
     },
 };
@@ -39,7 +39,7 @@ export default {
 
 <template>
     <div class="queue-item">
-        <icon name="drag" class="drag" :class="{disabled: isRequesting}" />
+        <icon name="drag" class="drag" :class="{ disabled: isRequesting }" />
         <icon :name="`tech-${job.type}`" class="type" />
         <div class="level" aria-hidden="true">{{ job.level }}</div>
         <linear-progress
@@ -61,9 +61,9 @@ export default {
     display: flex;
     align-items: center;
 
-    padding: 0.8rem;
+    padding: 8px;
     border: 1px solid transparent;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
 
     @include themed() {
         background-color: t("g-sunken");
@@ -71,7 +71,7 @@ export default {
     }
 
     @include respond-to("medium") {
-        padding: 1.6rem;
+        padding: 16px;
     }
 
     &:last-child {
@@ -79,7 +79,7 @@ export default {
     }
 
     .icon.drag {
-        margin-right: 0.8rem;
+        margin-right: 8px;
 
         cursor: move;
 
@@ -88,7 +88,7 @@ export default {
         }
 
         @include respond-to("medium") {
-            margin-right: 1.6rem;
+            margin-right: 16px;
         }
 
         &.disabled {
@@ -97,12 +97,12 @@ export default {
     }
 
     .icon.type {
-        margin-right: 0.8rem;
+        margin-right: 8px;
 
         @include respond-to("medium") {
-            width: 3.2rem;
-            height: 3.2rem;
-            margin-right: 1.6rem;
+            width: 32px;
+            height: 32px;
+            margin-right: 16px;
         }
     }
 
@@ -111,10 +111,10 @@ export default {
         align-items: center;
         justify-content: center;
 
-        width: 3rem;
-        padding: 0.4rem;
+        width: 30px;
+        padding: 4px;
         border: 1px solid transparent;
-        margin-right: 0.8rem;
+        margin-right: 8px;
 
         line-height: 1;
 
@@ -125,16 +125,16 @@ export default {
         }
 
         @include respond-to("medium") {
-            padding: 0.8rem;
+            padding: 8px;
         }
     }
 
     .progress {
-        margin: 0 0.8rem;
+        margin: 0 8px;
         flex-grow: 1;
 
         @include respond-to("medium") {
-            margin: 0 1.6rem;
+            margin: 0 16px;
         }
     }
 }

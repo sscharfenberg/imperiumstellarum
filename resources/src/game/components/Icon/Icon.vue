@@ -55,31 +55,31 @@ export default {
 .icon {
     display: inline-block;
 
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 24px;
+    height: 24px;
 
     fill: currentColor;
 
     vertical-align: middle;
 
     &.tiny {
-        width: 1.6rem;
-        height: 1.6rem;
+        width: 16px;
+        height: 16px;
     }
 
     &.small {
-        width: 2rem;
-        height: 2rem;
+        width: 20px;
+        height: 20px;
     }
 
     &.large {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 32px;
+        height: 32px;
     }
 
     &.xlarge {
-        width: 6.4rem;
-        height: 6.4rem;
+        width: 64px;
+        height: 64px;
     }
 }
 </style>

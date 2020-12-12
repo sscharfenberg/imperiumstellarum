@@ -91,28 +91,28 @@ export default {
     align-items: center;
     flex-wrap: wrap;
 
-    padding: 0.8rem;
+    padding: 8px;
     flex-basis: 100%;
 
     @include respond-to("medium") {
-        padding: 1.6rem;
+        padding: 16px;
         flex-grow: 1;
         flex-basis: auto;
     }
 
     > input[type="range"] {
-        margin: 0 0.8rem 0 0;
+        margin: 0 8px 0 0;
         flex-grow: 1;
 
         @include respond-to("medium") {
-            margin-right: 1.6rem;
+            margin-right: 16px;
         }
     }
 
     > input[type="number"] {
-        padding: 0.5rem 1rem;
+        padding: 5px 10px;
         border: 0;
-        flex: 0 0 4.5rem;
+        flex: 0 0 45px;
 
         font-weight: 300;
         line-height: 1;
@@ -136,14 +136,14 @@ export default {
         flex-basis: 100%;
 
         @include respond-to("medium") {
-            margin-right: 1.6rem;
+            margin-right: 16px;
             flex-basis: auto;
         }
     }
 }
 
 .result {
-    padding: 0.8rem;
+    padding: 8px;
     flex: 0 0 100%;
 
     @include themed() {
@@ -151,7 +151,7 @@ export default {
     }
 
     @include respond-to("medium") {
-        padding: 0.8rem 1.6rem;
+        padding: 8px 16px;
         flex: 0 0 100%;
     }
 }

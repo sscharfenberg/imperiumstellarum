@@ -82,7 +82,7 @@ export default {
     list-style: none;
 
     > li {
-        padding: 0.5rem 1rem;
+        padding: 5px 10px;
         margin: 0 2px 2px 0;
 
         &:last-child {
@@ -111,7 +111,7 @@ export default {
         }
 
         > svg {
-            margin-left: 0.5rem;
+            margin-left: 5px;
         }
 
         &.insufficient {

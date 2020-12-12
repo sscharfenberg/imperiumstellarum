@@ -1,10 +1,10 @@
 <script>
 /******************************************************************************
- * PageComponent: BuildIndex
+ * PageComponent: ConstructIndex
  *****************************************************************************/
 import AreaSection from "Components/AreaSection/AreaSection";
 export default {
-    name: "BuildIndex",
+    name: "ConstructIndex",
     components: { AreaSection },
     setup() {
         return {};

@@ -69,13 +69,13 @@ export default {
     grid-template-columns: 50% 50%;
 
     padding: 0;
-    margin: 0 0 1.6rem 0;
-    grid-gap: 0.4rem;
+    margin: 0 0 16px 0;
+    grid-gap: 4px;
 
     list-style: none;
 
     > li {
-        padding: 0.4rem;
+        padding: 4px;
 
         text-align: center;
 
@@ -101,7 +101,7 @@ export default {
         }
 
         &.stats__dots {
-            padding: 0.4rem 0.8rem 0 0.8rem;
+            padding: 4px 8px 0 8px;
         }
 
         &.stats--centered {
@@ -112,7 +112,7 @@ export default {
         }
 
         &.stats--padded {
-            padding: 0.8rem;
+            padding: 8px;
         }
 
         &.text-left {

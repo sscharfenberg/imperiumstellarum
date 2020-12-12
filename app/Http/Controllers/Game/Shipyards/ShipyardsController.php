@@ -13,6 +13,44 @@ use Illuminate\Support\Facades\Auth;
 
 class ShipyardsController extends Controller
 {
+
+    /**
+     * @function answer request for a random name
+     * @param Request $request
+     * @throws \Exception
+     * @return JsonResponse
+     */
+    public function randomClassName (Request $request): JsonResponse
+    {
+        $type = $request->route('class');
+        $className = "";
+        $length = random_int(2, 4);
+        $letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        while (strlen($className) < $length) {
+            $newLetter = $letters[random_int(0, strlen($letters) - 1)];
+            $className = $className.$newLetter;
+        }
+        switch ($type) {
+            case "ark":
+                $className = "A-".$className;
+                break;
+            case "small":
+                $className = "DD-".$className;
+                break;
+            case "medium":
+                $className = "CG-".$className;
+                break;
+            case "large":
+                $className = "BB-".$className;
+                break;
+            case "xlarge":
+                $className = "DN-".$className;
+                break;
+        }
+
+        return response()->json(['name' => $className]);
+    }
+
     /**
      * @function api gameData for "research" area
      * @param Request $request

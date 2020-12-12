@@ -69,7 +69,7 @@ export default {
 
 <style lang="scss">
 .planet__item {
-    margin-right: 0.5rem;
+    margin-right: 5px;
 
     font-size: 16px;
     font-weight: 300;

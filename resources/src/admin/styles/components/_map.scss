@@ -5,7 +5,7 @@
  **/
 
 .map {
-    padding-bottom: 1rem;
+    padding-bottom: 10px;
 
     @include themed() {
         background: radial-gradient(
@@ -19,16 +19,16 @@
     > header {
         display: flex;
 
-        min-height: 7rem;
+        min-height: 70px;
 
-        font-size: 2.4rem;
+        font-size: 24px;
         font-weight: 300;
-        line-height: 5.2rem;
+        line-height: 52px;
 
         > h1 {
-            margin: 0 0 2rem 1rem;
+            margin: 0 0 20px 10px;
 
-            font-size: 2.4rem;
+            font-size: 24px;
             font-weight: 300;
         }
     }
@@ -36,8 +36,8 @@
     &__totals {
         display: inline-block;
 
-        padding: 1rem;
-        margin: 0 1rem 1rem 1rem;
+        padding: 10px;
+        margin: 0 10px 10px 10px;
 
         @include themed() {
             background: t("g-deep");
@@ -47,7 +47,7 @@
     &__wrapper {
         overflow: auto;
         max-height: 1170px;
-        margin: 0 1rem;
+        margin: 0 10px;
 
         @extend %scrollbar;
     }
@@ -88,8 +88,8 @@
     }
 
     &__actions {
-        padding-top: 2rem;
-        margin: 2rem 0;
+        padding-top: 20px;
+        margin: 20px 0;
 
         @include themed() {
             border-top: 2px solid t("g-ebony");

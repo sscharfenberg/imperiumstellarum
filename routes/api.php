@@ -22,6 +22,8 @@ Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthCont
 // calculate new population
 Route::post('/game/populationChange',
     [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
+Route::get('/game/shipyards/{class}/randomName',
+    [\App\Http\Controllers\Game\Shipyards\ShipyardsController::class, 'randomClassName']);
 
 
 /**

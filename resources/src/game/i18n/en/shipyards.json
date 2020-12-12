@@ -10,7 +10,17 @@
     },
     "design": {
         "navTitle": "Design",
-        "title": "Design Blueprint"
+        "title": "Design Blueprint",
+        "hullType": {
+            "headline": "Select hull type",
+            "radioLabel": "Click to select a {type} hull"
+        },
+        "className": {
+            "headline": "Choose name of the ship class",
+            "placeHolder": "Shipclass",
+            "readonly": "Please select a hull type first",
+            "randomize": "Click to use a random class name."
+        }
     },
     "build": {
         "navTitle": "Build",

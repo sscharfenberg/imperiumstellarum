@@ -11,8 +11,8 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    padding: 1rem 1rem 0.5rem 1rem;
-    margin: 0 0 2rem 0;
+    padding: 10px 10px 5px 10px;
+    margin: 0 0 20px 0;
 
     @include themed() {
         background: t("g-bunker");
@@ -24,11 +24,11 @@
         display: flex;
         align-items: center;
 
-        margin: 0 0 0.5rem 0;
+        margin: 0 0 5px 0;
     }
 
     &__perpage select {
-        margin: 0 0.5rem;
+        margin: 0 5px;
     }
 
     &__links {
@@ -38,7 +38,7 @@
 
         > a,
         > span {
-            margin-left: 0.5rem;
+            margin-left: 5px;
         }
 
         > a.page,
@@ -46,7 +46,7 @@
             display: block;
 
             height: 38px;
-            padding: 0 1rem;
+            padding: 0 10px;
             border: 1px solid transparent;
 
             line-height: 38px;

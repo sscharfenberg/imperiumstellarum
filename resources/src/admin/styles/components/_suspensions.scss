@@ -6,17 +6,17 @@
 
 .suspensions {
     width: 100%;
-    padding: 1rem;
-    margin: 2rem 0;
+    padding: 10px;
+    margin: 20px 0;
 
     @include themed() {
         background: t("g-sunken");
     }
 
     &__intro {
-        padding: 1rem;
+        padding: 10px;
         border: 1px solid transparent;
-        margin: 0 0 2rem 0;
+        margin: 0 0 20px 0;
 
         @include themed() {
             background: t("g-bunker");
@@ -30,9 +30,9 @@
         justify-content: space-between;
         flex-wrap: wrap;
 
-        margin: 0 0 2rem 0;
+        margin: 0 0 20px 0;
 
-        font-size: 3rem;
+        font-size: 30px;
         font-weight: 300;
         line-height: 1.2;
     }
@@ -41,13 +41,13 @@
         display: flex;
         align-items: center;
 
-        padding: 0.5rem 1rem;
+        padding: 5px 10px;
         border: 1px solid transparent;
 
-        font-size: 1.6rem;
+        font-size: 16px;
 
         .icon {
-            margin-right: 1rem;
+            margin-right: 10px;
         }
 
         @include themed() {
@@ -74,7 +74,7 @@
             display: block;
             position: relative;
 
-            padding: 1rem;
+            padding: 10px;
             border-right: $border;
             border-bottom: $border;
 

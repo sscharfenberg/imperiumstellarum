@@ -7,10 +7,10 @@ import { computed, onBeforeMount } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import ShipyardNavigation from "./ShipyardNavigation";
 import DesignIndex from "./Design/DesignIndex";
-import BuildIndex from "./Build/BuildIndex";
+import ConstructIndex from "./Construct/ConstructIndex";
 export default {
     name: "PageShipyards",
-    components: { GameHeader, ShipyardNavigation, DesignIndex, BuildIndex },
+    components: { GameHeader, ShipyardNavigation, DesignIndex, ConstructIndex },
     setup() {
         const store = useStore();
         const shipyardPage = computed(() => store.state.shipyards.page);
@@ -28,5 +28,5 @@ export default {
     <game-header area="shipyards" />
     <shipyard-navigation />
     <design-index v-if="shipyardPage === 0" />
-    <build-index v-if="shipyardPage === 1" />
+    <construct-index v-if="shipyardPage === 1" />
 </template>

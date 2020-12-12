@@ -98,14 +98,14 @@ export default {
         display: flex;
         align-items: center;
 
-        margin-left: 1rem;
+        margin-left: 10px;
 
         @include themed() {
             color: t("t-tint");
         }
 
         .icon {
-            margin-right: 0.5rem;
+            margin-right: 5px;
         }
 
         &.shipyards .icon {

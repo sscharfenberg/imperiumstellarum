@@ -58,10 +58,10 @@ export default {
 button {
     position: relative;
 
-    height: 3.6rem;
-    padding: 0.5rem 1rem;
+    height: 36px;
+    padding: 5px 10px;
     border: 1px solid palette("dark", "g-sunken");
-    margin: 1.6rem 1.6rem 0 auto;
+    margin: 16px 16px 0 auto;
 
     background: rgba(palette("dark", "g-raven"), 0.6);
     color: palette("dark", "t-light");
@@ -90,13 +90,13 @@ button {
         line-height: 1;
 
         .refresh-icon {
-            margin-right: 1rem;
+            margin-right: 10px;
 
             color: palette("dark", "b-viking");
         }
 
         .spinner {
-            margin-right: 1rem;
+            margin-right: 10px;
         }
     }
 

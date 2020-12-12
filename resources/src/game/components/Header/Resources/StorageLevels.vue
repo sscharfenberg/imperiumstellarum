@@ -54,13 +54,13 @@ export default {
 
     height: 100%;
     padding: 0;
-    margin: 0 0 0 0.2rem;
+    margin: 0 0 0 2px;
 
     list-style: none;
 
     > .level {
-        width: 0.8rem;
-        height: 0.8rem;
+        width: 8px;
+        height: 8px;
         border: 1px solid transparent;
         margin: 0;
 

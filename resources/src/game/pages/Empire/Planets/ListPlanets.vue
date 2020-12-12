@@ -44,7 +44,7 @@ export default {
     flex-direction: column;
 
     padding: 0;
-    margin: 1rem 0 0 0;
+    margin: 10px 0 0 0;
     flex: 0 0 100%;
 
     list-style: none;

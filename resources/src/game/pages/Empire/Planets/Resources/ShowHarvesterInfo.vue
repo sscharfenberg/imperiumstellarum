@@ -117,11 +117,11 @@ export default {
 }
 
 .stats--centered .icon {
-    margin-right: 1rem;
+    margin-right: 10px;
 }
 
 .stats-hdl {
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
     flex: 0 0 100%;
 }
 </style>

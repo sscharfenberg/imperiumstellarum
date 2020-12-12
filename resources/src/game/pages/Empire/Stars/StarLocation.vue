@@ -65,7 +65,7 @@ export default {
     }
 
     @include respond-to("medium") {
-        padding: 0 1rem;
+        padding: 0 10px;
     }
 
     &:hover .location-inner {
@@ -80,8 +80,8 @@ export default {
     display: flex;
     align-items: center;
 
-    padding: 0.5rem;
-    margin: 0.8rem 0;
+    padding: 5px;
+    margin: 8px 0;
 
     transition: background-color map-get($animation-speeds, "fast") linear,
         color map-get($animation-speeds, "fast") linear;
@@ -93,7 +93,7 @@ export default {
     > .location-icon {
         display: none;
 
-        margin-right: 1rem;
+        margin-right: 10px;
 
         @include themed() {
             color: darken(t("t-subdued"), 25%);
@@ -105,9 +105,9 @@ export default {
     }
 
     > span {
-        min-width: 5rem;
+        min-width: 50px;
 
-        font-size: 0.8em;
+        font-size: 8px;
         text-align: center;
 
         @include respond-to("small") {

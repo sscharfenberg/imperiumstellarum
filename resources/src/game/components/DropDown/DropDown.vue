@@ -131,7 +131,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
 
-        min-height: calc(1rem + 4px);
+        min-height: calc(10px + 4px);
         padding: 2px;
         margin: 0;
 
@@ -149,14 +149,14 @@ export default {
         align-items: center;
         justify-content: center;
 
-        min-height: 1rem;
+        min-height: 10px;
         padding: 0 4px;
         margin: 2px;
 
         background-color: #999;
         list-style-type: none;
 
-        font-size: 0.8rem;
+        font-size: 8px;
 
         > span {
             margin-right: 4px;
@@ -171,7 +171,7 @@ export default {
 
             background-color: #999;
 
-            font-size: 0.8rem;
+            font-size: 8px;
         }
     }
 

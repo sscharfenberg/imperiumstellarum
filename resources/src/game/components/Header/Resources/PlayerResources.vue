@@ -39,7 +39,7 @@ export default {
     flex-wrap: wrap;
 
     padding: 0;
-    margin: 0 1.6rem 1.6rem 1.6rem;
+    margin: 0 16px 16px 16px;
 
     list-style: none;
 }

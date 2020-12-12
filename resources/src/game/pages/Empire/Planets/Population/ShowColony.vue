@@ -154,7 +154,7 @@ export default {
     justify-content: center;
 
     > .icon {
-        margin-right: 1rem;
+        margin-right: 10px;
     }
 }
 .perpop {
@@ -171,10 +171,10 @@ export default {
     }
 
     > input[type="number"] {
-        width: 6rem;
-        padding: 0.5rem;
+        width: 60px;
+        padding: 5px;
         border: 0;
-        margin-left: 1rem;
+        margin-left: 10px;
 
         font-weight: 300;
         line-height: 1;

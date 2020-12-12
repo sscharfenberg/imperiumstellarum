@@ -45,10 +45,10 @@ button {
     display: flex;
     align-items: center;
 
-    height: 4rem;
-    padding: 0.5rem 1rem;
+    height: 40px;
+    padding: 5px 10px;
     border: 2px dashed transparent;
-    margin: 0 0.5rem 0.5rem 0;
+    margin: 0 5px 5px 0;
 
     outline: 0;
     cursor: pointer;

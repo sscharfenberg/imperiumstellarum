@@ -64,14 +64,14 @@ export default {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
     padding: 0;
-    margin: 0.8rem 0 0 0;
+    margin: 8px 0 0 0;
     flex: 0 0 100%;
     grid-gap: 2px;
 
     list-style: none;
 
     @include respond-to("medium") {
-        margin-top: 1.6rem;
+        margin-top: 16px;
         grid-gap: 4px;
     }
 
@@ -80,7 +80,7 @@ export default {
         align-items: center;
         justify-content: center;
 
-        height: 3rem;
+        height: 30px;
         border: 2px solid transparent;
         //border-right-width: 0;
 
@@ -91,7 +91,7 @@ export default {
         }
 
         @include respond-to("medium") {
-            height: 4rem;
+            height: 40px;
         }
 
         //&:last-child {

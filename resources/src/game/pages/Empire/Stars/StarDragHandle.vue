@@ -25,9 +25,9 @@ export default {
     display: flex;
     align-items: center;
 
-    height: 4.8rem;
-    padding: 0 0.4rem;
-    margin: 0 0.4rem 0 0;
+    height: 48px;
+    padding: 0 4px;
+    margin: 0 4px 0 0;
 
     cursor: move;
 
@@ -36,8 +36,8 @@ export default {
     }
 
     @include respond-to("medium") {
-        padding: 0 0.8rem;
-        margin-right: 0.8rem;
+        padding: 0 8px;
+        margin-right: 8px;
     }
 }
 </style>

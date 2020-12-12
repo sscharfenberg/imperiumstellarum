@@ -57,6 +57,6 @@ export default {
 
 <style lang="scss" scoped>
 .resource-type {
-    margin: 0 0.5rem 0.5rem 0;
+    margin: 0 5px 5px 0;
 }
 </style>

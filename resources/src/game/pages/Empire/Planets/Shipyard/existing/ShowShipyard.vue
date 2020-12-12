@@ -69,10 +69,10 @@ export default {
     display: flex;
     align-items: center;
 
-    height: 4rem;
-    padding: 0.5rem 1rem;
+    height: 40px;
+    padding: 5px 10px;
     border: 2px solid transparent;
-    margin: 0 0.5rem 0.5rem 0;
+    margin: 0 5px 5px 0;
 
     outline: 0;
     cursor: pointer;
@@ -110,7 +110,7 @@ export default {
     }
 
     .icon:nth-child(1) {
-        margin-right: 1rem;
+        margin-right: 10px;
 
         @include themed() {
             color: t("b-viking");
