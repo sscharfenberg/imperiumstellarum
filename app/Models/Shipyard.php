@@ -13,10 +13,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $planet_id
  * @property string $game_id
  * @property string $player_id
- * @property boolean $small
- * @property boolean $medium
- * @property boolean $large
- * @property boolean $xlarge
+ * @property string $type
  * @property int $until_complete
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -31,13 +28,10 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlanetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereSmall($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereMedium($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereLarge($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereXlarge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUpdatedAt($value)
- * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUntilComplete($value)
+ * @mixin \Eloquent
  */
 class Shipyard extends Model
 {
@@ -66,10 +60,7 @@ class Shipyard extends Model
         'planet_id',
         'player_id',
         'game_id',
-        'small',
-        'medium',
-        'large',
-        'xlarge',
+        'type',
         'until_complete',
     ];
 

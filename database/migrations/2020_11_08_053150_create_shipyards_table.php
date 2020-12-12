@@ -13,7 +13,8 @@ class CreateShipyardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shipyards', function (Blueprint $table) {
+        $shipyardTypes = array_keys(config('rules.shipyards.hullTypes'));
+        Schema::create('shipyards', function (Blueprint $table) use ($shipyardTypes) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
@@ -21,10 +22,8 @@ class CreateShipyardsTable extends Migration
             $table->uuid('planet_id');
             $table->uuid('game_id');
             $table->uuid('player_id');
-            $table->boolean('small')->default(false);
-            $table->boolean('medium')->default(false);
-            $table->boolean('large')->default(false);
-            $table->boolean('xlarge')->default(false);
+            $table->enum('type', $shipyardTypes)
+                ->default($shipyardTypes[0]);
             $table->unsignedSmallInteger('until_complete');
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onDelete('cascade');

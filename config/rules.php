@@ -632,6 +632,7 @@ return [
                     'research' => 200,
                     'turns' => 72
                 ],
+                'construct' => ['ark', 'small']
             ],
             'medium' => [
                 'costs' => [
@@ -645,7 +646,8 @@ return [
                     'minerals' => 400,
                     'research' => 200,
                     'turns' => 72
-                ]
+                ],
+                'construct' => ['ark', 'small', 'medium']
             ],
             'large' => [
                 'costs' => [
@@ -659,7 +661,8 @@ return [
                     'minerals' => 800,
                     'research' => 400,
                     'turns' => 144
-                ]
+                ],
+                'construct' => ['ark', 'small', 'medium', 'large']
             ],
             'xlarge' => [
                 'costs' => [
@@ -673,11 +676,40 @@ return [
                     'minerals' => 1600,
                     'research' => 800,
                     'turns' => 288
-                ]
+                ],
+                'construct' => ['ark', 'small', 'medium', 'large', 'xlarge']
             ]
         ]
     ],
 
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for Ships
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'ships' => [
+        'hullTypes' => [
+            'small' => [
+                'slots' => 5
+            ],
+            'medium' => [
+                'slots' => 7
+            ],
+            'large' => [
+                'slots' => 9
+            ],
+            'xlarge' => [
+                'slots' => 12
+            ],
+            'ark' => [
+                'slots' => 1
+            ]
+        ]
+    ],
 
     /**
     |

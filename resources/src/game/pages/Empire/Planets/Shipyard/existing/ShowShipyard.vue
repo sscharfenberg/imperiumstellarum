@@ -25,20 +25,15 @@ export default {
                 props.planetId
             );
             return i18n.t("empire.planet.shipyard.info.title", {
-                type: i18n.t("empire.planet.shipyard.types." + type.value),
+                type: i18n.t(
+                    "empire.planet.shipyard.types." + shipyard.value.type
+                ),
                 name: planetName,
             });
-        });
-        const type = computed(() => {
-            if (shipyard.value.xlarge) return "xlarge";
-            if (shipyard.value.large) return "large";
-            if (shipyard.value.medium) return "medium";
-            return "small";
         });
         return {
             shipyard,
             showModal,
-            type,
             btnTitle,
         };
     },
@@ -57,10 +52,10 @@ export default {
         }"
     >
         <icon name="shipyards" />
-        <icon v-if="type === 'small'" name="hull-small" />
-        <icon v-if="type === 'medium'" name="hull-medium" />
-        <icon v-if="type === 'large'" name="hull-large" />
-        <icon v-if="type === 'xlarge'" name="hull-xlarge" />
+        <icon v-if="shipyard.type === 'small'" name="hull-small" />
+        <icon v-if="shipyard.type === 'medium'" name="hull-medium" />
+        <icon v-if="shipyard.type === 'large'" name="hull-large" />
+        <icon v-if="shipyard.type === 'xlarge'" name="hull-xlarge" />
     </button>
     <shipyard-info
         v-if="showModal"

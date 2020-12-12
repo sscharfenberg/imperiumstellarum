@@ -49,9 +49,9 @@ class ShipyardController extends Controller
     {
         $shipyard = $planet->shipyard;
         if (!$shipyard) return false;
-        if ($type === "medium" && $shipyard->small && !$shipyard->medium && !$shipyard->large && !$shipyard->xlarge) return true;
-        if ($type === "large" && $shipyard->small && $shipyard->medium && !$shipyard->large && !$shipyard->xlarge) return true;
-        if ($type === "xlarge" && $shipyard->small && $shipyard->medium && $shipyard->large && !$shipyard->xlarge) return true;
+        if ($type === "medium" && $shipyard->type === "small") return true;
+        if ($type === "large" && $shipyard->type === "medium") return true;
+        if ($type === "xlarge" && $shipyard->type === "large") return true;
         return false;
     }
 
@@ -98,10 +98,7 @@ class ShipyardController extends Controller
             'planet_id' => $planet->id,
             'game_id' => $planet->game->id,
             'player_id' => $player->id,
-            'small' => true,
-            'medium' => $type === 'medium' || $type === 'large' || $type === 'xlarge',
-            'large' => $type === 'large' || $type === 'xlarge',
-            'xlarge' => $type === 'xlarge',
+            'type' => $type,
             'until_complete' => $turns,
         ]);
 
@@ -155,9 +152,7 @@ class ShipyardController extends Controller
 
         // upgrade the shipyard
         $shipyard = $planet->shipyard;
-        if ($type === "medium") $shipyard->medium = true;
-        elseif ($type === "large") $shipyard->large = true;
-        elseif ($type === "xlarge") $shipyard->xlarge = true;
+        $shipyard->type = $type;
         $turns = config('rules.shipyards.hullTypes.'.$type.'.upgradeCosts.turns');
         $shipyard->until_complete = $turns;
         $shipyard->save();

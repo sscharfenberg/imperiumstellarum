@@ -34,7 +34,7 @@
             "desert": "Wüste",
             "toxic": "Toxisch",
             "carbon": "Karbon",
-            "tomb": "Grabwelt"
+            "tomb": "Gruftwelt"
         },
         "population": {
             "label": "Kolonie Bevölkerung: {num}",

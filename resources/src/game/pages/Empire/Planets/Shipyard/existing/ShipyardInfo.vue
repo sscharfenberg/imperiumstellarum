@@ -22,15 +22,10 @@ export default {
         const shipyard = computed(() =>
             store.getters["empire/shipyardByPlanetId"](props.planetId)
         );
-        const type = computed(() => {
-            if (shipyard.value.xlarge) return "xlarge";
-            if (shipyard.value.large) return "large";
-            if (shipyard.value.medium) return "medium";
-            return "small";
-        });
         const upgradeType = computed(() => {
-            if (shipyard.value.large) return "xlarge";
-            if (shipyard.value.medium) return "large";
+            if (shipyard.value.type === "xlarge") return "";
+            if (shipyard.value.type === "large") return "xlarge";
+            if (shipyard.value.type === "medium") return "large";
             return "medium";
         });
         const modalTitle = computed(() => {
@@ -38,7 +33,9 @@ export default {
                 props.planetId
             );
             return i18n.t("empire.planet.shipyard.info.title", {
-                type: i18n.t("empire.planet.shipyard.types." + type.value),
+                type: i18n.t(
+                    "empire.planet.shipyard.types." + shipyard.value.type
+                ),
                 name: planetName,
             });
         });
@@ -46,6 +43,10 @@ export default {
         const upgradeCosts = computed(
             () =>
                 window.rules.shipyards.hullTypes[upgradeType.value].upgradeCosts
+        );
+        const hullTypes = computed(
+            () =>
+                window.rules.shipyards.hullTypes[shipyard.value.type].construct
         );
         const onSubmit = () => {
             store.dispatch("empire/UPGRADE_SHIPYARD", {
@@ -63,6 +64,7 @@ export default {
             upgradeType,
             upgradeCosts,
             isAffordable,
+            hullTypes,
             onSubmit,
             ...useI18n(),
         };
@@ -87,23 +89,23 @@ export default {
                 v-if="shipyard.untilComplete === 0"
                 class="stats--two-col hulls"
             >
-                <span>
+                <span v-if="hullTypes.includes('ark')">
                     <icon name="hull-ark" />
                     {{ t("shipyards.hulls.ark") }}
                 </span>
-                <span>
+                <span v-if="hullTypes.includes('small')">
                     <icon name="hull-small" />
                     {{ t("shipyards.hulls.small") }}
                 </span>
-                <span v-if="shipyard.medium">
+                <span v-if="hullTypes.includes('medium')">
                     <icon name="hull-medium" />
                     {{ t("shipyards.hulls.medium") }}
                 </span>
-                <span v-if="shipyard.large">
+                <span v-if="hullTypes.includes('large')">
                     <icon name="hull-large" />
                     {{ t("shipyards.hulls.large") }}
                 </span>
-                <span v-if="shipyard.xlarge">
+                <span v-if="hullTypes.includes('xlarge')">
                     <icon name="hull-xlarge" />
                     {{ t("shipyards.hulls.xlarge") }}
                 </span>
@@ -111,7 +113,7 @@ export default {
         </ul>
         <ul
             class="stats"
-            v-if="!shipyard.xlarge && shipyard.untilComplete === 0"
+            v-if="shipyard.type !== 'xlarge' && shipyard.untilComplete === 0"
         >
             <li class="stats--two-col featured">
                 {{
@@ -122,12 +124,12 @@ export default {
             </li>
         </ul>
         <costs
-            v-if="!shipyard.xlarge && shipyard.untilComplete === 0"
+            v-if="shipyard.type !== 'xlarge' && shipyard.untilComplete === 0"
             :costs="upgradeCosts"
         />
         <template
             v-slot:actions
-            v-if="!shipyard.xlarge && shipyard.untilComplete === 0"
+            v-if="shipyard.type !== 'xlarge' && shipyard.untilComplete === 0"
         >
             <game-button
                 :text-string="t('empire.planet.shipyard.info.submit')"

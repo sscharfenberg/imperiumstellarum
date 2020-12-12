@@ -108,10 +108,7 @@ class FormatApiResponseService {
         return [
             'id' => $shipyard->id,
             'planetId' => $shipyard->planet_id,
-            'small' => $shipyard->small,
-            'medium' => $shipyard->medium,
-            'large' => $shipyard->large,
-            'xlarge' => $shipyard->xlarge,
+            'type' => $shipyard->type,
             'untilComplete' => $shipyard->until_complete
         ];
     }

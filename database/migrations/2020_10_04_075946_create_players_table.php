@@ -25,6 +25,7 @@ class CreatePlayersTable extends Migration
             $table->string('colour', 6);
             $table->float('research_priority', 8, 6)
                 ->default(config('rules.tech.researchPriority.default'));
+            $table->boolean('dead')->default(false);
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade');
             $table->foreign('game_id')->references('id')->on('games')
