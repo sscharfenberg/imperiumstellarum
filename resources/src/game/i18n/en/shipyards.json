@@ -20,6 +20,9 @@
             "placeHolder": "Shipclass",
             "readonly": "Please select a hull type first",
             "randomize": "Click to use a random class name."
+        },
+        "modules": {
+            "headline": "Choose module layout"
         }
     },
     "build": {

@@ -69,6 +69,9 @@ class ShipyardsController extends Controller
             'shipyards' => $shipyards->map(function ($shipyard) use ($f) {
                 return $f->formatShipyard($shipyard);
             }),
+            'techLevels' => $player->techLevels->map(function ($techLevel) use ($f) {
+                return $f->formatTechLevel($techLevel);
+            }),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

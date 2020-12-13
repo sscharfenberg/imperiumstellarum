@@ -693,20 +693,65 @@ return [
 
     'ships' => [
         'hullTypes' => [
+            'ark' => [
+                'slots' => 1,
+                'baseHp' => [
+                    'structure' => 50,
+                    'armour' => 50,
+                    'shields' => 50
+                ],
+                'cost' => [
+                    'energy' => 25,
+                    'minerals' => 25
+                ]
+            ],
             'small' => [
-                'slots' => 5
+                'slots' => 5,
+                'baseHp' => [
+                    'structure' => 100,
+                    'armour' => 100,
+                    'shields' => 100
+                ],
+                'cost' => [
+                    'energy' => 50,
+                    'minerals' => 50
+                ]
             ],
             'medium' => [
-                'slots' => 7
+                'slots' => 7,
+                'baseHp' => [
+                    'structure' => 150,
+                    'armour' => 150,
+                    'shields' => 150
+                ],
+                'cost' => [
+                    'energy' => 100,
+                    'minerals' => 100
+                ]
             ],
             'large' => [
-                'slots' => 9
+                'slots' => 9,
+                'baseHp' => [
+                    'structure' => 225,
+                    'armour' => 225,
+                    'shields' => 225
+                ],
+                'cost' => [
+                    'energy' => 200,
+                    'minerals' => 200
+                ]
             ],
             'xlarge' => [
-                'slots' => 12
-            ],
-            'ark' => [
-                'slots' => 1
+                'slots' => 10,
+                'baseHp' => [
+                    'structure' => 337,
+                    'armour' => 337,
+                    'shields' => 337
+                ],
+                'cost' => [
+                    'energy' => 400,
+                    'minerals' => 400
+                ]
             ]
         ]
     ],
@@ -724,66 +769,323 @@ return [
         /*
          * offensive modules
          */
-        'offensive' => [
 
-            /*
-             * small weapons
-             */
-            's-plasma' => [
-                'hullType' => 'small',
-                'cost' => [
-                    'energy' => 35,
-                    'minerals' => 15
-                ],
-                'type' => 'plasma',
-                'baseDmg' => 10,
-                'range' => 1
-            ],
-            's-missile' => [
-                'hullType' => 'small',
-                'cost' => [
-                    'energy' => 25,
-                    'minerals' => 25
-                ],
-                'type' => 'missile',
-                'baseDmg' => 8,
-                'range' => 2
-            ],
-            's-railgun' => [
-                'hullType' => 'small',
-                'cost' => [
-                    'energy' => 15,
-                    'minerals' => 35
-                ],
-                'type' => 'railgun',
-                'baseDmg' => 7,
-                'range' => 3
-            ],
-            's-laser' => [
-                'hullType' => 'small',
-                'cost' => [
-                    'energy' => 30,
-                    'minerals' => 20
-                ],
-                'type' => 'laser',
-                'baseDmg' => 6,
-                'range' => 4
-            ],
+        /*
+         * small modules
+         */
+        [
+            'stub' => 's-plasma',
+            'hullType' => 'small',
+            'moduleType' => 'offensive',
+            'techType' => 'plasma',
+            'baseDmg' => 10,
+            'range' => 1,
+            'cost' => [
+                'energy' => 35,
+                'minerals' => 15
+            ]
+        ],
+        [
+            'stub' => 's-missile',
+            'hullType' => 'small',
+            'moduleType' => 'offensive',
+            'techType' => 'missile',
+            'baseDmg' => 8,
+            'range' => 2,
+            'cost' => [
+                'energy' => 25,
+                'minerals' => 25
+            ]
+        ],
+        [
+            'stub' => 's-railgun',
+            'hullType' => 'small',
+            'moduleType' => 'offensive',
+            'techType' => 'railgun',
+            'baseDmg' => 7,
+            'range' => 3,
+            'cost' => [
+                'energy' => 15,
+                'minerals' => 35
+            ]
+        ],
+        [
+            'stub' => 's-laser',
+            'hullType' => 'small',
+            'moduleType' => 'offensive',
+            'techType' => 'laser',
+            'baseDmg' => 6,
+            'range' => 5,
+            'cost' => [
+                'energy' => 25,
+                'minerals' => 25
+            ]
+        ],
+        [
+            'stub' => 's-shield',
+            'hullType' => 'small',
+            'moduleType' => 'defensive',
+            'techType' => 'shields',
+            'baseHp' => 100,
+            'cost' => [
+                'energy' => 30,
+                'minerals' => 20
+            ]
+        ],
+        [
+            'stub' => 's-armour',
+            'hullType' => 'small',
+            'moduleType' => 'defensive',
+            'techType' => 'armour',
+            'baseHp' => 100,
+            'cost' => [
+                'energy' => 20,
+                'minerals' => 30
+            ]
+        ],
+        [
+            'stub' => 's-ftl',
+            'hullType' => 'small',
+            'moduleType' => 'engineering',
+            'techType' => 'ftl',
+            'cost' => [
+                'energy' => 25,
+                'minerals' => 25
+            ]
+        ],
+        [
+            'stub' => 's-engine',
+            'hullType' => 'small',
+            'moduleType' => 'engineering',
+            'techType' => 'engine',
+            'cost' => [
+                'energy' => 25,
+                'minerals' => 25
+            ]
+        ],
 
-            /*
-             * medium weapons
-             */
-            'm-plasma' => [
-                'hullType' => 'medium',
-                'cost' => [
-                    'energy' => 70,
-                    'minerals' => 30
-                ],
-                'type' => 'plasma',
-                'baseDmg' => 20,
-                'range' => 2
-            ],
-        ]
+        /*
+         * medium modules
+         */
+        [
+            'stub' => 'm-plasma',
+            'hullType' => 'medium',
+            'moduleType' => 'offensive',
+            'techType' => 'plasma',
+            'baseDmg' => 15,
+            'range' => 2,
+            'cost' => [
+                'energy' => 52,
+                'minerals' => 22
+            ]
+        ],
+        [
+            'stub' => 'm-missile',
+            'hullType' => 'medium',
+            'moduleType' => 'offensive',
+            'techType' => 'missile',
+            'baseDmg' => 12,
+            'range' => 3,
+            'cost' => [
+                'energy' => 37,
+                'minerals' => 37
+            ]
+        ],
+        [
+            'stub' => 'm-railgun',
+            'hullType' => 'medium',
+            'moduleType' => 'offensive',
+            'techType' => 'railgun',
+            'baseDmg' => 10.5,
+            'range' => 4,
+            'cost' => [
+                'energy' => 22,
+                'minerals' => 52
+            ]
+        ],
+        [
+            'stub' => 'm-laser',
+            'hullType' => 'medium',
+            'moduleType' => 'offensive',
+            'techType' => 'laser',
+            'baseDmg' => 9,
+            'range' => 6,
+            'cost' => [
+                'energy' => 37,
+                'minerals' => 37
+            ]
+        ],
+        [
+            'stub' => 'm-shield',
+            'hullType' => 'medium',
+            'moduleType' => 'defensive',
+            'techType' => 'shields',
+            'baseHp' => 150,
+            'cost' => [
+                'energy' => 44,
+                'minerals' => 30
+            ]
+        ],
+        [
+            'stub' => 'm-armour',
+            'hullType' => 'medium',
+            'moduleType' => 'defensive',
+            'techType' => 'armour',
+            'baseHp' => 150,
+            'cost' => [
+                'energy' => 30,
+                'minerals' => 44
+            ]
+        ],
+
+        /*
+         * large modules
+         */
+        [
+            'stub' => 'l-plasma',
+            'hullType' => 'large',
+            'moduleType' => 'offensive',
+            'techType' => 'plasma',
+            'baseDmg' => 22.5,
+            'range' => 3,
+            'cost' => [
+                'energy' => 78,
+                'minerals' => 34
+            ]
+        ],
+        [
+            'stub' => 'l-missile',
+            'hullType' => 'large',
+            'moduleType' => 'offensive',
+            'techType' => 'missile',
+            'baseDmg' => 18,
+            'range' => 4,
+            'cost' => [
+                'energy' => 56,
+                'minerals' => 56
+            ]
+        ],
+        [
+            'stub' => 'l-railgun',
+            'hullType' => 'large',
+            'moduleType' => 'offensive',
+            'techType' => 'railgun',
+            'baseDmg' => 15.75,
+            'range' => 5,
+            'cost' => [
+                'energy' => 34,
+                'minerals' => 78
+            ]
+        ],
+        [
+            'stub' => 'l-laser',
+            'hullType' => 'large',
+            'moduleType' => 'offensive',
+            'techType' => 'laser',
+            'baseDmg' => 13.5,
+            'range' => 7,
+            'cost' => [
+                'energy' => 56,
+                'minerals' => 56
+            ]
+        ],
+        [
+            'stub' => 'l-shield',
+            'hullType' => 'large',
+            'moduleType' => 'defensive',
+            'techType' => 'shields',
+            'baseHp' => 225,
+            'cost' => [
+                'energy' => 67,
+                'minerals' => 45
+            ]
+        ],
+        [
+            'stub' => 'l-armour',
+            'hullType' => 'large',
+            'moduleType' => 'defensive',
+            'techType' => 'armour',
+            'baseHp' => 225,
+            'cost' => [
+                'energy' => 45,
+                'minerals' => 67
+            ]
+        ],
+
+        /*
+         * xlarge modules
+         */
+        [
+            'stub' => 'xl-plasma',
+            'hullType' => 'xlarge',
+            'moduleType' => 'offensive',
+            'techType' => 'plasma',
+            'baseDmg' => 33.75,
+            'range' => 4,
+            'cost' => [
+                'energy' => 117,
+                'minerals' => 51
+            ]
+        ],
+        [
+            'stub' => 'xl-missile',
+            'hullType' => 'xlarge',
+            'moduleType' => 'offensive',
+            'techType' => 'missile',
+            'baseDmg' => 27,
+            'range' => 5,
+            'cost' => [
+                'energy' => 84,
+                'minerals' => 84
+            ]
+        ],
+        [
+            'stub' => 'xl-railgun',
+            'hullType' => 'xlarge',
+            'moduleType' => 'offensive',
+            'techType' => 'railgun',
+            'baseDmg' => 23.63,
+            'range' => 6,
+            'cost' => [
+                'energy' => 51,
+                'minerals' => 117
+            ]
+        ],
+        [
+            'stub' => 'xl-laser',
+            'hullType' => 'xlarge',
+            'moduleType' => 'offensive',
+            'techType' => 'laser',
+            'baseDmg' => 20.25,
+            'range' => 8,
+            'cost' => [
+                'energy' => 84,
+                'minerals' => 84
+            ]
+        ],
+        [
+            'stub' => 'xl-shield',
+            'hullType' => 'xlarge',
+            'moduleType' => 'defensive',
+            'techType' => 'shields',
+            'baseHp' => 337,
+            'cost' => [
+                'energy' => 100,
+                'minerals' => 68
+            ]
+        ],
+        [
+            'stub' => 'xl-armour',
+            'hullType' => 'xlarge',
+            'moduleType' => 'defensive',
+            'techType' => 'armour',
+            'baseHp' => 337,
+            'cost' => [
+                'energy' => 68,
+                'minerals' => 100
+            ]
+        ],
+
     ]
 
 ];

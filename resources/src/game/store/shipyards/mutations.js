@@ -24,6 +24,16 @@ export default {
     },
 
     /**
+     * @functon SET techLevels
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_TECHLEVELS: (state, payload) => {
+        state.techLevels = payload;
+    },
+
+    /**
      * @function SET shipyard page
      * @param {Object} state - vuex module "shipyards" state
      * @param {Number} payload

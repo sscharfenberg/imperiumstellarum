@@ -13,8 +13,10 @@ export default {
     requesting: false,
     shipyards: [],
     page: savedState.shipyardPage || 0,
+    techLevels: [],
     design: {
         hullType: "",
         className: "",
+        modules: [],
     },
 };

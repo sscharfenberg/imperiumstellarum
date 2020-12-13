@@ -22,6 +22,7 @@ export default {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_SHIPYARDS", response.data.shipyards);
+                    commit("SET_TECHLEVELS", response.data.techLevels);
                 }
             })
             .catch((e) => {

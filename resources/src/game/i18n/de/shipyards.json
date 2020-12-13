@@ -20,6 +20,9 @@
             "placeHolder": "Schiffsklasse",
             "readonly": "Bitte zuerst den Schiffstyp wählen",
             "randomize": "Zufälligen Namen für Schiffsklasse verwenden."
+        },
+        "modules": {
+            "headline": "Module auswählen"
         }
     },
     "build": {

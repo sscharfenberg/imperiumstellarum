@@ -21,9 +21,8 @@ export default {
                 store.commit("shipyards/SET_DESIGN_CLASSNAME", value);
             },
         });
-        const isDisabled = computed(
-            () => store.state.shipyards.design.hullType.length === 0
-        );
+        const hull = computed(() => store.state.shipyards.design.hullType);
+        const isDisabled = computed(() => hull.value.length === 0);
         const btnLabel = computed(() =>
             isDisabled.value
                 ? i18n.t("shipyards.design.className.readonly")
@@ -51,6 +50,7 @@ export default {
                 });
         };
         return {
+            hull,
             className,
             isLoading,
             onRandomize,
@@ -63,9 +63,9 @@ export default {
 
 <template>
     <sub-headline
-        :headline="`#2 ${$t('shipyards.design.className.headline')}`"
+        :headline="`#3 ${$t('shipyards.design.className.headline')}`"
     />
-    <div class="class-name">
+    <div class="class-name" v-if="hull.length > 0">
         <input
             type="text"
             v-model="className"

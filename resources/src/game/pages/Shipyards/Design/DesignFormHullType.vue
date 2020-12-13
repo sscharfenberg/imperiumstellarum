@@ -77,12 +77,14 @@ export default {
 <style lang="scss" scoped>
 .hull-types {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 
     margin-bottom: 8px;
     grid-gap: 4px;
 
     @include respond-to("medium") {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
         margin-bottom: 16px;
         grid-gap: 8px;
     }
@@ -117,9 +119,17 @@ export default {
         }
 
         > .icon {
-            width: 36px;
-            height: 18px;
-            margin-right: 8px;
+            width: 24px;
+            height: 12px;
+            margin-right: 4px;
+            flex: 0 0 24px;
+
+            @include respond-to("medium") {
+                width: 36px;
+                height: 18px;
+                margin-right: 8px;
+                flex: 0 0 36px;
+            }
         }
     }
 

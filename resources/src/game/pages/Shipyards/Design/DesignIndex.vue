@@ -6,6 +6,7 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import DesignPreview from "./DesignPreview";
 import DesignFormHullType from "./DesignFormHullType";
 import DesignFormClassName from "./DesignFormClassName";
+import DesignFormModules from "./Modules/DesignFormModules";
 export default {
     name: "DesignIndex",
     components: {
@@ -13,6 +14,7 @@ export default {
         DesignFormHullType,
         DesignFormClassName,
         DesignPreview,
+        DesignFormModules,
     },
     setup() {
         return {};
@@ -25,6 +27,7 @@ export default {
         <div class="design-section">
             <div class="form">
                 <design-form-hull-type />
+                <design-form-modules />
                 <design-form-class-name />
             </div>
             <design-preview />
