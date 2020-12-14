@@ -22,7 +22,12 @@
             "randomize": "Zufälligen Namen für Schiffsklasse verwenden."
         },
         "modules": {
-            "headline": "Module auswählen"
+            "headline": "Module auswählen",
+            "available": "Verfügbar",
+            "added": "Eingebaut",
+            "offensive": "Offensiv",
+            "defensive": "Defensiv",
+            "engineering": "Technisch"
         }
     },
     "build": {

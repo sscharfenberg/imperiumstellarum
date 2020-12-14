@@ -22,7 +22,12 @@
             "randomize": "Click to use a random class name."
         },
         "modules": {
-            "headline": "Choose module layout"
+            "headline": "Choose module layout",
+            "available": "Available",
+            "added": "Fitted",
+            "offensive": "Offensive",
+            "defensive": "Defensive",
+            "engineering": "Engineering"
         }
     },
     "build": {

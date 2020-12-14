@@ -63,4 +63,24 @@ export default {
     SET_DESIGN_CLASSNAME: (state, payload) => {
         state.design.className = payload;
     },
+
+    /**
+     * @function ADD module during design
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload
+     * @constructor
+     */
+    ADD_MODULE: (state, payload) => {
+        state.design.modules.push(payload);
+    },
+
+    /**
+     * @function REMOVE module during design
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload
+     * @constructor
+     */
+    REMOVE_MODULE: (state, payload) => {
+        state.design.modules.splice(state.design.modules.indexOf(payload), 1);
+    },
 };

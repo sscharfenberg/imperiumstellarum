@@ -694,15 +694,15 @@ return [
     'ships' => [
         'hullTypes' => [
             'ark' => [
-                'slots' => 1,
+                'slots' => 2,
                 'baseHp' => [
                     'structure' => 50,
                     'armour' => 50,
                     'shields' => 50
                 ],
                 'cost' => [
-                    'energy' => 25,
-                    'minerals' => 25
+                    'energy' => 100,
+                    'minerals' => 100
                 ]
             ],
             'small' => [
@@ -767,8 +767,28 @@ return [
     'modules' => [
 
         /*
-         * offensive modules
+         * ark modules
          */
+        [
+            'stub' => 'a-ftl',
+            'hullType' => 'ark',
+            'moduleType' => 'engineering',
+            'techType' => 'ftl',
+            'cost' => [
+                'energy' => 37,
+                'minerals' => 37
+            ]
+        ],
+        [
+            'stub' => 'a-colony',
+            'hullType' => 'ark',
+            'moduleType' => 'engineering',
+            'techType' => 'colony',
+            'cost' => [
+                'energy' => 50,
+                'minerals' => 50
+            ]
+        ],
 
         /*
          * small modules
@@ -937,6 +957,26 @@ return [
                 'minerals' => 44
             ]
         ],
+        [
+            'stub' => 'm-ftl',
+            'hullType' => 'medium',
+            'moduleType' => 'engineering',
+            'techType' => 'ftl',
+            'cost' => [
+                'energy' => 37,
+                'minerals' => 37
+            ]
+        ],
+        [
+            'stub' => 'm-engine',
+            'hullType' => 'medium',
+            'moduleType' => 'engineering',
+            'techType' => 'engine',
+            'cost' => [
+                'energy' => 37,
+                'minerals' => 37
+            ]
+        ],
 
         /*
          * large modules
@@ -1011,6 +1051,26 @@ return [
                 'minerals' => 67
             ]
         ],
+        [
+            'stub' => 'l-ftl',
+            'hullType' => 'large',
+            'moduleType' => 'engineering',
+            'techType' => 'ftl',
+            'cost' => [
+                'energy' => 56,
+                'minerals' => 56
+            ]
+        ],
+        [
+            'stub' => 'l-engine',
+            'hullType' => 'large',
+            'moduleType' => 'engineering',
+            'techType' => 'engine',
+            'cost' => [
+                'energy' => 56,
+                'minerals' => 56
+            ]
+        ],
 
         /*
          * xlarge modules
@@ -1083,6 +1143,26 @@ return [
             'cost' => [
                 'energy' => 68,
                 'minerals' => 100
+            ]
+        ],
+        [
+            'stub' => 'xl-ftl',
+            'hullType' => 'xlarge',
+            'moduleType' => 'engineering',
+            'techType' => 'ftl',
+            'cost' => [
+                'energy' => 84,
+                'minerals' => 84
+            ]
+        ],
+        [
+            'stub' => 'xl-engine',
+            'hullType' => 'xlarge',
+            'moduleType' => 'engineering',
+            'techType' => 'engine',
+            'cost' => [
+                'energy' => 84,
+                'minerals' => 84
             ]
         ],
 
