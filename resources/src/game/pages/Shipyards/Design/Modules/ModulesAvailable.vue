@@ -39,8 +39,8 @@ export default {
                 (mod) => mod.moduleType === "engineering"
             )
         );
-        const onClick = (stub) => {
-            store.commit("shipyards/ADD_MODULE", stub);
+        const onClick = (techType) => {
+            store.commit("shipyards/ADD_MODULE", techType);
         };
         return {
             offensiveModules,
@@ -67,7 +67,7 @@ export default {
                 :tech-type="module.techType"
                 :tl="tl.find((tech) => tech.type === module.techType).level"
                 :disabled="availableShipSlots === 0"
-                @add-module="onClick(module.stub)"
+                @add-module="onClick(module.techType)"
             />
         </div>
         <header class="modules__type" v-if="defensiveModules.length">
@@ -81,7 +81,7 @@ export default {
                 :tech-type="module.techType"
                 :tl="tl.find((tech) => tech.type === module.techType).level"
                 :disabled="availableShipSlots === 0"
-                @add-module="onClick(module.stub)"
+                @add-module="onClick(module.techType)"
             />
         </div>
         <header class="modules__type" v-if="engineeringModules.length">
@@ -94,7 +94,7 @@ export default {
                 :stub="module.stub"
                 :tech-type="module.techType"
                 :disabled="availableShipSlots === 0"
-                @add-module="onClick(module.stub)"
+                @add-module="onClick(module.techType)"
             />
         </div>
     </div>

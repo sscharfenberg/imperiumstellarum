@@ -23,9 +23,12 @@ export default {
                 shipModules.value.length
         );
         const modStats = (stub) =>
-            window.rules.modules.find((mod) => mod.stub === stub);
-        const onClick = (stub) => {
-            store.commit("shipyards/REMOVE_MODULE", stub);
+            window.rules.modules.find(
+                (mod) =>
+                    mod.techType === stub && mod.hullType === props.hullType
+            );
+        const onClick = (techType) => {
+            store.commit("shipyards/REMOVE_MODULE", techType);
         };
         const getTechLevel = (techType) => {
             const tech = store.state.shipyards.techLevels.find(
@@ -56,7 +59,7 @@ export default {
                 :tech-type="modStats(module).techType"
                 :tl="getTechLevel(modStats(module).techType)"
                 :remove="true"
-                @remove-module="onClick(modStats(module).stub)"
+                @remove-module="onClick(modStats(module).techType)"
             />
             <render-module v-for="slot in shipSlots" :key="slot" />
         </div>

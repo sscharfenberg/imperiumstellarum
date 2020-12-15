@@ -7,6 +7,7 @@ import DesignPreview from "./DesignPreview";
 import DesignFormHullType from "./DesignFormHullType";
 import DesignFormClassName from "./DesignFormClassName";
 import DesignFormModules from "./Modules/DesignFormModules";
+import DesignFormSave from "./DesignFormSave";
 export default {
     name: "DesignIndex",
     components: {
@@ -15,6 +16,7 @@ export default {
         DesignFormClassName,
         DesignPreview,
         DesignFormModules,
+        DesignFormSave,
     },
     setup() {
         return {};
@@ -29,6 +31,7 @@ export default {
                 <design-form-hull-type />
                 <design-form-modules />
                 <design-form-class-name />
+                <design-form-save />
             </div>
             <design-preview />
         </div>

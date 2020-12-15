@@ -700,7 +700,7 @@ return [
                     'armour' => 50,
                     'shields' => 50
                 ],
-                'cost' => [
+                'costs' => [
                     'energy' => 100,
                     'minerals' => 100
                 ]
@@ -712,43 +712,43 @@ return [
                     'armour' => 100,
                     'shields' => 100
                 ],
-                'cost' => [
+                'costs' => [
                     'energy' => 50,
                     'minerals' => 50
                 ]
             ],
             'medium' => [
-                'slots' => 7,
+                'slots' => 6,
                 'baseHp' => [
                     'structure' => 150,
                     'armour' => 150,
                     'shields' => 150
                 ],
-                'cost' => [
+                'costs' => [
                     'energy' => 100,
                     'minerals' => 100
                 ]
             ],
             'large' => [
-                'slots' => 9,
+                'slots' => 7,
                 'baseHp' => [
                     'structure' => 225,
                     'armour' => 225,
                     'shields' => 225
                 ],
-                'cost' => [
+                'costs' => [
                     'energy' => 200,
                     'minerals' => 200
                 ]
             ],
             'xlarge' => [
-                'slots' => 10,
+                'slots' => 8,
                 'baseHp' => [
                     'structure' => 337,
                     'armour' => 337,
                     'shields' => 337
                 ],
-                'cost' => [
+                'costs' => [
                     'energy' => 400,
                     'minerals' => 400
                 ]
@@ -774,7 +774,7 @@ return [
             'hullType' => 'ark',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
-            'cost' => [
+            'costs' => [
                 'energy' => 37,
                 'minerals' => 37
             ]
@@ -784,7 +784,7 @@ return [
             'hullType' => 'ark',
             'moduleType' => 'engineering',
             'techType' => 'colony',
-            'cost' => [
+            'costs' => [
                 'energy' => 50,
                 'minerals' => 50
             ]
@@ -800,7 +800,7 @@ return [
             'techType' => 'plasma',
             'baseDmg' => 10,
             'range' => 1,
-            'cost' => [
+            'costs' => [
                 'energy' => 35,
                 'minerals' => 15
             ]
@@ -812,7 +812,7 @@ return [
             'techType' => 'missile',
             'baseDmg' => 8,
             'range' => 2,
-            'cost' => [
+            'costs' => [
                 'energy' => 25,
                 'minerals' => 25
             ]
@@ -824,7 +824,7 @@ return [
             'techType' => 'railgun',
             'baseDmg' => 7,
             'range' => 3,
-            'cost' => [
+            'costs' => [
                 'energy' => 15,
                 'minerals' => 35
             ]
@@ -836,7 +836,7 @@ return [
             'techType' => 'laser',
             'baseDmg' => 6,
             'range' => 5,
-            'cost' => [
+            'costs' => [
                 'energy' => 25,
                 'minerals' => 25
             ]
@@ -847,7 +847,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'shields',
             'baseHp' => 100,
-            'cost' => [
+            'costs' => [
                 'energy' => 30,
                 'minerals' => 20
             ]
@@ -858,7 +858,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'armour',
             'baseHp' => 100,
-            'cost' => [
+            'costs' => [
                 'energy' => 20,
                 'minerals' => 30
             ]
@@ -868,7 +868,7 @@ return [
             'hullType' => 'small',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
-            'cost' => [
+            'costs' => [
                 'energy' => 25,
                 'minerals' => 25
             ]
@@ -878,7 +878,7 @@ return [
             'hullType' => 'small',
             'moduleType' => 'engineering',
             'techType' => 'engine',
-            'cost' => [
+            'costs' => [
                 'energy' => 25,
                 'minerals' => 25
             ]
@@ -894,7 +894,7 @@ return [
             'techType' => 'plasma',
             'baseDmg' => 15,
             'range' => 2,
-            'cost' => [
+            'costs' => [
                 'energy' => 52,
                 'minerals' => 22
             ]
@@ -906,7 +906,7 @@ return [
             'techType' => 'missile',
             'baseDmg' => 12,
             'range' => 3,
-            'cost' => [
+            'costs' => [
                 'energy' => 37,
                 'minerals' => 37
             ]
@@ -918,7 +918,7 @@ return [
             'techType' => 'railgun',
             'baseDmg' => 10.5,
             'range' => 4,
-            'cost' => [
+            'costs' => [
                 'energy' => 22,
                 'minerals' => 52
             ]
@@ -930,7 +930,7 @@ return [
             'techType' => 'laser',
             'baseDmg' => 9,
             'range' => 6,
-            'cost' => [
+            'costs' => [
                 'energy' => 37,
                 'minerals' => 37
             ]
@@ -941,7 +941,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'shields',
             'baseHp' => 150,
-            'cost' => [
+            'costs' => [
                 'energy' => 44,
                 'minerals' => 30
             ]
@@ -952,7 +952,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'armour',
             'baseHp' => 150,
-            'cost' => [
+            'costs' => [
                 'energy' => 30,
                 'minerals' => 44
             ]
@@ -962,7 +962,7 @@ return [
             'hullType' => 'medium',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
-            'cost' => [
+            'costs' => [
                 'energy' => 37,
                 'minerals' => 37
             ]
@@ -972,7 +972,7 @@ return [
             'hullType' => 'medium',
             'moduleType' => 'engineering',
             'techType' => 'engine',
-            'cost' => [
+            'costs' => [
                 'energy' => 37,
                 'minerals' => 37
             ]
@@ -988,7 +988,7 @@ return [
             'techType' => 'plasma',
             'baseDmg' => 22.5,
             'range' => 3,
-            'cost' => [
+            'costs' => [
                 'energy' => 78,
                 'minerals' => 34
             ]
@@ -1000,7 +1000,7 @@ return [
             'techType' => 'missile',
             'baseDmg' => 18,
             'range' => 4,
-            'cost' => [
+            'costs' => [
                 'energy' => 56,
                 'minerals' => 56
             ]
@@ -1012,7 +1012,7 @@ return [
             'techType' => 'railgun',
             'baseDmg' => 15.75,
             'range' => 5,
-            'cost' => [
+            'costs' => [
                 'energy' => 34,
                 'minerals' => 78
             ]
@@ -1024,7 +1024,7 @@ return [
             'techType' => 'laser',
             'baseDmg' => 13.5,
             'range' => 7,
-            'cost' => [
+            'costs' => [
                 'energy' => 56,
                 'minerals' => 56
             ]
@@ -1035,7 +1035,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'shields',
             'baseHp' => 225,
-            'cost' => [
+            'costs' => [
                 'energy' => 67,
                 'minerals' => 45
             ]
@@ -1046,7 +1046,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'armour',
             'baseHp' => 225,
-            'cost' => [
+            'costs' => [
                 'energy' => 45,
                 'minerals' => 67
             ]
@@ -1056,7 +1056,7 @@ return [
             'hullType' => 'large',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
-            'cost' => [
+            'costs' => [
                 'energy' => 56,
                 'minerals' => 56
             ]
@@ -1066,7 +1066,7 @@ return [
             'hullType' => 'large',
             'moduleType' => 'engineering',
             'techType' => 'engine',
-            'cost' => [
+            'costs' => [
                 'energy' => 56,
                 'minerals' => 56
             ]
@@ -1082,7 +1082,7 @@ return [
             'techType' => 'plasma',
             'baseDmg' => 33.75,
             'range' => 4,
-            'cost' => [
+            'costs' => [
                 'energy' => 117,
                 'minerals' => 51
             ]
@@ -1094,7 +1094,7 @@ return [
             'techType' => 'missile',
             'baseDmg' => 27,
             'range' => 5,
-            'cost' => [
+            'costs' => [
                 'energy' => 84,
                 'minerals' => 84
             ]
@@ -1106,7 +1106,7 @@ return [
             'techType' => 'railgun',
             'baseDmg' => 23.63,
             'range' => 6,
-            'cost' => [
+            'costs' => [
                 'energy' => 51,
                 'minerals' => 117
             ]
@@ -1118,7 +1118,7 @@ return [
             'techType' => 'laser',
             'baseDmg' => 20.25,
             'range' => 8,
-            'cost' => [
+            'costs' => [
                 'energy' => 84,
                 'minerals' => 84
             ]
@@ -1129,7 +1129,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'shields',
             'baseHp' => 337,
-            'cost' => [
+            'costs' => [
                 'energy' => 100,
                 'minerals' => 68
             ]
@@ -1140,7 +1140,7 @@ return [
             'moduleType' => 'defensive',
             'techType' => 'armour',
             'baseHp' => 337,
-            'cost' => [
+            'costs' => [
                 'energy' => 68,
                 'minerals' => 100
             ]
@@ -1150,7 +1150,7 @@ return [
             'hullType' => 'xlarge',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
-            'cost' => [
+            'costs' => [
                 'energy' => 84,
                 'minerals' => 84
             ]
@@ -1160,7 +1160,7 @@ return [
             'hullType' => 'xlarge',
             'moduleType' => 'engineering',
             'techType' => 'engine',
-            'cost' => [
+            'costs' => [
                 'energy' => 84,
                 'minerals' => 84
             ]

@@ -28,6 +28,10 @@
             "offensive": "Offensive",
             "defensive": "Defensive",
             "engineering": "Engineering"
+        },
+        "save": {
+            "headline": "Finalize and research blueprint",
+            "button": "finalize"
         }
     },
     "build": {

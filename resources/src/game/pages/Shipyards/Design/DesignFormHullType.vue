@@ -28,6 +28,13 @@ export default {
         const selectedShipType = computed({
             get: () => store.state.shipyards.design.hullType,
             set: (value) => {
+                const numCurrentModules =
+                    store.state.shipyards.design.modules.length;
+                const maxModules = window.rules.ships.hullTypes[value].slots;
+                // check if there are more modules fitted than slots available
+                if (numCurrentModules > maxModules) {
+                    store.commit("shipyards/TRUNCATE_MODULES", maxModules);
+                }
                 store.commit("shipyards/SET_DESIGN_HULLTYPE", value);
             },
         });

@@ -28,6 +28,10 @@
             "offensive": "Offensiv",
             "defensive": "Defensiv",
             "engineering": "Technisch"
+        },
+        "save": {
+            "headline": "Bauplan abschließen und erforschen",
+            "button": "Abschließen"
         }
     },
     "build": {

@@ -83,4 +83,14 @@ export default {
     REMOVE_MODULE: (state, payload) => {
         state.design.modules.splice(state.design.modules.indexOf(payload), 1);
     },
+
+    /**
+     * @function REMOVE module during design
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Number} payload
+     * @constructor
+     */
+    TRUNCATE_MODULES: (state, payload) => {
+        state.design.modules.length = payload;
+    },
 };
