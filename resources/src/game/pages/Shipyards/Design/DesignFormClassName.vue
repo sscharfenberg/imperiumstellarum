@@ -23,11 +23,22 @@ export default {
         });
         const hullType = computed(() => store.state.shipyards.design.hullType);
         const isDisabled = computed(() => hullType.value.length === 0);
+        const mods = computed(() => store.state.shipyards.design.modules);
         const btnLabel = computed(() =>
             isDisabled.value
                 ? i18n.t("shipyards.design.className.readonly")
                 : i18n.t("shipyards.design.className.randomize")
         );
+
+        // enable and show component?
+        const componentIsEnabled = computed(
+            () =>
+                hullType.value.length &&
+                mods.value.length ===
+                    window.rules.ships.hullTypes[hullType.value].slots
+        );
+
+        // click on "randomize" button
         const onRandomize = () => {
             const type = computed(() => store.state.shipyards.design.hullType);
             isLoading.value = true; // show loader
@@ -49,8 +60,9 @@ export default {
                     isLoading.value = false; // hide loader again
                 });
         };
+
         return {
-            hullType,
+            componentIsEnabled,
             className,
             isLoading,
             onRandomize,
@@ -63,10 +75,10 @@ export default {
 
 <template>
     <sub-headline
-        v-if="hullType.length > 0"
+        v-if="componentIsEnabled"
         :headline="`#3 ${$t('shipyards.design.className.headline')}`"
     />
-    <div class="class-name" v-if="hullType.length > 0">
+    <div class="class-name" v-if="componentIsEnabled">
         <input
             type="text"
             v-model="className"

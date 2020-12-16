@@ -62,8 +62,7 @@ export default {
         <div class="modules" v-if="offensiveModules.length">
             <render-module
                 v-for="module in offensiveModules"
-                :key="`offensive${module.stub}`"
-                :stub="module.stub"
+                :key="`offensive${hullType}${module.techType}`"
                 :tech-type="module.techType"
                 :tl="tl.find((tech) => tech.type === module.techType).level"
                 :disabled="availableShipSlots === 0"
@@ -76,8 +75,7 @@ export default {
         <div class="modules" v-if="defensiveModules.length">
             <render-module
                 v-for="module in defensiveModules"
-                :key="`offensive${module.stub}`"
-                :stub="module.stub"
+                :key="`defensive${hullType}${module.techType}`"
                 :tech-type="module.techType"
                 :tl="tl.find((tech) => tech.type === module.techType).level"
                 :disabled="availableShipSlots === 0"
@@ -90,8 +88,7 @@ export default {
         <div class="modules" v-if="engineeringModules.length">
             <render-module
                 v-for="module in engineeringModules"
-                :key="`offensive${module.stub}`"
-                :stub="module.stub"
+                :key="`engineering${hullType}${module.techType}`"
                 :tech-type="module.techType"
                 :disabled="availableShipSlots === 0"
                 @add-module="onClick(module.techType)"

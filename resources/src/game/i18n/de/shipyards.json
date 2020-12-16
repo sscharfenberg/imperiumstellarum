@@ -31,6 +31,7 @@
         },
         "save": {
             "headline": "Bauplan abschließen und erforschen",
+            "costs": "Kosten für Bauplan",
             "button": "Abschließen"
         }
     },

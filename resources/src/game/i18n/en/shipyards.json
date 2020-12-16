@@ -31,6 +31,7 @@
         },
         "save": {
             "headline": "Finalize and research blueprint",
+            "costs": "Blueprint costs",
             "button": "finalize"
         }
     },

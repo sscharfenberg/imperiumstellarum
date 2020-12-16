@@ -6,7 +6,6 @@ import Icon from "Components/Icon/Icon";
 export default {
     name: "RenderModule",
     props: {
-        stub: String,
         techType: String,
         tl: Number,
         disabled: Boolean,
@@ -31,7 +30,7 @@ export default {
 
 <template>
     <button
-        v-if="stub"
+        v-if="techType"
         class="modules__mod"
         @click="onClick"
         :disabled="disabled"
@@ -40,7 +39,7 @@ export default {
         <span>{{ $t("research.tl." + techType) }}</span>
         <span class="tl" v-if="tl >= 0">TL{{ tl }}</span>
     </button>
-    <div v-if="!stub" class="modules__mod empty" />
+    <div v-if="!techType" class="modules__mod empty" />
 </template>
 
 <style lang="scss" scoped>

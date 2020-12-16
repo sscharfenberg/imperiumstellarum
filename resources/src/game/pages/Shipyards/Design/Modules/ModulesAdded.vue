@@ -55,7 +55,6 @@ export default {
             <render-module
                 v-for="module in shipModules"
                 :key="`added${module}`"
-                :stub="module"
                 :tech-type="modStats(module).techType"
                 :tl="getTechLevel(modStats(module).techType)"
                 :remove="true"

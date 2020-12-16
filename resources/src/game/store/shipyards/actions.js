@@ -33,4 +33,18 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function save blueprint
+     * @param {Function} commit - Vuex commit fn
+     * @param {Object} payload
+     * @param {String} payload.hullType
+     * @param {Array} payload.modules
+     * @param {String} payload.name
+     */
+    SAVE_BLUEPRINT: function ({ commit }, payload) {
+        console.log("save blueprint", payload);
+        commit("SET_REQUESTING", true);
+        //TODO: implement axios.post / mutations
+    },
 };

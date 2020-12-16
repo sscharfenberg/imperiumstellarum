@@ -770,7 +770,6 @@ return [
          * ark modules
          */
         [
-            'stub' => 'a-ftl',
             'hullType' => 'ark',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
@@ -780,7 +779,6 @@ return [
             ]
         ],
         [
-            'stub' => 'a-colony',
             'hullType' => 'ark',
             'moduleType' => 'engineering',
             'techType' => 'colony',
@@ -794,7 +792,6 @@ return [
          * small modules
          */
         [
-            'stub' => 's-plasma',
             'hullType' => 'small',
             'moduleType' => 'offensive',
             'techType' => 'plasma',
@@ -806,7 +803,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-missile',
             'hullType' => 'small',
             'moduleType' => 'offensive',
             'techType' => 'missile',
@@ -818,7 +814,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-railgun',
             'hullType' => 'small',
             'moduleType' => 'offensive',
             'techType' => 'railgun',
@@ -830,7 +825,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-laser',
             'hullType' => 'small',
             'moduleType' => 'offensive',
             'techType' => 'laser',
@@ -842,7 +836,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-shield',
             'hullType' => 'small',
             'moduleType' => 'defensive',
             'techType' => 'shields',
@@ -853,7 +846,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-armour',
             'hullType' => 'small',
             'moduleType' => 'defensive',
             'techType' => 'armour',
@@ -864,7 +856,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-ftl',
             'hullType' => 'small',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
@@ -874,7 +865,6 @@ return [
             ]
         ],
         [
-            'stub' => 's-engine',
             'hullType' => 'small',
             'moduleType' => 'engineering',
             'techType' => 'engine',
@@ -888,7 +878,6 @@ return [
          * medium modules
          */
         [
-            'stub' => 'm-plasma',
             'hullType' => 'medium',
             'moduleType' => 'offensive',
             'techType' => 'plasma',
@@ -900,7 +889,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-missile',
             'hullType' => 'medium',
             'moduleType' => 'offensive',
             'techType' => 'missile',
@@ -912,7 +900,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-railgun',
             'hullType' => 'medium',
             'moduleType' => 'offensive',
             'techType' => 'railgun',
@@ -924,7 +911,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-laser',
             'hullType' => 'medium',
             'moduleType' => 'offensive',
             'techType' => 'laser',
@@ -936,7 +922,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-shield',
             'hullType' => 'medium',
             'moduleType' => 'defensive',
             'techType' => 'shields',
@@ -947,7 +932,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-armour',
             'hullType' => 'medium',
             'moduleType' => 'defensive',
             'techType' => 'armour',
@@ -958,7 +942,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-ftl',
             'hullType' => 'medium',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
@@ -968,7 +951,6 @@ return [
             ]
         ],
         [
-            'stub' => 'm-engine',
             'hullType' => 'medium',
             'moduleType' => 'engineering',
             'techType' => 'engine',
@@ -982,7 +964,6 @@ return [
          * large modules
          */
         [
-            'stub' => 'l-plasma',
             'hullType' => 'large',
             'moduleType' => 'offensive',
             'techType' => 'plasma',
@@ -994,7 +975,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-missile',
             'hullType' => 'large',
             'moduleType' => 'offensive',
             'techType' => 'missile',
@@ -1006,7 +986,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-railgun',
             'hullType' => 'large',
             'moduleType' => 'offensive',
             'techType' => 'railgun',
@@ -1018,7 +997,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-laser',
             'hullType' => 'large',
             'moduleType' => 'offensive',
             'techType' => 'laser',
@@ -1030,7 +1008,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-shield',
             'hullType' => 'large',
             'moduleType' => 'defensive',
             'techType' => 'shields',
@@ -1041,7 +1018,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-armour',
             'hullType' => 'large',
             'moduleType' => 'defensive',
             'techType' => 'armour',
@@ -1052,7 +1028,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-ftl',
             'hullType' => 'large',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
@@ -1062,7 +1037,6 @@ return [
             ]
         ],
         [
-            'stub' => 'l-engine',
             'hullType' => 'large',
             'moduleType' => 'engineering',
             'techType' => 'engine',
@@ -1076,7 +1050,6 @@ return [
          * xlarge modules
          */
         [
-            'stub' => 'xl-plasma',
             'hullType' => 'xlarge',
             'moduleType' => 'offensive',
             'techType' => 'plasma',
@@ -1088,7 +1061,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-missile',
             'hullType' => 'xlarge',
             'moduleType' => 'offensive',
             'techType' => 'missile',
@@ -1100,7 +1072,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-railgun',
             'hullType' => 'xlarge',
             'moduleType' => 'offensive',
             'techType' => 'railgun',
@@ -1112,7 +1083,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-laser',
             'hullType' => 'xlarge',
             'moduleType' => 'offensive',
             'techType' => 'laser',
@@ -1124,7 +1094,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-shield',
             'hullType' => 'xlarge',
             'moduleType' => 'defensive',
             'techType' => 'shields',
@@ -1135,7 +1104,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-armour',
             'hullType' => 'xlarge',
             'moduleType' => 'defensive',
             'techType' => 'armour',
@@ -1146,7 +1114,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-ftl',
             'hullType' => 'xlarge',
             'moduleType' => 'engineering',
             'techType' => 'ftl',
@@ -1156,7 +1123,6 @@ return [
             ]
         ],
         [
-            'stub' => 'xl-engine',
             'hullType' => 'xlarge',
             'moduleType' => 'engineering',
             'techType' => 'engine',
