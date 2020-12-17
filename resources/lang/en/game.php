@@ -54,7 +54,10 @@ return [
     ],
 
     'shipyards' => [
-        'navTitle' => 'Shipyards'
+        'navTitle' => 'Shipyards',
+        'errors' => [
+            'hullType' => 'You can\'t create blueprints with this hull type.',
+        ]
     ],
 
     'fleets' => [

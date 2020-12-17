@@ -45,6 +45,19 @@ export default {
     SAVE_BLUEPRINT: function ({ commit }, payload) {
         console.log("save blueprint", payload);
         commit("SET_REQUESTING", true);
-        //TODO: implement axios.post / mutations
+        window.axios
+            .post(`/api/game/${getGameId()}/shipyards/blueprint`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response.data);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
     },
 };

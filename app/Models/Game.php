@@ -54,6 +54,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $shipyards_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
  * @property-read int|null $researches_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprints[] $blueprints
+ * @property-read int|null $blueprints_count
  */
 class Game extends Model
 {
@@ -173,6 +175,14 @@ class Game extends Model
     public function researches()
     {
         return $this->hasMany('App\Models\Research');
+    }
+
+    /**
+     * Get the blueprints for this game
+     */
+    public function blueprints()
+    {
+        return $this->hasMany('App\Models\Blueprints');
     }
 
 }

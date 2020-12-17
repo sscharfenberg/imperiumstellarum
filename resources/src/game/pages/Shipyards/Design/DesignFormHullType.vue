@@ -31,8 +31,13 @@ export default {
                 const numCurrentModules =
                     store.state.shipyards.design.modules.length;
                 const maxModules = window.rules.ships.hullTypes[value].slots;
+                // if ark, remove everything since arks can't have defensive/offensive modules
+                // TODO: refactor this lazy shit
+                if (value === "ark") {
+                    store.commit("shipyards/TRUNCATE_MODULES", 0);
+                }
                 // check if there are more modules fitted than slots available
-                if (numCurrentModules > maxModules) {
+                else if (numCurrentModules > maxModules) {
                     store.commit("shipyards/TRUNCATE_MODULES", maxModules);
                 }
                 store.commit("shipyards/SET_DESIGN_HULLTYPE", value);

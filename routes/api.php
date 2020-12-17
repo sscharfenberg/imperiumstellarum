@@ -53,10 +53,6 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::post('/game/{game}/empire/star_name',
         [\App\Http\Controllers\Game\Empire\StarNameController::class, 'handle']);
 
-    // change planet food consumption
-    Route::post('/game/{game}/empire/food_consumption',
-        [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
-
     /**
      * research api calls
      */
@@ -86,13 +82,17 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
  */
 Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', 'notProcessing'])->group(function () {
 
+    // install storage upgrade
+    Route::post('/game/{game}/storage_upgrade',
+        [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
+
     /**
      * empire api calls
      */
 
-    // install storage upgrade
-    Route::post('/game/{game}/storage_upgrade',
-        [\App\Http\Controllers\Game\StorageUpgradeController::class, 'install']);
+    // change planet food consumption
+    Route::post('/game/{game}/empire/food_consumption',
+        [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
 
     // install harvester
     Route::post('/game/{game}/empire/harvester',
@@ -125,5 +125,13 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // delete research job
     Route::post('/game/{game}/research/delete',
         [\App\Http\Controllers\Game\Research\DeleteController::class, 'handle']);
+
+    /**
+     * shipyards api calls
+     */
+
+    // create blueprint
+    Route::post('/game/{game}/shipyards/blueprint',
+        [\App\Http\Controllers\Game\Shipyards\BlueprintController::class, 'create']);
 
 });

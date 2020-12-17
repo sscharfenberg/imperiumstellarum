@@ -91,6 +91,7 @@ export default {
      * @constructor
      */
     TRUNCATE_MODULES: (state, payload) => {
+        console.log("truncating modules to", payload);
         state.design.modules.length = payload;
     },
 };

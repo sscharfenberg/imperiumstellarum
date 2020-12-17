@@ -49,6 +49,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $shipyards_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
  * @property-read int|null $researches_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprints[] $blueprints
+ * @property-read int|null $blueprints_count
  */
 class Player extends Model
 {
@@ -160,6 +162,14 @@ class Player extends Model
     public function researches()
     {
         return $this->hasMany('App\Models\Research');
+    }
+
+    /**
+     * Get the blueprints for this player
+     */
+    public function blueprints()
+    {
+        return $this->hasMany('App\Models\Blueprints');
     }
 
 }

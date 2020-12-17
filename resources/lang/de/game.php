@@ -54,7 +54,10 @@ return [
     ],
 
     'shipyards' => [
-        'navTitle' => 'Werften'
+        'navTitle' => 'Werften',
+        'errors' => [
+            'hullType' => 'Sie können keine Baupläne von diesem Schiffstypen bauen.',
+        ]
     ],
 
     'fleets' => [
