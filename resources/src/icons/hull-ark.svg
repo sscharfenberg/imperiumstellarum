@@ -2,6 +2,6 @@
     <title>Ark</title>
     <desc>"Ark" Icon (author: Sven Scharfenberg)</desc>
     <g>
-        <path d="M8,0.5 l8,0 c6,0 6,11 0,11 l-8,0 c-6,0 -6,-11 0,-11z" fill="#e1d37f" stroke="#a51900" stroke-width="0.5" stroke-linejoin="round" />
+        <path d="M8,0.5 l8,0 c6,0 6,11 0,11 l-8,0 c-6,0 -6,-11 0,-11z" fill="#e1d37f" stroke="#ab6008" stroke-width="1" stroke-linejoin="round" />
     </g>
 </svg>
