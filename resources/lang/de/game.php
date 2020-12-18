@@ -56,7 +56,12 @@ return [
     'shipyards' => [
         'navTitle' => 'Werften',
         'errors' => [
-            'hullType' => 'Sie können keine Baupläne von diesem Schiffstypen erstellen.',
+            'blueprint' => [
+                'hullType' => 'Sie können keine Baupläne von diesem Schiffstypen erstellen.',
+                'moduleMax' => 'Zu viele Module installiert.',
+                'modulesInvalid' => 'Sie haben für diesen Schiffstyp ungültige Module installiert.',
+                'className' => 'The class name supplied is not valid.'
+            ],
         ]
     ],
 

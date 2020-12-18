@@ -753,6 +753,10 @@ return [
                     'minerals' => 400
                 ]
             ]
+        ],
+        'className' => [
+            'min' => 4,
+            'max' => 40
         ]
     ],
 
@@ -1131,7 +1135,6 @@ return [
                 'minerals' => 84
             ]
         ],
-
     ]
 
 ];

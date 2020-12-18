@@ -56,7 +56,12 @@ return [
     'shipyards' => [
         'navTitle' => 'Shipyards',
         'errors' => [
-            'hullType' => 'You can\'t create blueprints with this hull type.',
+            'blueprint' => [
+                'hullType' => 'You can\'t create blueprints with this hull type.',
+                'moduleMax' => 'Too many modules installed.',
+                'modulesInvalid' => 'You have installed invalid modules for this hull type.',
+                'className' => 'The class name supplied is not valid.'
+            ],
         ]
     ],
 

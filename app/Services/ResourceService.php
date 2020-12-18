@@ -3,7 +3,7 @@ namespace App\Services;
 
 use App\Models\Player;
 use App\Models\PlayerResource;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use App\Services\FormatApiResponseService;
 
 class ResourceService {
@@ -14,7 +14,7 @@ class ResourceService {
      * @param Player $player
      * @return Collection
      */
-    public function getResources (Player $player)
+    public function getResources (Player $player): Collection
     {
         $f = new FormatApiResponseService;
         return $player->resources->map(function ($res) use ($f) {
@@ -28,7 +28,7 @@ class ResourceService {
      * @param PlayerResource $res
      * @return int
      */
-    public function enforceStorageMax (PlayerResource $res)
+    public function enforceStorageMax (PlayerResource $res): int
     {
         $max = config('rules.player.resourceTypes.'.$res->resource_type.'.'.$res->storage_level.'.amount');
         $amount = $res->storage;
@@ -43,7 +43,7 @@ class ResourceService {
      * @param array $costs
      * @return bool
      */
-    public function playerCanAfford (Player $player, array $costs)
+    public function playerCanAfford (Player $player, array $costs): bool
     {
         $res = $player->resources()->get();
         foreach($costs as $resType => $amount) {
@@ -68,6 +68,36 @@ class ResourceService {
             $playerResource->storage -= $amount;
             $playerResource->save();
         }
+    }
+
+    /**
+     * @function calculate ship resource costs from hullType and modules
+     * @param string $hullType
+     * @param array $modules
+     * @return array
+     */
+    public function getShipResourceCosts(string $hullType, array $modules): array
+    {
+        // prepare costs
+        $costs = [];
+        foreach(config('rules.player.resourceTypes') as $resType => $value) {
+            $costs[$resType] = 0;
+        }
+        // hull costs
+        foreach(config('rules.ships.hullTypes.'.$hullType.'.costs') as $type => $value) {
+            $costs[$type] += $value;
+        }
+        // module costs
+        foreach($modules as $mod) {
+            $moduleCosts = collect(config('rules.modules'))
+                ->filter(function($c) use ($hullType, $mod) {
+                    return $c['hullType'] === $hullType && $c['techType'] === $mod;
+                })->first()['costs'];
+            foreach($moduleCosts as $key => $value) {
+                $costs[$key] += $value;
+            }
+        }
+        return $costs;
     }
 
 }
