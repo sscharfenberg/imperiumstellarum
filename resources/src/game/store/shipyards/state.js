@@ -14,6 +14,7 @@ export default {
     shipyards: [],
     page: savedState.shipyardPage || 0,
     techLevels: [],
+    blueprints: [],
     design: {
         hullType: "",
         className: "",

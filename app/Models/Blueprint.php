@@ -9,6 +9,7 @@ use App\Http\Traits\UsesUuid;
 /**
  * App\Models\Blueprint
  *
+ * @property string $id
  * @property string $hull_type
  * @property string $modules
  * @property string $name
@@ -19,9 +20,12 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint query()
- * @method static \Illuminate\Database\Eloquent\Builder|Game whereHullType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Game whereModules($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Game whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereHullType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereModules($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereName($value)
  * @mixin \Eloquent
  */
 class Blueprint extends Model

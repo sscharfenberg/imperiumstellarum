@@ -60,9 +60,11 @@ return [
                 'hullType' => 'You can\'t create blueprints with this hull type.',
                 'moduleMax' => 'Too many modules installed.',
                 'modulesInvalid' => 'You have installed invalid modules for this hull type.',
-                'className' => 'The class name supplied is not valid.'
+                'className' => 'The class name supplied is not valid.',
+                'classNameUsed' => 'The class name has already been used.'
             ],
-        ]
+        ],
+        'blueprintSaved' => 'Blueprint finalzed.'
     ],
 
     'fleets' => [

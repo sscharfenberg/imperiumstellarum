@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Game\Shipyards;
 use App\Http\Controllers\Controller;
 use App\Models\Blueprint;
 use App\Models\Player;
+use App\Services\FormatApiResponseService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -62,14 +63,24 @@ class BlueprintController extends Controller
     /**
      * @function validate input
      * @param string $name
-     * @returns bool
+     * @return bool
      */
     private function isClassNameValid (string $name): bool
     {
-        // TODO make sure the className is not already used by the player
         return is_string($name)
             && strlen($name) >= config('rules.ships.className.min')
             && strlen($name) <= config('rules.ships.className.max');
+    }
+
+    /**
+     * @function check if the class name is already used
+     * @param Player $player
+     * @param string $name
+     * @return bool
+     */
+    private function isClassNameUnique (Player $player, string $name): bool
+    {
+        return count($player->blueprints->where('name', $name)) === 0;
     }
 
     /**
@@ -129,6 +140,7 @@ class BlueprintController extends Controller
         $modules = $request->input(['modules']);
         $name = $request->input(['name']);
         $r = new ResourceService;
+        $f = new FormatApiResponseService;
 
         // verification
         if (!$this->isHullTypeValid($hullType, $player)) {
@@ -146,6 +158,10 @@ class BlueprintController extends Controller
         if (!$this->isClassNameValid($name)) {
             return response()
                 ->json(['error' => __('game.shipyards.errors.blueprint.className')], 419);
+        }
+        if (!$this->isClassNameUnique($player, $name)) {
+            return response()
+                ->json(['error' => __('game.shipyards.errors.blueprint.classNameUsed')], 419);
         }
         $shipResourceCosts = $r->getShipResourceCosts($hullType, $modules);
         $researchCosts = (int)round(($shipResourceCosts['energy'] + $shipResourceCosts['minerals']) * 0.1);
@@ -167,8 +183,9 @@ class BlueprintController extends Controller
         ]);
 
         return response()->json([
-            'blueprint' => ['fuddel'],
-            'resources' => $r->getResources($player)
+            'blueprint' => $f->formatBlueprint($blueprint),
+            'resources' => $r->getResources($player),
+            'message' => __('game.shipyards.blueprintSaved')
         ]);
     }
 

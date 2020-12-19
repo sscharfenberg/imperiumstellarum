@@ -182,7 +182,7 @@ class Game extends Model
      */
     public function blueprints()
     {
-        return $this->hasMany('App\Models\Blueprints');
+        return $this->hasMany('App\Models\Blueprint');
     }
 
 }

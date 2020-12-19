@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Blueprint;
 use App\Models\Player;
 use App\Models\Research;
 use App\Models\Star;
@@ -157,6 +158,21 @@ class FormatApiResponseService {
             'ticker' => $player->ticker,
             'name' => $player->name,
             'colour' => $player->colour
+        ];
+    }
+
+    /**
+     * @function format api response for a blueprint
+     * @param Blueprint $blueprint
+     * @return array
+     */
+    public function formatBlueprint (Blueprint $blueprint): array
+    {
+        return [
+            'id' => $blueprint->id,
+            'hullType' => $blueprint->hull_type,
+            'modules' => explode("  ", $blueprint->modules),
+            'name' => $blueprint->name
         ];
     }
 

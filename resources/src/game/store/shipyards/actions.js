@@ -23,6 +23,7 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_SHIPYARDS", response.data.shipyards);
                     commit("SET_TECHLEVELS", response.data.techLevels);
+                    commit("SET_BLUEPRINTS", response.data.blueprints);
                 }
             })
             .catch((e) => {
@@ -49,7 +50,12 @@ export default {
             .post(`/api/game/${getGameId()}/shipyards/blueprint`, payload)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response.data);
+                    commit("ADD_BLUEPRINT", response.data.blueprint);
+                    commit("SET_RESOURCES", response.data.resources, {
+                        root: true,
+                    });
+                    commit("RESET_DESIGN");
+                    notify(response.data.message, "success");
                 }
             })
             .catch((e) => {

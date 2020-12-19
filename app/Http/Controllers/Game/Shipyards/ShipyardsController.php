@@ -62,15 +62,17 @@ class ShipyardsController extends Controller
         $defaultApiData = $a->defaultData($request);
         $user = Auth::user();
         $player = $user->players->find($user->selected_player);
-        $shipyards = $player->shipyards;
 
         $f = new FormatApiResponseService;
         $returnData = [
-            'shipyards' => $shipyards->map(function ($shipyard) use ($f) {
+            'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
                 return $f->formatShipyard($shipyard);
             }),
             'techLevels' => $player->techLevels->map(function ($techLevel) use ($f) {
                 return $f->formatTechLevel($techLevel);
+            }),
+            'blueprints' => $player->blueprints->map(function ($blueprint) use ($f) {
+                return $f->formatBlueprint($blueprint);
             }),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));

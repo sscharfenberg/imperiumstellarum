@@ -34,6 +34,16 @@ export default {
     },
 
     /**
+     * @function SET all blueprints
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_BLUEPRINTS: (state, payload) => {
+        state.blueprints = payload;
+    },
+
+    /**
      * @function SET shipyard page
      * @param {Object} state - vuex module "shipyards" state
      * @param {Number} payload
@@ -43,6 +53,10 @@ export default {
         state.page = payload;
         saveState(state.page, "shipyardPage");
     },
+
+    /**
+     * DESIGN BLUEPRINTS MUTATIONS
+     */
 
     /**
      * @function SET DESIGN hulltype
@@ -92,5 +106,26 @@ export default {
      */
     TRUNCATE_MODULES: (state, payload) => {
         state.design.modules.length = payload;
+    },
+
+    /**
+     * @function ADD one blueprint
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Object} payload
+     * @constructor
+     */
+    ADD_BLUEPRINT: (state, payload) => {
+        state.blueprints.push(payload);
+    },
+
+    /**
+     * @function ADD one blueprint
+     * @param {Object} state - vuex module "shipyards" state
+     * @constructor
+     */
+    RESET_DESIGN: (state) => {
+        state.design.hullType = "";
+        state.design.className = "";
+        state.design.modules = [];
     },
 };

@@ -60,9 +60,11 @@ return [
                 'hullType' => 'Sie können keine Baupläne von diesem Schiffstypen erstellen.',
                 'moduleMax' => 'Zu viele Module installiert.',
                 'modulesInvalid' => 'Sie haben für diesen Schiffstyp ungültige Module installiert.',
-                'className' => 'The class name supplied is not valid.'
+                'className' => 'Der Name für den Schiffstyp ist nicht gültig.',
+                'classNameUsed' => 'Der Name des Schiffstyps wird bereits verwendet.'
             ],
-        ]
+        ],
+        'blueprintSaved' => 'Bauplan gespeichert.'
     ],
 
     'fleets' => [
