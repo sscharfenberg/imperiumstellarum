@@ -13,9 +13,9 @@ class GameController extends Controller
     /**
      * @param Request $request
      * @param string $gameId
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\View\View
      */
-    public function show(Request $request, string $gameId): \Illuminate\Contracts\View\View
+    public function show(Request $request, string $gameId): \Illuminate\View\View
     {
         $gameNumber = Game::find($gameId)->number;
         return View::make('game.game', compact(['gameId', 'gameNumber']));

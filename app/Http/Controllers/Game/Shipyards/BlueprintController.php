@@ -109,22 +109,16 @@ class BlueprintController extends Controller
     }
 
     /**
-     * @function that creates the module string
+     * @function that creates the techLevels string
      * @param Player $player
-     * @param array $modules
      * @return string
      */
-    private function addTLsToBlueprint (Player $player, array $modules): string
+    private function addTLsToBlueprint (Player $player): string
     {
-        $tls = $player->techLevels;
-        $techAreas = array_keys(config('rules.tech.areas'));
-        $m = array_map(function($mod) use ($tls, $techAreas) {
-            if (in_array($mod, $techAreas)) {
-                return $mod.'-'.$tls->where('type', 'laser')->first()->level;
-            }
-            return $mod;
-        }, $modules);
-        return implode("  ", $m);
+        $tls = $player->techLevels->map(function($techLevel) {
+            return $techLevel->type."-".$techLevel->level;
+        })->toArray();
+        return implode("  ", $tls);
     }
 
     /**
@@ -178,7 +172,8 @@ class BlueprintController extends Controller
             'player_id' => $player->id,
             'game_id' => $player->game_id,
             'hull_type' => $hullType,
-            'modules' => $this->addTLsToBlueprint($player, $modules),
+            'modules' => implode("  ", $modules),
+            'tech_levels' => $this->addTLsToBlueprint($player),
             'name' => $name
         ]);
 

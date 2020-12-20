@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { calculateBlueprintCosts } from "./useDesignCalculations";
+import { calculateBlueprintCosts } from "Components/Ship/useShipCalculations";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";

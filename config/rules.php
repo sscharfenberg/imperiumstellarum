@@ -527,6 +527,7 @@ return [
             'max' => 10,
             'default' => 1
         ],
+        'tlFactor' => 10, // percentage that a techLevel > 0 increases damage / hitpoints
 
         /*
         |--------------------------------------------------------------------------
@@ -695,6 +696,7 @@ return [
         'hullTypes' => [
             'ark' => [
                 'slots' => 2,
+                'baseAcceleration' => 1,
                 'baseHp' => [
                     'structure' => 50,
                     'armour' => 50,
@@ -707,6 +709,7 @@ return [
             ],
             'small' => [
                 'slots' => 5,
+                'baseAcceleration' => 4,
                 'baseHp' => [
                     'structure' => 100,
                     'armour' => 100,
@@ -719,6 +722,7 @@ return [
             ],
             'medium' => [
                 'slots' => 6,
+                'baseAcceleration' => 3,
                 'baseHp' => [
                     'structure' => 150,
                     'armour' => 150,
@@ -731,6 +735,7 @@ return [
             ],
             'large' => [
                 'slots' => 7,
+                'baseAcceleration' => 2,
                 'baseHp' => [
                     'structure' => 225,
                     'armour' => 225,
@@ -743,6 +748,7 @@ return [
             ],
             'xlarge' => [
                 'slots' => 8,
+                'baseAcceleration' => 1,
                 'baseHp' => [
                     'structure' => 337,
                     'armour' => 337,
@@ -872,6 +878,7 @@ return [
             'hullType' => 'small',
             'moduleType' => 'engineering',
             'techType' => 'engine',
+            'acceleration' => 2,
             'costs' => [
                 'energy' => 25,
                 'minerals' => 25
@@ -958,6 +965,7 @@ return [
             'hullType' => 'medium',
             'moduleType' => 'engineering',
             'techType' => 'engine',
+            'acceleration' => 2,
             'costs' => [
                 'energy' => 37,
                 'minerals' => 37
@@ -1044,6 +1052,7 @@ return [
             'hullType' => 'large',
             'moduleType' => 'engineering',
             'techType' => 'engine',
+            'acceleration' => 1,
             'costs' => [
                 'energy' => 56,
                 'minerals' => 56
@@ -1130,6 +1139,7 @@ return [
             'hullType' => 'xlarge',
             'moduleType' => 'engineering',
             'techType' => 'engine',
+            'acceleration' => 1,
             'costs' => [
                 'energy' => 84,
                 'minerals' => 84

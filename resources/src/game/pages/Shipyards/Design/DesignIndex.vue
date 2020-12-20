@@ -2,8 +2,10 @@
 /******************************************************************************
  * PageComponent: DesignIndex
  *****************************************************************************/
+import { useStore } from "vuex";
+import { computed } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
-import DesignPreview from "./DesignPreview";
+import DesignPreview from "./Preview/DesignPreview";
 import DesignFormHullType from "./DesignFormHullType";
 import DesignFormClassName from "./DesignFormClassName";
 import DesignFormModules from "./Modules/DesignFormModules";
@@ -19,13 +21,22 @@ export default {
         DesignFormSave,
     },
     setup() {
-        return {};
+        const store = useStore();
+        const hullType = computed(() => store.state.shipyards.design.hullType);
+        const shipyards = computed(() => store.state.shipyards.shipyards);
+        return {
+            hullType,
+            shipyards,
+        };
     },
 };
 </script>
 
 <template>
-    <area-section :headline="$t('shipyards.design.title')">
+    <area-section
+        v-if="shipyards.length"
+        :headline="$t('shipyards.design.title')"
+    >
         <div class="design-section">
             <div class="form">
                 <design-form-hull-type />
@@ -33,29 +44,36 @@ export default {
                 <design-form-class-name />
                 <design-form-save />
             </div>
-            <design-preview />
+            <design-preview v-if="hullType && hullType.length" />
         </div>
     </area-section>
+    <div v-if="!shipyards.length">
+        <p>{{ $t("shipyards.none") }}</p>
+        <p>
+            <router-link class="text-link" :to="{ name: 'Empire' }">{{
+                $t("empire.title")
+            }}</router-link>
+        </p>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .design-section {
-    display: grid;
-
-    grid-gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
 
     @include respond-to("medium") {
-        grid-template-columns: 2fr 1fr;
-
-        grid-gap: 16px;
+        flex-wrap: nowrap;
     }
 }
 .form,
 .preview {
     padding: 8px;
+    flex: 0 0 100%;
 
     @include respond-to("medium") {
         padding: 16px;
+        flex: 1 0 calc(60% - 8px);
     }
 
     @include themed() {
@@ -66,8 +84,14 @@ export default {
 .preview {
     order: -1;
 
+    margin-bottom: 8px;
+    flex: 0 0 100%;
+
     @include respond-to("medium") {
         order: 0;
+
+        margin: 0 0 0 16px;
+        flex: 0 0 calc(40% - 8px);
     }
 }
 </style>

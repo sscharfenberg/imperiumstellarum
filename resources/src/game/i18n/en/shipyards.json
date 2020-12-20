@@ -1,12 +1,21 @@
 {
     "title": "Shipyards",
     "navTitle": "Shipyards",
+    "none": "Please construct a shipyard to design a blueprint or construct ships.",
     "hulls": {
         "ark": "Ark",
         "small": "Destroyer",
         "medium": "Cruiser",
         "large": "Battleship",
         "xlarge": "Capital ship"
+    },
+    "ship": {
+        "defense": "Defense",
+        "structure": "Structure",
+        "armour": "Armour",
+        "shields": "Shields",
+        "offense": "Offense",
+        "engineering": "Drives"
     },
     "design": {
         "navTitle": "Design",
@@ -33,6 +42,20 @@
             "headline": "Finalize and research blueprint",
             "costs": "Blueprint costs",
             "button": "finalize"
+        },
+        "preview": {
+            "headline": "Preview",
+            "type": "Ship type",
+            "name": "Ship class",
+            "dmg": {
+                "type": "Type",
+                "damage": "Damage",
+                "range": "Range"
+            },
+            "engineering": {
+                "jumpdrive": "Jumpdrive",
+                "acceleration": "Acceleration"
+            }
         }
     },
     "build": {

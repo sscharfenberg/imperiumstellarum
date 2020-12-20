@@ -21,7 +21,8 @@ class CreateBlueprintsTable extends Migration
             $table->uuid('game_id');
             $table->uuid('player_id');
             $table->enum('hull_type', array_keys(config('rules.ships.hullTypes')));
-            $table->string('modules', 200);
+            $table->string('modules', 100);
+            $table->string('tech_levels', 100);
             $table->string('name', 40);
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

@@ -13,9 +13,11 @@ export const initSubmitButton = () => {
     for (let i = 0; i < _forms.length; ++i) {
         _forms[i].addEventListener("submit", () => {
             const _button = _forms[i].querySelector(".app-btn--submit");
-            const _loading = _button.querySelector("svg.spinner");
-            _button.disabled = true;
-            _loading.style.display = "block";
+            if (_button) {
+                const _loading = _button.querySelector("svg.spinner");
+                _button.disabled = true;
+                _loading.style.display = "block";
+            }
         });
     }
 };

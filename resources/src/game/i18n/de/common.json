@@ -44,5 +44,9 @@
     "dropdown": {
         "placeHolder": "Bitte wählen",
         "searchPlaceHolder": "Tippen zum suchen"
+    },
+    "boolean": {
+        "yes": "Ja",
+        "no": "Nein"
     }
 }

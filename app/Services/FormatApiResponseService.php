@@ -172,6 +172,7 @@ class FormatApiResponseService {
             'id' => $blueprint->id,
             'hullType' => $blueprint->hull_type,
             'modules' => explode("  ", $blueprint->modules),
+            'tech_levels' => explode("  ", $blueprint->tech_levels),
             'name' => $blueprint->name
         ];
     }

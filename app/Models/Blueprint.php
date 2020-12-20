@@ -12,6 +12,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $id
  * @property string $hull_type
  * @property string $modules
+ * @property string $tech_levels
  * @property string $name
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
@@ -25,6 +26,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereHullType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereModules($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereTechLevels($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereName($value)
  * @mixin \Eloquent
  */
@@ -56,6 +58,7 @@ class Blueprint extends Model
         'player_id',
         'hull_type',
         'modules',
+        'tech_levels',
         'name'
     ];
 

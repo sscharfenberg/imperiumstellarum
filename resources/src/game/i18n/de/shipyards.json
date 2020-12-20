@@ -1,12 +1,21 @@
 {
     "title": "Werften",
     "navTitle": "Werften",
+    "none": "Bitte erreichten Sie eine Werft um einen Bauplan zu entwerfen oder Schiffe zu bauen.",
     "hulls": {
         "ark": "Arche",
         "small": "Zerstörer",
         "medium": "Kreuzer",
         "large": "Schlachtschiff",
         "xlarge": "Großkampfschiff"
+    },
+    "ship": {
+        "defense": "Defensive",
+        "structure": "Struktur",
+        "armour": "Panzerung",
+        "shields": "Schilde",
+        "offense": "Offensive",
+        "engineering": "Antrieb"
     },
     "design": {
         "navTitle": "Planen",
@@ -33,6 +42,20 @@
             "headline": "Bauplan abschließen und erforschen",
             "costs": "Kosten für Bauplan",
             "button": "Abschließen"
+        },
+        "preview": {
+            "headline": "Vorschau",
+            "type": "Schiffstyp",
+            "name": "Schiffsklasse",
+            "dmg": {
+                "type": "Typ",
+                "damage": "Schaden",
+                "range": "Reichweite"
+            },
+            "engineering": {
+                "jumpdrive": "Sprungtriebwerk",
+                "acceleration": "Beschleunigung"
+            }
         }
     },
     "build": {
