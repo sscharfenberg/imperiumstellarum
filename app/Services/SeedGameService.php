@@ -21,7 +21,7 @@ class SeedGameService {
      * @return string
      * @throws \Exception
      */
-    private function randomType (int $owner, array $conf)
+    private function randomType (int $owner, array $conf): string
     {
         $found = false;
         $chanceAccumulated = 0;
@@ -44,9 +44,10 @@ class SeedGameService {
 
     /**
      * @function create a random star name
+     * @return string
      * @throws \Exception
      */
-    private function randomStarName ()
+    private function randomStarName (): string
     {
         $starName = "";
         $length = random_int(5, 7);
@@ -67,7 +68,7 @@ class SeedGameService {
      * @return int
      * @throws \Exception
      */
-    private function getNumPlanets (string $spectral, bool $player)
+    private function getNumPlanets (string $spectral, bool $player): int
     {
         $rules = config('rules.planets.num.'. ($player ? 'player' : 'npc'));
         $planetsMod = config('rules.stars.types.'.$spectral.'.planetsMod');
@@ -86,7 +87,7 @@ class SeedGameService {
      * @return array
      * @throws \Exception
      */
-    private function randomPlanet (string $gameId, string $starId, int $orbitalIndex, $isPlayer)
+    private function randomPlanet (string $gameId, string $starId, int $orbitalIndex, $isPlayer): array
     {
         $planetType = $this->randomType(($isPlayer ? 2 : 1), config('rules.planets.types'));
         $slotRules = config('rules.planets.types.'.$planetType.'.resourceSlots');
@@ -126,6 +127,7 @@ class SeedGameService {
     /**
      * @function handle game seeding
      * @param Game $game
+     * @return void
      * @throws \Exception
      */
     public function seedStars (Game $game)
@@ -154,6 +156,7 @@ class SeedGameService {
     /**
      * @function seed planets
      * @param Game $game
+     * @return void
      * @throws \Exception
      */
     public function seedPlanets (Game $game)

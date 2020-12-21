@@ -54,8 +54,10 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $shipyards_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
  * @property-read int|null $researches_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprints[] $blueprints
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprint[] $blueprints
  * @property-read int|null $blueprints_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $blueprintTechLevel
+ * @property-read int|null $$blueprintTechLevels_count
  */
 class Game extends Model
 {
@@ -183,6 +185,14 @@ class Game extends Model
     public function blueprints()
     {
         return $this->hasMany('App\Models\Blueprint');
+    }
+
+    /**
+     * Get the blueprint tech levels for this game
+     */
+    public function blueprintTechLevels()
+    {
+        return $this->hasMany('App\Models\BlueprintTechLevel');
     }
 
 }

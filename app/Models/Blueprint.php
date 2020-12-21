@@ -12,12 +12,13 @@ use App\Http\Traits\UsesUuid;
  * @property string $id
  * @property string $hull_type
  * @property string $modules
- * @property string $tech_levels
  * @property string $name
- * @property-read \App\Models\Game $game
- * @property-read \App\Models\Player $player
+ * @property string $game_id
+ * @property string $player_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Game $game
+ * @property-read \App\Models\Player $player
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint query()
@@ -26,8 +27,11 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereHullType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereModules($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereTechLevels($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $blueprintTechLevel
+ * @property-read int|null $$blueprintTechLevels_count
  * @mixin \Eloquent
  */
 class Blueprint extends Model
@@ -58,7 +62,6 @@ class Blueprint extends Model
         'player_id',
         'hull_type',
         'modules',
-        'tech_levels',
         'name'
     ];
 
@@ -76,6 +79,14 @@ class Blueprint extends Model
     public function player()
     {
         return $this->belongsTo('App\Models\Player');
+    }
+
+    /**
+     * Get the tech levels for this blueprint
+     */
+    public function techLevels()
+    {
+        return $this->hasMany('App\Models\BlueprintTechLevel');
     }
 
 }

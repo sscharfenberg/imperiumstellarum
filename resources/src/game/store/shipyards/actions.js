@@ -49,7 +49,7 @@ export default {
         window.axios
             .post(`/api/game/${getGameId()}/shipyards/blueprint`, payload)
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 200 && response.data.blueprint) {
                     commit("ADD_BLUEPRINT", response.data.blueprint);
                     commit("SET_RESOURCES", response.data.resources, {
                         root: true,

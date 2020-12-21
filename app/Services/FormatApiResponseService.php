@@ -168,11 +168,15 @@ class FormatApiResponseService {
      */
     public function formatBlueprint (Blueprint $blueprint): array
     {
+        $tls = [];
+        foreach($blueprint->techLevels as $tl) {
+            $tls[$tl->type] = $tl->level; // this is shorter than { type: laser, level: 3 }
+        }
         return [
             'id' => $blueprint->id,
             'hullType' => $blueprint->hull_type,
             'modules' => explode("  ", $blueprint->modules),
-            'tech_levels' => explode("  ", $blueprint->tech_levels),
+            'techLevels' => $tls,
             'name' => $blueprint->name
         ];
     }

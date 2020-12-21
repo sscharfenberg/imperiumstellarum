@@ -32,6 +32,7 @@ class CreateResearchTable extends Migration
                 ->onDelete('cascade');
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

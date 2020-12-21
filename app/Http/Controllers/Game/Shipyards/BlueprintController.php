@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Game\Shipyards;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blueprint;
+use App\Models\BlueprintTechLevel;
 use App\Models\Player;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\Request;
@@ -109,19 +110,6 @@ class BlueprintController extends Controller
     }
 
     /**
-     * @function that creates the techLevels string
-     * @param Player $player
-     * @return string
-     */
-    private function addTLsToBlueprint (Player $player): string
-    {
-        $tls = $player->techLevels->map(function($techLevel) {
-            return $techLevel->type."-".$techLevel->level;
-        })->toArray();
-        return implode("  ", $tls);
-    }
-
-    /**
      * @function create a new blueprint from xhr request
      * @param Request $request
      * @return JsonResponse
@@ -173,9 +161,18 @@ class BlueprintController extends Controller
             'game_id' => $player->game_id,
             'hull_type' => $hullType,
             'modules' => implode("  ", $modules),
-            'tech_levels' => $this->addTLsToBlueprint($player),
             'name' => $name
         ]);
+        // create tech levels for the blueprint
+        $playerTechLevels = $player->techLevels;
+        foreach(array_keys(config('rules.tech.areas')) as $type) {
+            BlueprintTechLevel::create([
+                'game_id' => $player->game_id,
+                'blueprint_id' => $blueprint->id,
+                'type' => $type,
+                'level' => $playerTechLevels->where('type', $type)->first()->level
+            ]);
+        }
 
         return response()->json([
             'blueprint' => $f->formatBlueprint($blueprint),

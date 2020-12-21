@@ -90,7 +90,7 @@ export default {
             <icon name="tech-ftl" />
             {{ $t("common.boolean.yes") }}
         </li>
-        <li v-if="!modules.includes('ftl')" class="has-icon">
+        <li v-if="!modules.includes('ftl')" class="has-icon warning">
             {{ $t("common.boolean.no") }}
         </li>
         <li>{{ $t("shipyards.design.preview.engineering.acceleration") }}</li>
@@ -177,6 +177,12 @@ export default {
                     t("g-deep"),
                     t("g-raven")
                 );
+            }
+        }
+
+        &.warning {
+            @include themed() {
+                border-color: t("s-warning");
             }
         }
     }

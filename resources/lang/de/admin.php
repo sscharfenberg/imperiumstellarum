@@ -213,7 +213,7 @@ return [
         'seed' => [
             'navTitle' => 'g:game Karte',
             'title' => 'Erzeuge Karte für g:game',
-            'headline' => 'Erzeugen Kartenvorschau',
+            'headline' => 'Kartenvorschau erzeugen',
             'intro' => 'Erzeuge eine Vorschaukarte. Sobald Sie mit dem Ergebnis zufrieden sind, speichern Sie die Ergebnisse lassen den Server Sterne und Planeten erzeugen.',
             'dimensionsLabel' => 'Kartengröße',
             'dimensionsPlaceholder' => 'Kartengröße angeben',

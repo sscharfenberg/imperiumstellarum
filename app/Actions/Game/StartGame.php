@@ -4,6 +4,8 @@ namespace App\Actions\Game;
 
 use App\Models\Game;
 use App\Models\Planet;
+use App\Models\Player;
+use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Turn;
 use Carbon\Carbon;
@@ -31,9 +33,10 @@ class StartGame
      * @function select the starting colony from the planets of a star
      * by scoring resourceslots/values
      * @param Star $star
+     * @param Player $player
      * @return void
      */
-    public function seedPlayerColony (Star $star)
+    public function seedPlayerColony (Star $star, Player $player)
     {
         $planets = $star->planets()->get();
         $highest = 0;
@@ -55,7 +58,18 @@ class StartGame
         $colony->population = 10;
         $colony->save();
         Log::info('Chose Planet '.$colony->orbital_index.' as starting colony.');
-        // TODO: starting shipyard
+
+        // create starting shipyard
+        $shipyard = Shipyard::create([
+            'planet_id' => $colony->id,
+            'game_id' => $star->game->id,
+            'player_id' => $player->id,
+            'type' => array_keys(config('rules.shipyards.hullTypes'))[0],
+            'until_complete' => 0,
+        ]);
+        Log::info("Created starting shipyard for player $player->ticker ".json_encode($shipyard, JSON_PRETTY_PRINT));
+
+        // TODO: Ark blueprint, Destroyer Blueprint? Ships?
     }
 
     /**
@@ -81,7 +95,7 @@ class StartGame
             $playerHome->player_id = $player->id;
             $playerHome->save();
             Log::info('Chose Star '.$playerHome->name.' as player starting system.');
-            $this->seedPlayerColony($playerHome);
+            $this->seedPlayerColony($playerHome, $player);
         }
     }
 
