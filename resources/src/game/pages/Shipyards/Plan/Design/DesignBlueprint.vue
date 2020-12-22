@@ -1,6 +1,6 @@
 <script>
 /******************************************************************************
- * PageComponent: DesignIndex
+ * PageComponent: DesignBlueprint
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -11,7 +11,7 @@ import DesignFormClassName from "./DesignFormClassName";
 import DesignFormModules from "./Modules/DesignFormModules";
 import DesignFormSave from "./DesignFormSave";
 export default {
-    name: "DesignIndex",
+    name: "DesignBlueprint",
     components: {
         AreaSection,
         DesignFormHullType,

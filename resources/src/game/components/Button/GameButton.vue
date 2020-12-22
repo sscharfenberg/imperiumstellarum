@@ -22,6 +22,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        hideTextForMobile: {
+            type: Boolean,
+            default: false,
+        },
     },
     components: { Icon, Loading },
     setup(props) {
@@ -29,6 +33,10 @@ export default {
             let typeClass = props.primary ? "btn--primary " : "";
             typeClass +=
                 props.iconName && !props.textString ? "btn--icon" : "btn--text";
+            typeClass +=
+                props.hideTextForMobile && props.textString && props.iconName
+                    ? " mobile-hide"
+                    : "";
             return typeClass;
         });
         const sizeClass = computed(() => {
@@ -127,7 +135,7 @@ $btnBaseHeight: 34px;
     }
 
     &.small {
-        height: 3px;
+        height: 30px;
     }
 
     &.large {
@@ -136,7 +144,7 @@ $btnBaseHeight: 34px;
         font-size: 2px;
     }
 
-    &--text {
+    &--text:not(.mobile-hide) {
         > svg {
             margin-right: 5px;
         }
@@ -144,6 +152,26 @@ $btnBaseHeight: 34px;
 
     > span {
         line-height: 1;
+    }
+
+    &.mobile-hide {
+        padding: 0 8px;
+
+        @include respond-to("medium") {
+            padding: 0 12px 0 8px;
+
+            > svg {
+                margin-right: 5px;
+            }
+        }
+
+        > span {
+            display: none;
+
+            @include respond-to("medium") {
+                display: inline;
+            }
+        }
     }
 
     &--icon {

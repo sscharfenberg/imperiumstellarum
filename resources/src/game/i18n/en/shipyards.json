@@ -58,7 +58,19 @@
             }
         }
     },
-    "build": {
+    "manage": {
+        "title": "Manage blueprints",
+        "collapsible": "{type} Blueprints",
+        "blueprintName": "'{className}' Class {hullType}",
+        "preview": "Preview",
+        "rename": "Rename",
+        "delete": "Delete",
+        "deleteModal": {
+            "title": "Delete Blueprint '{name}'?",
+            "question": "Are you sure you want to delete this blueprint? The research cost of the blueprint will be lost, existing ships that are based on this blueprint are not affected."
+        }
+    },
+    "construct": {
         "navTitle": "Build",
         "title": "Build ships"
     }

@@ -58,7 +58,19 @@
             }
         }
     },
-    "build": {
+    "manage": {
+        "title": "Baupläne verwalten",
+        "collapsible": "{type} Baupläne",
+        "blueprintName": "{hullType} der Klasse '{className}'",
+        "preview": "Vorschau",
+        "rename": "Umbenennen",
+        "delete": "Löschen",
+        "deleteModal": {
+            "title": "Bauplan '{name}' löschen?",
+            "question": "Sind Sie sicher das Sie diesen Bauplan löschen wollen? Die Forschungskosten des Bauplans gehen dann verloren; existierende Schiffe die auf diesem Bauplan basieren werden davon nicht beeinträchtigt."
+        }
+    },
+    "construct": {
         "navTitle": "Konstruieren",
         "title": "Schiffe konstruieren"
     }

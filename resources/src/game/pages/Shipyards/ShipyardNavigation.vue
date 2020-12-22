@@ -39,7 +39,7 @@ export default {
             :class="{ active: pageIndex === 1 }"
         >
             <icon name="shipyards" />
-            {{ $t("shipyards.build.navTitle") }}
+            {{ $t("shipyards.construct.navTitle") }}
         </button>
     </nav>
 </template>
@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .shipard-nav {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 
     padding: 0;
     margin: 0 0 8px 0;
@@ -61,6 +61,10 @@ export default {
     }
 
     &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         padding: 8px;
         border: 2px solid transparent;
 

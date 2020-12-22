@@ -21,7 +21,7 @@ export default {
 <template>
     <area-section
         v-if="shipyards.length"
-        :headline="$t('shipyards.build.title')"
+        :headline="$t('shipyards.construct.title')"
     >
         fuddel
     </area-section>
