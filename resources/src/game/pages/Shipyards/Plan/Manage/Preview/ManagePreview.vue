@@ -27,7 +27,6 @@ export default {
             return tls;
         });
         const onCancel = () => {
-            console.log("clicked on cancel!");
             store.commit("shipyards/RESET_MANAGE_BLUEPRINT_PREVIEW");
         };
         return {

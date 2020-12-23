@@ -6,6 +6,7 @@
 |--------------------------------------------------------------------------
 |
 | This config file contains all game-related rules.
+| These rules are available to the client as a global JS object 'window.rules'
 |
 */
 
@@ -17,7 +18,7 @@ return [
     | Rules for Players
     |--------------------------------------------------------------------------
     |
-     */
+    */
 
     'player' => [
         'name' => [
@@ -760,9 +761,23 @@ return [
                 ]
             ]
         ],
+    ],
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for Ship Blueprints
+    |--------------------------------------------------------------------------
+    |
+    */
+    'blueprints' => [
         'className' => [
-            'min' => 4,
+            'min' => 3,
             'max' => 40
+        ],
+        'num' => [
+            'max' => 20, // hardcap maximum
+            'factor' => 0.7 // totalPopulation * factor is the max of a player
         ]
     ],
 
@@ -794,7 +809,8 @@ return [
             'techType' => 'colony',
             'costs' => [
                 'energy' => 50,
-                'minerals' => 50
+                'minerals' => 50,
+                'population' => 0.5
             ]
         ],
 

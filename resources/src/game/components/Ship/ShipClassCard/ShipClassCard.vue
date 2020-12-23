@@ -7,6 +7,7 @@ import {
     calculateEffectiveHitpoints,
     calculateShipDamage,
     calculateAcceleration,
+    calculateShipCosts,
 } from "../useShipCalculations";
 import Icon from "Components/Icon/Icon";
 import DamageType from "./DamageType";
@@ -34,11 +35,15 @@ export default {
             calculateAcceleration(props.hullType, props.modules)
         );
         const ftl = computed(() => props.modules.includes("ftl"));
+        const resourceCosts = computed(() =>
+            calculateShipCosts(props.hullType, props.modules)
+        );
         return {
             hp,
             dmg,
             acceleration,
             ftl,
+            resourceCosts,
         };
     },
 };
@@ -101,6 +106,26 @@ export default {
         <li class="has-icon">
             <icon name="tech-engine" />
             {{ acceleration }}g
+        </li>
+        <li v-if="resourceCosts.population" class="label">
+            {{ $t("research.tl.colony") }}
+        </li>
+        <li v-if="resourceCosts.population" class="has-icon">
+            <icon name="population" />
+            {{ resourceCosts.population }}
+        </li>
+        <li class="section">
+            {{ $t("shipyards.design.preview.costs") }}
+        </li>
+        <li class="resources">
+            <div
+                v-for="[type, value] of Object.entries(resourceCosts)"
+                :key="type"
+            >
+                {{ value }}
+                <icon v-if="type !== 'population'" :name="`res-${type}`" />
+                <icon v-if="type === 'population'" name="population" />
+            </div>
         </li>
     </ul>
 </template>
@@ -199,6 +224,36 @@ export default {
 
             white-space: nowrap;
             text-overflow: ellipsis;
+        }
+
+        &.resources {
+            display: flex;
+            align-items: center;
+            grid-column-start: span 2;
+
+            padding: 0;
+
+            > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 4px 8px;
+                border-right: 1px solid transparent;
+
+                @include respond-to("medium") {
+                    padding: 8px 16px;
+                }
+
+                @include themed() {
+                    background-color: t("g-sunken");
+                    border-color: t("g-deep");
+                }
+
+                .icon {
+                    margin-left: 8px;
+                }
+            }
         }
     }
 }

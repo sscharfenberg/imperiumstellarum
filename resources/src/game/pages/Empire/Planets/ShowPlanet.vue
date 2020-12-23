@@ -49,7 +49,7 @@ export default {
                 :planet-id="planetId"
                 v-if="planet.resources.length"
             />
-            <shipyard-slot :planet-id="planetId" />
+            <shipyard-slot v-if="planet.population" :planet-id="planetId" />
         </div>
     </li>
 </template>

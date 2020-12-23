@@ -44,6 +44,16 @@ export default {
     },
 
     /**
+     * @function SET maximum number of blueprints
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Number} payload
+     * @constructor
+     */
+    SET_BP_MAX: (state, payload) => {
+        state.bpMax = payload;
+    },
+
+    /**
      * @function SET shipyard page
      * @param {Object} state - vuex module "shipyards" state
      * @param {Number} payload
@@ -54,9 +64,9 @@ export default {
         saveState(state.page, "shipyardPage");
     },
 
-    /**
+    /**************************************************************************
      * DESIGN BLUEPRINTS MUTATIONS
-     */
+     *************************************************************************/
 
     /**
      * @function SET DESIGN hulltype
@@ -129,9 +139,9 @@ export default {
         state.design.modules = [];
     },
 
-    /**
+    /**************************************************************************
      * MANAGE BLUEPRINT mutations
-     */
+     *************************************************************************/
 
     /**
      * @function SET MANAGE BLUEPRINT preview

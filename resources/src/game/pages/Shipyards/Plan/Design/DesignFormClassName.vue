@@ -29,6 +29,7 @@ export default {
                 ? i18n.t("shipyards.design.className.readonly")
                 : i18n.t("shipyards.design.className.randomize")
         );
+        const classNameLength = window.rules.blueprints.className;
 
         // enable and show component?
         const componentIsEnabled = computed(
@@ -68,6 +69,7 @@ export default {
             onRandomize,
             isDisabled,
             btnLabel,
+            classNameLength,
         };
     },
 };
@@ -85,6 +87,8 @@ export default {
             class="form-control"
             :placeholder="$t('shipyards.design.className.placeHolder')"
             :aria-placeholder="$t('shipyards.design.className.placeHolder')"
+            :minlength="classNameLength.min"
+            :maxlength="classNameLength.max"
         />
         <button
             class="randomize"

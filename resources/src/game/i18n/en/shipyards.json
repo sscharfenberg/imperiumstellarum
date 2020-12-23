@@ -15,7 +15,7 @@
         "armour": "Armour",
         "shields": "Shields",
         "offense": "Offense",
-        "engineering": "Drives"
+        "engineering": "Engineering"
     },
     "design": {
         "navTitle": "Design",
@@ -41,7 +41,7 @@
         "save": {
             "headline": "Finalize and research blueprint",
             "costs": "Blueprint costs",
-            "button": "finalize"
+            "button": "Finalize"
         },
         "preview": {
             "headline": "Preview",
@@ -55,7 +55,8 @@
             "engineering": {
                 "jumpdrive": "Jumpdrive",
                 "acceleration": "Acceleration"
-            }
+            },
+            "costs": "Build costs"
         }
     },
     "manage": {

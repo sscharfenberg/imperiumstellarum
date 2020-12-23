@@ -10,9 +10,12 @@ use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\Game\UsesTotalPopulation;
 
 class ShipyardsController extends Controller
 {
+
+    use UsesTotalPopulation;
 
     /**
      * @function answer request for a random name
@@ -62,6 +65,9 @@ class ShipyardsController extends Controller
         $defaultApiData = $a->defaultData($request);
         $user = Auth::user();
         $player = $user->players->find($user->selected_player);
+        $numMaxBps = $this->getTotalPopulation($player) * config('rules.blueprints.num.factor');
+        $max = config('rules.blueprints.num.max');
+        if ($numMaxBps > $max) $numMaxBps = $max;
 
         $f = new FormatApiResponseService;
         $returnData = [
@@ -74,6 +80,7 @@ class ShipyardsController extends Controller
             'blueprints' => $player->blueprints->map(function ($blueprint) use ($f) {
                 return $f->formatBlueprint($blueprint);
             }),
+            'numMaxBlueprints' => round($numMaxBps),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

@@ -136,6 +136,7 @@ export default {
     margin: 0 6px 6px 0;
 
     background: transparent;
+    outline: 0;
     cursor: pointer;
 
     font-size: 15px;

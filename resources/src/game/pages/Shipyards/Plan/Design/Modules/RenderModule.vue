@@ -16,9 +16,9 @@ export default {
     setup(props, { emit }) {
         const onClick = () => {
             if (props.remove) {
-                emit("remove-module", props.stub);
+                emit("remove-module");
             } else {
-                emit("add-module", props.stub);
+                emit("add-module");
             }
         };
         return {

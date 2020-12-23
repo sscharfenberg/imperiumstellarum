@@ -15,7 +15,7 @@
         "armour": "Panzerung",
         "shields": "Schilde",
         "offense": "Offensive",
-        "engineering": "Antrieb"
+        "engineering": "Technik"
     },
     "design": {
         "navTitle": "Planen",
@@ -55,7 +55,8 @@
             "engineering": {
                 "jumpdrive": "Sprungtriebwerk",
                 "acceleration": "Beschleunigung"
-            }
+            },
+            "costs": "Baukosten"
         }
     },
     "manage": {

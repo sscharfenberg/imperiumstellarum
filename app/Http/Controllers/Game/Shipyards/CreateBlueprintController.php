@@ -11,9 +11,26 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ResourceService;
+use App\Http\Traits\Game\UsesTotalPopulation;
 
 class CreateBlueprintController extends Controller
 {
+
+    use UsesTotalPopulation;
+
+    /**
+     * @function verifies that the player has room for another blueprint
+     * @param Player $player
+     * @return bool
+     */
+    private function blueprintMaxNotReached (Player $player): bool
+    {
+        $numBps = count($player->blueprints);
+        $numMaxBps = $this->getTotalPopulation($player) * config('rules.blueprints.num.factor');
+        $max = config('rules.blueprints.num.max');
+        if ($numMaxBps > $max) $numMaxBps = $max;
+        return $numBps < $numMaxBps;
+    }
 
     /**
      * @function check if the hullType exists and the player has a shipyard that can build these ships.
@@ -69,8 +86,8 @@ class CreateBlueprintController extends Controller
     private function isClassNameValid (string $name): bool
     {
         return is_string($name)
-            && strlen($name) >= config('rules.ships.className.min')
-            && strlen($name) <= config('rules.ships.className.max');
+            && strlen($name) >= config('rules.blueprints.className.min')
+            && strlen($name) <= config('rules.blueprints.className.max');
     }
 
     /**
@@ -125,6 +142,10 @@ class CreateBlueprintController extends Controller
         $f = new FormatApiResponseService;
 
         // verification
+        if (!$this->blueprintMaxNotReached($player)) {
+            return response()
+                ->json(['error' => __('game.shipyards.errors.blueprint.bpMax')], 419);
+        }
         if (!$this->isHullTypeValid($hullType, $player)) {
             return response()
                 ->json(['error' => __('game.shipyards.errors.blueprint.hullType')], 419);

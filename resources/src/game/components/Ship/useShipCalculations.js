@@ -4,7 +4,7 @@
  * @param {Array} modules - Array of module techTypes
  * @returns {Object} - Costs Object
  */
-export const calculateBlueprintCosts = (hullType, modules) => {
+export const calculateShipCosts = (hullType, modules) => {
     // start with costs for hull
     const costs = {
         energy: window.rules.ships.hullTypes[hullType].costs.energy,
@@ -17,7 +17,20 @@ export const calculateBlueprintCosts = (hullType, modules) => {
         ).costs;
         costs.energy += modRules.energy;
         costs.minerals += modRules.minerals;
+        // if the module costs population (colony), add it to costs object
+        if (modRules.population) costs.population = modRules.population;
     });
+    return costs;
+};
+
+/**
+ * @function calculate research costs for the blueprint
+ * @param {String} hullType
+ * @param {Array} modules - Array of module techTypes
+ * @returns {Object} - Costs Object
+ */
+export const calculateBlueprintCosts = (hullType, modules) => {
+    const costs = calculateShipCosts(hullType, modules);
     // return 10% of minerals+energy as research costs
     return {
         research: Math.round((costs.energy + costs.minerals) * 0.1),

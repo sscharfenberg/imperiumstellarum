@@ -19,15 +19,27 @@ export default {
     setup() {
         const store = useStore();
         const blueprints = computed(() => store.state.shipyards.blueprints);
-        const hullTypes = computed(() =>
-            blueprints.value
-                .map((b) => b.hullType) // pass an array that only contains hullTypes
-                // check if it is the first index, so we pass only uniques.
-                .filter((value, index, self) => self.indexOf(value) === index)
-        );
+        const hullTypes = computed(() => {
+            // prepare array of preferred sort order
+            const order = Object.keys(window.rules.ships.hullTypes);
+            return (
+                blueprints.value
+                    .map((b) => b.hullType) // pass an array that only contains hullTypes
+                    // check if it is the first index, so we pass only uniques.
+                    .filter(
+                        (value, index, self) => self.indexOf(value) === index
+                    )
+                    // sort hullTypes according to our preferred sort order (ascending)
+                    .sort((a, b) => {
+                        return order.indexOf(a) - order.indexOf(b);
+                    })
+            );
+        });
         const requesting = computed(() => store.state.shipyards.requesting);
         const preview = computed(() => store.state.shipyards.preview);
+        const bpMax = computed(() => store.state.shipyards.bpMax);
         return {
+            bpMax,
             blueprints,
             hullTypes,
             requesting,
@@ -39,7 +51,9 @@ export default {
 
 <template>
     <area-section
-        :headline="$t('shipyards.manage.title')"
+        :headline="`${$t('shipyards.manage.title')} (${
+            blueprints.length
+        }/${bpMax})`"
         v-if="blueprints.length"
         :requesting="requesting"
     >

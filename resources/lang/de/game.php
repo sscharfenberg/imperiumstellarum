@@ -46,6 +46,7 @@ return [
             'shipyard' => [
                 'owner' => 'Sie sind nicht der Besitzer dieses Planeten.',
                 'alreadyInstalled' => 'Auf diesem Planeten gibt es bereits eine Werft.',
+                'population' => 'Werften können nur auf Planeten mit Bevölkerung errichtet werden.',
                 'noUpgrade' => 'Das ist keine gültige Aufrüstung der Werft.'
             ]
         ],
@@ -57,6 +58,7 @@ return [
         'navTitle' => 'Werften',
         'errors' => [
             'blueprint' => [
+                'bpMax' => 'Sie haben bereits die maximal mögliche Anzahl an Bauplänen.',
                 'hullType' => 'Sie können keine Baupläne von diesem Schiffstypen erstellen.',
                 'moduleMax' => 'Zu viele Module installiert.',
                 'modulesInvalid' => 'Sie haben für diesen Schiffstyp ungültige Module installiert.',

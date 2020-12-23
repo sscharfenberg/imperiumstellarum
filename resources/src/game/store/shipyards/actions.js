@@ -24,6 +24,7 @@ export default {
                     commit("SET_SHIPYARDS", response.data.shipyards);
                     commit("SET_TECHLEVELS", response.data.techLevels);
                     commit("SET_BLUEPRINTS", response.data.blueprints);
+                    commit("SET_BP_MAX", response.data.numMaxBlueprints);
                 }
             })
             .catch((e) => {

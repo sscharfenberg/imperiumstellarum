@@ -25,7 +25,11 @@ export default {
         const hullType = computed(() => store.state.shipyards.design.hullType);
         const shipyards = computed(() => store.state.shipyards.shipyards);
         const requesting = computed(() => store.state.shipyards.requesting);
+        const bpMax = computed(() => store.state.shipyards.bpMax);
+        const numBps = computed(() => store.state.shipyards.blueprints.length);
         return {
+            bpMax,
+            numBps,
             hullType,
             shipyards,
             requesting,
@@ -36,8 +40,8 @@ export default {
 
 <template>
     <area-section
-        v-if="shipyards.length"
-        :headline="$t('shipyards.design.title')"
+        v-if="shipyards.length && numBps < bpMax"
+        :headline="`${$t('shipyards.design.title')} (${numBps}/${bpMax})`"
         :requesting="requesting"
     >
         <div class="design-section">

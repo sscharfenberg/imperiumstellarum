@@ -46,6 +46,7 @@ return [
             'shipyard' => [
                 'owner' => 'You do not own this planet.',
                 'alreadyInstalled' => 'There is already a shipyard on this planet.',
+                'population' => 'Shipyards can only be installed on a planet with population.',
                 'noUpgrade' => 'This is not a valid shipyard upgrade.'
             ]
         ],
@@ -57,6 +58,7 @@ return [
         'navTitle' => 'Shipyards',
         'errors' => [
             'blueprint' => [
+                'bpMax' => 'You already have the maximum number of blueprints',
                 'hullType' => 'You can\'t create blueprints with this hull type.',
                 'moduleMax' => 'Too many modules installed.',
                 'modulesInvalid' => 'You have installed invalid modules for this hull type.',

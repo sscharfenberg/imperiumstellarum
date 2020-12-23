@@ -30,6 +30,16 @@ class ShipyardController extends Controller
     }
 
     /**
+     * @function verify the planet has a population
+     * @param Planet $planet
+     * @return bool
+     */
+    private function planetHasPopulation(Planet $planet): bool
+    {
+        return $planet->population > 0;
+    }
+
+    /**
      * @function verify the planet does not already have a shipyard
      * @param Planet $planet
      * @return bool
@@ -83,6 +93,10 @@ class ShipyardController extends Controller
         if (!$this->shipyardInstallable($planet)) {
             return response()
                 ->json(['error' => __('game.empire.errors.shipyard.alreadyInstalled')], 419);
+        }
+        if (!$this->planetHasPopulation($planet)) {
+            return response()
+                ->json(['error' => __('game.empire.errors.shipyard.population')], 419);
         }
         if (!$r->playerCanAfford($player, $costs)) {
             return response()

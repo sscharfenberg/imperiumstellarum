@@ -94,7 +94,8 @@ class ResourceService {
                     return $c['hullType'] === $hullType && $c['techType'] === $mod;
                 })->first()['costs'];
             foreach($moduleCosts as $key => $value) {
-                $costs[$key] += $value;
+                if ($key !== 'population') $costs[$key] += $value;
+                if ($key === 'population') $costs[$key] = $value;
             }
         }
         return $costs;

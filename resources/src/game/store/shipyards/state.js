@@ -15,6 +15,7 @@ export default {
     page: savedState.shipyardPage || 0,
     techLevels: [],
     blueprints: [],
+    bpMax: 0,
     design: {
         hullType: "",
         className: "",
