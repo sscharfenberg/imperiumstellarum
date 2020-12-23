@@ -2,7 +2,8 @@
 /******************************************************************************
  * PageComponent: SingleBlueprint
  *****************************************************************************/
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import DeleteBlueprintModal from "./DeleteBlueprintModal";
 export default {
@@ -14,33 +15,61 @@ export default {
         hullType: String,
     },
     setup(props) {
+        const store = useStore();
         const showDeleteModal = ref(false);
+        const blueprint = computed(() =>
+            store.getters["shipyards/blueprintById"](props.id)
+        );
+        const isPreviewing = computed(
+            () => props.id === store.state.shipyards.preview.id
+        );
         const onPreview = () => {
-            console.log("do preview of blueprint", props.id);
+            store.commit("shipyards/SET_MANAGE_BLUEPRINT_PREVIEW", {
+                id: blueprint.value.id,
+                hullType: props.hullType,
+                className: props.className,
+                modules: blueprint.value.modules,
+                techLevels: blueprint.value.techLevels,
+            });
+        };
+        const onCancelPreview = () => {
+            store.commit("shipyards/RESET_MANAGE_BLUEPRINT_PREVIEW");
         };
         const onRename = () => {
             console.log("do rename of class", props.id);
         };
         return {
             onPreview,
+            onCancelPreview,
             onRename,
             showDeleteModal,
+            isPreviewing,
         };
     },
 };
 </script>
 
 <template>
-    <li class="blueprint__item">
+    <li class="blueprint__item" :class="{ active: isPreviewing }">
         <span>
             {{ className }}
         </span>
         <game-button
+            v-if="!isPreviewing"
             icon-name="search"
             :text-string="$t('shipyards.manage.preview')"
             :size="1"
             :hide-text-for-mobile="true"
             @click="onPreview"
+        />
+        <game-button
+            v-if="isPreviewing"
+            icon-name="cancel"
+            :text-string="$t('shipyards.manage.cancelPreview')"
+            :size="1"
+            :hide-text-for-mobile="true"
+            :primary="true"
+            @click="onCancelPreview"
         />
         <game-button
             icon-name="edit"
@@ -80,6 +109,13 @@ export default {
 
     @include themed() {
         border-color: t("g-deep");
+    }
+
+    &.active {
+        @include themed() {
+            background-color: t("g-deep");
+            border-color: t("g-abbey");
+        }
     }
 
     &:last-of-type {

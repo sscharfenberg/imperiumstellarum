@@ -63,6 +63,7 @@
         "collapsible": "{type} Baupläne",
         "blueprintName": "{hullType} der Klasse '{className}'",
         "preview": "Vorschau",
+        "cancelPreview": "Abbrechen",
         "rename": "Umbenennen",
         "delete": "Löschen",
         "deleteModal": {

@@ -13,7 +13,7 @@ export default {
     },
     components: { Modal, GameButton },
     emits: ["close"],
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
         const blueprint = computed(() =>
             store.getters["shipyards/blueprintById"](props.blueprintId)
@@ -22,6 +22,7 @@ export default {
             store.dispatch("shipyards/DELETE_BLUEPRINT", {
                 id: props.blueprintId,
             });
+            emit("close");
         };
         return {
             onSubmit,

@@ -2,20 +2,29 @@
 /******************************************************************************
  * Component: SubHeadline
  *****************************************************************************/
+import { computed } from "vue";
 export default {
     name: "SubHeadline",
     props: {
         headline: String,
     },
-    setup() {
-        return {};
+    setup(props, { slots }) {
+        const showSlot = computed(() => slots.default);
+        return {
+            showSlot,
+        };
     },
 };
 </script>
 
 <template>
     <header>
-        <h1>{{ headline }}</h1>
+        <h1>
+            {{ headline }}
+            <span v-if="showSlot" class="aside">
+                <slot></slot>
+            </span>
+        </h1>
     </header>
 </template>
 
@@ -52,6 +61,16 @@ header h1 {
                 t("b-christine")
             );
         }
+
+        @include respond-to("medium") {
+            margin-left: 16px;
+        }
+    }
+
+    .aside {
+        order: 3;
+
+        margin-left: 8px;
 
         @include respond-to("medium") {
             margin-left: 16px;

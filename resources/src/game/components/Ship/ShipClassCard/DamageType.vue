@@ -19,14 +19,14 @@ export default {
 </script>
 
 <template>
-    <li>{{ $t("shipyards.design.preview.dmg.type") }}</li>
+    <li class="label">{{ $t("shipyards.design.preview.dmg.type") }}</li>
     <li class="has-icon">
         <icon :name="`tech-${type}`" />
         {{ type }}
     </li>
-    <li>{{ $t("shipyards.design.preview.dmg.damage") }}</li>
+    <li class="label">{{ $t("shipyards.design.preview.dmg.damage") }}</li>
     <li>{{ dmg }}</li>
-    <li>{{ $t("shipyards.design.preview.dmg.range") }}</li>
+    <li class="label">{{ $t("shipyards.design.preview.dmg.range") }}</li>
     <li>{{ range }}</li>
     <li class="divider" v-if="useDivider"></li>
 </template>

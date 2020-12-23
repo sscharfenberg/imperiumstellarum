@@ -63,6 +63,7 @@
         "collapsible": "{type} Blueprints",
         "blueprintName": "'{className}' Class {hullType}",
         "preview": "Preview",
+        "cancelPreview": "Cancel",
         "rename": "Rename",
         "delete": "Delete",
         "deleteModal": {

@@ -7,9 +7,15 @@ import { computed } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import SingleBlueprint from "./SingleBlueprint";
+import ManagePreview from "./Preview/ManagePreview";
 export default {
     name: "ManageBlueprints",
-    components: { AreaSection, CollapsibleItem, SingleBlueprint },
+    components: {
+        AreaSection,
+        CollapsibleItem,
+        SingleBlueprint,
+        ManagePreview,
+    },
     setup() {
         const store = useStore();
         const blueprints = computed(() => store.state.shipyards.blueprints);
@@ -20,10 +26,12 @@ export default {
                 .filter((value, index, self) => self.indexOf(value) === index)
         );
         const requesting = computed(() => store.state.shipyards.requesting);
+        const preview = computed(() => store.state.shipyards.preview);
         return {
             blueprints,
             hullTypes,
             requesting,
+            preview,
         };
     },
 };
@@ -35,33 +43,79 @@ export default {
         v-if="blueprints.length"
         :requesting="requesting"
     >
-        <collapsible-item
-            v-for="hullType in hullTypes"
-            :key="`collapsibleBPArea${hullType}`"
-            :topic="`${$t('shipyards.manage.collapsible', {
-                type: $t('shipyards.hulls.' + hullType),
-            })} (${blueprints.filter((b) => b.hullType === hullType).length})`"
-            :icon-name="`hull-${hullType}`"
-        >
-            <ul class="blueprint__list">
-                <single-blueprint
-                    v-for="blueprint in blueprints.filter(
-                        (b) => b.hullType === hullType
-                    )"
-                    :key="`BlueprintListItem${blueprint.id}`"
-                    :id="blueprint.id"
-                    :hull-type="hullType"
-                    :class-name="blueprint.name"
-                />
-            </ul>
-        </collapsible-item>
+        <div class="manage">
+            <div class="list">
+                <collapsible-item
+                    v-for="hullType in hullTypes"
+                    :key="`collapsibleBPArea${hullType}`"
+                    :topic="`${$t('shipyards.manage.collapsible', {
+                        type: $t('shipyards.hulls.' + hullType),
+                    })} (${
+                        blueprints.filter((b) => b.hullType === hullType).length
+                    })`"
+                    :icon-name="`hull-${hullType}`"
+                >
+                    <ul class="blueprint__list">
+                        <single-blueprint
+                            v-for="blueprint in blueprints.filter(
+                                (b) => b.hullType === hullType
+                            )"
+                            :key="`BlueprintListItem${blueprint.id}`"
+                            :id="blueprint.id"
+                            :hull-type="hullType"
+                            :class-name="blueprint.name"
+                        />
+                    </ul>
+                </collapsible-item>
+            </div>
+            <manage-preview v-if="preview.hullType" />
+        </div>
     </area-section>
 </template>
 
 <style lang="scss" scoped>
+.manage {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include respond-to("medium") {
+        flex-wrap: nowrap;
+    }
+}
+
+.list,
+.preview {
+    flex: 0 0 100%;
+
+    @include respond-to("medium") {
+        flex: 1 0 calc(60% - 8px);
+    }
+}
+
+.preview {
+    order: -1;
+
+    padding: 8px;
+    margin-bottom: 8px;
+    flex: 0 0 100%;
+
+    @include respond-to("medium") {
+        order: 0;
+
+        padding: 16px;
+        margin: 0 0 0 16px;
+        flex: 0 0 calc(40% - 8px);
+    }
+
+    @include themed() {
+        background-color: t("g-sunken");
+    }
+}
+
 .collapsible {
     margin: 0;
 }
+
 .blueprint__list {
     padding: 0;
     margin: 0;

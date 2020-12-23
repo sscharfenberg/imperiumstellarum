@@ -20,4 +20,11 @@ export default {
         className: "",
         modules: [],
     },
+    preview: {
+        id: "",
+        hullType: "",
+        className: "",
+        modules: [],
+        techLevels: [],
+    },
 };

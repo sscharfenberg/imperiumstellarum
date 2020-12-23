@@ -128,4 +128,39 @@ export default {
         state.design.className = "";
         state.design.modules = [];
     },
+
+    /**
+     * MANAGE BLUEPRINT mutations
+     */
+
+    /**
+     * @function SET MANAGE BLUEPRINT preview
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Object} payload
+     * @param {String} payload.hullType
+     * @param {String} payload.className
+     * @param {Array} payload.modules
+     * @param {Array} payload.techLevels
+     * @constructor
+     */
+    SET_MANAGE_BLUEPRINT_PREVIEW: (state, payload) => {
+        state.preview.id = payload.id;
+        state.preview.hullType = payload.hullType;
+        state.preview.className = payload.className;
+        state.preview.modules = payload.modules;
+        state.preview.techLevels = payload.techLevels;
+    },
+
+    /**
+     * @function SET MANAGE BLUEPRINT preview
+     * @param {Object} state - vuex module "shipyards" state
+     * @constructor
+     */
+    RESET_MANAGE_BLUEPRINT_PREVIEW: (state) => {
+        state.preview.id = "";
+        state.preview.hullType = "";
+        state.preview.className = "";
+        state.preview.modules = [];
+        state.preview.techLevels = [];
+    },
 };
