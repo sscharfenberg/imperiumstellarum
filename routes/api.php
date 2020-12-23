@@ -136,5 +136,8 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // delete blueprint
     Route::post('/game/{game}/shipyards/blueprint/delete',
         [\App\Http\Controllers\Game\Shipyards\DeleteBlueprintController::class, 'handle']);
+    // rename blueprint
+    Route::post('/game/{game}/shipyards/blueprint/rename',
+        [\App\Http\Controllers\Game\Shipyards\RenameBlueprintController::class, 'handle']);
 
 });

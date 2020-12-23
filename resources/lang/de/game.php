@@ -68,7 +68,8 @@ return [
             ],
         ],
         'blueprintSaved' => 'Bauplan gespeichert.',
-        'blueprintDeleted' => 'Bauplan gelöscht.'
+        'blueprintDeleted' => 'Bauplan gelöscht.',
+        'blueprintRenamed' => 'Name des Bauplans gelöscht.'
     ],
 
     'fleets' => [

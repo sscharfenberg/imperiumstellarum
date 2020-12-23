@@ -18,8 +18,8 @@
         "engineering": "Engineering"
     },
     "design": {
-        "navTitle": "Design",
-        "title": "Design Blueprint",
+        "navTitle": "Blueprints",
+        "title": "Create Blueprint",
         "hullType": {
             "headline": "Select hull type",
             "radioLabel": "Click to select a {type} hull"

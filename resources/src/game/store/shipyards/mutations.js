@@ -173,4 +173,14 @@ export default {
         state.preview.modules = [];
         state.preview.techLevels = [];
     },
+
+    /**
+     * @function set the blueprint id that is being renamed
+     * @param state
+     * @param payload
+     * @constructor
+     */
+    SET_BLUEPRINT_RENAMING: (state, payload) => {
+        state.changingBpName = payload;
+    },
 };

@@ -68,7 +68,8 @@ return [
             ],
         ],
         'blueprintSaved' => 'Blueprint finalzed.',
-        'blueprintDeleted' => 'Blueprint deleted.'
+        'blueprintDeleted' => 'Blueprint deleted.',
+        'blueprintRenamed' => 'Blueprint renamed.'
     ],
 
     'fleets' => [

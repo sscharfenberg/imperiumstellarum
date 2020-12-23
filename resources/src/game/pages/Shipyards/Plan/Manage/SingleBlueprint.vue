@@ -2,13 +2,14 @@
 /******************************************************************************
  * PageComponent: SingleBlueprint
  *****************************************************************************/
-import { computed, ref } from "vue";
+import { computed, ref, onUpdated } from "vue";
 import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import DeleteBlueprintModal from "./DeleteBlueprintModal";
+import Loading from "Components/Loading/Loading";
 export default {
     name: "SingleBlueprint",
-    components: { GameButton, DeleteBlueprintModal },
+    components: { GameButton, DeleteBlueprintModal, Loading },
     props: {
         id: String,
         className: String,
@@ -17,6 +18,12 @@ export default {
     setup(props) {
         const store = useStore();
         const showDeleteModal = ref(false);
+        const isRenaming = ref(false);
+        const inputName = ref(props.className);
+        const inputRef = ref(null);
+        const bpRequestingRename = computed(
+            () => store.state.shipyards.changingBpName === props.id
+        );
         const blueprint = computed(() =>
             store.getters["shipyards/blueprintById"](props.id)
         );
@@ -35,15 +42,35 @@ export default {
         const onCancelPreview = () => {
             store.commit("shipyards/RESET_MANAGE_BLUEPRINT_PREVIEW");
         };
-        const onRename = () => {
-            console.log("do rename of class", props.id);
+        const onDoneRenaming = () => {
+            console.log("done renaming.");
+            store.dispatch("shipyards/CHANGE_BLUEPRINT_NAME", {
+                id: props.id,
+                name: inputName.value,
+            });
+            isRenaming.value = false;
         };
+        const onCancelRenaming = () => {
+            console.log("cancel renaming.");
+            isRenaming.value = false;
+            inputName.value = props.className;
+        };
+        onUpdated(() => {
+            if (isRenaming.value) {
+                inputRef.value?.focus();
+            }
+        });
         return {
+            inputRef,
+            inputName,
             onPreview,
             onCancelPreview,
-            onRename,
             showDeleteModal,
             isPreviewing,
+            isRenaming,
+            onDoneRenaming,
+            onCancelRenaming,
+            bpRequestingRename,
         };
     },
 };
@@ -51,11 +78,33 @@ export default {
 
 <template>
     <li class="blueprint__item" :class="{ active: isPreviewing }">
-        <span>
+        <span v-if="!isRenaming">
             {{ className }}
         </span>
+        <input
+            v-if="isRenaming"
+            type="text"
+            class="blueprint__name"
+            ref="inputRef"
+            v-model="inputName"
+            @keyup.enter="onDoneRenaming"
+            @keyup.escape="onCancelRenaming"
+        />
+        <loading v-if="bpRequestingRename" :size="30" />
         <game-button
-            v-if="!isPreviewing"
+            v-if="isRenaming"
+            icon-name="done"
+            :size="1"
+            @click="onDoneRenaming"
+        />
+        <game-button
+            v-if="isRenaming"
+            icon-name="cancel"
+            :size="1"
+            @click="onCancelRenaming"
+        />
+        <game-button
+            v-if="!isPreviewing && !isRenaming"
             icon-name="search"
             :text-string="$t('shipyards.manage.preview')"
             :size="1"
@@ -63,7 +112,7 @@ export default {
             @click="onPreview"
         />
         <game-button
-            v-if="isPreviewing"
+            v-if="isPreviewing && !isRenaming"
             icon-name="cancel"
             :text-string="$t('shipyards.manage.cancelPreview')"
             :size="1"
@@ -72,13 +121,15 @@ export default {
             @click="onCancelPreview"
         />
         <game-button
+            v-if="!isRenaming"
             icon-name="edit"
             :text-string="$t('shipyards.manage.rename')"
             :size="1"
             :hide-text-for-mobile="true"
-            @click="onRename"
+            @click="isRenaming = true"
         />
         <game-button
+            v-if="!isRenaming"
             icon-name="delete"
             :text-string="$t('shipyards.manage.delete')"
             :size="1"
@@ -137,5 +188,24 @@ export default {
     > span {
         margin-right: 4px;
     }
+}
+
+.blueprint__name {
+    height: 30px;
+    padding: 4px 8px;
+    border: 0;
+    margin-right: 16px;
+    flex-grow: 1;
+
+    outline: 0;
+
+    @include themed() {
+        background: t("g-bunker");
+        color: t("b-viking");
+    }
+}
+
+.spinner {
+    margin: 0 16px 0 auto;
 }
 </style>
