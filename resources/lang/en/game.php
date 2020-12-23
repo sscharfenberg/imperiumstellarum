@@ -61,10 +61,12 @@ return [
                 'moduleMax' => 'Too many modules installed.',
                 'modulesInvalid' => 'You have installed invalid modules for this hull type.',
                 'className' => 'The class name supplied is not valid.',
-                'classNameUsed' => 'The class name has already been used.'
+                'classNameUsed' => 'The class name has already been used.',
+                'owner' => 'You do not own this blueprint.'
             ],
         ],
-        'blueprintSaved' => 'Blueprint finalzed.'
+        'blueprintSaved' => 'Blueprint finalzed.',
+        'blueprintDeleted' => 'Blueprint deleted.'
     ],
 
     'fleets' => [

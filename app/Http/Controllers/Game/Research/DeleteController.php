@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Player;
 use App\Models\Research;
 use App\Services\FormatApiResponseService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -42,8 +44,13 @@ class DeleteController extends Controller
         return true;
     }
 
-
-    public function handle(Request $request): \Illuminate\Http\JsonResponse
+    /**
+     * @function create a new blueprint from xhr request
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function handle(Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $jobId = $request->input("id");

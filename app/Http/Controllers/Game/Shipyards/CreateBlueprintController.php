@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ResourceService;
 
-class BlueprintController extends Controller
+class CreateBlueprintController extends Controller
 {
 
     /**
@@ -115,7 +115,7 @@ class BlueprintController extends Controller
      * @return JsonResponse
 
      */
-    public function create (Request $request): JsonResponse
+    public function handle (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
         $hullType = $request->input(['hullType']);

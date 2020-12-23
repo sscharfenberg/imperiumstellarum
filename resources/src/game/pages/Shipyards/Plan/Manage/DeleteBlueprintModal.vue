@@ -19,7 +19,9 @@ export default {
             store.getters["shipyards/blueprintById"](props.blueprintId)
         );
         const onSubmit = () => {
-            console.log("do delete blueprint action");
+            store.dispatch("shipyards/DELETE_BLUEPRINT", {
+                id: props.blueprintId,
+            });
         };
         return {
             onSubmit,

@@ -44,7 +44,6 @@ export default {
      * @param {String} payload.name
      */
     SAVE_BLUEPRINT: function ({ commit }, payload) {
-        console.log("save blueprint", payload);
         commit("SET_REQUESTING", true);
         window.axios
             .post(`/api/game/${getGameId()}/shipyards/blueprint`, payload)
@@ -55,6 +54,39 @@ export default {
                         root: true,
                     });
                     commit("RESET_DESIGN");
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    /**
+     * @function delete blueprint
+     * @param {Function} commit - Vuex commit fn
+     * @param {Object} payload
+     * @param {String} payload.id - blueprint id
+     */
+    DELETE_BLUEPRINT: function ({ commit }, payload) {
+        console.log("delete blueprint", payload);
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/shipyards/blueprint/delete`,
+                payload
+            )
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.blueprints &&
+                    response.data.message
+                ) {
+                    commit("SET_BLUEPRINTS", response.data.blueprints);
                     notify(response.data.message, "success");
                 }
             })

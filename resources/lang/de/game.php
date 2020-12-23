@@ -61,10 +61,12 @@ return [
                 'moduleMax' => 'Zu viele Module installiert.',
                 'modulesInvalid' => 'Sie haben für diesen Schiffstyp ungültige Module installiert.',
                 'className' => 'Der Name für den Schiffstyp ist nicht gültig.',
-                'classNameUsed' => 'Der Name des Schiffstyps wird bereits verwendet.'
+                'classNameUsed' => 'Der Name des Schiffstyps wird bereits verwendet.',
+                'owner' => 'Sie sind nicht der Besitzer dieses Bauplanes.'
             ],
         ],
-        'blueprintSaved' => 'Bauplan gespeichert.'
+        'blueprintSaved' => 'Bauplan gespeichert.',
+        'blueprintDeleted' => 'Bauplan gelöscht.'
     ],
 
     'fleets' => [
