@@ -33,12 +33,7 @@ export default {
 <template>
     <li class="blueprint__item">
         <span>
-            {{
-                $t("shipyards.manage.blueprintName", {
-                    className,
-                    hullType: $t("shipyards.hulls." + hullType),
-                })
-            }}
+            {{ className }}
         </span>
         <game-button
             icon-name="search"

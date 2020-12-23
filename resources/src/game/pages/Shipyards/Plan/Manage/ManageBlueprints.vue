@@ -19,9 +19,11 @@ export default {
                 // check if it is the first index, so we pass only uniques.
                 .filter((value, index, self) => self.indexOf(value) === index)
         );
+        const requesting = computed(() => store.state.shipyards.requesting);
         return {
             blueprints,
             hullTypes,
+            requesting,
         };
     },
 };
@@ -31,6 +33,7 @@ export default {
     <area-section
         :headline="$t('shipyards.manage.title')"
         v-if="blueprints.length"
+        :requesting="requesting"
     >
         <collapsible-item
             v-for="hullType in hullTypes"
@@ -39,7 +42,6 @@ export default {
                 type: $t('shipyards.hulls.' + hullType),
             })} (${blueprints.filter((b) => b.hullType === hullType).length})`"
             :icon-name="`hull-${hullType}`"
-            :expanded="true"
         >
             <ul class="blueprint__list">
                 <single-blueprint

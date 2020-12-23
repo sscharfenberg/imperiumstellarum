@@ -131,6 +131,6 @@ export default {
 .list-leave-to {
     opacity: 0;
 
-    transform: translateX(-30px);
+    transform: translateX(-200px);
 }
 </style>

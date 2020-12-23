@@ -24,9 +24,11 @@ export default {
         const store = useStore();
         const hullType = computed(() => store.state.shipyards.design.hullType);
         const shipyards = computed(() => store.state.shipyards.shipyards);
+        const requesting = computed(() => store.state.shipyards.requesting);
         return {
             hullType,
             shipyards,
+            requesting,
         };
     },
 };
@@ -36,6 +38,7 @@ export default {
     <area-section
         v-if="shipyards.length"
         :headline="$t('shipyards.design.title')"
+        :requesting="requesting"
     >
         <div class="design-section">
             <div class="form">
