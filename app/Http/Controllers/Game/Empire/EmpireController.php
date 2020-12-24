@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Game\Empire;
 
 use App\Http\Controllers\Controller;
+use App\Models\Player;
 use App\Services\ApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 use App\Services\FormatApiResponseService;
 
 class EmpireController extends Controller
@@ -13,14 +15,13 @@ class EmpireController extends Controller
     /**
      * @function get empire game data
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function gameData (Request $request): \Illuminate\Http\JsonResponse
+    public function gameData (Request $request): JsonResponse
     {
         $a = new ApiService;
         $defaultApiData = $a->defaultData($request);
-        $user = Auth::user();
-        $player = $user->players->find($user->selected_player);
+        $player = Player::find(Auth::user()->selected_player);;
         $stars = $player->stars;
         $planets = collect();
         foreach($stars as $star) {

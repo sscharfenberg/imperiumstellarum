@@ -10,49 +10,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Traits\Game\UsesResearchVerification;
 
 class EnqueueController extends Controller
 {
 
-    /**
-     * @function ensure the area exists
-     * @param string $type
-     * @return bool
-     */
-    private function areaExists (string $type): bool
-    {
-        return array_key_exists($type, config('rules.tech.areas'));
-    }
-
-    /**
-     * @function ensure the level is within bounds
-     * @param int $level
-     * @return bool
-     */
-    private function isWithinBounds (int $level): bool
-    {
-        if (!is_numeric($level)) return false;
-        return $level >= config('rules.tech.bounds.min')
-            && $level < config('rules.tech.bounds.max');
-    }
-
-    /**
-     * @function verify the new level is not already researched or enqueued
-     * @param Player $player
-     * @param string $type
-     * @param int $level
-     * @return bool
-     */
-    private function isResearchable (Player $player, string $type, int $level): bool
-    {
-        $currentLevel = $player->techLevels->where('type', $type)->first()->level;
-        $researches = $player->researches->where('type', $type)
-            ->sortByDesc('level')->first();
-        $nextLevel = $currentLevel + 1;
-        if ($researches) $nextLevel = $researches->level + 1;
-        if ($nextLevel !== $level) return false;
-        return true;
-    }
+    use UsesResearchVerification;
 
     /**
      * @function verify the number of research jobs is not > max
@@ -77,15 +40,15 @@ class EnqueueController extends Controller
         $level = $request->input('level');
 
         // verification
-        if (!$this->areaExists($type)) {
+        if (!$this->researchAreaExists($type)) {
             return response()
                 ->json(['error' => __('game.research.errors.enqueue.area')], 419);
         }
-        if (!$this->isWithinBounds($level)) {
+        if (!$this->isLevelWithinBounds($level)) {
             return response()
                 ->json(['error' => __('game.research.errors.enqueue.bounds')], 419);
         }
-        if (!$this->isResearchable($player, $type, $level)) {
+        if (!$this->isJobResearchable($player, $type, $level)) {
             return response()
                 ->json(['error' => __('game.research.errors.enqueue.alreadyResearched')], 419);
         }
@@ -116,8 +79,6 @@ class EnqueueController extends Controller
         return response()->json([
             'researchJob' => $f->formatResearchJob($job)
         ]);
-
-        //
 
     }
 

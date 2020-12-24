@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Services\FormatApiResponseService;
+use App\Http\Traits\Game\UsesEmpireVerification;
 
 class StarNameController extends Controller
 {
 
+    use UsesEmpireVerification;
 
     /**
      * @function validate input
@@ -32,21 +34,6 @@ class StarNameController extends Controller
         ];
         Validator::make($request->input(), $rules, $messages)->validate();
     }
-
-
-    /**
-     * @function verify player owns the star
-     * @param Player $player
-     * @param string $starId
-     * @return bool
-     */
-    private function playerOwnsStar (Player $player, string $starId): bool
-    {
-        $playerStar = $player->stars->find($starId);
-        if ($playerStar) return true;
-        return false;
-    }
-
 
     /**
      * @function handle storage upgrade installation

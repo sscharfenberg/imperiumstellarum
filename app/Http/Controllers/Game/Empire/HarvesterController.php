@@ -12,59 +12,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Traits\Game\UsesEmpireVerification;
 
 class HarvesterController extends Controller
 {
 
-    /**
-     * @function check if player owns the star that the planet belongs to
-     * @param Player $player
-     * @param Planet $planet
-     * @return bool
-     */
-    private function playerOwnsPlanet(Player $player, Planet $planet): bool
-    {
-        $playerStar = $player->stars->find($planet->star->id);
-        if ($playerStar) return true;
-        return false;
-    }
-
-    /**
-     * @function verify there is an empty slot for the harvester
-     * @param Player $player
-     * @param Planet $planet
-     * @param string $resourceType
-     * @return false
-     */
-    private function harvesterInstallable(Player $player, Planet $planet, string $resourceType): bool
-    {
-        $numPlayerHarvesters = count($player->harvesters
-            ->where('planet_id', $planet->id)
-            ->where('resource_type', $resourceType)
-        );
-        $resourceSlots = array_filter($planet->resources, function($res) use ($resourceType) {
-            return $res["resourceType"] === $resourceType;
-        });
-        $numSlots = array_values($resourceSlots)[0]['slots'];
-        return $numSlots > $numPlayerHarvesters;
-    }
-
-    /**
-     * @function verify player has the necessary resources
-     * @param Player $player
-     * @param string $type
-     * @return bool
-     */
-    private function playerCanAfford (Player $player, string $type): bool
-    {
-        $costs = array_filter(
-            config('rules.harvesters.'.$type.'.costs'), function($resType) {
-            return $resType !== 'turns';
-        }, ARRAY_FILTER_USE_KEY);
-        $r = new ResourceService();
-        if (!$r->playerCanAfford($player, $costs)) return false;
-        return true;
-    }
+    use UsesEmpireVerification;
 
     /**
      * @function pay by subtracting resources from the player
@@ -104,7 +57,7 @@ class HarvesterController extends Controller
             return response()
                 ->json(['error' => __('game.empire.errors.harvester.slot')], 419);
         }
-        if (!$this->playerCanAfford($player, $resourceType)) {
+        if (!$this->playerCanAffordHarvester($player, $resourceType)) {
             return response()
                 ->json(['error' => __('game.common.errors.noFunds')], 419);
         }
@@ -133,7 +86,8 @@ class HarvesterController extends Controller
 
         return response()->json([
             'harvester' => $f->formatHarvester($harvester),
-            'resources' => $r->getResources($player)
+            'resources' => $r->getResources($player),
+            'message' => __('game.empire.harvesterInstalled')
         ]);
 
     }

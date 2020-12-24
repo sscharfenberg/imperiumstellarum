@@ -50,6 +50,7 @@ return [
                 'noUpgrade' => 'Das ist keine gültige Aufrüstung der Werft.'
             ]
         ],
+        'harvesterInstalled' => 'Ernter wird errichtet.',
         'shipyardInstalling' => 'Sie haben begonnen eine neue Werft zu bauen. Sie wird in :num Runden bereit stehen.',
         'shipyardUpgrading' => 'Sie haben begonnen eine Werft aufzurüsten. Sie wird in :num Runden bereit stehen.'
     ],

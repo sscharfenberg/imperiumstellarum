@@ -50,6 +50,7 @@ return [
                 'noUpgrade' => 'This is not a valid shipyard upgrade.'
             ]
         ],
+        'harvesterInstalled' => 'Harvester is being installed.',
         'shipyardInstalled' => 'You have started building a new shipyard. It will be ready in :num turns.',
         'shipyardUpgrading' => 'You have started upgrading a shipyard. It will be ready in :num turns.'
     ],

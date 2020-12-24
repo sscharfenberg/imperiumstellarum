@@ -7,36 +7,25 @@ use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
+use App\Http\Traits\Game\UsesResearchVerification;
 
 class ResearchPriorityController extends Controller
 {
 
-
-    /**
-     * @function verify research priority is within bounds
-     * @param float $priority
-     * @return bool
-     */
-    private function isPriorityValid (float $priority): bool
-    {
-        $rules = config('rules.tech.researchPriority');
-        if (!is_float($priority)) return false;
-        if ($priority < $rules['min'] || $priority > $rules['max']) return false;
-        return true;
-    }
-
+    use UsesResearchVerification;
 
     /**
      * @function handle research priority change request
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function change (Request $request): \Illuminate\Http\JsonResponse
+    public function change (Request $request): JsonResponse
     {
         $priority = $request->input(['researchPriority']);
 
         // verify
-        if(!$this->isPriorityValid($priority)) {
+        if(!$this->isResearchPriorityValid($priority)) {
             return response()
                 ->json(['error' => __('game.research.errors.priority.invalid')], 419);
         }
@@ -48,9 +37,7 @@ class ResearchPriorityController extends Controller
 
         Log::info("Empire $player->ticker has changed research priority to $priority");
 
-        return response()->json([
-            'message' => __('game.research.researchPriorityChanged')
-        ]);
+        return response()->json([]);
 
     }
 

@@ -104,6 +104,7 @@ export default {
                     commit("SET_RESOURCES", response.data.resources, {
                         root: true,
                     });
+                    notify(response.data.message, "success");
                 }
             })
             .catch((e) => {

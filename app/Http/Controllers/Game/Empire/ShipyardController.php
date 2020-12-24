@@ -12,58 +12,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Traits\Game\UsesEmpireVerification;
 
 class ShipyardController extends Controller
 {
 
-    /**
-     * @function check if player owns the star that the planet belongs to
-     * @param Player $player
-     * @param Planet $planet
-     * @return bool
-     */
-    private function playerOwnsPlanet(Player $player, Planet $planet): bool
-    {
-        $playerStar = $player->stars->find($planet->star->id);
-        if ($playerStar) return true;
-        return false;
-    }
-
-    /**
-     * @function verify the planet has a population
-     * @param Planet $planet
-     * @return bool
-     */
-    private function planetHasPopulation(Planet $planet): bool
-    {
-        return $planet->population > 0;
-    }
-
-    /**
-     * @function verify the planet does not already have a shipyard
-     * @param Planet $planet
-     * @return bool
-     */
-    private function shipyardInstallable(Planet $planet): bool
-    {
-        return $planet->shipyard === null;
-    }
-
-    /**
-     * @function verify the indicated type is indeed the direct upgrade without skipping a shipyard type
-     * @param Planet $planet
-     * @param string $type
-     * @return boolean
-     */
-    private function shipyardUpgradeable(Planet $planet, string $type): bool
-    {
-        $shipyard = $planet->shipyard;
-        if (!$shipyard) return false;
-        if ($type === "medium" && $shipyard->type === "small") return true;
-        if ($type === "large" && $shipyard->type === "medium") return true;
-        if ($type === "xlarge" && $shipyard->type === "large") return true;
-        return false;
-    }
+    use UsesEmpireVerification;
 
     /**
      * @function handle build shipyard xhr request
@@ -94,7 +48,7 @@ class ShipyardController extends Controller
             return response()
                 ->json(['error' => __('game.empire.errors.shipyard.alreadyInstalled')], 419);
         }
-        if (!$this->planetHasPopulation($planet)) {
+        if (!$this->verifyPlanetHasPopulation($planet)) {
             return response()
                 ->json(['error' => __('game.empire.errors.shipyard.population')], 419);
         }

@@ -9,11 +9,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\Game\UsesPopulationGrowth;
+use App\Http\Traits\Game\UsesEmpireVerification;
 
 class PopulationController extends Controller
 {
-    use UsesPopulationGrowth;
-
+    use UsesPopulationGrowth, UsesEmpireVerification;
 
     /**
      * @function answer public xhr request with projected new population and change.
@@ -31,45 +31,6 @@ class PopulationController extends Controller
         ]);
     }
 
-
-    /**
-     * @function check if player owns the star that the planet belongs to
-     * @param Player $player
-     * @param Planet $planet
-     * @return bool
-     */
-    private function playerOwnsPlanet(Player $player, Planet $planet): bool
-    {
-        $playerStar = $player->stars->find($planet->star->id);
-        if ($playerStar) return true;
-        return false;
-    }
-
-
-    /**
-     * @function check if foodConsumption is valid and within bounds
-     * @param float $foodConsumption
-     * @return bool
-     */
-    private function consumptionValid(float $foodConsumption): bool
-    {
-        if (!is_numeric($foodConsumption)) return false;
-        return $foodConsumption >= config('rules.planets.food.min')
-            && $foodConsumption <= config('rules.planets.food.max');
-    }
-
-
-    /**
-     * @function verify planet has population > 0
-     * @param Planet $planet
-     * @return bool
-     */
-    private function planetHasPopulation(Planet $planet): bool
-    {
-        return $planet->population > 0;
-    }
-
-
     /**
      * @function handle change food consumption xhr request
      * @param Request $request
@@ -85,14 +46,14 @@ class PopulationController extends Controller
             return response()
                 ->json(['error' => __('game.empire.errors.planet.owner')], 419);
         }
-        if (!$this->consumptionValid($input['foodConsumption'])) {
+        if (!$this->foodConsumptionValid($input['foodConsumption'])) {
             return response()
                 ->json(['error' => __('game.empire.errors.planet.between', [
                     'min' => config('rules.planets.food.min'),
                     'max' => config('rules.planets.food.max')
                 ])], 419);
         }
-        if (!$this->planetHasPopulation($planet)) {
+        if (!$this->verifyPlanetHasPopulation($planet)) {
             return response()
                 ->json(['error' => __('game.empire.errors.planet.noPopulation')], 419);
         }
