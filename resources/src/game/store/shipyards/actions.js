@@ -70,10 +70,11 @@ export default {
     /**
      * @function delete blueprint
      * @param {Function} commit - Vuex commit fn
+     * @param {Proxy} state - Vuex state
      * @param {Object} payload
      * @param {String} payload.id - blueprint id
      */
-    DELETE_BLUEPRINT: function ({ commit }, payload) {
+    DELETE_BLUEPRINT: function ({ commit, state }, payload) {
         console.log("delete blueprint", payload);
         commit("SET_REQUESTING", true);
         window.axios
@@ -88,6 +89,9 @@ export default {
                     response.data.message
                 ) {
                     commit("SET_BLUEPRINTS", response.data.blueprints);
+                    if (state.preview.id === payload.id) {
+                        commit("RESET_MANAGE_BLUEPRINT_PREVIEW");
+                    }
                     notify(response.data.message, "success");
                 }
             })
