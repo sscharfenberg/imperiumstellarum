@@ -10,7 +10,6 @@ use App\Models\Star;
 use App\Models\Turn;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Services\SeedGameService;
 
 class StartGame
 {
@@ -27,6 +26,68 @@ class StartGame
             'number' => 0,
             'due' => Carbon::now()->addMinutes($game->turn_duration)
         ]);
+    }
+
+    /**
+     * @function find out if the homesystem is missing resources.
+     * @param Star $star
+     * @return array
+     */
+    private function getMissingResourceSlots (Star $star): array
+    {
+        $planets = $star->planets;
+        $min = [
+            'energy' => 2,
+            'minerals' => 2,
+            'research' => 2,
+            'food' => 2,
+        ];
+        $slots = $toAdd
+            = array_combine(array_keys(config('rules.player.resourceTypes')), [0,0,0,0]);
+        foreach($planets as $planet) {
+            foreach($planet->resources as $slot) {
+                $slots[$slot['resourceType']] += $slot['slots'];
+            }
+        }
+        foreach(array_keys($toAdd) as $slot) {
+            $toAdd[$slot] = $slots[$slot] - $min[$slot] < 0
+                ? $min[$slot] - $slots[$slot]
+                : 0;
+        }
+        return array_filter($toAdd, function($slots) {
+            return $slots > 0;
+        });
+    }
+
+    /**
+     * @function update the planets resources and add/update resource slots
+     * @param array $toAdd
+     * @param Planet $planet
+     * @return array
+     */
+    private function addSlotsToColony (Array $toAdd, Planet $planet): array
+    {
+        $resources = collect($planet->resources);
+        // loop the types where we need to add slots.
+        foreach($toAdd as $type => $num) {
+            // do the planet resources already have the resourceSlot to add?
+            if ($resources->contains('resourceType', $type)) {
+                // add the correct number.
+                $resources = $resources->map(function($res) use ($type, $num) {
+                    if ($res['resourceType'] === $type) $res['slots'] += $num;
+                    return $res;
+                });
+            } else {
+                // if the planet resources do not yet have a resourceSlot of the type to add
+                // push a new entry.
+                $resources->push([
+                    'resourceType' => $type,
+                    'slots' => $num,
+                    'value' => 1
+                ]);
+            }
+        }
+        return $resources->toArray();
     }
 
     /**
@@ -56,8 +117,19 @@ class StartGame
         }
         $colony = Planet::find($highestId);
         $colony->population = 10;
+
+        // check if the homesystem has sufficient resources
+        $toAdd = $this->getMissingResourceSlots($star);
+        if (array_sum($toAdd) > 0) {
+            Log::info("Home System of Empire $player->ticker does not have sufficient resourceSlots, missing: ".json_encode($toAdd, JSON_PRETTY_PRINT));
+            $colony->resources = $this->addSlotsToColony($toAdd, $colony);
+            Log::info("Colony after manipulation: ".json_encode($colony->resources, JSON_PRETTY_PRINT));
+        } else {
+            Log::info("$player->ticker has sufficient resources.");
+        }
+
         $colony->save();
-        Log::info('Chose Planet '.$colony->orbital_index.' as starting colony.');
+        Log::info("Chose Planet $colony->orbital_index as starting colony for empire $player->ticker.");
 
         // create starting shipyard
         $shipyard = Shipyard::create([
@@ -69,7 +141,7 @@ class StartGame
         ]);
         Log::info("Created starting shipyard for player $player->ticker ".json_encode($shipyard, JSON_PRETTY_PRINT));
 
-        // TODO: Ark blueprint, Destroyer Blueprint? Ships?
+        // TODO: Ark blueprint, Destroyer Blueprint? Ships? Home Fleets.
     }
 
     /**
@@ -94,7 +166,7 @@ class StartGame
             });
             $playerHome->player_id = $player->id;
             $playerHome->save();
-            Log::info('Chose Star '.$playerHome->name.' as player starting system.');
+            Log::info("Chose Star $playerHome->name as home system for empire $player->ticker.");
             $this->seedPlayerColony($playerHome, $player);
         }
     }

@@ -325,14 +325,19 @@ return [
                 'resourceSlots' => [
                     'food' => [
                         'chance' => 70,
-                        'max' => 3,
+                        'max' => 2,
                         'potential' => [1, 1.5]
                     ],
                     'energy' => [
                         'chance' => 50,
-                        'max' => 2,
+                        'max' => 1,
                         'potential' => [0.7, 1.3]
-                    ]
+                    ],
+                    'minerals' => [
+                        'chance' => 50,
+                        'max' => 1,
+                        'potential' => [0.7, 1.3]
+                    ],
                 ]
             ],
             'gas' => [
@@ -377,8 +382,8 @@ return [
                 'chanceHome' => 10,
                 'resourceSlots' => [
                     'minerals' => [
-                        'chance' => 70,
-                        'max' => 3,
+                        'chance' => 100,
+                        'max' => 2,
                         'potential' => [1, 1.5]
                     ],
                     'research' => [
@@ -398,19 +403,14 @@ return [
                 'chanceHome' => 10,
                 'resourceSlots' => [
                     'energy' => [
-                        'chance' => 50,
-                        'max' => 2,
-                        'potential' => [0.7, 1.3]
-                    ],
-                    'food' => [
-                        'chance' => 50,
+                        'chance' => 70,
                         'max' => 2,
                         'potential' => [0.7, 1.3]
                     ],
                     'minerals' => [
-                        'chance' => 15,
-                        'max' => 1,
-                        'potential' => [0.5, 1]
+                        'chance' => 50,
+                        'max' => 2,
+                        'potential' => [0.7, 1.3]
                     ]
                 ]
             ],
@@ -440,14 +440,14 @@ return [
                 'chanceHome' => 7,
                 'resourceSlots' => [
                     'minerals' => [
+                        'chance' => 70,
+                        'max' => 2,
+                        'potential' => [1, 1.5]
+                    ],
+                    'research' => [
                         'chance' => 50,
                         'max' => 2,
                         'potential' => [0.7, 1.3]
-                    ],
-                    'research' => [
-                        'chance' => 70,
-                        'max' => 3,
-                        'potential' => [1, 1.5]
                     ]
                 ]
             ],
