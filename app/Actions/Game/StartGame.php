@@ -36,24 +36,25 @@ class StartGame
     private function getMissingResourceSlots (Star $star): array
     {
         $planets = $star->planets;
-        $min = [
-            'energy' => 2,
-            'minerals' => 2,
-            'research' => 2,
-            'food' => 2,
-        ];
+        $min = config('rules.stars.minSlotsHome');
         $slots = $toAdd
             = array_combine(array_keys(config('rules.player.resourceTypes')), [0,0,0,0]);
+        // loop planets and add the resourceSlots to "slots" array; so we have an array with the number of
+        // each resource type
         foreach($planets as $planet) {
             foreach($planet->resources as $slot) {
                 $slots[$slot['resourceType']] += $slot['slots'];
             }
         }
+        // loop all resourceTypes and check if there are less than the minimum.
+        // if so, remember this in $toAdd array
         foreach(array_keys($toAdd) as $slot) {
             $toAdd[$slot] = $slots[$slot] - $min[$slot] < 0
                 ? $min[$slot] - $slots[$slot]
                 : 0;
         }
+        // filter the array before returning by eliminating resourceTypes
+        // where no slots need to be added
         return array_filter($toAdd, function($slots) {
             return $slots > 0;
         });

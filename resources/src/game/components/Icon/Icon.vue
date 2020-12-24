@@ -47,7 +47,7 @@ export default {
         class="icon"
         :class="sizeClass"
     >
-        <use :xlink:href="`/storage/iconsprite.svg#${this.name}`" />
+        <use :xlink:href="`/storage/iconsprite.svg#${name}`" />
     </svg>
 </template>
 

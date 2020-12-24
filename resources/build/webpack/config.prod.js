@@ -15,8 +15,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const dateformat = require("dateformat");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
-const ImageminPlugin = require("imagemin-webpack-plugin").default;
-const imageminMozjpeg = require("imagemin-mozjpeg");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 // imports
 const pkg = require("../../../package.json");
@@ -104,10 +103,10 @@ module.exports = merge(common, {
             threshold: 8192,
             minRatio: 0.8,
             filename: "[path][base].gz",
-            cache: path.resolve(
-                PROJECTROOT,
-                "node_modules/.cache/compression-webpack-plugin"
-            ),
+            //cache: path.resolve(
+            //    PROJECTROOT,
+            //    "node_modules/.cache/compression-webpack-plugin"
+            //),
         }),
 
         // https://webpack.js.org/plugins/mini-css-extract-plugin/
@@ -125,19 +124,26 @@ module.exports = merge(common, {
             ],
         }),
 
-        // https://github.com/Klathmon/imagemin-webpack-plugin
-        new ImageminPlugin({
-            gifsicle: { interlaced: true },
-            optipng: { optimizationLevel: 5 },
-            svgo: { plugins: [] }, // https://github.com/svg/svgo#what-it-can-do
-            jpegtran: null, // set to null to disable jpegtran
-            plugins: [
-                // https://github.com/imagemin/imagemin-mozjpeg
-                imageminMozjpeg({
-                    quality: 65, // 65 is quite low, watch for image quality
-                    progressive: true,
-                }),
-            ],
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                // Lossless optimization with custom option
+                // Feel free to experiment with options for better result for you
+                plugins: [
+                    ["gifsicle", { interlaced: true }],
+                    ["jpegtran", { progressive: true }],
+                    ["optipng", { optimizationLevel: 5 }],
+                    [
+                        "svgo",
+                        {
+                            plugins: [
+                                {
+                                    removeViewBox: false,
+                                },
+                            ],
+                        },
+                    ],
+                ],
+            },
         }),
 
         // https://webpack.js.org/plugins/banner-plugin/

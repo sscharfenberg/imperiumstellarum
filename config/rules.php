@@ -271,6 +271,13 @@ return [
         'name' => [
             'min' => 4,
             'max' => 40
+        ],
+
+        'minSlotsHome' => [
+            'energy' => 2,
+            'minerals' => 2,
+            'research' => 2,
+            'food' => 2
         ]
     ],
 
