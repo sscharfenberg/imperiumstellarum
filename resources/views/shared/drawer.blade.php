@@ -64,7 +64,7 @@
             </a>
         </li>
         <li class="drawer-list__item">
-            <a href="https://www.mantisbt.org/" class="drawer-list__link" rel="noopener">
+            <a href="https://github.com/sscharfenberg/imperiumstellarum/issues" class="drawer-list__link" rel="noopener">
                 <x-icon name="bug" size="2" /> @lang('app.drawer.bugs')
             </a>
         </li>

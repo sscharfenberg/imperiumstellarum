@@ -22,7 +22,7 @@ return [
         'nextTurn' => 'Next turn',
         'forums' => 'Forums',
         'github' => 'Github',
-        'bugs' => 'Bugtracker'
+        'bugs' => 'Issues'
     ],
 
     'footer' => [
