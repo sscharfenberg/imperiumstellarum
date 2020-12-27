@@ -93,6 +93,7 @@
                 "untilComplete": "Runden bis zur Fertigstellung",
                 "availableHulls": "Schiffe die in dieser Werft gebaut werden können",
                 "upgrade": "Aufrüsten zu {type}",
+                "upgradeExplanation": "Bitte beachten Sie das die Werft während der Aufrüstung nicht genutzt werden kann.",
                 "submit": "Aufrüsten"
             }
         }

@@ -2,12 +2,12 @@
 /******************************************************************************
  * PageComponent: ConstructIndex
  *****************************************************************************/
-import AreaSection from "Components/AreaSection/AreaSection";
 import { useStore } from "vuex";
 import { computed } from "vue";
+import NewContract from "./NewContract/NewContract";
 export default {
     name: "ConstructIndex",
-    components: { AreaSection },
+    components: { NewContract },
     setup() {
         const store = useStore();
         const shipyards = computed(() => store.state.shipyards.shipyards);
@@ -19,13 +19,8 @@ export default {
 </script>
 
 <template>
-    <area-section
-        v-if="shipyards.length"
-        :headline="$t('shipyards.construct.title')"
-    >
-        fuddel
-    </area-section>
-    <div v-if="!shipyards.length">
+    <new-contract v-if="shipyards" />
+    <div v-if="!shipyards">
         <p>{{ $t("shipyards.none") }}</p>
         <p>
             <router-link class="text-link" :to="{ name: 'Empire' }">{{

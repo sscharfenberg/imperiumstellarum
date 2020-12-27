@@ -176,11 +176,35 @@ export default {
 
     /**
      * @function set the blueprint id that is being renamed
-     * @param state
+     * @param {Object} state - vuex module "shipyards" state
      * @param payload
      * @constructor
      */
     SET_BLUEPRINT_RENAMING: (state, payload) => {
         state.changingBpName = payload;
+    },
+
+    /**************************************************************************
+     * NEW CONSTRUCTION CONTRACT
+     *************************************************************************/
+
+    /**
+     * @function set the shipyard id for the contract
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload - id of the shipyard
+     * @constructor
+     */
+    SET_CONTRACT_SHIPYARD: (state, payload) => {
+        state.newContract.shipyard = payload;
+    },
+
+    /**
+     * @function set the shipyard id for the contract
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {String} payload - id of the blueprint
+     * @constructor
+     */
+    SET_CONTRACT_BLUEPRINT: (state, payload) => {
+        state.newContract.blueprint = payload;
     },
 };

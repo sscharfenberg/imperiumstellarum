@@ -122,6 +122,9 @@ export default {
                     })
                 }}
             </li>
+            <li class="stats--two-col text-left">
+                {{ t("empire.planet.shipyard.info.upgradeExplanation") }}
+            </li>
         </ul>
         <costs
             v-if="shipyard.type !== 'xlarge' && shipyard.untilComplete === 0"

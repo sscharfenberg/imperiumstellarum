@@ -56,10 +56,10 @@ export default {
             <icon :name="`hull-${hullType}`" />
             {{ $t("shipyards.hulls." + hullType) }}
         </li>
-        <li v-if="className.length" class="label">
+        <li v-if="className" class="label">
             {{ $t("shipyards.design.preview.name") }}
         </li>
-        <li v-if="className.length">{{ className }}</li>
+        <li v-if="className">{{ className }}</li>
         <li class="section">{{ $t("shipyards.ship.defense") }}</li>
         <li class="label">{{ $t("shipyards.ship.structure") }}</li>
         <li class="has-icon">

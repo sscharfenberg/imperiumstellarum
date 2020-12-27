@@ -29,4 +29,8 @@ export default {
         techLevels: [],
     },
     changingBpName: "",
+    newContract: {
+        shipyard: "",
+        blueprint: "",
+    },
 };

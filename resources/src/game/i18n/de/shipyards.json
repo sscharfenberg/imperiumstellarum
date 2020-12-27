@@ -74,6 +74,15 @@
     },
     "construct": {
         "navTitle": "Konstruieren",
-        "title": "Schiffe konstruieren"
+        "newContract": {
+            "title": "Neuer Bauauftrag",
+            "shipyard": {
+                "headline": "Werft auswählen"
+            },
+            "blueprint": {
+                "headline": "Bauplan auswählen",
+                "preview": "Gewählter Bauplan"
+            }
+        }
     }
 }

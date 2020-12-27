@@ -12,9 +12,31 @@ use App\Models\PlayerResource;
 use App\Models\Harvester;
 use App\Models\Shipyard;
 use App\Models\TechLevel;
+use PhpParser\Node\Scalar\String_;
 
 class FormatApiResponseService {
 
+    /**
+     * @function convert latin number to roman number string
+     * @param int $latin
+     * @return string
+     */
+    public function convertLatinToRoman (int $latin): string
+    {
+        $map = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
+        $returnValue = '';
+        $number = intval($latin);
+        while ($number > 0) {
+            foreach ($map as $roman => $int) {
+                if($number >= $int) {
+                    $number -= $int;
+                    $returnValue .= $roman;
+                    break;
+                }
+            }
+        }
+        return $returnValue;
+    }
 
     /**
      * @function format api response for a Star
@@ -106,9 +128,12 @@ class FormatApiResponseService {
      */
     public function formatShipyard (Shipyard $shipyard): array
     {
+        $planet = Planet::find($shipyard->planet_id);
+        $star = Star::find($planet->star_id);
         return [
             'id' => $shipyard->id,
             'planetId' => $shipyard->planet_id,
+            'planetName' => $star->name." - ".$this->convertLatinToRoman($planet->orbital_index),
             'type' => $shipyard->type,
             'untilComplete' => $shipyard->until_complete
         ];

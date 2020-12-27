@@ -79,6 +79,7 @@ export default {
         </div>
         <costs v-if="installCosts" :costs="installCosts" />
         <template v-slot:actions>
+            <div v-if="isAffordable" />
             <game-button
                 v-if="selectedShipyardType"
                 :text-string="t('empire.planet.shipyard.submit')"

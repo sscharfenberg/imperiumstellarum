@@ -21,7 +21,7 @@ export default {
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.research.requesting);
-        const researchPriority = computed(
+        const empireResearchPriority = computed(
             () => store.state.empireResearchPriority
         );
         const numResearchJobs = computed(
@@ -30,10 +30,11 @@ export default {
         const maxResearchJobs = window.rules.tech.queue;
         onBeforeMount(() => {
             store.dispatch("research/GET_GAME_DATA");
+            console.log(store.state.empireResearchPriority);
         });
         return {
             requesting,
-            researchPriority,
+            empireResearchPriority,
             numResearchJobs,
             maxResearchJobs,
         };
@@ -44,20 +45,26 @@ export default {
 <template>
     <game-header area="research" />
     <area-section
+        v-if="empireResearchPriority"
         :headline="$t('research.priority.label')"
         :requesting="requesting"
     >
-        <research-priority v-if="researchPriority !== 0" />
+        <research-priority />
     </area-section>
     <area-section
+        v-if="empireResearchPriority"
         :headline="`${$t(
             'research.queue.hdl'
         )} (${numResearchJobs}/${maxResearchJobs})`"
         :requesting="requesting"
     >
-        <list-queue v-if="researchPriority !== 0" />
+        <list-queue />
     </area-section>
-    <area-section :headline="$t('research.tl.hdl')" :requesting="requesting">
-        <list-tech-areas v-if="researchPriority !== 0" />
+    <area-section
+        v-if="empireResearchPriority"
+        :headline="$t('research.tl.hdl')"
+        :requesting="requesting"
+    >
+        <list-tech-areas />
     </area-section>
 </template>

@@ -94,6 +94,7 @@
                 "untilComplete": "Turns until completion",
                 "availableHulls": "Ship hulls that can be built in this shipyard",
                 "upgrade": "Upgrade to {type}",
+                "upgradeExplanation": "Please note that the shipyard can not be used during the upgrade process.",
                 "submit": "Upgrade"
             }
         }

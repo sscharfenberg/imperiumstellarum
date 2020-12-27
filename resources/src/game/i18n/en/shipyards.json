@@ -74,6 +74,15 @@
     },
     "construct": {
         "navTitle": "Build",
-        "title": "Build ships"
+        "newContract": {
+            "title": "New Construction Contract",
+            "shipyard": {
+                "headline": "Select shipyard"
+            },
+            "blueprint": {
+                "headline": "Select blueprint",
+                "preview": "Selected Blueprint"
+            }
+        }
     }
 }

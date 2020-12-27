@@ -2,7 +2,6 @@
 /******************************************************************************
  * PageComponent: ResearchPriority
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import debounce from "lodash/debounce";
@@ -14,7 +13,6 @@ export default {
         const priority = computed({
             get: () => store.state.empireResearchPriority,
             set: debounce((val) => {
-                //priority.value = val;
                 store.dispatch("research/SET_RESEARCH_PRIORITY", {
                     researchPriority: parseFloat(val),
                 });
@@ -32,7 +30,6 @@ export default {
             priority,
             isRequesting,
             calculatedCosts,
-            ...useI18n(),
         };
     },
 };
