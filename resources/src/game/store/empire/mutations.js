@@ -39,16 +39,16 @@ export default {
      * @param {Boolean} payload.expand
      * @constructor
      */
-    TOGGLE_STAR_EXPANDED: (state, payload) => {
+    TOGGLE_STAR_COLLAPSED: (state, payload) => {
         if (payload.expand) {
-            state.expandedStars.push(payload.id);
+            state.collapsedStars.push(payload.id);
         } else {
-            state.expandedStars.splice(
-                state.expandedStars.indexOf(payload.id),
+            state.collapsedStars.splice(
+                state.collapsedStars.indexOf(payload.id),
                 1
             );
         }
-        saveState(state.expandedStars, "expandedStars");
+        saveState(state.collapsedStars, "collapsedStars");
     },
 
     /**

@@ -18,12 +18,12 @@ export default {
         );
         const name = computed(() => star.value.name);
         const isExpanded = computed(() =>
-            store.getters["empire/isStarExpanded"](props.starId)
+            store.getters["empire/isStarCollapsed"](props.starId)
         );
         const onExpandClick = () => {
-            store.commit("empire/TOGGLE_STAR_EXPANDED", {
+            store.commit("empire/TOGGLE_STAR_COLLAPSED", {
                 id: props.starId,
-                expand: !store.getters["empire/isStarExpanded"](props.starId),
+                expand: !store.getters["empire/isStarCollapsed"](props.starId),
             });
         };
         const onEditClick = () => {

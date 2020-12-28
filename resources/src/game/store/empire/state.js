@@ -13,7 +13,7 @@ export default {
     requesting: false,
     stars: [],
     planets: [],
-    expandedStars: savedState.expandedStars || [],
+    collapsedStars: savedState.collapsedStars || [],
     editingStarId: "",
     changingStarId: "",
     starsSorted: savedState.starsSorted || [],

@@ -30,8 +30,8 @@ export default {
     setup(props) {
         const store = useStore();
         const star = computed(() => store.getters["empire/starById"](props.id));
-        const isExpanded = computed(() =>
-            store.getters["empire/isStarExpanded"](props.id)
+        const isCollapsed = computed(() =>
+            store.getters["empire/isStarCollapsed"](props.id)
         );
         const isStarEditing = computed(
             () => store.state.empire.editingStarId === props.id
@@ -41,7 +41,7 @@ export default {
         );
         return {
             star,
-            isExpanded,
+            isCollapsed,
             isStarEditing,
             isStarChanging,
         };
@@ -67,7 +67,7 @@ export default {
             <loading v-if="isStarChanging" :size="38" class="loading" />
             <star-location :x="star.x" :y="star.y" />
         </div>
-        <list-planets v-if="isExpanded" :star-id="star.id" />
+        <list-planets v-if="!isCollapsed" :star-id="star.id" />
     </div>
 </template>
 

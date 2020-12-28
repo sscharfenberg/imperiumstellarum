@@ -17,8 +17,8 @@ export default {
             }) || {},
 
     // is the starId expanded and showing planets?
-    isStarExpanded: (state) => (id) => {
-        return state.expandedStars.includes(id) || false;
+    isStarCollapsed: (state) => (id) => {
+        return state.collapsedStars.includes(id) || false;
     },
 
     // get name of star by id

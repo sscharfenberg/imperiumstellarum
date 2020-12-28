@@ -9,7 +9,7 @@ const storageKey = pkg.name.toUpperCase() + "_GAME" + gameNumber;
 import { storageAvailable } from "@/shared/persist";
 
 const defaultState = {
-    expandedStars: [],
+    collapsedStars: [],
     starsSorted: [],
     cameraX: 0,
     cameraY: 0,
