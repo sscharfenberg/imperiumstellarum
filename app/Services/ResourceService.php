@@ -85,7 +85,7 @@ class ResourceService {
         }
         // hull costs
         foreach(config('rules.ships.hullTypes.'.$hullType.'.costs') as $type => $value) {
-            $costs[$type] += $value;
+            if ($type !== 'turns') $costs[$type] += $value;
         }
         // module costs
         foreach($modules as $mod) {
@@ -94,7 +94,7 @@ class ResourceService {
                     return $c['hullType'] === $hullType && $c['techType'] === $mod;
                 })->first()['costs'];
             foreach($moduleCosts as $key => $value) {
-                if ($key !== 'population') $costs[$key] += $value;
+                if ($key !== 'population' && $key !== 'turns') $costs[$key] += $value;
                 if ($key === 'population') $costs[$key] = $value;
             }
         }

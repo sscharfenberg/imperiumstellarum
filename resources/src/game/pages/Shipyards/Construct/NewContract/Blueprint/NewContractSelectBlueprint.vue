@@ -65,6 +65,14 @@ export default {
 
 <style lang="scss" scoped>
 .contract {
+    &__blueprints {
+        margin-bottom: 8px;
+
+        @include respond-to("medium") {
+            margin-bottom: 16px;
+        }
+    }
+
     &__blueprint {
         padding: 0;
         margin: 0;

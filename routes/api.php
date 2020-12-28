@@ -139,5 +139,8 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // rename blueprint
     Route::post('/game/{game}/shipyards/blueprint/rename',
         [\App\Http\Controllers\Game\Shipyards\RenameBlueprintController::class, 'handle']);
+    // create construction contract
+    Route::post('/game/{game}/shipyards/contract/construct',
+        [\App\Http\Controllers\Game\Shipyards\CreateConstructionContractController::class, 'handle']);
 
 });

@@ -9,6 +9,7 @@ export const calculateShipCosts = (hullType, modules) => {
     const costs = {
         energy: window.rules.ships.hullTypes[hullType].costs.energy,
         minerals: window.rules.ships.hullTypes[hullType].costs.minerals,
+        turns: window.rules.ships.hullTypes[hullType].costs.turns,
     };
     // costs for modules
     modules.forEach((type) => {
@@ -17,6 +18,7 @@ export const calculateShipCosts = (hullType, modules) => {
         ).costs;
         costs.energy += modRules.energy;
         costs.minerals += modRules.minerals;
+        costs.turns += modRules.turns;
         // if the module costs population (colony), add it to costs object
         if (modRules.population) costs.population = modRules.population;
     });

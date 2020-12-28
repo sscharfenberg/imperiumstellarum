@@ -16,6 +16,7 @@ export default {
             const id = store.state.shipyards.newContract.blueprint;
             return store.getters["shipyards/blueprintById"](id);
         });
+        const amount = computed(() => store.state.shipyards.newContract.amount);
         const tls = computed(() => {
             const tls = [];
             const objectTls = blueprint.value.techLevels;
@@ -30,6 +31,7 @@ export default {
         return {
             blueprint,
             tls,
+            amount,
             onCancel,
         };
     },
@@ -48,6 +50,7 @@ export default {
             :hull-type="blueprint.hullType"
             :modules="blueprint.modules"
             :tls="tls"
+            :amount="amount"
         />
     </div>
 </template>

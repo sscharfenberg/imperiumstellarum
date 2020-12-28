@@ -30,7 +30,7 @@
         "shields": "Shields",
         "engine": "Engines",
         "ftl": "Jumpdrive",
-        "colony": "Colony",
+        "colony": "Colony module",
         "researchBtn": "Research TL{level}",
         "levelLabel": "TL{level}",
         "learned": "researched",

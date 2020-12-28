@@ -44,6 +44,16 @@ export default {
     },
 
     /**
+     * @function SET construction contracts
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_CONSTRUCTION_CONTRACTS: (state, payload) => {
+        state.constructionContracts = payload;
+    },
+
+    /**
      * @function SET maximum number of blueprints
      * @param {Object} state - vuex module "shipyards" state
      * @param {Number} payload
@@ -206,5 +216,15 @@ export default {
      */
     SET_CONTRACT_BLUEPRINT: (state, payload) => {
         state.newContract.blueprint = payload;
+    },
+
+    /**
+     * @function set the amount of ships to be built in the contract
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Number} payload - amount
+     * @constructor
+     */
+    SET_CONTRACT_AMOUNT: (state, payload) => {
+        state.newContract.amount = payload;
     },
 };

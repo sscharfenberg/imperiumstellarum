@@ -15,6 +15,7 @@ export default {
     page: savedState.shipyardPage || 0,
     techLevels: [],
     blueprints: [],
+    constructionContracts: [],
     bpMax: 0,
     design: {
         hullType: "",
@@ -32,5 +33,6 @@ export default {
     newContract: {
         shipyard: "",
         blueprint: "",
+        amount: 0,
     },
 };

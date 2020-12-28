@@ -8,6 +8,8 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import NewContractSelectShipyard from "./NewContractSelectShipyard";
 import NewContractSelectBlueprint from "./Blueprint/NewContractSelectBlueprint";
 import NewContractPreviewBlueprint from "./Blueprint/NewContractPreviewBlueprint";
+import NewContractSelectAmount from "./NewContractSelectAmount";
+import NewContractSubmit from "./NewContractSubmit";
 export default {
     name: "NewContract",
     components: {
@@ -15,16 +17,22 @@ export default {
         NewContractSelectShipyard,
         NewContractSelectBlueprint,
         NewContractPreviewBlueprint,
+        NewContractSelectAmount,
+        NewContractSubmit,
     },
     setup() {
         const store = useStore();
         const selectedShipyard = computed(
             () => store.state.shipyards.newContract.shipyard
         );
+        const selectedBlueprint = computed(
+            () => store.state.shipyards.newContract.blueprint
+        );
+        const amount = computed(() => store.state.shipyards.newContract.amount);
         const showPreview = computed(
             () => store.state.shipyards.newContract.blueprint
         );
-        return { selectedShipyard, showPreview };
+        return { selectedShipyard, showPreview, selectedBlueprint, amount };
     },
 };
 </script>
@@ -35,6 +43,12 @@ export default {
             <div class="contract__section">
                 <new-contract-select-shipyard />
                 <new-contract-select-blueprint v-if="selectedShipyard" />
+                <new-contract-select-amount
+                    v-if="selectedShipyard && selectedBlueprint"
+                />
+                <new-contract-submit
+                    v-if="selectedShipyard && selectedBlueprint && amount"
+                />
             </div>
             <new-contract-preview-blueprint v-if="showPreview" />
         </div>

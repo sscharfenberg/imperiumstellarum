@@ -633,6 +633,13 @@ return [
     */
 
     'shipyards' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Shipyard types: build/upgrade costs, constructable hulls
+        |--------------------------------------------------------------------------
+        */
+
         'hullTypes' => [
             'small' => [
                 'costs' => [
@@ -688,6 +695,19 @@ return [
                 ],
                 'construct' => ['ark', 'small', 'medium', 'large', 'xlarge']
             ]
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Contract rules
+        |--------------------------------------------------------------------------
+        */
+
+        'contracts' => [
+            'amount' => [
+                'min' => 1,
+                'max' => 25,
+            ]
         ]
     ],
 
@@ -712,7 +732,8 @@ return [
                 ],
                 'costs' => [
                     'energy' => 100,
-                    'minerals' => 100
+                    'minerals' => 100,
+                    'turns' => 16
                 ]
             ],
             'small' => [
@@ -725,7 +746,8 @@ return [
                 ],
                 'costs' => [
                     'energy' => 50,
-                    'minerals' => 50
+                    'minerals' => 50,
+                    'turns' => 8
                 ]
             ],
             'medium' => [
@@ -738,7 +760,8 @@ return [
                 ],
                 'costs' => [
                     'energy' => 100,
-                    'minerals' => 100
+                    'minerals' => 100,
+                    'turns' => 16
                 ]
             ],
             'large' => [
@@ -751,7 +774,8 @@ return [
                 ],
                 'costs' => [
                     'energy' => 200,
-                    'minerals' => 200
+                    'minerals' => 200,
+                    'turns' => 32
                 ]
             ],
             'xlarge' => [
@@ -764,7 +788,8 @@ return [
                 ],
                 'costs' => [
                     'energy' => 400,
-                    'minerals' => 400
+                    'minerals' => 400,
+                    'turns' => 64
                 ]
             ]
         ],
@@ -807,7 +832,8 @@ return [
             'techType' => 'ftl',
             'costs' => [
                 'energy' => 37,
-                'minerals' => 37
+                'minerals' => 37,
+                'turns' => 2,
             ]
         ],
         [
@@ -817,7 +843,8 @@ return [
             'costs' => [
                 'energy' => 50,
                 'minerals' => 50,
-                'population' => 0.5
+                'population' => 0.5,
+                'turns' => 2,
             ]
         ],
 
@@ -832,7 +859,8 @@ return [
             'range' => 1,
             'costs' => [
                 'energy' => 35,
-                'minerals' => 15
+                'minerals' => 15,
+                'turns' => 1,
             ]
         ],
         [
@@ -843,7 +871,8 @@ return [
             'range' => 2,
             'costs' => [
                 'energy' => 25,
-                'minerals' => 25
+                'minerals' => 25,
+                'turns' => 1,
             ]
         ],
         [
@@ -854,7 +883,8 @@ return [
             'range' => 3,
             'costs' => [
                 'energy' => 15,
-                'minerals' => 35
+                'minerals' => 35,
+                'turns' => 1,
             ]
         ],
         [
@@ -865,7 +895,8 @@ return [
             'range' => 5,
             'costs' => [
                 'energy' => 25,
-                'minerals' => 25
+                'minerals' => 25,
+                'turns' => 1,
             ]
         ],
         [
@@ -875,7 +906,8 @@ return [
             'baseHp' => 100,
             'costs' => [
                 'energy' => 30,
-                'minerals' => 20
+                'minerals' => 20,
+                'turns' => 1,
             ]
         ],
         [
@@ -885,7 +917,8 @@ return [
             'baseHp' => 100,
             'costs' => [
                 'energy' => 20,
-                'minerals' => 30
+                'minerals' => 30,
+                'turns' => 1,
             ]
         ],
         [
@@ -894,7 +927,8 @@ return [
             'techType' => 'ftl',
             'costs' => [
                 'energy' => 25,
-                'minerals' => 25
+                'minerals' => 25,
+                'turns' => 2,
             ]
         ],
         [
@@ -904,7 +938,8 @@ return [
             'acceleration' => 2,
             'costs' => [
                 'energy' => 25,
-                'minerals' => 25
+                'minerals' => 25,
+                'turns' => 1,
             ]
         ],
 
@@ -919,7 +954,8 @@ return [
             'range' => 2,
             'costs' => [
                 'energy' => 52,
-                'minerals' => 22
+                'minerals' => 22,
+                'turns' => 2,
             ]
         ],
         [
@@ -930,7 +966,8 @@ return [
             'range' => 3,
             'costs' => [
                 'energy' => 37,
-                'minerals' => 37
+                'minerals' => 37,
+                'turns' => 2,
             ]
         ],
         [
@@ -941,7 +978,8 @@ return [
             'range' => 4,
             'costs' => [
                 'energy' => 22,
-                'minerals' => 52
+                'minerals' => 52,
+                'turns' => 2,
             ]
         ],
         [
@@ -952,7 +990,8 @@ return [
             'range' => 6,
             'costs' => [
                 'energy' => 37,
-                'minerals' => 37
+                'minerals' => 37,
+                'turns' => 2,
             ]
         ],
         [
@@ -962,7 +1001,8 @@ return [
             'baseHp' => 150,
             'costs' => [
                 'energy' => 44,
-                'minerals' => 30
+                'minerals' => 30,
+                'turns' => 2,
             ]
         ],
         [
@@ -972,7 +1012,8 @@ return [
             'baseHp' => 150,
             'costs' => [
                 'energy' => 30,
-                'minerals' => 44
+                'minerals' => 44,
+                'turns' => 2,
             ]
         ],
         [
@@ -981,7 +1022,8 @@ return [
             'techType' => 'ftl',
             'costs' => [
                 'energy' => 37,
-                'minerals' => 37
+                'minerals' => 37,
+                'turns' => 3,
             ]
         ],
         [
@@ -991,7 +1033,8 @@ return [
             'acceleration' => 2,
             'costs' => [
                 'energy' => 37,
-                'minerals' => 37
+                'minerals' => 37,
+                'turns' => 2,
             ]
         ],
 
@@ -1006,7 +1049,8 @@ return [
             'range' => 3,
             'costs' => [
                 'energy' => 78,
-                'minerals' => 34
+                'minerals' => 34,
+                'turns' => 3,
             ]
         ],
         [
@@ -1017,7 +1061,8 @@ return [
             'range' => 4,
             'costs' => [
                 'energy' => 56,
-                'minerals' => 56
+                'minerals' => 56,
+                'turns' => 3,
             ]
         ],
         [
@@ -1028,7 +1073,8 @@ return [
             'range' => 5,
             'costs' => [
                 'energy' => 34,
-                'minerals' => 78
+                'minerals' => 78,
+                'turns' => 3,
             ]
         ],
         [
@@ -1039,7 +1085,8 @@ return [
             'range' => 7,
             'costs' => [
                 'energy' => 56,
-                'minerals' => 56
+                'minerals' => 56,
+                'turns' => 3,
             ]
         ],
         [
@@ -1049,7 +1096,8 @@ return [
             'baseHp' => 225,
             'costs' => [
                 'energy' => 67,
-                'minerals' => 45
+                'minerals' => 45,
+                'turns' => 3,
             ]
         ],
         [
@@ -1059,7 +1107,8 @@ return [
             'baseHp' => 225,
             'costs' => [
                 'energy' => 45,
-                'minerals' => 67
+                'minerals' => 67,
+                'turns' => 3,
             ]
         ],
         [
@@ -1068,7 +1117,8 @@ return [
             'techType' => 'ftl',
             'costs' => [
                 'energy' => 56,
-                'minerals' => 56
+                'minerals' => 56,
+                'turns' => 4,
             ]
         ],
         [
@@ -1078,7 +1128,8 @@ return [
             'acceleration' => 1,
             'costs' => [
                 'energy' => 56,
-                'minerals' => 56
+                'minerals' => 56,
+                'turns' => 3,
             ]
         ],
 
@@ -1093,7 +1144,8 @@ return [
             'range' => 4,
             'costs' => [
                 'energy' => 117,
-                'minerals' => 51
+                'minerals' => 51,
+                'turns' => 5,
             ]
         ],
         [
@@ -1104,7 +1156,8 @@ return [
             'range' => 5,
             'costs' => [
                 'energy' => 84,
-                'minerals' => 84
+                'minerals' => 84,
+                'turns' => 5,
             ]
         ],
         [
@@ -1115,7 +1168,8 @@ return [
             'range' => 6,
             'costs' => [
                 'energy' => 51,
-                'minerals' => 117
+                'minerals' => 117,
+                'turns' => 5,
             ]
         ],
         [
@@ -1126,7 +1180,8 @@ return [
             'range' => 8,
             'costs' => [
                 'energy' => 84,
-                'minerals' => 84
+                'minerals' => 84,
+                'turns' => 5,
             ]
         ],
         [
@@ -1136,7 +1191,8 @@ return [
             'baseHp' => 337,
             'costs' => [
                 'energy' => 100,
-                'minerals' => 68
+                'minerals' => 68,
+                'turns' => 5,
             ]
         ],
         [
@@ -1146,7 +1202,8 @@ return [
             'baseHp' => 337,
             'costs' => [
                 'energy' => 68,
-                'minerals' => 100
+                'minerals' => 100,
+                'turns' => 5,
             ]
         ],
         [
@@ -1155,7 +1212,8 @@ return [
             'techType' => 'ftl',
             'costs' => [
                 'energy' => 84,
-                'minerals' => 84
+                'minerals' => 84,
+                'turns' => 7,
             ]
         ],
         [
@@ -1165,7 +1223,8 @@ return [
             'acceleration' => 1,
             'costs' => [
                 'energy' => 84,
-                'minerals' => 84
+                'minerals' => 84,
+                'turns' => 5,
             ]
         ],
     ]

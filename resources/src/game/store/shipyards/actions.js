@@ -140,4 +140,46 @@ export default {
                 commit("SET_BLUEPRINT_RENAMING", "");
             });
     },
+
+    /**
+     * @function change blueprint name
+     * @param commit
+     * @param {Function} commit - Vuex commit fn
+     * @param {Object} payload
+     * @param {String} payload.shipyard
+     * @param {String} payload.blueprint
+     * @param {Number} payload.amount
+     * @constructor
+     */
+    CREATE_CONSTRUCTION_CONTRACT: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/shipyards/contract/construct`,
+                payload
+            )
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.constructionContracts &&
+                    response.data.message
+                ) {
+                    commit(
+                        "SET_CONSTRUCTION_CONTRACTS",
+                        response.data.constructionContracts
+                    );
+                    commit("shipyards/SET_CONTRACT_SHIPYARD", "");
+                    commit("shipyards/SET_CONTRACT_BLUEPRINT", "");
+                    commit("shipyards/SET_CONTRACT_AMOUNT", 0);
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

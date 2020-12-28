@@ -56,7 +56,9 @@
                 "jumpdrive": "Sprungtriebwerk",
                 "acceleration": "Beschleunigung"
             },
-            "costs": "Baukosten"
+            "costs": "Baukosten pro Schiff",
+            "costsAll": "Baukosten für {num} Schiffe",
+            "techLevels": "Bauplan Tech Level"
         }
     },
     "manage": {
@@ -81,7 +83,18 @@
             },
             "blueprint": {
                 "headline": "Bauplan auswählen",
-                "preview": "Gewählter Bauplan"
+                "preview": "Gewählter Bauplan",
+                "label": "Klicken um diesen Bauplan auszuwählen.",
+                "labelNo": "Klicken um diesen Bauplan abzuwählen."
+            },
+            "amount": {
+                "headline": "Anzahl auswählen",
+                "label": "Anzahl der Schiffe"
+            },
+            "finalize": {
+                "explanation": "Bitte beachten - die Resourcen für ein einzelnes Schiff werden fällig beim Start des Bauauftrages (jetzt!) und alle {turn} Runden danach. Wenn nicht genügend Resourcen vorhanden sind, wird die Werft warten bis genügend Resourcen für ein weiteres Schiff vorhanden sind und dann fortfahren.",
+                "submit": "Bauauftrag einrichten",
+                "reset": "Zurücksetzen"
             }
         }
     }

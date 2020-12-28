@@ -18,6 +18,7 @@ export default {
         className: String,
         modules: Array,
         tls: Array,
+        amount: Number,
     },
     components: { Icon, DamageType },
     setup(props) {
@@ -35,15 +36,26 @@ export default {
             calculateAcceleration(props.hullType, props.modules)
         );
         const ftl = computed(() => props.modules.includes("ftl"));
-        const resourceCosts = computed(() =>
+        const resourceCostsOne = computed(() =>
             calculateShipCosts(props.hullType, props.modules)
         );
+        const sortedTls = computed(() => {
+            const preferedSortOrder = Object.keys(window.rules.tech.areas);
+            const tls = props.tls;
+            return tls.sort((a, b) => {
+                return (
+                    preferedSortOrder.indexOf(a.type) -
+                    preferedSortOrder.indexOf(b.type)
+                );
+            });
+        });
         return {
             hp,
             dmg,
             acceleration,
             ftl,
-            resourceCosts,
+            resourceCostsOne,
+            sortedTls,
         };
     },
 };
@@ -107,22 +119,44 @@ export default {
             <icon name="tech-engine" />
             {{ acceleration }}g
         </li>
-        <li v-if="resourceCosts.population" class="label">
+        <li v-if="resourceCostsOne.population" class="label">
             {{ $t("research.tl.colony") }}
         </li>
-        <li v-if="resourceCosts.population" class="has-icon">
+        <li v-if="resourceCostsOne.population" class="has-icon">
             <icon name="population" />
-            {{ resourceCosts.population }}
+            {{ $t("common.boolean.yes") }}
+        </li>
+        <li class="section">
+            {{ $t("shipyards.design.preview.techLevels") }}
+        </li>
+        <li class="tls">
+            <span class="tl" v-for="tl in sortedTls" :key="tl.type">
+                <icon :name="`tech-${tl.type}`" />
+                {{ tl.level }}
+            </span>
         </li>
         <li class="section">
             {{ $t("shipyards.design.preview.costs") }}
         </li>
         <li class="resources">
             <div
-                v-for="[type, value] of Object.entries(resourceCosts)"
+                v-for="[type, value] of Object.entries(resourceCostsOne)"
                 :key="type"
             >
                 {{ value }}
+                <icon v-if="type !== 'population'" :name="`res-${type}`" />
+                <icon v-if="type === 'population'" name="population" />
+            </div>
+        </li>
+        <li v-if="amount" class="section">
+            {{ $t("shipyards.design.preview.costsAll", { num: amount }) }}
+        </li>
+        <li v-if="amount" class="resources">
+            <div
+                v-for="[type, value] of Object.entries(resourceCostsOne)"
+                :key="type"
+            >
+                {{ value * amount }}
                 <icon v-if="type !== 'population'" :name="`res-${type}`" />
                 <icon v-if="type === 'population'" name="population" />
             </div>
@@ -231,27 +265,47 @@ export default {
             align-items: center;
             grid-column-start: span 2;
 
-            padding: 0;
+            //padding: 0;
 
             > div {
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
-                padding: 4px 8px;
-                border-right: 1px solid transparent;
+                margin-right: 8px;
 
-                @include respond-to("medium") {
-                    padding: 8px 16px;
+                &:last-child {
+                    margin-right: auto;
                 }
 
-                @include themed() {
-                    background-color: t("g-sunken");
-                    border-color: t("g-deep");
+                &:first-child {
+                    margin-left: auto;
                 }
 
                 .icon {
-                    margin-left: 8px;
+                    margin-left: 4px;
+                }
+            }
+        }
+
+        &.tls {
+            display: flex;
+
+            grid-column-start: span 2;
+
+            .tl {
+                margin-right: 8px;
+
+                &:last-child {
+                    margin-right: auto;
+                }
+
+                &:first-child {
+                    margin-left: auto;
+                }
+
+                .icon {
+                    margin-right: 4px;
                 }
             }
         }

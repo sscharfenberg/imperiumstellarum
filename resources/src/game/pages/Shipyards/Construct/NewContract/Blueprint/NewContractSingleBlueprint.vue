@@ -4,6 +4,8 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useI18n } from "vue-i18n";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "NewContractSingleBlueprint",
     props: {
@@ -11,8 +13,10 @@ export default {
         className: String,
         hullType: String,
     },
+    components: { Icon },
     setup(props) {
         const store = useStore();
+        const i18n = useI18n();
         const blueprint = computed(() =>
             store.getters["shipyards/blueprintById"](props.blueprintId)
         );
@@ -31,10 +35,16 @@ export default {
                 store.commit("shipyards/SET_CONTRACT_BLUEPRINT", "");
             }
         };
+        const title = computed(() =>
+            isSelected.value
+                ? i18n.t("shipyards.construct.newContract.blueprint.labelNo")
+                : i18n.t("shipyards.construct.newContract.blueprint.label")
+        );
         return {
             blueprint,
             isSelected,
             onSelect,
+            title,
         };
     },
 };
@@ -42,11 +52,14 @@ export default {
 
 <template>
     <li class="blueprint__item">
-        <button @click="onSelect" :class="{ active: isSelected }">
+        <button
+            @click="onSelect"
+            :class="{ active: isSelected }"
+            :title="title"
+            :aria-label="title"
+        >
+            <icon :name="`hull-${hullType}`" />
             {{ className }}
-            {{ hullType }}
-            {{ blueprintId }}
-            {{ isSelected }}
         </button>
     </li>
 </template>
@@ -64,6 +77,9 @@ export default {
     }
 
     button {
+        display: flex;
+        align-items: center;
+
         width: 100%;
         padding: 8px;
         border: 1px solid transparent;
@@ -81,8 +97,17 @@ export default {
 
         &.active {
             @include themed() {
-                background-color: t("g-deep");
-                border-color: t("g-abbey");
+                background-color: t("g-iron");
+                color: t("t-dark");
+                border-color: t("g-white");
+            }
+        }
+
+        .icon {
+            margin-right: 8px;
+
+            @include respond-to("medium") {
+                margin-right: 16px;
             }
         }
     }

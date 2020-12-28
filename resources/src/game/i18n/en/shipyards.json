@@ -56,7 +56,9 @@
                 "jumpdrive": "Jumpdrive",
                 "acceleration": "Acceleration"
             },
-            "costs": "Build costs"
+            "costs": "Build costs per ship",
+            "costsAll": "Build costs for {num} ships",
+            "techLevels": "Blueprint Tech Levels"
         }
     },
     "manage": {
@@ -81,7 +83,18 @@
             },
             "blueprint": {
                 "headline": "Select blueprint",
-                "preview": "Selected Blueprint"
+                "preview": "Selected Blueprint",
+                "label": "Click to select this blueprint",
+                "labelNo": "Click to unselect this blueprint"
+            },
+            "amount": {
+                "headline": "Choose amount",
+                "label": "Number of ships"
+            },
+            "finalize": {
+                "explanation": "Please note - the resources for a single ship will be subtracted upon contract start (now!) and every {turn} turns after that. If you do not have enough resources, the shipyard will wait until there are enough resources to pay for a new ship, then continue.",
+                "submit": "Create contract",
+                "reset": "Reset"
             }
         }
     }

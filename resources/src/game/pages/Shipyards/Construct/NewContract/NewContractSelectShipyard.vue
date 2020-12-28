@@ -17,6 +17,8 @@ export default {
         const selectedShipyard = computed({
             get: () => store.state.shipyards.newContract.shipyard,
             set: (value) => {
+                // TODO: don't check whether the blueprint can be built in the shipyard, only reset if not.
+                store.commit("shipyards/SET_CONTRACT_BLUEPRINT", "");
                 store.commit("shipyards/SET_CONTRACT_SHIPYARD", value);
             },
         });
@@ -86,10 +88,9 @@ export default {
 
         input[type="radio"]:checked + label {
             @include themed() {
-                border: 1px solid t("g-astral");
-
-                background: t("g-iron");
+                background-color: t("g-iron");
                 color: t("t-dark");
+                border-color: t("g-white");
             }
         }
 
