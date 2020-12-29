@@ -80,6 +80,4 @@
         explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
         incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
 
-    Build v{{ Illuminate\Foundation\Application::VERSION }}
-
 @endsection

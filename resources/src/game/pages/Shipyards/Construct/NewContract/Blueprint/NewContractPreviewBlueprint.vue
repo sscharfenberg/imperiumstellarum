@@ -46,7 +46,7 @@ export default {
             <game-button icon-name="cancel" @click="onCancel" />
         </sub-headline>
         <ship-class-card
-            :class-name="blueprint.className"
+            :class-name="blueprint.name"
             :hull-type="blueprint.hullType"
             :modules="blueprint.modules"
             :tls="tls"

@@ -101,4 +101,23 @@ class ResourceService {
         return $costs;
     }
 
+    /**
+     * @function calculate build duration of a ship
+     * @param string $hullType
+     * @param array $modules
+     * @return int
+     */
+    public function getShipBuildDuration(string $hullType, array $modules): int
+    {
+        $turns = config('rules.ships.hullTypes.'.$hullType.'.costs.turns');
+        foreach($modules as $mod) {
+            $moduleCosts = collect(config('rules.modules'))
+                ->filter(function($c) use ($hullType, $mod) {
+                    return $c['hullType'] === $hullType && $c['techType'] === $mod;
+                })->first()['costs']['turns'];
+            $turns += $moduleCosts;
+        }
+        return $turns;
+    }
+
 }

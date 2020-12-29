@@ -18,6 +18,7 @@ export default {
         index: Number,
     },
     components: { Modal, Icon, GameButton },
+    emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();
         const planet = computed(() =>

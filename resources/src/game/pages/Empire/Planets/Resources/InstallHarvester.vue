@@ -18,6 +18,7 @@ export default {
         planetName: String,
     },
     components: { Modal, Costs, GameButton, Icon },
+    emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();
         const installCosts = computed(

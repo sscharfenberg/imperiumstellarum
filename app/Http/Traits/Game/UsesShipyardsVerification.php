@@ -2,20 +2,33 @@
 
 namespace App\Http\Traits\Game;
 
+use App\Models\Blueprint;
 use App\Models\Player;
+use App\Models\Shipyard;
 
 trait UsesShipyardsVerification
 {
 
     /**
-     * @function ensure the blueprint is owned by the requesting player
+     * @function ensure the blueprint exists and is owned by the requesting player
      * @param string $id
      * @param Player $player
      * @return bool
      */
-    private function blueprintIsPlayerOwned (string $id, Player $player): bool
+    private function isBlueprintPlayerOwned (string $id, Player $player): bool
     {
         return $player->blueprints->containsStrict('id', $id);
+    }
+
+    /**
+     * @function ensure the shipyard exists and is owned by the requesting player
+     * @param string $id
+     * @param Player $player
+     * @return bool
+     */
+    private function isShipyardPlayerOwned (string $id, Player $player): bool
+    {
+        return $player->shipyards->containsStrict('id', $id);
     }
 
     /**
@@ -99,6 +112,24 @@ trait UsesShipyardsVerification
     private function isClassNameUnique (Player $player, string $name): bool
     {
         return count($player->blueprints->where('name', $name)) === 0;
+    }
+
+    /**
+     * @function ensure the ship amount is valid (integer, within bounds)
+     * @param int $amount
+     * @return bool
+     */
+    private function isShipAmountValid (int $amount): bool
+    {
+        return is_int($amount)
+            && $amount >= config('rules.shipyards.contracts.amount.min')
+            && $amount <= config('rules.shipyards.contracts.amount.max');
+    }
+
+    private function canShipyardBuildBlueprint (Shipyard $shipyard, Blueprint $blueprint): bool
+    {
+        $validHullTypes = config('rules.shipyards.hullTypes.'.$shipyard->type.'.construct');
+        return in_array($blueprint->hull_type, $validHullTypes);
     }
 
 }

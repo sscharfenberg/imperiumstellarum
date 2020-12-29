@@ -27,6 +27,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $game_id
+ * @property string $blueprint_id
  */
 class BlueprintTechLevel extends Model
 {

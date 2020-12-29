@@ -22,12 +22,6 @@ use Illuminate\Support\Facades\DB;
  * @property \Illuminate\Support\Carbon $start_date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
- * @property-read int|null $players_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
- * @property-read int|null $stars_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Turn[] $turns
- * @property-read int|null $turns_count
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game query()
@@ -44,6 +38,12 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereTurnDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Player[] $players
+ * @property-read int|null $players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
+ * @property-read int|null $stars_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Turn[] $turns
+ * @property-read int|null $turns_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
  * @property-read int|null $harvesters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Planet[] $planets
@@ -56,8 +56,12 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $researches_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprint[] $blueprints
  * @property-read int|null $blueprints_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $blueprintTechLevel
- * @property-read int|null $$blueprintTechLevels_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $blueprintTechLevels
+ * @property-read int|null $blueprint_tech_levels_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContracts
+ * @property-read int|null $construction_contracts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
+ * @property-read int|null $ships_count
  */
 class Game extends Model
 {
@@ -193,6 +197,22 @@ class Game extends Model
     public function blueprintTechLevels()
     {
         return $this->hasMany('App\Models\BlueprintTechLevel');
+    }
+
+    /**
+     * Get the construction contracts for this game
+     */
+    public function constructionContracts()
+    {
+        return $this->hasMany('App\Models\ConstructionContract');
+    }
+
+    /**
+     * Get the ships for this game
+     */
+    public function ships()
+    {
+        return $this->hasMany('App\Models\Ship');
     }
 
 }

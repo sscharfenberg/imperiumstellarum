@@ -67,6 +67,12 @@ return [
                 'classNameUsed' => 'Der Name des Schiffstyps wird bereits verwendet.',
                 'owner' => 'Sie sind nicht der Besitzer dieses Bauplanes.'
             ],
+            'constructionContract' => [
+                'shipyardOwner' => 'Sie sind nicht der Besitzer dieser Werft.',
+                'amount' => 'Die Anzahl von Schiffen ist ungültig.',
+                'shipyard' => 'Diese Werft kann den gewählten Bauplan nicht bauen.',
+                'funds' => 'Sie haben nicht genügend Resourcen um das erste Schiff zu bauen.'
+            ]
         ],
         'blueprintSaved' => 'Bauplan gespeichert.',
         'blueprintDeleted' => 'Bauplan gelöscht.',

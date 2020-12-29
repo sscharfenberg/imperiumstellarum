@@ -32,6 +32,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUntilComplete($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContract
  */
 class Shipyard extends Model
 {
@@ -87,5 +88,14 @@ class Shipyard extends Model
     {
         return $this->belongsTo('App\Models\Player');
     }
+
+    /**
+     * Get the construction contracts for this shipyard
+     */
+    public function constructionContract()
+    {
+        return $this->hasOne('App\Models\ConstructionContract');
+    }
+
 
 }

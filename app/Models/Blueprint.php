@@ -17,8 +17,6 @@ use App\Http\Traits\UsesUuid;
  * @property string $player_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Game $game
- * @property-read \App\Models\Player $player
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint query()
@@ -31,8 +29,15 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blueprint whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $blueprintTechLevel
- * @property-read int|null $$blueprintTechLevels_count
+ * @property-read int|null $blueprintTechLevels_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContracts
+ * @property-read int|null $constructionContracts_count
+ * @property-read \App\Models\Game $game
+ * @property-read \App\Models\Player $player
  * @mixin \Eloquent
+ * @property-read int|null $construction_contracts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlueprintTechLevel[] $techLevels
+ * @property-read int|null $tech_levels_count
  */
 class Blueprint extends Model
 {
@@ -87,6 +92,14 @@ class Blueprint extends Model
     public function techLevels()
     {
         return $this->hasMany('App\Models\BlueprintTechLevel');
+    }
+
+    /**
+     * Get the construction contracts for this blueprint
+     */
+    public function constructionContracts()
+    {
+        return $this->hasMany('App\Models\ConstructionContract');
     }
 
 }

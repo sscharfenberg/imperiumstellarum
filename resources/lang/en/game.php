@@ -67,6 +67,12 @@ return [
                 'classNameUsed' => 'The class name has already been used.',
                 'owner' => 'You do not own this blueprint.'
             ],
+            'constructionContract' => [
+                'shipyardOwner' => 'You do not own this shipyard.',
+                'amount' => 'The amount of ships is invalid.',
+                'shipyard' => 'This shipyard can not build this blueprint.',
+                'funds' => 'You do not have sufficient resources to start building the first ship.'
+            ]
         ],
         'blueprintSaved' => 'Blueprint finalzed.',
         'blueprintDeleted' => 'Blueprint deleted.',

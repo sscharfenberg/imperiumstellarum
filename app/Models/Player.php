@@ -19,14 +19,6 @@ use \App\Http\Traits\UsesUuid;
  * @property bool $dead
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Game $game
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
- * @property-read int|null $stars_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerResource[] $resources
- * @property-read int|null $resources_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TechLevel[] $techLevels
- * @property-read int|null $tech_levels_count
- * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Player query()
@@ -41,6 +33,14 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Game $game
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Star[] $stars
+ * @property-read int|null $stars_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerResource[] $resources
+ * @property-read int|null $resources_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TechLevel[] $techLevels
+ * @property-read int|null $tech_levels_count
+ * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Harvester[] $harvesters
  * @property-read int|null $harvesters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StorageUpgrade[] $storageUpgrades
@@ -49,8 +49,12 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $shipyards_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Research[] $researches
  * @property-read int|null $researches_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprints[] $blueprints
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blueprint[] $blueprints
  * @property-read int|null $blueprints_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContracts
+ * @property-read int|null $construction_contracts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
+ * @property-read int|null $ships_count
  */
 class Player extends Model
 {
@@ -170,6 +174,22 @@ class Player extends Model
     public function blueprints()
     {
         return $this->hasMany('App\Models\Blueprint');
+    }
+
+    /**
+     * Get the construction contracts for this player
+     */
+    public function constructionContracts()
+    {
+        return $this->hasMany('App\Models\ConstructionContract');
+    }
+
+    /**
+     * Get the ships for this player
+     */
+    public function ships()
+    {
+        return $this->hasMany('App\Models\Ship');
     }
 
 }

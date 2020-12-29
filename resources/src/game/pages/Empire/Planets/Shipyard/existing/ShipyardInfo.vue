@@ -16,6 +16,7 @@ export default {
         planetId: String,
     },
     components: { Modal, Icon, Costs, GameButton },
+    emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();
         const i18n = useI18n();

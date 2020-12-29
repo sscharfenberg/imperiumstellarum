@@ -39,6 +39,7 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $harvesters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyard
  * @property-read int|null $shipyard_count
+ * @property-read \App\Models\ConstructionContract|null $constructionContract
  */
 class Planet extends Model
 {
@@ -114,6 +115,14 @@ class Planet extends Model
     public function shipyard()
     {
         return $this->hasOne('App\Models\Shipyard');
+    }
+
+    /**
+     * Get the shipyards for this planet
+     */
+    public function constructionContract()
+    {
+        return $this->hasOne('App\Models\ConstructionContract');
     }
 
 }

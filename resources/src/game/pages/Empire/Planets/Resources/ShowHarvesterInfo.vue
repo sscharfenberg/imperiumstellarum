@@ -14,6 +14,7 @@ export default {
         harvesterId: String,
     },
     components: { Icon, Modal },
+    emits: ["close"],
     setup(props) {
         const store = useStore();
         const i18n = useI18n();
