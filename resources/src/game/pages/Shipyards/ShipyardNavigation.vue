@@ -10,6 +10,9 @@ export default {
     components: { Icon },
     setup() {
         const store = useStore();
+        const hasBlueprints = computed(
+            () => store.state.shipyards.blueprints.length > 0
+        );
         const pageIndex = computed({
             get: () => store.state.shipyards.page,
             set: (value) => {
@@ -18,6 +21,7 @@ export default {
         });
         return {
             pageIndex,
+            hasBlueprints,
         };
     },
 };
@@ -34,6 +38,7 @@ export default {
             {{ $t("shipyards.design.navTitle") }}
         </button>
         <button
+            v-if="hasBlueprints"
             class="shipard-nav__link"
             @click="pageIndex = 1"
             :class="{ active: pageIndex === 1 }"

@@ -76,7 +76,8 @@ return [
         ],
         'blueprintSaved' => 'Bauplan gespeichert.',
         'blueprintDeleted' => 'Bauplan gelöscht.',
-        'blueprintRenamed' => 'Name des Bauplans gelöscht.'
+        'blueprintRenamed' => 'Name des Bauplans gelöscht.',
+        'constructionContractInstalled' => 'Bauauftrag erstellt. Das erste Schiff wird in :turns Runden ausgeliefert.'
     ],
 
     'fleets' => [

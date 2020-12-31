@@ -80,6 +80,9 @@ class ShipyardsController extends Controller
             'blueprints' => $player->blueprints->map(function ($blueprint) use ($f) {
                 return $f->formatBlueprint($blueprint);
             }),
+            'constructionContracts' => $player->constructionContracts->map(function ($contract) use ($f) {
+                return $f->formatConstructionContract($contract);
+            }),
             'numMaxBlueprints' => round($numMaxBps),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));

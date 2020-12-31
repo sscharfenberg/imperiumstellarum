@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Turn whereProcessed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Turn whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContracts
+ * @property-read int|null $construction_contracts_count
  */
 class Turn extends Model
 {
@@ -85,6 +87,5 @@ class Turn extends Model
     {
         return $this->belongsTo('App\Models\Game');
     }
-
 
 }

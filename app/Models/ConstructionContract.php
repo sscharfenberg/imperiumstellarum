@@ -9,11 +9,19 @@ use App\Http\Traits\UsesUuid;
 /**
  * App\Models\ConstructionContract
  *
+ * @property string $id
+ * @property string $blueprint_id
+ * @property string $shipyard_id
  * @property int $amount
+ * @property string $hull_type
  * @property int $amount_left
  * @property int $turns_per_ship
  * @property int $turns_left
+ * @property int $costs_minerals
+ * @property int $costs_energy
  * @property array $cached_ship
+ * @property string $game_id
+ * @property string $player_id
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract query()
@@ -24,11 +32,25 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCachedShip($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereBlueprintId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsEnergy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsMinerals($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHullType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereShipyardId($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Blueprint $blueprint
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
  * @property-read \App\Models\Shipyard $shipyard
+ * @property-read \App\Models\Planet $planet
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Turn|null $turnCreated
+ * @property string $turn_id
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereTurnId($value)
  */
 class ConstructionContract extends Model
 {
@@ -59,6 +81,7 @@ class ConstructionContract extends Model
         'player_id',
         'blueprint_id',
         'shipyard_id',
+        'turn_id',
         'hull_type',
         'amount',
         'amount_left',

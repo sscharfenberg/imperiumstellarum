@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Blueprint;
+use App\Models\ConstructionContract;
 use App\Models\Player;
 use App\Models\Research;
 use App\Models\Star;
@@ -12,7 +13,6 @@ use App\Models\PlayerResource;
 use App\Models\Harvester;
 use App\Models\Shipyard;
 use App\Models\TechLevel;
-use PhpParser\Node\Scalar\String_;
 
 class FormatApiResponseService {
 
@@ -203,6 +203,29 @@ class FormatApiResponseService {
             'modules' => explode("  ", $blueprint->modules),
             'techLevels' => $tls,
             'name' => $blueprint->name
+        ];
+    }
+
+    /**
+     * @function format api response for a construction contract
+     * @param ConstructionContract $contract
+     * @return array
+     */
+    public function formatConstructionContract (ConstructionContract $contract): array
+    {
+        return [
+            'id' => $contract->id,
+            'blueprintId' => $contract->blueprint_id,
+            'shipyardId' => $contract->shipyard_id,
+            'hull_type' => $contract->hull_type,
+            'amount' => $contract->amount,
+            'amountLeft' => $contract->amount_left,
+            'turnsPerShip' => $contract->turns_per_ship,
+            'turnsLeft' => $contract->turns_left,
+            'costs' => [
+                'minerals' => $contract->costs_minerals,
+                'energy' => $contract->costs_energy,
+            ]
         ];
     }
 

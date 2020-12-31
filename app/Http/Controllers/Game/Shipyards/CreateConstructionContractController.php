@@ -14,6 +14,7 @@ use Exception;
 use App\Http\Traits\Game\UsesShipyardsVerification;
 use App\Services\ResourceService;
 use App\Services\ShipService;
+use App\Services\FormatApiResponseService;
 
 class CreateConstructionContractController extends Controller
 {
@@ -38,6 +39,7 @@ class CreateConstructionContractController extends Controller
         $hullType = $blueprint->hull_type;
         $r = new ResourceService;
         $s = new ShipService;
+        $f = new FormatApiResponseService;
 
         // verification
         if (!$this->isBlueprintPlayerOwned($blueprintId, $player)) {
@@ -63,6 +65,8 @@ class CreateConstructionContractController extends Controller
                 ->json(['error' => __('game.shipyards.errors.constructionContract.funds')], 419);
         }
 
+        $turnCreated = $player->game->turns->where('processed', null)->first();
+
         // all good, calculate ship
         $turns = $r->getShipBuildDuration($hullType, $modules);
         $ship = $s->calculateShipStats($blueprint);
@@ -85,7 +89,11 @@ class CreateConstructionContractController extends Controller
             'cached_ship' => $ship
         ]);
 
-        dd($contract);
+        return response()->json([
+            'constructionContract' => $f->formatConstructionContract($contract),
+            'resources' => $r->getResources($player),
+            'message' => __('game.shipyards.constructionContractInstalled', [ 'turns' => $turns ])
+        ]);
 
     }
 

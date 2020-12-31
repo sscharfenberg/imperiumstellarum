@@ -25,6 +25,10 @@ export default {
                     commit("SET_TECHLEVELS", response.data.techLevels);
                     commit("SET_BLUEPRINTS", response.data.blueprints);
                     commit("SET_BP_MAX", response.data.numMaxBlueprints);
+                    commit(
+                        "SET_CONSTRUCTION_CONTRACTS",
+                        response.data.constructionContracts
+                    );
                 }
             })
             .catch((e) => {
@@ -161,16 +165,19 @@ export default {
             .then((response) => {
                 if (
                     response.status === 200 &&
-                    response.data.constructionContracts &&
+                    response.data.constructionContract &&
                     response.data.message
                 ) {
                     commit(
-                        "SET_CONSTRUCTION_CONTRACTS",
-                        response.data.constructionContracts
+                        "ADD_CONSTRUCTION_CONTRACTS",
+                        response.data.constructionContract
                     );
-                    commit("shipyards/SET_CONTRACT_SHIPYARD", "");
-                    commit("shipyards/SET_CONTRACT_BLUEPRINT", "");
-                    commit("shipyards/SET_CONTRACT_AMOUNT", 0);
+                    commit("SET_CONTRACT_SHIPYARD", "");
+                    commit("SET_CONTRACT_BLUEPRINT", "");
+                    commit("SET_CONTRACT_AMOUNT", 0);
+                    commit("SET_RESOURCES", response.data.resources, {
+                        root: true,
+                    });
                     notify(response.data.message, "success");
                 }
             })

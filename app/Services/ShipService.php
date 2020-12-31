@@ -100,6 +100,8 @@ class ShipService {
             }
         }
 
+        // TODO: acceleration!
+
         return $ship;
     }
 

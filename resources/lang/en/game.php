@@ -76,7 +76,8 @@ return [
         ],
         'blueprintSaved' => 'Blueprint finalzed.',
         'blueprintDeleted' => 'Blueprint deleted.',
-        'blueprintRenamed' => 'Blueprint renamed.'
+        'blueprintRenamed' => 'Blueprint renamed.',
+        'constructionContractInstalled' => 'Construction contract created. The first ship will be ready in :turns turns.'
     ],
 
     'fleets' => [

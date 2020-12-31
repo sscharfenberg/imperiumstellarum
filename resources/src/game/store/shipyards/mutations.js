@@ -227,4 +227,14 @@ export default {
     SET_CONTRACT_AMOUNT: (state, payload) => {
         state.newContract.amount = payload;
     },
+
+    /**
+     * @function ADD a single construction contract
+     * @param {Object} state - vuex module "shipyards" state
+     * @param {Array} payload
+     * @constructor
+     */
+    ADD_CONSTRUCTION_CONTRACTS: (state, payload) => {
+        state.constructionContracts.push(payload);
+    },
 };
