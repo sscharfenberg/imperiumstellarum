@@ -52,7 +52,7 @@ export default {
         <research-priority />
     </area-section>
     <area-section
-        v-if="empireResearchPriority"
+        v-if="empireResearchPriority && numResearchJobs"
         :headline="`${$t(
             'research.queue.hdl'
         )} (${numResearchJobs}/${maxResearchJobs})`"
