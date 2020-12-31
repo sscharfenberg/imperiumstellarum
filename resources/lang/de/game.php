@@ -71,6 +71,7 @@ return [
                 'shipyardOwner' => 'Sie sind nicht der Besitzer dieser Werft.',
                 'amount' => 'Die Anzahl von Schiffen ist ungültig.',
                 'shipyard' => 'Diese Werft kann den gewählten Bauplan nicht bauen.',
+                'shipyardConstructing' => 'Diese Werft arbeitet bereits an einem Bauauftrag.',
                 'funds' => 'Sie haben nicht genügend Resourcen um das erste Schiff zu bauen.'
             ]
         ],

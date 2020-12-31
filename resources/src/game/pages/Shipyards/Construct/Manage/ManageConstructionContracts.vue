@@ -4,8 +4,10 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import AreaSection from "Components/AreaSection/AreaSection";
 export default {
     name: "ManageConstructionContracts",
+    components: { AreaSection },
     setup() {
         const store = useStore();
         const contracts = computed(
@@ -19,7 +21,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <area-section :headline="$t('shipyards.constructions.headline')">
         {{ contracts }}
-    </div>
+    </area-section>
 </template>

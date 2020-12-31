@@ -126,10 +126,27 @@ trait UsesShipyardsVerification
             && $amount <= config('rules.shipyards.contracts.amount.max');
     }
 
+    /**
+     * @function verify that the shipyard is able to build the blueprint
+     * @param Shipyard $shipyard
+     * @param Blueprint $blueprint
+     * @return bool
+     */
     private function canShipyardBuildBlueprint (Shipyard $shipyard, Blueprint $blueprint): bool
     {
         $validHullTypes = config('rules.shipyards.hullTypes.'.$shipyard->type.'.construct');
         return in_array($blueprint->hull_type, $validHullTypes);
     }
+
+    /**
+     * @function verify the shipyard is not already building something.
+     * @param Shipyard $shipyard
+     * @return bool
+     */
+    private function isShipyardReady (Shipyard $shipyard): bool
+    {
+        return !$shipyard->constructionContract;
+    }
+
 
 }

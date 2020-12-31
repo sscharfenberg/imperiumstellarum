@@ -97,5 +97,8 @@
                 "reset": "Reset"
             }
         }
+    },
+    "constructions": {
+        "headline": "Current ccnstruction contracts"
     }
 }

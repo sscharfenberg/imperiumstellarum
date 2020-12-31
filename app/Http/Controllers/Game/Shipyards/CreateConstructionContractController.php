@@ -54,7 +54,10 @@ class CreateConstructionContractController extends Controller
             return response()
                 ->json(['error' => __('game.shipyards.errors.constructionContract.amount')], 419);
         }
-        // TODO: ensure shipyard does not already have a contract
+        if (!$this->isShipyardReady($shipyard)) {
+            return response()
+                ->json(['error' => __('game.shipyards.errors.constructionContract.shipyardConstructing')], 419);
+        }
         if (!$this->canShipyardBuildBlueprint($shipyard, $blueprint)) {
             return response()
                 ->json(['error' => __('game.shipyards.errors.constructionContract.shipyard')], 419);

@@ -97,5 +97,8 @@
                 "reset": "Zurücksetzen"
             }
         }
+    },
+    "constructions": {
+        "headline": "Aktuelle Bauaufträge"
     }
 }

@@ -71,6 +71,7 @@ return [
                 'shipyardOwner' => 'You do not own this shipyard.',
                 'amount' => 'The amount of ships is invalid.',
                 'shipyard' => 'This shipyard can not build this blueprint.',
+                'shipyardConstructing' => 'This shipyard already has an active construction contract.',
                 'funds' => 'You do not have sufficient resources to start building the first ship.'
             ]
         ],

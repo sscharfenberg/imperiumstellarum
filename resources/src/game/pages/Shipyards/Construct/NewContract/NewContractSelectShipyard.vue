@@ -22,7 +22,10 @@ export default {
                 store.commit("shipyards/SET_CONTRACT_SHIPYARD", value);
             },
         });
-        return { shipyards, selectedShipyard };
+        const buildingShipyards = computed(() =>
+            store.state.shipyards.constructionContracts.map((c) => c.shipyardId)
+        );
+        return { shipyards, selectedShipyard, buildingShipyards };
     },
 };
 </script>
@@ -38,6 +41,7 @@ export default {
             v-for="shipyard in shipyards"
             :key="`shipyardContract${shipyard.id}`"
             :for="`shipyardContract${shipyard.id}`"
+            :class="{ inactive: buildingShipyards.includes(shipyard.id) }"
         >
             <input
                 type="radio"
@@ -45,10 +49,12 @@ export default {
                 :id="`shipyardContract${shipyard.id}`"
                 :value="shipyard.id"
                 v-model="selectedShipyard"
+                :disabled="buildingShipyards.includes(shipyard.id)"
             />
             <label
                 :for="`shipyardContract${shipyard.id}`"
                 class="contract__shipyard-type"
+                :class="{ inactive: buildingShipyards.includes(shipyard.id) }"
             >
                 <icon :name="`hull-${shipyard.type}`" />
                 <span>
@@ -101,6 +107,10 @@ export default {
                 margin-bottom: 0;
             }
 
+            &.inactive {
+                cursor: not-allowed;
+            }
+
             @include respond-to("medium") {
                 margin-bottom: 0;
                 flex: 0 0 calc(50% - 8px);
@@ -115,6 +125,7 @@ export default {
 
         height: 100%;
         padding: 8px;
+        border: 2px solid transparent;
 
         cursor: pointer;
 
@@ -123,18 +134,16 @@ export default {
             color map-get($animation-speeds, "fast");
 
         @include themed() {
-            border: 1px solid t("g-abbey");
-
-            background: t("g-deep");
+            background-color: t("g-deep");
             color: t("t-light");
+            border-color: t("g-abbey");
         }
 
-        &:hover {
+        &:hover:not(.inactive) {
             @include themed() {
-                border: 1px solid t("g-raven");
-
-                background: t("g-sunken");
+                background-color: t("g-sunken");
                 color: t("t-light");
+                border-color: t("g-raven");
             }
         }
 
@@ -149,6 +158,18 @@ export default {
                 height: 18px;
                 margin-right: 16px;
                 flex: 0 0 36px;
+            }
+        }
+
+        &.inactive {
+            border: 2px dashed transparent;
+
+            pointer-events: none;
+
+            @include themed() {
+                background-color: t("g-asher");
+                color: t("t-subdued");
+                border-color: t("s-building");
             }
         }
     }

@@ -217,7 +217,7 @@ class FormatApiResponseService {
             'id' => $contract->id,
             'blueprintId' => $contract->blueprint_id,
             'shipyardId' => $contract->shipyard_id,
-            'hull_type' => $contract->hull_type,
+            'hullType' => $contract->hull_type,
             'amount' => $contract->amount,
             'amountLeft' => $contract->amount_left,
             'turnsPerShip' => $contract->turns_per_ship,
