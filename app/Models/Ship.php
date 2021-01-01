@@ -84,7 +84,10 @@ class Ship extends Model
      * @var array
      */
     protected $fillable = [
+        'player_id',
+        'game_id',
         'fleet_id',
+        'hull_type',
         'name',
         'dmg_plasma',
         'dmg_railgun',

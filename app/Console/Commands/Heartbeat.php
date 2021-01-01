@@ -53,6 +53,7 @@ class Heartbeat extends Command
             $dueTurn = $game->turns->whereNull('processed')->where('due', '<=', now())->first();
 
             // check if game needs to be started
+            // TODO: don't start games without players.
             if (now() > $game->start_date && count($game->turns) === 0) {
                 Log::notice('HEARTBEAT: starting game g'.$game->number);
                 $g = new StartGame;

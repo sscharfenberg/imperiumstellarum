@@ -70,6 +70,8 @@ class ProcessHarvesters
 
             Log::notice('Empire '.$player->ticker.' resources after production: '.json_encode($resourcesAfterProduction));
         }
+
+        Log::notice("Looped all players for resource production from harvesters.");
     }
 
 

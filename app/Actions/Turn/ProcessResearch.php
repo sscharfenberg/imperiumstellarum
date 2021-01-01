@@ -14,7 +14,7 @@ class ProcessResearch
     use UsesTotalPopulation;
 
     /**
-     * @function handle population growth
+     * @function process research
      * @param Game $game
      * @return void
      */

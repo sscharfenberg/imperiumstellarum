@@ -2,9 +2,14 @@
 namespace App\Services;
 
 use App\Models\Blueprint;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class ShipService {
 
+    /**
+     * @var array
+     */
     private $shipScaffolding = [
         'game_id' => '',
         'player_id' => '',
@@ -22,6 +27,9 @@ class ShipService {
         'acceleration' => 1
     ];
 
+    /**
+     * @var string[]
+     */
     private $offensiveModules = [
         'plasma',
         'railgun',
@@ -29,10 +37,31 @@ class ShipService {
         'laser'
     ];
 
+    /**
+     * @var string[]
+     */
     private $defensiveModules = [
         'armour',
         'shields'
     ];
+
+    /**
+     * @function select a random ship name
+     * @return string
+     * @throws Exception
+     */
+    public function randomShipName(): string
+    {
+        $names = config('names');
+        try {
+            $index = random_int(0, count($names) - 1);
+        } catch(Exception $e) {
+            Log::error('random_int exception: '.$e->getMessage());
+            $index = rand(0, count($names) - 1);
+        }
+        return config('names')[$index];
+    }
+
 
     /**
      * @function calculate ship base stats for constructionContract caching
@@ -100,7 +129,17 @@ class ShipService {
             }
         }
 
-        // TODO: acceleration!
+        // calculate acceleration
+        $ship['acceleration'] = config('rules.ships.hullTypes.'.$hullType)['baseAcceleration'];
+        foreach($modules as $mod) {
+            $modRules = collect(config('rules.modules'))
+                ->where('hullType', $hullType)
+                ->where('techType', $mod)
+                ->first();
+            if($modRules && isset($modRules['acceleration'])) {
+                $ship['acceleration'] += $modRules['acceleration'];
+            }
+        }
 
         return $ship;
     }

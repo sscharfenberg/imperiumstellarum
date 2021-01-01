@@ -91,6 +91,19 @@ class ProcessTurn
     }
 
     /**
+     * @function build ships
+     * @param Game $game
+     * @param Turn $turn
+     * @return void
+     */
+    private function buildships(Game $game, Turn $turn)
+    {
+        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 6: BUILD SHIPS.');
+        $s = new \App\Actions\Turn\BuildShips;
+        $s->handle($game);
+    }
+
+    /**
      * @function handle game start
      * @param  Game $game
      * @param Turn $turn
@@ -101,8 +114,8 @@ class ProcessTurn
     {
         $start = hrtime(true);
         Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.'.');
-        $game->processing = true;
-        $game->save();
+        //$game->processing = true;
+        //$game->save();
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turn);
         // #2 process harvesters
@@ -113,18 +126,19 @@ class ProcessTurn
         $this->processShipyards($game, $turn);
         // #5 do research
         $this->processResearch($game, $turn);
-
+        // #6 build ships
+        $this->buildships($game, $turn);
 
 
         // ...
 
 
         // #final: cleanup
-        $turn->processed = now();
-        $turn->save();
-        $this->createNewTurn($game, $turn);
-        $game->processing = false;
-        $game->save();
+        //$turn->processed = now();
+        //$turn->save();
+        //$this->createNewTurn($game, $turn);
+        //$game->processing = false;
+        //$game->save();
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;

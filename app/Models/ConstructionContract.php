@@ -21,6 +21,7 @@ use App\Http\Traits\UsesUuid;
  * @property int $costs_energy
  * @property array $cached_ship
  * @property string $game_id
+ * @property boolean $hold
  * @property string $player_id
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newQuery()
@@ -37,6 +38,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsMinerals($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHullType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHold($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereShipyardId($value)
@@ -49,8 +51,6 @@ use App\Http\Traits\UsesUuid;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Turn|null $turnCreated
- * @property string $turn_id
- * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereTurnId($value)
  */
 class ConstructionContract extends Model
 {
@@ -89,7 +89,8 @@ class ConstructionContract extends Model
         'turns_left',
         'costs_minerals',
         'costs_energy',
-        'cached_ship'
+        'cached_ship',
+        'hold'
     ];
 
     /**
