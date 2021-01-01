@@ -18,6 +18,12 @@ class DeleteConstructionContractController extends Controller
 
     use UsesShipyardsVerification;
 
+    /**
+     * @function handle delete construction contract xhr request
+     * @param Request $request
+     * @throws Exception
+     * @return JsonResponse
+     */
     public function handle (Request $request): JsonResponse
     {
         $contractId = $request->input(['id']);
