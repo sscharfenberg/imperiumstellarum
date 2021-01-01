@@ -20,7 +20,8 @@ return [
             'header' => [
                 'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
                 'level' => 'Diese Verbesserung kann nicht installiert werden.'
-            ]
+            ],
+            'deletion' => 'Löschen fehlgeschlagen, Datenbankfehler.'
         ],
         'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.'
     ],
@@ -65,20 +66,23 @@ return [
                 'modulesInvalid' => 'Sie haben für diesen Schiffstyp ungültige Module installiert.',
                 'className' => 'Der Name für den Schiffstyp ist nicht gültig.',
                 'classNameUsed' => 'Der Name des Schiffstyps wird bereits verwendet.',
-                'owner' => 'Sie sind nicht der Besitzer dieses Bauplanes.'
+                'owner' => 'Sie sind nicht der Besitzer dieses Bauplanes.',
+                'usedForContract' => 'Dieser Bauplan wird in einem Bauauftrag verwendet; Löschen fehlgeschlagen.'
             ],
             'constructionContract' => [
                 'shipyardOwner' => 'Sie sind nicht der Besitzer dieser Werft.',
                 'amount' => 'Die Anzahl von Schiffen ist ungültig.',
                 'shipyard' => 'Diese Werft kann den gewählten Bauplan nicht bauen.',
                 'shipyardConstructing' => 'Diese Werft arbeitet bereits an einem Bauauftrag.',
-                'funds' => 'Sie haben nicht genügend Resourcen um das erste Schiff zu bauen.'
+                'funds' => 'Sie haben nicht genügend Resourcen um das erste Schiff zu bauen.',
+                'owner' => 'Sie sind nicht der Besitzer dieses Bauauftrages.'
             ]
         ],
         'blueprintSaved' => 'Bauplan gespeichert.',
         'blueprintDeleted' => 'Bauplan gelöscht.',
         'blueprintRenamed' => 'Name des Bauplans gelöscht.',
-        'constructionContractInstalled' => 'Bauauftrag erstellt. Das erste Schiff wird in :turns Runden ausgeliefert.'
+        'constructionContractInstalled' => 'Bauauftrag erstellt. Das erste Schiff wird in :turns Runden ausgeliefert.',
+        'constructionContractDeleted' => 'Bauauftrag gelöscht.'
     ],
 
     'fleets' => [

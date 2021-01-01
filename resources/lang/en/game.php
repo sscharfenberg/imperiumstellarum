@@ -20,7 +20,8 @@ return [
             'header' => [
                 'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
                 'level' => 'This storage level can not be constructed.'
-            ]
+            ],
+            'deletion' => 'Could not delete, database error.'
         ],
         'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.'
     ],
@@ -65,20 +66,23 @@ return [
                 'modulesInvalid' => 'You have installed invalid modules for this hull type.',
                 'className' => 'The class name supplied is not valid.',
                 'classNameUsed' => 'The class name has already been used.',
-                'owner' => 'You do not own this blueprint.'
+                'owner' => 'You do not own this blueprint.',
+                'usedForContract' => 'This blueprint is being used for a construction contract, deletion failed.'
             ],
             'constructionContract' => [
                 'shipyardOwner' => 'You do not own this shipyard.',
                 'amount' => 'The amount of ships is invalid.',
                 'shipyard' => 'This shipyard can not build this blueprint.',
                 'shipyardConstructing' => 'This shipyard already has an active construction contract.',
-                'funds' => 'You do not have sufficient resources to start building the first ship.'
+                'funds' => 'You do not have sufficient resources to start building the first ship.',
+                'owner' => 'You do not own this construction contract.'
             ]
         ],
         'blueprintSaved' => 'Blueprint finalzed.',
         'blueprintDeleted' => 'Blueprint deleted.',
         'blueprintRenamed' => 'Blueprint renamed.',
-        'constructionContractInstalled' => 'Construction contract created. The first ship will be ready in :turns turns.'
+        'constructionContractInstalled' => 'Construction contract created. The first ship will be ready in :turns turns.',
+        'constructionContractDeleted' => 'Construction contract deleted.'
     ],
 
     'fleets' => [

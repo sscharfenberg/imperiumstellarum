@@ -99,6 +99,23 @@
         }
     },
     "constructions": {
-        "headline": "Aktuelle Bauaufträge"
+        "headline": "Aktuelle Bauaufträge",
+        "contractTopic": "{num}x {name} {type} on Planet {planetName}",
+        "details": {
+            "ships": "Schiffe",
+            "total": "Gesamt",
+            "left": "Übrig",
+            "turns": "Runden",
+            "perShip": "Pro Schiff",
+            "next": "Nächste Schiff",
+            "costs": "Kosten pro Schiff",
+            "toBlueprint": "Zum Bauplan",
+            "delete": "Löschen"
+        },
+        "deleteModal": {
+            "title": "Sind Sie sicher das Sie diesen Bauauftrag löschen wollen?",
+            "explanation": "Die Resourcen (Mineralien: {min}, Energie: {ene}), die für das Schiff das aktuell gebaut wird verwendet wurden, gehen verloren.",
+            "submit": "Bauauftrag löschen"
+        }
     }
 }

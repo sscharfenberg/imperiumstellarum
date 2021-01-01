@@ -99,6 +99,23 @@
         }
     },
     "constructions": {
-        "headline": "Current ccnstruction contracts"
+        "headline": "Current ccnstruction contracts",
+        "contractTopic": "{num}x {name} {type} on Planet {planetName}",
+        "details": {
+            "ships": "Ships",
+            "total": "Total",
+            "left": "Left",
+            "turns": "Turns",
+            "perShip": "Per ship",
+            "next": "Next delivery",
+            "costs": "Resource costs per ship",
+            "toBlueprint": "To blueprint",
+            "delete": "Delete"
+        },
+        "deleteModal": {
+            "title": "Are you sure you want to delete this construction contract?",
+            "explanation": "The resources (Minerals: {min}, Energy: {ene}) that where spent to construct the ship currently building will be lost.",
+            "submit": "Delete Contract"
+        }
     }
 }

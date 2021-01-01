@@ -35,7 +35,10 @@ class DeleteBlueprintController extends Controller
             return response()
                 ->json(['error' => __('game.shipyards.errors.blueprint.owner')], 419);
         }
-        // TODO: ensure no ships are being built based on this blueprint
+        if (!$this->isBlueprintFree($blueprint)) {
+            return response()
+                ->json(['error' => __('game.shipyards.errors.blueprint.usedForContract')], 419);
+        }
 
         // do delete
         try {
@@ -49,9 +52,9 @@ class DeleteBlueprintController extends Controller
                 }),
                 'message' => __('game.shipyards.blueprintDeleted')
             ]);
-
         } catch (Exception $e) {
             Log::error('Exception while attempting to delete a blueprint:\n'. $e->getMessage());
+            return response()->json(['error' => __('game.common.errors.deletion')], 419);
         }
 
     }

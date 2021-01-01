@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-    <manage-construction-contracts v-if="contracts" />
+    <manage-construction-contracts v-if="contracts.length > 0" />
     <new-contract v-if="shipyards.length" />
     <div v-if="!shipyards">
         <p>{{ $t("shipyards.none") }}</p>

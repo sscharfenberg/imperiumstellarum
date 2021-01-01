@@ -9,8 +9,8 @@
             "fetching": "Lade Daten"
         },
         "storageUpgrades": {
-            "label": "{num} storage upgrades installed",
-            "buttonAriaLabel": "Click to upgrade storagen",
+            "label": "{num} Lageraufrüstungen installiert",
+            "buttonAriaLabel": "Klicken um das Lager aufzurüsten",
             "title": {
                 "energy": "Energie-Speicher verbessern",
                 "food": "Nahrungs-Silos erweitern",

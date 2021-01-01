@@ -166,6 +166,10 @@ export default {
 
             pointer-events: none;
 
+            > .icon {
+                opacity: 0.5;
+            }
+
             @include themed() {
                 background-color: t("g-asher");
                 color: t("t-subdued");

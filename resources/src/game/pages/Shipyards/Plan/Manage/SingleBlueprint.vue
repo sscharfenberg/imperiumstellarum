@@ -27,6 +27,11 @@ export default {
         const blueprint = computed(() =>
             store.getters["shipyards/blueprintById"](props.id)
         );
+        const constructingBpIds = computed(() =>
+            store.state.shipyards.constructionContracts.map(
+                (c) => c.blueprintId
+            )
+        );
         const isPreviewing = computed(
             () => props.id === store.state.shipyards.preview.id
         );
@@ -71,6 +76,7 @@ export default {
             onDoneRenaming,
             onCancelRenaming,
             bpRequestingRename,
+            constructingBpIds,
         };
     },
 };
@@ -135,6 +141,8 @@ export default {
             :size="1"
             :hide-text-for-mobile="true"
             @click="showDeleteModal = true"
+            :disabled="constructingBpIds.includes(id)"
+            :aria-disabled="constructingBpIds.includes(id)"
         />
         <delete-blueprint-modal
             v-if="showDeleteModal"

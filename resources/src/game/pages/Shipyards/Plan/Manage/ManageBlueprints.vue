@@ -68,6 +68,8 @@ export default {
                         blueprints.filter((b) => b.hullType === hullType).length
                     })`"
                     :icon-name="`hull-${hullType}`"
+                    :expanded="preview.hullType === hullType"
+                    :aria-expanded="preview.hullType === hullType"
                 >
                     <ul class="blueprint__list">
                         <single-blueprint

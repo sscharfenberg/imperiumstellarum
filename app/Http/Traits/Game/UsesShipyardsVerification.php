@@ -21,6 +21,27 @@ trait UsesShipyardsVerification
     }
 
     /**
+     * @function ensure the blueprint is not being used for a construction contract
+     * @param Blueprint $blueprint
+     * @return bool
+     */
+    private function isBlueprintFree (Blueprint $blueprint): bool
+    {
+        return count($blueprint->constructionContracts) === 0;
+    }
+
+    /**
+     * @function ensure the contract exists and is owned by the requesting player
+     * @param string $id
+     * @param Player $player
+     * @return bool
+     */
+    private function isContractPlayerOwned (string $id, Player $player): bool
+    {
+        return $player->constructionContracts->containsStrict('id', $id);
+    }
+
+    /**
      * @function ensure the shipyard exists and is owned by the requesting player
      * @param string $id
      * @param Player $player

@@ -142,5 +142,8 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // create construction contract
     Route::post('/game/{game}/shipyards/contract/construct',
         [\App\Http\Controllers\Game\Shipyards\CreateConstructionContractController::class, 'handle']);
+    // delete construction contract
+    Route::post('/game/{game}/shipyards/contract/delete',
+        [\App\Http\Controllers\Game\Shipyards\DeleteConstructionContractController::class, 'handle']);
 
 });
