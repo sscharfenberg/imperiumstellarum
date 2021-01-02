@@ -29,6 +29,7 @@ class CreateConstructionContractsTable extends Migration
             $table->unsignedTinyInteger('turns_left');
             $table->unsignedSmallInteger('costs_minerals');
             $table->unsignedSmallInteger('costs_energy');
+            $table->float('costs_population', 8,6)->default(0);
             $table->string('cached_ship', 1000); // json column
             $table->boolean('hold')->default(false);
             $table->foreign('game_id')->references('id')->on('games')

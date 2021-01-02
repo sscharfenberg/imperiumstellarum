@@ -75,6 +75,7 @@ return [
                 'shipyard' => 'This shipyard can not build this blueprint.',
                 'shipyardConstructing' => 'This shipyard already has an active construction contract.',
                 'funds' => 'You do not have sufficient resources to start building the first ship.',
+                'population' => 'The shipyards planet does not have sufficient population.',
                 'owner' => 'You do not own this construction contract.'
             ]
         ],

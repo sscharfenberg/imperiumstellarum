@@ -28,9 +28,16 @@ export default {
         );
         const amount = computed(() => store.state.shipyards.newContract.amount);
         const playerResources = computed(() => store.state.resources);
-        const isAffordable = computed(() =>
-            isEntityAffordable(resourceCosts.value, playerResources.value)
-        );
+        const isAffordable = computed(() => {
+            const shipyard = store.getters["shipyards/shipyardById"](
+                selectedShipyard.value
+            );
+            return isEntityAffordable(
+                resourceCosts.value,
+                playerResources.value,
+                shipyard.population
+            );
+        });
         const onReset = () => {
             store.commit("shipyards/SET_CONTRACT_SHIPYARD", "");
             store.commit("shipyards/SET_CONTRACT_BLUEPRINT", "");

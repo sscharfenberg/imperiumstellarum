@@ -42,31 +42,59 @@ class Heartbeat extends Command
      */
     public function handle()
     {
-        Log::notice('HEARTBEAT: startup.');
+        $start = hrtime(true);
+        Log::info('HEARTBEAT: startup.');
 
-        // only check games that are active and not processing
-        $games = Game::where('active',true)->where('processing', false)->get();
-        Log::notice('HEARTBEAT: found '.count($games).' games to check.');
-
-        foreach($games as $game) {
+        /**
+         * #1 - start games
+         */
+        Log::info("HEARTBEAT: #1 Checking games if any need to be started.");
+        $gamesToStart = Game::where('processing', false)
+            ->where('finished', false)
+            ->where('active', false)
+            ->with('turns')
+            ->get();
+        foreach($gamesToStart as $game) {
             Log::notice('HEARTBEAT: checking g'.$game->number);
-            $dueTurn = $game->turns->whereNull('processed')->where('due', '<=', now())->first();
-
             // check if game needs to be started
-            // TODO: don't start games without players.
             if (now() > $game->start_date && count($game->turns) === 0) {
-                Log::notice('HEARTBEAT: starting game g'.$game->number);
-                $g = new StartGame;
-                $g->handle($game);
+                // skip if the game has no players.
+                if (count($game->players) === 0) {
+                    Log::notice("HEARTBEAT: Game g$game->number has no players, skipping.");
+                    break;
+                } else {
+                    Log::notice('HEARTBEAT: starting game g'.$game->number);
+                    $g = new StartGame;
+                    $g->handle($game);
+                }
             }
+        }
 
+        /**
+         * #2 process turns
+         */
+        Log::info("HEARTBEAT: #2 Checking if any turns need to be processed.");
+        $gamesToProcessTurns = Game::where('processing', false)
+            ->where('finished', false)
+            ->where('active',true)
+            ->with('turns')
+            ->get();
+        foreach($gamesToProcessTurns as $game) {
+            Log::notice('HEARTBEAT: checking g'.$game->number);
+            $dueTurn = $game->turns
+                ->whereNull('processed')
+                ->where('due', '<=', now())->first();
             // check if we need to process a turn.
-            elseif (count($game->turns) > 0 && $dueTurn) {
+            if (count($game->turns) > 0 && $dueTurn) {
                 Log::info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
                 $t = new ProcessTurn;
                 $t->handle($game, $dueTurn);
             }
-
         }
+
+        // log execution time of heartbeat process.
+        $execution = hrtime(true) - $start;
+        Log::info('HEARTBEAT finished in '.$execution/1e+9.' seconds.');
+
     }
 }

@@ -1,7 +1,8 @@
 {
     "drawer": {
         "currentTurn": "Current turn",
-        "nextTurn": "Next turn"
+        "nextTurn": "Next turn",
+        "now": "Now"
     },
     "header": {
         "fetchData": {

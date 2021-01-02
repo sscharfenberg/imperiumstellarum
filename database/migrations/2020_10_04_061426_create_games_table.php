@@ -22,6 +22,7 @@ class CreateGamesTable extends Migration
             $table->boolean('active')->default(false);
             $table->boolean('can_enlist')->default(false);
             $table->boolean('processing')->default(false);
+            $table->boolean('finished')->default(false);
             $table->unsignedTinyInteger('turn_duration');
             $table->unsignedSmallInteger('max_players')->default(0);
             $table->unsignedTinyInteger('dimensions');

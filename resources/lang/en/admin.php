@@ -199,7 +199,7 @@ return [
             'canEnlistLabel' => 'Can players enlist?',
             'canEnlistDescription' => 'Games set to \'Can Enlist\' appear in the dashboard of players and are joinable.',
             'activeLabel' => 'Game is active?',
-            'activeDescription' => 'Games set to \'Active\' will be checked every minute if they need to be started, turn processed etc.',
+            'activeDescription' => 'Games set to \'Active\' will be checked every minute if a turn needs to be processed. Games that are not yet started must not be set to \'active\'',
             'processingLabel' => 'Game is processing?',
             'processingDescription' => 'Games set to \'Processing\' are currently calculated by the server. They are \'locked\' for players - no new orders can be placed while the game is processing.',
             'turnDueLabel' => 'Turn Due',

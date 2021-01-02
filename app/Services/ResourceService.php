@@ -4,10 +4,8 @@ namespace App\Services;
 use App\Models\Player;
 use App\Models\PlayerResource;
 use Illuminate\Support\Collection;
-use App\Services\FormatApiResponseService;
 
 class ResourceService {
-
 
     /**
      * @function get all resources of a player and format it
@@ -22,7 +20,6 @@ class ResourceService {
         });
     }
 
-
     /**
      * @function enforce maximum values for resource storage
      * @param PlayerResource $res
@@ -36,9 +33,9 @@ class ResourceService {
         return intval(round($amount));
     }
 
-
     /**
      * @function check if the player has the necessary resources
+     * this function ignores population, since it works differently from normal player resources.
      * @param Player $player
      * @param array $costs
      * @return bool
@@ -48,12 +45,12 @@ class ResourceService {
         $res = $player->resources()->get();
         foreach($costs as $resType => $amount) {
             if (
+                $resType !== 'population' &&
                 $amount > $res->where('resource_type', $resType)->first()->storage
             ) return false;
         }
         return true;
     }
-
 
     /**
      * @function subtracts resources from a player

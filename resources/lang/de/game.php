@@ -75,6 +75,7 @@ return [
                 'shipyard' => 'Diese Werft kann den gewählten Bauplan nicht bauen.',
                 'shipyardConstructing' => 'Diese Werft arbeitet bereits an einem Bauauftrag.',
                 'funds' => 'Sie haben nicht genügend Resourcen um das erste Schiff zu bauen.',
+                'population' => 'Der Planet der Werft hat nicht genug Bevölkerung.',
                 'owner' => 'Sie sind nicht der Besitzer dieses Bauauftrages.'
             ]
         ],

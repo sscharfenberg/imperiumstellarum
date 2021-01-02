@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
  * @property int $turn_duration
  * @property int $max_players
  * @property int $dimensions
+ * @property bool $finished
  * @property string|null $map
  * @property \Illuminate\Support\Carbon $start_date
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -34,6 +35,7 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereMaxPlayers($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereProcessing($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereFinished($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereTurnDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
@@ -94,6 +96,7 @@ class Game extends Model
         'active',
         'can_enlist',
         'processing',
+        'finished',
         'map'
     ];
 
@@ -107,6 +110,7 @@ class Game extends Model
         'active' => 'boolean',
         'can_enlist' => 'boolean',
         'processing' => 'boolean',
+        'finished' => 'boolean',
     ];
 
     /**

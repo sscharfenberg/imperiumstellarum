@@ -3,7 +3,6 @@
  * App drawer game data
  *****************************************************************************/
 import { computed } from "vue";
-import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { format, addSeconds } from "date-fns";
 import Icon from "Components/Icon/Icon";
@@ -20,11 +19,12 @@ export default {
         const dueLong = computed(() =>
             format(dueDate.value, "dd.MM.uuuu HH:mm:ss")
         );
+        const duePast = computed(() => store.state.turnDue <= 0);
         return {
+            duePast,
             dueShort,
             dueLong,
             gameTurn,
-            ...useI18n(),
         };
     },
 };
@@ -34,19 +34,20 @@ export default {
     <teleport to="#gameDataTeleportTarget">
         <aside class="game-data">
             <ul>
-                <li>{{ t("common.drawer.currentTurn") }}</li>
+                <li>{{ $t("common.drawer.currentTurn") }}</li>
                 <li class="turn">
                     <icon name="turn" />
                     {{ gameTurn }}
                 </li>
             </ul>
             <ul>
-                <li>{{ t("common.drawer.nextTurn") }}<br /></li>
-                <li>
+                <li>{{ $t("common.drawer.nextTurn") }}<br /></li>
+                <li v-if="!duePast">
                     <time :datetime="dueLong" :title="dueLong">{{
                         dueShort
                     }}</time>
                 </li>
+                <li v-if="duePast">{{ $t("common.drawer.now") }}</li>
             </ul>
         </aside>
     </teleport>

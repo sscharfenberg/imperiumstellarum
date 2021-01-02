@@ -4,6 +4,7 @@ namespace App\Actions\Game;
 
 use App\Models\Game;
 use App\Models\Turn;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 class ProcessTurn
@@ -94,6 +95,7 @@ class ProcessTurn
      * @function build ships
      * @param Game $game
      * @param Turn $turn
+     * @throws Exception
      * @return void
      */
     private function buildships(Game $game, Turn $turn)
@@ -114,8 +116,8 @@ class ProcessTurn
     {
         $start = hrtime(true);
         Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.'.');
-        //$game->processing = true;
-        //$game->save();
+        $game->processing = true;
+        $game->save();
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turn);
         // #2 process harvesters
@@ -134,11 +136,11 @@ class ProcessTurn
 
 
         // #final: cleanup
-        //$turn->processed = now();
-        //$turn->save();
-        //$this->createNewTurn($game, $turn);
-        //$game->processing = false;
-        //$game->save();
+        $turn->processed = now();
+        $turn->save();
+        $this->createNewTurn($game, $turn);
+        $game->processing = false;
+        $game->save();
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;

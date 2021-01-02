@@ -1,7 +1,8 @@
 {
     "drawer": {
         "currentTurn": "Aktuelle Runde",
-        "nextTurn": "Nächste Runde"
+        "nextTurn": "Nächste Runde",
+        "now": "Jetzt"
     },
     "header": {
         "fetchData": {

@@ -15,16 +15,11 @@ export default {
      * @param {Function} commit - Vuex commit
      */
     GET_GAME_DATA: function ({ commit }) {
-        console.log("requesting shipyard data!");
         commit("SET_REQUESTING", true);
         window.axios
             .get(`/api/game/${getGameId()}/shipyards`)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(
-                        "contracts:",
-                        response.data.constructionContracts
-                    );
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_SHIPYARDS", response.data.shipyards);
                     commit("SET_TECHLEVELS", response.data.techLevels);
@@ -183,6 +178,7 @@ export default {
                     commit("SET_RESOURCES", response.data.resources, {
                         root: true,
                     });
+                    commit("SET_SHIPYARDS", response.data.shipyards);
                     notify(response.data.message, "success");
                 }
             })
@@ -198,7 +194,7 @@ export default {
     /**
      * @function xhr request delete construction contracts
      * @param commit
-     * @param payloada
+     * @param payload
      * @constructor
      */
     DELETE_CONSTRUCTION_CONTRACT: function ({ commit }, payload) {

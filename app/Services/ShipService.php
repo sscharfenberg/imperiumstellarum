@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use App\Models\Blueprint;
+use App\Models\Shipyard;
+use App\Models\Planet;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
@@ -62,6 +64,28 @@ class ShipService {
         return config('names')[$index];
     }
 
+    /**
+     * @function check if the planet where the shipyard is located has sufficient population
+     * @param Shipyard $shipyard
+     * @param float $population
+     * @return bool
+     */
+    public function shipyardHasSufficientPopulation (Shipyard $shipyard, float $population): bool
+    {
+        return Planet::find($shipyard->planet_id)->population >= $population;
+    }
+
+    /**
+     * @param Shipyard $shipyard
+     * @param float $population
+     * @return void
+     */
+    public function subtractPopulation (Shipyard $shipyard, float $population)
+    {
+        $planet = Planet::find($shipyard->planet_id);
+        $planet->population -= $population;
+        $planet->save();
+    }
 
     /**
      * @function calculate ship base stats for constructionContract caching

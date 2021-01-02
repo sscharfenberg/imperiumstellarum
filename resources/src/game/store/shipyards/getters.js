@@ -10,4 +10,8 @@ export default {
     // get construction contract by id
     contractById: (state) => (id) =>
         state.constructionContracts.find((c) => c.id === id) || {},
+
+    // get shipyard by id
+    shipyardById: (state) => (id) =>
+        state.shipyards.find((s) => s.id === id) || {},
 };

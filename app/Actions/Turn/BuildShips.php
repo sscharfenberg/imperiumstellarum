@@ -23,8 +23,6 @@ class BuildShips
      */
     private function contractFinished(ConstructionContract $contract)
     {
-        // TODO: test this.
-        echo "trying to delete contract.\n";
         try {
             ConstructionContract::find($contract->id)->delete();
             // TODO: send system message to player that a contract has finished.
@@ -107,12 +105,33 @@ class BuildShips
                     // reset turns clock so we start building the next ship
                     $contract->turns_left = $contract->turns_per_ship;
                     $contract->hold = false;
+                    Log::notice("Empire $player->ticker has paid the resource costs for the next ship.");
                 } else {
-                    Log::notice("Empire $player->ticker can't afford the next ship in the construction contract.");
+                    Log::notice("Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
                     $contract->hold = true;
                     // TODO: message to player - can't afford the next ship, on hold.
                 }
+
+                // does the ship cost population (ark), and can the player afford the population costs?
+                if ($contract->costs_population > 0) {
+                    $shipyard = $contract->shipyard;
+                    if ($s->shipyardHasSufficientPopulation($shipyard, $contract->costs_population)) {
+                        // pay population for next ship
+                        $s->subtractPopulation($shipyard, $contract->costs_population);
+                        // reset turns clock so we start building the next ship
+                        $contract->turns_left = $contract->turns_per_ship;
+                        $contract->hold = false;
+                        Log::notice("Empire $player->ticker has paid the population costs for the next ship.");
+                    } else {
+                        Log::notice("Empire $player->ticker can't afford the population costs of the next ship in the construction contract.");
+                        $contract->turns_left = 0; // reset turns_left since the player might have enough resources but not enough population.
+                        $contract->hold = true;
+                        // TODO: message to player - can't afford the next ship, on hold.
+                    }
+                }
+
             }
+
             // save the contract
             $contract->save();
         }

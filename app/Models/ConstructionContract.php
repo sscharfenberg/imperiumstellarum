@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\UsesUuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\ConstructionContract
@@ -19,6 +20,7 @@ use App\Http\Traits\UsesUuid;
  * @property int $turns_left
  * @property int $costs_minerals
  * @property int $costs_energy
+ * @property float $costs_population
  * @property array $cached_ship
  * @property string $game_id
  * @property boolean $hold
@@ -36,6 +38,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereBlueprintId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsEnergy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsMinerals($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsPopulation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHullType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHold($value)
@@ -89,6 +92,7 @@ class ConstructionContract extends Model
         'turns_left',
         'costs_minerals',
         'costs_energy',
+        'costs_population',
         'cached_ship',
         'hold'
     ];
@@ -102,11 +106,10 @@ class ConstructionContract extends Model
         'cached_ship' => 'array'
     ];
 
-
     /**
      * Get the game that the construction contract belongs to
      */
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo('App\Models\Game');
     }
@@ -114,7 +117,7 @@ class ConstructionContract extends Model
     /**
      * Get the player that owns the construction contract
      */
-    public function player()
+    public function player(): BelongsTo
     {
         return $this->belongsTo('App\Models\Player');
     }
@@ -122,7 +125,7 @@ class ConstructionContract extends Model
     /**
      * Get the blueprint that the construction contract uses
      */
-    public function blueprint()
+    public function blueprint(): BelongsTo
     {
         return $this->belongsTo('App\Models\Blueprint');
     }
@@ -130,7 +133,7 @@ class ConstructionContract extends Model
     /**
      * Get the shipyard where the construction contract is executed
      */
-    public function shipyard()
+    public function shipyard(): BelongsTo
     {
         return $this->belongsTo('App\Models\Shipyard');
     }
@@ -138,7 +141,7 @@ class ConstructionContract extends Model
     /**
      * Get the planet where the ships are delivered to
      */
-    public function planet()
+    public function planet(): BelongsTo
     {
         return $this->belongsTo('App\Models\Planet');
     }

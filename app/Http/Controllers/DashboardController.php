@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Jenssegers\Agent\Agent;
+use Exception;
 use App\Models\Game;
 
 class DashboardController extends Controller
@@ -139,6 +140,7 @@ class DashboardController extends Controller
      *
      * @param  Request  $request
      * @return RedirectResponse
+     * @throws Exception
      */
     public function delete(Request $request): RedirectResponse
     {

@@ -135,7 +135,8 @@ class FormatApiResponseService {
             'planetId' => $shipyard->planet_id,
             'planetName' => $star->name." - ".$this->convertLatinToRoman($planet->orbital_index),
             'type' => $shipyard->type,
-            'untilComplete' => $shipyard->until_complete
+            'untilComplete' => $shipyard->until_complete,
+            'population' => $planet->population
         ];
     }
 

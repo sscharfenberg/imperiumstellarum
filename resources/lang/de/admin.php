@@ -199,7 +199,7 @@ return [
             'canEnlistLabel' => 'Beitretbar?',
             'canEnlistDescription' => 'Spiele die auf \'Beitretbar\' stehen werden in der Zentrale von Benutzern aufgelistet und können beigetreten werden.',
             'activeLabel' => 'Spiel ist aktiv?',
-            'activeDescription' => 'Spiele die auf \'Aktiv\' stehen werden einmal pro Minute vom Server überprüft ob Sie gestartet werden müssen, Runden berechnet etc.',
+            'activeDescription' => 'Spiele die auf \'Aktiv\' stehen werden einmal pro Minute vom Server überprüft ob Runden berechnet werden müssen. Spiele die noch nicht gestartet sind dürfen nicht auf \'Aktiv\' stehen.',
             'processingLabel' => 'Spiel/Runde in Arbeit?',
             'processingDescription' => 'Spiele die auf \'In Arbeit\' stehen werden aktuell vom Server bearbeitet. Sie sind für Spieler gesperrt - es können keine neuen Befehle erteilt werden während die Runde berechnet wird.',
             'turnDueLabel' => 'Nächste Runde am',

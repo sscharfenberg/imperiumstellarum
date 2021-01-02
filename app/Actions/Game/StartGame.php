@@ -193,6 +193,7 @@ class StartGame
         // save game after all processing is done.
         $game->processing = false;
         $game->map = null;
+        $game->active = true;
         $game->save();
         Log::info('Unset \'processing\'. for g'.$game->number);
         Log::notice('Finished starting game g'.$game->number);

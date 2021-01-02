@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Game\Shipyards;
 use App\Http\Controllers\Controller;
 use App\Models\Blueprint;
 use App\Models\ConstructionContract;
+use App\Models\Planet;
 use App\Models\Player;
 use App\Models\Shipyard;
 use Illuminate\Http\JsonResponse;
@@ -67,8 +68,13 @@ class CreateConstructionContractController extends Controller
             return response()
                 ->json(['error' => __('game.shipyards.errors.constructionContract.funds')], 419);
         }
-
-        $turnCreated = $player->game->turns->where('processed', null)->first();
+        if (
+            isset($resourceCosts['population']) &&
+            !$s->shipyardHasSufficientPopulation($shipyard, $resourceCosts['population'])
+        ) {
+            return response()
+                ->json(['error' => __('game.shipyards.errors.constructionContract.population')], 419);
+        }
 
         // all good, calculate ship
         $turns = $r->getShipBuildDuration($hullType, $modules);
@@ -76,6 +82,9 @@ class CreateConstructionContractController extends Controller
 
         // pay for first ship
         $r->subtractResources($player, $resourceCosts);
+        if (isset($resourceCosts['population'])) {
+            $s->subtractPopulation($shipyard, $resourceCosts['population']);
+        }
 
         $contract = ConstructionContract::create([
             'game_id' => $player->game_id,
@@ -89,12 +98,16 @@ class CreateConstructionContractController extends Controller
             'turns_left' => $turns,
             'costs_minerals' => $resourceCosts['minerals'],
             'costs_energy' => $resourceCosts['energy'],
+            'costs_population' => $resourceCosts['population'] ?? 0,
             'cached_ship' => $ship
         ]);
 
         return response()->json([
             'constructionContract' => $f->formatConstructionContract($contract),
             'resources' => $r->getResources($player),
+            'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
+                return $f->formatShipyard($shipyard);
+            }),
             'message' => __('game.shipyards.constructionContractInstalled', [ 'turns' => $turns ])
         ]);
 
