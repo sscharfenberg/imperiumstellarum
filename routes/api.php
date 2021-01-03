@@ -75,6 +75,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
     Route::get('/game/{game}/shipyards',
         [\App\Http\Controllers\Game\Shipyards\ShipyardsController::class, 'gameData']);
 
+    /**
+     * fleets api calls
+     */
+    Route::get('/game/{game}/fleets',
+        [\App\Http\Controllers\Game\Fleets\FleetsController::class, 'gameData']);
+
 });
 
 /**

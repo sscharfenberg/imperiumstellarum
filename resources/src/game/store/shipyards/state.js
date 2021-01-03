@@ -1,5 +1,5 @@
 /******************************************************************************
- * Vuex module "starchart" state
+ * Vuex module "shipyards" state
  *****************************************************************************/
 import { getState } from "@/game/store/persistState";
 

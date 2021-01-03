@@ -6,6 +6,7 @@ import empire from "./empire";
 import research from "./research";
 import starchart from "./starchart";
 import shipyards from "./shipyards";
+import fleets from "./fleets";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
@@ -24,6 +25,7 @@ const store = createStore({
         research,
         starchart,
         shipyards,
+        fleets,
     },
 });
 
