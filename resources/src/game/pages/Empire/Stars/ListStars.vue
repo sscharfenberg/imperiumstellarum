@@ -42,7 +42,6 @@ export default {
                 return sortedStars;
             },
             set: (val) => {
-                console.log(val);
                 store.commit("empire/SET_STARS_ORDER", val);
             },
         });

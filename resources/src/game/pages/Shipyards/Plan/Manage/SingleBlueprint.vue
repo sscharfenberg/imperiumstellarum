@@ -48,7 +48,6 @@ export default {
             store.commit("shipyards/RESET_MANAGE_BLUEPRINT_PREVIEW");
         };
         const onDoneRenaming = () => {
-            console.log("done renaming.");
             store.dispatch("shipyards/CHANGE_BLUEPRINT_NAME", {
                 id: props.id,
                 name: inputName.value,
@@ -56,7 +55,6 @@ export default {
             isRenaming.value = false;
         };
         const onCancelRenaming = () => {
-            console.log("cancel renaming.");
             isRenaming.value = false;
             inputName.value = props.className;
         };

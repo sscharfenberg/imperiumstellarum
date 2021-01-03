@@ -48,7 +48,6 @@ export const storageAvailable = () => {
  * @returns {Object|Boolean}
  */
 export const getPersistantAppState = () => {
-    console.log("getting persistant state");
     const moduleState = JSON.parse(localStorage.getItem(storageKey));
     if (moduleState) return moduleState;
     return false;
@@ -65,6 +64,5 @@ export const savePersistantAppState = (state) => {
     Object.keys(defaultState).forEach((key) => {
         stateToSave[key] = state[key];
     });
-    console.log("saving app state to storage:", stateToSave);
     return localStorage.setItem(storageKey, JSON.stringify(stateToSave));
 };

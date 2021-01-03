@@ -43,7 +43,6 @@ export default {
         });
         const cssBorderWidth = computed(() => borderWidth.value + "px");
         onMounted(() => {
-            console.log("mounted mapdata");
             // did we come here from a different page?
             if (x.value && y.value) {
                 // focus coordinates on map. this includes filtering, so we don't need to do it again

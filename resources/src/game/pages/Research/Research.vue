@@ -30,7 +30,6 @@ export default {
         const maxResearchJobs = window.rules.tech.queue;
         onBeforeMount(() => {
             store.dispatch("research/GET_GAME_DATA");
-            console.log(store.state.empireResearchPriority);
         });
         return {
             requesting,

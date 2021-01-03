@@ -16,7 +16,6 @@ export default {
                 return store.getters["research/researchJobsOrdered"];
             },
             set: (val) => {
-                console.log(val);
                 store.dispatch(
                     "research/CHANGE_RESEARCH_JOB_ORDER",
                     val.map((job) => job.id)
@@ -26,7 +25,7 @@ export default {
         const isRequesting = computed(() => store.state.research.requesting);
         return {
             researchJobs,
-            isRequesting
+            isRequesting,
         };
     },
     methods: {

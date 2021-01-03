@@ -1,6 +1,6 @@
 {
     "name": "imperiumstellarum",
-    "version": "0.2.5",
+    "version": "0.3.0",
     "private": true,
     "description": "Imperium Stellarum - a turn-based multiplayer browser game of galactic conquest.",
     "license": "MIT",

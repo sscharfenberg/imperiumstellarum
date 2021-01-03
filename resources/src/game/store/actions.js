@@ -38,7 +38,6 @@ export default {
             })
             .finally(() => {
                 commit("empire/SET_REQUESTING", false);
-                console.log("done");
             });
     },
 };

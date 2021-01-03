@@ -79,7 +79,6 @@ export default {
      * @param {String} payload.id - blueprint id
      */
     DELETE_BLUEPRINT: function ({ commit, state }, payload) {
-        console.log("delete blueprint", payload);
         commit("SET_REQUESTING", true);
         window.axios
             .post(
