@@ -15,7 +15,7 @@ class ShipService {
     private $shipScaffolding = [
         'game_id' => '',
         'player_id' => '',
-        'fleet_id' => '',
+        'shipyard_id' => '',
         'hull_type' => '',
         'dmg_plasma' => 0,
         'dmg_railgun' => 0,
@@ -90,9 +90,10 @@ class ShipService {
     /**
      * @function calculate ship base stats for constructionContract caching
      * @param Blueprint $blueprint
+     * @param string $shipyardId
      * @return array
      */
-    public function calculateShipStats (Blueprint $blueprint): array
+    public function calculateShipStats (Blueprint $blueprint, string $shipyardId): array
     {
         $ship = $this->shipScaffolding;
         $modules = explode("  ", $blueprint->modules);
@@ -105,7 +106,7 @@ class ShipService {
         // apply meta data
         $ship['game_id'] = $blueprint->game_id;
         $ship['player_id'] = $blueprint->player_id;
-        $ship['fleet_id'] = null;
+        $ship['shipyard_id'] = $shipyardId;
         $ship['hull_type'] = $hullType;
 
         // apply base hitpoints for hull type

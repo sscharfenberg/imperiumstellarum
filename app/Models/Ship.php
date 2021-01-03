@@ -13,6 +13,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $game_id
  * @property string $player_id
  * @property string|null $fleet_id
+ * @property string|null $shipyard_id
  * @property string $hull_type
  * @property string $name
  * @property int $dmg_plasma
@@ -57,6 +58,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Ship wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Shipyard $shipyard
  */
 class Ship extends Model
 {
@@ -87,6 +89,7 @@ class Ship extends Model
         'player_id',
         'game_id',
         'fleet_id',
+        'shipyard_id',
         'hull_type',
         'name',
         'dmg_plasma',
@@ -118,6 +121,16 @@ class Ship extends Model
     public function player()
     {
         return $this->belongsTo('App\Models\Player');
+    }
+
+    // TODO: belongsTo Fleet
+
+    /**
+     * Get the shipyard that this ship is assigned to
+     */
+    public function shipyard()
+    {
+        return $this->belongsTo('App\Models\Shipyard');
     }
 
 }

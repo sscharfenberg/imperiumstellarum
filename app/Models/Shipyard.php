@@ -33,6 +33,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUntilComplete($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContract
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
+ * @property-read int|null $ships_count
  */
 class Shipyard extends Model
 {
@@ -97,5 +99,12 @@ class Shipyard extends Model
         return $this->hasOne('App\Models\ConstructionContract');
     }
 
+    /**
+     * Get the ships assigned to this shipyard
+     */
+    public function ships()
+    {
+        return $this->hasMany('App\Models\Ship');
+    }
 
 }

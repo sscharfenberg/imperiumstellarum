@@ -44,8 +44,9 @@ class BuildShips
         $s = new ShipService;
         $ship = Ship::create([
             'game_id' => $shipData['game_id'],
-            'fleet_id' => $shipData['fleet_id'],
             'player_id' => $shipData['player_id'],
+            'fleet_id' => null,
+            'shipyard_id' => $shipData['shipyard_id'],
             'hull_type' => $shipData['hull_type'],
             'name' => $s->randomShipName(),
             'dmg_plasma' => $shipData['dmg_plasma'],

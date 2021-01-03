@@ -78,7 +78,7 @@ class CreateConstructionContractController extends Controller
 
         // all good, calculate ship
         $turns = $r->getShipBuildDuration($hullType, $modules);
-        $ship = $s->calculateShipStats($blueprint);
+        $ship = $s->calculateShipStats($blueprint, $shipyardId);
 
         // pay for first ship
         $r->subtractResources($player, $resourceCosts);

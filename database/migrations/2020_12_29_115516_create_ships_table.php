@@ -21,6 +21,7 @@ class CreateShipsTable extends Migration
             $table->uuid('game_id');
             $table->uuid('player_id');
             $table->uuid('fleet_id')->nullable(); // tmp
+            $table->uuid('shipyard_id')->nullable();
             $table->enum('hull_type', array_keys(config('rules.ships.hullTypes')));
             $table->string('name', config('rules.ships.name.max'));
             $table->unsignedSmallInteger('dmg_plasma')->default(0);
@@ -39,6 +40,8 @@ class CreateShipsTable extends Migration
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')
+                ->onDelete('cascade');
+            $table->foreign('shipyard_id')->references('id')->on('shipyards')
                 ->onDelete('cascade');
             // TODO: foreign for fleet_id
             $table->timestamps();
