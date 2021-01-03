@@ -21,7 +21,7 @@ export default {
         const requesting = computed(() => store.state.starchart.requesting);
         const dimensions = computed(() => store.state.starchart.dimensions);
         onBeforeMount(() => {
-            store.dispatch("starchart/GET_GAME_DATA");
+            store.dispatch("starchart/GET_INITIAL_GAME_DATA");
         });
         return {
             requesting,
