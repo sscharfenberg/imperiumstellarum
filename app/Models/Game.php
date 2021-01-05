@@ -64,6 +64,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $construction_contracts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
  * @property-read int|null $ships_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Fleet[] $fleets
+ * @property-read int|null $fleets_count
  */
 class Game extends Model
 {
@@ -218,5 +220,14 @@ class Game extends Model
     {
         return $this->hasMany('App\Models\Ship');
     }
+
+    /**
+     * Get the fleets for this game
+     */
+    public function fleets()
+    {
+        return $this->hasMany('App\Models\Fleet');
+    }
+
 
 }

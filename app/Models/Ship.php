@@ -59,6 +59,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Shipyard $shipyard
+ * @property-read \App\Models\Fleet|null $fleet
+ * @method static \Illuminate\Database\Eloquent\Builder|Ship whereShipyardId($value)
  */
 class Ship extends Model
 {
@@ -123,7 +125,13 @@ class Ship extends Model
         return $this->belongsTo('App\Models\Player');
     }
 
-    // TODO: belongsTo Fleet
+    /**
+     * Get the shipyard that this ship is assigned to
+     */
+    public function fleet()
+    {
+        return $this->belongsTo('App\Models\Fleet');
+    }
 
     /**
      * Get the shipyard that this ship is assigned to

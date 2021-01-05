@@ -28,7 +28,9 @@ class FleetsController extends Controller
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
                 return $f->formatShipyard($shipyard);
             }),
-            'fleets' => []
+            'fleets' => $player->fleets->map(function ($fleet) use ($f) {
+                return $f->formatFleet($fleet);
+            }),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
 

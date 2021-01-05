@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Blueprint;
 use App\Models\ConstructionContract;
+use App\Models\Fleet;
 use App\Models\Player;
 use App\Models\Research;
 use App\Models\Star;
@@ -227,6 +228,24 @@ class FormatApiResponseService {
                 'minerals' => $contract->costs_minerals,
                 'energy' => $contract->costs_energy,
             ]
+        ];
+    }
+
+    /**
+     * @function format api response for a fleet
+     * @param Fleet $fleet
+     * @return array
+     */
+    public function formatFleet (Fleet $fleet): array
+    {
+        $star = $fleet->star;
+        return [
+            'id' => $fleet->id,
+            'player_id' => $fleet->player_id,
+            'name' => $fleet->name,
+            'star_id' => $fleet->star_id,
+            'coord_x' => $star->coord_x,
+            'coord_y' => $star->coord_y
         ];
     }
 
