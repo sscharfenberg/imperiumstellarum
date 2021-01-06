@@ -54,13 +54,13 @@ export default {
         const loadingSize = computed(() => {
             switch (props.size) {
                 case 0:
-                    return 2.6;
+                    return 20;
                 case 1:
-                    return 3;
+                    return 24;
                 case 2:
-                    return 3.4;
+                    return 28;
                 case 3:
-                    return 4.2;
+                    return 36;
             }
         });
         return {

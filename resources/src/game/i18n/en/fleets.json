@@ -3,6 +3,11 @@
     "navTitle": "Fleets",
     "new": {
         "headline": "Create new fleet",
-        "explanation": "You can create one more fleet | You can create {num} more fleets."
+        "start": "Start",
+        "explanation": "You can create one more fleet | You can create {num} more fleets.",
+        "locationLabel": "Fleet location",
+        "nameLabel": "Fleet name",
+        "namePlaceholder": "Please enter the name of the fleet",
+        "submitBtn": "Create"
     }
 }

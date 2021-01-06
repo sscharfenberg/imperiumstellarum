@@ -35,4 +35,24 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function GET game data from api
+     * @param {Function} commit - Vuex commit
+     */
+    CREATE_FLEET: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/fleets/create`, payload)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                //commit("SET_REQUESTING", false);
+            });
+    },
 };

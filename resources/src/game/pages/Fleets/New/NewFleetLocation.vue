@@ -8,7 +8,8 @@ import { useStore } from "vuex";
 export default {
     name: "NewFleetLocation",
     components: { DropDown },
-    setup() {
+    emits: ["on-selected", "selected"],
+    setup(props, { emit }) {
         const store = useStore();
         const sortOrder = computed(() => store.state.empire.starsSorted);
 
@@ -62,6 +63,7 @@ export default {
 
         const handleSelected = (selectedOption) => {
             console.log(selectedOption);
+            emit("selected", selectedOption.id);
         };
 
         return { options, handleSelected };
@@ -71,10 +73,14 @@ export default {
 
 <template>
     <div class="form-row">
-        <div class="label" for="focusStar">Fleet Location</div>
+        <div class="label">
+            <label for="fleetLocation">{{
+                $t("fleets.new.locationLabel")
+            }}</label>
+        </div>
         <div class="input">
             <drop-down
-                id="focusStar"
+                id="fleetLocation"
                 :options="options"
                 labeled-by="name"
                 :place-holder="$t('common.dropdown.placeHolder')"
@@ -87,10 +93,9 @@ export default {
 <style lang="scss" scoped>
 .form-row {
     padding: 0 0 16px 0;
-    border-bottom: 1px solid transparent;
+}
 
-    @include themed() {
-        border-bottom-color: t("b-christine");
-    }
+.input .vue-select {
+    width: 100%;
 }
 </style>

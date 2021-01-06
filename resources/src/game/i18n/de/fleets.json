@@ -3,6 +3,11 @@
     "navTitle": "Flotten",
     "new": {
         "headline": "Neue Flotte erstellen",
-        "explanation": "Sie können eine weitere Flotte erstellen | Sie können {num} weitere Flotten erstellen."
+        "start": "Start",
+        "explanation": "Sie können eine weitere Flotte erstellen | Sie können {num} weitere Flotten erstellen.",
+        "locationLabel": "Flotten Standort",
+        "nameLabel": "Flotten Name",
+        "namePlaceholder": "Bitte geben Sie einen Namen für die Flotte ein.",
+        "submitBtn": "Erstellen"
     }
 }

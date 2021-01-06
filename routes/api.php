@@ -119,15 +119,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // set research priority
     Route::post('/game/{game}/setResearchPriority',
         [\App\Http\Controllers\Game\Research\ResearchPriorityController::class, 'change']);
-
     // enqueue research job
     Route::post('/game/{game}/research/enqueue',
         [\App\Http\Controllers\Game\Research\EnqueueController::class, 'handle']);
-
     // change queue sort order
     Route::post('/game/{game}/research/order',
         [\App\Http\Controllers\Game\Research\QueueOrderController::class, 'handle']);
-
     // delete research job
     Route::post('/game/{game}/research/delete',
         [\App\Http\Controllers\Game\Research\DeleteController::class, 'handle']);
@@ -151,5 +148,12 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // delete construction contract
     Route::post('/game/{game}/shipyards/contract/delete',
         [\App\Http\Controllers\Game\Shipyards\DeleteConstructionContractController::class, 'handle']);
+
+    /**
+     * fleets api calls
+     */
+    // create fleet
+    Route::post('/game/{game}/fleets/create',
+        [\App\Http\Controllers\Game\Fleets\CreateFleetController::class, 'handle']);
 
 });
