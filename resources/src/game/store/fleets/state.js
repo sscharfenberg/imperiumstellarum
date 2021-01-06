@@ -13,4 +13,6 @@ export default {
     requesting: false,
     fleets: [],
     shipyards: [],
+    stars: [],
+    maxFleets: 0,
 };

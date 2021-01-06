@@ -1245,6 +1245,10 @@ return [
         'name' => [
             'min' => 4,
             'max' => 40
+        ],
+        'num' => [
+            'max' => 10, // hardcap maximum
+            'factor' => 0.4 // totalPopulation * factor is the max of a player
         ]
     ]
 

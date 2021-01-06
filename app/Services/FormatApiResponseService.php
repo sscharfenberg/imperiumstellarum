@@ -239,13 +239,15 @@ class FormatApiResponseService {
     public function formatFleet (Fleet $fleet): array
     {
         $star = $fleet->star;
+        $ftl = count($fleet->ships->where('ftl', false)) > 0;
         return [
             'id' => $fleet->id,
             'player_id' => $fleet->player_id,
             'name' => $fleet->name,
             'star_id' => $fleet->star_id,
             'coord_x' => $star->coord_x,
-            'coord_y' => $star->coord_y
+            'coord_y' => $star->coord_y,
+            'ftl' => $ftl
         ];
     }
 

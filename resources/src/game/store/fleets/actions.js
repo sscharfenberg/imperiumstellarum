@@ -23,6 +23,8 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_SHIPYARDS", response.data.shipyards);
                     commit("SET_FLEETS", response.data.fleets);
+                    commit("SET_STARS", response.data.stars);
+                    commit("SET_MAX_FLEETS", response.data.maxFleets);
                 }
             })
             .catch((e) => {

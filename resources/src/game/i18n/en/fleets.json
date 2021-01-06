@@ -1,4 +1,8 @@
 {
     "title": "Fleets",
-    "navTitle": "Fleets"
+    "navTitle": "Fleets",
+    "new": {
+        "headline": "Create new fleet",
+        "explanation": "You can create one more fleet | You can create {num} more fleets."
+    }
 }
