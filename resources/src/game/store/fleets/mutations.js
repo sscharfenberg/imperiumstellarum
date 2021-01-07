@@ -52,4 +52,38 @@ export default {
     SET_MAX_FLEETS: (state, payload) => {
         state.maxFleets = payload;
     },
+
+    /**************************************************************************
+     * CREATE FLEET MUTATIONS
+     *************************************************************************/
+
+    /**
+     * @functon SET create fleet location
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Boolean} payload
+     * @constructor
+     */
+    SET_SHOW_CREATE: (state, payload) => {
+        state.create.show = payload;
+    },
+
+    /**
+     * @functon SET create fleet location
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_CREATE_FLEET_LOCATION: (state, payload) => {
+        state.create.location = payload;
+    },
+
+    /**
+     * @functon SET create fleet name
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_CREATE_FLEET_NAME: (state, payload) => {
+        state.create.name = payload;
+    },
 };

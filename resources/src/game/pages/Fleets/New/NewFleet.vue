@@ -2,7 +2,7 @@
 /******************************************************************************
  * PageComponent: NewFleet
  *****************************************************************************/
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import AreaSection from "Components/AreaSection/AreaSection";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
@@ -21,29 +21,31 @@ export default {
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.fleets.requesting);
-        const location = ref("");
-        const name = ref("");
         const availableFleets = computed(
             () =>
                 store.state.fleets.maxFleets - store.state.fleets.fleets.length
         );
-        const start = ref(false);
-        const onLocationSelected = (val) => (location.value = val);
-        const onNameChanged = (val) => (name.value = val);
+        const showCreateForm = computed(() => store.state.fleets.create.show);
+        const fleetLocation = computed(
+            () => store.state.fleets.create.location
+        );
+        const fleetName = computed(() => store.state.fleets.create.name);
         const onSubmit = () => {
             store.dispatch("fleets/CREATE_FLEET", {
-                name: name.value,
-                location: location.value,
+                name: fleetName.value,
+                location: fleetLocation.value,
             });
         };
+        const onShow = () => {
+            store.commit("fleets/SET_SHOW_CREATE", true);
+        };
         return {
-            start,
+            onShow,
+            showCreateForm,
             requesting,
             availableFleets,
-            location,
-            name,
-            onLocationSelected,
-            onNameChanged,
+            fleetLocation,
+            fleetName,
             onSubmit,
         };
     },
@@ -53,12 +55,12 @@ export default {
 <template>
     <area-section :headline="$t('fleets.new.headline')">
         <game-button
-            v-if="!start"
+            v-if="!showCreateForm"
             :text-string="$t('fleets.new.start')"
             icon-name="fleets"
-            @click="start = true"
+            @click="onShow"
         />
-        <div class="app-form" v-if="start">
+        <div class="app-form" v-if="showCreateForm">
             <sub-headline
                 :headline="
                     $tc('fleets.new.explanation', availableFleets, {
@@ -66,15 +68,15 @@ export default {
                     })
                 "
             />
-            <new-fleet-location @selected="onLocationSelected" />
-            <new-fleet-name @changed="onNameChanged" />
+            <new-fleet-location />
+            <new-fleet-name />
             <div class="form-row submit">
                 <div class="label"></div>
                 <div class="input">
                     <game-button
                         :text-string="$t('fleets.new.submitBtn')"
                         icon-name="save"
-                        :disabled="!location || !name"
+                        :disabled="!fleetLocation || !fleetName"
                         :loading="requesting"
                         @click="onSubmit"
                     />

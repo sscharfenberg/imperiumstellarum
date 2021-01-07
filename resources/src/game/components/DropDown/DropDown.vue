@@ -8,10 +8,12 @@ import VueSelect from "vue-next-select";
 export default {
     name: "DropDown",
     components: { VueSelect },
+    emits: ["on-selected"],
     props: {
         options: Array,
         labeledBy: String,
         placeHolder: String,
+        adjustToInputHeight: Boolean,
     },
     setup(props, { emit }) {
         const model = ref(null);
@@ -47,7 +49,7 @@ export default {
     flex-direction: column;
 
     box-sizing: border-box;
-    padding: 5px;
+    padding: 9px;
     border: 1px solid transparent;
 
     outline: none;
@@ -225,7 +227,7 @@ export default {
 
     .vue-dropdown {
         position: absolute;
-        top: 35px !important;
+        top: 43px !important;
         left: -1px;
         z-index: z("form");
 
@@ -252,7 +254,7 @@ export default {
     }
 
     .vue-dropdown-item {
-        padding: 5px 6px;
+        padding: 6px 8px;
         border-bottom: 1px solid transparent;
 
         list-style-type: none;

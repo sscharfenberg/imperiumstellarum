@@ -87,7 +87,14 @@ return [
     ],
 
     'fleets' => [
-        'navTitle' => 'Fleets'
+        'navTitle' => 'Fleets',
+        'errors' => [
+            'create' => [
+                'starOwner' => 'You do not own this star.',
+                'name' => 'The name of this fleet is not valid.'
+            ]
+        ],
+        'fleetCreated' => 'Fleet \':name\' created.'
     ],
 
     'research' => [

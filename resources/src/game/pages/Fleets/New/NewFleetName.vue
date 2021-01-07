@@ -2,18 +2,21 @@
 /******************************************************************************
  * PageComponent: NewFleetName
  *****************************************************************************/
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "NewFleetName",
     components: { Icon },
-    emits: ["changed"],
-    setup(props, { emit }) {
-        const handleChange = () => {
-            emit("changed", fleetName.value);
-        };
-        const fleetName = ref("");
-        return { handleChange, fleetName };
+    setup() {
+        const store = useStore();
+        const fleetName = computed({
+            get: () => store.state.fleets.create.name,
+            set: (value) => {
+                store.commit("fleets/SET_CREATE_FLEET_NAME", value);
+            },
+        });
+        return { fleetName };
     },
 };
 </script>
@@ -28,7 +31,6 @@ export default {
                 type="text"
                 class="form-control"
                 id="fleetName"
-                @input="handleChange"
                 :placeholder="$t('fleets.new.namePlaceholder')"
                 v-model="fleetName"
             />

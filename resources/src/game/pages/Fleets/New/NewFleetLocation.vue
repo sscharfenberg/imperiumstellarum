@@ -8,8 +8,7 @@ import { useStore } from "vuex";
 export default {
     name: "NewFleetLocation",
     components: { DropDown },
-    emits: ["on-selected", "selected"],
-    setup(props, { emit }) {
+    setup() {
         const store = useStore();
         const sortOrder = computed(() => store.state.empire.starsSorted);
 
@@ -61,12 +60,11 @@ export default {
             return options;
         });
 
-        const handleSelected = (selectedOption) => {
-            console.log(selectedOption);
-            emit("selected", selectedOption.id);
+        const onSelected = (selectedStar) => {
+            store.commit("fleets/SET_CREATE_FLEET_LOCATION", selectedStar.id);
         };
 
-        return { options, handleSelected };
+        return { options, onSelected };
     },
 };
 </script>
@@ -84,7 +82,8 @@ export default {
                 :options="options"
                 labeled-by="name"
                 :place-holder="$t('common.dropdown.placeHolder')"
-                @on-selected="handleSelected"
+                @selected="onSelected"
+                :adjust-to-input-height="true"
             />
         </div>
     </div>
@@ -97,5 +96,10 @@ export default {
 
 .input .vue-select {
     width: 100%;
+    padding: 9px;
+
+    > ul.vue-dropdown {
+        top: 54px !important;
+    }
 }
 </style>

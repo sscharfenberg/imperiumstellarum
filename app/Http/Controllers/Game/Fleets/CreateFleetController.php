@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Game\Fleets;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fleet;
 use App\Models\Player;
+use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesFleetsVerification;
@@ -24,7 +26,34 @@ class CreateFleetController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $starId = $request->input(['location']);
         $name = $request->input(['name']);
-        dd($starId);
+        $f = new FormatApiResponseService;
+
+        // verification
+        if (!$this->playerOwnsStar($player, $starId)) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.create.starOwner')], 419);
+        }
+        if (!$this->isFleetNameValid($name)) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.create.name')], 419);
+        }
+
+        // create fleet
+        $fleet = Fleet::create([
+            'game_id' => $player->game->id,
+            'player_id' => $player->id,
+            'star_id' => $starId,
+            'name' => $name,
+        ]);
+
+        // send answer to client
+        $updatedPlayer = Player::find(Auth::user()->selected_player);
+        return response()->json([
+            'fleets' => $updatedPlayer->fleets->map(function ($fleet) use ($f) {
+                return $f->formatFleet($fleet);
+            }),
+            'message' => __('game.fleets.fleetCreated', ['name' => $name])
+        ]);
     }
 
 }

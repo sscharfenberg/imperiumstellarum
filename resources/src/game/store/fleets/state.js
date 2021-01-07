@@ -15,4 +15,9 @@ export default {
     shipyards: [],
     stars: [],
     maxFleets: 0,
+    create: {
+        show: false,
+        location: "",
+        name: "",
+    },
 };

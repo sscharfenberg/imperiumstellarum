@@ -87,7 +87,14 @@ return [
     ],
 
     'fleets' => [
-        'navTitle' => 'Flotten'
+        'navTitle' => 'Flotten',
+        'errors' => [
+            'create' => [
+                'starOwner' => 'Sie sind nicht der Besitzer dieses Sternensystems.',
+                'name' => 'Der Name der Flotte ist nicht gültig.'
+            ]
+        ],
+        'fleetCreated' => 'Fleet \':name\' created.'
     ],
 
     'research' => [
