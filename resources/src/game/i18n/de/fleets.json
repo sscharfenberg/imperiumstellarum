@@ -9,5 +9,12 @@
         "nameLabel": "Flotten Name",
         "namePlaceholder": "Bitte geben Sie einen Namen für die Flotte ein.",
         "submitBtn": "Erstellen"
+    },
+    "active": {
+        "headline": "Unsere Flotten ({num}/{max})",
+        "location": {
+            "at": "befindet sich zur Zeit in Sternensystem {name} ({x}/{y})",
+            "transit": "Unterwegs zu Sternensystem {name} ({x}/{y})"
+        }
     }
 }

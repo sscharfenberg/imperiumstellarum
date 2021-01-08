@@ -2,7 +2,7 @@
 /******************************************************************************
  * Component: Collapsible
  *****************************************************************************/
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "Collapsible",
@@ -12,10 +12,12 @@ export default {
         expanded: Boolean,
     },
     components: { Icon },
-    setup(props) {
+    setup(props, { slots }) {
         const show = ref(props.expanded);
+        const renderRight = computed(() => slots.right);
         return {
             show,
+            renderRight,
         };
     },
 };
@@ -35,7 +37,10 @@ export default {
                 :name="iconName"
                 class="collapsible__topic-icon"
             />
-            {{ topic }}
+            <span class="left">{{ topic }}</span>
+            <span class="right" v-if="renderRight">
+                <slot name="right"></slot>
+            </span>
         </button>
         <transition name="list">
             <div
@@ -92,7 +97,9 @@ export default {
         }
 
         .expand {
+            height: 32px;
             margin-right: 16px;
+            flex: 0 0 32px;
 
             transition: transform map-get($animation-speeds, "fast") linear;
 
@@ -103,6 +110,17 @@ export default {
             &.rotate {
                 transform: rotate(180deg);
             }
+        }
+
+        .left {
+            overflow: hidden;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .right {
+            margin-left: auto;
         }
     }
 
