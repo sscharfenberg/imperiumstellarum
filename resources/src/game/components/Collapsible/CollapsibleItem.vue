@@ -7,17 +7,17 @@ import Icon from "Components/Icon/Icon";
 export default {
     name: "Collapsible",
     props: {
-        topic: String,
-        iconName: String,
         expanded: Boolean,
     },
     components: { Icon },
     setup(props, { slots }) {
         const show = ref(props.expanded);
-        const renderRight = computed(() => slots.right);
+        const renderAside = computed(() => slots.aside);
+        const renderTopic = computed(() => slots.topic);
         return {
             show,
-            renderRight,
+            renderAside,
+            renderTopic,
         };
     },
 };
@@ -25,21 +25,23 @@ export default {
 
 <template>
     <div class="collapsible__item">
-        <button class="collapsible__topic" @click="show = !show">
+        <button
+            class="collapsible__topic"
+            @click="show = !show"
+            :aria-expanded="expanded || show"
+            aria-haspopup="true"
+        >
             <icon
                 name="expand_more"
                 class="expand"
                 :class="{ rotate: show }"
                 :size="3"
             />
-            <icon
-                v-if="iconName"
-                :name="iconName"
-                class="collapsible__topic-icon"
-            />
-            <span class="left">{{ topic }}</span>
-            <span class="right" v-if="renderRight">
-                <slot name="right"></slot>
+            <div class="collapsible__topic-text" v-if="renderTopic">
+                <slot name="topic"></slot>
+            </div>
+            <span class="right" v-if="renderAside">
+                <slot name="aside"></slot>
             </span>
         </button>
         <transition name="list">
@@ -112,20 +114,19 @@ export default {
             }
         }
 
-        .left {
-            overflow: hidden;
-
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
         .right {
             margin-left: auto;
         }
     }
 
-    &__topic-icon {
-        margin: 0 16px 0 8px;
+    &__topic-text {
+        display: flex;
+        align-items: center;
+
+        overflow: hidden;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     &__definition {

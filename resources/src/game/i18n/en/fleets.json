@@ -14,7 +14,27 @@
         "headline": "Our Fleets ({num}/{max})",
         "location": {
             "at": "currently located @ star {name} ({x}/{y})",
-            "transit": "in transit to star {name} ({x}/{y})"
+            "transit": "in transit to star {name} ({x}/{y})",
+            "status": {
+                "transit": "In transit to {x}/{y}",
+                "inSystem": {
+                    "our": "In our system {name} ({x}/{y})",
+                    "allied": "In allied system {name} ({x}/{y})",
+                    "neutral": "In neutral system {name} ({x}/{y})",
+                    "hostile": "In hostile system {name} ({x}/{y})"
+                },
+                "ftl": {
+                    "short": "FTL",
+                    "label": "Fleet is FTL-capable."
+                },
+                "noFtl": "Fleet is incapable of FTL."
+            }
+        },
+        "actions": {
+            "edit": "Edit",
+            "delete": "Delete",
+            "move": "Move",
+            "transfer": "Transfer ships"
         }
     }
 }

@@ -7,9 +7,15 @@ import { computed } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import ConstructionContractDetails from "./ConstructionContractDetails";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "ManageConstructionContracts",
-    components: { AreaSection, CollapsibleItem, ConstructionContractDetails },
+    components: {
+        AreaSection,
+        CollapsibleItem,
+        ConstructionContractDetails,
+        Icon,
+    },
     setup() {
         const store = useStore();
         const contracts = computed(
@@ -33,19 +39,34 @@ export default {
         <collapsible-item
             v-for="contract in contracts"
             :key="contract.id"
-            :topic="
-                $t('shipyards.constructions.contractTopic', {
-                    num: contract.amount,
-                    type: $t('shipyards.hulls.' + contract.hullType),
-                    name: blueprint(contract.blueprintId).name,
-                    planetName: shipyard(contract.shipyardId).planetName,
-                })
-            "
-            :icon-name="`hull-${contract.hullType}`"
             :expanded="true"
             :aria-expanded="true"
         >
+            <template v-slot:topic>
+                <icon
+                    class="shipclass-icon"
+                    :name="`hull-${contract.hullType}`"
+                />
+                {{
+                    $t("shipyards.constructions.contractTopic", {
+                        num: contract.amount,
+                        type: $t("shipyards.hulls." + contract.hullType),
+                        name: blueprint(contract.blueprintId).name,
+                        planetName: shipyard(contract.shipyardId).planetName,
+                    })
+                }}
+            </template>
             <construction-contract-details :contract-id="contract.id" />
         </collapsible-item>
     </area-section>
 </template>
+
+<style lang="scss" scoped>
+.shipclass-icon {
+    margin: 0 16px 0 8px;
+
+    @include themed() {
+        color: t("b-christine");
+    }
+}
+</style>

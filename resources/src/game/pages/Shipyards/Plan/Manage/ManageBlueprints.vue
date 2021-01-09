@@ -8,6 +8,7 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import SingleBlueprint from "./SingleBlueprint";
 import ManagePreview from "./Preview/ManagePreview";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "ManageBlueprints",
     components: {
@@ -15,6 +16,7 @@ export default {
         CollapsibleItem,
         SingleBlueprint,
         ManagePreview,
+        Icon,
     },
     setup() {
         const store = useStore();
@@ -62,15 +64,23 @@ export default {
                 <collapsible-item
                     v-for="hullType in hullTypes"
                     :key="`collapsibleBPArea${hullType}`"
-                    :topic="`${$t('shipyards.manage.collapsible', {
-                        type: $t('shipyards.hulls.' + hullType),
-                    })} (${
-                        blueprints.filter((b) => b.hullType === hullType).length
-                    })`"
-                    :icon-name="`hull-${hullType}`"
                     :expanded="preview.hullType === hullType"
-                    :aria-expanded="preview.hullType === hullType"
                 >
+                    <template v-slot:topic>
+                        <icon
+                            class="shipclass-icon"
+                            :name="`hull-${hullType}`"
+                        />
+                        {{
+                            `${$t("shipyards.manage.collapsible", {
+                                type: $t("shipyards.hulls." + hullType),
+                            })} (${
+                                blueprints.filter(
+                                    (b) => b.hullType === hullType
+                                ).length
+                            })`
+                        }}
+                    </template>
                     <ul class="blueprint__list">
                         <single-blueprint
                             v-for="blueprint in blueprints.filter(
@@ -137,5 +147,13 @@ export default {
     margin: 0;
 
     list-style: none;
+}
+
+.shipclass-icon {
+    margin: 0 16px 0 8px;
+
+    @include themed() {
+        color: t("b-christine");
+    }
 }
 </style>

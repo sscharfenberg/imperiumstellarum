@@ -22,7 +22,7 @@ export default {
         const locationStar = computed(() => {
             return stationary.value
                 ? store.getters["fleets/starById"](fleet.value.starId)
-                : "transit";
+                : "transit"; // TODO
         });
         const label = computed(() => {
             const star = {

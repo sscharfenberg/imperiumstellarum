@@ -15,6 +15,7 @@ export default {
         },
     },
     components: { Icon, GameButton },
+    emits: ["close"],
     setup(props, { emit, slots }) {
         const onKeyDown = (e) => {
             if (e.key === "Escape") {

@@ -14,7 +14,27 @@
         "headline": "Unsere Flotten ({num}/{max})",
         "location": {
             "at": "befindet sich zur Zeit in Sternensystem {name} ({x}/{y})",
-            "transit": "Unterwegs zu Sternensystem {name} ({x}/{y})"
+            "transit": "Unterwegs zu Sternensystem {name} ({x}/{y})",
+            "status": {
+                "transit": "Unterwegs nach {x}/{y}",
+                "inSystem": {
+                    "our": "Unser System {name} ({x}/{y})",
+                    "allied": "Verbündetes System {name} ({x}/{y})",
+                    "neutral": "Neutrales System {name} ({x}/{y})",
+                    "hostile": "Feindliches System {name} ({x}/{y})"
+                },
+                "ftl": {
+                    "short": "FTL",
+                    "label": "Flotte ist FTL-fähig."
+                },
+                "noFtl": "Flotte ist nicht fähig FTL Sprünge durchzuführen."
+            }
+        },
+        "actions": {
+            "edit": "Bearbeiten",
+            "delete": "Löschen",
+            "move": "Bewegen",
+            "transfer": "Schiffe transferieren"
         }
     }
 }
