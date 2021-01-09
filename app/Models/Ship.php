@@ -16,6 +16,7 @@ use App\Http\Traits\UsesUuid;
  * @property string|null $shipyard_id
  * @property string $hull_type
  * @property string $name
+ * @property string $class_name
  * @property int $dmg_plasma
  * @property int $dmg_railgun
  * @property int $dmg_missile
@@ -55,6 +56,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereHullType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Ship whereClassName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ship wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ship whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -94,6 +96,7 @@ class Ship extends Model
         'shipyard_id',
         'hull_type',
         'name',
+        'class_name',
         'dmg_plasma',
         'dmg_railgun',
         'dmg_missile',

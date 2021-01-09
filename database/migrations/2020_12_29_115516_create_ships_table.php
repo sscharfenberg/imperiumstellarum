@@ -24,6 +24,7 @@ class CreateShipsTable extends Migration
             $table->uuid('shipyard_id')->nullable();
             $table->enum('hull_type', array_keys(config('rules.ships.hullTypes')));
             $table->string('name', config('rules.ships.name.max'));
+            $table->string('class_name', config('rules.blueprints.className.max'));
             $table->unsignedSmallInteger('dmg_plasma')->default(0);
             $table->unsignedSmallInteger('dmg_railgun')->default(0);
             $table->unsignedSmallInteger('dmg_missile')->default(0);

@@ -17,6 +17,7 @@ class ShipService {
         'player_id' => '',
         'shipyard_id' => '',
         'hull_type' => '',
+        'class_name' => '',
         'dmg_plasma' => 0,
         'dmg_railgun' => 0,
         'dmg_missile' => 0,
@@ -108,6 +109,7 @@ class ShipService {
         $ship['player_id'] = $blueprint->player_id;
         $ship['shipyard_id'] = $shipyardId;
         $ship['hull_type'] = $hullType;
+        $ship['class_name'] = $blueprint->name;
 
         // apply base hitpoints for hull type
         $ship['hp_structure'] = $hullRules['structure'];

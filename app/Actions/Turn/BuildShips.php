@@ -49,6 +49,7 @@ class BuildShips
             'shipyard_id' => $shipData['shipyard_id'],
             'hull_type' => $shipData['hull_type'],
             'name' => $s->randomShipName(),
+            'class_name' => $shipData['class_name'],
             'dmg_plasma' => $shipData['dmg_plasma'],
             'dmg_railgun' => $shipData['dmg_railgun'],
             'dmg_missile' => $shipData['dmg_missile'],
