@@ -15,4 +15,12 @@ export default {
     // get star by id
     starById: (state) => (id) =>
         state.stars.find((star) => star.id === id) || {},
+
+    // get ships by fleet id
+    shipsByFleetId: (state) => (fleetId) =>
+        state.ships.filter((ship) => ship.fleetId === fleetId) || [],
+
+    // get ships by shipyard id
+    shipsByShipyardId: (state) => (shipyardId) =>
+        state.ships.find((ship) => ship.shipyardId === shipyardId) || [],
 };

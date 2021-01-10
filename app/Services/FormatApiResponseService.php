@@ -7,6 +7,7 @@ use App\Models\ConstructionContract;
 use App\Models\Fleet;
 use App\Models\Player;
 use App\Models\Research;
+use App\Models\Ship;
 use App\Models\Star;
 use App\Models\Planet;
 use App\Models\StorageUpgrade;
@@ -238,13 +239,55 @@ class FormatApiResponseService {
      */
     public function formatFleet (Fleet $fleet): array
     {
-        $ftl = count($fleet->ships->where('ftl', false)) > 0;
+        $ftl = count($fleet->ships->where('ftl', false)) === 0
+            && count($fleet->ships) > 0;
         return [
             'id' => $fleet->id,
             'playerId' => $fleet->player_id,
             'starId' => $fleet->star_id,
             'name' => $fleet->name,
             'ftl' => $ftl
+        ];
+    }
+
+    /**
+     * @function format api response for a ship
+     * @param Ship $ship
+     * @return array
+     */
+    public function formatShip (Ship $ship): array
+    {
+        return [
+            'id' => $ship->id,
+            'playerId' => $ship->player_id,
+            'fleetId' => $ship->fleet_id,
+            'shipyardId' => $ship->shipyard_id,
+            'hullType' => $ship->hull_type,
+            'name' => $ship->name,
+            'className' => $ship->class_name,
+            'dmg' => [
+                'plasma' => $ship->dmg_plasma,
+                'railgun' => $ship->dmg_railgun,
+                'missile' => $ship->dmg_missile,
+                'laser' => $ship->dmg_laser,
+            ],
+            'hp' => [
+                'structure' => [
+                    'current' => $ship->hp_structure_current,
+                    'max' => $ship->hp_structure_max
+                ],
+                'armour' => [
+                    'current' => $ship->hp_armour_current,
+                    'max' => $ship->hp_armour_max
+                ],
+                'shields' => [
+                    'current' => $ship->hp_shields_current,
+                    'max' => $ship->hp_shields_max
+                ]
+            ],
+            'ftl' => $ship->ftl,
+            'colony' => $ship->colony,
+            'acceleration' => $ship->acceleration
         ];
     }
 

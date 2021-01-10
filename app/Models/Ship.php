@@ -113,6 +113,17 @@ class Ship extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ftl' => 'boolean',
+        'colony' => 'boolean',
+    ];
+
+
+    /**
      * Get the game that the construction contract belongs to
      */
     public function game()

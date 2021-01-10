@@ -39,7 +39,13 @@ Route::middleware(['auth', 'suspended'])->group(function () {
  * game api routes without processing.
  */
 
-Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])->group(function () {
+Route::middleware([
+    'auth',
+    'verified',
+    'suspended',
+    'gameStarted',
+    'enlisted'
+])->group(function () {
 
     /**
      * empire api calls
@@ -86,7 +92,14 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted'])-
 /**
  * game api routes with processing check.
  */
-Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', 'notProcessing'])->group(function () {
+Route::middleware([
+    'auth',
+    'verified',
+    'suspended',
+    'gameStarted',
+    'enlisted',
+    'notProcessing'
+])->group(function () {
 
     // install storage upgrade
     Route::post('/game/{game}/storage_upgrade',
@@ -155,5 +168,11 @@ Route::middleware(['auth', 'verified', 'suspended', 'gameStarted', 'enlisted', '
     // create fleet
     Route::post('/game/{game}/fleets/create',
         [\App\Http\Controllers\Game\Fleets\CreateFleetController::class, 'handle']);
+    // change fleet name
+    Route::post('/game/{game}/fleets/name',
+        [\App\Http\Controllers\Game\Fleets\ChangeFleetNameController::class, 'handle']);
+    // delete fleet
+    Route::post('/game/{game}/fleets/delete',
+        [\App\Http\Controllers\Game\Fleets\DeleteFleetController::class, 'handle']);
 
 });

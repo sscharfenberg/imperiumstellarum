@@ -89,12 +89,14 @@ return [
     'fleets' => [
         'navTitle' => 'Fleets',
         'errors' => [
-            'create' => [
-                'starOwner' => 'You do not own this star.',
-                'name' => 'The name of this fleet is not valid.'
-            ]
+            'starOwner' => 'You do not own this star.',
+            'name' => 'The name of this fleet is not valid.',
+            'nameUnique' => 'The fleet name needs to be unique.',
+            'owner' => 'You do not own this fleet.',
+            'notEmpty' => 'This fleet contains ships and can not be deleted.'
         ],
-        'fleetCreated' => 'Fleet \':name\' created.'
+        'fleetCreated' => 'Fleet \':name\' created.',
+        'deleted' => 'Fleet deleted.'
     ],
 
     'research' => [

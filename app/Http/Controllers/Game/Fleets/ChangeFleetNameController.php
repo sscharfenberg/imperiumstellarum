@@ -3,52 +3,45 @@
 namespace App\Http\Controllers\Game\Fleets;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Game\UsesFleetsVerification;
 use App\Models\Fleet;
 use App\Models\Player;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Traits\Game\UsesFleetsVerification;
 use Illuminate\Support\Facades\Auth;
 
-class CreateFleetController extends Controller
+class ChangeFleetNameController extends Controller
 {
 
     use UsesFleetsVerification;
 
     /**
-     * @function create a new blueprint from xhr request
+     * @function change fleet name via xhr request
      * @param Request $request
      * @return JsonResponse
      */
     public function handle (Request $request): JsonResponse
     {
         $player = Player::find(Auth::user()->selected_player);
-        $starId = $request->input(['location']);
         $name = $request->input(['name']);
+        $fleetId = $request->input(['id']);
+        $fleet = Fleet::find($fleetId);
         $f = new FormatApiResponseService;
 
         // verification
-        if (!$this->playerOwnsStar($player, $starId)) {
+        if (!$this->playerOwnsFleet($player, $fleetId) || !$fleet) {
             return response()
-                ->json(['error' => __('game.fleets.errors.starOwner')], 419);
+                ->json(['error' => __('game.fleets.errors.owner')], 419);
         }
         if (!$this->isFleetNameValid($name)) {
             return response()
                 ->json(['error' => __('game.fleets.errors.name')], 419);
         }
-        if (!$this->isFleetNameUnique($player, $name)) {
-            return response()
-                ->json(['error' => __('game.fleets.errors.nameUnique')], 419);
-        }
 
-        // create fleet
-        Fleet::create([
-            'game_id' => $player->game->id,
-            'player_id' => $player->id,
-            'star_id' => $starId,
-            'name' => $name,
-        ]);
+        // all good, change fleet
+        $fleet->name = $name;
+        $fleet->save();
 
         // send answer to client
         $updatedPlayer = Player::find(Auth::user()->selected_player);
@@ -56,7 +49,7 @@ class CreateFleetController extends Controller
             'fleets' => $updatedPlayer->fleets->map(function ($fleet) use ($f) {
                 return $f->formatFleet($fleet);
             }),
-            'message' => __('game.fleets.fleetCreated', ['name' => $name])
+            'message' => __('game.fleets.fleetNameChanged')
         ]);
     }
 

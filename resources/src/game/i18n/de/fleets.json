@@ -35,6 +35,16 @@
             "delete": "Löschen",
             "move": "Bewegen",
             "transfer": "Schiffe transferieren"
+        },
+        "editName": {
+            "headline": "Name der Flotte '{name}' ändern",
+            "explanation": "Minimal {min} Zeichen, maximal {max} Zeichen.",
+            "submit": "Name ändern"
+        },
+        "deleteFleet": {
+            "headline": "Flotte '{name}' löschen?",
+            "text": "Wollen Sie die Flotte '{name}' wirklich löschen?",
+            "submit": "Flotte löschen"
         }
     }
 }

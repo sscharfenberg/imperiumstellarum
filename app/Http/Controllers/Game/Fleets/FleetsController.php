@@ -39,6 +39,9 @@ class FleetsController extends Controller
             'fleets' => $player->fleets->map(function ($fleet) use ($f) {
                 return $f->formatFleet($fleet);
             }),
+            'ships' => $player->ships->map(function ($ship) use ($f) {
+                return $f->formatShip($ship);
+            }),
             'stars' => $playerStars->map(function ($star) use ($f) {
                 return $f->formatStar($star);
             }),

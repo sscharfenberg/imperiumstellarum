@@ -89,12 +89,15 @@ return [
     'fleets' => [
         'navTitle' => 'Flotten',
         'errors' => [
-            'create' => [
-                'starOwner' => 'Sie sind nicht der Besitzer dieses Sternensystems.',
-                'name' => 'Der Name der Flotte ist nicht gültig.'
-            ]
+            'starOwner' => 'Sie sind nicht der Besitzer dieses Sternensystems.',
+            'name' => 'Der Name der Flotte ist nicht gültig.',
+            'nameUnique' => 'Der Name der Flotte darf nicht mehrfach verwendet werden.',
+            'owner' => 'Sie sind nicht der Besitzer dieser Flotte.',
+            'notEmpty' => 'Diese Flotte enthält Schiffe und kann nicht gelöscht werden.'
         ],
-        'fleetCreated' => 'Fleet \':name\' created.'
+        'fleetCreated' => 'Fleet \':name\' created.',
+        'fleetNameChanged' => 'Flotte umbenannt.',
+        'deleted' => 'Flotte gelöscht.'
     ],
 
     'research' => [

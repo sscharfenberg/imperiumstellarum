@@ -35,6 +35,16 @@
             "delete": "Delete",
             "move": "Move",
             "transfer": "Transfer ships"
+        },
+        "editName": {
+            "headline": "Edit name of fleet '{name}'",
+            "explanation": "Minimum {min} letters, maximum {max} letters.",
+            "submit": "Change name"
+        },
+        "deleteFleet": {
+            "headline": "Delete fleet '{name}'?",
+            "text": "Are you sure you want to delete the fleet '{name}'?",
+            "submit": "Delete fleet"
         }
     }
 }

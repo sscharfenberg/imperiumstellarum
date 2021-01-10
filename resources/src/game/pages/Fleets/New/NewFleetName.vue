@@ -16,7 +16,8 @@ export default {
                 store.commit("fleets/SET_CREATE_FLEET_NAME", value);
             },
         });
-        return { fleetName };
+        const rules = window.rules.fleets.name;
+        return { fleetName, rules };
     },
 };
 </script>
@@ -32,6 +33,7 @@ export default {
                 class="form-control"
                 id="fleetName"
                 :placeholder="$t('fleets.new.namePlaceholder')"
+                :maxlength="rules.max"
                 v-model="fleetName"
             />
             <div class="addon"><icon name="fleets" /></div>
