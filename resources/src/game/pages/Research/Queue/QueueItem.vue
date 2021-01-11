@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
+import { formatInt } from "@/game/helpers/format";
 import Icon from "Components/Icon/Icon";
 import LinearProgress from "Components/Progress/LinearProgress";
 import GameButton from "Components/Button/GameButton";
@@ -32,6 +33,7 @@ export default {
             researchCosts,
             showModal,
             isRequesting,
+            formatInt,
         };
     },
 };

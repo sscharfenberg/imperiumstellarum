@@ -13,8 +13,8 @@
     "active": {
         "headline": "Our Fleets ({num}/{max})",
         "location": {
-            "at": "currently located @ star {name} ({x}/{y})",
-            "transit": "in transit to star {name} ({x}/{y})",
+            "at": "currently located at system {name} ({x}/{y})",
+            "transit": "in transit to system {name} ({x}/{y})",
             "status": {
                 "transit": "In transit to {x}/{y}",
                 "inSystem": {
@@ -46,5 +46,8 @@
             "text": "Are you sure you want to delete the fleet '{name}'?",
             "submit": "Delete fleet"
         }
+    },
+    "ship": {
+        "class": "{type}, {class} class"
     }
 }

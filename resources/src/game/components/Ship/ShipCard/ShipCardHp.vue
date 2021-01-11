@@ -1,80 +1,68 @@
 <script>
 /******************************************************************************
  * Component: ShipCardHp
- circumference = radius * 2pi
- arc1 radius = 45
- circumference = 282.7433388
- 10 pips, circumference = 262.7433388
- dasharray = 26.27433388 2
-
- arc2 radius = 33
- arc2 circumference = 207.3451151
- 10 pips, circumference = 187.3451151
- dasharray = 18.73451151 2
-
- arc3 radius = 21
- arc3 circumference = 131.94689145
- 10pips, circumfernece = 111.94689145
- dasharray = 11.194689145 2
- TODO: create function that calculates the full dasharray for .circle-percentage
  *****************************************************************************/
+import Icon from "Components/Icon/Icon";
+import { formatInt } from "@/game/helpers/format";
 export default {
     name: "ShipCardHp",
+    props: {
+        armour: Number,
+        shields: Number,
+        structure: Number,
+    },
+    components: { Icon },
     setup() {
-        return {};
+        return { formatInt };
     },
 };
 </script>
 
 <template>
-    <svg viewBox="0 0 100 100">
-        <g class="shields">
-            <path
-                class="circle-bg"
-                d="M50 5 a 45 45 0 0 1 0 90 a 45 45 0 0 1 0 -90"
-                fill="none"
-                stroke-width="10"
-                stroke-dasharray="26.27433388 2"
-            />
-            <path
-                class="circle-percentage"
-                d="M50 5 a 43 43 0 0 1 0 90 a 43 43 0 0 1 0 -90"
-                fill="none"
-                stroke-width="6"
-                stroke-dasharray="26.27433388 2"
-            />
-        </g>
-        <g class="armour">
-            <path
-                class="circle-bg"
-                d="M50 17 a 33 33 0 0 1 0 66 a 33 33 0 0 1 0 -66"
-                fill="none"
-                stroke-width="10"
-                stroke-dasharray="18.73451151 2"
-            />
-        </g>
-        <g class="structure">
-            <path
-                class="circle-bg"
-                d="M50 29 a 21 21 0 0 1 0 42 a 21 21 0 0 1 0 -42"
-                fill="none"
-                stroke-width="10"
-                stroke-dasharray="11.194689145 2"
-            />
-        </g>
-    </svg>
+    <ul class="ship__hp-numbers">
+        <li><icon name="tech-shields" />{{ formatInt(shields) }}</li>
+        <li class="seperator"></li>
+        <li><icon name="tech-armour" />{{ formatInt(armour) }}</li>
+        <li class="seperator"></li>
+        <li><icon name="tech-structure" />{{ formatInt(structure) }}</li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>
-.circle-bg {
-    @include themed() {
-        stroke: t("g-deep");
-    }
-}
+.ship__hp-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-.circle-percentage {
-    @include themed() {
-        stroke: t("b-christine");
+    padding: 4px 6px;
+    margin: 0;
+
+    list-style: none;
+
+    @include respond-to("medium") {
+        padding: 6px 8px;
+    }
+
+    > li {
+        display: flex;
+        align-items: center;
+
+        .icon {
+            margin-right: 4px;
+
+            @include respond-to("medium") {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .seperator {
+        width: 2px;
+        height: 100%;
+
+        @include themed() {
+            background-color: t("g-deep");
+        }
     }
 }
 </style>

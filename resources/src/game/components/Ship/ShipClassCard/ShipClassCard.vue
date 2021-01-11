@@ -9,6 +9,7 @@ import {
     calculateAcceleration,
     calculateShipCosts,
 } from "../useShipCalculations";
+import { formatInt } from "@/game/helpers/format";
 import Icon from "Components/Icon/Icon";
 import DamageType from "./DamageType";
 export default {
@@ -56,6 +57,7 @@ export default {
             ftl,
             resourceCostsOne,
             sortedTls,
+            formatInt,
         };
     },
 };
@@ -76,17 +78,17 @@ export default {
         <li class="label">{{ $t("shipyards.ship.structure") }}</li>
         <li class="has-icon">
             <icon name="tech-structure" />
-            {{ hp.structure }}
+            {{ formatInt(hp.structure) }}
         </li>
         <li class="label">{{ $t("shipyards.ship.armour") }}</li>
         <li class="has-icon">
             <icon name="tech-armour" />
-            {{ hp.armour }}
+            {{ formatInt(hp.armour) }}
         </li>
         <li class="label">{{ $t("shipyards.ship.shields") }}</li>
         <li class="has-icon">
             <icon name="tech-shields" />
-            {{ hp.shields }}
+            {{ formatInt(hp.shields) }}
         </li>
         <li class="section" v-if="dmg.length">
             {{ $t("shipyards.ship.offense") }}
@@ -143,7 +145,7 @@ export default {
                 v-for="[type, value] of Object.entries(resourceCostsOne)"
                 :key="type"
             >
-                {{ value }}
+                {{ formatInt(value) }}
                 <icon v-if="type !== 'population'" :name="`res-${type}`" />
                 <icon v-if="type === 'population'" name="population" />
             </div>
@@ -156,7 +158,7 @@ export default {
                 v-for="[type, value] of Object.entries(resourceCostsOne)"
                 :key="type"
             >
-                {{ value * amount }}
+                {{ formatInt(value * amount) }}
                 <icon v-if="type !== 'population'" :name="`res-${type}`" />
                 <icon v-if="type === 'population'" name="population" />
             </div>

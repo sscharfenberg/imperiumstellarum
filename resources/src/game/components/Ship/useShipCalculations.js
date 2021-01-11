@@ -152,3 +152,51 @@ export const calculateAcceleration = (hullType, modules) => {
 
     return acceleration;
 };
+
+/**
+ * @function caculate the stroke dasharray from percentage and radius
+ * @param {Number} percentage - the percentage of hitpoints
+ * @param {Number} radius - the radius of the bar
+ * @returns {String} SVG Stroke Dasharray
+ */
+
+export const calculateHpDasharray = (percentage, radius) => {
+    const dasharray = [];
+    const numBars = 10;
+    const pipSize = 2;
+    let totalCircumference = Math.PI * 2 * radius;
+    let availableCircumference = totalCircumference - numBars * pipSize;
+    const singleBar = availableCircumference / 10;
+
+    // return early if the values are easy.
+    if (percentage === 100) return `${availableCircumference / 10} ${pipSize}`;
+    if (percentage === 0) return `0 ${totalCircumference}`;
+
+    let countPct = 0; // start at the first bar.
+
+    // main loop of all bars
+    for (let i = 1; i <= 10; i++) {
+        countPct += 10; // first bar goes from 0 to 10%.
+
+        // check if percentage is bigger than the current bar we are looking at.
+        if (percentage > countPct) {
+            // add a full bar to the dasharray.
+            dasharray.push(singleBar);
+            // add a pip spacer
+            dasharray.push(pipSize);
+            // subtract the values added to dasharray from totalCircumference
+            totalCircumference -= singleBar + pipSize;
+        } else {
+            // add a fractional bar, then skip the rest of circumference
+            const restPct = percentage - countPct + 10;
+            const restBar = (singleBar / 10) * restPct; // length of the rest bar
+            dasharray.push(restBar); // add the rest bar
+            totalCircumference -= restBar; // subtract rest bar from circumference
+            dasharray.push(totalCircumference); // push the rest as a spacer to dasharray.
+            break;
+        }
+    }
+
+    // return dasharray in svg syntax as a space-seperated string
+    return dasharray.join(" ");
+};

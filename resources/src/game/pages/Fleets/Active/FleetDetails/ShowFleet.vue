@@ -46,6 +46,12 @@ export default {
                     :acceleration="ship.acceleration"
                     :name="ship.name"
                     :class-name="ship.className"
+                    :shields-current="ship.hp.shields.current"
+                    :shields-max="ship.hp.shields.max"
+                    :armour-current="ship.hp.armour.current"
+                    :armour-max="ship.hp.armour.max"
+                    :structure-current="ship.hp.structure.current"
+                    :structure-max="ship.hp.structure.max"
                 />
             </div>
         </div>

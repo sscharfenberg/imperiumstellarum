@@ -3,6 +3,7 @@
  * Component: LinearProgress
  *****************************************************************************/
 import { computed } from "vue";
+import { formatInt } from "@/game/helpers/format";
 export default {
     name: "LinearProgress",
     props: {
@@ -25,6 +26,7 @@ export default {
             donePct,
             remainingStyle,
             txtLabel,
+            formatInt,
         };
     },
 };
@@ -40,7 +42,9 @@ export default {
     >
         <div class="bar" :style="remainingStyle" />
         <div class="text" :class="{ hidden: !showText }" :aria-label="txtLabel">
-            {{ value }} / {{ max }} - ({{ donePct.toFixed(2) }}%)
+            {{ formatInt(value) }} / {{ formatInt(max) }} - ({{
+                donePct.toFixed(2)
+            }}%)
         </div>
     </div>
 </template>

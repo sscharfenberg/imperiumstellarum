@@ -39,3 +39,16 @@ export const convertLatinToRoman = (latin) => {
     }
     return result;
 };
+
+/**
+ * @function convert a integer to a local formatted string
+ * simple helper function using the browsers toLocaleString(locale)
+ * expects the locale as 'de-DE', 'at-DE' etc not supported (would be converted to 'at-AT').
+ * @param {Number} number
+ * @returns {string}
+ */
+export const formatInt = (number) => {
+    const language = document.querySelector("html").lang;
+    const locale = `${language}-${language.toUpperCase()}`;
+    return number.toLocaleString(locale);
+};
