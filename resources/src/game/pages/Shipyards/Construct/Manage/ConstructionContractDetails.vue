@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
-import { formatInt } from "@/game/helpers/format";
+import { formatNumber } from "@/game/helpers/format";
 import Icon from "Components/Icon/Icon";
 import GameButton from "Components/Button/GameButton";
 import DeleteConstructionContractModal from "./DeleteConstructionContractModal";
@@ -37,7 +37,7 @@ export default {
             contract,
             toBlueprint,
             showModal,
-            formatInt,
+            formatNumber,
         };
     },
 };
@@ -70,9 +70,9 @@ export default {
         <ul class="data">
             <li>{{ $t("shipyards.constructions.details.costs") }}</li>
             <li class="col2">
-                {{ formatInt(contract.costs.minerals) }}
+                {{ formatNumber(contract.costs.minerals) }}
                 <icon name="res-minerals" />
-                {{ formatInt(contract.costs.energy) }}
+                {{ formatNumber(contract.costs.energy) }}
                 <icon name="res-energy" />
             </li>
         </ul>

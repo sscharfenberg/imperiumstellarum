@@ -2,15 +2,15 @@
 /******************************************************************************
  * Component: ShipCard
  *****************************************************************************/
-//import Icon from "Components/Icon/Icon";
 import ShipCardHpRadial from "./ShipCardHpRadial";
 import ShipCardHp from "./ShipCardHp";
+import ShipCardDamage from "./ShipCardDamage";
+import ShipCardEngineering from "./ShipCardEngineering";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ShipCard",
     props: {
         shipId: String,
-        acceleration: Number,
         name: String,
         className: String,
         hullType: String,
@@ -20,8 +20,21 @@ export default {
         armourMax: Number,
         structureCurrent: Number,
         structureMax: Number,
+        dmgPlasma: Number,
+        dmgMissile: Number,
+        dmgRailgun: Number,
+        dmgLaser: Number,
+        ftl: Boolean,
+        colony: Boolean,
+        acceleration: Number,
     },
-    components: { ShipCardHpRadial, Icon, ShipCardHp },
+    components: {
+        ShipCardHpRadial,
+        Icon,
+        ShipCardHp,
+        ShipCardDamage,
+        ShipCardEngineering,
+    },
     setup() {
         return {};
     },
@@ -50,14 +63,28 @@ export default {
                     })
                 }}
             </aside>
-            <ship-card-hp
-                :armour="armourCurrent"
-                :shields="shieldsCurrent"
-                :structure="structureCurrent"
-            />
-            Ship {{ shipId }} fuddel faddel bla<br />
-            ACC {{ acceleration }}<br />
-            TODO: title/aria-label!
+            <ul class="ship__stats-list">
+                <ship-card-hp
+                    :shields-current="shieldsCurrent"
+                    :shields-max="shieldsMax"
+                    :armour-current="armourCurrent"
+                    :armour-max="armourMax"
+                    :structure-current="structureCurrent"
+                    :structure-max="structureMax"
+                />
+                <ship-card-damage
+                    :laser="dmgLaser"
+                    :plasma="dmgPlasma"
+                    :missile="dmgMissile"
+                    :railgun="dmgRailgun"
+                    :hull-type="hullType"
+                />
+                <ship-card-engineering
+                    :ftl="ftl"
+                    :acceleration="acceleration"
+                    :colony="colony"
+                />
+            </ul>
         </div>
     </div>
 </template>
@@ -127,6 +154,46 @@ export default {
 
         @include respond-to("medium") {
             padding: 6px 8px;
+        }
+    }
+}
+</style>
+
+<style lang="scss">
+.ship__stats-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+
+    padding: 4px 6px;
+    margin: 0;
+    grid-gap: 2px;
+
+    list-style: none;
+
+    @include respond-to("medium") {
+        padding: 6px 8px;
+    }
+
+    > li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+        padding: 4px;
+        border: 1px solid transparent;
+
+        @include themed() {
+            background-color: t("g-sunken");
+            border-color: t("g-deep");
+        }
+
+        .icon {
+            margin-right: 4px;
+
+            @include respond-to("medium") {
+                margin-right: 8px;
+            }
         }
     }
 }

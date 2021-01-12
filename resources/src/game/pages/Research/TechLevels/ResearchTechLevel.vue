@@ -3,7 +3,7 @@
  * PageComponent: ResearchTechLevel
  *****************************************************************************/
 import { useStore } from "vuex";
-import { formatInt } from "@/game/helpers/format";
+import { formatNumber } from "@/game/helpers/format";
 import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
 export default {
@@ -27,7 +27,7 @@ export default {
         return {
             workRequired,
             onSubmit,
-            formatInt,
+            formatNumber,
         };
     },
 };
@@ -46,7 +46,7 @@ export default {
         <ul class="stats">
             <li>{{ $t("research.enqueue.costs") }}</li>
             <li class="stats--centered featured">
-                {{ formatInt(workRequired()) }}
+                {{ formatNumber(workRequired()) }}
             </li>
             <li class="stats--two-col">
                 {{ $t("research.enqueue.explanation") }}

@@ -43,7 +43,6 @@ export default {
                     :key="ship.id"
                     :ship-id="ship.id"
                     :hull-type="ship.hullType"
-                    :acceleration="ship.acceleration"
                     :name="ship.name"
                     :class-name="ship.className"
                     :shields-current="ship.hp.shields.current"
@@ -52,6 +51,13 @@ export default {
                     :armour-max="ship.hp.armour.max"
                     :structure-current="ship.hp.structure.current"
                     :structure-max="ship.hp.structure.max"
+                    :dmg-laser="ship.dmg.laser"
+                    :dmg-plasma="ship.dmg.plasma"
+                    :dmg-missile="ship.dmg.missile"
+                    :dmg-railgun="ship.dmg.railgun"
+                    :ftl="ship.ftl"
+                    :acceleration="ship.acceleration"
+                    :colony="ship.colony"
                 />
             </div>
         </div>

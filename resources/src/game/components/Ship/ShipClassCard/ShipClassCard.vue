@@ -9,7 +9,7 @@ import {
     calculateAcceleration,
     calculateShipCosts,
 } from "../useShipCalculations";
-import { formatInt } from "@/game/helpers/format";
+import { formatNumber } from "@/game/helpers/format";
 import Icon from "Components/Icon/Icon";
 import DamageType from "./DamageType";
 export default {
@@ -57,7 +57,7 @@ export default {
             ftl,
             resourceCostsOne,
             sortedTls,
-            formatInt,
+            formatNumber,
         };
     },
 };
@@ -78,17 +78,17 @@ export default {
         <li class="label">{{ $t("shipyards.ship.structure") }}</li>
         <li class="has-icon">
             <icon name="tech-structure" />
-            {{ formatInt(hp.structure) }}
+            {{ formatNumber(hp.structure) }}
         </li>
         <li class="label">{{ $t("shipyards.ship.armour") }}</li>
         <li class="has-icon">
             <icon name="tech-armour" />
-            {{ formatInt(hp.armour) }}
+            {{ formatNumber(hp.armour) }}
         </li>
         <li class="label">{{ $t("shipyards.ship.shields") }}</li>
         <li class="has-icon">
             <icon name="tech-shields" />
-            {{ formatInt(hp.shields) }}
+            {{ formatNumber(hp.shields) }}
         </li>
         <li class="section" v-if="dmg.length">
             {{ $t("shipyards.ship.offense") }}
@@ -145,7 +145,7 @@ export default {
                 v-for="[type, value] of Object.entries(resourceCostsOne)"
                 :key="type"
             >
-                {{ formatInt(value) }}
+                {{ formatNumber(value) }}
                 <icon v-if="type !== 'population'" :name="`res-${type}`" />
                 <icon v-if="type === 'population'" name="population" />
             </div>
@@ -158,7 +158,7 @@ export default {
                 v-for="[type, value] of Object.entries(resourceCostsOne)"
                 :key="type"
             >
-                {{ formatInt(value * amount) }}
+                {{ formatNumber(value * amount) }}
                 <icon v-if="type !== 'population'" :name="`res-${type}`" />
                 <icon v-if="type === 'population'" name="population" />
             </div>

@@ -48,6 +48,25 @@
         }
     },
     "ship": {
-        "class": "{type}, {class} class"
+        "class": "{type}, {class} class",
+        "hp": {
+            "shields": "Shields: {cur}/{max} ({pct}%)",
+            "armour": "Armour: {cur}/{max} ({pct}%)",
+            "structure": "Structure: {cur}/{max} ({pct}%)"
+        },
+        "dmg": {
+            "plasma": "Plasma - Damage {dmg}, Range {range}",
+            "missile": "Missile - Damage {dmg}, Range {range}",
+            "railgun": "Railgun - Damage {dmg}, Range {range}",
+            "laser": "Laser - Damage {dmg}, Range {range}"
+        },
+        "engineering": {
+            "ftl": {
+                "true": "Ship is equipped with a jumpdrive.",
+                "false": "Ship is not equipped with a jumpdrive and incapable of ftl."
+            },
+            "colony": "Ship contains a colony module with {pop} population.",
+            "acceleration": "Ship acceleration: {num}g"
+        }
     }
 }

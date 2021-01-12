@@ -48,6 +48,25 @@
         }
     },
     "ship": {
-        "class": "{type} der {class} Klasse"
+        "class": "{type} der {class} Klasse",
+        "hp": {
+            "shields": "Schilde: {cur}/{max} ({pct}%)",
+            "armour": "Panzerung: {cur}/{max} ({pct}%)",
+            "structure": "Struktur: {cur}/{max} ({pct}%)"
+        },
+        "dmg": {
+            "plasma": "Plasma - Damage {dmg}, Range {range}",
+            "missile": "Missile - Damage {dmg}, Range {range}",
+            "railgun": "Railgun - Damage {dmg}, Range {range}",
+            "laser": "Laser - Damage {dmg}, Range {range}"
+        },
+        "engineering": {
+            "ftl": {
+                "true": "Schiff ist mit einem Sprungtriebwerk ausgerüstet.",
+                "false": "Schiff ist nicht mit einem Sprungtriebwerk ausgerüstet und nicht fähig zu FTL."
+            },
+            "colony": "Schiff enthält ein Kolonisierungsmodul mit {pop} Bevölkerung.",
+            "acceleration": "Beschleunigung: {num}g"
+        }
     }
 }

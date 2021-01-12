@@ -47,7 +47,7 @@ export const convertLatinToRoman = (latin) => {
  * @param {Number} number
  * @returns {string}
  */
-export const formatInt = (number) => {
+export const formatNumber = (number) => {
     const language = document.querySelector("html").lang;
     const locale = `${language}-${language.toUpperCase()}`;
     return number.toLocaleString(locale);
