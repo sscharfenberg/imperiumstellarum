@@ -188,16 +188,19 @@ $btnBaseHeight: 34px;
         &.tiny {
             width: 26px;
             height: 26px;
+            padding: 0 4px;
         }
 
         &.small {
             width: 30px;
             height: 30px;
+            padding: 0 2px;
         }
 
         &.large {
             width: 42px;
             height: 42px;
+            padding: 0 16px;
         }
     }
 

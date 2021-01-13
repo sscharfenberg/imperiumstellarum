@@ -112,15 +112,12 @@ Route::middleware([
     // change planet food consumption
     Route::post('/game/{game}/empire/food_consumption',
         [\App\Http\Controllers\Game\Empire\PopulationController::class, 'changeFoodConsumption']);
-
     // install harvester
     Route::post('/game/{game}/empire/harvester',
         [\App\Http\Controllers\Game\Empire\HarvesterController::class, 'install']);
-
     // build shipyard
     Route::post('/game/{game}/empire/shipyard',
         [\App\Http\Controllers\Game\Empire\ShipyardController::class, 'install']);
-
     // upgrade shipyard
     Route::post('/game/{game}/empire/shipyard/upgrade',
         [\App\Http\Controllers\Game\Empire\ShipyardController::class, 'upgrade']);
@@ -174,5 +171,8 @@ Route::middleware([
     // delete fleet
     Route::post('/game/{game}/fleets/delete',
         [\App\Http\Controllers\Game\Fleets\DeleteFleetController::class, 'handle']);
+    // change ship name
+    Route::post('/game/{game}/fleets/shipName',
+        [\App\Http\Controllers\Game\Fleets\ChangeShipNameController::class, 'handle']);
 
 });

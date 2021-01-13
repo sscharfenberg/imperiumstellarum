@@ -30,6 +30,13 @@
                 "noFtl": "Flotte ist nicht fähig FTL Sprünge durchzuführen."
             }
         },
+        "hulls": {
+            "ark": "Archen",
+            "small": "Zerstörer",
+            "medium": "Kreuzer",
+            "large": "Schlachtschiffe",
+            "xlarge": "Großkampfschiffe"
+        },
         "actions": {
             "edit": "Bearbeiten",
             "delete": "Löschen",
@@ -45,7 +52,9 @@
             "headline": "Flotte '{name}' löschen?",
             "text": "Wollen Sie die Flotte '{name}' wirklich löschen?",
             "submit": "Flotte löschen"
-        }
+        },
+        "fleetTitle": "Schiffe der Flotte",
+        "empty": "No ships in fleet yet."
     },
     "ship": {
         "class": "{type} der {class} Klasse",
@@ -67,6 +76,11 @@
             },
             "colony": "Schiff enthält ein Kolonisierungsmodul mit {pop} Bevölkerung.",
             "acceleration": "Beschleunigung: {num}g"
+        },
+        "rename": {
+            "button": "Umbenennen",
+            "title": "Schiff '{name}' umbenennen",
+            "explanation": "Minimal {min} Zeichen, maximal {max} Zeichen."
         }
     }
 }

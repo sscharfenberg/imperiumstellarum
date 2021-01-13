@@ -36,7 +36,7 @@ export default {
         :disabled="disabled"
     >
         <icon :name="`tech-${techType}`" />
-        <span>{{ $t("research.tl." + techType) }}</span>
+        <span class="name">{{ $t("research.tl." + techType) }}</span>
         <span class="tl" v-if="tl >= 0">TL{{ tl }}</span>
     </button>
     <div v-if="!techType" class="modules__mod empty" />
@@ -47,7 +47,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
 
     min-height: 42px;
     padding: 2px;
@@ -102,6 +101,13 @@ export default {
         @include respond-to("large") {
             display: block;
         }
+    }
+
+    .name {
+        overflow: hidden;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     &[disabled] {

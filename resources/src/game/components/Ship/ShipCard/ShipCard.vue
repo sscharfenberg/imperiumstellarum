@@ -2,11 +2,14 @@
 /******************************************************************************
  * Component: ShipCard
  *****************************************************************************/
+import { ref } from "vue";
 import ShipCardHpRadial from "./ShipCardHpRadial";
 import ShipCardHp from "./ShipCardHp";
 import ShipCardDamage from "./ShipCardDamage";
 import ShipCardEngineering from "./ShipCardEngineering";
+import ShipCardRenameModal from "./ShipCardRenameModal";
 import Icon from "Components/Icon/Icon";
+import GameButton from "Components/Button/GameButton";
 export default {
     name: "ShipCard",
     props: {
@@ -34,9 +37,12 @@ export default {
         ShipCardHp,
         ShipCardDamage,
         ShipCardEngineering,
+        ShipCardRenameModal,
+        GameButton,
     },
     setup() {
-        return {};
+        const showModal = ref(false);
+        return { showModal };
     },
 };
 </script>
@@ -51,10 +57,17 @@ export default {
             />
         </div>
         <div class="ship__stats">
-            <header class="ship__name">
-                <icon :name="`hull-${hullType}`" />
-                {{ name }}
-            </header>
+            <div class="ship__top">
+                <game-button
+                    icon-name="edit"
+                    :size="1"
+                    @click="showModal = true"
+                />
+                <header class="ship__name">
+                    <icon :name="`hull-${hullType}`" />
+                    {{ name }}
+                </header>
+            </div>
             <aside class="ship__class">
                 {{
                     $t("fleets.ship.class", {
@@ -84,6 +97,12 @@ export default {
                     :acceleration="acceleration"
                     :colony="colony"
                 />
+
+                <ship-card-rename-modal
+                    v-if="showModal"
+                    :ship-id="shipId"
+                    @close="showModal = false"
+                />
             </ul>
         </div>
     </div>
@@ -92,6 +111,7 @@ export default {
 <style lang="scss" scoped>
 .ship {
     display: flex;
+    flex-direction: column;
 
     border: 2px solid transparent;
 
@@ -100,9 +120,35 @@ export default {
         border-color: t("g-ebony");
     }
 
+    @include respond-to("small") {
+        flex-direction: row;
+    }
+
+    &__top {
+        display: flex;
+
+        .btn {
+            width: 30px;
+            margin: 4px 4px 0 auto;
+            flex: 0 0 30px;
+
+            @include respond-to("medium") {
+                margin: 4px 8px 0 auto;
+            }
+        }
+    }
+
     &__hp {
-        padding: 4px;
-        flex: 0 0 35%;
+        order: 1;
+
+        padding: 4px 64px;
+
+        @include respond-to("small") {
+            order: 0;
+
+            padding: 4px;
+            flex: 0 0 30%;
+        }
 
         @include respond-to("medium") {
             padding: 8px;
@@ -113,7 +159,9 @@ export default {
         display: flex;
         flex-direction: column;
 
-        flex: 0 0 65%;
+        @include respond-to("small") {
+            flex: 0 0 70%;
+        }
     }
 
     &__name {
@@ -121,7 +169,6 @@ export default {
         align-items: center;
 
         padding: 4px 6px 4px 8px;
-        margin-left: auto;
 
         clip-path: polygon(
             0 0,
@@ -174,7 +221,7 @@ export default {
         padding: 6px 8px;
     }
 
-    > li {
+    > li:not(.action) {
         display: flex;
         align-items: center;
         justify-content: center;

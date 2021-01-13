@@ -30,6 +30,13 @@
                 "noFtl": "Fleet is incapable of FTL."
             }
         },
+        "hulls": {
+            "ark": "Arks",
+            "small": "Destroyers",
+            "medium": "Cruisers",
+            "large": "Battleships",
+            "xlarge": "Capital ships"
+        },
         "actions": {
             "edit": "Edit",
             "delete": "Delete",
@@ -45,7 +52,9 @@
             "headline": "Delete fleet '{name}'?",
             "text": "Are you sure you want to delete the fleet '{name}'?",
             "submit": "Delete fleet"
-        }
+        },
+        "fleetTitle": "Ships in fleet",
+        "empty": "No ships in fleet yet."
     },
     "ship": {
         "class": "{type}, {class} class",
@@ -67,6 +76,11 @@
             },
             "colony": "Ship contains a colony module with {pop} population.",
             "acceleration": "Ship acceleration: {num}g"
+        },
+        "rename": {
+            "button": "Rename",
+            "title": "Rename ship '{name}'",
+            "explanation": "Minimum {min} letters, maximum {max} letters."
         }
     }
 }

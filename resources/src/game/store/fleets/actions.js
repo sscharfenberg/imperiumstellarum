@@ -123,4 +123,32 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function POST change ship name
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    CHANGE_SHIP_NAME: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/fleets/shipName`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.ships &&
+                    response.data.message
+                ) {
+                    commit("SET_SHIPS", response.data.ships);
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

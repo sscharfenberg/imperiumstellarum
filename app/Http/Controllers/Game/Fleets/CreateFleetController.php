@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesFleetsVerification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CreateFleetController extends Controller
 {
@@ -43,12 +44,13 @@ class CreateFleetController extends Controller
         }
 
         // create fleet
-        Fleet::create([
+        $fleet = Fleet::create([
             'game_id' => $player->game->id,
             'player_id' => $player->id,
             'star_id' => $starId,
             'name' => $name,
         ]);
+        Log::info("Empire $player->ticker in g".$player->game->number." created a fleet: \n".json_encode($fleet, JSON_PRETTY_PRINT));
 
         // send answer to client
         $updatedPlayer = Player::find(Auth::user()->selected_player);

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Game\Fleets;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\Game\UsesFleetsVerification;
-use App\Models\Fleet;
 use App\Models\Player;
+use App\Models\Ship;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Traits\Game\UsesFleetsVerification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class ChangeFleetNameController extends Controller
+class ChangeShipNameController extends Controller
 {
 
     use UsesFleetsVerification;
@@ -26,33 +26,33 @@ class ChangeFleetNameController extends Controller
     {
         $player = Player::find(Auth::user()->selected_player);
         $name = $request->input(['name']);
-        $fleetId = $request->input(['id']);
-        $fleet = Fleet::find($fleetId);
-        $oldName = $fleet->name;
+        $shipId = $request->input(['id']);
+        $ship = Ship::find($shipId);
+        $oldName = $ship->name;
         $f = new FormatApiResponseService;
 
         // verification
-        if (!$this->playerOwnsFleet($player, $fleetId) || !$fleet) {
+        if (!$this->playerOwnsShip($player, $shipId) || !$ship) {
             return response()
-                ->json(['error' => __('game.fleets.errors.owner')], 419);
+                ->json(['error' => __('game.fleets.errors.shipOwner')], 419);
         }
-        if (!$this->isFleetNameValid($name)) {
+        if (!$this->isShipNameValid($name)) {
             return response()
-                ->json(['error' => __('game.fleets.errors.name')], 419);
+                ->json(['error' => __('game.fleets.errors.shipName')], 419);
         }
 
         // all good, change fleet
-        $fleet->name = $name;
-        $fleet->save();
-        Log::info("Empire $player->ticker in g".$player->game->number." renamed a fleet from '$oldName' to '$name'.");
+        $ship->name = $name;
+        $ship->save();
+        Log::info("Empire $player->ticker in g".$player->game->number." renamed a ship from '$oldName' to '$name'.");
 
         // send answer to client
         $updatedPlayer = Player::find(Auth::user()->selected_player);
         return response()->json([
-            'fleets' => $updatedPlayer->fleets->map(function ($fleet) use ($f) {
-                return $f->formatFleet($fleet);
+            'ships' => $updatedPlayer->ships->map(function ($ship) use ($f) {
+                return $f->formatShip($ship);
             }),
-            'message' => __('game.fleets.fleetNameChanged')
+            'message' => __('game.fleets.shipNameChanged')
         ]);
     }
 

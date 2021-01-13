@@ -32,6 +32,19 @@ trait UsesFleetsVerification
     }
 
     /**
+     * @function validate ship name
+     * @param string $name
+     * @return bool
+     */
+    public function isShipNameValid (string $name): bool
+    {
+        return is_string($name)
+            && strlen($name) >= config('rules.ships.name.min')
+            && strlen($name) <= config('rules.ships.name.max');
+    }
+
+
+    /**
      * @function verify the player owns the fleet with the supplied id
      * @param Player $player
      * @param string $fleetId
@@ -40,6 +53,17 @@ trait UsesFleetsVerification
     public function playerOwnsFleet (Player $player, string $fleetId): bool
     {
         return $player->fleets->containsStrict('id', $fleetId);
+    }
+
+    /**
+     * @function verify the player owns the ship with the supplied id
+     * @param Player $player
+     * @param string $shipId
+     * @return bool
+     */
+    public function playerOwnsShip (Player $player, string $shipId): bool
+    {
+        return $player->ships->containsStrict('id', $shipId);
     }
 
     /**
