@@ -67,7 +67,11 @@ export default {
                 <div v-for="hullType in hullTypes" :key="hullType">
                     <sub-headline
                         :headline="$t('fleets.active.hulls.' + hullType)"
-                    />
+                    >
+                        {{
+                            ships.filter((s) => s.hullType === hullType).length
+                        }}
+                    </sub-headline>
                     <div class="ships__list-types">
                         <ship-card
                             v-for="ship in ships.filter(

@@ -7,20 +7,45 @@ import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import FleetEditModal from "./FleetEditModal";
 import FleetDeleteModal from "./FleetDeleteModal";
+import FleetTransferModal from "../../../Transfer/FleetTransferModal";
 export default {
     name: "ShowFleet",
     props: {
         fleetId: String,
     },
-    components: { GameButton, FleetEditModal, FleetDeleteModal },
+    components: {
+        GameButton,
+        FleetEditModal,
+        FleetDeleteModal,
+        FleetTransferModal,
+    },
     setup(props) {
         const store = useStore();
         const showEditModal = ref(false);
         const showDeleteModal = ref(false);
+        const showTransferModal = ref(false);
         const ships = computed(() =>
             store.getters["fleets/shipsByFleetId"](props.fleetId)
         );
-        return { showEditModal, showDeleteModal, ships };
+        const fleet = computed(() =>
+            store.getters["fleets/fleetById"](props.fleetId)
+        );
+        const transferDisabled = computed(() => {
+            if (!fleet.value.starId) {
+                return true;
+            }
+            // TODO: check if there are any other fleets/shipyards at this star.
+            return false;
+        });
+
+        return {
+            showEditModal,
+            showDeleteModal,
+            showTransferModal,
+            ships,
+            transferDisabled,
+            fleet,
+        };
     },
 };
 </script>
@@ -56,6 +81,14 @@ export default {
         <game-button
             icon-name="transfer"
             :text-string="$t('fleets.active.actions.transfer')"
+            :disabled="transferDisabled"
+            @click="showTransferModal = true"
+        />
+        <fleet-transfer-modal
+            v-if="showTransferModal"
+            :fleet-id="fleetId"
+            :star-id="fleet.starId"
+            @close="showTransferModal = false"
         />
     </nav>
 </template>

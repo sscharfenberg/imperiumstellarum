@@ -96,4 +96,18 @@ export default {
     SET_CREATE_FLEET_NAME: (state, payload) => {
         state.create.name = payload;
     },
+
+    /**************************************************************************
+     * FLEET TRANSFER MUTATIONS
+     *************************************************************************/
+
+    /**
+     * @functon SET transferId
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_TRANSFER_ID: (state, payload) => {
+        state.transferId = payload;
+    },
 };

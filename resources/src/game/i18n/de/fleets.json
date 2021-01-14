@@ -64,10 +64,10 @@
             "structure": "Struktur: {cur}/{max} ({pct}%)"
         },
         "dmg": {
-            "plasma": "Plasma - Damage {dmg}, Range {range}",
-            "missile": "Missile - Damage {dmg}, Range {range}",
-            "railgun": "Railgun - Damage {dmg}, Range {range}",
-            "laser": "Laser - Damage {dmg}, Range {range}"
+            "plasma": "Plasma - Schaden {dmg}, Reichweite {range}",
+            "missile": "Missile - Schaden {dmg}, Reichweite {range}",
+            "railgun": "Railgun - Schaden {dmg}, Reichweite {range}",
+            "laser": "Laser - Schaden {dmg}, Reichweite {range}"
         },
         "engineering": {
             "ftl": {
@@ -82,5 +82,9 @@
             "title": "Schiff '{name}' umbenennen",
             "explanation": "Minimal {min} Zeichen, maximal {max} Zeichen."
         }
+    },
+    "transfer": {
+        "title": "{name}: Schiffe transferieren",
+        "chooseFleet": "Wählen Sie die 2. Flotte"
     }
 }

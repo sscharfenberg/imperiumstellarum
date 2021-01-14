@@ -13,6 +13,7 @@ export default {
             type: String,
             required: true,
         },
+        fullSize: Boolean,
     },
     components: { Icon, GameButton },
     emits: ["close"],
@@ -41,7 +42,7 @@ export default {
 <template>
     <div class="modal" :style="{ display: 'block' }">
         <div class="modal__backdrop">
-            <div class="modal__dialog">
+            <div class="modal__dialog" :class="{ wide: fullSize }">
                 <header class="modal__head">
                     <h1>{{ title }}</h1>
                     <button class="app-btn small close" @click="$emit('close')">
@@ -145,6 +146,15 @@ export default {
                 t("s-error") 100%
             );
         }
+    }
+}
+
+.wide {
+    max-width: 800px;
+    margin: 10px;
+
+    @include respond-to("small") {
+        margin: 30px 20px 20px 20px;
     }
 }
 </style>
