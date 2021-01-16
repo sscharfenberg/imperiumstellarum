@@ -29,6 +29,16 @@ export default {
         const selectedTransferId = computed({
             get: () => store.state.fleets.transferTargetId,
             set: (value) => {
+                const fleetShips = store.getters["fleets/shipsByFleetId"](
+                    value
+                ).map((s) => s.id);
+                const shipyardShips = store.getters["fleets/shipsByShipyardId"](
+                    value
+                ).map((s) => s.id);
+                store.commit(
+                    "fleets/SET_TRANSFER_TARGET_SHIP_IDS",
+                    fleetShips.length ? fleetShips : shipyardShips
+                );
                 store.commit("fleets/SET_TRANSFER_TARGET_ID", value);
             },
         });

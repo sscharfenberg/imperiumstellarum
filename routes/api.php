@@ -174,5 +174,8 @@ Route::middleware([
     // change ship name
     Route::post('/game/{game}/fleets/shipName',
         [\App\Http\Controllers\Game\Fleets\ChangeShipNameController::class, 'handle']);
+    // transfer ships
+    Route::post('/game/{game}/fleets/transfer',
+        [\App\Http\Controllers\Game\Fleets\FleetTransferController::class, 'handle']);
 
 });

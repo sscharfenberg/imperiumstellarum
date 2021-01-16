@@ -39,8 +39,7 @@ export default {
         <collapsible-item
             v-for="contract in contracts"
             :key="contract.id"
-            :expanded="true"
-            :aria-expanded="true"
+            :collapsible-id="contract.id"
         >
             <template v-slot:topic>
                 <icon

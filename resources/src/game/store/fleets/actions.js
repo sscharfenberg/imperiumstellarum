@@ -151,4 +151,34 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function POST submit ship transfer
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    SUBMIT_SHIP_TRANSFER: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/fleets/transfer`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.ships &&
+                    response.data.shipyards &&
+                    response.data.message
+                ) {
+                    commit("SET_SHIPS", response.data.ships);
+                    commit("SET_SHIPYARDS", response.data.ships);
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

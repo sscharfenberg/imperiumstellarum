@@ -101,6 +101,7 @@
     },
     "transfer": {
         "title": "{name}: Transfer ships",
-        "chooseFleet": "Select the 2nd fleet"
+        "chooseFleet": "Select the 2nd fleet",
+        "submit": "Submit fleet transfer"
     }
 }

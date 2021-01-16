@@ -2,22 +2,37 @@
 /******************************************************************************
  * Component: Collapsible
  *****************************************************************************/
-import { computed, ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "Collapsible",
     props: {
+        collapsibleId: {
+            type: String,
+            required: true,
+        },
         expanded: Boolean,
     },
     components: { Icon },
     setup(props, { slots }) {
-        const show = ref(props.expanded);
+        const store = useStore();
+        const show = computed(
+            () =>
+                store.state.collapsibleExpandedIds.includes(
+                    props.collapsibleId
+                ) || props.expanded
+        );
         const renderAside = computed(() => slots.aside);
         const renderTopic = computed(() => slots.topic);
+        const onToggle = () => {
+            store.commit("TOGGLE_COLLAPSIBLE_ID", props.collapsibleId);
+        };
         return {
             show,
             renderAside,
             renderTopic,
+            onToggle,
         };
     },
 };
@@ -27,8 +42,8 @@ export default {
     <div class="collapsible__item">
         <button
             class="collapsible__topic"
-            @click="show = !show"
-            :aria-expanded="expanded || show"
+            @click="onToggle"
+            :aria-expanded="show"
             aria-haspopup="true"
         >
             <icon
@@ -82,6 +97,7 @@ export default {
     &__topic {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
 
         width: 100%;
         padding: 4px 8px 4px 0;

@@ -101,6 +101,7 @@
     },
     "transfer": {
         "title": "{name}: Schiffe transferieren",
-        "chooseFleet": "Wählen Sie die 2. Flotte"
+        "chooseFleet": "Wählen Sie die 2. Flotte",
+        "submit": "Transfer abschließen"
     }
 }

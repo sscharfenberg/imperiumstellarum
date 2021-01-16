@@ -1,6 +1,7 @@
 /******************************************************************************
  * Vuex root mutations
  *****************************************************************************/
+import { saveState } from "@/game/store/persistState";
 
 export default {
     /**
@@ -56,5 +57,23 @@ export default {
      */
     SET_RESEARCH_PRIORITY: (state, payload) => {
         state.empireResearchPriority = payload;
+    },
+
+    /**
+     * TOGGLE COLLAPSIBLE ID
+     * @param state
+     * @param {String} payload
+     * @constructor
+     */
+    TOGGLE_COLLAPSIBLE_ID: (state, payload) => {
+        if (state.collapsibleExpandedIds.includes(payload)) {
+            state.collapsibleExpandedIds.splice(
+                state.collapsibleExpandedIds.indexOf(payload),
+                1
+            );
+        } else {
+            state.collapsibleExpandedIds.push(payload);
+        }
+        saveState(state.collapsibleExpandedIds, "collapsibleExpandedIds");
     },
 };

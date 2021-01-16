@@ -64,6 +64,7 @@ export default {
                 <collapsible-item
                     v-for="hullType in hullTypes"
                     :key="`collapsibleBPArea${hullType}`"
+                    :collapsible-id="`ShipyardsManageBlueprintHullType-${hullType}`"
                     :expanded="preview.hullType === hullType"
                 >
                     <template v-slot:topic>

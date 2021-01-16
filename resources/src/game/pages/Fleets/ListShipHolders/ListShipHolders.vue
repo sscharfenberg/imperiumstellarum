@@ -7,6 +7,7 @@ import { computed } from "vue";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import ShowShipHolder from "../FleetDetails/ShowShipHolder";
 import ShowShipHolderLocation from "./ShowShipHolderLocation";
+import ShowShipHolderShipSummary from "./ShowShipHolderShipSummary";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ListShipHolders",
@@ -14,6 +15,7 @@ export default {
         CollapsibleItem,
         ShowShipHolder,
         ShowShipHolderLocation,
+        ShowShipHolderShipSummary,
         Icon,
     },
     setup() {
@@ -39,7 +41,7 @@ export default {
     <collapsible-item
         v-for="holder in allShipHolders"
         :key="holder.id"
-        :expanded="true"
+        :collapsible-id="holder.id"
     >
         <template v-slot:topic>
             <icon v-if="holder.name" class="topic-icon" name="fleets" />
@@ -51,6 +53,7 @@ export default {
             <span class="topic-title">{{
                 holder.name ? holder.name : holder.planetName
             }}</span>
+            <show-ship-holder-ship-summary :holder-id="holder.id" />
         </template>
         <template v-slot:aside>
             <show-ship-holder-location :holder-id="holder.id" />
@@ -69,9 +72,13 @@ export default {
 }
 
 .topic-title {
+    overflow: hidden;
+
     font-size: 20px;
     font-weight: 300;
     line-height: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     @include themed() {
         color: t("b-viking");

@@ -1,6 +1,9 @@
 /******************************************************************************
  * Vuex module "base" state
  *****************************************************************************/
+import { getState } from "@/game/store/persistState";
+
+const savedState = getState();
 
 /*
  * get initial module state
@@ -15,4 +18,5 @@ export default {
     empireResearchPriority: 0,
     resources: [],
     storageUpgrades: [],
+    collapsibleExpandedIds: savedState.collapsibleExpandedIds || [],
 };

@@ -108,9 +108,7 @@ export default {
      * @constructor
      */
     SET_TRANSFER_SOURCE_ID: (state, payload) => {
-        console.log("setting sourceid to", payload);
         state.transferSourceId = payload;
-        console.log("sourceid now", state.transferSourceId);
     },
 
     /**
@@ -141,5 +139,33 @@ export default {
      */
     SET_TRANSFER_TARGET_SHIP_IDS: (state, payload) => {
         state.transferTargetShipIds = payload;
+    },
+
+    /**
+     * @functon transfer shipId from source to target (left to right)
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    TRANSFER_SOURCE_TO_TARGET: (state, payload) => {
+        state.transferSourceShipIds.splice(
+            state.transferSourceShipIds.indexOf(payload),
+            1
+        );
+        state.transferTargetShipIds.push(payload);
+    },
+
+    /**
+     * @functon transfer shipId from target to source (right to left)
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    TRANSFER_TARGET_TO_SOURCE: (state, payload) => {
+        state.transferTargetShipIds.splice(
+            state.transferTargetShipIds.indexOf(payload),
+            1
+        );
+        state.transferSourceShipIds.push(payload);
     },
 };
