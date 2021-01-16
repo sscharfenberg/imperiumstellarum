@@ -1,6 +1,21 @@
 {
     "title": "Flotten",
     "navTitle": "Flotten",
+    "summary": {
+        "fleets": "Flotte | Flotten",
+        "fleetsLabel": "{num}/{max} Flotte | {num}/{max} Flotten",
+        "shipyards": "Werft | Werften",
+        "shipyardsLabel": "{num} Werft | {num} Werften",
+        "ships": "Schiff | Schiffe",
+        "shipsLabel": "{num} Schiff | {num} Schiffe",
+        "hulls": {
+            "ark": "{num} Arche | {num} Archen",
+            "small": "{num} Zerstörer | {num} Zerstörer",
+            "medium": "{num} Kreuzer | {num} Kreuzer",
+            "large": "{num} Schlachtschiff | {num} Schlachtschiff",
+            "xlarge": "{num} Großkampfschiff | {num} Großkampfschiffe"
+        }
+    },
     "new": {
         "headline": "Neue Flotte erstellen",
         "start": "Start",
@@ -11,9 +26,9 @@
         "submitBtn": "Erstellen"
     },
     "active": {
-        "headline": "Unsere Flotten ({num}/{max})",
+        "headline": "Alle Flotten und Werften",
         "location": {
-            "at": "befindet sich zur Zeit in Sternensystem {name} ({x}/{y})",
+            "at": "befindet sich in Sternensystem {name} ({x}/{y})",
             "transit": "Unterwegs zu Sternensystem {name} ({x}/{y})",
             "status": {
                 "transit": "Unterwegs nach {x}/{y}",
@@ -54,6 +69,7 @@
             "submit": "Flotte löschen"
         },
         "fleetTitle": "Schiffe der Flotte",
+        "shipyardTitle": "Schiffe der Werft",
         "empty": "No ships in fleet yet."
     },
     "ship": {

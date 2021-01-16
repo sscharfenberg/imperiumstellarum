@@ -7,11 +7,11 @@ import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import FleetEditModal from "./FleetEditModal";
 import FleetDeleteModal from "./FleetDeleteModal";
-import FleetTransferModal from "../../../Transfer/FleetTransferModal";
+import FleetTransferModal from "../../Transfer/FleetTransferModal";
 export default {
     name: "ShowFleet",
     props: {
-        fleetId: String,
+        holderId: String,
     },
     components: {
         GameButton,
@@ -24,19 +24,46 @@ export default {
         const showEditModal = ref(false);
         const showDeleteModal = ref(false);
         const showTransferModal = ref(false);
-        const ships = computed(() =>
-            store.getters["fleets/shipsByFleetId"](props.fleetId)
-        );
-        const fleet = computed(() =>
-            store.getters["fleets/fleetById"](props.fleetId)
-        );
+        const ships = computed(() => {
+            const fleetShips = store.getters["fleets/shipsByFleetId"](
+                props.holderId
+            );
+            const shipyardShips = store.getters["fleets/shipsByShipyardId"](
+                props.holderId
+            );
+            return fleetShips.length ? fleetShips : shipyardShips;
+        });
+        const holder = computed(() => {
+            const fleet = store.getters["fleets/fleetById"](props.holderId);
+            const shipyard = store.getters["fleets/shipyardById"](
+                props.holderId
+            );
+            return fleet && fleet.id ? fleet : shipyard;
+        });
         const transferDisabled = computed(() => {
-            if (!fleet.value.starId) {
+            if (!holder.value.starId) {
                 return true;
             }
-            // TODO: check if there are any other fleets/shipyards at this star.
+            // TODO: check if there are transfer targets at this location.
             return false;
         });
+
+        const doTransferShips = () => {
+            store.commit("fleets/SET_TRANSFER_SOURCE_ID", props.holderId);
+            store.commit(
+                "fleets/SET_TRANSFER_SOURCE_SHIP_IDS",
+                ships.value.map((s) => s.id)
+            );
+            showTransferModal.value = true;
+        };
+        const endTransferShips = () => {
+            // cleanup
+            store.commit("fleets/SET_TRANSFER_SOURCE_ID", "");
+            store.commit("fleets/SET_TRANSFER_TARGET_ID", "");
+            store.commit("fleets/SET_TRANSFER_SOURCE_SHIP_IDS", []);
+            store.commit("fleets/SET_TRANSFER_TARGET_SHIP_IDS", []);
+            showTransferModal.value = false;
+        };
 
         return {
             showEditModal,
@@ -44,7 +71,9 @@ export default {
             showTransferModal,
             ships,
             transferDisabled,
-            fleet,
+            holder,
+            doTransferShips,
+            endTransferShips,
         };
     },
 };
@@ -53,16 +82,18 @@ export default {
 <template>
     <nav class="fleet-meta__actions">
         <game-button
+            v-if="!holder.planetName"
             icon-name="edit"
             :text-string="$t('fleets.active.actions.edit')"
             @click="showEditModal = true"
         />
         <fleet-edit-modal
-            v-if="showEditModal"
-            :fleet-id="fleetId"
+            v-if="showEditModal && !holder.planetName"
+            :fleet-id="holderId"
             @close="showEditModal = false"
         />
         <game-button
+            v-if="!holder.planetName"
             icon-name="delete"
             :text-string="$t('fleets.active.actions.delete')"
             :disabled="ships.length > 0"
@@ -71,24 +102,24 @@ export default {
         />
         <fleet-delete-modal
             v-if="showDeleteModal"
-            :fleet-id="fleetId"
+            :fleet-id="holderId"
             @close="showDeleteModal = false"
         />
         <game-button
+            v-if="!holder.planetName"
             icon-name="transit"
             :text-string="$t('fleets.active.actions.move')"
         />
         <game-button
             icon-name="transfer"
             :text-string="$t('fleets.active.actions.transfer')"
-            :disabled="transferDisabled"
-            @click="showTransferModal = true"
+            :disabled="transferDisabled && !holder.starId"
+            @click="doTransferShips"
         />
         <fleet-transfer-modal
             v-if="showTransferModal"
-            :fleet-id="fleetId"
-            :star-id="fleet.starId"
-            @close="showTransferModal = false"
+            :holder-id="holderId"
+            @close="endTransferShips"
         />
     </nav>
 </template>

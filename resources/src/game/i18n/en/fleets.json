@@ -1,6 +1,21 @@
 {
     "title": "Fleets",
     "navTitle": "Fleets",
+    "summary": {
+        "fleets": "Fleet | Fleets",
+        "fleetsLabel": "{num}/{max} Fleet | {num}/{max} Fleets",
+        "shipyards": "Shipyard | Shipyards",
+        "shipyardsLabel": "{num} Shipyard | {num} Shipyards",
+        "ships": "Ship | Ships",
+        "shipsLabel": "{num} Ship | {num} Ships",
+        "hulls": {
+            "ark": "{num} Ark | {num} Arks",
+            "small": "{num} Destroyer | {num} Destroyers",
+            "medium": "{num} Cruiser | {num} Cruisers",
+            "large": "{num} Battleship | {num} Battleships",
+            "xlarge": "{num} Capital ship | {num} Capital ships"
+        }
+    },
     "new": {
         "headline": "Create new fleet",
         "start": "Start",
@@ -11,9 +26,9 @@
         "submitBtn": "Create"
     },
     "active": {
-        "headline": "Our Fleets ({num}/{max})",
+        "headline": "All Fleets And Shipyards",
         "location": {
-            "at": "currently located at system {name} ({x}/{y})",
+            "at": "located in system {name} ({x}/{y})",
             "transit": "in transit to system {name} ({x}/{y})",
             "status": {
                 "transit": "In transit to {x}/{y}",
@@ -54,6 +69,7 @@
             "submit": "Delete fleet"
         },
         "fleetTitle": "Ships in fleet",
+        "shipyardTitle": "Ships in shipyard",
         "empty": "No ships in fleet yet."
     },
     "ship": {

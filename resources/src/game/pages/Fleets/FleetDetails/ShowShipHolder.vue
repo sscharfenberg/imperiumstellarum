@@ -1,6 +1,6 @@
 <script>
 /******************************************************************************
- * PageComponent: ShowFleet
+ * PageComponent: ShowShipHolder
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -9,9 +9,9 @@ import ShowFleetMetaStatus from "./Meta/ShowFleetMetaStatus";
 import ShipCard from "Components/Ship/ShipCard/ShipCard";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
-    name: "ShowFleet",
+    name: "ShowShipHolder",
     props: {
-        fleetId: String,
+        holderId: String,
     },
     components: {
         ShowFleetMetaActions,
@@ -21,12 +21,22 @@ export default {
     },
     setup(props) {
         const store = useStore();
-        const fleet = computed(() =>
-            store.getters["fleets/fleetById"](props.fleetId)
-        );
-        const ships = computed(() =>
-            store.getters["fleets/shipsByFleetId"](props.fleetId)
-        );
+        const holder = computed(() => {
+            const fleet = store.getters["fleets/fleetById"](props.holderId);
+            const shipyard = store.getters["fleets/shipyardById"](
+                props.holderId
+            );
+            return fleet && fleet.id ? fleet : shipyard;
+        });
+        const ships = computed(() => {
+            const fleetShips = store.getters["fleets/shipsByFleetId"](
+                props.holderId
+            );
+            const shipyardShips = store.getters["fleets/shipsByShipyardId"](
+                props.holderId
+            );
+            return fleetShips.length ? fleetShips : shipyardShips;
+        });
         const hullTypes = computed(() => {
             // prepare array of preferred sort order
             const order = Object.keys(window.rules.ships.hullTypes);
@@ -45,7 +55,7 @@ export default {
             );
         });
         return {
-            fleet,
+            holder,
             ships,
             hullTypes,
         };
@@ -56,12 +66,16 @@ export default {
 <template>
     <div class="fleet">
         <div class="fleet-meta">
-            <show-fleet-meta-status :fleet-id="fleetId" />
-            <show-fleet-meta-actions :fleet-id="fleetId" />
+            <show-fleet-meta-status :holder-id="holderId" />
+            <show-fleet-meta-actions :holder-id="holderId" />
         </div>
         <div class="ships">
             <div class="ships__title">
-                {{ $t("fleets.active.fleetTitle") }}
+                {{
+                    holder.planetName
+                        ? $t("fleets.active.shipyardTitle")
+                        : $t("fleets.active.fleetTitle")
+                }}
             </div>
             <div class="ships__list">
                 <div v-for="hullType in hullTypes" :key="hullType">

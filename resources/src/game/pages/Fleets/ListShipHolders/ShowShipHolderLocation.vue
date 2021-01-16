@@ -1,27 +1,31 @@
 <script>
 /******************************************************************************
- * PageComponent: ShowFleetLocation
+ * PageComponent: ShowShipHolderLocation
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import Icon from "Components/Icon/Icon";
 export default {
-    name: "ShowFleetLocation",
+    name: "ShowShipHolderLocation",
     props: {
-        fleetId: String,
+        holderId: String,
     },
     components: { Icon },
     setup(props) {
         const store = useStore();
         const i18n = useI18n();
-        const fleet = computed(() =>
-            store.getters["fleets/fleetById"](props.fleetId)
-        );
-        const stationary = computed(() => fleet.value.starId);
+        const holder = computed(() => {
+            const fleet = store.getters["fleets/fleetById"](props.holderId);
+            const shipyard = store.getters["fleets/shipyardById"](
+                props.holderId
+            );
+            return fleet && fleet.id ? fleet : shipyard;
+        });
+        const stationary = computed(() => holder.value.starId);
         const locationStar = computed(() => {
             return stationary.value
-                ? store.getters["fleets/starById"](fleet.value.starId)
+                ? store.getters["fleets/starById"](holder.value.starId)
                 : "transit"; // TODO
         });
         const label = computed(() => {
@@ -38,7 +42,7 @@ export default {
             () => `${locationStar.value.x}/${locationStar.value.y}`
         );
         return {
-            fleet,
+            holder,
             stationary,
             label,
             coordsText,
@@ -57,7 +61,7 @@ export default {
         <icon class="location-icon" name="location" />
         <span>{{ coordsText }}</span>
     </aside>
-    <aside class="location" v-if="!stationary">in transit</aside>
+    <aside class="location" v-if="!stationary">TODO: in transit</aside>
 </template>
 
 <style lang="scss" scoped>

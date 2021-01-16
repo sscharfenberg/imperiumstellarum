@@ -102,12 +102,44 @@ export default {
      *************************************************************************/
 
     /**
-     * @functon SET transferId
+     * @functon SET transferSourceId
      * @param {Object} state - vuex module "fleets" state
      * @param {String} payload
      * @constructor
      */
-    SET_TRANSFER_ID: (state, payload) => {
-        state.transferId = payload;
+    SET_TRANSFER_SOURCE_ID: (state, payload) => {
+        console.log("setting sourceid to", payload);
+        state.transferSourceId = payload;
+        console.log("sourceid now", state.transferSourceId);
+    },
+
+    /**
+     * @functon SET transferSourceShipIds
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_TRANSFER_SOURCE_SHIP_IDS: (state, payload) => {
+        state.transferSourceShipIds = payload;
+    },
+
+    /**
+     * @functon SET transferTargetId
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_TRANSFER_TARGET_ID: (state, payload) => {
+        state.transferTargetId = payload;
+    },
+
+    /**
+     * @functon SET transferTargetShipIds
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_TRANSFER_TARGET_SHIP_IDS: (state, payload) => {
+        state.transferTargetShipIds = payload;
     },
 };

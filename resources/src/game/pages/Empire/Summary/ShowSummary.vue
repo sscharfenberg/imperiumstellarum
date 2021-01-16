@@ -57,7 +57,7 @@ export default {
 
         @include themed() {
             background-color: t("g-sunken");
-            border-color: t("g-abbey");
+            border-color: t("g-deep");
         }
     }
 }

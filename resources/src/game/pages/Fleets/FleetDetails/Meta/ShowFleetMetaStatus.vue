@@ -9,28 +9,32 @@ import Icon from "Components/Icon/Icon";
 export default {
     name: "ShowFleetMetaStatus",
     props: {
-        fleetId: String,
+        holderId: String,
     },
     components: { Icon },
     setup(props) {
         const store = useStore();
         const i18n = useI18n();
 
-        const fleet = computed(() =>
-            store.getters["fleets/fleetById"](props.fleetId)
-        );
+        const holder = computed(() => {
+            const fleet = store.getters["fleets/fleetById"](props.holderId);
+            const shipyard = store.getters["fleets/shipyardById"](
+                props.holderId
+            );
+            return fleet && fleet.id ? fleet : shipyard;
+        });
         const ourStarIds = computed(() =>
             store.state.fleets.stars.map((s) => s.id)
         );
 
         // ftl
-        const ftlLabel = computed(() => (fleet.value.ftl ? "Yes" : "no"));
+        const ftlLabel = computed(() => (holder.value.ftl ? "Yes" : "no"));
 
         // location
-        const stationary = computed(() => fleet.value.starId);
+        const stationary = computed(() => holder.value.starId);
         const locationStar = computed(() => {
             return stationary.value
-                ? store.getters["fleets/starById"](fleet.value.starId)
+                ? store.getters["fleets/starById"](holder.value.starId)
                 : "transit"; // TODO
         });
         const systemLabel = computed(() => {
@@ -44,7 +48,7 @@ export default {
                 : i18n.t("fleets.active.location.transit", star);
         });
         return {
-            fleet,
+            holder,
             ftlLabel,
             ourStarIds,
             systemLabel,
@@ -56,6 +60,7 @@ export default {
 <template>
     <ul class="fleet-meta__status">
         <li
+            v-if="!holder.planetName"
             :title="
                 $t('fleets.active.location.status.transit', { x: 36, y: 16 })
             "
@@ -67,7 +72,7 @@ export default {
             {{ 36 }}/{{ 16 }}
         </li>
         <li
-            v-if="ourStarIds.includes(fleet.starId)"
+            v-if="ourStarIds.includes(holder.starId)"
             :aria-label="systemLabel"
             :title="systemLabel"
         >
@@ -76,7 +81,7 @@ export default {
         </li>
         <!-- TODO: in enemy|allied|neutral system -->
         <li
-            v-if="fleet.ftl"
+            v-if="holder.ftl && !holder.planetName"
             :title="$t('fleets.active.location.status.ftl.label')"
             :aria-label="$t('fleets.active.location.status.ftl.label')"
         >
@@ -84,7 +89,7 @@ export default {
             {{ $t("fleets.active.location.status.ftl.short") }}
         </li>
         <li
-            v-if="!fleet.ftl"
+            v-if="!holder.ftl && !holder.planetName"
             :title="$t('fleets.active.location.status.noFtl')"
             :aria-label="$t('fleets.active.location.status.noFtl')"
         >

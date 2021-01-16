@@ -7,49 +7,70 @@ import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import FleetTransferChooseFleet from "./FleetTransferChooseFleet";
+import FleetTransferShipGrid from "./FleetTransferShipGrid";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "FleetTransferModal",
     props: {
-        fleetId: String,
-        starId: String,
-        shipyardId: String,
+        holderId: String,
     },
-    components: { Modal, Icon, SubHeadline, FleetTransferChooseFleet },
+    components: {
+        Modal,
+        Icon,
+        SubHeadline,
+        FleetTransferChooseFleet,
+        FleetTransferShipGrid,
+    },
     emits: ["close"],
     setup(props) {
         const store = useStore();
-        const fleet = computed(() => {
-            if (props.fleetId)
-                return store.getters["fleets/fleetById"](props.fleetId);
-            if (props.shipyardId)
-                return store.getters["fleets/shipyardById"](props.shipyardId);
+
+        // we use this modal for fleets and shipyards as a source.
+        const transferSource = computed(() => {
+            const fleet = store.getters["fleets/fleetById"](props.holderId);
+            const shipyard = store.getters["fleets/shipyardById"](
+                props.holderId
+            );
+            return fleet && fleet.id ? fleet : shipyard;
         });
 
         // this is kinda akward, but avoids repeating a lot of code.
-        const transferFleetOrShipyard = computed(() => {
-            const transferId = store.state.fleets.transferId;
+        // find out if the source (left side) is a fleet or shipyard
+        const transferTarget = computed(() => {
+            const targetId = store.state.fleets.transferTargetId;
             const fleet = store.state.fleets.fleets.find(
-                (f) => f.id === transferId
+                (f) => f.id === targetId
             );
             const shipyard = store.state.fleets.shipyards.find(
-                (s) => s.id === transferId
+                (s) => s.id === targetId
             );
             if (fleet)
                 return {
+                    id: fleet.id,
                     name: fleet.name,
                     icon: "fleets",
                 };
             else if (shipyard)
                 return {
+                    id: shipyard.id,
                     name: shipyard.planetName,
                     icon: "shipyards",
                 };
         });
 
+        // initial ships by fleetId/shipyardId
+        const transferSourceShipIds = computed(
+            () => store.state.fleets.transferSourceShipIds
+        );
+        const transferTargetShipIds = computed(
+            () => store.state.fleets.transferTargetShipIds
+        );
+
         return {
-            fleet,
-            transferFleetOrShipyard,
+            transferSource,
+            transferTarget,
+            transferSourceShipIds,
+            transferTargetShipIds,
         };
     },
 };
@@ -59,34 +80,44 @@ export default {
     <modal
         :title="
             $t('fleets.transfer.title', {
-                name: fleet.name ? fleet.name : fleet.planetName,
+                name: transferSource.name
+                    ? transferSource.name
+                    : transferSource.planetName,
             })
         "
         @close="$emit('close')"
         :full-size="true"
     >
         <sub-headline :headline="$t('fleets.transfer.chooseFleet')" />
-        <fleet-transfer-choose-fleet :fleet-id="fleetId" :star-id="starId" />
+        <fleet-transfer-choose-fleet
+            :holder-id="holderId"
+            :star-id="transferSource.starId"
+        />
         <ul class="fleet-transfer__grid">
             <li class="fleet-transfer__grid-item fleet-transfer__grid-head">
-                <icon v-if="fleet.name" name="fleets" />
-                <icon v-if="fleet.planetName" name="shipyards" />
-                {{ fleet.name ? fleet.name : fleet.planetName }}
+                <icon v-if="transferSource.name" name="fleets" />
+                <icon v-if="transferSource.planetName" name="shipyards" />
+                {{
+                    transferSource.name
+                        ? transferSource.name
+                        : transferSource.planetName
+                }}
             </li>
             <li class="fleet-transfer__grid-item fleet-transfer__grid-actions">
                 &lt;&gt;
             </li>
             <li class="fleet-transfer__grid-item fleet-transfer__grid-head">
-                <icon
-                    v-if="transferFleetOrShipyard"
-                    :name="transferFleetOrShipyard.icon"
-                />
-                <span v-if="transferFleetOrShipyard">{{
-                    transferFleetOrShipyard.name
-                }}</span>
+                <icon v-if="transferTarget" :name="transferTarget.icon" />
+                <span v-if="transferTarget">{{ transferTarget.name }}</span>
             </li>
-            <li class="fleet-transfer__grid-item">ship<br />ship<br />ship</li>
-            <li class="fleet-transfer__grid-item">ship<br />ship<br />ship</li>
+            <fleet-transfer-ship-grid
+                :item-id="transferSource.id"
+                :ship-ids="transferSourceShipIds"
+            />
+            <fleet-transfer-ship-grid
+                :item-id="transferTarget ? transferTarget.id : ''"
+                :ship-ids="transferTargetShipIds"
+            />
         </ul>
     </modal>
 </template>

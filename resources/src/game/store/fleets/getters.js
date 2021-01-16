@@ -7,8 +7,12 @@ export default {
      * singletons
      */
 
-    // get blueprint by id
+    // get fleet by id
     fleetById: (state) => (id) => state.fleets.find((f) => f.id === id) || {},
+
+    // get shipyard by id
+    shipyardById: (state) => (id) =>
+        state.shipyards.find((y) => y.id === id) || {},
 
     // get star by id
     starById: (state) => (id) =>

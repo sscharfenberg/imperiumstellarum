@@ -21,5 +21,9 @@ export default {
         location: "",
         name: "",
     },
-    transferId: "",
+    // transfer ships between fleets/shipyards
+    transferSourceId: "",
+    transferSourceShipIds: [],
+    transferTargetId: "",
+    transferTargetShipIds: [],
 };

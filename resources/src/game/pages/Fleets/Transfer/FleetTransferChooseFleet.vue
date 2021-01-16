@@ -8,16 +8,18 @@ import Icon from "Components/Icon/Icon";
 export default {
     name: "FleetTransferChooseFleet",
     props: {
-        fleetId: String,
+        holderId: String,
         starId: String,
     },
     components: { Icon },
     setup(props) {
         const store = useStore();
         const fleets = computed(() =>
-            store.state.fleets.fleets.filter((f) => f.id !== props.fleetId)
+            store.state.fleets.fleets.filter((f) => f.id !== props.holderId)
         );
-        const shipyards = computed(() => store.state.fleets.shipyards);
+        const shipyards = computed(() =>
+            store.state.fleets.shipyards.filter((y) => y.id !== props.holderId)
+        );
         const available = computed(() =>
             fleets.value
                 .concat(shipyards.value)
@@ -25,9 +27,9 @@ export default {
         );
 
         const selectedTransferId = computed({
-            get: () => store.state.fleets.transferId,
+            get: () => store.state.fleets.transferTargetId,
             set: (value) => {
-                store.commit("fleets/SET_TRANSFER_ID", value);
+                store.commit("fleets/SET_TRANSFER_TARGET_ID", value);
             },
         });
 
