@@ -106,5 +106,9 @@
         "submit": "Transfer abschließen",
         "ltr": "Transfer all ships to right side",
         "rtl": "Transfer all ships to left side"
+    },
+    "move": {
+        "headline": "Flotte '{name}' bewegen",
+        "submit": "Flotte losschicken"
     }
 }

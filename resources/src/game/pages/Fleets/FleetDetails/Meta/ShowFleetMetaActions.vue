@@ -8,6 +8,7 @@ import GameButton from "Components/Button/GameButton";
 import FleetEditModal from "./FleetEditModal";
 import FleetDeleteModal from "./FleetDeleteModal";
 import FleetTransferModal from "../../Transfer/FleetTransferModal";
+import FleetMoveModal from "../../Move/FleetMoveModal";
 export default {
     name: "ShowFleet",
     props: {
@@ -18,12 +19,14 @@ export default {
         FleetEditModal,
         FleetDeleteModal,
         FleetTransferModal,
+        FleetMoveModal,
     },
     setup(props) {
         const store = useStore();
         const showEditModal = ref(false);
         const showDeleteModal = ref(false);
         const showTransferModal = ref(false);
+        const showMoveModal = ref(false);
         const ships = computed(() => {
             const fleetShips = store.getters["fleets/shipsByFleetId"](
                 props.holderId
@@ -63,6 +66,7 @@ export default {
             showEditModal,
             showDeleteModal,
             showTransferModal,
+            showMoveModal,
             ships,
             transferDisabled,
             holder,
@@ -85,6 +89,7 @@ export default {
             :fleet-id="holderId"
             @close="showEditModal = false"
         />
+
         <game-button
             v-if="!holder.planetName"
             icon-name="delete"
@@ -98,11 +103,19 @@ export default {
             :fleet-id="holderId"
             @close="showDeleteModal = false"
         />
+
         <game-button
             v-if="!holder.planetName"
             icon-name="transit"
             :text-string="$t('fleets.active.actions.move')"
+            @click="showMoveModal = true"
         />
+        <fleet-move-modal
+            v-if="showMoveModal"
+            :fleet-id="holderId"
+            @close="showMoveModal = false"
+        />
+
         <game-button
             icon-name="transfer"
             :text-string="$t('fleets.active.actions.transfer')"

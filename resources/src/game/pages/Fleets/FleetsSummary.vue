@@ -41,27 +41,29 @@ export default {
             class="summary__item"
             :aria-label="$tc('fleets.summary.fleetsLabel', numFleets)"
         >
+            <icon name="fleets" :size="3" />
             <h3>
-                <icon name="fleets" :size="3" />
+                <aside class="summary__item-number">
+                    {{ numFleets }} / {{ maxFleets }}
+                </aside>
                 {{ $tc("fleets.summary.fleets", numFleets) }}
             </h3>
-            <aside class="summary__item-number">
-                {{ numFleets }} / {{ maxFleets }}
-            </aside>
         </li>
         <li
             class="summary__item"
             :aria-label="$tc('fleets.summary.shipyardsLabel', numShipyards)"
         >
+            <icon name="shipyards" :size="3" />
             <h3>
-                <icon name="shipyards" :size="3" />
+                <aside class="summary__item-number">{{ numShipyards }}</aside>
                 {{ $tc("fleets.summary.shipyards", numShipyards) }}
             </h3>
-            <aside class="summary__item-number">{{ numShipyards }}</aside>
         </li>
         <li class="summary__item">
-            <h3>{{ $tc("fleets.summary.ships", numShips) }}</h3>
-            <aside class="summary__item-number">{{ numShips }}</aside>
+            <h3>
+                <aside class="summary__item-number">{{ numShips }}</aside>
+                {{ $tc("fleets.summary.ships", numShips) }}
+            </h3>
             <ul class="summary__ships">
                 <li
                     v-if="numArks"
@@ -151,7 +153,7 @@ export default {
         text-align: center;
 
         @include respond-to("medium") {
-            padding: 16px;
+            padding: 12px;
         }
 
         @include themed() {
@@ -159,30 +161,24 @@ export default {
             border-color: t("g-deep");
         }
 
+        > .icon {
+            @include themed() {
+                color: t("b-christine");
+            }
+        }
+
         > h3 {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            margin: 0 0 8px 0;
+            margin: 8px 0;
 
             font-size: 20px;
             font-weight: 300;
 
             @include themed() {
                 color: t("t-bright");
-            }
-
-            > .icon {
-                margin-right: 8px;
-
-                @include respond-to("medium") {
-                    margin-right: 16px;
-                }
-
-                @include themed() {
-                    color: t("b-christine");
-                }
             }
         }
     }
@@ -192,6 +188,7 @@ export default {
 
         padding: 4px 8px;
         border: 2px solid transparent;
+        margin-right: 8px;
 
         @include themed() {
             background-color: t("g-bunker");
