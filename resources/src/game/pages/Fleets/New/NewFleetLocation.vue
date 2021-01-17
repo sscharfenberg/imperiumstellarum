@@ -93,7 +93,13 @@ export default {
 .form-row {
     padding: 0 0 16px 0;
 }
-
+.form-row .label {
+    margin-bottom: 8px;
+    flex-basis: 100%;
+}
+.form-row .input {
+    flex-basis: 100%;
+}
 .input .vue-select {
     width: 100%;
     padding: 9px;

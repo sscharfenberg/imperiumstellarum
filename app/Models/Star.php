@@ -37,6 +37,8 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereSpectral($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Star whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FleetMovement[] $fleetMovements
+ * @property-read int|null $fleet_movements_count
  */
 class Star extends Model
 {
@@ -102,6 +104,14 @@ class Star extends Model
     public function planets()
     {
         return $this->hasMany('App\Models\Planet');
+    }
+
+    /**
+     * Get the fleet movements to this star
+     */
+    public function fleetMovements()
+    {
+        return $this->hasMany('App\Models\FleetMovement');
     }
 
 }

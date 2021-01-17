@@ -32,6 +32,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Fleet whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Star $star
+ * @property-read \App\Models\FleetMovement|null $fleetMovement
  */
 class Fleet extends Model
 {
@@ -94,5 +95,13 @@ class Fleet extends Model
     public function star()
     {
         return $this->belongsTo('App\Models\Star');
+    }
+
+    /**
+     * Get the movement of this fleet
+     */
+    public function fleetMovement()
+    {
+        return $this->hasOne('App\Models\FleetMovement');
     }
 }

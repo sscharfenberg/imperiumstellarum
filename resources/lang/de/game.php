@@ -101,7 +101,7 @@ return [
             'shipsOwner' => 'Sie sind nicht der Besitzer von einem oder mehreren der Schiffe.',
             'shipHolders' => 'Nicht alle Schiffe gehören zur Flotte oder Werft.'
         ],
-        'fleetCreated' => 'Fleet \':name\' created.',
+        'fleetCreated' => 'Flotte \':name\' ausgehoben.',
         'fleetNameChanged' => 'Flotte umbenannt.',
         'shipNameChanged' => 'Schiff umbenannt.',
         'deleted' => 'Flotte gelöscht.',

@@ -6,7 +6,7 @@ import { useStore } from "vuex";
 import { computed, onBeforeMount, ref } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
-import NewFleet from "./New/NewFleet";
+import NewFleetModal from "./New/NewFleetModal";
 import ListShipHolders from "./ListShipHolders/ListShipHolders";
 import FleetsSummary from "./FleetsSummary";
 import GameButton from "Components/Button/GameButton";
@@ -16,7 +16,7 @@ export default {
         GameHeader,
         AreaSection,
         GameButton,
-        NewFleet,
+        NewFleetModal,
         FleetsSummary,
         ListShipHolders,
     },
@@ -27,6 +27,7 @@ export default {
         const shipyards = computed(() => store.state.fleets.shipyards);
         const maxFleets = computed(() => store.state.fleets.maxFleets);
         const ships = computed(() => store.state.fleets.ships);
+        const requesting = computed(() => store.state.fleets.requesting);
         const showCreateBtn = computed(() => {
             return (
                 maxFleets.value &&
@@ -34,10 +35,6 @@ export default {
                 !showCreate.value
             );
         });
-        const onCreateClick = () => {
-            store.commit("fleets/SET_SHOW_CREATE", true);
-        };
-
         onBeforeMount(() => {
             store.dispatch("fleets/GET_GAME_DATA");
         });
@@ -48,7 +45,7 @@ export default {
             ships,
             showCreate,
             showCreateBtn,
-            onCreateClick,
+            requesting,
         };
     },
 };
@@ -62,22 +59,18 @@ export default {
         :num-shipyards="shipyards.length"
         :ships="ships"
     />
-    <area-section v-if="showCreate" :headline="$t('fleets.new.headline')">
-        <new-fleet />
-    </area-section>
-    <area-section v-if="fleets.length" :headline="$t('fleets.active.headline')">
+    <new-fleet-modal v-if="showCreate" @close="showCreate = false" />
+    <area-section
+        v-if="fleets.length"
+        :headline="$t('fleets.active.headline')"
+        :requesting="requesting"
+    >
         <template v-slot:aside>
             <game-button
-                v-if="showCreateBtn"
+                v-if="fleets.length < maxFleets"
                 icon-name="add"
                 :text-string="$t('fleets.new.btnNewFleet')"
                 @click="showCreate = true"
-            />
-            <game-button
-                v-if="!showCreateBtn"
-                icon-name="add"
-                :text-string="$t('fleets.new.btnCancel')"
-                @click="showCreate = false"
             />
         </template>
         <list-ship-holders />

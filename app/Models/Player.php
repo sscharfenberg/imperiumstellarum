@@ -57,6 +57,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $ships_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Fleet[] $fleets
  * @property-read int|null $fleets_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FleetMovement[] $fleetMovements
+ * @property-read int|null $fleet_movements_count
  */
 class Player extends Model
 {
@@ -200,6 +202,14 @@ class Player extends Model
     public function fleets()
     {
         return $this->hasMany('App\Models\Fleet');
+    }
+
+    /**
+     * Get the fleet movements for this player
+     */
+    public function fleetMovements()
+    {
+        return $this->hasMany('App\Models\FleetMovement');
     }
 
 }

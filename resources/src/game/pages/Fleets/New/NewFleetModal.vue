@@ -4,20 +4,20 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
+import Modal from "Components/Modal/Modal";
 import NewFleetLocation from "./NewFleetLocation";
 import NewFleetName from "./NewFleetName";
 import GameButton from "Components/Button/GameButton";
 export default {
     name: "NewFleet",
     components: {
-        SubHeadline,
+        Modal,
         NewFleetLocation,
         NewFleetName,
         GameButton,
     },
     emits: ["close"],
-    setup() {
+    setup(props, { emit }) {
         const store = useStore();
         const requesting = computed(() => store.state.fleets.requesting);
         const availableFleets = computed(
@@ -31,6 +31,7 @@ export default {
                 name: fleetName.value,
                 location: fleetLocation.value,
             });
+            emit("close");
         };
         return {
             requesting,
@@ -44,39 +45,34 @@ export default {
 </script>
 
 <template>
-    <div class="app-form">
-        <sub-headline
-            :headline="
-                $tc('fleets.new.explanation', availableFleets, {
-                    num: availableFleets,
-                })
-            "
-        />
-        <new-fleet-location />
-        <new-fleet-name />
-        <div class="form-row submit">
-            <div class="label"></div>
-            <div class="input">
-                <game-button
-                    :text-string="$t('fleets.new.submitBtn')"
-                    icon-name="save"
-                    :disabled="!fleetLocation || !fleetName"
-                    :loading="requesting"
-                    @click="onSubmit"
-                />
-            </div>
+    <modal :title="$t('fleets.new.headline')" @close="$emit('close')">
+        <div class="app-form">
+            <p>
+                {{
+                    $tc("fleets.new.explanation", availableFleets, {
+                        num: availableFleets,
+                    })
+                }}
+            </p>
+            <new-fleet-location />
+            <new-fleet-name />
         </div>
-    </div>
+        <template v-slot:actions>
+            <game-button
+                :text-string="$t('fleets.new.submitBtn')"
+                icon-name="save"
+                :disabled="!fleetLocation || !fleetName"
+                :loading="requesting"
+                @click="onSubmit"
+            />
+        </template>
+    </modal>
 </template>
 
 <style lang="scss" scoped>
 .app-form {
-    padding: 8px;
-    margin: 0 0 16px 0;
-
-    @include respond-to("medium") {
-        padding: 16px;
-    }
+    padding: 0;
+    margin: 0;
 
     @include themed() {
         background-color: t("g-sunken");

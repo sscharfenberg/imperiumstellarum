@@ -20,7 +20,7 @@ class CreateShipsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('game_id');
             $table->uuid('player_id');
-            $table->uuid('fleet_id')->nullable(); // tmp
+            $table->uuid('fleet_id')->nullable();
             $table->uuid('shipyard_id')->nullable();
             $table->enum('hull_type', array_keys(config('rules.ships.hullTypes')));
             $table->string('name', config('rules.ships.name.max'));
@@ -42,11 +42,13 @@ class CreateShipsTable extends Migration
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade');
+            $table->foreign('fleet_id')->references('id')->on('fleets')
+                ->onDelete('cascade');
             $table->foreign('shipyard_id')->references('id')->on('shipyards')
                 ->onDelete('cascade');
-            // TODO: foreign for fleet_id
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
