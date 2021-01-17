@@ -11,19 +11,19 @@
  */
 export default {
     requesting: false,
+    // area meta data
     fleets: [],
     shipyards: [],
     ships: [],
     stars: [],
     maxFleets: 0,
-    create: {
-        show: false,
-        location: "",
-        name: "",
-    },
+    // create new fleet
+    createLocation: "",
+    createName: "",
     // transfer ships between fleets/shipyards
     transferSourceId: "",
     transferSourceShipIds: [],
     transferTargetId: "",
     transferTargetShipIds: [],
+    transferSubmitActive: false,
 };

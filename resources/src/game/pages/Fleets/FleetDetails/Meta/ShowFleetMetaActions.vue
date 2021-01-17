@@ -48,6 +48,8 @@ export default {
             return false;
         });
 
+        // prepare state for modal.
+        // do it here and not within the modal since we already have the data
         const doTransferShips = () => {
             store.commit("fleets/SET_TRANSFER_SOURCE_ID", props.holderId);
             store.commit(
@@ -55,14 +57,6 @@ export default {
                 ships.value.map((s) => s.id)
             );
             showTransferModal.value = true;
-        };
-        const endTransferShips = () => {
-            // cleanup
-            store.commit("fleets/SET_TRANSFER_SOURCE_ID", "");
-            store.commit("fleets/SET_TRANSFER_TARGET_ID", "");
-            store.commit("fleets/SET_TRANSFER_SOURCE_SHIP_IDS", []);
-            store.commit("fleets/SET_TRANSFER_TARGET_SHIP_IDS", []);
-            showTransferModal.value = false;
         };
 
         return {
@@ -73,7 +67,6 @@ export default {
             transferDisabled,
             holder,
             doTransferShips,
-            endTransferShips,
         };
     },
 };
@@ -119,7 +112,7 @@ export default {
         <fleet-transfer-modal
             v-if="showTransferModal"
             :holder-id="holderId"
-            @close="endTransferShips"
+            @close="showTransferModal = false"
         />
     </nav>
 </template>

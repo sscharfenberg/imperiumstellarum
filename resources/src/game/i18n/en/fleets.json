@@ -17,8 +17,9 @@
         }
     },
     "new": {
+        "btnNewFleet": "Create Fleet",
+        "btnCancel": "Cancel Create New",
         "headline": "Create new fleet",
-        "start": "Start",
         "explanation": "You can create one more fleet | You can create {num} more fleets.",
         "locationLabel": "Fleet location",
         "nameLabel": "Fleet name",
@@ -102,6 +103,8 @@
     "transfer": {
         "title": "{name}: Transfer ships",
         "chooseFleet": "Select the 2nd fleet",
-        "submit": "Submit fleet transfer"
+        "submit": "Submit fleet transfer",
+        "ltr": "Transfer all ships to right side",
+        "rtl": "Transfer all ships to left side"
     }
 }

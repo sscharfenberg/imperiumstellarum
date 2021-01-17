@@ -95,12 +95,17 @@ return [
             'name' => 'The name of this fleet is not valid.',
             'shipName' => 'The name of this ship is not valid.',
             'nameUnique' => 'The fleet name needs to be unique.',
-            'notEmpty' => 'This fleet contains ships and can not be deleted.'
+            'notEmpty' => 'This fleet contains ships and can not be deleted.',
+            'holderOwner' => 'Not all fleets or shipyards are owned by you, or they do not share the same system.',
+            'shipsUnique' => 'Some of the ships supplied are not unique.',
+            'shipsOwner' => 'You do not own one or more of the ships.',
+            'shipHolders' => 'Not all ships belong to the fleet or shipyard.'
         ],
         'fleetCreated' => 'Fleet \':name\' created.',
         'fleetNameChanged' => 'Renamed fleet.',
         'shipNameChanged' => 'Renamed ship.',
-        'deleted' => 'Fleet deleted.'
+        'deleted' => 'Fleet deleted.',
+        'shipsTransfered' => 'Ships where transfered.'
     ],
 
     'research' => [

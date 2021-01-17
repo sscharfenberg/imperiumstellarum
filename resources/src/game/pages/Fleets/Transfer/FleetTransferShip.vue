@@ -64,7 +64,7 @@ export default {
         border-color: t("g-abbey");
     }
 
-    &:hover {
+    &:hover:not([disabled]) {
         @include themed() {
             background-color: t("g-sunken");
             color: t("t-light");

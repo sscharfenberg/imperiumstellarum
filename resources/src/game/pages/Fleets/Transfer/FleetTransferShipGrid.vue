@@ -2,7 +2,7 @@
 /******************************************************************************
  * PageComponent: FleetTransferShipGrid
  *****************************************************************************/
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import FleetTransferShip from "./FleetTransferShip";
 export default {
@@ -15,12 +15,16 @@ export default {
     components: { FleetTransferShip },
     setup(props) {
         const store = useStore();
+        const activatedOnce = ref(false);
 
         /**
          * @function transfer the ship to the other column
          * @param id
          */
         const onShipClick = (id) => {
+            if (!activatedOnce.value)
+                store.commit("fleets/SET_TRANSFER_SUBMIT_ACTIVE", true);
+            activatedOnce.value = true;
             if (props.columnIndex === 0) {
                 store.commit("fleets/TRANSFER_SOURCE_TO_TARGET", id);
             } else {

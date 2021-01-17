@@ -95,12 +95,17 @@ return [
             'name' => 'Der Name der Flotte ist nicht gültig.',
             'shipName' => 'Der Name des Schiffs ist nicht gültig.',
             'nameUnique' => 'Der Name der Flotte darf nicht mehrfach verwendet werden.',
-            'notEmpty' => 'Diese Flotte enthält Schiffe und kann nicht gelöscht werden.'
+            'notEmpty' => 'Diese Flotte enthält Schiffe und kann nicht gelöscht werden.',
+            'holderOwner' => 'Sie sind nicht der Besitzer der Flotten / Werften, oder die Flotten/Werften befinden sich nicht im gleichen System.',
+            'shipsUnique' => 'Einer oder mehrere der Schiffe sind doppelt vorhanden.',
+            'shipsOwner' => 'Sie sind nicht der Besitzer von einem oder mehreren der Schiffe.',
+            'shipHolders' => 'Nicht alle Schiffe gehören zur Flotte oder Werft.'
         ],
         'fleetCreated' => 'Fleet \':name\' created.',
         'fleetNameChanged' => 'Flotte umbenannt.',
         'shipNameChanged' => 'Schiff umbenannt.',
-        'deleted' => 'Flotte gelöscht.'
+        'deleted' => 'Flotte gelöscht.',
+        'shipsTransfered' => 'Schiffe wurden transferiert.'
     ],
 
     'research' => [

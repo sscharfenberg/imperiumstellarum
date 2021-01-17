@@ -2,12 +2,13 @@
 /******************************************************************************
  * PageComponent: FleetTransferModal
  *****************************************************************************/
-import { computed } from "vue";
+import { computed, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import FleetTransferChooseFleet from "./FleetTransferChooseFleet";
 import FleetTransferShipGrid from "./FleetTransferShipGrid";
+import FleetTransferMassActions from "./FleetTransferMassActions";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
 export default {
@@ -22,9 +23,10 @@ export default {
         SubHeadline,
         FleetTransferChooseFleet,
         FleetTransferShipGrid,
+        FleetTransferMassActions,
     },
     emits: ["close"],
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
 
         // we use this modal for fleets and shipyards as a source.
@@ -73,16 +75,36 @@ export default {
             store.dispatch("fleets/SUBMIT_SHIP_TRANSFER", {
                 sourceId: store.state.fleets.transferSourceId,
                 sourceShipIds: store.state.fleets.transferSourceShipIds,
+                sourceType: transferSource.value.name ? "fleet" : "shipyard",
                 targetId: store.state.fleets.transferTargetId,
                 targetShipIds: store.state.fleets.transferTargetShipIds,
+                targetType:
+                    transferTarget.value.icon === "fleets"
+                        ? "fleet"
+                        : "shipyard",
             });
+            emit("close");
         };
+
+        // clean up before unmount
+        onBeforeUnmount(() => {
+            store.commit("fleets/SET_TRANSFER_SOURCE_ID", "");
+            store.commit("fleets/SET_TRANSFER_TARGET_ID", "");
+            store.commit("fleets/SET_TRANSFER_SOURCE_SHIP_IDS", []);
+            store.commit("fleets/SET_TRANSFER_TARGET_SHIP_IDS", []);
+            store.commit("fleets/SET_TRANSFER_SUBMIT_ACTIVE", false);
+        });
+
+        const submitDisabled = computed(
+            () => !store.state.fleets.transferSubmitActive
+        );
 
         return {
             transferSource,
             transferTarget,
             transferSourceShipIds,
             transferTargetShipIds,
+            submitDisabled,
             onSubmit,
         };
     },
@@ -118,7 +140,7 @@ export default {
                         : transferSource.planetName
                 }}
             </li>
-            <li class="fleet-transfer__grid-actions">&lt;&gt;</li>
+            <fleet-transfer-mass-actions />
             <li
                 class="fleet-transfer__grid-item fleet-transfer__grid-head fleet-transfer__grid-head--right"
             >
@@ -141,10 +163,10 @@ export default {
         </ul>
         <template v-slot:actions>
             <game-button
-                :text-string="$t('fleets.active.editName.submit')"
+                :text-string="$t('fleets.transfer.submit')"
                 icon-name="save"
                 :primary="true"
-                :disabled="!transferTarget"
+                :disabled="submitDisabled"
                 @click="onSubmit"
             />
         </template>
@@ -173,22 +195,6 @@ export default {
 
         @include respond-to("medium") {
             padding: 8px;
-        }
-    }
-
-    &__grid-actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        grid-row: span 2;
-
-        padding: 4px;
-        border: 1px solid transparent;
-        border-right-width: 0;
-        border-left-width: 0;
-
-        @include themed() {
-            border-color: t("g-deep");
         }
     }
 

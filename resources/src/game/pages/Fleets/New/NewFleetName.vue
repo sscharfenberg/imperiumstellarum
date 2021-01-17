@@ -11,7 +11,7 @@ export default {
     setup() {
         const store = useStore();
         const fleetName = computed({
-            get: () => store.state.fleets.create.name,
+            get: () => store.state.fleets.createName,
             set: (value) => {
                 store.commit("fleets/SET_CREATE_FLEET_NAME", value);
             },

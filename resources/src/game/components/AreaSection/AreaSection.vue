@@ -2,7 +2,7 @@
 /******************************************************************************
  * Component: AreaSection
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
+import { computed } from "vue";
 import Loading from "Components/Loading/Loading";
 export default {
     name: "AreaSection",
@@ -11,9 +11,10 @@ export default {
         requesting: Boolean,
     },
     components: { Loading },
-    setup() {
+    setup(props, { slots }) {
+        const renderAside = computed(() => slots.aside);
         return {
-            ...useI18n(),
+            renderAside,
         };
     },
 };
@@ -24,6 +25,9 @@ export default {
         <h2 v-if="headline">
             <loading v-if="requesting" :size="32" />
             {{ headline }}
+            <span class="aside" v-if="renderAside">
+                <slot name="aside"></slot>
+            </span>
         </h2>
         <slot></slot>
     </section>
@@ -41,6 +45,8 @@ export default {
 h2 {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 
     margin: 0 0 8px 0;
 
@@ -57,6 +63,22 @@ h2 {
 
     > svg {
         margin-right: 8px;
+    }
+
+    .aside {
+        margin-top: 8px;
+        flex: 0 0 100%;
+
+        font-size: 16px;
+
+        @include themed() {
+            color: t("t-light");
+        }
+
+        @include respond-to("medium") {
+            margin: 0 0 0 auto;
+            flex-basis: auto;
+        }
     }
 }
 </style>

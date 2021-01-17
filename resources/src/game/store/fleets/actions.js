@@ -55,7 +55,6 @@ export default {
                     commit("SET_FLEETS", response.data.fleets);
                     commit("SET_CREATE_FLEET_LOCATION", "");
                     commit("SET_CREATE_FLEET_NAME", "");
-                    commit("SET_SHOW_CREATE", false);
                     notify(response.data.message, "success");
                 }
             })
@@ -165,11 +164,11 @@ export default {
                 if (
                     response.status === 200 &&
                     response.data.ships &&
-                    response.data.shipyards &&
+                    response.data.fleets &&
                     response.data.message
                 ) {
                     commit("SET_SHIPS", response.data.ships);
-                    commit("SET_SHIPYARDS", response.data.ships);
+                    commit("SET_FLEETS", response.data.fleets);
                     notify(response.data.message, "success");
                 }
             })

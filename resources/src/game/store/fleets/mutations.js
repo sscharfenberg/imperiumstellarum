@@ -70,21 +70,11 @@ export default {
     /**
      * @functon SET create fleet location
      * @param {Object} state - vuex module "fleets" state
-     * @param {Boolean} payload
-     * @constructor
-     */
-    SET_SHOW_CREATE: (state, payload) => {
-        state.create.show = payload;
-    },
-
-    /**
-     * @functon SET create fleet location
-     * @param {Object} state - vuex module "fleets" state
      * @param {String} payload
      * @constructor
      */
     SET_CREATE_FLEET_LOCATION: (state, payload) => {
-        state.create.location = payload;
+        state.createLocation = payload;
     },
 
     /**
@@ -94,7 +84,7 @@ export default {
      * @constructor
      */
     SET_CREATE_FLEET_NAME: (state, payload) => {
-        state.create.name = payload;
+        state.createName = payload;
     },
 
     /**************************************************************************
@@ -167,5 +157,41 @@ export default {
             1
         );
         state.transferSourceShipIds.push(payload);
+    },
+
+    /**
+     * @functon transfer all ships from source to target (left to right)
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Array} payload
+     * @constructor
+     */
+    TRANSFER_ALL_SOURCE_TO_TARGET: (state, payload) => {
+        state.transferSourceShipIds = [];
+        state.transferTargetShipIds = state.transferTargetShipIds.concat(
+            payload
+        );
+    },
+
+    /**
+     * @functon transfer all ships from target to source (right to left)
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Array} payload
+     * @constructor
+     */
+    TRANSFER_ALL_TARGET_TO_SOURCE: (state, payload) => {
+        state.transferSourceShipIds = state.transferSourceShipIds.concat(
+            payload
+        );
+        state.transferTargetShipIds = [];
+    },
+
+    /**
+     * @functon activate transfer submit
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Boolean} payload
+     * @constructor
+     */
+    SET_TRANSFER_SUBMIT_ACTIVE: (state, payload) => {
+        state.transferSubmitActive = payload;
     },
 };

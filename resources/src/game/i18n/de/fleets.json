@@ -17,8 +17,9 @@
         }
     },
     "new": {
-        "headline": "Neue Flotte erstellen",
-        "start": "Start",
+        "btnNewFleet": "Flotte ausheben",
+        "btnCancel": "Flotte ausheben abbrechen",
+        "headline": "Neue Flotte ausheben",
         "explanation": "Sie können eine weitere Flotte erstellen | Sie können {num} weitere Flotten erstellen.",
         "locationLabel": "Flotten Standort",
         "nameLabel": "Flotten Name",
@@ -102,6 +103,8 @@
     "transfer": {
         "title": "{name}: Schiffe transferieren",
         "chooseFleet": "Wählen Sie die 2. Flotte",
-        "submit": "Transfer abschließen"
+        "submit": "Transfer abschließen",
+        "ltr": "Transfer all ships to right side",
+        "rtl": "Transfer all ships to left side"
     }
 }
