@@ -93,6 +93,8 @@ export default {
 }
 .star {
     display: flex;
+
+    width: 100%;
 }
 .loading {
     margin: 5px auto;

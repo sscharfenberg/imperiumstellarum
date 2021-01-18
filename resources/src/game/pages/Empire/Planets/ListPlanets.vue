@@ -43,6 +43,7 @@ export default {
     display: flex;
     flex-direction: column;
 
+    width: 100%;
     padding: 0;
     margin: 10px 0 0 0;
     flex: 0 0 100%;

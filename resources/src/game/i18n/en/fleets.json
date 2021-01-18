@@ -109,6 +109,13 @@
     },
     "move": {
         "headline": "Move Fleet '{name}'",
-        "submit": "Send Fleet"
+        "submit": "Send Fleet",
+        "summaryLabel": "Ships in fleet",
+        "startSystemLabel": "Current location",
+        "startSystemOwnerLabel": "Owner",
+        "chooseDestination": "Choose Destination system",
+        "ownSystems": "Our systems",
+        "otherSystems": "Other systems",
+        "destinationInfo": "Destination system"
     }
 }

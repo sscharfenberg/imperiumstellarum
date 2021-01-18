@@ -108,6 +108,7 @@ export default {
             v-if="!holder.planetName"
             icon-name="transit"
             :text-string="$t('fleets.active.actions.move')"
+            :disabled="!holder.ftl"
             @click="showMoveModal = true"
         />
         <fleet-move-modal

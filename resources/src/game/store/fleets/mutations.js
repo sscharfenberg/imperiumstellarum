@@ -54,6 +54,16 @@ export default {
     },
 
     /**
+     * @functon SET players
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_PLAYERS: (state, payload) => {
+        state.players = payload;
+    },
+
+    /**
      * @functon SET stars
      * @param {Object} state - vuex module "fleets" state
      * @param {Number} payload
@@ -193,5 +203,19 @@ export default {
      */
     SET_TRANSFER_SUBMIT_ACTIVE: (state, payload) => {
         state.transferSubmitActive = payload;
+    },
+
+    /**************************************************************************
+     * FLEET MOVE MUTATIONS
+     *************************************************************************/
+
+    /**
+     * @functon SET destination star id
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_DESTINATION_STAR_ID: (state, payload) => {
+        state.moveDestinationStarId = payload;
     },
 };

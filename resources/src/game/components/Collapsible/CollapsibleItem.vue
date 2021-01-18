@@ -13,6 +13,7 @@ export default {
             required: true,
         },
         expanded: Boolean,
+        altBg: Boolean,
     },
     components: { Icon },
     setup(props, { slots }) {
@@ -39,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <div class="collapsible__item">
+    <div class="collapsible__item" :class="{ 'collapsible__item--alt': altBg }">
         <button
             class="collapsible__topic"
             @click="onToggle"
@@ -91,6 +92,17 @@ export default {
                 transparent 99%,
                 t("g-sunken") 100%
             );
+        }
+
+        &--alt {
+            @include themed() {
+                background: radial-gradient(
+                    ellipse 27px 27px at 15px 18px,
+                    transparent 0%,
+                    transparent 99%,
+                    darken(t("g-bunker"), 2%) 100%
+                );
+            }
         }
     }
 

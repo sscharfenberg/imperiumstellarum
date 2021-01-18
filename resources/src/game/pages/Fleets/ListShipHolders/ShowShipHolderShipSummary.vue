@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { getFleetHullTypes } from "@/game/helpers/fleet";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ShowShipHolderShipSummary",
@@ -24,23 +25,9 @@ export default {
             );
             return fleetShips.length ? fleetShips : shipyardShips;
         });
-        const hullTypes = computed(() => {
-            // prepare array of preferred sort order
-            const order = Object.keys(window.rules.ships.hullTypes);
-            return (
-                ships.value
-                    .map((b) => b.hullType) // pass an array that only contains hullTypes
-                    // check if it is the first index, so we pass only uniques.
-                    .filter(
-                        (value, index, self) => self.indexOf(value) === index
-                    )
-                    // sort hullTypes according to our preferred sort order (ascending)
-                    .sort((a, b) => {
-                        return order.indexOf(a) - order.indexOf(b);
-                    })
-                    .reverse()
-            );
-        });
+        const hullTypes = computed(() =>
+            getFleetHullTypes(ships.value, window.rules, true)
+        );
         return { hullTypes, ships };
     },
 };

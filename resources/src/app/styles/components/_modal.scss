@@ -38,7 +38,7 @@
         position: relative;
 
         width: 100%;
-        max-width: map-get($breakpoints, "small");
+        max-width: calc(100% - 40px);
         border: 10px solid transparent;
         margin: 10vh 20px 0 20px;
 
@@ -47,6 +47,10 @@
             border-color: t("g-deep");
 
             box-shadow: 0 0 15px rgba(t("g-fog"), 0.2);
+        }
+
+        @include respond-to("medium") {
+            max-width: map-get($breakpoints, "small");
         }
     }
 

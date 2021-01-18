@@ -16,6 +16,7 @@ export default {
     shipyards: [],
     ships: [],
     stars: [],
+    players: [],
     maxFleets: 0,
     // create new fleet
     createLocation: "",
@@ -26,4 +27,6 @@ export default {
     transferTargetId: "",
     transferTargetShipIds: [],
     transferSubmitActive: false,
+    // move ships
+    moveDestinationStarId: "",
 };

@@ -68,7 +68,7 @@ export default {
 <style lang="scss">
 .stats {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: calc(50% - 2px) calc(50% - 2px);
 
     padding: 0;
     margin: 0 0 16px 0;

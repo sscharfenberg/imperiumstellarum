@@ -140,6 +140,7 @@ module.exports = {
                     "flex-basis",
                     "zoom",
                     "grid",
+                    "gap",
                     "grid-gap",
                     "grid-column-gap",
                     "grid-row-gap",

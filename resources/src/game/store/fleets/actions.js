@@ -25,6 +25,7 @@ export default {
                     commit("SET_FLEETS", response.data.fleets);
                     commit("SET_SHIPS", response.data.ships);
                     commit("SET_STARS", response.data.stars);
+                    commit("SET_PLAYERS", response.data.players);
                     commit("SET_MAX_FLEETS", response.data.maxFleets);
                 }
             })

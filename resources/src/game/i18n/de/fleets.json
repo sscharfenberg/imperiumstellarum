@@ -109,6 +109,13 @@
     },
     "move": {
         "headline": "Flotte '{name}' bewegen",
-        "submit": "Flotte losschicken"
+        "submit": "Flotte losschicken",
+        "summaryLabel": "Schiffe der Flotte",
+        "startSystemLabel": "Aktueller Standort",
+        "startSystemOwnerLabel": "Besitzer",
+        "chooseDestination": "Wählen Sie das Zielsystem",
+        "ownSystems": "Unsere Systeme",
+        "otherSystems": "Andere Systeme",
+        "destinationInfo": "Zielsystem"
     }
 }

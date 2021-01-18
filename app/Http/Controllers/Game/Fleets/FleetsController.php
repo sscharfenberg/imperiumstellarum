@@ -26,11 +26,13 @@ class FleetsController extends Controller
         $a = new ApiService;
         $f = new FormatApiResponseService;
         $player = Player::find(Auth::user()->selected_player);
+        $gameId = $player->game_id;
         $defaultApiData = $a->defaultData($request);
         $numMaxFleets = $this->getTotalPopulation($player) * config('rules.fleets.num.factor');
         $max = config('rules.fleets.num.max');
         if ($numMaxFleets > $max) $numMaxFleets = $max;
         $playerStars = $player->stars;
+        $players = Player::where('game_id', $gameId)->get();
 
         $returnData = [
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
@@ -44,6 +46,9 @@ class FleetsController extends Controller
             }),
             'stars' => $playerStars->map(function ($star) use ($f) {
                 return $f->formatStar($star);
+            }),
+            'players' => $players->map(function ($player) use ($f) {
+                return $f->formatPlayer($player);
             }),
             'maxFleets' => round($numMaxFleets),
         ];
