@@ -181,4 +181,35 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function POST find destination system by coords
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    FIND_DESTINATION_BY_COORDS: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/fleets/destination/byCoords`,
+                payload
+            )
+            .then((response) => {
+                if (response.status === 200 && response.data.destination) {
+                    commit("SET_DESTINATION_STAR", response.data.destination);
+                    commit("SET_DESTINATION_OWNER", response.data.owner);
+                    commit(
+                        "SET_DESTINATION_STAR_ID",
+                        response.data.destination.id
+                    );
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

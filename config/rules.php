@@ -1249,6 +1249,9 @@ return [
         'num' => [
             'max' => 10, // hardcap maximum
             'factor' => 0.4 // totalPopulation * factor is the max of a player
+        ],
+        'movement' => [
+            'turnsPerDistance' => 2.5
         ]
     ]
 

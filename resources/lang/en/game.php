@@ -99,7 +99,12 @@ return [
             'holderOwner' => 'Not all fleets or shipyards are owned by you, or they do not share the same system.',
             'shipsUnique' => 'Some of the ships supplied are not unique.',
             'shipsOwner' => 'You do not own one or more of the ships.',
-            'shipHolders' => 'Not all ships belong to the fleet or shipyard.'
+            'shipHolders' => 'Not all ships belong to the fleet or shipyard.',
+            'findDestinationReqMissing' => 'Please fill in all the fields.',
+            'coordsInvalid' => 'The supplied coordinates are not valid',
+            'moveSourceInvalid' => 'The fleets current location is not valid.',
+            'coordsStarNotFound' => 'There is no star at this location.',
+            'startEqualsEnd' => 'The fleet is already at that location.'
         ],
         'fleetCreated' => 'Fleet \':name\' created.',
         'fleetNameChanged' => 'Renamed fleet.',

@@ -16,6 +16,7 @@ export default {
         altBg: Boolean,
     },
     components: { Icon },
+    emits: ["open", "close"],
     setup(props, { slots }) {
         const store = useStore();
         const show = computed(
@@ -27,7 +28,7 @@ export default {
         const renderAside = computed(() => slots.aside);
         const renderTopic = computed(() => slots.topic);
         const onToggle = () => {
-            store.commit("TOGGLE_COLLAPSIBLE_ID", props.collapsibleId);
+            store.commit("TOGGLE_COLLAPSIBLE", props.collapsibleId);
         };
         return {
             show,

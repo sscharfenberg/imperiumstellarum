@@ -115,7 +115,10 @@
         "startSystemOwnerLabel": "Owner",
         "chooseDestination": "Choose Destination system",
         "ownSystems": "Our systems",
-        "otherSystems": "Other systems",
+        "coordinates": {
+            "topic": "Search by coordinate",
+            "submit": "Find system"
+        },
         "destinationInfo": "Destination system"
     }
 }

@@ -12,6 +12,8 @@ select.form-select {
     border-left: 10px solid transparent;
     flex-grow: 1;
 
+    outline: 0;
+
     line-height: 1.4;
 
     transition: background map-get($animation-speeds, "fast") linear,
@@ -23,9 +25,7 @@ select.form-select {
         color: t("t-dark");
     }
 
-    &:focus {
-        outline: 0;
-
+    &:focus:not([readonly]) {
         @include themed() {
             background: t("g-white");
             color: t("g-black");

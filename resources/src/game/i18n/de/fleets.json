@@ -115,7 +115,10 @@
         "startSystemOwnerLabel": "Besitzer",
         "chooseDestination": "Wählen Sie das Zielsystem",
         "ownSystems": "Unsere Systeme",
-        "otherSystems": "Andere Systeme",
+        "coordinates": {
+            "topic": "Koordinaten Suche",
+            "submit": "System finden"
+        },
         "destinationInfo": "Zielsystem"
     }
 }

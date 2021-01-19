@@ -2,10 +2,12 @@
 
 namespace App\Http\Traits\Game;
 
+use App\Models\Game;
 use App\Models\Player;
 use App\Models\Fleet;
 use App\Models\Ship;
 use App\Models\Shipyard;
+use App\Models\Star;
 
 trait UsesFleetsVerification
 {
@@ -180,5 +182,26 @@ trait UsesFleetsVerification
         }
         return true;
     }
+
+    /**
+     * @function verify that the supplied coordinates are valid
+     * @param Game $game
+     * @param int $x
+     * @param int $y
+     * @return bool
+     */
+    public function coordsValid(Game $game, int $x, int $y): bool
+    {
+        return $game &&
+            $x < $game->dimensions &&
+            $y < $game->dimensions;
+    }
+
+
+    public function startNotEqualsEnd(Star $start, Star $end)
+    {
+        return $start->id !== $end->id;
+    }
+
 
 }

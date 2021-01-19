@@ -30,11 +30,11 @@ class ApiService {
      * @param Request $request
      * @return array
      */
-    public function defaultData (Request $request)
+    public function defaultData (Request $request): array
     {
         $user = Auth::user();
         $game = $user->selectedGame();
-        $player = $user->players->find($user->selected_player);
+        $player = Player::find($user->selected_player);
         $currentTurn = $game->turns->filter(function($turn) {
             return $turn->processed === null;
         })->first();
@@ -58,7 +58,8 @@ class ApiService {
                 'empireName' => $player->name,
                 'empireTicker' => $player->ticker,
                 'researchPriority' => $player->research_priority,
-                'id' => $player->id
+                'id' => $player->id,
+                'colour' => $player->colour
             ],
             'resources' => $r->getResources($player),
             'storageUpgrades' => $this->storageUpgrades($player)

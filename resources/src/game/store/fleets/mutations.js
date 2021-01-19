@@ -218,4 +218,48 @@ export default {
     SET_DESTINATION_STAR_ID: (state, payload) => {
         state.moveDestinationStarId = payload;
     },
+
+    /**
+     * @functon SET destination star id
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_DESTINATION_COORD_X: (state, payload) => {
+        state.moveCoordX = payload;
+    },
+
+    /**
+     * @functon SET destination star id
+     * @param {Object} state - vuex module "fleets" state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_DESTINATION_COORD_Y: (state, payload) => {
+        state.moveCoordY = payload;
+    },
+
+    /**
+     * @functon SET destination star
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} payload
+     * @constructor
+     */
+    SET_DESTINATION_STAR: (state, payload) => {
+        console.log("destination!", payload);
+        state.destinationStar = payload;
+        console.log("after mutating", state.destinationStar);
+    },
+
+    /**
+     * @functon SET destination star
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} payload
+     * @constructor
+     */
+    SET_DESTINATION_OWNER: (state, payload) => {
+        console.log("destination owner!", payload);
+        state.destinationOwner = payload;
+        console.log("owner after mutating", state.destinationOwner);
+    },
 };

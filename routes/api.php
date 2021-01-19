@@ -22,8 +22,12 @@ Route::post('/passwordStrength', [App\Http\Controllers\Auth\PasswordStrengthCont
 // calculate new population
 Route::post('/game/populationChange',
     [\App\Http\Controllers\Game\Empire\PopulationController::class, 'projectNewPopulation']);
+// get a random shipClass name
 Route::get('/game/shipyards/{class}/randomName',
     [\App\Http\Controllers\Game\Shipyards\ShipyardsController::class, 'randomClassName']);
+// find a star by coords and get information
+Route::post('/game/{game}/fleets/destination/byCoords',
+    [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'byCoords']);
 
 
 /**
@@ -72,8 +76,6 @@ Route::middleware([
      */
     Route::get('/game/{game}/starchart',
         [\App\Http\Controllers\Game\Starchart\StarchartController::class, 'gameData']);
-    Route::get('/game/{game}/star/{star}/details',
-        [\App\Http\Controllers\Game\Starchart\StarDetailsController::class, 'handle']);
 
     /**
      * shipyards api calls
@@ -138,6 +140,13 @@ Route::middleware([
     // delete research job
     Route::post('/game/{game}/research/delete',
         [\App\Http\Controllers\Game\Research\DeleteController::class, 'handle']);
+
+    /**
+     * starchart api calls
+     */
+    // get star details
+    Route::get('/game/{game}/star/{star}/details',
+        [\App\Http\Controllers\Game\Starchart\StarDetailsController::class, 'handle']);
 
     /**
      * shipyards api calls

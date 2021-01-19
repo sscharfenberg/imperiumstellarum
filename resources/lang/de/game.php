@@ -99,7 +99,12 @@ return [
             'holderOwner' => 'Sie sind nicht der Besitzer der Flotten / Werften, oder die Flotten/Werften befinden sich nicht im gleichen System.',
             'shipsUnique' => 'Einer oder mehrere der Schiffe sind doppelt vorhanden.',
             'shipsOwner' => 'Sie sind nicht der Besitzer von einem oder mehreren der Schiffe.',
-            'shipHolders' => 'Nicht alle Schiffe gehören zur Flotte oder Werft.'
+            'shipHolders' => 'Nicht alle Schiffe gehören zur Flotte oder Werft.',
+            'findDestinationReqMissing' => 'Bitte füllen Sie alle Felder aus.',
+            'coordsInvalid' => 'Die Koordinaten sind für dieses Spiel nicht gültig.',
+            'moveSourceInvalid' => 'Der Standort der Flotte ist nicht gültig.',
+            'coordsStarNotFound' => 'Bei diesen Koordinaten gibt es kein Sternensystem.',
+            'startEqualsEnd' => 'Die Flotte befindet sich bereits in diesem System.'
         ],
         'fleetCreated' => 'Flotte \':name\' ausgehoben.',
         'fleetNameChanged' => 'Flotte umbenannt.',

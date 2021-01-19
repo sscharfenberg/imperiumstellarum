@@ -29,4 +29,8 @@ export default {
     transferSubmitActive: false,
     // move ships
     moveDestinationStarId: "",
+    moveCoordX: "",
+    moveCoordY: "",
+    destinationStar: {},
+    destinationOwner: {},
 };

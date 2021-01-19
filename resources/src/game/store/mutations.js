@@ -25,6 +25,7 @@ export default {
         state.empireTicker = payload.player.empireTicker;
         state.empireId = payload.player.id;
         state.empireResearchPriority = payload.player.researchPriority;
+        state.colour = payload.player.colour;
         state.resources = payload.resources;
         state.storageUpgrades = payload.storageUpgrades;
     },
@@ -65,7 +66,8 @@ export default {
      * @param {String} payload
      * @constructor
      */
-    TOGGLE_COLLAPSIBLE_ID: (state, payload) => {
+    TOGGLE_COLLAPSIBLE: (state, payload) => {
+        console.log("toggling ", payload);
         if (state.collapsibleExpandedIds.includes(payload)) {
             state.collapsibleExpandedIds.splice(
                 state.collapsibleExpandedIds.indexOf(payload),

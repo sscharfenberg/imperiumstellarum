@@ -58,6 +58,26 @@ class FormatApiResponseService {
     }
 
     /**
+     * @function format api response for a Destination star system including travel time
+     * @param Star $star
+     * @param int $travelTime
+     * @return array
+     */
+    public function formatDestinationStar (Star $star, int $travelTime): array
+    {
+        return [
+            'id' => $star->id,
+            'ownerId' => $star->player_id ?? "",
+            'x' => $star->coord_x,
+            'y' => $star->coord_y,
+            'spectral' => $star->spectral,
+            'name' => $star->name,
+            'travelTime' => $travelTime
+        ];
+    }
+
+
+    /**
      * @function format api response for a Planet
      * @param Planet $planet
      * @return array

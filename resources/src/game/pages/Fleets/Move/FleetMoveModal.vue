@@ -9,6 +9,7 @@ import GameButton from "Components/Button/GameButton";
 import FleetMoveSummary from "./FleetMoveSummary";
 import FleetMoveOwnSystem from "./FleetMoveOwnSystem";
 import FleetMoveAnySystem from "./FleetMoveAnySystem";
+import FleetMoveDestinationInfo from "./FleetMoveDestinationInfo";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 export default {
@@ -22,6 +23,7 @@ export default {
         SubHeadline,
         FleetMoveOwnSystem,
         FleetMoveAnySystem,
+        FleetMoveDestinationInfo,
         CollapsibleItem,
         GameButton,
     },
@@ -34,6 +36,13 @@ export default {
         const destinationId = computed(
             () => store.state.fleets.moveDestinationStarId
         );
+        const destinationStar = computed(
+            () => store.state.fleets.destinationStar
+        );
+        const destinationOwner = computed(
+            () => store.state.fleets.destinationOwner
+        );
+
         const onSubmit = () => {
             console.log(emit);
             //emit("close");
@@ -41,11 +50,17 @@ export default {
 
         onBeforeMount(() => {
             store.commit("fleets/SET_DESTINATION_STAR_ID", "");
+            store.commit("fleets/SET_DESTINATION_COORD_X", "");
+            store.commit("fleets/SET_DESTINATION_COORD_Y", "");
+            store.commit("fleets/SET_DESTINATION_STAR", {});
+            store.commit("fleets/SET_DESTINATION_OWNER", {});
         });
 
         return {
             fleet,
             destinationId,
+            destinationStar,
+            destinationOwner,
             onSubmit,
         };
     },
@@ -71,11 +86,11 @@ export default {
                 <fleet-move-own-system :fleet-id="fleetId" />
             </collapsible-item>
             <collapsible-item
-                :collapsible-id="`moveFleet-${fleetId}-otherSystem`"
+                :collapsible-id="`moveFleet-${fleetId}-findbyCoordinates`"
                 :alt-bg="true"
             >
                 <template v-slot:topic>{{
-                    $t("fleets.move.otherSystems")
+                    $t("fleets.move.coordinates.topic")
                 }}</template>
                 <fleet-move-any-system :fleet-id="fleetId" />
             </collapsible-item>
@@ -84,6 +99,7 @@ export default {
             v-if="destinationId"
             :headline="$t('fleets.move.destinationInfo')"
         />
+        <fleet-move-destination-info v-if="destinationId" />
         <template v-slot:actions>
             <game-button
                 :text-string="$t('fleets.move.submit')"
