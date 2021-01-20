@@ -186,5 +186,8 @@ Route::middleware([
     // transfer ships
     Route::post('/game/{game}/fleets/transfer',
         [\App\Http\Controllers\Game\Fleets\FleetTransferController::class, 'handle']);
+    // find the stars of an empire by ticker
+    Route::post('/game/{game}/fleets/destination/systemsByTicker',
+        [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'systemsByTicker']);
 
 });

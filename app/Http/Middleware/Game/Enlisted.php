@@ -19,6 +19,16 @@ class Enlisted
     public function handle(Request $request, Closure $next)
     {
         $game = Game::find($request->route('game'));
+        if (!$game) {
+            if ($request->wantsJson()) {
+                return response()->json(['error' => __('game.common.errors.gameNotFound')], 419);
+            } else {
+                return redirect()->back()
+                    ->with('status', __('game.common.errors.gameNotFound'))
+                    ->with('severity', 'error');
+            }
+        }
+
         $player = $game->players->find(Auth::user()->selected_player);
         if (!$player) {
             if ($request->wantsJson()) {
@@ -28,8 +38,9 @@ class Enlisted
                     ->with('status', __('game.common.errors.noPlayer'))
                     ->with('severity', 'error');
             }
-        } else {
-            return $next($request);
         }
+
+        return $next($request);
+
     }
 }

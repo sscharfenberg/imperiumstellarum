@@ -57,7 +57,7 @@ export default {
                 {{ startLocation.x }}/{{ startLocation.y }}
             </span>
         </li>
-        <li class="text-left">{{ $t("fleets.move.startSystemOwnerLabel") }}</li>
+        <li class="text-left">{{ $t("fleets.move.systemOwnerLabel") }}</li>
         <li class="text-left">[{{ owner.ticker }}] {{ owner.name }}</li>
     </ul>
 </template>

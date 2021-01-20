@@ -112,13 +112,24 @@
         "submit": "Flotte losschicken",
         "summaryLabel": "Schiffe der Flotte",
         "startSystemLabel": "Aktueller Standort",
-        "startSystemOwnerLabel": "Besitzer",
+        "systemOwnerLabel": "Besitzer",
         "chooseDestination": "Wählen Sie das Zielsystem",
         "ownSystems": "Unsere Systeme",
         "coordinates": {
             "topic": "Koordinaten Suche",
             "submit": "System finden"
         },
-        "destinationInfo": "Zielsystem"
+        "destination": {
+            "info": "Zielsystem",
+            "systemLabel": "Name des Systems",
+            "travelTime": "Reisedauer",
+            "noOwner": "keiner"
+        },
+        "players": {
+            "headline": "Imperium Ticker Suche",
+            "label": "Ticker des Imperiums",
+            "placeholder": "Ticker",
+            "submit": "Imperium finden"
+        }
     }
 }

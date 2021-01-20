@@ -112,13 +112,24 @@
         "submit": "Send Fleet",
         "summaryLabel": "Ships in fleet",
         "startSystemLabel": "Current location",
-        "startSystemOwnerLabel": "Owner",
+        "systemOwnerLabel": "Owner",
         "chooseDestination": "Choose Destination system",
         "ownSystems": "Our systems",
         "coordinates": {
             "topic": "Search by coordinate",
             "submit": "Find system"
         },
-        "destinationInfo": "Destination system"
+        "destination": {
+            "info": "Destination system",
+            "systemLabel": "System name",
+            "travelTime": "Travel time",
+            "noOwner": "unowned"
+        },
+        "players": {
+            "headline": "Find by empire ticker",
+            "label": "Player ticker",
+            "placeholder": "Ticker",
+            "submit": "Find Empire"
+        }
     }
 }

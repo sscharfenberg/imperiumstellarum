@@ -197,11 +197,28 @@ trait UsesFleetsVerification
             $y < $game->dimensions;
     }
 
-
-    public function startNotEqualsEnd(Star $start, Star $end)
+    /**
+     * @function ensure that start and end system are not identical
+     * @param Star $start
+     * @param Star $end
+     * @return bool
+     */
+    public function startNotEqualsEnd(Star $start, Star $end): bool
     {
         return $start->id !== $end->id;
     }
 
+    /**
+     * @function ensure the supplied ticker is valid
+     * @param string $ticker
+     * @return bool
+     */
+    public function tickerIsValid(string $ticker): bool
+    {
+        return is_string($ticker) &&
+            strlen($ticker) >= config('rules.player.ticker.min') &&
+            strlen($ticker) <= config('rules.player.ticker.max') &&
+            $ticker === strtoupper($ticker);
+    }
 
 }

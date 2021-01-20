@@ -27,6 +27,7 @@ export default {
                 store.getters["fleets/starById"](destinationId.value)
             );
             store.commit("fleets/SET_DESTINATION_OWNER", {});
+            // TODO: change to action that gets travel time.
         };
         return { stars, fleet, destinationId, onClick };
     },

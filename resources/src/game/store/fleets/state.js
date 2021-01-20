@@ -33,4 +33,6 @@ export default {
     moveCoordY: "",
     destinationStar: {},
     destinationOwner: {},
+    availableDestinations: [],
+    availableOwner: {},
 };

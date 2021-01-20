@@ -16,6 +16,7 @@ return [
             'noFunds' => 'You can\'t afford this.',
             'processing' => 'The turn is currently being processed, please wait a while.',
             'notStarted' => 'The game has not yet started.',
+            'gameNotFound' => 'This game does not exist.',
             'noPlayer' => 'Your are not enlisted in this game.',
             'header' => [
                 'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
@@ -104,7 +105,10 @@ return [
             'coordsInvalid' => 'The supplied coordinates are not valid',
             'moveSourceInvalid' => 'The fleets current location is not valid.',
             'coordsStarNotFound' => 'There is no star at this location.',
-            'startEqualsEnd' => 'The fleet is already at that location.'
+            'startEqualsEnd' => 'The fleet is already at that location.',
+            'tickerInvalid' => 'The ticker is not valid.',
+            'tickerNotFound' => 'This ticker does not exist.',
+            'empireHasNoStars' => 'The empire does not have any stars'
         ],
         'fleetCreated' => 'Fleet \':name\' created.',
         'fleetNameChanged' => 'Renamed fleet.',

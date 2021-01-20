@@ -16,6 +16,7 @@ return [
             'noFunds' => 'Sie haben nicht genügend Resourcen.',
             'processing' => 'Die Runde wird gerade berechnet, bitte warten Sie ein wenig.',
             'notStarted' => 'Das Spiel hat noch nicht begonnen.',
+            'gameNotFound' => 'Dieses Spiel existiert nicht.',
             'noPlayer' => 'Sie haben sich in das Spiel nicht eingeschrieben.',
             'header' => [
                 'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
@@ -104,7 +105,10 @@ return [
             'coordsInvalid' => 'Die Koordinaten sind für dieses Spiel nicht gültig.',
             'moveSourceInvalid' => 'Der Standort der Flotte ist nicht gültig.',
             'coordsStarNotFound' => 'Bei diesen Koordinaten gibt es kein Sternensystem.',
-            'startEqualsEnd' => 'Die Flotte befindet sich bereits in diesem System.'
+            'startEqualsEnd' => 'Die Flotte befindet sich bereits in diesem System.',
+            'tickerInvalid' => 'Der Ticker ist nicht gültig.',
+            'tickerNotFound' => 'Der Ticker existiert nicht.',
+            'empireHasNoStars' => 'Das Imperium hat keine Sternensysteme.'
         ],
         'fleetCreated' => 'Flotte \':name\' ausgehoben.',
         'fleetNameChanged' => 'Flotte umbenannt.',

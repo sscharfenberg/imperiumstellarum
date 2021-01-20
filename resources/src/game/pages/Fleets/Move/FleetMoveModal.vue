@@ -10,6 +10,7 @@ import FleetMoveSummary from "./FleetMoveSummary";
 import FleetMoveOwnSystem from "./FleetMoveOwnSystem";
 import FleetMoveAnySystem from "./FleetMoveAnySystem";
 import FleetMoveDestinationInfo from "./FleetMoveDestinationInfo";
+import FleetMovePlayerSystems from "Pages/Fleets/Move/FleetMovePlayerSystems";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 export default {
@@ -23,6 +24,7 @@ export default {
         SubHeadline,
         FleetMoveOwnSystem,
         FleetMoveAnySystem,
+        FleetMovePlayerSystems,
         FleetMoveDestinationInfo,
         CollapsibleItem,
         GameButton,
@@ -54,6 +56,7 @@ export default {
             store.commit("fleets/SET_DESTINATION_COORD_Y", "");
             store.commit("fleets/SET_DESTINATION_STAR", {});
             store.commit("fleets/SET_DESTINATION_OWNER", {});
+            store.commit("fleets/SET_AVAILABLE_DESTINATIONS", []);
         });
 
         return {
@@ -94,10 +97,19 @@ export default {
                 }}</template>
                 <fleet-move-any-system :fleet-id="fleetId" />
             </collapsible-item>
+            <collapsible-item
+                :collapsible-id="`moveFleet-${fleetId}-findByPlayerTicker`"
+                :alt-bg="true"
+            >
+                <template v-slot:topic>{{
+                    $t("fleets.move.players.headline")
+                }}</template>
+                <fleet-move-player-systems :fleet-id="fleetId" />
+            </collapsible-item>
         </div>
         <sub-headline
             v-if="destinationId"
-            :headline="$t('fleets.move.destinationInfo')"
+            :headline="$t('fleets.move.destination.info')"
         />
         <fleet-move-destination-info v-if="destinationId" />
         <template v-slot:actions>
@@ -114,5 +126,13 @@ export default {
 <style lang="scss" scoped>
 .choose-destination {
     margin-bottom: 16px;
+
+    .collapsible__item {
+        margin-bottom: 2px;
+
+        @include respond-to("medium") {
+            margin-bottom: 4px;
+        }
+    }
 }
 </style>

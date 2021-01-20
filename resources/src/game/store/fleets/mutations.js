@@ -246,9 +246,7 @@ export default {
      * @constructor
      */
     SET_DESTINATION_STAR: (state, payload) => {
-        console.log("destination!", payload);
         state.destinationStar = payload;
-        console.log("after mutating", state.destinationStar);
     },
 
     /**
@@ -258,8 +256,26 @@ export default {
      * @constructor
      */
     SET_DESTINATION_OWNER: (state, payload) => {
-        console.log("destination owner!", payload);
         state.destinationOwner = payload;
-        console.log("owner after mutating", state.destinationOwner);
+    },
+
+    /**
+     * @functon SET available destinations to choose from
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_AVAILABLE_DESTINATIONS: (state, payload) => {
+        state.availableDestinations = payload;
+    },
+
+    /**
+     * @functon SET owner of available destinations
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} payload
+     * @constructor
+     */
+    SET_AVAILABLE_OWNER: (state, payload) => {
+        state.availableOwner = payload;
     },
 };

@@ -212,4 +212,32 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function POST find destination system by coords
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    AVAILABLE_SYSTEMS_BY_TICKER: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        commit("SET_AVAILABLE_DESTINATIONS", []);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/fleets/destination/systemsByTicker`,
+                payload
+            )
+            .then((response) => {
+                if (response.status === 200 && response.data.stars) {
+                    commit("SET_AVAILABLE_DESTINATIONS", response.data.stars);
+                    commit("SET_AVAILABLE_OWNER", response.data.player);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

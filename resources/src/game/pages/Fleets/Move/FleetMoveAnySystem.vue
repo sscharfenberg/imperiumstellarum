@@ -111,7 +111,7 @@ export default {
         height: 42px;
 
         @include respond-to("medium") {
-            margin-left: auto;
+            flex-grow: 1;
         }
     }
 }

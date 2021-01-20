@@ -20,8 +20,9 @@ class NotProcessing
         $game = Game::find($request->route('game'));
         if ($game->processing) {
             return response()->json(['error' => __('game.common.errors.processing')], 419);
-        } else {
-            return $next($request);
         }
+
+        return $next($request);
+
     }
 }
