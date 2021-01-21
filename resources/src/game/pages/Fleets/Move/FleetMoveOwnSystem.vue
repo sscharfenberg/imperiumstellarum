@@ -21,14 +21,20 @@ export default {
             () => store.state.fleets.moveDestinationStarId
         );
         const onClick = (id) => {
-            store.commit("fleets/SET_DESTINATION_STAR_ID", id);
-            store.commit(
-                "fleets/SET_DESTINATION_STAR",
-                store.getters["fleets/starById"](destinationId.value)
-            );
-            store.commit("fleets/SET_DESTINATION_OWNER", {});
+            store.dispatch("fleets/GET_OWN_SYSTEMS", {
+                fromId: fleet.value.starId,
+                toId: id,
+            });
+
+            //store.commit("fleets/SET_DESTINATION_STAR_ID", id);
+            //store.commit(
+            //    "fleets/SET_DESTINATION_STAR",
+            //    store.getters["fleets/starById"](destinationId.value)
+            //);
+            //store.commit("fleets/SET_DESTINATION_OWNER", {});
             // TODO: change to action that gets travel time.
         };
+
         return { stars, fleet, destinationId, onClick };
     },
 };

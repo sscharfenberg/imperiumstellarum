@@ -34,6 +34,16 @@ export default {
     },
 
     /**
+     * @functon SET fleetMovements
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Array} payload
+     * @constructor
+     */
+    SET_FLEET_MOVEMENTS: (state, payload) => {
+        state.fleetMovements = payload;
+    },
+
+    /**
      * @functon SET ships
      * @param {Object} state - vuex module "fleets" state
      * @param {Array} payload

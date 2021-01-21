@@ -24,9 +24,11 @@ export default {
         });
         const stationary = computed(() => holder.value.starId);
         const locationStar = computed(() => {
-            return stationary.value
-                ? store.getters["fleets/starById"](holder.value.starId)
-                : "transit"; // TODO
+            if (stationary.value)
+                return store.getters["fleets/starById"](holder.value.starId);
+            return store.getters["fleets/fleetMovementByFleetId"](
+                props.holderId
+            );
         });
         const label = computed(() => {
             const star = {
@@ -41,27 +43,30 @@ export default {
         const coordsText = computed(
             () => `${locationStar.value.x}/${locationStar.value.y}`
         );
+        const travelTime = computed(() =>
+            stationary.value ? 0 : locationStar.value.untilArrival
+        );
         return {
             holder,
             stationary,
             label,
             coordsText,
+            travelTime,
         };
     },
 };
 </script>
 
 <template>
-    <aside
-        class="location"
-        v-if="stationary"
-        :title="label"
-        :aria-label="label"
-    >
-        <icon class="location-icon" name="location" />
+    <aside class="location" :title="label" :aria-label="label">
+        <icon v-if="stationary" class="location-icon" name="location" />
+        <icon v-if="!stationary" class="location-icon" name="transit" />
         <span>{{ coordsText }}</span>
+        <span v-if="!stationary" class="travel-time">
+            <icon name="res-turns" />
+            {{ travelTime }}
+        </span>
     </aside>
-    <aside class="location" v-if="!stationary">TODO: in transit</aside>
 </template>
 
 <style lang="scss" scoped>
@@ -81,7 +86,7 @@ export default {
     > .location-icon {
         display: none;
 
-        margin-right: 10px;
+        margin-right: 5px;
 
         @include themed() {
             color: darken(t("t-subdued"), 25%);
@@ -100,6 +105,14 @@ export default {
         @include themed() {
             color: t("t-subdued");
         }
+    }
+}
+.travel-time {
+    display: flex;
+    align-items: center;
+
+    .icon {
+        margin: 0 5px 0 10px;
     }
 }
 </style>

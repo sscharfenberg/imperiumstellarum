@@ -25,10 +25,6 @@ Route::post('/game/populationChange',
 // get a random shipClass name
 Route::get('/game/shipyards/{class}/randomName',
     [\App\Http\Controllers\Game\Shipyards\ShipyardsController::class, 'randomClassName']);
-// find a star by coords and get information
-Route::post('/game/{game}/fleets/destination/byCoords',
-    [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'byCoords']);
-
 
 /**
  * authenticated api routes
@@ -186,8 +182,18 @@ Route::middleware([
     // transfer ships
     Route::post('/game/{game}/fleets/transfer',
         [\App\Http\Controllers\Game\Fleets\FleetTransferController::class, 'handle']);
+
+    // find a star owned by the player and get information
+    Route::post('/game/{game}/fleets/destination/ownSystems',
+        [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'playerSystems']);
+    // find a star by coords and get information
+    Route::post('/game/{game}/fleets/destination/byCoords',
+        [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'byCoords']);
     // find the stars of an empire by ticker
     Route::post('/game/{game}/fleets/destination/systemsByTicker',
         [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'systemsByTicker']);
+    // send fleet to destination
+    Route::post('/game/{game}/fleets/destination/send',
+        [\App\Http\Controllers\Game\Fleets\MoveFleetController::class, 'handle']);
 
 });

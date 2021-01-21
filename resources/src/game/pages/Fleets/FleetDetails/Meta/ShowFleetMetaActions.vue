@@ -44,11 +44,15 @@ export default {
             return fleet && fleet.id ? fleet : shipyard;
         });
         const transferDisabled = computed(() => {
-            if (!holder.value.starId) {
-                return true;
-            }
-            // TODO: check if there are transfer targets at this location.
-            return false;
+            if (!holder.value.starId) return true; // no starId => fleet in transit.
+            const holders = [
+                ...store.state.fleets.fleets,
+                ...store.state.fleets.shipyards,
+            ].filter(
+                (h) =>
+                    h.id !== props.holderId && h.starId === holder.value.starId
+            );
+            return holders.length === 0;
         });
 
         // prepare state for modal.
@@ -108,7 +112,7 @@ export default {
             v-if="!holder.planetName"
             icon-name="transit"
             :text-string="$t('fleets.active.actions.move')"
-            :disabled="!holder.ftl"
+            :disabled="!holder.ftl || !holder.starId"
             @click="showMoveModal = true"
         />
         <fleet-move-modal
@@ -120,7 +124,7 @@ export default {
         <game-button
             icon-name="transfer"
             :text-string="$t('fleets.active.actions.transfer')"
-            :disabled="transferDisabled && !holder.starId"
+            :disabled="transferDisabled"
             @click="doTransferShips"
         />
         <fleet-transfer-modal

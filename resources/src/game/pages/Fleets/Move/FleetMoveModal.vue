@@ -13,6 +13,7 @@ import FleetMoveDestinationInfo from "./FleetMoveDestinationInfo";
 import FleetMovePlayerSystems from "Pages/Fleets/Move/FleetMovePlayerSystems";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
+import Loading from "Components/Loading/Loading";
 export default {
     name: "FleetMoveModal",
     props: {
@@ -28,6 +29,7 @@ export default {
         FleetMoveDestinationInfo,
         CollapsibleItem,
         GameButton,
+        Loading,
     },
     emits: ["close"],
     setup(props, { emit }) {
@@ -44,8 +46,13 @@ export default {
         const destinationOwner = computed(
             () => store.state.fleets.destinationOwner
         );
+        const requesting = computed(() => store.state.fleets.requesting);
 
         const onSubmit = () => {
+            store.dispatch("fleets/SEND_FLEET", {
+                fleetId: props.fleetId,
+                destinationId: destinationId.value,
+            });
             console.log(emit);
             //emit("close");
         };
@@ -64,6 +71,7 @@ export default {
             destinationId,
             destinationStar,
             destinationOwner,
+            requesting,
             onSubmit,
         };
     },
@@ -107,6 +115,7 @@ export default {
                 <fleet-move-player-systems :fleet-id="fleetId" />
             </collapsible-item>
         </div>
+        <loading :size="48" v-if="!destinationId && requesting" />
         <sub-headline
             v-if="destinationId"
             :headline="$t('fleets.move.destination.info')"
@@ -134,5 +143,9 @@ export default {
             margin-bottom: 4px;
         }
     }
+}
+
+svg.spinner {
+    margin: 0 auto;
 }
 </style>

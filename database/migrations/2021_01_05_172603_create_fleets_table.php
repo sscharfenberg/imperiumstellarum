@@ -20,7 +20,7 @@ class CreateFleetsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('game_id');
             $table->uuid('player_id');
-            $table->uuid('star_id');
+            $table->uuid('star_id')->nullable();
             $table->string('name', config('rules.fleets.name.max'));
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

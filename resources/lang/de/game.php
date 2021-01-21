@@ -104,6 +104,7 @@ return [
             'findDestinationReqMissing' => 'Bitte füllen Sie alle Felder aus.',
             'coordsInvalid' => 'Die Koordinaten sind für dieses Spiel nicht gültig.',
             'moveSourceInvalid' => 'Der Standort der Flotte ist nicht gültig.',
+            'moveDestinationInvalid' => 'Das Zielsystem existiert nicht.',
             'coordsStarNotFound' => 'Bei diesen Koordinaten gibt es kein Sternensystem.',
             'startEqualsEnd' => 'Die Flotte befindet sich bereits in diesem System.',
             'tickerInvalid' => 'Der Ticker ist nicht gültig.',

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Game\Fleets;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Player;
-use App\Models\Star;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesFleetsVerification;
 use App\Services\FleetService;
+use Illuminate\Support\Facades\Auth;
 
 class FindDestinationController extends Controller
 {
@@ -106,6 +106,41 @@ class FindDestinationController extends Controller
             'stars' => $stars->map(function($star) use ($f, $fl, $from) {
                 return $f->formatDestinationStar($star, $fl->travelTime($from, $star));
             })
+        ]);
+    }
+
+    /**
+     * @function get the travel time between to of the players own systems
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function playerSystems(Request $request): JsonResponse
+    {
+        $f = new FormatApiResponseService;
+        $fl = new FleetService;
+        $fromId = $request->input(["fromId"]);
+        $toId = $request->input(['toId']);
+        $player = Player::find(Auth::user()->selected_player);
+        $game = Game::find($request->route('game'));
+        $from = $game->stars->where('id', $fromId)->first();
+        $to = $game->stars->where('id', $toId)->first();
+
+        if (!$from) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.moveSourceInvalid')], 419);
+        }
+        if (!$to) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.moveDestinationInvalid')], 419);
+        }
+        if (!$this->playerOwnsStar($player, $fromId) || !$this->playerOwnsStar($player, $toId)) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.starOwner')], 419);
+        }
+
+        return response()->json([
+            'owner' => $f->formatPlayer($player),
+            'destination' => $f->formatDestinationStar($to, $fl->travelTime($from, $to))
         ]);
 
     }

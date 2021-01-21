@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Blueprint;
 use App\Models\ConstructionContract;
 use App\Models\Fleet;
+use App\Models\FleetMovement;
 use App\Models\Player;
 use App\Models\Research;
 use App\Models\Ship;
@@ -268,6 +269,25 @@ class FormatApiResponseService {
             'starId' => $fleet->star_id,
             'name' => $fleet->name,
             'ftl' => $ftl
+        ];
+    }
+
+    /**
+     * @function format api response for players fleet movements
+     * @param FleetMovement $movement
+     * @return array
+     */
+    public function formatFleetMovement (FleetMovement $movement): array
+    {
+        $destination = $movement->star;
+        return [
+            'id' => $movement->id,
+            'fleetId' => $movement->fleet_id,
+            'destinationId' => $movement->star_id,
+            'untilArrival' => $movement->until_arrival,
+            'x' => $destination->coord_x,
+            'y' => $destination->coord_y,
+            'name' => $destination->name
         ];
     }
 

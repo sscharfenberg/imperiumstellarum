@@ -10,6 +10,10 @@ export default {
     // get fleet by id
     fleetById: (state) => (id) => state.fleets.find((f) => f.id === id) || {},
 
+    // get fleetMovement by fleetId
+    fleetMovementByFleetId: (state) => (id) =>
+        state.fleetMovements.find((fm) => fm.fleetId === id) || {},
+
     // get shipyard by id
     shipyardById: (state) => (id) =>
         state.shipyards.find((y) => y.id === id) || {},

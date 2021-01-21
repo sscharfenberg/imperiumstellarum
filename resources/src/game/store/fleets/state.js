@@ -13,6 +13,7 @@ export default {
     requesting: false,
     // area meta data
     fleets: [],
+    fleetMovements: [],
     shipyards: [],
     ships: [],
     stars: [],

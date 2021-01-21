@@ -4,7 +4,6 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { useI18n } from "vue-i18n";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ShowFleetMetaStatus",
@@ -14,8 +13,6 @@ export default {
     components: { Icon },
     setup(props) {
         const store = useStore();
-        const i18n = useI18n();
-
         const holder = computed(() => {
             const fleet = store.getters["fleets/fleetById"](props.holderId);
             const shipyard = store.getters["fleets/shipyardById"](
@@ -23,35 +20,11 @@ export default {
             );
             return fleet && fleet.id ? fleet : shipyard;
         });
-        const ourStarIds = computed(() =>
-            store.state.fleets.stars.map((s) => s.id)
-        );
-
         // ftl
         const ftlLabel = computed(() => (holder.value.ftl ? "Yes" : "no"));
-
-        // location
-        const stationary = computed(() => holder.value.starId);
-        const locationStar = computed(() => {
-            return stationary.value
-                ? store.getters["fleets/starById"](holder.value.starId)
-                : "transit"; // TODO
-        });
-        const systemLabel = computed(() => {
-            const star = {
-                name: locationStar.value.name,
-                x: locationStar.value.x,
-                y: locationStar.value.y,
-            };
-            return stationary.value
-                ? i18n.t("fleets.active.location.status.inSystem.our", star)
-                : i18n.t("fleets.active.location.transit", star);
-        });
         return {
             holder,
             ftlLabel,
-            ourStarIds,
-            systemLabel,
         };
     },
 };
@@ -59,27 +32,6 @@ export default {
 
 <template>
     <ul class="fleet-meta__status">
-        <li
-            v-if="!holder.planetName"
-            :title="
-                $t('fleets.active.location.status.transit', { x: 36, y: 16 })
-            "
-            :aria-label="
-                $t('fleets.active.location.status.transit', { x: 36, y: 16 })
-            "
-        >
-            <icon name="transit" />
-            {{ 36 }}/{{ 16 }}
-        </li>
-        <li
-            v-if="ourStarIds.includes(holder.starId)"
-            :aria-label="systemLabel"
-            :title="systemLabel"
-        >
-            <icon name="location" />
-            {{ systemLabel }}
-        </li>
-        <!-- TODO: in enemy|allied|neutral system -->
         <li
             v-if="holder.ftl && !holder.planetName"
             :title="$t('fleets.active.location.status.ftl.label')"

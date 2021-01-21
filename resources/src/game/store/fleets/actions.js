@@ -23,6 +23,7 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_SHIPYARDS", response.data.shipyards);
                     commit("SET_FLEETS", response.data.fleets);
+                    commit("SET_FLEET_MOVEMENTS", response.data.fleetMovements);
                     commit("SET_SHIPS", response.data.ships);
                     commit("SET_STARS", response.data.stars);
                     commit("SET_PLAYERS", response.data.players);
@@ -189,6 +190,7 @@ export default {
      */
     FIND_DESTINATION_BY_COORDS: function ({ commit }, payload) {
         commit("SET_REQUESTING", true);
+        commit("SET_AVAILABLE_DESTINATIONS", []);
         window.axios
             .post(
                 `/api/game/${getGameId()}/fleets/destination/byCoords`,
@@ -230,6 +232,60 @@ export default {
                 if (response.status === 200 && response.data.stars) {
                     commit("SET_AVAILABLE_DESTINATIONS", response.data.stars);
                     commit("SET_AVAILABLE_OWNER", response.data.player);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    /**
+     * @function POST get own system details for travel time
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    GET_OWN_SYSTEMS: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/fleets/destination/ownSystems`,
+                payload
+            )
+            .then((response) => {
+                if (response.status === 200 && response.data.destination) {
+                    commit("SET_DESTINATION_STAR", response.data.destination);
+                    commit("SET_DESTINATION_OWNER", response.data.owner);
+                    commit(
+                        "SET_DESTINATION_STAR_ID",
+                        response.data.destination.id
+                    );
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    /**
+     * @function POST get own system details for travel time
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    SEND_FLEET: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/fleets/destination/send`, payload)
+            .then((response) => {
+                if (response.status === 200 && response.data.fleets) {
+                    commit("SET_FLEETS", response.data.fleets);
                 }
             })
             .catch((e) => {

@@ -104,6 +104,7 @@ return [
             'findDestinationReqMissing' => 'Please fill in all the fields.',
             'coordsInvalid' => 'The supplied coordinates are not valid',
             'moveSourceInvalid' => 'The fleets current location is not valid.',
+            'moveDestinationInvalid' => 'The target system does not exist.',
             'coordsStarNotFound' => 'There is no star at this location.',
             'startEqualsEnd' => 'The fleet is already at that location.',
             'tickerInvalid' => 'The ticker is not valid.',

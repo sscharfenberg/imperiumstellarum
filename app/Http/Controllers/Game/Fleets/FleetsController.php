@@ -33,6 +33,7 @@ class FleetsController extends Controller
         if ($numMaxFleets > $max) $numMaxFleets = $max;
         $playerStars = $player->stars;
         $players = Player::where('game_id', $gameId)->get();
+        $fleetMovements = $player->fleetMovements;
 
         $returnData = [
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
@@ -40,6 +41,9 @@ class FleetsController extends Controller
             }),
             'fleets' => $player->fleets->map(function ($fleet) use ($f) {
                 return $f->formatFleet($fleet);
+            }),
+            'fleetMovements' => $fleetMovements->map(function ($fleetMovement) use ($f) {
+                return $f->formatFleetMovement($fleetMovement);
             }),
             'ships' => $player->ships->map(function ($ship) use ($f) {
                 return $f->formatShip($ship);
