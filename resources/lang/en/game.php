@@ -105,6 +105,7 @@ return [
             'coordsInvalid' => 'The supplied coordinates are not valid',
             'moveSourceInvalid' => 'The fleets current location is not valid.',
             'moveDestinationInvalid' => 'The target system does not exist.',
+            'fleetAlreadyMoving' => 'The fleet is already moving.',
             'coordsStarNotFound' => 'There is no star at this location.',
             'startEqualsEnd' => 'The fleet is already at that location.',
             'tickerInvalid' => 'The ticker is not valid.',
@@ -115,7 +116,8 @@ return [
         'fleetNameChanged' => 'Renamed fleet.',
         'shipNameChanged' => 'Renamed ship.',
         'deleted' => 'Fleet deleted.',
-        'shipsTransfered' => 'Ships where transfered.'
+        'shipsTransfered' => 'Ships where transfered.',
+        'fleetMoving' => 'The fleet is now moving to destination and will arrive in :turns turns.'
     ],
 
     'research' => [

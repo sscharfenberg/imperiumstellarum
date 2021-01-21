@@ -74,7 +74,7 @@ trait UsesFleetsVerification
      * @param Fleet $fleet
      * @return bool
      */
-    public function isFleetEmpty(Fleet $fleet): bool
+    public function isFleetEmpty (Fleet $fleet): bool
     {
         return count($fleet->ships) === 0;
     }
@@ -85,7 +85,7 @@ trait UsesFleetsVerification
      * @param string $name
      * @return bool
      */
-    public function isFleetNameUnique(Player $player, string $name): bool
+    public function isFleetNameUnique (Player $player, string $name): bool
     {
         $fleets = $player->fleets;
         return !$fleets->containsStrict('name', $name);
@@ -101,7 +101,7 @@ trait UsesFleetsVerification
      * @param string $targetType
      * @return bool
      */
-    public function holdersBelongToPlayer(
+    public function holdersBelongToPlayer (
         Player $player,
         string $sourceId,
         string $targetId,
@@ -143,7 +143,7 @@ trait UsesFleetsVerification
      * @param array $target
      * @return bool
      */
-    public function areShipIdsUnique(array $source, array $target): bool
+    public function areShipIdsUnique (array $source, array $target): bool
     {
         $ids = array_merge($source, $target);
         // count of ids and count of unique ids needs to be the same.
@@ -156,7 +156,7 @@ trait UsesFleetsVerification
      * @param array $ids
      * @return bool
      */
-    public function playerOwnsShips(Player $player, array $ids): bool
+    public function playerOwnsShips (Player $player, array $ids): bool
     {
         return count($ids) === count($player->ships->whereIn('id', $ids));
     }
@@ -167,7 +167,7 @@ trait UsesFleetsVerification
      * @param array $shipIds
      * @return bool
      */
-    public function shipsBelongToHolders(array $holderIds, array $shipIds): bool
+    public function shipsBelongToHolders (array $holderIds, array $shipIds): bool
     {
         $ships = Ship::whereIn('id', $shipIds)->get()->map(function($ship) {
             return [
@@ -190,7 +190,7 @@ trait UsesFleetsVerification
      * @param int $y
      * @return bool
      */
-    public function coordsValid(Game $game, int $x, int $y): bool
+    public function coordsValid (Game $game, int $x, int $y): bool
     {
         return $game &&
             $x < $game->dimensions &&
@@ -203,7 +203,7 @@ trait UsesFleetsVerification
      * @param Star $end
      * @return bool
      */
-    public function startNotEqualsEnd(Star $start, Star $end): bool
+    public function startNotEqualsEnd (Star $start, Star $end): bool
     {
         return $start->id !== $end->id;
     }
@@ -213,12 +213,22 @@ trait UsesFleetsVerification
      * @param string $ticker
      * @return bool
      */
-    public function tickerIsValid(string $ticker): bool
+    public function tickerIsValid (string $ticker): bool
     {
         return is_string($ticker) &&
             strlen($ticker) >= config('rules.player.ticker.min') &&
             strlen($ticker) <= config('rules.player.ticker.max') &&
             $ticker === strtoupper($ticker);
+    }
+
+    /**
+     * @function verify fleet is stationary.
+     * @param Fleet $fleet
+     * @return bool
+     */
+    public function fleetIsStationary (Fleet $fleet): bool
+    {
+        return !$fleet->fleetMovement && $fleet->star_id;
     }
 
 }

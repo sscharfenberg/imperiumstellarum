@@ -53,8 +53,7 @@ export default {
                 fleetId: props.fleetId,
                 destinationId: destinationId.value,
             });
-            console.log(emit);
-            //emit("close");
+            emit("close");
         };
 
         onBeforeMount(() => {

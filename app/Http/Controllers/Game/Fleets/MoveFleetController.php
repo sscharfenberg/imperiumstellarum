@@ -7,6 +7,7 @@ use App\Models\FleetMovement;
 use App\Models\Game;
 use App\Models\Player;
 use App\Services\FleetService;
+use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesFleetsVerification;
@@ -24,6 +25,7 @@ class MoveFleetController extends Controller
      */
     public function handle (Request $request): JsonResponse
     {
+        $f = new FormatApiResponseService;
         $fl = new FleetService;
         $fleetId = $request->input(["fleetId"]);
         $destinationId = $request->input(["destinationId"]);
@@ -34,7 +36,6 @@ class MoveFleetController extends Controller
         $destination = $game->stars->where('id', $destinationId)->first();
 
         // verification
-        // TODO: not already moving!
         if (!$this->playerOwnsFleet($player, $fleetId)) {
             return response()
                 ->json(['error' => __('game.fleets.errors.owner')], 419);
@@ -47,20 +48,34 @@ class MoveFleetController extends Controller
             return response()
                 ->json(['error' => __('game.fleets.errors.startEqualsEnd')], 419);
         }
+        if (!$this->fleetIsStationary($fleet)) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.fleetAlreadyMoving')], 419);
+        }
 
         // all good, create FleetMovement
-        $fleetMovement = FleetMovement::create([
+        $travelTime = $fl->travelTime($from, $destination);
+        FleetMovement::create([
             'game_id' => $game->id,
             'player_id' => $player->id,
             'fleet_id' => $fleet->id,
             'star_id' => $destinationId,
-            'until_arrival' => $fl->travelTime($from, $destination)
+            'until_arrival' => $travelTime
         ]);
         // remove star id from fleet since the fleet is now in transit.
         $fleet->star_id = null;
         $fleet->save();
 
-        dd($from);
+        $updatedPlayer = Player::find(Auth::user()->selected_player);
+        return response()->json([
+            'fleets' => $updatedPlayer->fleets->map(function ($fleet) use ($f) {
+                return $f->formatFleet($fleet);
+            }),
+            'fleetMovements' => $updatedPlayer->fleetMovements->map(function ($fleetMovement) use ($f) {
+                return $f->formatFleetMovement($fleetMovement);
+            }),
+            'message' => __('game.fleets.fleetMoving', ['turns' => $travelTime])
+        ]);
 
     }
 

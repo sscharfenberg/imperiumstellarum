@@ -105,6 +105,7 @@ return [
             'coordsInvalid' => 'Die Koordinaten sind für dieses Spiel nicht gültig.',
             'moveSourceInvalid' => 'Der Standort der Flotte ist nicht gültig.',
             'moveDestinationInvalid' => 'Das Zielsystem existiert nicht.',
+            'fleetAlreadyMoving' => 'Die Flotte ist bereits unterwegs.',
             'coordsStarNotFound' => 'Bei diesen Koordinaten gibt es kein Sternensystem.',
             'startEqualsEnd' => 'Die Flotte befindet sich bereits in diesem System.',
             'tickerInvalid' => 'Der Ticker ist nicht gültig.',
@@ -115,7 +116,8 @@ return [
         'fleetNameChanged' => 'Flotte umbenannt.',
         'shipNameChanged' => 'Schiff umbenannt.',
         'deleted' => 'Flotte gelöscht.',
-        'shipsTransfered' => 'Schiffe wurden transferiert.'
+        'shipsTransfered' => 'Schiffe wurden transferiert.',
+        'fleetMoving' => 'Die Flotte ist jetzt unterwegs und wird in :turns ankommen.'
     ],
 
     'research' => [
