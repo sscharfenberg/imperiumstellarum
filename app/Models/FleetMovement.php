@@ -15,6 +15,8 @@ use App\Http\Traits\UsesUuid;
  * @property string $fleet_id
  * @property string $star_id
  * @property int $until_arrival
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Fleet $fleet
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
@@ -25,10 +27,12 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement whereFleetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement whereStarId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement whereUntilArrival($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement query()
- * @mixin \Eloquent
+  * @mixin \Eloquent
  */
 class FleetMovement extends Model
 {

@@ -86,7 +86,7 @@ export default {
     > .location-icon {
         display: none;
 
-        margin-right: 5px;
+        margin-right: 4px;
 
         @include themed() {
             color: darken(t("t-subdued"), 25%);
@@ -112,7 +112,7 @@ export default {
     align-items: center;
 
     .icon {
-        margin: 0 5px 0 10px;
+        margin: 0 4px;
     }
 }
 </style>

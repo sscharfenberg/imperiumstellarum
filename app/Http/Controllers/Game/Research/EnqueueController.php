@@ -18,17 +18,6 @@ class EnqueueController extends Controller
     use UsesResearchVerification;
 
     /**
-     * @function verify the number of research jobs is not > max
-     * @param Player $player
-     * @return bool
-     */
-    private function verifyResearchQueueMax (Player $player): bool
-    {
-        $numResearchJobs = count($player->researches);
-        return $numResearchJobs < config('rules.tech.queue');
-    }
-
-    /**
      * @function handle enqueue research job request
      * @param Request $request
      * @return JsonResponse
@@ -52,7 +41,7 @@ class EnqueueController extends Controller
             return response()
                 ->json(['error' => __('game.research.errors.enqueue.alreadyResearched')], 419);
         }
-        if (!$this->verifyResearchQueueMax($player)) {
+        if (!$this->verifyPlayerQueueMax($player)) {
             return response()
                 ->json(['error' => __('game.research.errors.enqueue.max')], 419);
         }
@@ -77,7 +66,8 @@ class EnqueueController extends Controller
 
         $f = new FormatApiResponseService;
         return response()->json([
-            'researchJob' => $f->formatResearchJob($job)
+            'researchJob' => $f->formatResearchJob($job),
+            'message' => __('game.research.jobQueued')
         ]);
 
     }

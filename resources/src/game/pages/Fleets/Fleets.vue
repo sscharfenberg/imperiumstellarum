@@ -28,6 +28,7 @@ export default {
         const maxFleets = computed(() => store.state.fleets.maxFleets);
         const ships = computed(() => store.state.fleets.ships);
         const requesting = computed(() => store.state.fleets.requesting);
+        const shipView = computed(() => store.state.fleets.shipView);
         const showCreateBtn = computed(() => {
             return (
                 maxFleets.value &&
@@ -35,6 +36,9 @@ export default {
                 !showCreate.value
             );
         });
+        const setShipView = (val) => {
+            store.commit("fleets/SET_SHIP_VIEW", val);
+        };
         onBeforeMount(() => {
             store.dispatch("fleets/GET_GAME_DATA");
         });
@@ -45,6 +49,8 @@ export default {
             ships,
             showCreate,
             showCreateBtn,
+            shipView,
+            setShipView,
             requesting,
         };
     },
@@ -67,6 +73,23 @@ export default {
     >
         <template v-slot:aside>
             <game-button
+                class="change-view"
+                :class="{ active: shipView === 0 }"
+                icon-name="view_detailed"
+                @click="setShipView(0)"
+                :title="$t('fleets.view.detailed')"
+                :aria-label="$t('fleets.view.detailed')"
+            />
+            <game-button
+                class="change-view"
+                :class="{ active: shipView === 1 }"
+                icon-name="view_collapsed"
+                @click="setShipView(1)"
+                :title="$t('fleets.view.collapsed')"
+                :aria-label="$t('fleets.view.collapsed')"
+            />
+            <game-button
+                class="add"
                 v-if="fleets.length < maxFleets"
                 icon-name="add"
                 :text-string="$t('fleets.new.btnNewFleet')"
@@ -76,3 +99,24 @@ export default {
         <list-ship-holders />
     </area-section>
 </template>
+
+<style lang="scss" scoped>
+.change-view {
+    border-radius: 0;
+
+    &:first-of-type {
+        margin-right: 4px;
+    }
+
+    &.active {
+        @include themed() {
+            background-color: t("g-ebony");
+            color: t("b-viking");
+            border-color: t("b-christine");
+        }
+    }
+}
+.add {
+    margin-left: 8px;
+}
+</style>

@@ -4,6 +4,7 @@ namespace App\Http\Traits\Game;
 
 use App\Models\Planet;
 use App\Models\Player;
+use App\Models\Star;
 use App\Services\ResourceService;
 
 trait UsesEmpireVerification
@@ -18,6 +19,19 @@ trait UsesEmpireVerification
     private function playerOwnsPlanet(Player $player, Planet $planet): bool
     {
         $playerStar = $player->stars->find($planet->star->id);
+        if ($playerStar) return true;
+        return false;
+    }
+
+    /**
+     * @function check if player owns the star that the planet belongs to
+     * @param Player $player
+     * @param string $starId
+     * @return bool
+     */
+    private function playerOwnsStar(Player $player, string $starId): bool
+    {
+        $playerStar = $player->stars->find($starId);
         if ($playerStar) return true;
         return false;
     }

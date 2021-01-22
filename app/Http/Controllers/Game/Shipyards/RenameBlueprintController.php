@@ -31,7 +31,7 @@ class RenameBlueprintController extends Controller
         $player = Player::find(Auth::user()->selected_player);
 
         // verification
-        if (!$this->blueprintIsPlayerOwned($blueprintId, $player)) {
+        if (!$this->isBlueprintPlayerOwned($blueprintId, $player)) {
             return response()
                 ->json(['error' => __('game.shipyards.errors.blueprint.owner')], 419);
         }

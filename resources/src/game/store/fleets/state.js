@@ -1,9 +1,9 @@
 /******************************************************************************
  * Vuex module "fleets" state
  *****************************************************************************/
-//import { getState } from "@/game/store/persistState";
+import { getState } from "@/game/store/persistState";
 
-//const savedState = getState();
+const savedState = getState();
 
 /*
  * get initial module state
@@ -19,6 +19,7 @@ export default {
     stars: [],
     players: [],
     maxFleets: 0,
+    shipView: savedState.shipView || 0,
     // create new fleet
     createLocation: "",
     createName: "",

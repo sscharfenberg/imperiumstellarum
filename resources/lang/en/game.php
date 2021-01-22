@@ -141,7 +141,9 @@ return [
                 'owned' => 'You do not own this research job',
                 'order' => 'You have a research job of higher level enqueued.'
             ]
-        ]
+        ],
+        'researchJobDeleted' => 'Research job deleted.',
+        'jobQueued' => 'Research job queued.'
     ],
 
     'starchart' => [

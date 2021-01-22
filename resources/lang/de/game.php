@@ -82,7 +82,7 @@ return [
         ],
         'blueprintSaved' => 'Bauplan gespeichert.',
         'blueprintDeleted' => 'Bauplan gelöscht.',
-        'blueprintRenamed' => 'Name des Bauplans gelöscht.',
+        'blueprintRenamed' => 'Name des Bauplans geändert.',
         'constructionContractInstalled' => 'Bauauftrag erstellt. Das erste Schiff wird in :turns Runden ausgeliefert.',
         'constructionContractDeleted' => 'Bauauftrag gelöscht.'
     ],
@@ -141,7 +141,9 @@ return [
                 'owned' => 'Dieser Forschungsauftrag gehört nicht Ihnen.',
                 'order' => 'Sie haben einen Forschungsauftrag mit höherer Stufe in der Warteschleife.'
             ]
-        ]
+        ],
+        'researchJobDeleted' => 'Forschungsauftrag gelöscht.',
+        'jobQueued' => 'Forschungsauftrag erstellt.'
     ],
 
     'starchart' => [

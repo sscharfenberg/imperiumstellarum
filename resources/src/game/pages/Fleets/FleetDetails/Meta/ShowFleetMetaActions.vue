@@ -5,6 +5,7 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 import FleetEditModal from "./FleetEditModal";
 import FleetDeleteModal from "./FleetDeleteModal";
 import FleetTransferModal from "../../Transfer/FleetTransferModal";
@@ -16,6 +17,7 @@ export default {
     },
     components: {
         GameButton,
+        Icon,
         FleetEditModal,
         FleetDeleteModal,
         FleetTransferModal,
@@ -132,14 +134,33 @@ export default {
             :holder-id="holderId"
             @close="showTransferModal = false"
         />
+
+        <div
+            class="fleet-ftl"
+            v-if="holder.ftl && !holder.planetName"
+            :title="$t('fleets.active.location.status.ftl.label')"
+            :aria-label="$t('fleets.active.location.status.ftl.label')"
+        >
+            <icon name="tech-ftl" />
+            {{ $t("fleets.active.location.status.ftl.short") }}
+        </div>
+        <div
+            class="fleet-ftl"
+            v-if="!holder.ftl && !holder.planetName"
+            :title="$t('fleets.active.location.status.noFtl')"
+            :aria-label="$t('fleets.active.location.status.noFtl')"
+        >
+            <icon name="warning" />
+            {{ $t("fleets.active.location.status.ftl.short") }}
+        </div>
     </nav>
 </template>
 
 <style lang="scss" scoped>
 .fleet-meta__actions {
-    @include respond-to("medium") {
-        order: -1;
-    }
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
     .btn {
         width: auto;
@@ -148,9 +169,54 @@ export default {
         @include respond-to("medium") {
             margin: 0 8px 8px 0;
         }
+    }
 
-        &:last-of-type {
+    .fleet-ftl {
+        display: flex;
+        align-items: center;
+
+        padding: 5px;
+        margin: 0 0 4px 0;
+        clip-path: polygon(
+            0 0,
+            calc(100% - 5px) 0,
+            100% 5px,
+            100% 100%,
+            5px 100%,
+            0 calc(100% - 5px)
+        );
+
+        @include respond-to("medium") {
+            padding: 5px 8px;
+            margin: 0 8px 8px 0;
+            clip-path: polygon(
+                0 0,
+                calc(100% - 10px) 0,
+                100% 10px,
+                100% 100%,
+                10px 100%,
+                0 calc(100% - 10px)
+            );
+        }
+
+        &:last-child {
             margin-right: 0;
+        }
+
+        @include themed() {
+            background-color: t("g-deep");
+        }
+
+        @include respond-to("medium") {
+            margin: 0 0 8px 0;
+        }
+
+        .icon {
+            margin-right: 4px;
+
+            @include respond-to("medium") {
+                margin-right: 8px;
+            }
         }
     }
 }

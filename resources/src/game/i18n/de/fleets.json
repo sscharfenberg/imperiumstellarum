@@ -1,6 +1,10 @@
 {
     "title": "Flotten",
     "navTitle": "Flotten",
+    "view": {
+        "detailed": "Wechseln zur detaillierten Schiffs-Ansicht",
+        "collapsed": "Wechseln zur kurzen Schiffs-Ansicht."
+    },
     "summary": {
         "fleets": "Flotte | Flotten",
         "fleetsLabel": "{num}/{max} Flotte | {num}/{max} Flotten",
@@ -12,7 +16,7 @@
             "ark": "{num} Arche | {num} Archen",
             "small": "{num} Zerstörer | {num} Zerstörer",
             "medium": "{num} Kreuzer | {num} Kreuzer",
-            "large": "{num} Schlachtschiff | {num} Schlachtschiff",
+            "large": "{num} Schlachtschiff | {num} Schlachtschiffe",
             "xlarge": "{num} Großkampfschiff | {num} Großkampfschiffe"
         }
     },
@@ -46,12 +50,9 @@
                 "noFtl": "Flotte ist nicht fähig FTL Sprünge durchzuführen."
             }
         },
-        "hulls": {
-            "ark": "Archen",
-            "small": "Zerstörer",
-            "medium": "Kreuzer",
-            "large": "Schlachtschiffe",
-            "xlarge": "Großkampfschiffe"
+        "shipyard": {
+            "construction": "Werft ist im bau und wird in {turns} Runden bereit stehen.",
+            "ready": "Werft ist bereitsSchiffe zu bauen."
         },
         "actions": {
             "edit": "Bearbeiten",
@@ -71,7 +72,8 @@
         },
         "fleetTitle": "Schiffe der Flotte",
         "shipyardTitle": "Schiffe der Werft",
-        "empty": "No ships in fleet yet."
+        "emptyFleet": "Keine Schiffe in der Flotte.",
+        "emptyShipyard": "Keine Schiffe in der Werft."
     },
     "ship": {
         "class": "{type} der {class} Klasse",
@@ -97,7 +99,8 @@
         "rename": {
             "button": "Umbenennen",
             "title": "Schiff '{name}' umbenennen",
-            "explanation": "Minimal {min} Zeichen, maximal {max} Zeichen."
+            "explanation": "Minimal {min} Zeichen, maximal {max} Zeichen.",
+            "placeHolder": "Bitte geben Sie den Namen ein"
         }
     },
     "transfer": {

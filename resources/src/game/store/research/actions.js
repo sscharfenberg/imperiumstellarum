@@ -72,6 +72,7 @@ export default {
             .then((response) => {
                 if (response.status === 200) {
                     commit("ADD_RESEARCH_JOB", response.data.researchJob);
+                    notify(response.data.message, "success");
                 }
             })
             .catch((e) => {
@@ -117,8 +118,9 @@ export default {
         window.axios
             .post(`/api/game/${getGameId()}/research/delete`, payload)
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 200 && response.data.researchJobs) {
                     commit("SET_RESEARCH_JOBS", response.data.researchJobs);
+                    notify(response.data.message, "success");
                 }
             })
             .catch((e) => {

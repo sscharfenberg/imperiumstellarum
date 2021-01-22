@@ -55,7 +55,7 @@ export default {
                     class="form-control"
                     id="shipName"
                     v-model="shipName"
-                    :placeholder="$t('fleets.new.namePlaceholder')"
+                    :placeholder="$t('fleets.ship.rename.placeHolder')"
                     :maxlength="rules.max"
                     ref="input"
                     @keyup.enter="onSubmit"

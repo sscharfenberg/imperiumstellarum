@@ -1,6 +1,10 @@
 {
     "title": "Fleets",
     "navTitle": "Fleets",
+    "view": {
+        "detailed": "Switch to detailed ship view",
+        "collapsed": "Switch to collapsed ship view"
+    },
     "summary": {
         "fleets": "Fleet | Fleets",
         "fleetsLabel": "{num}/{max} Fleet | {num}/{max} Fleets",
@@ -46,12 +50,9 @@
                 "noFtl": "Fleet is incapable of FTL."
             }
         },
-        "hulls": {
-            "ark": "Arks",
-            "small": "Destroyers",
-            "medium": "Cruisers",
-            "large": "Battleships",
-            "xlarge": "Capital ships"
+        "shipyard": {
+            "construction": "Shipyard is in construction, will be ready in {turns} turns.",
+            "ready": "Shipyard is ready to build ships."
         },
         "actions": {
             "edit": "Edit",
@@ -71,7 +72,8 @@
         },
         "fleetTitle": "Ships in fleet",
         "shipyardTitle": "Ships in shipyard",
-        "empty": "No ships in fleet yet."
+        "emptyFleet": "No ships in fleet yet.",
+        "emptyShipyard": "No ships in shipyard yet."
     },
     "ship": {
         "class": "{type}, {class} class",
@@ -97,7 +99,8 @@
         "rename": {
             "button": "Rename",
             "title": "Rename ship '{name}'",
-            "explanation": "Minimum {min} letters, maximum {max} letters."
+            "explanation": "Minimum {min} letters, maximum {max} letters.",
+            "placeHolder": "Please enter the ship name"
         }
     },
     "transfer": {

@@ -8,6 +8,7 @@ import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import ShowShipHolder from "../FleetDetails/ShowShipHolder";
 import ShowShipHolderLocation from "./ShowShipHolderLocation";
 import ShowShipHolderShipSummary from "./ShowShipHolderShipSummary";
+import ShowShipyardStatus from "./ShowShipyardStatus";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ListShipHolders",
@@ -16,6 +17,7 @@ export default {
         ShowShipHolder,
         ShowShipHolderLocation,
         ShowShipHolderShipSummary,
+        ShowShipyardStatus,
         Icon,
     },
     setup() {
@@ -56,6 +58,10 @@ export default {
             <show-ship-holder-ship-summary :holder-id="holder.id" />
         </template>
         <template v-slot:aside>
+            <show-shipyard-status
+                v-if="holder.planetName"
+                :shipyard-id="holder.id"
+            />
             <show-ship-holder-location :holder-id="holder.id" />
         </template>
         <show-ship-holder :holder-id="holder.id" />

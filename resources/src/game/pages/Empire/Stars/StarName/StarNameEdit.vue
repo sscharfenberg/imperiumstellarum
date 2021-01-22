@@ -16,8 +16,8 @@ export default {
         const store = useStore();
         const name = ref(props.starName);
         const input = ref(null);
-        const isExpanded = computed(() =>
-            store.getters["empire/isStarExpanded"](props.starId)
+        const isExpanded = computed(
+            () => !store.getters["empire/isStarCollapsed"](props.starId)
         );
         const onExpandClick = () => {
             store.commit("empire/TOGGLE_STAR_EXPANDED", {

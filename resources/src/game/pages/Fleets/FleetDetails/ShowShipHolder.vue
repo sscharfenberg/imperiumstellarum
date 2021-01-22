@@ -5,8 +5,8 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import ShowFleetMetaActions from "./Meta/ShowFleetMetaActions";
-import ShowFleetMetaStatus from "./Meta/ShowFleetMetaStatus";
 import ShipCard from "Components/Ship/ShipCard/ShipCard";
+import ShipCardShort from "Components/Ship/ShipCardShort/ShipCardShort";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "ShowShipHolder",
@@ -15,12 +15,13 @@ export default {
     },
     components: {
         ShowFleetMetaActions,
-        ShowFleetMetaStatus,
         ShipCard,
+        ShipCardShort,
         SubHeadline,
     },
     setup(props) {
         const store = useStore();
+        const shipView = computed(() => store.state.fleets.shipView);
         const holder = computed(() => {
             const fleet = store.getters["fleets/fleetById"](props.holderId);
             const shipyard = store.getters["fleets/shipyardById"](
@@ -55,6 +56,7 @@ export default {
             );
         });
         return {
+            shipView,
             holder,
             ships,
             hullTypes,
@@ -66,7 +68,6 @@ export default {
 <template>
     <div class="fleet">
         <div class="fleet-meta">
-            <show-fleet-meta-status :holder-id="holderId" />
             <show-fleet-meta-actions :holder-id="holderId" />
         </div>
         <div class="ships">
@@ -80,13 +81,22 @@ export default {
             <div class="ships__list">
                 <div v-for="hullType in hullTypes" :key="hullType">
                     <sub-headline
-                        :headline="$t('fleets.active.hulls.' + hullType)"
+                        :headline="
+                            $tc(
+                                'fleets.summary.hulls.' + hullType,
+                                ships.filter((s) => s.hullType === hullType)
+                                    .length
+                            )
+                        "
                     >
                         {{
                             ships.filter((s) => s.hullType === hullType).length
                         }}
                     </sub-headline>
-                    <div class="ships__list-types">
+                    <div
+                        v-if="shipView === 0"
+                        class="ships__list-types--detailed"
+                    >
                         <ship-card
                             v-for="ship in ships.filter(
                                 (s) => s.hullType === hullType
@@ -111,9 +121,32 @@ export default {
                             :colony="ship.colony"
                         />
                     </div>
+                    <div
+                        v-if="shipView === 1"
+                        class="ships__list-types--collapsed"
+                    >
+                        <ship-card-short
+                            v-for="ship in ships.filter(
+                                (s) => s.hullType === hullType
+                            )"
+                            :key="ship.id"
+                            :ship-id="ship.id"
+                            :hull-type="ship.hullType"
+                            :name="ship.name"
+                            :shields-current="ship.hp.shields.current"
+                            :shields-max="ship.hp.shields.max"
+                            :armour-current="ship.hp.armour.current"
+                            :armour-max="ship.hp.armour.max"
+                            :structure-current="ship.hp.structure.current"
+                            :structure-max="ship.hp.structure.max"
+                        />
+                    </div>
                 </div>
-                <div class="empty" v-if="!ships.length">
-                    {{ $t("fleets.active.empty") }}
+                <div class="empty" v-if="!ships.length && !holder.planetName">
+                    {{ $t("fleets.active.emptyFleet") }}
+                </div>
+                <div class="empty" v-if="!ships.length && holder.planetName">
+                    {{ $t("fleets.active.emptyShipyard") }}
                 </div>
             </div>
         </div>
@@ -169,24 +202,42 @@ export default {
     }
 
     &__list-types {
-        display: flex;
-        flex-wrap: wrap;
+        // detailed ship view
+        &--detailed {
+            display: flex;
+            flex-wrap: wrap;
 
-        @include respond-to("small") {
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            @include respond-to("small") {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+
+            .ship {
+                width: 100%;
+                margin: 0 0 8px 0;
+
+                @include respond-to("medium") {
+                    width: calc(50% - 8px);
+                    margin: 0 16px 16px 0;
+
+                    &:nth-of-type(2n) {
+                        margin-right: 0;
+                    }
+                }
+            }
         }
 
-        .ship {
-            width: 100%;
-            margin: 0 0 8px 0;
+        // collapsed ship view
+        &--collapsed {
+            display: grid;
+            grid-template-columns: 1fr;
+
+            padding: 0 0 16px 0;
+            grid-gap: 2px;
 
             @include respond-to("medium") {
-                width: calc(50% - 8px);
-                margin: 0 16px 16px 0;
+                grid-template-columns: 1fr 1fr;
 
-                &:nth-of-type(2n) {
-                    margin-right: 0;
-                }
+                grid-gap: 4px;
             }
         }
     }

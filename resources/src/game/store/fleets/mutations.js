@@ -1,7 +1,7 @@
 /******************************************************************************
  * Vuex mutations
  *****************************************************************************/
-//import { saveState } from "@/game/store/persistState";
+import { saveState } from "@/game/store/persistState";
 
 export default {
     /**
@@ -11,6 +11,17 @@ export default {
      */
     SET_REQUESTING: (state, payload) => {
         state.requesting = payload;
+    },
+
+    /**
+     * @functon SET ship view
+     * @param {Object} state - vuex module "fleets" state
+     * @param {Number} payload - 0 || 1
+     * @constructor
+     */
+    SET_SHIP_VIEW: (state, payload) => {
+        state.shipView = payload;
+        saveState(state.shipView, "shipView");
     },
 
     /**

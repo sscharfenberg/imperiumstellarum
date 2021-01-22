@@ -144,6 +144,9 @@ export default {
         }
 
         .right {
+            display: flex;
+            align-items: center;
+
             margin-left: auto;
         }
     }

@@ -16,6 +16,7 @@ const defaultState = {
     zoomLevel: 3,
     shipyardPage: 0,
     collapsibleExpandedIds: [],
+    shipView: 0,
 };
 
 /**
