@@ -46,6 +46,33 @@ export default {
     },
 
     /**
+     * @function SET player fleets
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_FLEETS: (state, payload) => {
+        state.fleets = payload;
+    },
+
+    /**
+     * @function SET player fleet ships
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_FLEET_SHIPS: (state, payload) => {
+        state.ships = payload;
+    },
+
+    /**
+     * @function SET player fleet movements
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_FLEET_MOVEMENTS: (state, payload) => {
+        state.fleetMovements = payload;
+    },
+
+    /**
      * @function SET game dimensions
      * @param {Object} state - vuex module "starchart" state
      * @param {Array} payload

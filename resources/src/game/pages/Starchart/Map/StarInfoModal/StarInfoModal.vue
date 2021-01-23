@@ -4,16 +4,24 @@
  *****************************************************************************/
 import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
-import { useI18n } from "vue-i18n";
 import Modal from "Components/Modal/Modal";
 import Loading from "Components/Loading/Loading";
+import StarInfoModalMovingFleets from "./StarInfoModalMovingFleets";
+import StarInfoModalFleetsAtStar from "./StarInfoModalFleetsAtStar";
+import StarInfoModalSendFleetsHere from "./StarInfoModalSendFleetsHere";
 export default {
     name: "StarInfoModal",
     props: {
         starId: String,
     },
     emits: ["close"],
-    components: { Modal, Loading },
+    components: {
+        Modal,
+        Loading,
+        StarInfoModalMovingFleets,
+        StarInfoModalFleetsAtStar,
+        StarInfoModalSendFleetsHere,
+    },
     setup(props) {
         const store = useStore();
         const requesting = ref(false);
@@ -50,7 +58,6 @@ export default {
             spectralClass,
             numPlanets,
             population,
-            ...useI18n(),
         };
     },
 };
@@ -59,7 +66,7 @@ export default {
 <template>
     <teleport to="#StarChartModal">
         <modal
-            :title="t('starchart.star.title', { name: star.name })"
+            :title="$t('starchart.star.title', { name: star.name })"
             @close="$emit('close')"
         >
             <ul class="stats" v-if="!requesting">
@@ -74,6 +81,7 @@ export default {
                     }}
                     <div class="spectral" :class="spectralClass"></div>
                 </li>
+
                 <li class="text-left">
                     {{ $t("starchart.star.ownerName.label") }}
                 </li>
@@ -84,21 +92,27 @@ export default {
                             : $t("starchart.star.ownerName.none")
                     }}
                 </li>
+
                 <li class="text-left" v-if="star.ownerTicker">
                     {{ $t("starchart.star.ownerTicker") }}
                 </li>
                 <li class="text-left featured" v-if="star.ownerTicker">
                     {{ star.ownerTicker }}
                 </li>
+
                 <li class="text-left" v-if="numPlanets">
                     {{ $t("starchart.star.numPlanets") }}
                 </li>
                 <li class="text-left" v-if="numPlanets">{{ numPlanets }}</li>
+
                 <li class="text-left" v-if="population">
                     {{ $t("starchart.star.population") }}
                 </li>
                 <li class="text-left" v-if="population">{{ population }}</li>
-                <li class="stats--two-col">todo: my fleets, send fleet etc.</li>
+
+                <star-info-modal-fleets-at-star :star-id="starId" />
+                <star-info-modal-moving-fleets :star-id="starId" />
+                <star-info-modal-send-fleets-here :star-id="starId" />
             </ul>
             <div class="scanning" v-if="requesting">
                 <loading :size="32" />
@@ -159,6 +173,8 @@ export default {
 }
 
 .stats {
+    grid-template-columns: 2fr 3fr;
+
     margin-bottom: 0;
 }
 

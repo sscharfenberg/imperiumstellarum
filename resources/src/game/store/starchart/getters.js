@@ -23,4 +23,11 @@ export default {
     // get star by id
     starById: (state) => (id) =>
         state.stars.find((star) => star.id === id) || {},
+
+    // get fleet by id
+    fleetById: (state) => (id) => state.fleets.find((f) => f.id === id) || {},
+
+    // get ships by fleet id
+    shipsByFleetId: (state) => (fleetId) =>
+        state.ships.filter((ship) => ship.fleetId === fleetId) || [],
 };

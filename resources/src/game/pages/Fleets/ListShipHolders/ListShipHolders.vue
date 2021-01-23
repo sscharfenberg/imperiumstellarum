@@ -7,8 +7,8 @@ import { computed } from "vue";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import ShowShipHolder from "../FleetDetails/ShowShipHolder";
 import ShowShipHolderLocation from "./ShowShipHolderLocation";
-import ShowShipHolderShipSummary from "./ShowShipHolderShipSummary";
 import ShowShipyardStatus from "./ShowShipyardStatus";
+import FleetShipSummary from "Components/Fleet/FleetShipSummary";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "ListShipHolders",
@@ -16,8 +16,8 @@ export default {
         CollapsibleItem,
         ShowShipHolder,
         ShowShipHolderLocation,
-        ShowShipHolderShipSummary,
         ShowShipyardStatus,
+        FleetShipSummary,
         Icon,
     },
     setup() {
@@ -31,8 +31,16 @@ export default {
             ...shipyards.value,
         ]);
         const max = computed(() => store.state.fleets.maxFleets);
+        const holderShips = (holderId) => {
+            const fleetShips = store.getters["fleets/shipsByFleetId"](holderId);
+            const shipyardShips = store.getters["fleets/shipsByShipyardId"](
+                holderId
+            );
+            return fleetShips.length ? fleetShips : shipyardShips;
+        };
         return {
             allShipHolders,
+            holderShips,
             max,
         };
     },
@@ -55,7 +63,10 @@ export default {
             <span class="topic-title">{{
                 holder.name ? holder.name : holder.planetName
             }}</span>
-            <show-ship-holder-ship-summary :holder-id="holder.id" />
+            <fleet-ship-summary
+                v-if="holderShips(holder.id).length"
+                :ships="holderShips(holder.id)"
+            />
         </template>
         <template v-slot:aside>
             <show-shipyard-status
@@ -88,6 +99,14 @@ export default {
 
     @include themed() {
         color: t("b-viking");
+    }
+}
+
+.summary {
+    margin-left: 8px;
+
+    @include respond-to("medium") {
+        margin-left: 16px;
     }
 }
 </style>

@@ -28,9 +28,9 @@ class StarchartController extends Controller
         $game = Game::find($gameId);
         $players = Player::where('game_id', $gameId)->get();
         $stars = Game::find($gameId)->stars;
-        $user = Auth::user();
-        $player = $user->players->find($user->selected_player);
+        $player = Player::find(Auth::user()->selected_player);
         $playerStars = $player->stars;
+        $fleetMovements = $player->fleetMovements;
 
         $f = new FormatApiResponseService;
         $returnData = [
@@ -43,7 +43,16 @@ class StarchartController extends Controller
             'dimensions' => $game->dimensions,
             'playerStars' => $playerStars->map(function ($star) use ($f) {
                 return $f->formatStar($star);
-            })
+            }),
+            'fleets' => $player->fleets->map(function ($fleet) use ($f) {
+                return $f->formatFleet($fleet);
+            }),
+            'fleetMovements' => $fleetMovements->map(function ($fleetMovement) use ($f) {
+                return $f->formatFleetMovement($fleetMovement);
+            }),
+            'ships' => $player->ships->map(function ($ship) use ($f) {
+                return $f->formatShip($ship);
+            }),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

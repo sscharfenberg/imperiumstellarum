@@ -22,6 +22,9 @@
         },
         "ownerTicker": "Ticker des Besitzers",
         "numPlanets": "Anzahl Planeten",
-        "population": "Gesamt Bevölkerung"
+        "population": "Gesamt Bevölkerung",
+        "fleetsHereLabel": "Flotten in diesem System",
+        "fleetsMovingHere": "Flotte unterwegs in dieses System | Flotten unterwegs in dieses System",
+        "fleetsLabel": "Klicken um diese Flotte auf der 'Flotten' Seite zu sehen."
     }
 }
