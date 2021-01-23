@@ -133,7 +133,7 @@ class FindDestinationController extends Controller
             return response()
                 ->json(['error' => __('game.fleets.errors.moveDestinationInvalid')], 419);
         }
-        if (!$this->playerOwnsStar($player, $fromId) || !$this->playerOwnsStar($player, $toId)) {
+        if (!$this->playerOwnsStar($player, $toId)) {
             return response()
                 ->json(['error' => __('game.fleets.errors.starOwner')], 419);
         }

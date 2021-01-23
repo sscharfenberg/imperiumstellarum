@@ -13,7 +13,11 @@ export default {
     components: { Icon },
     setup(props) {
         const store = useStore();
-        const stars = computed(() => store.state.fleets.stars);
+        const stars = computed(() =>
+            store.state.fleets.stars.filter(
+                (s) => s.ownerId === store.state.empireId
+            )
+        );
         const fleet = computed(() =>
             store.getters["fleets/fleetById"](props.fleetId)
         );

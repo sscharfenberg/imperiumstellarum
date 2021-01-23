@@ -16,9 +16,10 @@ class ProcessResearch
     /**
      * @function process research
      * @param Game $game
+     * @param string $turnSlug
      * @return void
      */
-    public function handle(Game $game)
+    public function handle(Game $game, string $turnSlug)
     {
         $researches = $game->researches->where('order', 1);
         $r = new ResourceService;
@@ -26,11 +27,9 @@ class ProcessResearch
         // loop all researchable jobs
         foreach($researches as $job) {
             $player = $job->player;
-
             $priority = $player->research_priority;
             $population = $this->getTotalPopulation($player);
             $research = ceil($priority * $population);
-
             $costs = ['research' => $research];
             if ($r->playerCanAfford($player, $costs)) {
                 // subtract resources
@@ -46,19 +45,19 @@ class ProcessResearch
                     // delete the research job
                     try {
                         $job->delete();
-                        Log::error("Empire $player->ticker has increased the $job->type TL to $techLevel->level");
+                        Log::error("TURN PROCESSING $turnSlug - Empire $player->ticker has increased the $job->type TL to $techLevel->level");
                     } catch(\Exception $e) {
-                        Log::error('Exception while attempting to delete a finished research job:\n'. $e->getMessage());
+                        Log::error("TURN PROCESSING $turnSlug - Exception while attempting to delete a finished research job:\n". $e->getMessage());
                     }
                 } else {
                     $job->save();
                 }
             } else {
-                Log::info("Empire $player->ticker can\'t afford the assigned research, skipping.");
+                Log::info("TURN PROCESSING $turnSlug - Empire $player->ticker can\'t afford the assigned research, skipping.");
             }
         }
 
-        Log::notice("Looped all players for research processing.");
+        Log::notice("TURN PROCESSING $turnSlug - Looped all players for research processing.");
 
     }
 

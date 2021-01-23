@@ -117,7 +117,7 @@ return [
         'shipNameChanged' => 'Schiff umbenannt.',
         'deleted' => 'Flotte gelöscht.',
         'shipsTransfered' => 'Schiffe wurden transferiert.',
-        'fleetMoving' => 'Die Flotte ist jetzt unterwegs und wird in :turns ankommen.'
+        'fleetMoving' => 'Die Flotte ist jetzt unterwegs und wird in :turns Runden ankommen.'
     ],
 
     'research' => [

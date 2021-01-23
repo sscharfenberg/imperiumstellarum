@@ -17,17 +17,18 @@ class ProcessHarvesters
     /**
      * @function decrease "until_complete" for building harvesters
      * @param Game $game
+     * @param string $turnSlug
      * @return void
      */
-    private function handleInstallations (Game $game)
+    private function handleInstallations (Game $game, string $turnSlug)
     {
         $decrementedHarvesters = Harvester::where('game_id', $game->id)
             ->where('until_complete', '>', '0')
             ->decrement('until_complete');
         if ($decrementedHarvesters) {
-            Log::notice("Decreased 'until_complete' for $decrementedHarvesters harvesters.");
+            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_complete' for $decrementedHarvesters harvesters.");
         } else {
-            Log::notice("No harvesters building.");
+            Log::notice("TURN PROCESSING $turnSlug - No harvesters building.");
         }
     }
 
@@ -35,9 +36,10 @@ class ProcessHarvesters
     /**
      * @function harvester resource production
      * @param Game $game
+     * @param string $turnSlug
      * @return void
      */
-    private function handleResourceProduction (Game $game)
+    private function handleResourceProduction (Game $game, string $turnSlug)
     {
         $players = Player::where('game_id', $game->id)->get();
         $harvesters = Harvester::where('game_id', $game->id)
@@ -68,25 +70,26 @@ class ProcessHarvesters
                 return $f->formatPlayerResource($res);
             });
 
-            Log::notice('Empire '.$player->ticker.' resources after production: '.json_encode($resourcesAfterProduction));
+            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker resources after production: ".json_encode($resourcesAfterProduction));
         }
 
-        Log::notice("Looped all players for resource production from harvesters.");
+        Log::notice("TURN PROCESSING $turnSlug - Looped all players for resource production from harvesters.");
     }
 
 
     /**
      * @function handle population growth
      * @param Game $game
+     * @param string $turnSlug
      * @return void
      */
-    public function handle(Game $game)
+    public function handle(Game $game, string $turnSlug)
     {
         // decrement 'until_complete' by 1
-        $this->handleInstallations($game);
+        $this->handleInstallations($game, $turnSlug);
 
         // produce resources
-        $this->handleResourceProduction($game);
+        $this->handleResourceProduction($game, $turnSlug);
 
     }
 

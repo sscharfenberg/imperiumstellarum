@@ -58,7 +58,12 @@ export default {
             </span>
         </li>
         <li class="text-left">{{ $t("fleets.move.systemOwnerLabel") }}</li>
-        <li class="text-left">[{{ owner.ticker }}] {{ owner.name }}</li>
+        <li class="text-left" v-if="owner.ticker">
+            [{{ owner.ticker }}] {{ owner.name }}
+        </li>
+        <li class="text-left" v-if="!owner.ticker">
+            {{ $t("starchart.star.ownerName.none") }}
+        </li>
     </ul>
 </template>
 

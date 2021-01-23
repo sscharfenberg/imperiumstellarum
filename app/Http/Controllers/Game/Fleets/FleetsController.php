@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Game\Fleets;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Game\UsesTotalPopulation;
 use App\Models\Player;
+use App\Models\Star;
 use App\Services\ApiService;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
@@ -34,6 +35,16 @@ class FleetsController extends Controller
         $playerStars = $player->stars;
         $players = Player::where('game_id', $gameId)->get();
         $fleetMovements = $player->fleetMovements;
+        $fleetStarIds = $player->fleets->map(function ($fleet) {
+            return $fleet->star_id;
+        });
+        $fleetStars = Star::where('game_id', $gameId)
+            ->whereIn('id', $fleetStarIds)
+            ->get();
+        $allStars = $playerStars
+            ->concat($fleetStars)
+            ->unique('id')
+            ->values(); // without values, the array keys are not correctly numbered, resulting in js confusion.
 
         $returnData = [
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
@@ -48,7 +59,7 @@ class FleetsController extends Controller
             'ships' => $player->ships->map(function ($ship) use ($f) {
                 return $f->formatShip($ship);
             }),
-            'stars' => $playerStars->map(function ($star) use ($f) {
+            'stars' => $allStars->map(function ($star) use ($f) {
                 return $f->formatStar($star);
             }),
             'players' => $players->map(function ($player) use ($f) {

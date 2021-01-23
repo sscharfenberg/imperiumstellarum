@@ -29,81 +29,97 @@ class ProcessTurn
     /**
      * @function call BuildStorageUpgrades
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @return void
      */
-    private function processStorageUpgrades(Game $game, Turn $turn)
+    private function processStorageUpgrades(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 1: Storage Upgrades.');
+        Log::info("TURN PROCESSING $turnSlug - STEP 1: Storage Upgrades.");
         $s = new \App\Actions\Turn\BuildStorageUpgrades;
-        $s->handle($game);
+        $s->handle($game, $turnSlug);
     }
 
     /**
      * @function call harvester processing
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @return void
      */
-    private function processHarvesters(Game $game, Turn $turn)
+    private function processHarvesters(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 2: Process Harvesters.');
+        Log::info("TURN PROCESSING $turnSlug - STEP 2: Process Harvesters.");
         $h = new \App\Actions\Turn\ProcessHarvesters;
-        $h->handle($game);
+        $h->handle($game, $turnSlug);
     }
 
     /**
      * @function call populationGrowth
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @return void
      */
-    private function handleColonies(Game $game, Turn $turn)
+    private function handleColonies(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 3: Population Growth.');
-        $c = new \App\Actions\Turn\Colonies;
-        $c->handle($game);
+        Log::info("TURN PROCESSING $turnSlug - STEP 3: Population Growth.");
+        $c = new \App\Actions\Turn\ProcessColonies;
+        $c->handle($game, $turnSlug);
     }
 
     /**
      * @function process shipyard builds
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @return void
      */
-    private function processShipyards(Game $game, Turn $turn)
+    private function processShipyards(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 4: Build Shipyards.');
+        Log::info("TURN PROCESSING $turnSlug - STEP 4: Build Shipyards.");
         $s = new \App\Actions\Turn\BuildShipyards;
-        $s->handle($game);
+        $s->handle($game, $turnSlug);
     }
 
     /**
      * @function process research
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @return void
      */
-    private function processResearch(Game $game, Turn $turn)
+    private function processResearch(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 5: PROCESS RESEARCH.');
+        Log::info("TURN PROCESSING $turnSlug - STEP 5: PROCESS RESEARCH.");
         $s = new \App\Actions\Turn\ProcessResearch;
-        $s->handle($game);
+        $s->handle($game, $turnSlug);
     }
 
     /**
      * @function build ships
      * @param Game $game
-     * @param Turn $turn
+     * @param string $turnSlug
      * @throws Exception
      * @return void
      */
-    private function buildships(Game $game, Turn $turn)
+    private function buildships(Game $game, string $turnSlug)
     {
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.', STEP 6: BUILD SHIPS.');
+        Log::info("TURN PROCESSING $turnSlug - STEP 6: BUILD SHIPS.");
         $s = new \App\Actions\Turn\BuildShips;
-        $s->handle($game);
+        $s->handle($game, $turnSlug);
     }
+
+    /**
+     * @function move fleets
+     * @param Game $game
+     * @param string $turnSlug
+     * @throws Exception
+     * @return void
+     */
+    private function moveFleets(Game $game, string $turnSlug)
+    {
+        Log::info("TURN PROCESSING $turnSlug - STEP 7: MOVE FLEETS.");
+        $s = new \App\Actions\Turn\ProcessFleetMovement;
+        $s->handle($game, $turnSlug);
+    }
+
+
 
     /**
      * @function handle game start
@@ -115,23 +131,31 @@ class ProcessTurn
     public function handle(Game $game, Turn $turn)
     {
         $start = hrtime(true);
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.'.');
+        $turnSlug = 'g'.$game->number.'t'.$turn->number;
+        Log::info("TURN PROCESSING $turnSlug - START");
         $game->processing = true;
         $game->save();
+
         // #1 process storage upgrades
-        $this->processStorageUpgrades($game, $turn);
+        $this->processStorageUpgrades($game, $turnSlug);
         // #2 process harvesters
-        $this->processHarvesters($game, $turn);
+        $this->processHarvesters($game, $turnSlug);
         // #3 population growth
-        $this->handleColonies($game, $turn);
+        $this->handleColonies($game, $turnSlug);
         // #4 build shipyards
-        $this->processShipyards($game, $turn);
+        $this->processShipyards($game, $turnSlug);
         // #5 do research
-        $this->processResearch($game, $turn);
+        $this->processResearch($game, $turnSlug);
         // #6 build ships
-        $this->buildships($game, $turn);
-
-
+        $this->buildships($game, $turnSlug);
+        // #7 move fleets
+        $this->moveFleets($game, $turnSlug);
+        // #8 change diplomatic relations
+        // #9 resolve fleet combat
+        // #10 colonize star system
+        // #11 change system ownership
+        // #12 process dead players
+        // #13 process winners
         // ...
 
 
@@ -144,6 +168,6 @@ class ProcessTurn
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;
-        Log::info('TURN PROCESSING: g'.$game->number.'t'.$turn->number.' finished in '.$execution/1e+9.' seconds.');
+        Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
     }
 }

@@ -19,16 +19,17 @@ class BuildShips
     /**
      * @function finalize a contract
      * @param ConstructionContract $contract
+     * @param string $turnSlug
      * @throws Exception
      */
-    private function contractFinished(ConstructionContract $contract)
+    private function contractFinished(ConstructionContract $contract, string $turnSlug)
     {
         try {
             ConstructionContract::find($contract->id)->delete();
             // TODO: send system message to player that a contract has finished.
-            Log::notice('contract deleted since it was finished.');
+            Log::notice("TURN PROCESSING $turnSlug - contract deleted since it was finished.");
         } catch(Exception $e) {
-            Log::error('failed to delete a finished contract: '.$e->getMessage());
+            Log::error("TURN PROCESSING $turnSlug - failed to delete a finished contract: ".$e->getMessage());
         }
     }
 
@@ -36,10 +37,11 @@ class BuildShips
      * @function create the ship
      * @param Player $player
      * @param array $shipData
+     * @param string $turnSlug
      * @return Ship
      * @throws Exception
      */
-    private function createShip(Player $player, array $shipData): Ship
+    private function createShip(Player $player, array $shipData, string $turnSlug): Ship
     {
         $s = new ShipService;
         $ship = Ship::create([
@@ -64,7 +66,7 @@ class BuildShips
             'colony' => $shipData['colony'],
             'acceleration' => $shipData['acceleration']
         ]);
-        Log::notice("Empire $player->ticker has created a new ship, $ship->name");
+        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has created a new ship, $ship->name");
         return $ship;
     }
 
@@ -72,9 +74,10 @@ class BuildShips
     /**
      * @function create ship from construction contract
      * @param Collection $contracts
+     * @param string $turnSlug
      * @throws Exception
      */
-    private function ejectShips(Collection $contracts)
+    private function ejectShips(Collection $contracts, string $turnSlug)
     {
         $s = new ShipService;
         $r = new ResourceService;
@@ -82,15 +85,15 @@ class BuildShips
             $player = $contract->player;
             // is the contract finished?
             if ($contract->amount_left === 1) {
-                $this->createShip($player, $contract->cached_ship);
-                $this->contractFinished($contract);
+                $this->createShip($player, $contract->cached_ship, $turnSlug);
+                $this->contractFinished($contract, $turnSlug);
             } else {
                 // no, proceed with next ship in the contract.
 
                 // if we didn't fail to pay the resource costs for the ship the last time, eject it.
                 if (!$contract->hold) {
                     // create ship
-                    $this->createShip($player, $contract->cached_ship);
+                    $this->createShip($player, $contract->cached_ship, $turnSlug);
                     // since the ship was created, decrement amount_left.
                     $contract->amount_left -= 1;
                 }
@@ -107,9 +110,9 @@ class BuildShips
                     // reset turns clock so we start building the next ship
                     $contract->turns_left = $contract->turns_per_ship;
                     $contract->hold = false;
-                    Log::notice("Empire $player->ticker has paid the resource costs for the next ship.");
+                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the resource costs for the next ship.");
                 } else {
-                    Log::notice("Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
+                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
                     $contract->hold = true;
                     // TODO: message to player - can't afford the next ship, on hold.
                 }
@@ -123,19 +126,19 @@ class BuildShips
                         // reset turns clock so we start building the next ship
                         $contract->turns_left = $contract->turns_per_ship;
                         $contract->hold = false;
-                        Log::notice("Empire $player->ticker has paid the population costs for the next ship.");
+                        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the population costs for the next ship.");
                     } else {
-                        Log::notice("Empire $player->ticker can't afford the population costs of the next ship in the construction contract.");
-                        $contract->turns_left = 0; // reset turns_left since the player might have enough resources but not enough population.
+                        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the population costs of the next ship in the construction contract.");
+                        // reset turns_left since the player might have enough resources but not enough population.
+                        $contract->turns_left = 0;
                         $contract->hold = true;
-                        // TODO: message to player - can't afford the next ship, on hold.
+                        // TODO: message to player - can't afford population cost for the next ship, on hold.
                     }
                 }
 
+                // save the contract
+                $contract->save();
             }
-
-            // save the contract
-            $contract->save();
         }
     }
 
@@ -143,19 +146,20 @@ class BuildShips
     /**
      * @function build ships
      * @param Game $game
+     * @param string $turnSlug
      * @throws Exception
      * @return void
      */
-    public function handle(Game $game)
+    public function handle(Game $game, string $turnSlug)
     {
         // decrement 'turns_left'
         $decrementedContracts = ConstructionContract::where('game_id', $game->id)
             ->where('turns_left', '>', '0')
             ->decrement('turns_left');
         if ($decrementedContracts) {
-            Log::notice("Decreased 'turns_left' for $decrementedContracts contracts.");
+            Log::notice("TURN PROCESSING $turnSlug - Decreased 'turns_left' for $decrementedContracts contracts.");
         } else {
-            Log::notice("No construction contracts where turns_left was decremented.");
+            Log::notice("TURN PROCESSING $turnSlug - No construction contracts where turns_left was decremented.");
         }
 
         // check if any ships are ready to be ejected.
@@ -164,14 +168,14 @@ class BuildShips
             ->get();
         if(count($contractsWithShipsReady) > 0) {
             $num = count($contractsWithShipsReady);
-            Log::notice("Trying to eject $num ships.");
-            $this->ejectShips($contractsWithShipsReady);
+            Log::notice("TURN PROCESSING $turnSlug - Trying to eject $num ships.");
+            $this->ejectShips($contractsWithShipsReady, $turnSlug);
         } else {
-            Log::notice("No ships are ready to be ejected.");
+            Log::notice("TURN PROCESSING $turnSlug - No ships are ready to be ejected.");
         }
 
         // all done.
-        Log::info('done processing ship construction / construction contract handling.');
+        Log::info("TURN PROCESSING $turnSlug - done processing ship construction / construction contract handling.");
     }
 
 }

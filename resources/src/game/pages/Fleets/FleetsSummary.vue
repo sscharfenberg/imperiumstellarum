@@ -60,7 +60,7 @@ export default {
             </h3>
         </li>
         <li class="summary__item">
-            <h3>
+            <h3 class="ships">
                 <aside class="summary__item-number">{{ numShips }}</aside>
                 {{ $tc("fleets.summary.ships", numShips) }}
             </h3>
@@ -172,13 +172,17 @@ export default {
             align-items: center;
             justify-content: center;
 
-            margin: 8px 0;
+            margin: 8px 0 0 0;
 
             font-size: 20px;
             font-weight: 300;
 
             @include themed() {
                 color: t("t-bright");
+            }
+
+            &.ships {
+                margin: 0 0 8px 0;
             }
         }
     }
