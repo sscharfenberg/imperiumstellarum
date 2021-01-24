@@ -46,8 +46,8 @@ export default {
             </li>
             <li class="legend__item">
                 <icon class="legend__icon legend__icon--neutral" name="info" />
-                {{ $t("starchart.map.legend.coords") }}
-                {{ coords.x }} / {{ coords.y }}
+                {{ $t("starchart.map.legend.coords") }}: {{ coords.x }} /
+                {{ coords.y }}
             </li>
             <li class="legend__item" v-if="zoom > 2">
                 <icon class="legend__icon legend__icon--yes" name="done" />
