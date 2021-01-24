@@ -7,7 +7,15 @@
         "go": "Go"
     },
     "map": {
-        "label": "Starmap"
+        "label": "Starmap",
+        "legend": {
+            "starDetailIcons": {
+                "yes": "Showing our fleets, fleet movements and shipyards.",
+                "no": "NOT Showing our fleets, fleet movements and shipyards."
+            },
+            "zoomLevel": "Zoom level",
+            "coords": "Karte zentriert auf (gerundet)"
+        }
     },
     "star": {
         "title": "Star Scan: {name}",

@@ -6,6 +6,7 @@ import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import StarInfoModal from "./StarInfoModal/StarInfoModal";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "RenderStar",
     props: {
@@ -18,8 +19,11 @@ export default {
         ownerColour: String,
         ticker: String,
         name: String,
+        numFleets: Number,
+        hasShipyard: Boolean,
+        transitFleets: Number,
     },
-    components: { StarInfoModal },
+    components: { Icon, StarInfoModal },
     setup(props) {
         const store = useStore();
         const i18n = useI18n();
@@ -63,7 +67,16 @@ export default {
         :aria-label="starTitle"
         @click="showModal = true"
     >
-        <aside class="ticker" v-if="ticker">{{ ticker }}</aside>
+        <span class="ticker" v-if="ticker">{{ ticker }}</span>
+        <span class="fleets" v-if="numFleets > 0 && zoom > 2">
+            <icon name="fleets" v-for="n in numFleets" :key="n" />
+        </span>
+        <span class="shipyard" v-if="hasShipyard && zoom > 2">
+            <icon name="shipyards" />
+        </span>
+        <span class="transit" v-if="transitFleets > 0 && zoom > 2">
+            <icon name="transit" v-for="n in transitFleets" :key="n" />
+        </span>
     </button>
     <star-info-modal
         v-if="showModal"
@@ -107,14 +120,88 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+    left: 0;
 
     padding: 2px 4px;
 
     font-size: calc(var(--cssTileSize) / 5);
+    text-align: center;
 
     @include themed() {
         background: rgba(t("g-raven"), 0.7);
         color: t("g-white");
+    }
+}
+
+.fleets {
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 4px;
+
+    @include themed() {
+        background: rgba(t("g-raven"), 0.7);
+        color: t("g-white");
+    }
+
+    .icon {
+        width: calc(var(--cssTileSize) / 4);
+        height: calc(var(--cssTileSize) / 4);
+
+        @include themed() {
+            color: t("b-viking");
+        }
+    }
+}
+
+.shipyard {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2px 4px;
+
+    @include themed() {
+        background: rgba(t("g-raven"), 0.7);
+    }
+
+    .icon {
+        width: calc(var(--cssTileSize) / 4);
+        height: calc(var(--cssTileSize) / 4);
+
+        @include themed() {
+            color: t("b-christine");
+        }
+    }
+}
+
+.transit {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    align-items: center;
+
+    transform: translate3d(50%, -50%, 0);
+
+    @include themed() {
+        background: rgba(t("g-raven"), 0.7);
+    }
+
+    .icon {
+        width: calc(var(--cssTileSize) / 4);
+        height: calc(var(--cssTileSize) / 4);
+
+        @include themed() {
+            color: t("b-viking");
+        }
     }
 }
 </style>

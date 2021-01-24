@@ -7,7 +7,15 @@
         "go": "Los"
     },
     "map": {
-        "label": "Sternenkarte"
+        "label": "Sternenkarte",
+        "legend": {
+            "starDetailIcons": {
+                "yes": "Flotten, Flottenbewegungen und Werften werden angezeigt.",
+                "no": "Flotten, Flottenbewegungen und Werften werden NICHT angezeigt."
+            },
+            "zoomLevel": "Zoom Stufe",
+            "coords": "Map coordinates centered on (rounded)"
+        }
     },
     "star": {
         "buttonLabel": "Klicken um Stern zu scannen.",

@@ -5,6 +5,7 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import RenderStar from "./RenderStar";
+import MapLegend from "./MapLegend";
 export default {
     name: "MapData",
     props: {
@@ -14,7 +15,7 @@ export default {
         cameraY: Number,
         tileSize: Number, // pixel size for a tile
     },
-    components: { RenderStar },
+    components: { RenderStar, MapLegend },
     setup(props) {
         const store = useStore();
         const stars = computed(
@@ -22,11 +23,26 @@ export default {
         );
         const x = computed(() => store.state.starchart.jumpCoordX);
         const y = computed(() => store.state.starchart.jumpCoordY);
+        const playerFleets = computed(() => store.state.starchart.fleets);
+        const numStarFleets = (starId) => {
+            return playerFleets.value.filter((f) => f.starId === starId).length;
+        };
+        const shipyards = computed(() => store.state.starchart.shipyards);
+        const hasShipyard = (starId) =>
+            shipyards.value.filter((s) => s.starId === starId).length;
+        const fleetMovements = computed(
+            () => store.state.starchart.fleetMovements
+        );
+        const starFleetTransit = (starId) =>
+            fleetMovements.value.filter((fm) => fm.destinationId === starId)
+                .length;
+
         // number values
         const borderWidth = computed(() => (props.zoom >= 3 ? 3 : 1));
         const availableTilePixels = computed(
             () => props.tileSize - 1 - 2 * borderWidth.value
         );
+
         // css values
         const cssTileSize = computed(() => availableTilePixels.value + "px");
         const bgPos = computed(() => {
@@ -42,6 +58,7 @@ export default {
             };
         });
         const cssBorderWidth = computed(() => borderWidth.value + "px");
+
         onMounted(() => {
             // did we come here from a different page?
             if (x.value && y.value) {
@@ -60,11 +77,15 @@ export default {
                 );
             }
         });
+
         return {
             stars,
             cssTileSize,
             bgPos,
             cssBorderWidth,
+            numStarFleets,
+            hasShipyard,
+            starFleetTransit,
         };
     },
 };
@@ -90,7 +111,11 @@ export default {
             :name="star.name"
             :owner-id="star.ownerId"
             :owner-colour="star.ownerColour"
+            :num-fleets="numStarFleets(star.id)"
+            :has-shipyard="!!hasShipyard(star.id)"
+            :transit-fleets="starFleetTransit(star.id)"
         />
+        <map-legend />
     </div>
 </template>
 

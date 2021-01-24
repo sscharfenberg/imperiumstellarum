@@ -39,6 +39,7 @@ export default {
     >
         <focussable-stars v-if="dimensions" :dimensions="dimensions" />
         <map-stage v-if="dimensions" :dimensions="dimensions" />
+        <div id="MapLegend" />
         <div id="StarChartModal" />
     </area-section>
 </template>

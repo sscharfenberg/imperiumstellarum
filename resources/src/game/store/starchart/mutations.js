@@ -64,6 +64,15 @@ export default {
     },
 
     /**
+     * @function SET player shipyards
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_SHIPYARDS: (state, payload) => {
+        state.shipyards = payload;
+    },
+
+    /**
      * @function SET player fleet movements
      * @param {Object} state - vuex module "starchart" state
      * @param {Array} payload

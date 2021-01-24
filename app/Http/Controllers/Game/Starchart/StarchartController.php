@@ -53,6 +53,9 @@ class StarchartController extends Controller
             'ships' => $player->ships->map(function ($ship) use ($f) {
                 return $f->formatShip($ship);
             }),
+            'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
+                return $f->formatShipyard($shipyard);
+            }),
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }
