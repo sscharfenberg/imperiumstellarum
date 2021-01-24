@@ -27,6 +27,7 @@ export default {
         const fleetLocation = computed(() => store.state.fleets.createLocation);
         const fleetName = computed(() => store.state.fleets.createName);
         const onSubmit = () => {
+            if (!fleetLocation.value || !fleetName.value) return;
             store.dispatch("fleets/CREATE_FLEET", {
                 name: fleetName.value,
                 location: fleetLocation.value,
@@ -55,7 +56,7 @@ export default {
                 }}
             </p>
             <new-fleet-location />
-            <new-fleet-name />
+            <new-fleet-name @submit="onSubmit" />
         </div>
         <template v-slot:actions>
             <game-button

@@ -13,6 +13,12 @@ export default {
         const hasBlueprints = computed(
             () => store.state.shipyards.blueprints.length > 0
         );
+        const hasShipyards = computed(
+            () =>
+                store.state.shipyards.shipyards.filter(
+                    (s) => s.untilComplete === 0
+                ).length > 0
+        );
         const pageIndex = computed({
             get: () => store.state.shipyards.page,
             set: (value) => {
@@ -22,6 +28,7 @@ export default {
         return {
             pageIndex,
             hasBlueprints,
+            hasShipyards,
         };
     },
 };
@@ -38,7 +45,7 @@ export default {
             {{ $t("shipyards.design.navTitle") }}
         </button>
         <button
-            v-if="hasBlueprints"
+            v-if="hasBlueprints && hasShipyards"
             class="shipard-nav__link"
             @click="pageIndex = 1"
             :class="{ active: pageIndex === 1 }"

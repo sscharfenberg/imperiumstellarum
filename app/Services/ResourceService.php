@@ -61,9 +61,11 @@ class ResourceService {
     public function subtractResources(Player $player, array $costs)
     {
         foreach($costs as $resType => $amount) {
-            $playerResource = $player->resources->where('resource_type', $resType)->first();
-            $playerResource->storage -= $amount;
-            $playerResource->save();
+            if ($resType !== 'population') {
+                $playerResource = $player->resources->where('resource_type', $resType)->first();
+                $playerResource->storage -= $amount;
+                $playerResource->save();
+            }
         }
     }
 

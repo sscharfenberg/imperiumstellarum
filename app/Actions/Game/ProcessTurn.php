@@ -119,8 +119,6 @@ class ProcessTurn
         $s->handle($game, $turnSlug);
     }
 
-
-
     /**
      * @function handle game start
      * @param  Game $game

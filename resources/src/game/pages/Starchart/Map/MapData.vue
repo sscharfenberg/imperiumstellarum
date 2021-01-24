@@ -5,7 +5,6 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import RenderStar from "./RenderStar";
-import MapLegend from "./MapLegend";
 export default {
     name: "MapData",
     props: {
@@ -15,7 +14,7 @@ export default {
         cameraY: Number,
         tileSize: Number, // pixel size for a tile
     },
-    components: { RenderStar, MapLegend },
+    components: { RenderStar },
     setup(props) {
         const store = useStore();
         const stars = computed(
@@ -115,7 +114,6 @@ export default {
             :has-shipyard="!!hasShipyard(star.id)"
             :transit-fleets="starFleetTransit(star.id)"
         />
-        <map-legend />
     </div>
 </template>
 

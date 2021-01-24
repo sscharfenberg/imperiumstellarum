@@ -41,6 +41,7 @@ export default {
         // this is kinda akward, but avoids repeating a lot of code.
         // find out if the source (left side) is a fleet or shipyard
         const transferTarget = computed(() => {
+            let rtn = {};
             const targetId = store.state.fleets.transferTargetId;
             const fleet = store.state.fleets.fleets.find(
                 (f) => f.id === targetId
@@ -49,17 +50,18 @@ export default {
                 (s) => s.id === targetId
             );
             if (fleet)
-                return {
+                rtn = {
                     id: fleet.id,
                     name: fleet.name,
                     icon: "fleets",
                 };
             else if (shipyard)
-                return {
+                rtn = {
                     id: shipyard.id,
                     name: shipyard.planetName,
                     icon: "shipyards",
                 };
+            return rtn;
         });
 
         // initial ships by fleetId/shipyardId

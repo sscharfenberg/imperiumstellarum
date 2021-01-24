@@ -14,20 +14,24 @@ export default {
     },
     setup(props) {
         const offsetStyle = computed(() => {
+            let rtn = "";
             if (props.direction === "horizontal")
-                return "transform: translate3d(-" + props.offset + "px, 0, 0)";
+                rtn = "transform: translate3d(-" + props.offset + "px, 0, 0)";
             if (props.direction === "vertical")
-                return "transform: translate3d(0, -" + props.offset + "px, 0)";
+                rtn = "transform: translate3d(0, -" + props.offset + "px, 0)";
+            return rtn;
         });
         const tileStyle = computed(() => {
+            let rtn = "";
             if (props.direction === "horizontal") {
                 let style = "flex: 0 0 " + props.tileSize + "px;";
                 style += " width: " + props.tileSize + "px;";
                 if (props.zoom === 0) style += "font-size: 12px;";
-                return style;
+                rtn = style;
             }
             if (props.direction === "vertical")
-                return "height: " + props.tileSize + "px";
+                rtn = "height: " + props.tileSize + "px";
+            return rtn;
         });
         return {
             offsetStyle,

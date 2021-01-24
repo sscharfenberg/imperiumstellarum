@@ -40,28 +40,19 @@ export default {
             return typeClass;
         });
         const sizeClass = computed(() => {
-            switch (props.size) {
-                case 0:
-                    return "tiny";
-                case 1:
-                    return "small";
-                case 2:
-                    return "";
-                case 3:
-                    return "large";
-            }
+            let rtn = "";
+            if (props.size === 0) rtn = "tiny";
+            if (props.size === 1) rtn = "small";
+            if (props.size === 3) rtn = "large";
+            return rtn;
         });
         const loadingSize = computed(() => {
-            switch (props.size) {
-                case 0:
-                    return 20;
-                case 1:
-                    return 24;
-                case 2:
-                    return 28;
-                case 3:
-                    return 36;
-            }
+            let rtn = 0;
+            if (props.size === 0) rtn = 20;
+            if (props.size === 1) rtn = 24;
+            if (props.size === 2) rtn = 28;
+            if (props.size === 3) rtn = 36;
+            return rtn;
         });
         return {
             typeModifier,

@@ -8,6 +8,7 @@ import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
 import MapStage from "./Map/MapStage";
 import FocussableStars from "./Focus/FocussableStars";
+import MapLegend from "./Map/MapLegend";
 export default {
     name: "PageStarchart",
     components: {
@@ -15,6 +16,7 @@ export default {
         AreaSection,
         FocussableStars,
         MapStage,
+        MapLegend,
     },
     setup() {
         const store = useStore();
@@ -39,7 +41,7 @@ export default {
     >
         <focussable-stars v-if="dimensions" :dimensions="dimensions" />
         <map-stage v-if="dimensions" :dimensions="dimensions" />
-        <div id="MapLegend" />
         <div id="StarChartModal" />
+        <map-legend />
     </area-section>
 </template>

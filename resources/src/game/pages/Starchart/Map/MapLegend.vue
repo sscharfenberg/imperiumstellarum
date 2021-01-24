@@ -28,48 +28,48 @@ export default {
             );
         });
         onMounted(() => {
-            viewPortSize.value = document.getElementById(
-                "mapWrapper"
-            ).offsetWidth;
+            window.setTimeout(() => {
+                viewPortSize.value = document.getElementById(
+                    "mapWrapper"
+                ).offsetWidth;
+            }, 1000);
         });
-        return { zoom, coords };
+        return { zoom, viewPortSize, coords };
     },
 };
 </script>
 
 <template>
-    <teleport to="#MapLegend">
-        <ul class="legend">
-            <li class="legend__item">
-                <icon class="legend__icon legend__icon--neutral" name="info" />
-                {{ $t("starchart.map.legend.zoomLevel") }}: {{ zoom }}
-            </li>
-            <li class="legend__item">
-                <icon class="legend__icon legend__icon--neutral" name="info" />
-                {{ $t("starchart.map.legend.coords") }}: {{ coords.x }} /
-                {{ coords.y }}
-            </li>
-            <li class="legend__item" v-if="zoom > 2">
-                <icon class="legend__icon legend__icon--yes" name="done" />
-                {{ $t("starchart.map.legend.starDetailIcons.yes") }}
-            </li>
-            <li class="legend__item" v-if="zoom <= 2">
-                <icon class="legend__icon legend__icon--no" name="cancel" />
-                {{ $t("starchart.map.legend.starDetailIcons.no") }}
-            </li>
-        </ul>
-    </teleport>
+    <ul class="legend" v-if="viewPortSize">
+        <li class="legend__item">
+            <icon class="legend__icon legend__icon--neutral" name="info" />
+            {{ $t("starchart.map.legend.zoomLevel") }}: {{ zoom }}
+        </li>
+        <li class="legend__item">
+            <icon class="legend__icon legend__icon--neutral" name="info" />
+            {{ $t("starchart.map.legend.coords") }}: {{ coords.x }} /
+            {{ coords.y }}
+        </li>
+        <li class="legend__item" v-if="zoom > 2">
+            <icon class="legend__icon legend__icon--yes" name="done" />
+            {{ $t("starchart.map.legend.starDetailIcons.yes") }}
+        </li>
+        <li class="legend__item" v-if="zoom <= 2">
+            <icon class="legend__icon legend__icon--no" name="cancel" />
+            {{ $t("starchart.map.legend.starDetailIcons.no") }}
+        </li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>
 .legend {
-    padding: 4px;
+    padding: 0 4px 4px 4px;
     margin: 0;
 
     list-style: none;
 
     @include respond-to("medium") {
-        padding: 8px;
+        padding: 0 8px 8px 8px;
     }
 
     @include themed() {

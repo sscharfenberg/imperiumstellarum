@@ -67,7 +67,7 @@ export default {
     />
     <new-fleet-modal v-if="showCreate" @close="showCreate = false" />
     <area-section
-        v-if="fleets.length"
+        v-if="fleets.length || shipyards.length"
         :headline="$t('fleets.active.headline')"
         :requesting="requesting"
     >

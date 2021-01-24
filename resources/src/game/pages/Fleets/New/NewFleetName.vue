@@ -8,7 +8,8 @@ import Icon from "Components/Icon/Icon";
 export default {
     name: "NewFleetName",
     components: { Icon },
-    setup() {
+    emits: ["submit"],
+    setup(props, { emit }) {
         const store = useStore();
         const fleetName = computed({
             get: () => store.state.fleets.createName,
@@ -17,7 +18,10 @@ export default {
             },
         });
         const rules = window.rules.fleets.name;
-        return { fleetName, rules };
+        const onSubmit = () => {
+            emit("submit");
+        };
+        return { fleetName, rules, onSubmit };
     },
 };
 </script>
@@ -35,6 +39,7 @@ export default {
                 :placeholder="$t('fleets.new.namePlaceholder')"
                 :maxlength="rules.max"
                 v-model="fleetName"
+                @keyup.enter="onSubmit"
             />
             <div class="addon"><icon name="fleets" /></div>
         </div>
