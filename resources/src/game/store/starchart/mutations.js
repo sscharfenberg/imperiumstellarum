@@ -188,4 +188,13 @@ export default {
         state.jumpCoordX = null;
         state.jumpCoordY = null;
     },
+
+    /**
+     * @function SET "starMoveFleetHere"
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_STAR_MOVE_FLEET_HERE: (state, payload) => {
+        state.starMoveFleetHereId = payload;
+    },
 };

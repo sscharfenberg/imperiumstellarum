@@ -25,4 +25,5 @@ export default {
     flashCoordY: null,
     jumpCoordX: null,
     jumpCoordY: null,
+    starMoveFleetHereId: "",
 };

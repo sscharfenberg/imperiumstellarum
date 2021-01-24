@@ -25,6 +25,11 @@
         "population": "Gesamt Bevölkerung",
         "fleetsHereLabel": "Flotten in diesem System",
         "fleetsMovingHere": "Flotte unterwegs in dieses System | Flotten unterwegs in dieses System",
-        "fleetsLabel": "Klicken um diese Flotte auf der 'Flotten' Seite zu sehen."
+        "fleetsLabel": "Klicken um diese Flotte auf der 'Flotten' Seite zu sehen.",
+        "sendHere": {
+            "headline": "Flotte zu diesem System bewegen",
+            "travelTime": "Anzahl der Runden die die Flotte braucht um in diesem System anzukommen.",
+            "submit": "Gewählte Flotte losschicken"
+        }
     }
 }

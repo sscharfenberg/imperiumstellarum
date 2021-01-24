@@ -6,6 +6,7 @@ import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
 import Loading from "Components/Loading/Loading";
+import GameButton from "Components/Button/GameButton";
 import StarInfoModalMovingFleets from "./StarInfoModalMovingFleets";
 import StarInfoModalFleetsAtStar from "./StarInfoModalFleetsAtStar";
 import StarInfoModalSendFleetsHere from "./StarInfoModalSendFleetsHere";
@@ -18,6 +19,7 @@ export default {
     components: {
         Modal,
         Loading,
+        GameButton,
         StarInfoModalMovingFleets,
         StarInfoModalFleetsAtStar,
         StarInfoModalSendFleetsHere,
@@ -32,6 +34,9 @@ export default {
         const population = ref(0);
         const spectralClass = computed(
             () => "spectral--" + star.value.spectral
+        );
+        const selectedFleetId = computed(
+            () => store.state.starchart.starMoveFleetHereId
         );
         onMounted(() => {
             const gameId = document.getElementById("game").dataset.gameId;
@@ -52,12 +57,21 @@ export default {
                     requesting.value = false; // hide loader again
                 });
         });
+        const onSubmit = () => {
+            console.log("submit");
+            store.dispatch("starchart/SEND_FLEET", {
+                fleetId: selectedFleetId.value,
+                destinationId: props.starId,
+            });
+        };
         return {
             requesting,
             star,
             spectralClass,
             numPlanets,
             population,
+            selectedFleetId,
+            onSubmit,
         };
     },
 };
@@ -112,12 +126,20 @@ export default {
 
                 <star-info-modal-fleets-at-star :star-id="starId" />
                 <star-info-modal-moving-fleets :star-id="starId" />
-                <star-info-modal-send-fleets-here :star-id="starId" />
             </ul>
+            <star-info-modal-send-fleets-here :star-id="starId" />
             <div class="scanning" v-if="requesting">
                 <loading :size="32" />
                 <span>Scanning Star...</span>
             </div>
+            <template v-slot:actions>
+                <game-button
+                    :text-string="$t('starchart.star.sendHere.submit')"
+                    icon-name="save"
+                    @click="onSubmit"
+                    :disabled="!selectedFleetId"
+                />
+            </template>
         </modal>
     </teleport>
 </template>

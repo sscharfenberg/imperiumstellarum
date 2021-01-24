@@ -25,6 +25,11 @@
         "population": "Total Population",
         "fleetsHereLabel": "Fleets at this star",
         "fleetsMovingHere": "Fleet en route to this star | Fleets en route to this star",
-        "fleetsLabel": "Click to check fleet on 'Fleets' page"
+        "fleetsLabel": "Click to check fleet on 'Fleets' page",
+        "sendHere": {
+            "headline": "Move Fleets to this system",
+            "travelTime": "Number of turns it takes the fleet to move to this star.",
+            "submit": "Send selected fleet"
+        }
     }
 }

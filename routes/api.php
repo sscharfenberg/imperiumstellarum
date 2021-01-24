@@ -143,6 +143,10 @@ Route::middleware([
     // get star details
     Route::get('/game/{game}/star/{star}/details',
         [\App\Http\Controllers\Game\Starchart\StarDetailsController::class, 'handle']);
+    // get fleet travelTimes to a certain star
+    Route::post('/game/{game}/starchart/travelTime',
+        [\App\Http\Controllers\Game\Starchart\StarDistanceController::class, 'handle']);
+
 
     /**
      * shipyards api calls

@@ -68,4 +68,33 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function POST get own system details for travel time
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    SEND_FLEET: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/fleets/destination/send`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.fleets &&
+                    response.data.fleetMovements
+                ) {
+                    commit("SET_FLEETS", response.data.fleets);
+                    commit("SET_FLEET_MOVEMENTS", response.data.fleetMovements);
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };
