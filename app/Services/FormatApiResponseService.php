@@ -332,4 +332,21 @@ class FormatApiResponseService {
         ];
     }
 
+    /**
+     * @function format api response for a player relation
+     * this function only serves as a central formatting function and contains no logic.
+     * @param string $playerId
+     * @param int $set
+     * @param int $effective
+     * @return array
+     */
+    public function formatPlayerRelation (string $playerId, int $set, int $effective): array
+    {
+        return [
+            'playerId' => $playerId,
+            'set' => $set,
+            'effective' => $effective
+        ];
+    }
+
 }

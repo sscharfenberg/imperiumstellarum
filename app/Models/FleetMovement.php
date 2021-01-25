@@ -32,7 +32,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FleetMovement query()
-  * @mixin \Eloquent
+ * @mixin \Eloquent
  */
 class FleetMovement extends Model
 {

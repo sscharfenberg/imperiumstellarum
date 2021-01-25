@@ -85,6 +85,12 @@ Route::middleware([
     Route::get('/game/{game}/fleets',
         [\App\Http\Controllers\Game\Fleets\FleetsController::class, 'gameData']);
 
+    /**
+     * diplomacy api calls
+     */
+    Route::get('/game/{game}/diplomacy',
+        [\App\Http\Controllers\Game\Diplomacy\DiplomacyController::class, 'gameData']);
+
 });
 
 /**

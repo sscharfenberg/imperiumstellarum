@@ -68,6 +68,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $fleets_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FleetMovement[] $fleetMovements
  * @property-read int|null $fleet_movements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelation[] $playerRelations
+ * @property-read int|null $player_relations_count
  */
 class Game extends Model
 {
@@ -237,6 +239,14 @@ class Game extends Model
     public function fleetMovements()
     {
         return $this->hasMany('App\Models\FleetMovement');
+    }
+
+    /**
+     * Get the fleets for this game
+     */
+    public function playerRelations()
+    {
+        return $this->hasMany('App\Models\PlayerRelation');
     }
 
 }

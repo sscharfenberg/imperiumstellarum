@@ -97,7 +97,7 @@ header {
             background-image: t("starchart");
         }
     }
-    &.galnet {
+    &.diplomacy {
         @include themed() {
             background-image: t("diplomacy");
         }

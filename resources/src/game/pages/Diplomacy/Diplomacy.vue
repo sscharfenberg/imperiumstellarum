@@ -2,19 +2,23 @@
 /******************************************************************************
  * Page: Diplomacy
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
+import { onBeforeMount } from "vue";
+import GameHeader from "Components/Header/GameHeader";
 export default {
     name: "PageDiplomacy",
+    components: { GameHeader },
     setup() {
-        return {
-            ...useI18n(),
-        };
+        const store = useStore();
+        onBeforeMount(() => {
+            store.dispatch("diplomacy/GET_GAME_DATA");
+        });
+        return {};
     },
 };
 </script>
 
 <template>
-    <article class="page">
-        <h1>{{ t("diplomacy.title") }}</h1>
-    </article>
+    <game-header area="diplomacy" />
+    Fuddel
 </template>
