@@ -1,4 +1,19 @@
 {
     "title": "Diplomatie",
-    "navTitle": "Diplomatie"
+    "navTitle": "Diplomatie",
+    "status": {
+        "0": "Verfeindet",
+        "1": "Neutral",
+        "2": "Verbündet"
+    },
+    "list": {
+        "headline": "Diplomatische Beziehungen zu anderen Imperien",
+        "filter": {
+            "show": "Zeige",
+            "0": "Feinde",
+            "1": "Neutrale",
+            "2": "Verbündete"
+        },
+        "filterTicker": "Imperiums Ticker"
+    }
 }

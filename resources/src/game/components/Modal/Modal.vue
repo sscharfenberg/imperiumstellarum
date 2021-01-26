@@ -66,6 +66,8 @@ export default {
 </template>
 
 <style lang="scss">
+// the rest of the styles can be found in
+// resources/src/app/styles/components/_modal.scss
 .stats {
     display: grid;
     grid-template-columns: calc(50% - 2px) calc(50% - 2px);

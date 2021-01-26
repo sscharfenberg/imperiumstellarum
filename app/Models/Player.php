@@ -61,6 +61,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $fleet_movements_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelation[] $relations
  * @property-read int|null $relations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelation[] $recipientRelations
+ * @property-read int|null $recipient_relations_count
  */
 class Player extends Model
 {
@@ -220,6 +222,14 @@ class Player extends Model
     public function relations()
     {
         return $this->hasMany('App\Models\PlayerRelation', 'player_id');
+    }
+
+    /**
+     * Get the fleet movements for this player
+     */
+    public function recipientRelations()
+    {
+        return $this->hasMany('App\Models\PlayerRelation', 'recipient_id');
     }
 
 }

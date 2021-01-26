@@ -1,4 +1,19 @@
 {
     "title": "Diplomacy",
-    "navTitle": "Diplomacy"
+    "navTitle": "Diplomacy",
+    "status": {
+        "0": "Hostile",
+        "1": "Neutral",
+        "2": "Allied"
+    },
+    "list": {
+        "headline": "Diplomatic relations to other empires",
+        "filter": {
+            "show": "Show",
+            "0": "Hostiles",
+            "1": "Neutrals",
+            "2": "Allies"
+        },
+        "filterTicker": "Filter by empire ticker"
+    }
 }

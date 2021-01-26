@@ -17,6 +17,9 @@ const defaultState = {
     shipyardPage: 0,
     collapsibleExpandedIds: [],
     shipView: 0,
+    diplomacyShowAllies: true,
+    diplomacyShowNeutrals: true,
+    diplomacyShowHostiles: true,
 };
 
 /**

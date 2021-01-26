@@ -21,7 +21,8 @@ export default {
             .then((response) => {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
-                    // set relations to other players
+                    commit("SET_PLAYERS", response.data.players);
+                    commit("SET_RELATIONS", response.data.relations);
                 }
             })
             .catch((e) => {

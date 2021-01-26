@@ -155,10 +155,14 @@ $size: 24px;
     &__text {
         display: block;
 
-        margin-left: 15px;
+        padding-left: 8px;
         flex: 1;
 
         cursor: pointer;
+
+        @include respond-to("medium") {
+            padding-left: 16px;
+        }
 
         @include themed() {
             color: t("t-light");
