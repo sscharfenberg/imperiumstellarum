@@ -66,4 +66,13 @@ export default {
         state.showHostiles = payload;
         saveState(payload, "diplomacyShowHostiles");
     },
+
+    /**
+     * @function SET show hostiles
+     * @param {Object} state - vuex module "diplomacy" state
+     * @param {String} payload
+     */
+    SET_FILTER_TICKER: (state, payload) => {
+        state.filterByTicker = payload;
+    },
 };

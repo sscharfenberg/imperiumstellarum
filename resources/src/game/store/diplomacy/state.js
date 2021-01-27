@@ -19,4 +19,5 @@ export default {
     showAllies: savedState.diplomacyShowAllies,
     showNeutrals: savedState.diplomacyShowNeutrals,
     showHostiles: savedState.diplomacyShowHostiles,
+    filterByTicker: "",
 };

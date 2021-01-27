@@ -16,6 +16,7 @@ export default {
     empireName: "",
     empireTicker: "",
     empireResearchPriority: 0,
+    empireId: "",
     colour: "",
     resources: [],
     storageUpgrades: [],

@@ -14,6 +14,15 @@
             "1": "Neutrale",
             "2": "Verbündete"
         },
-        "filterTicker": "Imperiums Ticker"
+        "filterTicker": "Imperiums Ticker",
+        "categories": {
+            "0": "Unsere Feinde",
+            "1": "Neutrale Imperien",
+            "2": "Unsere Verbündeten"
+        },
+        "relation": {
+            "set": "Gesetzt",
+            "effective": "Effektiv"
+        }
     }
 }

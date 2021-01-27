@@ -7,9 +7,15 @@ import { computed, onBeforeMount } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
 import DiplomacyFilterPlayers from "./DiplomacyFilterPlayers";
+import DiplomacyListPlayers from "Pages/Diplomacy/DiplomacyListPlayers";
 export default {
     name: "PageDiplomacy",
-    components: { GameHeader, AreaSection, DiplomacyFilterPlayers },
+    components: {
+        GameHeader,
+        AreaSection,
+        DiplomacyFilterPlayers,
+        DiplomacyListPlayers,
+    },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.diplomacy.requesting);
@@ -30,13 +36,9 @@ export default {
         :requesting="requesting"
     >
         <div class="diplomacy">
-            <diplomacy-filter-players />
-            <h1>Our Allies</h1>
-            <h1>Our Enemies</h1>
-            <h1>All Empires</h1>
+            <diplomacy-filter-players v-if="players.length" />
+            <diplomacy-list-players v-if="players.length" />
         </div>
-        <p>{{ players }}</p>
-        <p>{{ relations }}</p>
     </area-section>
 </template>
 

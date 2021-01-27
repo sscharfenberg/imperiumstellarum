@@ -63,7 +63,7 @@ class PlayerRelationService {
         }
 
         // now, add the relations where the recipient has set a relation to the player
-        $recipientRelations = $gameRelations->where('recipient_id', $playerId);#
+        $recipientRelations = $gameRelations->where('recipient_id', $playerId);
         foreach($recipientRelations as $relation) {
             $recipient = $players->where('id', $relation->player_id)->first();
             if (count($relations->where('playerId', $recipient->id)) === 0) {

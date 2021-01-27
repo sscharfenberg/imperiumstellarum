@@ -14,6 +14,15 @@
             "1": "Neutrals",
             "2": "Allies"
         },
-        "filterTicker": "Filter by empire ticker"
+        "filterTicker": "Filter by empire ticker",
+        "categories": {
+            "0": "Our Enemies",
+            "1": "Neutral Empires",
+            "2": "Our Allies"
+        },
+        "relation": {
+            "set": "Set",
+            "effective": "Effective"
+        }
     }
 }

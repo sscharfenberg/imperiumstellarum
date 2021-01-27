@@ -22,12 +22,19 @@ export default {
             get: () => store.state.diplomacy.showHostiles,
             set: (value) => store.commit("diplomacy/SET_SHOW_HOSTILES", value),
         });
-        const test = computed(() => store.state.diplomacy.showAllies);
+        const ticker = computed({
+            get: () => store.state.diplomacy.filterByTicker,
+            set: (value) =>
+                store.commit(
+                    "diplomacy/SET_FILTER_TICKER",
+                    value.toUpperCase()
+                ),
+        });
         return {
             showAllies,
             showHostiles,
             showNeutrals,
-            test,
+            ticker,
         };
     },
 };
@@ -64,13 +71,14 @@ export default {
         </app-checkbox>
         <label class="filters__ticker" for="filterTicker">
             {{ $t("diplomacy.list.filterTicker") }}
-            <input class="form-control" type="text" id="filterTicker" />
+            <input
+                class="form-control"
+                type="text"
+                id="filterTicker"
+                v-model="ticker"
+            />
         </label>
     </nav>
-    filter: Show Allied? {{ test }}<br />
-    filter: Show Neutrals? {{ showNeutrals }}<br />
-    filter: Show Hostile? {{ showHostiles }}<br />
-    [x] Neutral [x] Hostile [Filter by Ticker] [reset filters]
 </template>
 
 <style lang="scss" scoped>

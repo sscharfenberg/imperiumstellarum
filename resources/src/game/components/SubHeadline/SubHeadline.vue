@@ -7,6 +7,7 @@ export default {
     name: "SubHeadline",
     props: {
         headline: String,
+        centered: Boolean,
     },
     setup(props, { slots }) {
         const showSlot = computed(() => slots.default);
@@ -19,7 +20,7 @@ export default {
 
 <template>
     <header>
-        <h1>
+        <h1 :class="{ centered }">
             {{ headline }}
             <span v-if="showSlot" class="aside">
                 <slot></slot>
@@ -43,6 +44,28 @@ header h1 {
         margin-bottom: 16px;
 
         font-size: 18px;
+    }
+
+    &.centered::before {
+        display: block;
+
+        height: 2px;
+        margin-right: 8px;
+        flex-grow: 1;
+
+        content: " ";
+
+        @include themed() {
+            background: linear-gradient(
+                to right,
+                t("b-gorse"),
+                t("b-christine")
+            );
+        }
+
+        @include respond-to("medium") {
+            margin-right: 16px;
+        }
     }
 
     &::after {
