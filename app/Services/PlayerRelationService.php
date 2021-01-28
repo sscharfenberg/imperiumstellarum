@@ -55,9 +55,12 @@ class PlayerRelationService {
         foreach($playerRelations as $relation) {
             $recipient = $players->where('id', $relation->recipient_id)->first();
             $effectiveRelation = $this->getEffectiveRelation($player, $recipient, $gameRelations);
+            $recipientRelation = $gameRelations->where('player_id', $recipient->id)
+                ->where('recipient_id', $player->id)->first();
             $relations->push($f->formatPlayerRelation(
                 $relation->recipient_id, // playerId of recipient
                 $relation->status, // what the player has set to the recipient
+                isset($recipientRelation->status) ? $recipientRelation->status : 9,
                 $effectiveRelation // effective relation, taking into account what recipient has set to player.
             ));
         }
@@ -69,9 +72,11 @@ class PlayerRelationService {
             if (count($relations->where('playerId', $recipient->id)) === 0) {
                 // this relation does not already exist, add it.
                 $effectiveRelation = $this->getEffectiveRelation($player, $recipient, $gameRelations);
+                $recipientRelation = $recipientRelations->where('player_id', $recipient->id)->first();
                 $relations->push($f->formatPlayerRelation(
                     $relation->player_id, // playerId of recipient
                     9, // player has not set anything to the recipient, so we use 9 as a placeholder.
+                    isset($recipientRelation->status) ? $recipientRelation->status : 9,
                     $effectiveRelation // effective relation, taking into account what recipient has set to player.
                 ));
             }

@@ -40,7 +40,7 @@
         width: 100%;
         max-width: calc(100% - 40px);
         border: 10px solid transparent;
-        margin: 10vh 20px 0 20px;
+        margin: 20px 20px 0 20px;
 
         @include themed() {
             background: t("g-sunken");
@@ -51,6 +51,7 @@
 
         @include respond-to("medium") {
             max-width: map-get($breakpoints, "small");
+            margin-top: 20vh;
         }
     }
 

@@ -4,7 +4,8 @@
     "status": {
         "0": "Verfeindet",
         "1": "Neutral",
-        "2": "Verbündet"
+        "2": "Verbündet",
+        "9": "Nicht gesetzt"
     },
     "list": {
         "headline": "Diplomatische Beziehungen zu anderen Imperien",
@@ -16,13 +17,27 @@
         },
         "filterTicker": "Imperiums Ticker",
         "categories": {
-            "0": "Unsere Feinde",
-            "1": "Neutrale Imperien",
-            "2": "Unsere Verbündeten"
+            "0": "Unser Feind | Unsere Feinde",
+            "1": "Neutrales Imperium | Neutrale Imperien",
+            "2": "Unser einziger Verbündeter | Unsere Verbündeten"
         },
         "relation": {
             "set": "Gesetzt",
             "effective": "Effektiv"
+        },
+        "sort": {
+            "asc": "Sortiere Imperien nach Ticker aufsteigend",
+            "desc": "Sortiere Imperien nach Ticker absteigend"
+        },
+        "buttonLabel": "Details zu Imperium [{ticker}]"
+    },
+    "modal": {
+        "headline": "Diplomatische Beziehungen zu Imperium [{ticker}] {name}",
+        "explanation": "Jedes Imperium kann diplomatische Beziehungen zum anderen setzen, der niedrigere Wert bestimmt die effektive Beziehung. Standard ist 1 = Neutral.",
+        "labelSet": "Von uns gesetzt",
+        "labelEffective": "Effektive Beziehung",
+        "change": {
+            "headline": "Diplomatische Beziehung ändern"
         }
     }
 }

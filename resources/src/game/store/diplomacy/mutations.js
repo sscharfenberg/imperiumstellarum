@@ -68,6 +68,16 @@ export default {
     },
 
     /**
+     * @function SET sort direction
+     * @param {Object} state - vuex module "diplomacy" state
+     * @param {String} payload
+     */
+    SET_SORT_DIRECTION: (state, payload) => {
+        state.sort = payload;
+        saveState(payload, "diplomacySort");
+    },
+
+    /**
      * @function SET show hostiles
      * @param {Object} state - vuex module "diplomacy" state
      * @param {String} payload

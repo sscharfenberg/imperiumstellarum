@@ -32,22 +32,38 @@ export default {
                     if (relation) {
                         player.relationEffective = relation.effective;
                         player.relationSet = relation.set;
+                        player.relationRecipientSet = relation.recipientSet;
                     } else {
                         player.relationEffective = 1;
                         player.relationSet = 9;
+                        player.relationRecipientSet = 9;
                     }
                     return player;
                 });
         });
 
+        /**
+         * @function filter and sort mapped players
+         * @param rel
+         * @returns {Array}
+         */
         const filteredPlayers = (rel) => {
+            const locale = document.documentElement.lang;
+            const collator = new Intl.Collator(locale, {
+                numeric: true,
+                sensitivity: "base",
+            });
             const tickerFilter = store.state.diplomacy.filterByTicker;
-            return mappedPlayers.value.filter((p) => {
+            const sortDirection = store.state.diplomacy.sort;
+            const mapped = mappedPlayers.value.filter((p) => {
                 return (
                     p.relationEffective === rel &&
                     p.ticker.includes(tickerFilter)
                 );
             });
+            return sortDirection === "desc"
+                ? mapped.sort((a, b) => collator.compare(a.ticker, b.ticker))
+                : mapped.sort((a, b) => collator.compare(b.ticker, a.ticker));
         };
 
         return {
@@ -56,7 +72,6 @@ export default {
             showNeutrals,
             showHostiles,
             filteredPlayers,
-            mappedPlayers,
         };
     },
 };
@@ -66,7 +81,12 @@ export default {
     <div class="list-players">
         <div class="list-players__category">
             <sub-headline
-                :headline="$t('diplomacy.list.categories.2')"
+                :headline="
+                    $tc(
+                        'diplomacy.list.categories.2',
+                        filteredPlayers(2).length
+                    )
+                "
                 :centered="true"
             />
             <div class="list-players__list" v-if="showAllies">
@@ -79,7 +99,12 @@ export default {
         </div>
         <div class="list-players__category">
             <sub-headline
-                :headline="$t('diplomacy.list.categories.0')"
+                :headline="
+                    $tc(
+                        'diplomacy.list.categories.0',
+                        filteredPlayers(0).length
+                    )
+                "
                 :centered="true"
             />
             <div class="list-players__list" v-if="showHostiles">
@@ -92,7 +117,12 @@ export default {
         </div>
         <div class="list-players__category">
             <sub-headline
-                :headline="$t('diplomacy.list.categories.1')"
+                :headline="
+                    $tc(
+                        'diplomacy.list.categories.1',
+                        filteredPlayers(1).length
+                    )
+                "
                 :centered="true"
             />
             <div class="list-players__list" v-if="showNeutrals">
@@ -104,7 +134,6 @@ export default {
             </div>
         </div>
     </div>
-    {{ mappedPlayers }}
 </template>
 
 <style lang="scss" scoped>
@@ -121,11 +150,15 @@ export default {
         @include respond-to("medium") {
             margin-bottom: 16px;
         }
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
     }
 
     &__list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
 
         grid-gap: 8px;
 

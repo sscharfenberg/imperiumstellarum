@@ -4,7 +4,8 @@
     "status": {
         "0": "Hostile",
         "1": "Neutral",
-        "2": "Allied"
+        "2": "Allied",
+        "9": "Not set"
     },
     "list": {
         "headline": "Diplomatic relations to other empires",
@@ -16,13 +17,27 @@
         },
         "filterTicker": "Filter by empire ticker",
         "categories": {
-            "0": "Our Enemies",
-            "1": "Neutral Empires",
-            "2": "Our Allies"
+            "0": "Our enemy | Our enemies",
+            "1": "Neutral empire | Neutral empires",
+            "2": "Our only ally | Our allies"
         },
         "relation": {
             "set": "Set",
             "effective": "Effective"
+        },
+        "sort": {
+            "asc": "Sort empires by ticker ascending",
+            "desc": "Sort empires by ticker descending"
+        },
+        "buttonLabel": "Details for empire [{ticker}]"
+    },
+    "modal": {
+        "headline": "Diplomatic relations to empire [{ticker}] {name}",
+        "explanation": "Each empire can set diplomatic relations to each other, the lowest value is the effective relation. Default is 1 = neutral.",
+        "labelSet": "Set by us",
+        "labelEffective": "Effective relation",
+        "change": {
+            "headline": "Change diplomatic relation"
         }
     }
 }

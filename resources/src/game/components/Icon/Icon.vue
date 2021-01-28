@@ -57,6 +57,7 @@ export default {
 
     width: 24px;
     height: 24px;
+    flex: 0 0 24px;
 
     fill: currentColor;
 
@@ -65,21 +66,25 @@ export default {
     &.tiny {
         width: 16px;
         height: 16px;
+        flex: 0 0 16px;
     }
 
     &.small {
         width: 20px;
         height: 20px;
+        flex: 0 0 20px;
     }
 
     &.large {
         width: 32px;
         height: 32px;
+        flex: 0 0 32px;
     }
 
     &.xlarge {
         width: 64px;
         height: 64px;
+        flex: 0 0 64px;
     }
 }
 </style>

@@ -2,6 +2,8 @@
 /******************************************************************************
  * PageComponent: DiplomacyShowPlayer
  *****************************************************************************/
+import DiplomacyShowPlayerModal from "./DiplomacyShowPlayerModal";
+import { ref } from "vue";
 export default {
     name: "DiplomacyShowPlayer",
     props: {
@@ -10,17 +12,23 @@ export default {
             required: true,
         },
     },
-    setup(props) {
-        const onClick = () => {
-            console.log("open modal for player ", props.player.id);
-        };
-        return { onClick };
+    components: { DiplomacyShowPlayerModal },
+    setup() {
+        const showModal = ref(false);
+        return { showModal };
     },
 };
 </script>
 
 <template>
-    <button class="player" @click="onClick">
+    <button
+        class="player"
+        @click="showModal = true"
+        :title="$t('diplomacy.list.buttonLabel', { ticker: player.ticker })"
+        :aria-label="
+            $t('diplomacy.list.buttonLabel', { ticker: player.ticker })
+        "
+    >
         <span
             class="player__ticker"
             :style="{ '--playerColour': '#' + player.colour }"
@@ -55,6 +63,16 @@ export default {
             </li>
         </ul>
     </button>
+    <diplomacy-show-player-modal
+        v-if="showModal"
+        :player-id="player.id"
+        :player-name="player.name"
+        :player-ticker="player.ticker"
+        :relation-set="player.relationSet"
+        :relation-recipient-set="player.relationRecipientSet"
+        :relation-effective="player.relationEffective"
+        @close="showModal = false"
+    />
 </template>
 
 <style lang="scss" scoped>

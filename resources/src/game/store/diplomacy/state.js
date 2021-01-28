@@ -20,4 +20,5 @@ export default {
     showNeutrals: savedState.diplomacyShowNeutrals,
     showHostiles: savedState.diplomacyShowHostiles,
     filterByTicker: "",
+    sort: savedState.diplomacySort,
 };

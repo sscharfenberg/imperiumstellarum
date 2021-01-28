@@ -83,6 +83,7 @@ $btnBaseHeight: 34px;
     padding: 0 12px 0 8px;
     border: 1px solid transparent;
 
+    outline: 0;
     cursor: pointer;
 
     @include themed() {
@@ -95,10 +96,8 @@ $btnBaseHeight: 34px;
         color map-get($animation-speeds, "fast") linear,
         border-color map-get($animation-speeds, "fast") linear;
 
-    &:hover:not([disabled]),
-    &:focus {
-        outline: 0;
-
+    &:hover:not([disabled]):not(.btn--primary),
+    &:focus:not([disabled]):not(.btn--primary) {
         @include themed() {
             background: t("g-bunker");
             color: t("b-viking");
@@ -106,7 +105,7 @@ $btnBaseHeight: 34px;
         }
     }
 
-    &:active {
+    &:active:not(.btn--primary) {
         @include themed() {
             background: t("g-ebony");
             color: t("g-white");

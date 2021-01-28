@@ -20,6 +20,7 @@ const defaultState = {
     diplomacyShowAllies: true,
     diplomacyShowNeutrals: true,
     diplomacyShowHostiles: true,
+    diplomacySort: "desc",
 };
 
 /**

@@ -337,14 +337,16 @@ class FormatApiResponseService {
      * this function only serves as a central formatting function and contains no logic.
      * @param string $playerId
      * @param int $set
+     * @param int $recipientSet
      * @param int $effective
      * @return array
      */
-    public function formatPlayerRelation (string $playerId, int $set, int $effective): array
+    public function formatPlayerRelation (string $playerId, int $set, int $recipientSet, int $effective): array
     {
         return [
             'playerId' => $playerId,
             'set' => $set,
+            'recipientSet' => $recipientSet,
             'effective' => $effective
         ];
     }
