@@ -2,11 +2,11 @@
 /******************************************************************************
  * PageComponent: DiplomacyShowPlayerModal
  *****************************************************************************/
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import Modal from "Components/Modal/Modal";
-import Popover from "Components/Popover/Popover";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
+import GameButton from "Components/Button/GameButton";
 export default {
     name: "DiplomacyShowPlayerModal",
     props: {
@@ -17,12 +17,22 @@ export default {
         relationRecipientSet: Number,
         relationEffective: Number,
     },
-    components: { Modal, Popover, SubHeadline },
+    components: { Modal, SubHeadline, GameButton },
     emits: ["close"],
-    setup() {
+    setup(props) {
         const store = useStore();
         const empireTicker = computed(() => store.state.empireTicker);
-        return { empireTicker };
+        const setTo = ref(undefined);
+        const requesting = store.state.diplomacy.requesting;
+        const rules = window.rules.diplomacy;
+        const onSubmit = () => {
+            console.log("submit", setTo.value, props.playerId);
+            store.dispatch("diplomacy/CHANGE_RELATION", {
+                recipient: props.playerId,
+                set: setTo.value,
+            });
+        };
+        return { empireTicker, setTo, rules, requesting, onSubmit };
     },
 };
 </script>
@@ -37,15 +47,9 @@ export default {
         "
         @close="$emit('close')"
     >
-        <p style="display: flex; align-items: center">
-            <popover>
-                {{ $t("diplomacy.modal.explanation") }}
-            </popover>
-            Fuddel Faddel
-        </p>
         <ul class="stats">
             <li class="text-left">
-                [{{ empireTicker }}] => [{{ playerTicker }}]
+                [{{ empireTicker }}] > [{{ playerTicker }}]
             </li>
             <li
                 class="text-left"
@@ -61,7 +65,7 @@ export default {
             </li>
 
             <li class="text-left">
-                [{{ playerTicker }}] => [{{ empireTicker }}]
+                [{{ playerTicker }}] > [{{ empireTicker }}]
             </li>
             <li
                 class="text-left"
@@ -92,6 +96,40 @@ export default {
             </li>
         </ul>
         <sub-headline :headline="$t('diplomacy.modal.change.headline')" />
+        <div class="set-relation">
+            <game-button
+                :disabled="relationSet === 0 || relationSet === 2"
+                :text-string="'0 ' + $t('diplomacy.status.0')"
+                :primary="setTo === 0"
+                @click="setTo = 0"
+            />
+            <game-button
+                :disabled="relationSet === 1 || relationSet === 9"
+                :text-string="'1 ' + $t('diplomacy.status.1')"
+                :primary="setTo === 1"
+                @click="setTo = 1"
+            />
+            <game-button
+                :disabled="relationSet === 2 || relationSet === 0"
+                :text-string="'2 ' + $t('diplomacy.status.2')"
+                :primary="setTo === 2"
+                @click="setTo = 2"
+            />
+        </div>
+        {{
+            $t("diplomacy.modal.change.explanation", {
+                num: rules.turnsUntilEffective,
+            })
+        }}
+        <template v-slot:actions>
+            <game-button
+                :text-string="$t('diplomacy.modal.change.submit')"
+                icon-name="save"
+                :disabled="setTo === undefined"
+                :loading="requesting"
+                @click="onSubmit"
+            />
+        </template>
     </modal>
 </template>
 
@@ -99,19 +137,32 @@ export default {
 p {
     margin: 0 0 8px 0;
 }
-li.allied {
+.allied {
     @include themed() {
         border-color: t("s-success");
     }
 }
-li.hostile {
+.hostile {
     @include themed() {
         border-color: t("s-error");
     }
 }
-li.neutral {
+.neutral {
     @include themed() {
         border-color: t("s-building");
+    }
+}
+
+.set-relation {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    margin: 0 0 8px 0;
+    grid-gap: 2px;
+
+    @include respond-to("medium") {
+        margin: 0 0 16px 0;
+        grid-gap: 8px;
     }
 }
 </style>

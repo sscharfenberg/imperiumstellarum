@@ -8,6 +8,7 @@ import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
 import DiplomacyFilterPlayers from "./DiplomacyFilterPlayers";
 import DiplomacyListPlayers from "Pages/Diplomacy/DiplomacyListPlayers";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageDiplomacy",
     components: {
@@ -15,6 +16,7 @@ export default {
         AreaSection,
         DiplomacyFilterPlayers,
         DiplomacyListPlayers,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -31,10 +33,16 @@ export default {
 
 <template>
     <game-header area="diplomacy" />
+
     <area-section
         :headline="$t('diplomacy.list.headline')"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("diplomacy.modal.explanation") }}
+            </popover>
+        </template>
         <div class="diplomacy">
             <diplomacy-filter-players v-if="players.length" />
             <diplomacy-list-players v-if="players.length" />

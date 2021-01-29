@@ -16,6 +16,7 @@ export default {
     // area meta data
     players: [],
     relations: [],
+    relationChanges: [],
     showAllies: savedState.diplomacyShowAllies,
     showNeutrals: savedState.diplomacyShowNeutrals,
     showHostiles: savedState.diplomacyShowHostiles,

@@ -13,4 +13,5 @@ console.log("bootstrapping game");
 /*
  * mount VueJs app
  */
-createApp(App).use(store).use(i18n).use(router).mount("#game");
+const app = createApp(App).use(store).use(i18n).use(router);
+app.mount("#game");

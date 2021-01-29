@@ -33,11 +33,13 @@
     },
     "modal": {
         "headline": "Diplomatische Beziehungen zu Imperium [{ticker}] {name}",
-        "explanation": "Jedes Imperium kann diplomatische Beziehungen zum anderen setzen, der niedrigere Wert bestimmt die effektive Beziehung. Standard ist 1 = Neutral.",
+        "explanation": "Jedes Imperium kann diplomatische Beziehungen zum anderen setzen, der niedrigere Wert bestimmt die effektive Beziehung. 0 = Verfeindet, 1 = Neutral (Standard), 2 = Verbündet.",
         "labelSet": "Von uns gesetzt",
         "labelEffective": "Effektive Beziehung",
         "change": {
-            "headline": "Diplomatische Beziehung ändern"
+            "headline": "Diplomatische Beziehung ändern",
+            "explanation": "Die diplomatische Beziehung zu diesem Imperium zu ändern wird {num} Runden dauern. Der niedrigere Wert zwischen den beiden Imperium ist die effektive Beziehung.",
+            "submit": "Beziehung Ändern"
         }
     }
 }

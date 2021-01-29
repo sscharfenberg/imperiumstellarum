@@ -192,7 +192,6 @@ Route::middleware([
     // transfer ships
     Route::post('/game/{game}/fleets/transfer',
         [\App\Http\Controllers\Game\Fleets\FleetTransferController::class, 'handle']);
-
     // find a star owned by the player and get information
     Route::post('/game/{game}/fleets/destination/ownSystems',
         [\App\Http\Controllers\Game\Fleets\FindDestinationController::class, 'playerSystems']);
@@ -205,5 +204,11 @@ Route::middleware([
     // send fleet to destination
     Route::post('/game/{game}/fleets/destination/send',
         [\App\Http\Controllers\Game\Fleets\MoveFleetController::class, 'handle']);
+
+    /**
+     * diplomacy api calls
+     */
+    Route::post('/game/{game}/diplomacy/change',
+        [\App\Http\Controllers\Game\Diplomacy\ChangeRelationController::class, 'handle']);
 
 });

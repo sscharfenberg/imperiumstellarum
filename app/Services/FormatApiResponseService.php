@@ -7,6 +7,7 @@ use App\Models\ConstructionContract;
 use App\Models\Fleet;
 use App\Models\FleetMovement;
 use App\Models\Player;
+use App\Models\PlayerRelationChange;
 use App\Models\Research;
 use App\Models\Ship;
 use App\Models\Star;
@@ -348,6 +349,20 @@ class FormatApiResponseService {
             'set' => $set,
             'recipientSet' => $recipientSet,
             'effective' => $effective
+        ];
+    }
+
+    /**
+     * @function format api response for a player relation change
+     * @param PlayerRelationChange $relationChange
+     * @return array
+     */
+    public function formatPlayerRelationChange (PlayerRelationChange $relationChange): array
+    {
+        return [
+            'playerId' => $relationChange->recipient_id,
+            'set' => $relationChange->status,
+            'untilDone' => $relationChange->until_done
         ];
     }
 

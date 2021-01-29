@@ -1253,6 +1253,29 @@ return [
         'movement' => [
             'turnsPerDistance' => 2.5
         ]
+    ],
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for Diplomatic Relations
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'diplomacy' => [
+        'turnsUntilEffective' => 4,
+        'status' => [
+            '0' => [
+                'validChange' => [ 1 ]
+            ],
+            '1' => [
+                'validChange' => [ 0, 2 ]
+            ],
+            '2' => [
+                'validChange' => [ 1 ]
+            ]
+        ]
     ]
 
 ];

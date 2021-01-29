@@ -7,32 +7,35 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\UsesUuid;
 
 /**
- * App\Models\PlayerRelation
+ * App\Models\PlayerRelationChange
  *
  * @property string $id
  * @property string $player_id
  * @property string $game_id
  * @property string $recipient_id
  * @property int $status
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation wherePlayerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereGameId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereRecipientId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation query()
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereUpdatedAt($value)
+ * @property int $until_done
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
  * @property-read \App\Models\Player $recipient
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange whereRecipientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange whereUntilDone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelationChange query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerRelation whereUpdatedAt($value)
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @mixin \Eloquent
  */
-class PlayerRelation extends Model
+class PlayerRelationChange extends Model
 {
+
     use HasFactory, UsesUuid;
 
     /**
@@ -40,7 +43,7 @@ class PlayerRelation extends Model
      *
      * @var string
      */
-    protected $table = 'player_relations';
+    protected $table = 'player_relation_changes';
 
     /**
      * The primary key associated with the table.
@@ -58,7 +61,8 @@ class PlayerRelation extends Model
         'game_id',
         'player_id',
         'recipient_id',
-        'status'
+        'status',
+        'until_done'
     ];
 
     /**
@@ -70,7 +74,7 @@ class PlayerRelation extends Model
     }
 
     /**
-     * Get the player that owns the fleet
+     * Get the player that owns the relationChange
      */
     public function player()
     {

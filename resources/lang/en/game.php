@@ -151,7 +151,12 @@ return [
     ],
 
     'diplomacy' => [
-        'navTitle' => 'Diplomacy'
+        'navTitle' => 'Diplomacy',
+        'errors' => [
+            'recipientInvalid' => 'The empire that you want to set the relation to is not valid.',
+            'statusInvalid' => 'The supplied status is not valid.'
+        ],
+        'relationChangeAccepted' => 'The relation to this empire will change in :num turns.'
     ],
 
 ];

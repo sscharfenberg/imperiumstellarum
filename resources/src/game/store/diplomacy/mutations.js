@@ -34,6 +34,15 @@ export default {
     },
 
     /**
+     * @function SET relationChanges of this player
+     * @param {Object} state - vuex module "diplomacy" state
+     * @param {Array} payload
+     */
+    SET_RELATION_CHANGES: (state, payload) => {
+        state.relationChanges = payload;
+    },
+
+    /**
      * filter empires state
      */
 
