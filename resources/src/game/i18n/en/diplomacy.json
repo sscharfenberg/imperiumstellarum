@@ -36,6 +36,7 @@
         "explanation": "Each empire can set diplomatic relations to each other, the lowest value is the effective relation. 0 = hostile, 1 = neutral (default), 2 = allied.",
         "labelSet": "Set by us",
         "labelEffective": "Effective relation",
+        "changePending": "Our diplomatic relations to [{ticker}] will change in {turns} turns to {status}.",
         "change": {
             "headline": "Change diplomatic relation",
             "explanation": "Changing the diplomatic relation to this empire takes {num} turns to take effect. Please not that the lower value between the two empires is still the effective relation.",

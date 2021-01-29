@@ -2,9 +2,8 @@
 
 namespace App\Http\Traits\Game;
 
-use App\Models\Game;
-use App\Models\Player;
 use App\Models\PlayerRelation;
+use App\Models\PlayerRelationChange;
 
 trait UsesDiplomacyVerification
 {
@@ -24,6 +23,23 @@ trait UsesDiplomacyVerification
         return is_int($status)
             && in_array($status, $validStatii)
             && in_array($status, $validNewStatii);
+    }
+
+    /**
+     * @function verify that there is no relation change pending
+     * @param string $gameId
+     * @param string $playerId
+     * @param string $recipientId
+     * @return bool
+     */
+    public function hasNoRelationChangePending (string $gameId, string $playerId, string $recipientId): bool
+    {
+        $relationChange = PlayerRelationChange::where('game_id', $gameId)
+            ->where('player_id', $playerId)
+            ->where('recipient_id', $recipientId)
+            ->first();
+        if ($relationChange) return false;
+        return true;
     }
 
 }

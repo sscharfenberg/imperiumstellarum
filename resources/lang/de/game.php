@@ -154,7 +154,8 @@ return [
         'navTitle' => 'Diplomatie',
         'errors' => [
             'recipientInvalid' => 'Das Imperium zu dem Sie die Diplomatische Beziehung setzen wollen ist nicht gültig.',
-            'statusInvalid' => 'Der angegebene Status ist nicht gültig.'
+            'statusInvalid' => 'Der angegebene Status ist nicht gültig.',
+            'relationChangePending' => 'Es existiert bereits eine laufende Änderung der diplomatischen Beziehung.'
         ],
         'relationChangeAccepted' => 'Die Beziehung zu diesem Imperium wird sich in :num Runden ändern.'
     ],

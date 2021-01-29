@@ -47,7 +47,10 @@ class ChangeRelationController extends Controller
             return response()
                 ->json(['error' => __('game.diplomacy.errors.statusInvalid')], 419);
         }
-        // TODO: no relationChange exists to recipient
+        if (!$this->hasNoRelationChangePending($game->id, $player->id, $recipientId)) {
+            return response()
+                ->json(['error' => __('game.diplomacy.errors.relationChangePending')], 419);
+        }
 
         // create PlayerRelationChange
         PlayerRelationChange::create([
