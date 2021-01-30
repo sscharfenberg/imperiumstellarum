@@ -5,20 +5,20 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
+import FleetShipSummary from "Components/Fleet/FleetShipSummary";
+import Icon from "Components/Icon/Icon";
 import ShowShipHolder from "../FleetDetails/ShowShipHolder";
 import ShowShipHolderLocation from "./ShowShipHolderLocation";
 import ShowShipyardStatus from "./ShowShipyardStatus";
-import FleetShipSummary from "Components/Fleet/FleetShipSummary";
-import Icon from "Components/Icon/Icon";
 export default {
     name: "ListShipHolders",
     components: {
         CollapsibleItem,
+        FleetShipSummary,
+        Icon,
         ShowShipHolder,
         ShowShipHolderLocation,
         ShowShipyardStatus,
-        FleetShipSummary,
-        Icon,
     },
     setup() {
         const store = useStore();

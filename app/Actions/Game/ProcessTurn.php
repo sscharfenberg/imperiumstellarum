@@ -120,6 +120,21 @@ class ProcessTurn
     }
 
     /**
+     * @function move fleets
+     * @param Game $game
+     * @param string $turnSlug
+     * @throws Exception
+     * @return void
+     */
+    private function changePlayerRelations(Game $game, string $turnSlug)
+    {
+        Log::info("TURN PROCESSING $turnSlug - STEP 8: CHANGE PLAYER RELATIONS.");
+        $s = new \App\Actions\Turn\ProcessPlayerRelations;
+        $s->handle($game, $turnSlug);
+    }
+
+
+    /**
      * @function handle game start
      * @param  Game $game
      * @param Turn $turn
@@ -131,9 +146,9 @@ class ProcessTurn
         $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
         Log::info("TURN PROCESSING $turnSlug - START");
-        $game->processing = true;
-        $game->save();
-
+        //$game->processing = true;
+        //$game->save();
+//
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turnSlug);
         // #2 process harvesters
@@ -149,6 +164,7 @@ class ProcessTurn
         // #7 move fleets
         $this->moveFleets($game, $turnSlug);
         // #8 change diplomatic relations
+        $this->changePlayerRelations($game, $turnSlug);
         // #9 resolve fleet combat
         // #10 colonize star system
         // #11 change system ownership
@@ -158,11 +174,11 @@ class ProcessTurn
 
 
         // #final: cleanup
-        $turn->processed = now();
-        $turn->save();
-        $this->createNewTurn($game, $turn);
-        $game->processing = false;
-        $game->save();
+        //$turn->processed = now();
+        //$turn->save();
+        //$this->createNewTurn($game, $turn);
+        //$game->processing = false;
+        //$game->save();
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;

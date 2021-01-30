@@ -5,8 +5,8 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import router from "@/game/router";
-import Icon from "Components/Icon/Icon";
 import FleetShipSummary from "Components/Fleet/FleetShipSummary";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "StarInfoModalFleets",
     props: {

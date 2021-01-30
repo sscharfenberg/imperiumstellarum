@@ -4,9 +4,9 @@
  *****************************************************************************/
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import GameButton from "Components/Button/GameButton";
 import Modal from "Components/Modal/Modal";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
-import GameButton from "Components/Button/GameButton";
 export default {
     name: "DiplomacyShowPlayerModal",
     props: {

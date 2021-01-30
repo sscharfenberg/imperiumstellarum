@@ -4,9 +4,9 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import GameButton from "Components/Button/GameButton";
 import ShipClassCard from "Components/Ship/ShipClassCard/ShipClassCard";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
-import GameButton from "Components/Button/GameButton";
 export default {
     name: "NewContractPreviewBlueprint",
     components: { SubHeadline, ShipClassCard, GameButton },

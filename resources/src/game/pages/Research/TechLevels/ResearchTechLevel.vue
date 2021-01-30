@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { formatNumber } from "@/game/helpers/format";
-import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
+import Modal from "Components/Modal/Modal";
 export default {
     name: "ResearchTechLevel",
     props: {

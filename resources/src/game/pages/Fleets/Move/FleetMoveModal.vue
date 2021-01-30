@@ -4,32 +4,32 @@
  *****************************************************************************/
 import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
-import GameButton from "Components/Button/GameButton";
-import FleetMoveSummary from "./FleetMoveSummary";
-import FleetMoveOwnSystem from "./FleetMoveOwnSystem";
+import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import FleetMoveAnySystem from "./FleetMoveAnySystem";
 import FleetMoveDestinationInfo from "./FleetMoveDestinationInfo";
+import FleetMoveOwnSystem from "./FleetMoveOwnSystem";
 import FleetMovePlayerSystems from "Pages/Fleets/Move/FleetMovePlayerSystems";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
-import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
+import FleetMoveSummary from "./FleetMoveSummary";
+import GameButton from "Components/Button/GameButton";
 import Loading from "Components/Loading/Loading";
+import Modal from "Components/Modal/Modal";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "FleetMoveModal",
     props: {
         fleetId: String,
     },
     components: {
-        Modal,
-        FleetMoveSummary,
-        SubHeadline,
-        FleetMoveOwnSystem,
-        FleetMoveAnySystem,
-        FleetMovePlayerSystems,
-        FleetMoveDestinationInfo,
         CollapsibleItem,
+        FleetMoveAnySystem,
+        FleetMoveDestinationInfo,
+        FleetMoveOwnSystem,
+        FleetMovePlayerSystems,
+        FleetMoveSummary,
         GameButton,
         Loading,
+        Modal,
+        SubHeadline,
     },
     emits: ["close"],
     setup(props, { emit }) {

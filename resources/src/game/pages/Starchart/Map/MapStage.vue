@@ -5,8 +5,8 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { zoomToTileSize } from "./useMap";
-import MapRuler from "./MapRuler";
 import DraggableMap from "./DraggableMap";
+import MapRuler from "./MapRuler";
 import ZoomNavigation from "./ZoomNavigation";
 export default {
     name: "MapStage",

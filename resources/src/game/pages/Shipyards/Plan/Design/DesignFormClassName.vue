@@ -5,9 +5,9 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import Icon from "Components/Icon/Icon";
 import Loading from "Components/Loading/Loading";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "DesignFormClassName",
     components: { SubHeadline, Icon, Loading },

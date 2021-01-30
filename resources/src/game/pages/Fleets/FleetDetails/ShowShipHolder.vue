@@ -4,9 +4,9 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import ShowFleetMetaActions from "./Meta/ShowFleetMetaActions";
 import ShipCard from "Components/Ship/ShipCard/ShipCard";
 import ShipCardShort from "Components/Ship/ShipCardShort/ShipCardShort";
+import ShowFleetMetaActions from "./Meta/ShowFleetMetaActions";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "ShowShipHolder",
@@ -14,9 +14,9 @@ export default {
         holderId: String,
     },
     components: {
-        ShowFleetMetaActions,
         ShipCard,
         ShipCardShort,
+        ShowFleetMetaActions,
         SubHeadline,
     },
     setup(props) {

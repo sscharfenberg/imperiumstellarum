@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
 import { computed, onMounted, onUnmounted } from "vue";
-import Icon from "Components/Icon/Icon";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "ModalDialogue",
     props: {

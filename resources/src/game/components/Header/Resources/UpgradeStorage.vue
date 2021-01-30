@@ -5,10 +5,10 @@
 import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
-import GameButton from "Components/Button/GameButton";
-import Costs from "Components/Costs/Costs";
 import { isEntityAffordable } from "@/game/helpers/isAffordable";
+import Costs from "Components/Costs/Costs";
+import GameButton from "Components/Button/GameButton";
+import Modal from "Components/Modal/Modal";
 export default {
     name: "UpgradeStorage",
     props: {

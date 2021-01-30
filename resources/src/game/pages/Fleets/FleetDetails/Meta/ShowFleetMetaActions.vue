@@ -4,24 +4,24 @@
  *****************************************************************************/
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import FleetDeleteModal from "./FleetDeleteModal";
+import FleetEditModal from "./FleetEditModal";
+import FleetMoveModal from "../../Move/FleetMoveModal";
+import FleetTransferModal from "../../Transfer/FleetTransferModal";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
-import FleetEditModal from "./FleetEditModal";
-import FleetDeleteModal from "./FleetDeleteModal";
-import FleetTransferModal from "../../Transfer/FleetTransferModal";
-import FleetMoveModal from "../../Move/FleetMoveModal";
 export default {
     name: "ShowFleet",
     props: {
         holderId: String,
     },
     components: {
+        FleetDeleteModal,
+        FleetEditModal,
+        FleetMoveModal,
+        FleetTransferModal,
         GameButton,
         Icon,
-        FleetEditModal,
-        FleetDeleteModal,
-        FleetTransferModal,
-        FleetMoveModal,
     },
     setup(props) {
         const store = useStore();

@@ -6,9 +6,9 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { calculateShipCosts } from "Components/Ship/useShipCalculations";
 import { isEntityAffordable } from "@/game/helpers/isAffordable";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import GameButton from "Components/Button/GameButton";
 import Loading from "Components/Loading/Loading";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "NewContractSubmit",
     components: { SubHeadline, GameButton, Loading },

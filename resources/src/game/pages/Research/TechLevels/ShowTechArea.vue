@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
-import Icon from "Components/Icon/Icon";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 import ListTechLevels from "./ListTechLevels";
 import ResearchTechLevel from "./ResearchTechLevel";
 export default {

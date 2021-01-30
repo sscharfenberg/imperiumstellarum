@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
+import Modal from "Components/Modal/Modal";
 export default {
     name: "DeleteConstructionContractModal",
     props: {

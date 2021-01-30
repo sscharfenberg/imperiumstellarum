@@ -3,13 +3,13 @@
  * Component: ShipCard
  *****************************************************************************/
 import { ref } from "vue";
-import ShipCardHpRadial from "./ShipCardHpRadial";
-import ShipCardHp from "./ShipCardHp";
+import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 import ShipCardDamage from "./ShipCardDamage";
 import ShipCardEngineering from "./ShipCardEngineering";
+import ShipCardHp from "./ShipCardHp";
+import ShipCardHpRadial from "./ShipCardHpRadial";
 import ShipCardRenameModal from "./ShipCardRenameModal";
-import Icon from "Components/Icon/Icon";
-import GameButton from "Components/Button/GameButton";
 export default {
     name: "ShipCard",
     props: {

@@ -4,21 +4,21 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, onBeforeMount, ref } from "vue";
-import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
-import NewFleetModal from "./New/NewFleetModal";
-import ListShipHolders from "./ListShipHolders/ListShipHolders";
 import FleetsSummary from "./FleetsSummary";
 import GameButton from "Components/Button/GameButton";
+import GameHeader from "Components/Header/GameHeader";
+import ListShipHolders from "./ListShipHolders/ListShipHolders";
+import NewFleetModal from "./New/NewFleetModal";
 export default {
     name: "PageFleets",
     components: {
-        GameHeader,
         AreaSection,
-        GameButton,
-        NewFleetModal,
         FleetsSummary,
+        GameButton,
+        GameHeader,
         ListShipHolders,
+        NewFleetModal,
     },
     setup() {
         const store = useStore();

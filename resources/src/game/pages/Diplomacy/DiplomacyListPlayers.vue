@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import DiplomacyShowPlayer from "Pages/Diplomacy/DiplomacyShowPlayer";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "PageDiplomacy",
     components: { SubHeadline, DiplomacyShowPlayer },

@@ -5,8 +5,8 @@
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { computed } from "vue";
-import Icon from "Components/Icon/Icon";
 import FetchButton from "./FetchButton";
+import Icon from "Components/Icon/Icon";
 import PlayerResources from "./Resources/PlayerResources";
 export default {
     name: "GameHeader",

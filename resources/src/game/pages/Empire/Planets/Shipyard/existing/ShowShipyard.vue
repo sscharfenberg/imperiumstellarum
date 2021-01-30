@@ -5,8 +5,8 @@
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 import { ref, computed } from "vue";
-import ShipyardInfo from "./ShipyardInfo";
 import Icon from "Components/Icon/Icon";
+import ShipyardInfo from "./ShipyardInfo";
 export default {
     name: "ShowShipyard",
     props: {

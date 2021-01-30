@@ -4,10 +4,10 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, onBeforeMount } from "vue";
-import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
 import DiplomacyFilterPlayers from "./DiplomacyFilterPlayers";
 import DiplomacyListPlayers from "Pages/Diplomacy/DiplomacyListPlayers";
+import GameHeader from "Components/Header/GameHeader";
 import Popover from "Components/Popover/Popover";
 export default {
     name: "PageDiplomacy",

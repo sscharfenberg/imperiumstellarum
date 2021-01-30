@@ -4,17 +4,17 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
+import GameButton from "Components/Button/GameButton";
 import Modal from "Components/Modal/Modal";
 import NewFleetLocation from "./NewFleetLocation";
 import NewFleetName from "./NewFleetName";
-import GameButton from "Components/Button/GameButton";
 export default {
     name: "NewFleet",
     components: {
+        GameButton,
         Modal,
         NewFleetLocation,
         NewFleetName,
-        GameButton,
     },
     emits: ["close"],
     setup(props, { emit }) {

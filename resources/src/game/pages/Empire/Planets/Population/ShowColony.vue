@@ -5,9 +5,9 @@
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { computed, ref, onBeforeMount } from "vue";
-import Modal from "Components/Modal/Modal";
-import Icon from "Components/Icon/Icon";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
+import Modal from "Components/Modal/Modal";
 import { convertLatinToRoman } from "@/game/helpers/format";
 import debounce from "lodash/debounce";
 export default {

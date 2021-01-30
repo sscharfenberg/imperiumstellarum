@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import SummarizeResources from "./SummarizeResources";
 import SummarizePopulation from "./SummarizePopulation";
+import SummarizeResources from "./SummarizeResources";
 export default {
     name: "ShowSummary",
     components: { SummarizeResources, SummarizePopulation },

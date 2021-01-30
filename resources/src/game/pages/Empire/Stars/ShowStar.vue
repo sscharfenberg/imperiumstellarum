@@ -4,14 +4,14 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import StarSpectral from "./StarSpectral";
-import StarDragHandle from "./StarDragHandle";
-import StarName from "./StarName/StarName";
-import StarNameEdit from "./StarName/StarNameEdit";
-import ShortStarSummary from "./ShortStarSummary";
-import StarLocation from "./StarLocation";
 import ListPlanets from "@/game/pages/Empire/Planets/ListPlanets";
 import Loading from "Components/Loading/Loading";
+import ShortStarSummary from "./ShortStarSummary";
+import StarDragHandle from "./StarDragHandle";
+import StarLocation from "./StarLocation";
+import StarName from "./StarName/StarName";
+import StarNameEdit from "./StarName/StarNameEdit";
+import StarSpectral from "./StarSpectral";
 export default {
     name: "ShowStar",
     props: {

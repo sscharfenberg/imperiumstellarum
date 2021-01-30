@@ -4,9 +4,9 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import ModulesAdded from "./ModulesAdded";
 import ModulesAvailable from "./ModulesAvailable";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "DesignFormModules",
     components: { SubHeadline, ModulesAdded, ModulesAvailable },

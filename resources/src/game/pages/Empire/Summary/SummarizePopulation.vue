@@ -4,7 +4,6 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-
 import Icon from "Components/Icon/Icon";
 export default {
     name: "SummarizeResources",

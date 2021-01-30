@@ -4,9 +4,9 @@
  *****************************************************************************/
 import { computed, onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
-import Icon from "Components/Icon/Icon";
 import FleetShipSummary from "Components/Fleet/FleetShipSummary";
+import Icon from "Components/Icon/Icon";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "StarInfoModalSendFleetsHere",
     props: {

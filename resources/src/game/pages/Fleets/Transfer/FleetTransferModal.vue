@@ -4,26 +4,26 @@
  *****************************************************************************/
 import { computed, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import FleetTransferChooseFleet from "./FleetTransferChooseFleet";
-import FleetTransferShipGrid from "./FleetTransferShipGrid";
 import FleetTransferMassActions from "./FleetTransferMassActions";
+import FleetTransferShipGrid from "./FleetTransferShipGrid";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
+import Modal from "Components/Modal/Modal";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "FleetTransferModal",
     props: {
         holderId: String,
     },
     components: {
-        Modal,
+        FleetTransferChooseFleet,
+        FleetTransferMassActions,
+        FleetTransferShipGrid,
         GameButton,
         Icon,
+        Modal,
         SubHeadline,
-        FleetTransferChooseFleet,
-        FleetTransferShipGrid,
-        FleetTransferMassActions,
     },
     emits: ["close"],
     setup(props, { emit }) {

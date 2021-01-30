@@ -4,11 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
-import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
-import MapStage from "./Map/MapStage";
 import FocussableStars from "./Focus/FocussableStars";
+import GameHeader from "Components/Header/GameHeader";
 import MapLegend from "./Map/MapLegend";
+import MapStage from "./Map/MapStage";
 export default {
     name: "PageStarchart",
     components: {

@@ -4,14 +4,14 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
+import Modal from "Components/Modal/Modal";
 export default {
     name: "FleetDeleteModal",
     props: {
         fleetId: String,
     },
-    components: { Modal, GameButton },
+    components: { GameButton, Modal },
     emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();

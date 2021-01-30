@@ -4,11 +4,11 @@
  *****************************************************************************/
 import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
-import Loading from "Components/Loading/Loading";
 import GameButton from "Components/Button/GameButton";
-import StarInfoModalMovingFleets from "./StarInfoModalMovingFleets";
+import Loading from "Components/Loading/Loading";
+import Modal from "Components/Modal/Modal";
 import StarInfoModalFleetsAtStar from "./StarInfoModalFleetsAtStar";
+import StarInfoModalMovingFleets from "./StarInfoModalMovingFleets";
 import StarInfoModalSendFleetsHere from "./StarInfoModalSendFleetsHere";
 export default {
     name: "StarInfoModal",
@@ -17,11 +17,11 @@ export default {
     },
     emits: ["close"],
     components: {
-        Modal,
-        Loading,
         GameButton,
-        StarInfoModalMovingFleets,
+        Loading,
+        Modal,
         StarInfoModalFleetsAtStar,
+        StarInfoModalMovingFleets,
         StarInfoModalSendFleetsHere,
     },
     setup(props) {

@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 import NewContractSingleBlueprint from "./NewContractSingleBlueprint";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "NewContractSelectBlueprint",
     components: { SubHeadline, NewContractSingleBlueprint },

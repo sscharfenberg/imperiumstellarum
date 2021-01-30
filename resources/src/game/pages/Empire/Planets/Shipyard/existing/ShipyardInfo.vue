@@ -5,10 +5,10 @@
 import { useI18n } from "vue-i18n";
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
-import Icon from "Components/Icon/Icon";
 import Costs from "Components/Costs/Costs";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
+import Modal from "Components/Modal/Modal";
 import { isEntityAffordable } from "@/game/helpers/isAffordable";
 export default {
     name: "ShipyardInfo",

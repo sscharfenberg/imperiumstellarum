@@ -4,8 +4,8 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import NewContract from "./NewContract/NewContract";
 import ManageConstructionContracts from "./Manage/ManageConstructionContracts";
+import NewContract from "./NewContract/NewContract";
 export default {
     name: "ConstructIndex",
     components: { NewContract, ManageConstructionContracts },

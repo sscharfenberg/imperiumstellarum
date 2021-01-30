@@ -4,10 +4,10 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
+import DeleteQueueItem from "./DeleteQueueItem";
+import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
 import LinearProgress from "Components/Progress/LinearProgress";
-import GameButton from "Components/Button/GameButton";
-import DeleteQueueItem from "./DeleteQueueItem";
 export default {
     name: "QueueItem",
     props: {

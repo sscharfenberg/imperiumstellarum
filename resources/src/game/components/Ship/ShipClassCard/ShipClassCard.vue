@@ -10,8 +10,8 @@ import {
     calculateShipCosts,
 } from "../useShipCalculations";
 import { formatNumber } from "@/game/helpers/format";
-import Icon from "Components/Icon/Icon";
 import DamageType from "./DamageType";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "ShipClassCard",
     props: {

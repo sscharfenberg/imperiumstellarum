@@ -3,8 +3,8 @@
  * PageComponent: ShipCardShort
  *****************************************************************************/
 import { ref } from "vue";
-import Icon from "Components/Icon/Icon";
 import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 import ShipCardHpRadial from "../ShipCard/ShipCardHpRadial";
 import ShipCardRenameModal from "../ShipCard/ShipCardRenameModal";
 export default {

@@ -5,10 +5,10 @@
 import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
+import AreaSection from "Components/AreaSection/AreaSection";
 import GameHeader from "Components/Header/GameHeader";
 import ListStars from "./Stars/ListStars";
 import ShowSummary from "./Summary/ShowSummary";
-import AreaSection from "Components/AreaSection/AreaSection";
 export default {
     name: "PageEmpire",
     components: { GameHeader, AreaSection, ListStars, ShowSummary },

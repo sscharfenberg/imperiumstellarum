@@ -2,9 +2,9 @@
 /******************************************************************************
  * PageComponent: NewFleetLocation
  *****************************************************************************/
-import DropDown from "Components/DropDown/DropDown";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import DropDown from "Components/DropDown/DropDown";
 export default {
     name: "NewFleetLocation",
     components: { DropDown },

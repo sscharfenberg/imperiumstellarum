@@ -4,11 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
-import GameHeader from "Components/Header/GameHeader";
 import AreaSection from "Components/AreaSection/AreaSection";
-import ResearchPriority from "./Priority/ResearchPriority";
+import GameHeader from "Components/Header/GameHeader";
 import ListQueue from "./Queue/ListQueue";
 import ListTechAreas from "./TechLevels/ListTechAreas";
+import ResearchPriority from "./Priority/ResearchPriority";
 export default {
     name: "PageResearch",
     components: {

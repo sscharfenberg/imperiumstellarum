@@ -5,10 +5,10 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
-import NewContractSelectShipyard from "./NewContractSelectShipyard";
-import NewContractSelectBlueprint from "./Blueprint/NewContractSelectBlueprint";
 import NewContractPreviewBlueprint from "./Blueprint/NewContractPreviewBlueprint";
 import NewContractSelectAmount from "./NewContractSelectAmount";
+import NewContractSelectBlueprint from "./Blueprint/NewContractSelectBlueprint";
+import NewContractSelectShipyard from "./NewContractSelectShipyard";
 import NewContractSubmit from "./NewContractSubmit";
 export default {
     name: "NewContract",

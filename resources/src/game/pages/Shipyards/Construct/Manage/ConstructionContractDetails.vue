@@ -5,9 +5,9 @@
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import { formatNumber } from "@/game/helpers/format";
-import Icon from "Components/Icon/Icon";
-import GameButton from "Components/Button/GameButton";
 import DeleteConstructionContractModal from "./DeleteConstructionContractModal";
+import GameButton from "Components/Button/GameButton";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "ConstructionContractDetails",
     props: {

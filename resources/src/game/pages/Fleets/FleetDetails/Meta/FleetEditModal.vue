@@ -4,15 +4,15 @@
  *****************************************************************************/
 import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
-import Modal from "Components/Modal/Modal";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
+import Modal from "Components/Modal/Modal";
 export default {
     name: "FleetEditModal",
     props: {
         fleetId: String,
     },
-    components: { Modal, GameButton, Icon },
+    components: { GameButton, Icon, Modal },
     emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();

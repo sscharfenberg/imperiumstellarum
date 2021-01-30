@@ -3,8 +3,8 @@
  * App entry component
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
-import DrawerGameNavigation from "Components/Drawer/DrawerGameNavigation";
 import DrawerGameData from "Components/Drawer/DrawerGameData";
+import DrawerGameNavigation from "Components/Drawer/DrawerGameNavigation";
 export default {
     name: "App",
     components: { DrawerGameNavigation, DrawerGameData },

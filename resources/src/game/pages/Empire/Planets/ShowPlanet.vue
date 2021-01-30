@@ -4,11 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import PlanetType from "./PlanetType";
-import PlanetName from "./PlanetName";
-import ShowPopulation from "./Population/ShowPopulation";
 import ListResources from "./Resources/ListResources";
+import PlanetName from "./PlanetName";
+import PlanetType from "./PlanetType";
 import ShipyardSlot from "./Shipyard/ShipyardSlot";
+import ShowPopulation from "./Population/ShowPopulation";
 export default {
     name: "ShowPlanet",
     props: {

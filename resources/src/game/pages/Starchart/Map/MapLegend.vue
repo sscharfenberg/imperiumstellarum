@@ -4,11 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref, onMounted } from "vue";
-import Icon from "Components/Icon/Icon";
 import {
     zoomToTileSize,
     convertCameraToCenteredCoords,
 } from "Pages/Starchart/Map/useMap";
+import Icon from "Components/Icon/Icon";
 export default {
     name: "MapLegend",
     components: { Icon },

@@ -112,6 +112,7 @@ module.exports = merge(common, {
         // https://webpack.js.org/plugins/mini-css-extract-plugin/
         new MiniCssExtractPlugin({
             filename: "[name].[chunkhash].css",
+            ignoreOrder: true, // Enable to remove warnings about conflicting order
         }),
 
         // https://webpack.js.org/plugins/copy-webpack-plugin/
