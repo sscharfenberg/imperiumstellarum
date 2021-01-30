@@ -146,9 +146,9 @@ class ProcessTurn
         $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
         Log::info("TURN PROCESSING $turnSlug - START");
-        //$game->processing = true;
-        //$game->save();
-//
+        $game->processing = true;
+        $game->save();
+
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turnSlug);
         // #2 process harvesters
@@ -174,11 +174,11 @@ class ProcessTurn
 
 
         // #final: cleanup
-        //$turn->processed = now();
-        //$turn->save();
-        //$this->createNewTurn($game, $turn);
-        //$game->processing = false;
-        //$game->save();
+        $turn->processed = now();
+        $turn->save();
+        $this->createNewTurn($game, $turn);
+        $game->processing = false;
+        $game->save();
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;

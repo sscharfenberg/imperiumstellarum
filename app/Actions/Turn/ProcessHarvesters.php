@@ -43,19 +43,19 @@ class ProcessHarvesters
     {
         $players = Player::where('game_id', $game->id)->get();
         $harvesters = Harvester::where('game_id', $game->id)
-            ->where('until_complete', '0')->get();
+            ->where('until_complete', '=', '0')->get();
         $r = new ResourceService;
         $f = new FormatApiResponseService;
         foreach ($players as $player) {
             $playerResources = $player->resources;
 
             // get player harvesters
-            $harvesters = $harvesters->filter(function($harvester) use ($player) {
+            $playerHarvesters = $harvesters->filter(function($harvester) use ($player) {
                 return $harvester->player_id === $player->id;
             });
 
             // loop all player harvesters and add production to resources.
-            foreach ($harvesters as $harvester) {
+            foreach ($playerHarvesters as $harvester) {
                 $res = $playerResources->where('resource_type', $harvester->resource_type)->first();
                 $res->storage += $harvester->production;
             }
