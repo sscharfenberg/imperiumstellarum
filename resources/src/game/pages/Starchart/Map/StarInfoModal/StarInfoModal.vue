@@ -38,6 +38,17 @@ export default {
         const selectedFleetId = computed(
             () => store.state.starchart.starMoveFleetHereId
         );
+        const empireRelation = computed(() => {
+            const rel = store.state.starchart.relations.find(
+                (r) => r.playerId === star.value.ownerId
+            );
+            if (rel && rel.effective >= 0) {
+                return rel.effective;
+            } else {
+                return undefined;
+            }
+        });
+
         onMounted(() => {
             const gameId = document.getElementById("game").dataset.gameId;
             requesting.value = true; // show loader
@@ -57,6 +68,7 @@ export default {
                     requesting.value = false; // hide loader again
                 });
         });
+
         const onSubmit = () => {
             console.log("submit");
             store.dispatch("starchart/SEND_FLEET", {
@@ -72,6 +84,7 @@ export default {
             population,
             selectedFleetId,
             onSubmit,
+            empireRelation,
         };
     },
 };
@@ -112,6 +125,23 @@ export default {
                 </li>
                 <li class="text-left featured" v-if="star.ownerTicker">
                     {{ star.ownerTicker }}
+                </li>
+
+                <li class="text-left" v-if="star.ownerTicker">
+                    {{ $t("starchart.star.playerRelation") }}
+                </li>
+                <li
+                    class="text-left"
+                    v-if="star.ownerTicker"
+                    :class="{
+                        allied: empireRelation === 2,
+                        neutral: empireRelation === 1,
+                        hostile: empireRelation === 0,
+                    }"
+                >
+                    {{ empireRelation }} ({{
+                        $t("diplomacy.status." + empireRelation)
+                    }})
                 </li>
 
                 <li class="text-left" v-if="numPlanets">
@@ -195,9 +225,23 @@ export default {
 }
 
 .stats {
-    grid-template-columns: 2fr 3fr;
-
     margin-bottom: 0;
+
+    li.allied {
+        @include themed() {
+            border-color: t("s-success");
+        }
+    }
+    li.hostile {
+        @include themed() {
+            border-color: t("s-error");
+        }
+    }
+    li.neutral {
+        @include themed() {
+            border-color: t("s-building");
+        }
+    }
 }
 
 .scanning {

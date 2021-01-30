@@ -14,7 +14,8 @@
                 "no": "Flotten, Flottenbewegungen und Werften werden NICHT angezeigt."
             },
             "zoomLevel": "Zoom Stufe",
-            "coords": "Map coordinates centered on (rounded)"
+            "coords": "Karte zentriert auf (gerundet)",
+            "playerRelation": "Diplomatische Beziehung zum Besitzer wird angezeigt (Punkt links unten)"
         }
     },
     "star": {
@@ -28,6 +29,7 @@
             "label": "Besitzer",
             "none": "Keiner"
         },
+        "playerRelation": "Diplomatische Beziehung zum Besitzer",
         "ownerTicker": "Ticker des Besitzers",
         "numPlanets": "Anzahl Planeten",
         "population": "Gesamt Bevölkerung",

@@ -46,6 +46,15 @@ export default {
     },
 
     /**
+     * @function SET player relations to other empires
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_RELATIONS: (state, payload) => {
+        state.relations = payload;
+    },
+
+    /**
      * @function SET player fleets
      * @param {Object} state - vuex module "starchart" state
      * @param {Array} payload

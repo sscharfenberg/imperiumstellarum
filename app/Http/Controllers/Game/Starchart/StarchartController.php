@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Game\Starchart;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\PlayerRelation;
 use App\Services\ApiService;
 use App\Services\FormatApiResponseService;
+use App\Services\PlayerRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,7 @@ class StarchartController extends Controller
     public function gameData (Request $request): JsonResponse
     {
         $a = new ApiService;
+        $p = new PlayerRelationService;
         $defaultApiData = $a->defaultData($request);
 
         $gameId = $request->route('game');
@@ -31,6 +34,7 @@ class StarchartController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $playerStars = $player->stars;
         $fleetMovements = $player->fleetMovements;
+        $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
 
         $f = new FormatApiResponseService;
         $returnData = [
@@ -40,6 +44,7 @@ class StarchartController extends Controller
             'players' => $players->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             }),
+            'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $players),
             'dimensions' => $game->dimensions,
             'playerStars' => $playerStars->map(function ($star) use ($f) {
                 return $f->formatStar($star);

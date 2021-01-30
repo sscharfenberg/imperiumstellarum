@@ -24,6 +24,7 @@ export default {
                     commit("SET_STARS", response.data.stars);
                     commit("SET_STARS_SHOWN", response.data.stars);
                     commit("SET_PLAYERS", response.data.players);
+                    commit("SET_RELATIONS", response.data.relations);
                     commit("SET_FLEETS", response.data.fleets);
                     commit("SET_FLEET_SHIPS", response.data.ships);
                     commit("SET_SHIPYARDS", response.data.shipyards);
@@ -54,6 +55,7 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_STARS", response.data.stars);
                     commit("SET_PLAYERS", response.data.players);
+                    commit("SET_RELATIONS", response.data.relations);
                     commit("SET_FLEETS", response.data.fleets);
                     commit("SET_FLEET_SHIPS", response.data.ships);
                     commit("SET_SHIPYARDS", response.data.shipyards);

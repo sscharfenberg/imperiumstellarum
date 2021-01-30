@@ -58,6 +58,10 @@ export default {
             <icon class="legend__icon legend__icon--no" name="cancel" />
             {{ $t("starchart.map.legend.starDetailIcons.no") }}
         </li>
+        <li class="legend__item">
+            <icon class="legend__icon legend__icon--yes" name="done" />
+            {{ $t("starchart.map.legend.playerRelation") }}
+        </li>
     </ul>
 </template>
 

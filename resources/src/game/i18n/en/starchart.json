@@ -14,7 +14,8 @@
                 "no": "NOT Showing our fleets, fleet movements and shipyards."
             },
             "zoomLevel": "Zoom level",
-            "coords": "Karte zentriert auf (gerundet)"
+            "coords": "Map coordinates centered on (rounded)",
+            "playerRelation": "Diplomatic relation to owner is shown (dot bottom left)"
         }
     },
     "star": {
@@ -28,6 +29,7 @@
             "label": "Owner",
             "none": "None"
         },
+        "playerRelation": "Diplomatic relation to owner",
         "ownerTicker": "Owner Ticker",
         "numPlanets": "Number of planets",
         "population": "Total Population",

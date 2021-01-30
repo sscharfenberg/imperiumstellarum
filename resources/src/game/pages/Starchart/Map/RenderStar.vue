@@ -22,6 +22,7 @@ export default {
         numFleets: Number,
         hasShipyard: Boolean,
         transitFleets: Number,
+        relationStatus: Number,
     },
     components: { Icon, StarInfoModal },
     setup(props) {
@@ -42,11 +43,13 @@ export default {
             if (props.ownerId) title = `[${props.ticker}] ${title}`;
             return title;
         });
+        const playerColour = computed(() => "#" + store.state.colour);
         return {
             showModal,
             bgColour,
             starClass,
             starTitle,
+            playerColour,
         };
     },
 };
@@ -69,14 +72,34 @@ export default {
     >
         <span class="ticker" v-if="ticker">{{ ticker }}</span>
         <span class="fleets" v-if="numFleets > 0 && zoom > 2">
-            <icon name="fleets" v-for="n in numFleets" :key="n" />
+            <icon
+                name="fleets"
+                v-for="n in numFleets"
+                :key="n"
+                :style="{ '--fleetColour': playerColour }"
+            />
         </span>
         <span class="shipyard" v-if="hasShipyard && zoom > 2">
             <icon name="shipyards" />
         </span>
         <span class="transit" v-if="transitFleets > 0 && zoom > 2">
-            <icon name="transit" v-for="n in transitFleets" :key="n" />
+            <icon
+                name="transit"
+                v-for="n in transitFleets"
+                :key="n"
+                :style="{ '--fleetColour': playerColour }"
+            />
         </span>
+        <span
+            class="diplomatic-relation"
+            v-if="relationStatus >= 0"
+            :title="$t('diplomacy.status.' + relationStatus)"
+            :class="{
+                allied: relationStatus === 2,
+                neutral: relationStatus === 1,
+                hostile: relationStatus === 0,
+            }"
+        ></span>
     </button>
     <star-info-modal
         v-if="showModal"
@@ -152,9 +175,7 @@ export default {
         width: calc(var(--cssTileSize) / 4);
         height: calc(var(--cssTileSize) / 4);
 
-        @include themed() {
-            color: t("b-viking");
-        }
+        fill: var(--fleetColour);
     }
 }
 
@@ -199,8 +220,36 @@ export default {
         width: calc(var(--cssTileSize) / 4);
         height: calc(var(--cssTileSize) / 4);
 
+        fill: var(--fleetColour);
+    }
+}
+
+.diplomatic-relation {
+    display: flex;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    align-items: center;
+    justify-content: center;
+
+    width: calc(var(--cssTileSize) / 4);
+    height: calc(var(--cssTileSize) / 4);
+
+    border-radius: 50%;
+
+    &.allied {
         @include themed() {
-            color: t("b-viking");
+            background-color: t("s-success");
+        }
+    }
+    &.hostile {
+        @include themed() {
+            background-color: t("s-error");
+        }
+    }
+    &.neutral {
+        @include themed() {
+            background-color: t("s-building");
         }
     }
 }

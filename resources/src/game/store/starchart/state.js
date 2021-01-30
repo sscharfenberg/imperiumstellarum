@@ -14,6 +14,7 @@ export default {
     stars: [],
     starsShown: [],
     playerStars: [],
+    relations: [],
     players: [],
     fleets: [],
     fleetMovements: [],

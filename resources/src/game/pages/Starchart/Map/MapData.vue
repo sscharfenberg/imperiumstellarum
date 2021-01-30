@@ -41,6 +41,13 @@ export default {
         const availableTilePixels = computed(
             () => props.tileSize - 1 - 2 * borderWidth.value
         );
+        const relations = computed(() => store.state.starchart.relations);
+        const getEmpireRelation = (playerId) => {
+            const rel = relations.value.find((r) => r.playerId === playerId);
+            if (rel && rel.effective >= 0) {
+                return rel.effective;
+            }
+        };
 
         // css values
         const cssTileSize = computed(() => availableTilePixels.value + "px");
@@ -82,6 +89,7 @@ export default {
             cssTileSize,
             bgPos,
             cssBorderWidth,
+            getEmpireRelation,
             numStarFleets,
             hasShipyard,
             starFleetTransit,
@@ -113,6 +121,7 @@ export default {
             :num-fleets="numStarFleets(star.id)"
             :has-shipyard="!!hasShipyard(star.id)"
             :transit-fleets="starFleetTransit(star.id)"
+            :relation-status="getEmpireRelation(star.ownerId)"
         />
     </div>
 </template>
