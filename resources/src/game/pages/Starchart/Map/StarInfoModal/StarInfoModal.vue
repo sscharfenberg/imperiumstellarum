@@ -39,15 +39,19 @@ export default {
             () => store.state.starchart.starMoveFleetHereId
         );
         const empireRelation = computed(() => {
+            if (!star.value.ownerId) return undefined;
             const rel = store.state.starchart.relations.find(
                 (r) => r.playerId === star.value.ownerId
             );
             if (rel && rel.effective >= 0) {
                 return rel.effective;
             } else {
-                return undefined;
+                return 1;
             }
         });
+        const ownSystem = computed(
+            () => star.value.ownerId === store.state.empireId
+        );
 
         onMounted(() => {
             const gameId = document.getElementById("game").dataset.gameId;
@@ -85,6 +89,7 @@ export default {
             selectedFleetId,
             onSubmit,
             empireRelation,
+            ownSystem,
         };
     },
 };
@@ -127,12 +132,12 @@ export default {
                     {{ star.ownerTicker }}
                 </li>
 
-                <li class="text-left" v-if="star.ownerTicker">
+                <li class="text-left" v-if="!ownSystem && star.ownerTicker">
                     {{ $t("starchart.star.playerRelation") }}
                 </li>
                 <li
                     class="text-left"
-                    v-if="star.ownerTicker"
+                    v-if="!ownSystem && star.ownerTicker"
                     :class="{
                         allied: empireRelation === 2,
                         neutral: empireRelation === 1,

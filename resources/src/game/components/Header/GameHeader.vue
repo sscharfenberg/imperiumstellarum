@@ -2,7 +2,6 @@
 /******************************************************************************
  * Component: Header
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { computed } from "vue";
 import FetchButton from "./FetchButton";
@@ -23,12 +22,15 @@ export default {
         const name = computed(() => state.empireName);
         const ticker = computed(() => state.empireTicker);
         const requesting = computed(() => state[props.area].requesting);
+        const turnSlug = computed(
+            () => `g${state.gameNumber}t${state.gameTurn}`
+        );
         return {
             className,
             name,
             ticker,
             requesting,
-            ...useI18n(),
+            turnSlug,
         };
     },
 };
@@ -38,8 +40,9 @@ export default {
     <header :class="className">
         <aside class="area">
             <icon :name="area" :size="1" />
-            {{ t(area + ".title") }}
+            {{ $t(area + ".title") }}
         </aside>
+        <aside v-if="ticker" class="game">{{ turnSlug }}</aside>
         <fetch-button :area="area" />
         <h1>
             <span v-if="ticker">[{{ ticker }}]</span>
@@ -109,9 +112,9 @@ header {
     display: flex;
     align-items: center;
 
-    padding: $padding #{$padding * 4.5} $padding #{$padding * 1.5};
+    padding: 4px 22px 4px 6px;
 
-    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
 
     font-size: 20px;
     font-weight: 300;
@@ -123,8 +126,18 @@ header {
         color: t("t-light");
     }
 
+    @include respond-to("medium") {
+        padding: 8px 36px 8px 12px;
+
+        clip-path: polygon(0% 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
+    }
+
     .icon {
-        margin-right: 8px;
+        margin-right: 4px;
+
+        @include respond-to("medium") {
+            margin-right: 8px;
+        }
 
         @include themed() {
             color: t("b-viking");
@@ -132,8 +145,35 @@ header {
     }
 }
 
+.game {
+    $padding: 8px;
+    display: flex;
+    align-items: center;
+
+    padding: 4px 22px;
+    margin-left: -12px;
+
+    clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
+
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1;
+
+    @include themed() {
+        background: rgba(t("g-raven"), 0.4);
+        color: t("t-light");
+    }
+
+    @include respond-to("medium") {
+        padding: 8px 36px;
+        margin-left: -16px;
+
+        clip-path: polygon(30px 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%);
+    }
+}
+
 h1 {
-    padding: 16px;
+    padding: 0 4px 4px 4px;
     margin: 0;
     flex: 0 1 100%;
 
@@ -148,6 +188,18 @@ h1 {
 
         text-shadow: 1px 1px 0 t("g-bunker"), -1px 1px 0 t("g-bunker"),
             -1px -1px 0 t("g-bunker"), 1px -1px 0 t("g-bunker");
+    }
+
+    @include respond-to("medium") {
+        padding: 0 16px 16px 16px;
+    }
+
+    > span:first-of-type {
+        padding-right: 6px;
+
+        @include respond-to("medium") {
+            padding-right: 12px;
+        }
     }
 }
 </style>

@@ -151,7 +151,7 @@ class StartGame
      * @throws \Exception
      * @return void
      */
-    private function seedPlayerStars ($game) {
+    public function seedPlayerStars ($game) {
         Log::notice('Seeding player starting colonies.');
         $players = $game->players;
         $homeSystems = $game->stars->filter(function ($value) {

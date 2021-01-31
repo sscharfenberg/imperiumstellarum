@@ -22,11 +22,11 @@ class UserFactory extends Factory
      * @return array
      * @throws \Exception
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => random_int(0,5) == 5 ? null : Carbon::now()->subDays(random_int(2, 30)),
+            'email_verified_at' => Carbon::now()->subDays(random_int(2, 30)),
             'locale' => random_int(0, 1) == 1 ? 'en' : 'de',
             'role' => random_int(0,9) == 9 ? 'mod' : 'user',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',

@@ -3,7 +3,8 @@
  * PageComponent: DiplomacyShowPlayer
  *****************************************************************************/
 import DiplomacyShowPlayerModal from "./DiplomacyShowPlayerModal";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 export default {
     name: "DiplomacyShowPlayer",
     props: {
@@ -13,9 +14,20 @@ export default {
         },
     },
     components: { DiplomacyShowPlayerModal },
-    setup() {
+    setup(props) {
+        const store = useStore();
         const showModal = ref(false);
-        return { showModal };
+        const relationChangePending = computed(() => {
+            const relationChangePending = store.state.diplomacy.relationChanges.find(
+                (r) => r.playerId === props.player.id
+            );
+            if (relationChangePending) {
+                return relationChangePending.untilDone;
+            } else {
+                return 0;
+            }
+        });
+        return { showModal, relationChangePending };
     },
 };
 </script>
@@ -46,8 +58,17 @@ export default {
                 }"
             >
                 {{ $t("diplomacy.list.relation.set") }}
-                <div>
+                <div v-if="!relationChangePending">
                     {{ player.relationSet !== 9 ? player.relationSet : "-" }}
+                </div>
+                <div v-if="relationChangePending" class="change-pending">
+                    <span
+                        v-for="n in relationChangePending"
+                        role="presentation"
+                        aria-hidden="true"
+                        :key="n"
+                        >•</span
+                    >
                 </div>
             </li>
             <li
@@ -185,6 +206,36 @@ export default {
 
             font-size: 20px;
             font-weight: 600;
+        }
+
+        .change-pending {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 16px;
+
+            > span {
+                width: 4px;
+                height: 4px;
+                margin: 0 4px 0 0;
+
+                border-radius: 50%;
+
+                text-indent: -1000em;
+
+                @include themed() {
+                    background: linear-gradient(
+                        to bottom,
+                        t("s-warning") 0%,
+                        t("s-error") 100%
+                    );
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
 }

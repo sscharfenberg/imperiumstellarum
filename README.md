@@ -4,7 +4,7 @@ A turn-based multiplayer browser game of galactic conquest. Check [https://imper
 
 ## Server Requirements
 
-* MySQL / MariaDB Database ^5.7.31
+* MySQL ^5.7.31 / MariaDB (not tested, but should work)
 * PHP 7.3+
 * NodeJS ^14.15.3, npm ^6.14.9
 
@@ -24,7 +24,7 @@ Use at your own risk.
 * `npm run dev`: generate frontend files for **development** environment and watches all applicable files for changes.
 * `npm run icons`: generates a single icon sprite from all available svg-icons.
 * `npm run cleanup`: prunes `public/assets` folder and deletes all generated files.
-* `npm run db:fresh`: drops all database tables, creates new tables and seeds with test data
+* `npm run db:testdata` creates fresh database tables and seeds with test data  
 * `npm run ide:helper`: creates type hints and php docs for IDEs.
 
 ## Installation
@@ -36,8 +36,7 @@ Use at your own risk.
 - **setup mailserver for development**: I use [https://mailtrap.io/](https://mailtrap.io/) - this can be used like a normal smtp server, but does not actually send anything. Instead, the mails are placed conveniently in an inbox for you to study. Create a free inbox, and copy the credentials to `.env`.
 - `php artisan key:generate` to generate your own application key
 - `php artisan storage:link` to create a symlink from `public` to `storage`.
-- `npm run db:fresh` to create the database and setup test-data.
- 
+- `npm run db:testdata` (alias for `php artisan migrate:fresh && php artisan db:seed`): create database tables and seed the database with test data. Creates two games (40x40 map and 100x100 map), 11 users and 22 players, seeds database with planets/stars, enlists the players and starts the games. All users have `password` as password. `ash@imperiumstellarum.io` has admin permissions.
 
 ## Attribution
 
@@ -47,4 +46,8 @@ This project uses a lot of open source software - without the efforts of all the
 
 ## License
 
-Imperium Stellarum is licensed under the [MIT license](https://opensource.org/licenses/MIT). Please see the [LICENSE](./LICENSE) file. Feel free to use this code - or parts of it - and do with it whatever you like.
+Imperium Stellarum is licensed under the [MIT license](https://opensource.org/licenses/MIT). Please see the [LICENSE](./LICENSE) file. 
+
+### Can I use parts of Imperium Stellarum for my own project?
+
+Yes, absolutely. Use at your own risk though :)

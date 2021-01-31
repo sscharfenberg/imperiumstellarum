@@ -80,6 +80,8 @@ export default {
         width: 26px;
         height: 26px;
         margin-right: 8px;
+
+        flex: 0 0 26px;
     }
 
     .btn {

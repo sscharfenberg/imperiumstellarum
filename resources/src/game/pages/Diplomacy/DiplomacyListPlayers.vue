@@ -79,7 +79,7 @@ export default {
 
 <template>
     <div class="list-players">
-        <div class="list-players__category">
+        <div v-if="showAllies" class="list-players__category">
             <sub-headline
                 :headline="
                     $tc(
@@ -89,7 +89,7 @@ export default {
                 "
                 :centered="true"
             />
-            <div class="list-players__list" v-if="showAllies">
+            <div class="list-players__list">
                 <diplomacy-show-player
                     v-for="player in filteredPlayers(2)"
                     :key="player.id"
@@ -97,7 +97,7 @@ export default {
                 />
             </div>
         </div>
-        <div class="list-players__category">
+        <div v-if="showHostiles" class="list-players__category">
             <sub-headline
                 :headline="
                     $tc(
@@ -107,7 +107,7 @@ export default {
                 "
                 :centered="true"
             />
-            <div class="list-players__list" v-if="showHostiles">
+            <div class="list-players__list">
                 <diplomacy-show-player
                     v-for="player in filteredPlayers(0)"
                     :key="player.id"
@@ -115,7 +115,7 @@ export default {
                 />
             </div>
         </div>
-        <div class="list-players__category">
+        <div v-if="showNeutrals" class="list-players__category">
             <sub-headline
                 :headline="
                     $tc(
@@ -125,7 +125,7 @@ export default {
                 "
                 :centered="true"
             />
-            <div class="list-players__list" v-if="showNeutrals">
+            <div class="list-players__list">
                 <diplomacy-show-player
                     v-for="player in filteredPlayers(1)"
                     :key="player.id"

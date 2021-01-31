@@ -36,6 +36,9 @@ export default {
         const bgColour = computed(() =>
             props.zoom <= 2 ? props.ownerColour : "transparent"
         );
+        const ownSystem = computed(
+            () => props.ownerId === store.state.empireId
+        );
         const starTitle = computed(() => {
             let title = `${props.name}: ${i18n.t(
                 "starchart.star.buttonLabel"
@@ -50,6 +53,7 @@ export default {
             starClass,
             starTitle,
             playerColour,
+            ownSystem,
         };
     },
 };
@@ -92,7 +96,7 @@ export default {
         </span>
         <span
             class="diplomatic-relation"
-            v-if="relationStatus >= 0"
+            v-if="!ownSystem && relationStatus >= 0"
             :title="$t('diplomacy.status.' + relationStatus)"
             :class="{
                 allied: relationStatus === 2,

@@ -35,8 +35,8 @@ export default {
     <button
         @click="fetchGameData"
         :disabled="fetching"
-        :aria-disabled="fetching"
-        :aria-expanded="fetching"
+        :aria-disabled="!!fetching"
+        :aria-expanded="!!fetching"
         :aria-label="
             fetching
                 ? $t('common.header.fetchData.fetching')
@@ -59,9 +59,9 @@ button {
     position: relative;
 
     height: 36px;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border: 1px solid palette("dark", "g-sunken");
-    margin: 16px 16px 0 auto;
+    margin: 4px 4px 0 auto;
 
     background: rgba(palette("dark", "g-raven"), 0.6);
     color: palette("dark", "t-light");
@@ -70,6 +70,11 @@ button {
 
     transition: background-color map-get($animation-speeds, "fast") linear,
         color map-get($animation-speeds, "fast") linear;
+
+    @include respond-to("medium") {
+        padding: 5px 10px;
+        margin: 16px 16px 0 auto;
+    }
 
     &:hover:not([disabled]),
     &:focus {

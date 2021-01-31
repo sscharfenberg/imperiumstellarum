@@ -43,9 +43,12 @@ export default {
         );
         const relations = computed(() => store.state.starchart.relations);
         const getEmpireRelation = (playerId) => {
+            if (!playerId) return undefined;
             const rel = relations.value.find((r) => r.playerId === playerId);
             if (rel && rel.effective >= 0) {
                 return rel.effective;
+            } else {
+                return 1;
             }
         };
 

@@ -13,7 +13,7 @@
         "dev": "node ./resources/build/serveDev.js",
         "icons": "node ./resources/build/icons.js",
         "cleanup": "node ./resources/build/cleanup.js",
-        "db:fresh": "php artisan migrate:fresh && php artisan db:seed",
+        "db:testdata": "php artisan migrate:fresh && php artisan db:seed",
         "ide:helper": "php artisan ide-helper:generate && php artisan ide-helper:meta && php artisan ide-helper:models"
     },
     "engines": {

@@ -9,6 +9,7 @@ class SuspensionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * this seeder is (optionally) used to test suspensions
      *
      * @return void
      */

@@ -235,7 +235,7 @@ export default {
             grid-gap: 2px;
 
             @include respond-to("medium") {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: calc(50% - 2px) calc(50% - 2px);
 
                 grid-gap: 4px;
             }
