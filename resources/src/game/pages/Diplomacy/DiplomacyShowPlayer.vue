@@ -2,9 +2,9 @@
 /******************************************************************************
  * PageComponent: DiplomacyShowPlayer
  *****************************************************************************/
-import DiplomacyShowPlayerModal from "./DiplomacyShowPlayerModal";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import DiplomacyShowPlayerModal from "./DiplomacyShowPlayerModal";
 export default {
     name: "DiplomacyShowPlayer",
     props: {
@@ -17,6 +17,7 @@ export default {
     setup(props) {
         const store = useStore();
         const showModal = ref(false);
+        const empireTicker = computed(() => store.state.empireTicker);
         const relationChangePending = computed(() => {
             const relationChangePending = store.state.diplomacy.relationChanges.find(
                 (r) => r.playerId === props.player.id
@@ -27,7 +28,7 @@ export default {
                 return 0;
             }
         });
-        return { showModal, relationChangePending };
+        return { showModal, relationChangePending, empireTicker };
     },
 };
 </script>
@@ -51,13 +52,25 @@ export default {
             <li
                 class="player__relation"
                 :class="{
+                    allied: player.relationEffective === 2,
+                    neutral: player.relationEffective === 1,
+                    hostile: player.relationEffective === 0,
+                }"
+            >
+                {{ $t("diplomacy.list.relation.effective") }}
+                <div>{{ player.relationEffective }}</div>
+            </li>
+
+            <li
+                class="player__relation"
+                :class="{
                     allied: player.relationSet === 2,
                     neutral: player.relationSet === 1,
                     hostile: player.relationSet === 0,
                     unset: player.relationSet === 9,
                 }"
             >
-                {{ $t("diplomacy.list.relation.set") }}
+                [{{ empireTicker }}] > [{{ player.ticker }}]
                 <div v-if="!relationChangePending">
                     {{ player.relationSet !== 9 ? player.relationSet : "-" }}
                 </div>
@@ -71,16 +84,24 @@ export default {
                     >
                 </div>
             </li>
+
             <li
                 class="player__relation"
                 :class="{
-                    allied: player.relationEffective === 2,
-                    neutral: player.relationEffective === 1,
-                    hostile: player.relationEffective === 0,
+                    allied: player.relationRecipientSet === 2,
+                    neutral: player.relationRecipientSet === 1,
+                    hostile: player.relationRecipientSet === 0,
+                    unset: player.relationRecipientSet === 9,
                 }"
             >
-                {{ $t("diplomacy.list.relation.effective") }}
-                <div>{{ player.relationEffective }}</div>
+                [{{ player.ticker }}] > [{{ empireTicker }}]
+                <div>
+                    {{
+                        player.relationRecipientSet !== 9
+                            ? player.relationRecipientSet
+                            : "-"
+                    }}
+                </div>
             </li>
         </ul>
     </button>
@@ -151,33 +172,41 @@ export default {
         justify-content: center;
 
         width: 100%;
-        height: 60px;
+        height: 45px;
         padding: 4px;
 
         @include respond-to("medium") {
-            height: 80px;
+            height: 55px;
             padding: 8px;
         }
     }
 
     &__relations {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
 
         width: calc(100% - 16px);
         padding: 0;
         margin: 0 8px 8px 8px;
-        grid-gap: 8px;
+        grid-gap: 2px;
 
         list-style: none;
+
+        @include respond-to("medium") {
+            grid-gap: 4px;
+        }
     }
 
     &__relation {
-        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 2px;
         border: 2px solid transparent;
 
         @include respond-to("medium") {
-            padding: 8px;
+            padding: 4px;
         }
 
         &.allied {
@@ -202,8 +231,6 @@ export default {
         }
 
         > div {
-            margin-top: 8px;
-
             font-size: 20px;
             font-weight: 600;
         }

@@ -158,7 +158,7 @@ export default {
 
     &__list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 
         grid-gap: 8px;
 

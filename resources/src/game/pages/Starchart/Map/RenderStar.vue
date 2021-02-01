@@ -76,23 +76,15 @@ export default {
     >
         <span class="ticker" v-if="ticker">{{ ticker }}</span>
         <span class="fleets" v-if="numFleets > 0 && zoom > 2">
-            <icon
-                name="fleets"
-                v-for="n in numFleets"
-                :key="n"
-                :style="{ '--fleetColour': playerColour }"
-            />
+            <span v-if="numFleets > 1">{{ numFleets }}</span>
+            <icon name="fleets" :style="{ '--fleetColour': playerColour }" />
         </span>
         <span class="shipyard" v-if="hasShipyard && zoom > 2">
             <icon name="shipyards" />
         </span>
         <span class="transit" v-if="transitFleets > 0 && zoom > 2">
-            <icon
-                name="transit"
-                v-for="n in transitFleets"
-                :key="n"
-                :style="{ '--fleetColour': playerColour }"
-            />
+            <span v-if="transitFleets > 1">{{ transitFleets }}</span>
+            <icon name="transit" :style="{ '--fleetColour': playerColour }" />
         </span>
         <span
             class="diplomatic-relation"
@@ -168,7 +160,9 @@ export default {
     align-items: center;
     justify-content: center;
 
-    padding: 2px 4px;
+    padding: 0 calc(var(--cssTileSize) / 15);
+
+    font-size: calc(var(--cssTileSize) / 6);
 
     @include themed() {
         background: rgba(t("g-raven"), 0.7);
@@ -213,8 +207,12 @@ export default {
     top: 50%;
     right: 50%;
     align-items: center;
+    justify-content: center;
 
+    padding: 0 calc(var(--cssTileSize) / 15);
     transform: translate3d(50%, -50%, 0);
+
+    font-size: calc(var(--cssTileSize) / 6);
 
     @include themed() {
         background: rgba(t("g-raven"), 0.7);

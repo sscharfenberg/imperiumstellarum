@@ -83,19 +83,19 @@ export default {
         </app-checkbox>
         <app-checkbox
             class="filters__relation"
-            :checked-initially="showNeutrals"
-            @checked="showNeutrals = true"
-            @unchecked="showNeutrals = false"
-        >
-            {{ $t("diplomacy.list.filter.1") }}
-        </app-checkbox>
-        <app-checkbox
-            class="filters__relation"
             :checked-initially="showHostiles"
             @checked="showHostiles = true"
             @unchecked="showHostiles = false"
         >
             {{ $t("diplomacy.list.filter.0") }}
+        </app-checkbox>
+        <app-checkbox
+            class="filters__relation"
+            :checked-initially="showNeutrals"
+            @checked="showNeutrals = true"
+            @unchecked="showNeutrals = false"
+        >
+            {{ $t("diplomacy.list.filter.1") }}
         </app-checkbox>
     </nav>
 </template>

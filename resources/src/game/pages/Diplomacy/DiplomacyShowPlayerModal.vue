@@ -62,6 +62,22 @@ export default {
     >
         <ul class="stats">
             <li class="text-left">
+                {{ $t("diplomacy.modal.labelEffective") }}
+            </li>
+            <li
+                class="text-left"
+                :class="{
+                    allied: relationEffective === 2,
+                    neutral: relationEffective === 1,
+                    hostile: relationEffective === 0,
+                }"
+            >
+                {{ relationEffective }} ({{
+                    $t("diplomacy.status." + relationEffective)
+                }})
+            </li>
+
+            <li class="text-left">
                 [{{ empireTicker }}] > [{{ playerTicker }}]
             </li>
             <li
@@ -90,22 +106,6 @@ export default {
             >
                 {{ relationRecipientSet !== 9 ? relationRecipientSet : "-" }}
                 ({{ $t("diplomacy.status." + relationRecipientSet) }})
-            </li>
-
-            <li class="text-left">
-                {{ $t("diplomacy.modal.labelEffective") }}
-            </li>
-            <li
-                class="text-left"
-                :class="{
-                    allied: relationEffective === 2,
-                    neutral: relationEffective === 1,
-                    hostile: relationEffective === 0,
-                }"
-            >
-                {{ relationEffective }} ({{
-                    $t("diplomacy.status." + relationEffective)
-                }})
             </li>
         </ul>
         <sub-headline

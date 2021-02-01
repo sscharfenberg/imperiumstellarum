@@ -7,9 +7,53 @@ import { getDistance } from "./slider";
 import PoissonDiskSampling from "poisson-disk-sampling";
 
 /**
+ * @function filter stars again by removing direct neighbours of player systems
+ * @param {Array} stars
+ * @param {Number} dimensions
+ * @returns {*}
+ */
+const removeDirectPlayerNeighbours = (stars, dimensions) => {
+    const NEIGHBOURS = [-1, -1, 0, -1, 1, -1, -1, 0, 1, 0, -1, 1, 0, 1, 1, 1];
+    const playerStars = stars.filter((star) => star.type === 2);
+    let npcStars = stars.filter((star) => star.type === 1);
+    console.log(
+        `checking ${playerStars.length} player stars, ${npcStars.length} npc stars.`
+    );
+    const npcStarsToRemove = [];
+    npcStars.forEach((star) => {
+        let i = 0;
+        while (i < 16) {
+            let lx = star.x + NEIGHBOURS[i++]; // get the x offset
+            let ly = star.y + NEIGHBOURS[i++]; // get the y offset
+            // ensure you are inside the grid
+            if (ly >= 0 && ly < dimensions && lx >= 0 && lx < dimensions) {
+                //console.log(`checking neighbour x=${lx}, y=${ly}`);
+                const adjactentHomeStar = playerStars.find(
+                    (s) => s.x === lx && s.y === ly
+                );
+                if (adjactentHomeStar) {
+                    npcStarsToRemove.push(star);
+                }
+            }
+        }
+    });
+    npcStars = npcStars.filter((star) => {
+        return !npcStarsToRemove.includes(star);
+    });
+
+    console.log(
+        `eliminated ${
+            stars.length - npcStars.length + playerStars.length
+        } stars directly adjacent to player home systems.`
+    );
+
+    return [...playerStars, ...npcStars];
+};
+
+/**
  * @function filter stars - remove duplicates and stars that are outside of map dimensions
- * @param {array} stars
- * @param {number} dimensions
+ * @param {Array} stars
+ * @param {Number} dimensions
  * @returns {*}
  */
 const filterStars = (stars, dimensions) => {
@@ -93,7 +137,7 @@ const seed = (nDist, pDist, dimensions) => {
         `generated ${allStars.length} stars total - ` +
             `${npcStars.length} npc systems, ${playerStars.length} player home systems.`
     );
-    const filteredStars = filterStars(allStars, dimensions).map((star) => {
+    let filteredStars = filterStars(allStars, dimensions).map((star) => {
         return { x: star[0], y: star[1], type: star[2] };
     });
     console.log(
@@ -101,6 +145,7 @@ const seed = (nDist, pDist, dimensions) => {
             filteredStars.length
         } remaining.`
     );
+    filteredStars = removeDirectPlayerNeighbours(filteredStars, dimensions);
     _input.value = JSON.stringify(filteredStars);
     _form.submit();
 };
