@@ -9,9 +9,10 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import GameHeader from "Components/Header/GameHeader";
 import ListStars from "./Stars/ListStars";
 import ShowSummary from "./Summary/ShowSummary";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageEmpire",
-    components: { GameHeader, AreaSection, ListStars, ShowSummary },
+    components: { GameHeader, AreaSection, ListStars, ShowSummary, Popover },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.empire.requesting);
@@ -45,6 +46,11 @@ export default {
         :requesting="requesting"
         :headline="t('empire.stars', { num: numStars })"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("empire.explanation") }}
+            </popover>
+        </template>
         <list-stars />
     </area-section>
 </template>

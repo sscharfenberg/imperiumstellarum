@@ -9,6 +9,7 @@ import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import SingleBlueprint from "./SingleBlueprint";
 import ManagePreview from "./Preview/ManagePreview";
 import Icon from "Components/Icon/Icon";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "ManageBlueprints",
     components: {
@@ -17,6 +18,7 @@ export default {
         SingleBlueprint,
         ManagePreview,
         Icon,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -59,6 +61,11 @@ export default {
         v-if="blueprints.length"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("shipyards.manage.explanation") }}
+            </popover>
+        </template>
         <div class="manage">
             <div class="list">
                 <collapsible-item

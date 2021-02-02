@@ -40,7 +40,7 @@ export default {
     >
         <template v-slot:aside>
             <popover align="right">
-                {{ $t("diplomacy.modal.explanation") }}
+                {{ $t("diplomacy.explanation") }}
             </popover>
         </template>
         <div class="diplomacy">

@@ -1,6 +1,7 @@
 {
     "title": "Fleets",
     "navTitle": "Fleets",
+    "explanation": "You can transfer ships between fleets and shipyards if both are located at the same star. Fleets can only be moved if the fleet has ships and all ships are ftl-capable.",
     "view": {
         "detailed": "Switch to detailed ship view",
         "collapsed": "Switch to collapsed ship view"

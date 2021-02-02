@@ -20,6 +20,7 @@
     "design": {
         "navTitle": "Blueprints",
         "title": "Create Blueprint",
+        "explanation": "The available blueprint hulltypes depends on the shipyards that your empire has. TechLevels are locked in a blueprint at creation.",
         "hullType": {
             "headline": "Select hull type",
             "radioLabel": "Click to select a {type} hull"
@@ -63,6 +64,7 @@
     },
     "manage": {
         "title": "Manage blueprints",
+        "explanation": "Deleting a blueprint does not remove the ships that are based on this blueprint. Deleting is only possible if there is no active construction contract that uses this blueprint. Maximum number of blueprints depends on the empire total population.",
         "collapsible": "{type} Blueprints",
         "blueprintName": "'{className}' Class {hullType}",
         "preview": "Preview",
@@ -76,6 +78,7 @@
     },
     "construct": {
         "navTitle": "Build",
+        "explanation": "Resource costs for ships need to be paid when the shipyard starts to build the ship - so the first batch of resource costs needs to be paid when the construction contract is created.",
         "newContract": {
             "title": "New Construction Contract",
             "shipyard": {
@@ -100,6 +103,7 @@
     },
     "constructions": {
         "headline": "Current ccnstruction contracts",
+        "explanation": "Deleting a construction contract before it is finished will always result in a loss of resources, since the next ship has already been paid.",
         "contractTopic": "{num}x {name} {type} on Planet {planetName}",
         "details": {
             "ships": "Ships",

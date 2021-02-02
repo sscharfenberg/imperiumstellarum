@@ -1,6 +1,7 @@
 {
     "title": "Sternenkarte",
     "navTitle": "Sternenkarte",
+    "explanation": "Bewegen Sie die Karte durch dragging. Ein Klick auf einen Stern öffnet ein Infofenster in dem Sie Flotten verschicken können.",
     "focus": {
         "stars": "Karte auf Stern zentrieren",
         "coords": "Karte auf Koordinaten zentrieren",

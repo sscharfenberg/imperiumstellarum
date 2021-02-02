@@ -66,6 +66,9 @@ h2 {
     }
 
     .aside {
+        display: flex;
+        align-items: flex-start;
+
         margin-top: 8px;
         flex: 0 0 100%;
 

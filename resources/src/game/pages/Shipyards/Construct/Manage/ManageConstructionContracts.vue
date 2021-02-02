@@ -8,6 +8,7 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import ConstructionContractDetails from "./ConstructionContractDetails";
 import Icon from "Components/Icon/Icon";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "ManageConstructionContracts",
     components: {
@@ -15,6 +16,7 @@ export default {
         CollapsibleItem,
         ConstructionContractDetails,
         Icon,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -36,6 +38,11 @@ export default {
 
 <template>
     <area-section :headline="$t('shipyards.constructions.headline')">
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("shipyards.constructions.explanation") }}
+            </popover>
+        </template>
         <collapsible-item
             v-for="contract in contracts"
             :key="contract.id"

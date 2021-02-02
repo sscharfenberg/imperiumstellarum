@@ -9,6 +9,7 @@ import GameHeader from "Components/Header/GameHeader";
 import ListQueue from "./Queue/ListQueue";
 import ListTechAreas from "./TechLevels/ListTechAreas";
 import ResearchPriority from "./Priority/ResearchPriority";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageResearch",
     components: {
@@ -17,6 +18,7 @@ export default {
         ResearchPriority,
         ListQueue,
         ListTechAreas,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -48,6 +50,11 @@ export default {
         :headline="$t('research.priority.label')"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("research.explanation") }}
+            </popover>
+        </template>
         <research-priority />
     </area-section>
     <area-section
@@ -57,6 +64,11 @@ export default {
         )} (${numResearchJobs}/${maxResearchJobs})`"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("research.queue.explanation") }}
+            </popover>
+        </template>
         <list-queue />
     </area-section>
     <area-section
@@ -64,6 +76,11 @@ export default {
         :headline="$t('research.tl.hdl')"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("research.tl.explanation") }}
+            </popover>
+        </template>
         <list-tech-areas />
     </area-section>
 </template>

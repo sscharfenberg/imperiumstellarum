@@ -43,7 +43,7 @@ export default {
 
 <template>
     <ul class="tech-levels">
-        <li class="learned">0</li>
+        <li class="learned" :aria-label="label(0)">0</li>
         <li
             v-for="level in max"
             :key="level"

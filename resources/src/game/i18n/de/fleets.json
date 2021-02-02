@@ -1,6 +1,7 @@
 {
     "title": "Flotten",
     "navTitle": "Flotten",
+    "explanation": "Sie können Schiffe zwischen Flotten und Werften transferieren wenn beide sich im gleichen Sternensystem befinden. Flotten können nur bewegt werden wenn die Flotte Schiffe hat und alle Schiffe ftl-fähig sind.",
     "view": {
         "detailed": "Wechseln zur detaillierten Schiffs-Ansicht",
         "collapsed": "Wechseln zur kurzen Schiffs-Ansicht."

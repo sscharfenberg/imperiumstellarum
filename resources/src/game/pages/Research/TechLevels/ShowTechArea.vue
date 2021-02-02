@@ -77,7 +77,7 @@ export default {
     display: flex;
     //align-items: flex-start;
 
-    padding: 80px;
+    padding: 8px;
     border: 1px solid transparent;
     margin-bottom: 8px;
 

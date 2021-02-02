@@ -20,6 +20,7 @@
     "design": {
         "navTitle": "Baupläne",
         "title": "Bauplan erstellen",
+        "explanation": "Die verfügbaren Schiffstypen von Bauplänen hängen von den Werften des Imperiums ab. TechLevels werden bei Erstellung des Bauplanes festgelegt; spätere Forschungsresultate haben keine Auswirkungen auf bestehende Baupläne.",
         "hullType": {
             "headline": "Schiffstyp wählen",
             "radioLabel": "Klicken um {type} als Schiffstyp zu wählen"
@@ -63,6 +64,7 @@
     },
     "manage": {
         "title": "Baupläne verwalten",
+        "explanation": "Ein Bauplan kann nur gelöscht werden wenn es keinen aktiven Bauauftrag gibt der diesen Bauplan verwendet. Einen Bauplan zu löschen hat keinen Einfluß auf Schiffe die auf diesem Bauplan basieren. Die maximale Anzal an Bauplänen hängt von der Gesamtbevölkerung des Imperiums ab.",
         "collapsible": "{type} Baupläne",
         "blueprintName": "{hullType} der Klasse '{className}'",
         "preview": "Vorschau",
@@ -76,6 +78,7 @@
     },
     "construct": {
         "navTitle": "Konstruieren",
+        "explanation": "Resourcenkosten für Schiffe müssen bezahlt werden wenn die Werft beginnt ein Schiff zu bauen; das erste mal also bei Erstellung des Bauauftrages.",
         "newContract": {
             "title": "Neuer Bauauftrag",
             "shipyard": {
@@ -100,7 +103,8 @@
     },
     "constructions": {
         "headline": "Aktuelle Bauaufträge",
-        "contractTopic": "{num}x {name} {type} on Planet {planetName}",
+        "explanation": "Einen Bauauftrag zu löschen bedeutet immer auch den Verlust von Resourcen, da das nächste Schiff bereits bezahlt wurde.",
+        "contractTopic": "{num}x {name} {type} auf Planet {planetName}",
         "details": {
             "ships": "Schiffe",
             "total": "Gesamt",

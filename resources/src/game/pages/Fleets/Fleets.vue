@@ -10,6 +10,7 @@ import GameButton from "Components/Button/GameButton";
 import GameHeader from "Components/Header/GameHeader";
 import ListShipHolders from "./ListShipHolders/ListShipHolders";
 import NewFleetModal from "./New/NewFleetModal";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageFleets",
     components: {
@@ -19,6 +20,7 @@ export default {
         GameHeader,
         ListShipHolders,
         NewFleetModal,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -95,6 +97,9 @@ export default {
                 :text-string="$t('fleets.new.btnNewFleet')"
                 @click="showCreate = true"
             />
+            <popover align="right">
+                {{ $t("fleets.explanation") }}
+            </popover>
         </template>
         <list-ship-holders />
     </area-section>

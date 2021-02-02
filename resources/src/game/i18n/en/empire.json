@@ -1,6 +1,7 @@
 {
     "title": "Empire",
     "navTitle": "Empire",
+    "explanation": "You can change the order of stars by dragging. The status of a star (expanded/collapsed) is saved in your browser.",
     "summary": {
         "title": "Economy Summary",
         "production": "from {num} harvesters",

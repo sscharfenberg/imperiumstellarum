@@ -73,6 +73,12 @@ export default {
                 });
         });
 
+        const availableFleets = computed(() =>
+            store.state.starchart.fleets.filter(
+                (f) => f.starId !== props.starId && f.starId && f.ftl
+            )
+        );
+
         const onSubmit = () => {
             console.log("submit");
             store.dispatch("starchart/SEND_FLEET", {
@@ -90,6 +96,7 @@ export default {
             onSubmit,
             empireRelation,
             ownSystem,
+            availableFleets,
         };
     },
 };
@@ -167,7 +174,7 @@ export default {
                 <loading :size="32" />
                 <span>Scanning Star...</span>
             </div>
-            <template v-slot:actions>
+            <template v-slot:actions v-if="availableFleets.length > 0">
                 <game-button
                     :text-string="$t('starchart.star.sendHere.submit')"
                     icon-name="save"

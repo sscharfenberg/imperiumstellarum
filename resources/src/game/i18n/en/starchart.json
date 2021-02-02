@@ -1,6 +1,7 @@
 {
     "title": "Starmap",
     "navTitle": "Starmap",
+    "explanation": "Move the map via dragging. Click on a star opens a info window where you can send fleets.",
     "focus": {
         "stars": "Focus map on star",
         "coords": "Focus map on coordinates",

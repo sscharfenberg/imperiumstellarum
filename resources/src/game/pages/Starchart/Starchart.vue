@@ -9,6 +9,7 @@ import FocussableStars from "./Focus/FocussableStars";
 import GameHeader from "Components/Header/GameHeader";
 import MapLegend from "./Map/MapLegend";
 import MapStage from "./Map/MapStage";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageStarchart",
     components: {
@@ -17,6 +18,7 @@ export default {
         FocussableStars,
         MapStage,
         MapLegend,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -39,6 +41,11 @@ export default {
         :headline="$t('starchart.map.label')"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("starchart.explanation") }}
+            </popover>
+        </template>
         <focussable-stars v-if="dimensions" :dimensions="dimensions" />
         <map-stage v-if="dimensions" :dimensions="dimensions" />
         <div id="StarChartModal" />

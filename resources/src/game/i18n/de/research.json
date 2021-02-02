@@ -1,6 +1,7 @@
 {
     "title": "Forschung",
     "navTitle": "Forschung",
+    "explanation": "Forschungskosten (und effektive Forschungsergebnisse) ergeben sich aus der Forschungspriorität and der Gesamtbevölkerung des Imperiums.",
     "priority": {
         "label": "Forschungs Priorität",
         "costs": "Resourcenkosten pro Runde",
@@ -9,6 +10,7 @@
     },
     "queue": {
         "hdl": "Forschungs Aufträge",
+        "explanation": "Sie können die Reihenfolge in der Forschungsaufträge bearbeitet werden ändern indem Sie die Reihenfolge der Forschungsaufträge durch dragging ändern. Forschungsergebnisse kommen nur dem obersten Forschungsauftrag zugute.",
         "delete": {
             "hdl": "{type} Tech Level {level} löschen?",
             "explanation": "Der Forschungsauftrag wird aus der Warteschleife entfernt, geleistete Forschungsarbeit verfällt.",
@@ -18,6 +20,7 @@
     },
     "tl": {
         "hdl": "Technologien",
+        "explanation": "Green background means the TechLevel was researched and is available. Yellow background and a striped border means the TechLevel is queued.",
         "laser": "Laser",
         "plasma": "Plasma",
         "railgun": "Massebeschleuniger",

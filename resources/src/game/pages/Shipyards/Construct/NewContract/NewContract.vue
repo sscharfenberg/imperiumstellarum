@@ -10,6 +10,7 @@ import NewContractSelectAmount from "./NewContractSelectAmount";
 import NewContractSelectBlueprint from "./Blueprint/NewContractSelectBlueprint";
 import NewContractSelectShipyard from "./NewContractSelectShipyard";
 import NewContractSubmit from "./NewContractSubmit";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "NewContract",
     components: {
@@ -19,6 +20,7 @@ export default {
         NewContractPreviewBlueprint,
         NewContractSelectAmount,
         NewContractSubmit,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -39,6 +41,11 @@ export default {
 
 <template>
     <area-section :headline="$t('shipyards.construct.newContract.title')">
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("shipyards.construct.explanation") }}
+            </popover>
+        </template>
         <div class="contract__area">
             <div class="contract__section">
                 <new-contract-select-shipyard />

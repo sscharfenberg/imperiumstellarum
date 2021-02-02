@@ -1,6 +1,7 @@
 {
     "title": "Imperium",
     "navTitle": "Imperium",
+    "explanation": "Sie können durch dragging the Reihenfolge der Sternensysteme ändern. Der Status eines Sterns (ausgeklappt / eingeklappt) wird im Browser gespeichert.",
     "summary": {
         "title": "Wirtschafts Überblick",
         "production": "durch {num} Ernter",

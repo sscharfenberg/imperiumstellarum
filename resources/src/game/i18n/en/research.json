@@ -1,6 +1,7 @@
 {
     "title": "Research",
     "navTitle": "Research",
+    "explanation": "Research resource costs (and research results) are determined by the research priority and the amount of total population you have.",
     "priority": {
         "label": "Research Priority",
         "costs": "Resource cost per turn",
@@ -13,6 +14,7 @@
     },
     "queue": {
         "hdl": "Research jobs",
+        "explanation": "You can change the order in which the research jobs will be worked on by dragging the research jobs around. Research results only benefit the research job at the top.",
         "delete": {
             "hdl": "Delete {type} Tech Level {level}?",
             "explanation": "The research job will be deleted, all progress will be lost.",
@@ -22,6 +24,7 @@
     },
     "tl": {
         "hdl": "Technologieen",
+        "explanation": "Ein grünes Kästchen bedeutet der TechLevel wurde erforscht; Gelber Hintergrund mit gestricheltem Rand bedeutet 'In Warteschlange'.",
         "laser": "Laser",
         "plasma": "Plasma",
         "railgun": "Railgun",

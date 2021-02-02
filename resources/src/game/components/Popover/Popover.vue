@@ -39,7 +39,13 @@ export default {
 </script>
 
 <template>
-    <div class="popover">
+    <div
+        class="popover"
+        :class="{
+            'popover--left': align === 'left',
+            'popover--right': align === 'right',
+        }"
+    >
         <div
             v-if="show"
             class="popover__modal"
@@ -64,6 +70,14 @@ export default {
 .popover {
     display: inline-block;
     position: relative;
+
+    &--right {
+        margin-left: auto;
+    }
+
+    &--left {
+        margin-right: auto;
+    }
 
     &__trigger {
         width: 32px;

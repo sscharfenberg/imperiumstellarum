@@ -10,6 +10,7 @@ import DesignFormHullType from "./DesignFormHullType";
 import DesignFormClassName from "./DesignFormClassName";
 import DesignFormModules from "./Modules/DesignFormModules";
 import DesignFormSave from "./DesignFormSave";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "DesignBlueprint",
     components: {
@@ -19,6 +20,7 @@ export default {
         DesignPreview,
         DesignFormModules,
         DesignFormSave,
+        Popover,
     },
     setup() {
         const store = useStore();
@@ -44,6 +46,11 @@ export default {
         :headline="`${$t('shipyards.design.title')} (${numBps}/${bpMax})`"
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("shipyards.design.explanation") }}
+            </popover>
+        </template>
         <div class="design-section">
             <div class="form">
                 <design-form-hull-type />
