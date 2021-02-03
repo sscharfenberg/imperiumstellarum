@@ -297,6 +297,6 @@ export default {
      * @constructor
      */
     SET_AVAILABLE_OWNER: (state, payload) => {
-        state.availableOwner = payload;
+        state.destinationOwner = payload;
     },
 };

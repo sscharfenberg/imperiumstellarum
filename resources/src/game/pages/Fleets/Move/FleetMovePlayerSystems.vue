@@ -29,6 +29,9 @@ export default {
         const availableDestinations = computed(
             () => store.state.fleets.availableDestinations
         );
+        const destinationStarId = computed(
+            () => store.state.fleets.destinationStar.id
+        );
         const onSelect = (id) => {
             store.commit("fleets/SET_DESTINATION_STAR_ID", id);
             store.commit(
@@ -48,6 +51,7 @@ export default {
             onSubmit,
             onSelect,
             availableDestinations,
+            destinationStarId,
         };
     },
 };
@@ -81,6 +85,7 @@ export default {
             v-for="star in availableDestinations"
             :key="star.id"
             :disabled="star.id === fleet.starId"
+            :class="{ active: destinationStarId === star.id }"
             @click="onSelect(star.id)"
         >
             <span>{{ star.name }}</span>

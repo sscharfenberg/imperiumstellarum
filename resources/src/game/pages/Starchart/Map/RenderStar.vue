@@ -147,7 +147,7 @@ export default {
     text-align: center;
 
     @include themed() {
-        background: rgba(t("g-raven"), 0.7);
+        background: rgba(t("g-sunken"), 0.9);
         color: t("g-white");
     }
 }
@@ -165,7 +165,7 @@ export default {
     font-size: calc(var(--cssTileSize) / 6);
 
     @include themed() {
-        background: rgba(t("g-raven"), 0.7);
+        background: rgba(t("g-sunken"), 0.9);
         color: t("g-white");
     }
 
@@ -188,7 +188,7 @@ export default {
     padding: 2px 4px;
 
     @include themed() {
-        background: rgba(t("g-raven"), 0.7);
+        background: rgba(t("g-sunken"), 0.9);
     }
 
     .icon {
@@ -215,7 +215,7 @@ export default {
     font-size: calc(var(--cssTileSize) / 6);
 
     @include themed() {
-        background: rgba(t("g-raven"), 0.7);
+        background: rgba(t("g-sunken"), 0.9);
     }
 
     .icon {

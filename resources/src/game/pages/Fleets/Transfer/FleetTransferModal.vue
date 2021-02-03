@@ -146,9 +146,9 @@ export default {
             <li
                 class="fleet-transfer__grid-item fleet-transfer__grid-head fleet-transfer__grid-head--right"
             >
-                <icon v-if="transferTarget" :name="transferTarget.icon" />
-                <span v-if="transferTarget">{{ transferTarget.name }}</span>
-                <span v-if="!transferTarget">{{
+                <icon v-if="transferTarget.id" :name="transferTarget.icon" />
+                <span v-if="transferTarget.id">{{ transferTarget.name }}</span>
+                <span v-if="!transferTarget.id">{{
                     $t("fleets.transfer.chooseFleet")
                 }}</span>
             </li>

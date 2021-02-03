@@ -20,7 +20,7 @@
     },
     "tl": {
         "hdl": "Technologien",
-        "explanation": "Green background means the TechLevel was researched and is available. Yellow background and a striped border means the TechLevel is queued.",
+        "explanation": "Ein grünes Kästchen bedeutet der TechLevel wurde erforscht; Gelber Hintergrund mit gestricheltem Rand bedeutet 'In Warteschlange'.",
         "laser": "Laser",
         "plasma": "Plasma",
         "railgun": "Massebeschleuniger",

@@ -106,7 +106,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.change-view {
+.change-view.change-view {
     border-radius: 0;
 
     &:first-of-type {

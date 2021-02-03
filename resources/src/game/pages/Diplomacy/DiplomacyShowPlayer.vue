@@ -240,8 +240,6 @@ export default {
             align-items: center;
             justify-content: center;
 
-            margin-top: 16px;
-
             > span {
                 width: 4px;
                 height: 4px;

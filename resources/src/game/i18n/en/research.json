@@ -23,8 +23,8 @@
         }
     },
     "tl": {
-        "hdl": "Technologieen",
-        "explanation": "Ein grünes Kästchen bedeutet der TechLevel wurde erforscht; Gelber Hintergrund mit gestricheltem Rand bedeutet 'In Warteschlange'.",
+        "hdl": "Technologies",
+        "explanation": "Green background means the TechLevel was researched and is available. Yellow background and a striped border means the TechLevel is queued.",
         "laser": "Laser",
         "plasma": "Plasma",
         "railgun": "Railgun",

@@ -20,7 +20,7 @@
     "design": {
         "navTitle": "Blueprints",
         "title": "Create Blueprint",
-        "explanation": "The available blueprint hulltypes depends on the shipyards that your empire has. TechLevels are locked in a blueprint at creation.",
+        "explanation": "The available blueprint hulltypes depend on the shipyards that your empire has. TechLevels are locked in a blueprint at creation.",
         "hullType": {
             "headline": "Select hull type",
             "radioLabel": "Click to select a {type} hull"
