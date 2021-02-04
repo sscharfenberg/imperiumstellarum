@@ -6,6 +6,8 @@ use App\Models\Blueprint;
 use App\Models\ConstructionContract;
 use App\Models\Fleet;
 use App\Models\FleetMovement;
+use App\Models\Message;
+use App\Models\MessageSent;
 use App\Models\Player;
 use App\Models\PlayerRelationChange;
 use App\Models\Research;
@@ -363,6 +365,39 @@ class FormatApiResponseService {
             'playerId' => $relationChange->recipient_id,
             'set' => $relationChange->status,
             'untilDone' => $relationChange->until_done
+        ];
+    }
+
+    /**
+     * @function format api respone for a message (inbox)
+     * @param Message $message
+     * @return array
+     */
+    public function formatMessage (Message $message): array
+    {
+        return [
+            'id' => $message->id,
+            'senderId' => $message->sender_id,
+            'repliesToId' => $message->message_id,
+            'subject' => $message->subject,
+            'body' => $message->body,
+            'read' => $message->read
+        ];
+    }
+
+    /**
+     * @function format api respone for a sent message (outbox)
+     * @param MessageSent $message
+     * @return array
+     */
+    public function formatMessageSent (MessageSent $message): array
+    {
+        return [
+            'id' => $message->id,
+            'recipientId' => $message->sender_id,
+            'repliesToId' => $message->message_id,
+            'subject' => $message->subject,
+            'body' => $message->body,
         ];
     }
 

@@ -72,6 +72,8 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $player_relations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelationChange[] $playerRelationChanges
  * @property-read int|null $player_relation_changes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
  */
 class Game extends Model
 {
@@ -257,6 +259,14 @@ class Game extends Model
     public function playerRelationChanges()
     {
         return $this->hasMany('App\Models\PlayerRelationChange');
+    }
+
+    /**
+     * Get the messages for this game
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 
 }

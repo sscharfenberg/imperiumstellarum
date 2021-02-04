@@ -67,6 +67,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $recipient_relation_changes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelationChange[] $relationChanges
  * @property-read int|null $relation_changes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
  */
 class Player extends Model
 {
@@ -250,6 +252,14 @@ class Player extends Model
     public function recipientRelationChanges()
     {
         return $this->hasMany('App\Models\PlayerRelationChange', 'recipient_id');
+    }
+
+    /**
+     * Get the messages for this player
+     */
+    public function messages()
+    {
+        return $this->hasMany('App\Models\Message', 'player_id');
     }
 
 }

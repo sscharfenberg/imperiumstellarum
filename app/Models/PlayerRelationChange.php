@@ -82,7 +82,7 @@ class PlayerRelationChange extends Model
     }
 
     /**
-     * Get the player that owns the fleet
+     * Get the recipient of this relationChange
      */
     public function recipient()
     {

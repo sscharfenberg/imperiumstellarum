@@ -62,7 +62,7 @@ class PlayerRelation extends Model
     ];
 
     /**
-     * Get the game that the fleet belongs to
+     * Get the game that the playerRelation belongs to
      */
     public function game()
     {
@@ -70,7 +70,7 @@ class PlayerRelation extends Model
     }
 
     /**
-     * Get the player that owns the fleet
+     * Get the player that owns the playerRelation
      */
     public function player()
     {
@@ -78,7 +78,7 @@ class PlayerRelation extends Model
     }
 
     /**
-     * Get the player that owns the fleet
+     * Get the player that this playerRelation is set to
      */
     public function recipient()
     {
