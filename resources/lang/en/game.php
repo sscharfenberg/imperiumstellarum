@@ -160,4 +160,8 @@ return [
         'relationChangeAccepted' => 'The relation to this empire will change in :num turns.'
     ],
 
+    'messages' => [
+        'navTitle' => 'Messages'
+    ]
+
 ];

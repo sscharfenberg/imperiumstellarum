@@ -10,6 +10,7 @@ import diplomacy from "./diplomacy.json";
 import research from "./research.json";
 import shipyards from "./shipyards.json";
 import starchart from "./starchart.json";
+import messages from "./messages.json";
 
 export default {
     common,
@@ -19,4 +20,5 @@ export default {
     research,
     shipyards,
     starchart,
+    messages,
 };

@@ -105,6 +105,11 @@ header {
             background-image: t("diplomacy");
         }
     }
+    &.messages {
+        @include themed() {
+            background-image: t("messages");
+        }
+    }
 }
 
 .area {

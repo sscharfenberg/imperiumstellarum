@@ -10,13 +10,15 @@ A turn-based multiplayer browser game of galactic conquest. Check [https://imper
 
 ## WIP
 
-This is a rough and early work in progress, it is far from ready to be used in any implementation whatsoever. 
-There are lots of areas that don't work yet - including elementary stuff like fleet movement, combat etc - lots of stuff will break again and again. 
+This is a rough and early work in progress, it is far from ready to be used in any implementation whatsoever - the game is not yet in a playable state. 
+There are lots of areas that don't work yet - including elementary stuff like fleet combat etc - lots of stuff will break again and again. 
 I will create pre-releases whenever one or more areas are done.
  
-Use at your own risk. 
+Use at your own risk.
 
-(No, you can't play - yet)
+Latest Pre-release is 0.4.0:
+* [Github release](https://github.com/sscharfenberg/imperiumstellarum/releases/tag/0.4.0)
+* [Blog Post](https://discuss.imperiumstellarum.io/index.php?/blogs/entry/5-040-pre-release-fleets-and-diplomacy/)
 
 ## Usage: npm Scripts
 
@@ -24,7 +26,7 @@ Use at your own risk.
 * `npm run dev`: generate frontend files for **development** environment and watches all applicable files for changes.
 * `npm run icons`: generates a single icon sprite from all available svg-icons.
 * `npm run cleanup`: prunes `public/assets` folder and deletes all generated files.
-* `npm run db:testdata` creates fresh database tables and seeds with test data  
+* `npm run db:testdata` (alias for `php artisan migrate:fresh && php artisan db:seed`) creates fresh database tables and seeds with test data  
 * `npm run ide:helper`: creates type hints and php docs for IDEs.
 
 ## Installation
@@ -36,13 +38,20 @@ Use at your own risk.
 - **setup mailserver for development**: I use [https://mailtrap.io/](https://mailtrap.io/) - this can be used like a normal smtp server, but does not actually send anything. Instead, the mails are placed conveniently in an inbox for you to study. Create a free inbox, and copy the credentials to `.env`.
 - `php artisan key:generate` to generate your own application key
 - `php artisan storage:link` to create a symlink from `public` to `storage`.
-- `npm run db:testdata` (alias for `php artisan migrate:fresh && php artisan db:seed`): create database tables and seed the database with test data. Creates two games (40x40 map and 100x100 map), 11 users and 22 players, seeds database with planets/stars, enlists the players, starts the games and seeds player relations, fleets and ships. All users have `password` as password. `ash@imperiumstellarum.io` has admin permissions.
+  
+## Setup with test data
+
+You can register accounts (and modify a user via database to be admin), and create a test game. This works. For a quick look it might be easier to use the database seeder:
+
+```php artisan migrate:fresh && php artisan db:seed```
+
+This creates two games (both with a 40x40 map, one with a spacious map (20 players), the other with a more condensed map (32 players). It also creates 11 users and players for both games, seeds database with planets/stars, enlists the players, starts the games and seeds player relations, fleets and ships. All users have `password` as password. `ash@imperiumstellarum.io` has admin permissions.
 
 ## Attribution
 
 A list of used third party images can be found in the [Attribution](./ATTRIBUTION.md) page. All images used are in the public domain, have creative commons or other permissive licenses. 
 
-This project uses a lot of open source software - without the efforts of all these maintainers/contributors, none of this would be possible. For a detailed reference please check the [dependencies](./package.json).
+This project uses a lot of open source software - without the efforts of all these maintainers/contributors, none of this would be possible. For a detailed reference please check the [client dependencies](./package.json) and the [server dependencies](./composer.json).
 
 ## License
 

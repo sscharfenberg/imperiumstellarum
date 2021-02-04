@@ -8,6 +8,7 @@ import starchart from "./starchart";
 import shipyards from "./shipyards";
 import fleets from "./fleets";
 import diplomacy from "./diplomacy";
+import messages from "./messages";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
@@ -28,6 +29,7 @@ const store = createStore({
         shipyards,
         fleets,
         diplomacy,
+        messages,
     },
 });
 

@@ -47,4 +47,12 @@ export default [
                 /* webpackChunkName: "starmap" */ "Pages/Starchart/Starchart"
             ),
     },
+    {
+        path: "/messages",
+        name: "Messages",
+        component: () =>
+            import(
+                /* webpackChunkName: "messages" */ "Pages/Messages/Messages"
+            ),
+    },
 ];

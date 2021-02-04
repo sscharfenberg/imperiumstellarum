@@ -19,8 +19,29 @@ export default {
     <teleport to="#drawerTeleportTarget">
         <ul class="drawer-list">
             <li class="drawer-list__item">
+                <router-link
+                    :to="{ name: 'Messages' }"
+                    class="drawer-list__link"
+                >
+                    <icon name="messages" /> {{ t("messages.navTitle") }}
+                </router-link>
+            </li>
+            <li class="drawer-list__item">
                 <router-link :to="{ name: 'Empire' }" class="drawer-list__link">
                     <icon name="empire" /> {{ t("empire.navTitle") }}
+                </router-link>
+            </li>
+            <li class="drawer-list__item">
+                <router-link
+                    :to="{ name: 'Starchart' }"
+                    class="drawer-list__link"
+                >
+                    <icon name="starchart" /> {{ t("starchart.navTitle") }}
+                </router-link>
+            </li>
+            <li class="drawer-list__item">
+                <router-link :to="{ name: 'Fleets' }" class="drawer-list__link">
+                    <icon name="fleets" /> {{ t("fleets.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -32,24 +53,11 @@ export default {
                 </router-link>
             </li>
             <li class="drawer-list__item">
-                <router-link :to="{ name: 'Fleets' }" class="drawer-list__link">
-                    <icon name="fleets" /> {{ t("fleets.navTitle") }}
-                </router-link>
-            </li>
-            <li class="drawer-list__item">
                 <router-link
                     :to="{ name: 'Research' }"
                     class="drawer-list__link"
                 >
                     <icon name="research" /> {{ t("research.navTitle") }}
-                </router-link>
-            </li>
-            <li class="drawer-list__item">
-                <router-link
-                    :to="{ name: 'Starchart' }"
-                    class="drawer-list__link"
-                >
-                    <icon name="starchart" /> {{ t("starchart.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">

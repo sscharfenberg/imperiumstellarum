@@ -160,4 +160,8 @@ return [
         'relationChangeAccepted' => 'Die Beziehung zu diesem Imperium wird sich in :num Runden ändern.'
     ],
 
+    'messages' => [
+        'navTitle' => 'Nachrichten'
+    ]
+
 ];

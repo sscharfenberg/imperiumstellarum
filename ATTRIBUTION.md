@@ -20,7 +20,8 @@ are Hubble Images taken from the [Hubblesite](http://hubblesite.org/images/galle
 - [Supernova 1987A](http://hubblesite.org/image/3987/gallery) (shipyards)
 - [Carina Nebula](http://hubblesite.org/image/2099/news_release/2007-16) (research)
 - [Spiral Galaxy M74](http://hubblesite.org/image/2210/category/37-spiral-galaxies) (starchart)
-- [The Bubble Nebula](http://hubblesite.org/image/3849/wallpaper) (galnet)
+- [The Bubble Nebula](http://hubblesite.org/image/3849/wallpaper) (diplomacy)
+- [Celestial Fireworks in Westerlund 2](https://hubblesite.org/image/4667/gallery) (messages)
 
 # Planets
 

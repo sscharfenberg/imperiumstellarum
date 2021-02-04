@@ -79,10 +79,14 @@
 
     &--bottom {
         border-top: 2px solid transparent;
-        margin-top: 40px;
+        margin-top: 8px;
 
         @include themed() {
             border-top-color: t("g-ebony");
+        }
+
+        @include respond-to("medium") {
+            margin-top: 40px;
         }
     }
 

@@ -17,13 +17,18 @@
         @if(!$inGame)
             <ul class="drawer-list">
                 <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/messages" class="drawer-list__link{{ Request::is('*/broadcasts') ? " active" : "" }}">
+                        <x-icon name="messages" size="2" /> @lang("game.messages.navTitle")
+                    </a>
+                </li>
+                <li class="drawer-list__item">
                     <a href="/game/{{ Auth::user()->selectedGame()->id }}/empire" class="drawer-list__link{{ Request::is('*/empire') ? " active" : "" }}">
                         <x-icon name="empire" size="2" /> @lang("game.empire.navTitle")
                     </a>
                 </li>
                 <li class="drawer-list__item">
-                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/shipyards" class="drawer-list__link{{ Request::is('*/shipyards') ? " active" : "" }}">
-                        <x-icon name="shipyards" size="2" /> @lang("game.shipyards.navTitle")
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/starchart" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
+                        <x-icon name="starchart" size="2" /> @lang("game.starchart.navTitle")
                     </a>
                 </li>
                 <li class="drawer-list__item">
@@ -32,13 +37,13 @@
                     </a>
                 </li>
                 <li class="drawer-list__item">
-                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/research" class="drawer-list__link{{ Request::is('*/research') ? " active" : "" }}">
-                        <x-icon name="research" size="2" /> @lang("game.research.navTitle")
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/shipyards" class="drawer-list__link{{ Request::is('*/shipyards') ? " active" : "" }}">
+                        <x-icon name="shipyards" size="2" /> @lang("game.shipyards.navTitle")
                     </a>
                 </li>
                 <li class="drawer-list__item">
-                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/starchart" class="drawer-list__link{{ Request::is('*/starmap') ? " active" : "" }}">
-                        <x-icon name="starchart" size="2" /> @lang("game.starchart.navTitle")
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/research" class="drawer-list__link{{ Request::is('*/research') ? " active" : "" }}">
+                        <x-icon name="research" size="2" /> @lang("game.research.navTitle")
                     </a>
                 </li>
                 <li class="drawer-list__item drawer-list__item--both-borders">
