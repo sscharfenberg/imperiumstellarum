@@ -9,9 +9,13 @@ export default {
 
     // get broadcast by id
     messageById: (state) => (id) => state.inbox.find((f) => f.id === id) || {},
+
     // get sent broadcast by id
     sentMessageById: (state) => (id) =>
         state.outbox.find((f) => f.id === id) || {},
+
+    // get broadcast by id
+    playerById: (state) => (id) => state.players.find((p) => p.id === id) || {},
 
     /**
      * multiples

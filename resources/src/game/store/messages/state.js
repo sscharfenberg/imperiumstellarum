@@ -1,9 +1,9 @@
 /******************************************************************************
  * Vuex module "messages" state
  *****************************************************************************/
-//import { getState } from "@/game/store/persistState";
-//
-//const savedState = getState();
+import { getState } from "@/game/store/persistState";
+
+const savedState = getState();
 
 /*
  * get initial module state
@@ -14,4 +14,12 @@ export default {
     // area meta data
     inbox: [],
     outbox: [],
+    page: savedState.messagesPage || 0,
+    players: [],
+    relations: [],
+    // new message
+    new: {
+        tickerSearch: "",
+        selectedRecipientId: "",
+    },
 };

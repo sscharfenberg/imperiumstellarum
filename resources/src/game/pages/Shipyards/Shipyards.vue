@@ -33,5 +33,5 @@ export default {
     <game-header area="shipyards" />
     <shipyard-navigation />
     <shipyards-plan v-if="shipyardPage === 0" />
-    <construct-index v-if="shipyardPage === 1" />
+    <construct-index v-else-if="shipyardPage === 1" />
 </template>

@@ -1,4 +1,20 @@
 {
     "title": "Messages",
-    "navTitle": "Messages"
+    "navTitle": "Messages",
+    "inbox": {
+        "navTitle": "Inbox",
+        "title": "Recieved Messages"
+    },
+    "outbox": {
+        "navTitle": "Outbox",
+        "title": "Sent Messages"
+    },
+    "new": {
+        "navTitle": "Create",
+        "title": "Create new message",
+        "recipient": {
+            "tickerLabel": "Empire ticker",
+            "tickerPlaceholder": "Enter the empire ticker"
+        }
+    }
 }

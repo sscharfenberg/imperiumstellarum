@@ -1,4 +1,20 @@
 {
     "title": "Nachrichten",
-    "navTitle": "Nachrichten"
+    "navTitle": "Nachrichten",
+    "inbox": {
+        "navTitle": "Eingehend",
+        "title": "Nachrichten Eingang"
+    },
+    "outbox": {
+        "navTitle": "Ausgehend",
+        "title": "Nachrichten Ausgang"
+    },
+    "new": {
+        "navTitle": "Neue Nachricht",
+        "title": "Nachricht erstellen",
+        "recipient": {
+            "tickerLabel": "Imperiums Ticker",
+            "tickerPlaceholder": "Bitte geben Sie den Imperiums Ticker ein"
+        }
+    }
 }

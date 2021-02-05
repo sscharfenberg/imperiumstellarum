@@ -25,6 +25,7 @@ class StarchartController extends Controller
     {
         $a = new ApiService;
         $p = new PlayerRelationService;
+        $f = new FormatApiResponseService;
         $defaultApiData = $a->defaultData($request);
 
         $gameId = $request->route('game');
@@ -36,7 +37,6 @@ class StarchartController extends Controller
         $fleetMovements = $player->fleetMovements;
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
 
-        $f = new FormatApiResponseService;
         $returnData = [
             'stars' => $stars->map(function ($star) use ($f) {
                 return $f->formatStar($star);

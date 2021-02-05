@@ -1,73 +1,70 @@
 <script>
 /******************************************************************************
- * PageComponent: ShipyardNavigation
+ * PageComponent: MessagesNavigation
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
 import Icon from "Components/Icon/Icon";
 export default {
-    name: "ShipyardNavigation",
+    name: "MessagesNavigation",
     components: { Icon },
     setup() {
         const store = useStore();
-        const hasBlueprints = computed(
-            () => store.state.shipyards.blueprints.length > 0
-        );
-        const hasShipyards = computed(
-            () =>
-                store.state.shipyards.shipyards.filter(
-                    (s) => s.untilComplete === 0
-                ).length > 0
-        );
         const pageIndex = computed({
-            get: () => store.state.shipyards.page,
+            get: () => store.state.messages.page,
             set: (value) => {
-                store.commit("shipyards/SET_PAGE", value);
+                store.commit("messages/SET_PAGE", value);
             },
         });
         return {
             pageIndex,
-            hasBlueprints,
-            hasShipyards,
         };
     },
 };
 </script>
 
 <template>
-    <nav class="shipard-nav">
+    <nav class="messages-nav">
         <button
-            class="shipard-nav__link"
+            class="messages-nav__link"
             @click="pageIndex = 0"
             :class="{ active: pageIndex === 0 }"
         >
-            <icon name="res-research" />
-            {{ $t("shipyards.design.navTitle") }}
+            <icon name="messages" />
+            {{ $t("messages.inbox.navTitle") }}
         </button>
         <button
-            v-if="hasBlueprints && hasShipyards"
-            class="shipard-nav__link"
+            class="messages-nav__link"
             @click="pageIndex = 1"
             :class="{ active: pageIndex === 1 }"
         >
-            <icon name="shipyards" />
-            {{ $t("shipyards.construct.navTitle") }}
+            <icon name="messages" />
+            {{ $t("messages.outbox.navTitle") }}
+        </button>
+        <button
+            class="messages-nav__link"
+            @click="pageIndex = 2"
+            :class="{ active: pageIndex === 2 }"
+        >
+            <icon name="edit" />
+            {{ $t("messages.new.navTitle") }}
         </button>
     </nav>
 </template>
 
 <style lang="scss" scoped>
-.shipard-nav {
+.messages-nav {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 
     padding: 0;
-    margin: 0;
+    margin: 0 0 8px 0;
     grid-gap: 8px;
 
     list-style: none;
 
     @include respond-to("medium") {
+        margin-bottom: 16px;
         grid-gap: 16px;
     }
 
@@ -125,12 +122,6 @@ export default {
                 width: 48px;
                 height: 48px;
                 margin-right: 16px;
-            }
-        }
-
-        &:nth-of-type(2) .icon {
-            @include themed() {
-                color: t("b-christine");
             }
         }
     }
