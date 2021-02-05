@@ -17,8 +17,8 @@
         "ide:helper": "php artisan ide-helper:generate && php artisan ide-helper:meta && php artisan ide-helper:models"
     },
     "engines": {
-        "node": "^14.15.3",
-        "npm": "^6.14.9"
+        "node": "^15.8.0",
+        "npm": "^7.5.1"
     },
     "dependencies": {
         "@interactjs/actions": "^1.10.2",

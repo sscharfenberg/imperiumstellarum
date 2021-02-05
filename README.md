@@ -6,7 +6,7 @@ A turn-based multiplayer browser game of galactic conquest. Check [https://imper
 
 * MySQL ^5.7.31 / MariaDB (not tested, but should work)
 * PHP 7.3+
-* NodeJS ^14.15.3, npm ^6.14.9
+* NodeJS ^15.8.0, npm ^7.5.1
 
 ## WIP
 
