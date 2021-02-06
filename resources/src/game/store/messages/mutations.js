@@ -6,7 +6,7 @@ import { saveState } from "@/game/store/persistState";
 export default {
     /**
      * @function SET/UNSET "requesting"
-     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Boolean} payload
      */
     SET_REQUESTING: (state, payload) => {
@@ -15,7 +15,7 @@ export default {
 
     /**
      * @function SET broadcasts
-     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Array} payload
      */
     SET_INBOX: (state, payload) => {
@@ -24,7 +24,7 @@ export default {
 
     /**
      * @function SET sent broadcasts
-     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Array} payload
      */
     SET_OUTBOX: (state, payload) => {
@@ -33,7 +33,7 @@ export default {
 
     /**
      * @function SET sent broadcasts
-     * @param {Object} state - vuex module "fleets" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Number} payload
      */
     SET_PAGE: (state, payload) => {
@@ -43,7 +43,7 @@ export default {
 
     /**
      * @function SET players
-     * @param {Object} state - vuex module "starchart" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Array} payload
      */
     SET_PLAYERS: (state, payload) => {
@@ -52,7 +52,7 @@ export default {
 
     /**
      * @function SET relations of this player
-     * @param {Object} state - vuex module "diplomacy" state
+     * @param {Object} state - vuex module "messages" state
      * @param {Array} payload
      */
     SET_RELATIONS: (state, payload) => {
@@ -65,7 +65,7 @@ export default {
 
     /**
      * @function SET ticker search
-     * @param {Object} state - vuex module "starchart" state
+     * @param {Object} state - vuex module "messages" state
      * @param {String} payload
      */
     SET_SEARCH_TICKER: (state, payload) => {
@@ -74,10 +74,28 @@ export default {
 
     /**
      * @function SET recipient id
-     * @param {Object} state - vuex module "starchart" state
+     * @param {Object} state - vuex module "messages" state
      * @param {String} payload
      */
     SET_RECIPIENT_ID: (state, payload) => {
-        state.new.selectedRecipientId = payload;
+        state.new.recipientId = payload;
+    },
+
+    /**
+     * @function SET message subject
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    SET_SUBJECT: (state, payload) => {
+        state.new.subject = payload;
+    },
+
+    /**
+     * @function SET message subject
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    SET_BODY: (state, payload) => {
+        state.new.body = payload;
     },
 };

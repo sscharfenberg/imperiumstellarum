@@ -40,7 +40,7 @@ class MessagesController extends Controller
             'inbox' => [],
             'outbox' => [],
             'players' => $players->map(function ($player) use ($f) {
-                return $f->formatPlayer($player, true);
+                return $f->formatPlayer($player);
             })->values(),
             'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $allPlayers),
         ];

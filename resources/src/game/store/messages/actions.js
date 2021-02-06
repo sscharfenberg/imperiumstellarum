@@ -35,4 +35,32 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function submit message
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    SEND_MESSAGE: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/messages/send`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.outbox &&
+                    response.data.message
+                ) {
+                    commit("SET_OUTBOX", response.data.outbox);
+                }
+                notify(response.data.message, "success");
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

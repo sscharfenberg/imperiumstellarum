@@ -201,7 +201,8 @@ $btnBaseHeight: 34px;
             border-color: t("g-white");
         }
 
-        &:hover:not([disabled]) {
+        &:hover:not([disabled]),
+        &:focus:not([disabled]) {
             @include themed() {
                 color: t("b-christine");
                 border-color: t("b-darkbg");

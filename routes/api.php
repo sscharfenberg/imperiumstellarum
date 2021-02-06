@@ -217,4 +217,10 @@ Route::middleware([
     Route::post('/game/{game}/diplomacy/change',
         [\App\Http\Controllers\Game\Diplomacy\ChangeRelationController::class, 'handle']);
 
+    /**
+     * messages api calls
+     */
+    Route::post('/game/{game}/messages/send',
+        [\App\Http\Controllers\Game\Messages\SendMessageController::class, 'handle']);
+
 });

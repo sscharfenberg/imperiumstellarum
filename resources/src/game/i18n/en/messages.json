@@ -17,6 +17,16 @@
             "tickerPlaceholder": "Enter the recipient's ticker",
             "none": "No empires with this ticker.",
             "cancel": "Click to clear selection and ticker."
+        },
+        "subject": {
+            "label": "Subject",
+            "placeholder": "Message placeholder",
+            "description": "Minimum {min} characters, maximum {max} characters."
+        },
+        "body": {
+            "label": "Message",
+            "charsUsed": "Characters used",
+            "charsLeft": "Characters available"
         }
     }
 }

@@ -26,7 +26,7 @@ export default {
             },
         });
         const recipientId = computed(
-            () => store.state.messages.new.selectedRecipientId
+            () => store.state.messages.new.recipientId
         );
         const recipientRelation = (playerId) => {
             const relation = relations.value.find(
@@ -54,9 +54,9 @@ export default {
 </script>
 
 <template>
-    <nav class="form-row has-divider">
+    <div class="form-row has-divider">
         <div class="label">
-            <label for="fleetName">{{
+            <label for="recipientTicker">{{
                 $t("messages.new.recipient.tickerLabel")
             }}</label>
         </div>
@@ -64,7 +64,7 @@ export default {
             <input
                 type="text"
                 class="form-control"
-                id="fleetName"
+                id="recipientTicker"
                 :placeholder="$t('messages.new.recipient.tickerPlaceholder')"
                 autocomplete="off"
                 v-model="ticker"
@@ -88,7 +88,7 @@ export default {
                 />
             </div>
         </div>
-        <div
+        <nav
             class="descr recipients"
             v-if="players.length > 0 && ticker.length > 0"
         >
@@ -101,14 +101,14 @@ export default {
                 :locale="player.locale"
                 :relation="recipientRelation(player.id)"
             />
-        </div>
+        </nav>
         <div
             class="descr recipients recipients--none"
             v-if="players.length === 0 && ticker.length > 0"
         >
             {{ $t("messages.new.recipient.none") }}
         </div>
-    </nav>
+    </div>
 </template>
 
 <style lang="scss" scoped>

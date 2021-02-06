@@ -4,7 +4,6 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import PlayerLocale from "Components/Icon/PlayerLocale";
 export default {
     name: "MessagesNewShowRecipient",
     props: {
@@ -14,11 +13,10 @@ export default {
         relation: Number,
         locale: String,
     },
-    components: { PlayerLocale },
     setup(props) {
         const store = useStore();
         const recipientId = computed(
-            () => store.state.messages.new.selectedRecipientId
+            () => store.state.messages.new.recipientId
         );
         const onClick = () => {
             const players = store.state.messages.players;
@@ -40,7 +38,6 @@ export default {
         @keyup.enter="onClick"
         :class="{ selected: recipientId === playerId }"
     >
-        <player-locale :locale="locale" />
         <span class="recipient__name">[{{ ticker }}] {{ name }}</span>
         <span
             class="recipient__relation"
@@ -96,14 +93,8 @@ export default {
     &__name {
         overflow: hidden;
 
-        margin-left: 4px;
-
         white-space: nowrap;
         text-overflow: ellipsis;
-
-        @include respond-to("medium") {
-            margin-left: 8px;
-        }
     }
 
     &__relation {
