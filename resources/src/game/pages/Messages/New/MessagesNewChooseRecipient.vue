@@ -4,10 +4,12 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
+import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
+import MessagesNewShowRecipient from "./MessagesNewShowRecipient";
 export default {
     name: "MessagesNewChooseRecipient",
-    components: { Icon },
+    components: { GameButton, Icon, MessagesNewShowRecipient },
     setup() {
         const store = useStore();
         const players = computed(() =>
@@ -23,6 +25,9 @@ export default {
                 store.commit("messages/SET_SEARCH_TICKER", value);
             },
         });
+        const recipientId = computed(
+            () => store.state.messages.new.selectedRecipientId
+        );
         const recipientRelation = (playerId) => {
             const relation = relations.value.find(
                 (r) => r.playerId === playerId
@@ -30,20 +35,26 @@ export default {
             if (relation) return relation.effective;
             return 1;
         };
+        const onClear = () => {
+            store.commit("messages/SET_SEARCH_TICKER", "");
+            store.commit("messages/SET_RECIPIENT_ID", "");
+        };
 
         return {
             players,
             relations,
             maxTickerLength,
             ticker,
+            recipientId,
             recipientRelation,
+            onClear,
         };
     },
 };
 </script>
 
 <template>
-    <nav class="form-row">
+    <nav class="form-row has-divider">
         <div class="label">
             <label for="fleetName">{{
                 $t("messages.new.recipient.tickerLabel")
@@ -60,53 +71,56 @@ export default {
                 :maxlength="maxTickerLength"
                 @keyup="ticker = ticker.toUpperCase()"
             />
-            <div class="addon"><icon name="empire" /></div>
+            <div class="addon" v-if="!ticker.length">
+                <icon name="empire" />
+            </div>
+            <div
+                class="addon cancel"
+                v-if="ticker.length || recipientId.length"
+            >
+                <game-button
+                    icon-name="cancel"
+                    :size="1"
+                    :title="$t('messages.new.recipient.cancel')"
+                    :aria-label="$t('messages.new.recipient.cancel')"
+                    @click="onClear"
+                    @keyup.enter="onClear"
+                />
+            </div>
         </div>
         <div
             class="descr recipients"
             v-if="players.length > 0 && ticker.length > 0"
         >
-            <button
-                class="recipient"
+            <messages-new-show-recipient
                 v-for="player in players"
                 :key="player.id"
-            >
-                <span class="recipient__name"
-                    >[{{ player.ticker }}] {{ player.name }}</span
-                >
-                <span
-                    class="recipient__relation"
-                    :class="{
-                        allied: recipientRelation(player.id) === 2,
-                        neutral: recipientRelation(player.id) === 1,
-                        hostile: recipientRelation(player.id) === 0,
-                    }"
-                >
-                    {{ $t("diplomacy.status." + recipientRelation(player.id)) }}
-                    ({{ recipientRelation(player.id) }})
-                </span>
-            </button>
+                :player-id="player.id"
+                :ticker="player.ticker"
+                :name="player.name"
+                :relation="recipientRelation(player.id)"
+            />
         </div>
         <div
             class="descr recipients recipients--none"
             v-if="players.length === 0 && ticker.length > 0"
         >
-            No empires with this ticker
+            {{ $t("messages.new.recipient.none") }}
         </div>
-        {{ relations }}
     </nav>
 </template>
 
 <style lang="scss" scoped>
 .form-row {
-    padding: 0;
+    padding: 0 0 16px 0;
 }
 
 .form-row > .descr.recipients {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
-    padding: 4px;
+    padding: 0;
+    border-width: 0;
     margin: 8px 0 0 0;
     grid-gap: 4px;
 
@@ -117,73 +131,17 @@ export default {
     }
 
     &--none {
+        padding: 8px;
+        border-width: 2px;
         margin-left: auto;
         flex: 0 0 70%;
     }
-
-    @include themed() {
-        border-color: t("g-deep");
-    }
 }
 
-.recipient {
+.addon.cancel {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
-    padding: 8px;
-    border: 1px solid transparent;
-
-    background: transparent;
-
-    outline: 0;
-    cursor: pointer;
-
-    text-align: left;
-
-    transition: background-color map-get($animation-speeds, "fast") linear,
-        border-color map-get($animation-speeds, "fast") linear;
-
-    @include themed() {
-        color: t("t-light");
-        border-color: t("g-deep");
-    }
-
-    &:hover {
-        @include themed() {
-            background-color: t("g-ebony");
-            border-color: t("g-asher");
-        }
-    }
-
-    &__name {
-        overflow: hidden;
-
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    &__relation {
-        padding: 4px;
-        border: 1px solid transparent;
-
-        white-space: nowrap;
-
-        &.allied {
-            @include themed() {
-                border-color: t("s-success");
-            }
-        }
-        &.hostile {
-            @include themed() {
-                border-color: t("s-error");
-            }
-        }
-        &.neutral {
-            @include themed() {
-                border-color: t("s-building");
-            }
-        }
-    }
+    padding: 0 5px;
 }
 </style>

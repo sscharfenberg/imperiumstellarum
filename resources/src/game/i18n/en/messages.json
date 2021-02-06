@@ -14,7 +14,9 @@
         "title": "Create new message",
         "recipient": {
             "tickerLabel": "Empire ticker",
-            "tickerPlaceholder": "Enter the empire ticker"
+            "tickerPlaceholder": "Enter the empire ticker",
+            "none": "No empires with this ticker.",
+            "cancel": "Click to clear selection and ticker."
         }
     }
 }

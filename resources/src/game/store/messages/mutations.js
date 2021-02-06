@@ -71,4 +71,13 @@ export default {
     SET_SEARCH_TICKER: (state, payload) => {
         state.new.tickerSearch = payload;
     },
+
+    /**
+     * @function SET recipient id
+     * @param {Object} state - vuex module "starchart" state
+     * @param {String} payload
+     */
+    SET_RECIPIENT_ID: (state, payload) => {
+        state.new.selectedRecipientId = payload;
+    },
 };
