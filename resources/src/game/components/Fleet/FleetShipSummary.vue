@@ -1,6 +1,6 @@
 <script>
 /******************************************************************************
- * PageComponent: FleetShipSummary
+ * Component: FleetShipSummary
  *****************************************************************************/
 import { computed } from "vue";
 import { getFleetHullTypes } from "@/game/helpers/fleet";

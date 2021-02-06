@@ -13,8 +13,8 @@
         "navTitle": "Neue Nachricht",
         "title": "Nachricht erstellen",
         "recipient": {
-            "tickerLabel": "Imperiums Ticker",
-            "tickerPlaceholder": "Bitte geben Sie den Imperiums Ticker ein",
+            "tickerLabel": "Empfänger Ticker",
+            "tickerPlaceholder": "Bitte geben Sie den Ticker des Empfängers ein",
             "none": "Keine Imperien mit diesem Ticker.",
             "cancel": "Klicken um Auswahl und Ticker zu löschen."
         }

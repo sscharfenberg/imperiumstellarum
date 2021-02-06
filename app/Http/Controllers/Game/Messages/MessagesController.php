@@ -30,8 +30,7 @@ class MessagesController extends Controller
         $defaultApiData = $a->defaultData($request);
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
-        $game = Game::find($gameId);
-        $allPlayers = Player::where('game_id', $gameId)->get();
+        $allPlayers = Player::where('game_id', $gameId)->with('user')->get();
         $players = $allPlayers->filter(function($p) use ($player) {
             return $p->id !== $player->id;
         });
@@ -41,7 +40,7 @@ class MessagesController extends Controller
             'inbox' => [],
             'outbox' => [],
             'players' => $players->map(function ($player) use ($f) {
-                return $f->formatPlayer($player);
+                return $f->formatPlayer($player, true);
             })->values(),
             'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $allPlayers),
         ];

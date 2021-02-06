@@ -98,6 +98,7 @@ export default {
                 :player-id="player.id"
                 :ticker="player.ticker"
                 :name="player.name"
+                :locale="player.locale"
                 :relation="recipientRelation(player.id)"
             />
         </div>

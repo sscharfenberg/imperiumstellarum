@@ -49,5 +49,9 @@
     "boolean": {
         "yes": "Ja",
         "no": "Nein"
+    },
+    "locale": {
+        "en": "Englisch",
+        "de": "Deutsch"
     }
 }

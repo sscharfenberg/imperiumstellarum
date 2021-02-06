@@ -13,8 +13,8 @@
         "navTitle": "Create",
         "title": "Create new message",
         "recipient": {
-            "tickerLabel": "Empire ticker",
-            "tickerPlaceholder": "Enter the empire ticker",
+            "tickerLabel": "Recipient ticker",
+            "tickerPlaceholder": "Enter the recipient's ticker",
             "none": "No empires with this ticker.",
             "cancel": "Click to clear selection and ticker."
         }

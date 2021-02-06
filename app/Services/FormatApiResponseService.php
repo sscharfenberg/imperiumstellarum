@@ -202,16 +202,19 @@ class FormatApiResponseService {
     /**
      * @function format api response for a player (that isn't the current player)
      * @param Player $player
+     * @param bool $withLocale
      * @return array
      */
-    public function formatPlayer (Player $player): array
+    public function formatPlayer (Player $player, bool $withLocale = false): array
     {
-        return [
+        $formattedPlayer = [
             'id' => $player->id,
             'ticker' => $player->ticker,
             'name' => $player->name,
             'colour' => $player->colour
         ];
+        if ($withLocale) $formattedPlayer['locale'] = $player->user->locale;
+        return $formattedPlayer;
     }
 
     /**
