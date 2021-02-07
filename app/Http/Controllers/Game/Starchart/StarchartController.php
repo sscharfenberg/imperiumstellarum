@@ -30,7 +30,9 @@ class StarchartController extends Controller
 
         $gameId = $request->route('game');
         $game = Game::find($gameId);
-        $players = Player::where('game_id', $gameId)->get();
+        $players = Player::where('game_id', $gameId)
+            ->where('dead', false)
+            ->get();
         $stars = Game::find($gameId)->stars;
         $player = Player::find(Auth::user()->selected_player);
         $playerStars = $player->stars;

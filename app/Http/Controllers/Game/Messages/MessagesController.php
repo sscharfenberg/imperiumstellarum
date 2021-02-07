@@ -30,7 +30,10 @@ class MessagesController extends Controller
         $defaultApiData = $a->defaultData($request);
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
-        $allPlayers = Player::where('game_id', $gameId)->with('user')->get();
+        $allPlayers = Player::where('game_id', $gameId)
+            ->where('dead', false)
+            ->with('user')
+            ->get();
         $players = $allPlayers->filter(function($p) use ($player) {
             return $p->id !== $player->id;
         });

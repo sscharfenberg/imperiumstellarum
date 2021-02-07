@@ -161,7 +161,14 @@ return [
     ],
 
     'messages' => [
-        'navTitle' => 'Nachrichten'
+        'navTitle' => 'Nachrichten',
+        'errors' => [
+            'uuids' => 'Etwas stimmt nicht nicht den angegeben IDs.',
+            'recipients' => 'Sie müssen zwischen :min und :max Empfänger wählen.',
+            'players' => 'Einer oder mehrere der Empfänger scheinen nicht im Spiel eingeschrieben zu sein.',
+            'subject' => 'Der Betreff muss zwischen :min und :max Zeichen enthalten.',
+            'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.'
+        ],
     ]
 
 ];

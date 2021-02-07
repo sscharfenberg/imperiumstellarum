@@ -30,7 +30,9 @@ class DiplomacyController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $defaultApiData = $a->defaultData($request);
-        $players = Player::where('game_id', $gameId)->get();
+        $players = Player::where('game_id', $gameId)
+            ->where('dead', false)
+            ->get();
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
 
         $returnData = [

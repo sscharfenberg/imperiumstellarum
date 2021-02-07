@@ -72,7 +72,17 @@ class Message extends Model
         'message_id',
         'body',
         'subject',
-        'read'
+        'read',
+        'recipient_ids'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'recipient_ids' => 'array',
     ];
 
     /**
@@ -84,7 +94,7 @@ class Message extends Model
     }
 
     /**
-     * Get the player that owns the message
+     * Get the player that owns the message (recipient)
      */
     public function player()
     {

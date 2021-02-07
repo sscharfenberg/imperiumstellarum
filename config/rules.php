@@ -1295,6 +1295,10 @@ return [
             'min' => 3,
             'max' => 1000
         ],
+        'recipients' => [
+            'min' => 1,
+            'max' => 10
+        ]
     ]
 
 ];

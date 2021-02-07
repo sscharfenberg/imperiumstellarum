@@ -33,7 +33,9 @@ class FleetsController extends Controller
         $max = config('rules.fleets.num.max');
         if ($numMaxFleets > $max) $numMaxFleets = $max;
         $playerStars = $player->stars;
-        $players = Player::where('game_id', $gameId)->get();
+        $players = Player::where('game_id', $gameId)
+            ->where('dead', false)
+            ->get();
         $fleetMovements = $player->fleetMovements;
         $fleetStarIds = $player->fleets->map(function ($fleet) {
             return $fleet->star_id;

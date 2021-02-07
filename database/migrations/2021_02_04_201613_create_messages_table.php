@@ -13,7 +13,8 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        $length = (38 * 10) + 2 + config('rules.messages.recipients.max') - 1;
+        Schema::create('messages', function (Blueprint $table) use ($length) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
@@ -25,6 +26,7 @@ class CreateMessagesTable extends Migration
             $table->string('body', config('rules.messages.text.max'));
             $table->string('subject', config('rules.messages.subject.max'));
             $table->boolean('read')->default(false);
+            $table->string('recipient_ids', $length);
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')

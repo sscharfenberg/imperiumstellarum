@@ -161,7 +161,14 @@ return [
     ],
 
     'messages' => [
-        'navTitle' => 'Messages'
+        'navTitle' => 'Messages',
+        'errors' => [
+            'uuids' => 'There is something wrong with the supplied recipient Ids.',
+            'recipients' => 'You need to select between :min and :max recipients.',
+            'players' => 'One or more recipients seems to not be enlisted this game.',
+            'subject' => 'The subject needs to have between :min and :max characters',
+            'message' => 'The message needs to have between :min and :max characters'
+        ],
     ]
 
 ];

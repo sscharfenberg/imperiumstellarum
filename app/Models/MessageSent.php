@@ -12,7 +12,6 @@ use App\Http\Traits\UsesUuid;
  * @property string $id
  * @property string $game_id
  * @property string $player_id
- * @property string $sender_id
  * @property string|null $message_id
  * @property string $body
  * @property string $subject
@@ -21,7 +20,6 @@ use App\Http\Traits\UsesUuid;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
- * @property-read \App\Models\Player $recipient
  * @property-read \App\Models\Message|null $repliesTo
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent newQuery()
@@ -65,10 +63,19 @@ class MessageSent extends Model
     protected $fillable = [
         'game_id',
         'player_id',
-        'recipient_id',
         'message_id',
         'body',
         'subject',
+        'recipient_ids'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'recipient_ids' => 'array',
     ];
 
     /**
@@ -80,19 +87,11 @@ class MessageSent extends Model
     }
 
     /**
-     * Get the player that owns the message
+     * Get the player that owns the message (sender)
      */
     public function player()
     {
         return $this->belongsTo(Player::class, 'player_id');
-    }
-
-    /**
-     * Get the player that has sent the message
-     */
-    public function recipient()
-    {
-        return $this->belongsTo(Player::class, 'recipient_id');
     }
 
     /**

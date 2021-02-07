@@ -31,7 +31,10 @@ class ChangeRelationController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $recipientId = $request->input(["recipient"]);
         $game = Game::find($player->game_id);
-        $recipient = Player::where('game_id', $game->id)->where('id', $recipientId)->first();
+        $recipient = Player::where('game_id', $game->id)
+            ->where('dead', false)
+            ->where('id', $recipientId)
+            ->first();
         $setStatus = $request->input(["set"]);
         $currentRelation = PlayerRelation::where('game_id', $game->id)
             ->where('player_id', $player->id)
@@ -62,7 +65,9 @@ class ChangeRelationController extends Controller
 
         $updatedPlayer = Player::find(Auth::user()->selected_player);
         $gameRelations = PlayerRelation::where('game_id', $game->id)->get();
-        $players = Player::where('game_id', $game->id)->get();
+        $players = Player::where('game_id', $game->id)
+            ->where('dead', false)
+            ->get();
         $turns = config('rules.diplomacy.turnsUntilEffective');
         return response()->json([
             'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $players),
