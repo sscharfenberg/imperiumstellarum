@@ -12,12 +12,18 @@
     "new": {
         "navTitle": "Neue Nachricht",
         "title": "Nachricht erstellen",
+        "hdlChoose": "Wählen Sie einen oder mehrere Empfänger",
+        "recipients": {
+            "headline": "Empfänger",
+            "clear": "Alle löschen"
+        },
         "recipient": {
-            "tickerLabel": "Empfänger Ticker",
-            "tickerPlaceholder": "Bitte geben Sie den Ticker des Empfängers ein",
+            "label": "Empfänger Ticker",
+            "placeholder": "Bitte geben Sie den Ticker des Empfängers ein",
             "none": "Keine Imperien mit diesem Ticker.",
             "cancel": "Klicken um Auswahl und Ticker zu löschen."
         },
+        "hdlCompose": "Nachricht",
         "subject": {
             "label": "Betreff",
             "placeholder": "Betreff der Nachricht",

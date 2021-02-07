@@ -7,6 +7,7 @@ import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import MessagesNewBody from "Pages/Messages/New/MessagesNewBody";
 import MessagesNewChooseRecipient from "./MessagesNewChooseRecipient";
+import MessagesNewShowRecipients from "./MessagesNewShowRecipients";
 import MessagesNewSubject from "Pages/Messages/New/MessagesNewSubject";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
@@ -15,21 +16,20 @@ export default {
         GameButton,
         MessagesNewBody,
         MessagesNewChooseRecipient,
+        MessagesNewShowRecipients,
         MessagesNewSubject,
         SubHeadline,
     },
     setup() {
         const store = useStore();
-        const recipientId = computed(
-            () => store.state.messages.new.recipientId
-        );
+        const recipients = computed(() => store.state.messages.new.recipients);
         const subject = computed(() => store.state.messages.new.subject);
         const body = computed(() => store.state.messages.new.body);
         const rules = window.rules.messages;
 
         const onSubmit = () => {
             store.dispatch("messages/SEND_MESSAGE", {
-                recipientId: store.state.messages.new.recipientId,
+                recipients: store.state.messages.new.recipients,
                 subject: store.state.messages.new.subject,
                 body: store.state.messages.new.body,
                 repliesTo: "",
@@ -38,20 +38,21 @@ export default {
 
         const onCancel = () => {
             store.commit("messages/SET_SEARCH_TICKER", "");
-            store.commit("messages/SET_RECIPIENT_ID", "");
+            store.commit("messages/RESET_RECIPIENTS");
             store.commit("messages/SET_SUBJECT", "");
             store.commit("messages/SET_BODY", "");
         };
 
-        return { recipientId, subject, body, rules, onSubmit, onCancel };
+        return { recipients, subject, body, rules, onSubmit, onCancel };
     },
 };
 </script>
 
 <template>
     <div class="new-message app-form">
-        <sub-headline headline="Choose Recipient" />
         <messages-new-choose-recipient />
+        <messages-new-show-recipients v-if="recipients.length > 0" />
+        <sub-headline :headline="$t('messages.new.hdlCompose')" />
         <messages-new-subject />
         <messages-new-body />
         <div class="form-row submit">
@@ -61,7 +62,7 @@ export default {
                     text-string="Send Message"
                     :primary="true"
                     :disabled="
-                        !recipientId ||
+                        recipients.length === 0 ||
                         subject.length < rules.subject.min ||
                         body.length < rules.body.min
                     "
@@ -70,7 +71,10 @@ export default {
                 <game-button
                     icon-name="cancel"
                     text-string="Cancel"
-                    :disabled="!subject.length && !body.length"
+                    :disabled="
+                        recipients.length === 0 ||
+                        (!subject.length && !body.length)
+                    "
                     @click="onCancel"
                 />
             </div>

@@ -20,7 +20,7 @@ export default {
     // new message
     new: {
         tickerSearch: "",
-        recipientId: "",
+        recipients: [],
         subject: "",
         body: "",
     },

@@ -12,12 +12,18 @@
     "new": {
         "navTitle": "Create",
         "title": "Create new message",
+        "hdlChoose": "Choose one or more recipients",
+        "recipients": {
+            "headline": "Recipient(s)",
+            "clear": "Clear all"
+        },
         "recipient": {
-            "tickerLabel": "Recipient ticker",
-            "tickerPlaceholder": "Enter the recipient's ticker",
+            "label": "Recipient ticker",
+            "placeholder": "Enter the recipient's ticker",
             "none": "No empires with this ticker.",
             "cancel": "Click to clear selection and ticker."
         },
+        "hdlCompose": "Write message",
         "subject": {
             "label": "Subject",
             "placeholder": "Message placeholder",

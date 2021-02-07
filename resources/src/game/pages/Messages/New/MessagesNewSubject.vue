@@ -55,7 +55,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-row {
-    padding: 16px 0;
+    padding: 0 0 16px 0;
 }
 .form-row.form-row .descr {
     @include respond-to("medium") {

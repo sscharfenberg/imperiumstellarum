@@ -73,6 +73,32 @@ export default {
     },
 
     /**
+     * @function ADD a playerId to recipients
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    ADD_RECIPIENT: (state, payload) => {
+        state.new.recipients.push(payload);
+    },
+
+    /**
+     * @function REMOVE a playerId from recipients
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    REMOVE_RECIPIENT: (state, payload) => {
+        state.new.recipients.splice(state.new.recipients.indexOf(payload), 1);
+    },
+
+    /**
+     * @function RESET recipients array
+     * @param {Object} state - vuex module "messages" state
+     */
+    RESET_RECIPIENTS: (state) => {
+        state.new.recipients = [];
+    },
+
+    /**
      * @function SET recipient id
      * @param {Object} state - vuex module "messages" state
      * @param {String} payload

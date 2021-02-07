@@ -23,7 +23,7 @@ class SendMessageController extends Controller
     {
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
-        $recipientId = $request->input(["recipientId"]);
+        $recipientIds = $request->input(["recipients"]);
         $subject = $request->input(["subject"]);
         $body = $request->input(["body"]);
         $repliesTo = $request->input(["repliesTo"]);
@@ -32,7 +32,7 @@ class SendMessageController extends Controller
         // verify subject constraints
         // verify body constraints
 
-        dd($repliesTo);
+        dd($recipientIds);
 
     }
 

@@ -6,10 +6,11 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
 import Icon from "Components/Icon/Icon";
-import MessagesNewShowRecipient from "./MessagesNewShowRecipient";
+import MessagesNewAddRecipient from "./MessagesNewAddRecipient";
+import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "MessagesNewChooseRecipient",
-    components: { GameButton, Icon, MessagesNewShowRecipient },
+    components: { GameButton, Icon, MessagesNewAddRecipient, SubHeadline },
     setup() {
         const store = useStore();
         const players = computed(() =>
@@ -25,9 +26,6 @@ export default {
                 store.commit("messages/SET_SEARCH_TICKER", value);
             },
         });
-        const recipientId = computed(
-            () => store.state.messages.new.recipientId
-        );
         const recipientRelation = (playerId) => {
             const relation = relations.value.find(
                 (r) => r.playerId === playerId
@@ -37,7 +35,6 @@ export default {
         };
         const onClear = () => {
             store.commit("messages/SET_SEARCH_TICKER", "");
-            store.commit("messages/SET_RECIPIENT_ID", "");
         };
 
         return {
@@ -45,7 +42,6 @@ export default {
             relations,
             maxTickerLength,
             ticker,
-            recipientId,
             recipientRelation,
             onClear,
         };
@@ -54,10 +50,11 @@ export default {
 </script>
 
 <template>
+    <sub-headline :headline="$t('messages.new.hdlChoose')" />
     <div class="form-row has-divider">
         <div class="label">
             <label for="recipientTicker">{{
-                $t("messages.new.recipient.tickerLabel")
+                $t("messages.new.recipient.label")
             }}</label>
         </div>
         <div class="input">
@@ -65,7 +62,7 @@ export default {
                 type="text"
                 class="form-control"
                 id="recipientTicker"
-                :placeholder="$t('messages.new.recipient.tickerPlaceholder')"
+                :placeholder="$t('messages.new.recipient.placeholder')"
                 autocomplete="off"
                 v-model="ticker"
                 :maxlength="maxTickerLength"
@@ -74,10 +71,7 @@ export default {
             <div class="addon" v-if="!ticker.length">
                 <icon name="empire" />
             </div>
-            <div
-                class="addon cancel"
-                v-if="ticker.length || recipientId.length"
-            >
+            <div class="addon cancel" v-if="ticker.length">
                 <game-button
                     icon-name="cancel"
                     :size="1"
@@ -92,7 +86,7 @@ export default {
             class="descr recipients"
             v-if="players.length > 0 && ticker.length > 0"
         >
-            <messages-new-show-recipient
+            <messages-new-add-recipient
                 v-for="player in players"
                 :key="player.id"
                 :player-id="player.id"
@@ -114,11 +108,12 @@ export default {
 <style lang="scss" scoped>
 .form-row {
     padding: 0 0 16px 0;
+    margin: 0 0 16px 0;
 }
 
 .form-row > .descr.recipients {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
     padding: 0;
     border-width: 0;

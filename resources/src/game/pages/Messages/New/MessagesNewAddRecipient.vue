@@ -1,11 +1,11 @@
 <script>
 /******************************************************************************
- * PageComponent: MessagesNewShowRecipient
+ * PageComponent: MessagesNewSelectRecipient
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
 export default {
-    name: "MessagesNewShowRecipient",
+    name: "MessagesNewAddRecipient",
     props: {
         playerId: String,
         ticker: String,
@@ -15,18 +15,11 @@ export default {
     },
     setup(props) {
         const store = useStore();
-        const recipientId = computed(
-            () => store.state.messages.new.recipientId
-        );
+        const recipients = computed(() => store.state.messages.new.recipients);
         const onClick = () => {
-            const players = store.state.messages.players;
-            store.commit("messages/SET_RECIPIENT_ID", props.playerId);
-            store.commit(
-                "messages/SET_SEARCH_TICKER",
-                players.find((p) => p.id === props.playerId).ticker
-            );
+            store.commit("messages/ADD_RECIPIENT", props.playerId);
         };
-        return { recipientId, onClick };
+        return { recipients, onClick };
     },
 };
 </script>
@@ -36,7 +29,7 @@ export default {
         class="recipient"
         @click="onClick"
         @keyup.enter="onClick"
-        :class="{ selected: recipientId === playerId }"
+        :class="{ selected: recipients.includes(playerId) }"
     >
         <span class="recipient__name">[{{ ticker }}] {{ name }}</span>
         <span
@@ -58,7 +51,7 @@ export default {
     display: flex;
     align-items: center;
 
-    padding: 8px;
+    padding: 4px;
     border: 2px solid transparent;
 
     background: transparent;
@@ -70,6 +63,10 @@ export default {
 
     transition: background-color map-get($animation-speeds, "fast") linear,
         border-color map-get($animation-speeds, "fast") linear;
+
+    @include respond-to("medium") {
+        padding: 8px;
+    }
 
     @include themed() {
         color: t("t-light");
