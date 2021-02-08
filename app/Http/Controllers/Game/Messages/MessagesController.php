@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use App\Models\MessageSent;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
@@ -12,7 +13,6 @@ use App\Services\PlayerRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use function MongoDB\BSON\toJSON;
 
 class MessagesController extends Controller
 {
@@ -38,10 +38,16 @@ class MessagesController extends Controller
             return $p->id !== $player->id;
         });
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
+        $outbox = $player->outbox;
+        $inbox = $player->inbox;
 
         $returnData = [
-            'inbox' => [],
-            'outbox' => [],
+            'inbox' => $inbox->map(function ($message) use ($f) {
+                return $f->formatMessage($message);
+            }),
+            'outbox' => $outbox->map(function ($message) use ($f) {
+                return $f->formatMessageSent($message);
+            }),
             'players' => $players->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             })->values(),

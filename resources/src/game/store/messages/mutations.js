@@ -99,15 +99,6 @@ export default {
     },
 
     /**
-     * @function SET recipient id
-     * @param {Object} state - vuex module "messages" state
-     * @param {String} payload
-     */
-    SET_RECIPIENT_ID: (state, payload) => {
-        state.new.recipientId = payload;
-    },
-
-    /**
      * @function SET message subject
      * @param {Object} state - vuex module "messages" state
      * @param {String} payload

@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
-use App\Models\MessageRecipient;
 use App\Models\Player;
-use App\Models\Message;
+use App\Models\MessageSent;
 
+use App\Services\FormatApiResponseService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Uuid;
 
+use App\Services\MessageService;
 use App\Http\Traits\Game\UsesMessageVerification;
 
 class SendMessageController extends Controller
@@ -21,49 +21,14 @@ class SendMessageController extends Controller
     use UsesMessageVerification;
 
     /**
-     * size of chunks for database operations
-     * @var int
-     */
-    private $chunkSize = 10;
-
-    /**
-     * @function create message entries for inbox
-     * @param string $gameId
-     * @param string $senderId
-     * @param array $recipientIds
-     * @param string $subject
-     * @param string $body
-     * @return void
-     */
-    public function createMessages (string $gameId, string $senderId, array $recipientIds, string $subject, string $body)
-    {
-        $messages = array_map(function($recipientId) use ($gameId, $senderId, $recipientIds, $subject, $body) {
-            return [
-                'id' => Uuid::uuid4(),
-                'game_id' => $gameId,
-                'player_id' => $recipientId,
-                'sender_id' => $senderId,
-                'message_id' => null,
-                'subject' => $subject,
-                'body' => $body,
-                'recipient_ids' => json_encode($recipientIds),
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
-        }, $recipientIds);
-        $chunks = array_chunk($messages, $this->chunkSize);
-        foreach($chunks as $chunk) {
-            Message::insert($chunk);
-        }
-    }
-
-    /**
      * @function send fleet to destination
      * @param Request $request
      * @return JsonResponse
      */
     public function handle (Request $request): JsonResponse
     {
+        $m = new MessageService;
+        $f = new FormatApiResponseService;
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $game = Game::find($gameId);
@@ -71,9 +36,6 @@ class SendMessageController extends Controller
         $subject = htmlspecialchars($request->input(["subject"]));
         $body = htmlspecialchars($request->input(["body"]));
         $repliesTo = $request->input(["repliesTo"]);
-
-        // verify subject constraints
-        // verify body constraints
 
         // verification
         if (!$this->recipientsContainOnlyValidUuids($recipientIds)) {
@@ -107,10 +69,18 @@ class SendMessageController extends Controller
         }
 
         // create inbox messages
-        $this->createMessages($gameId, $player->id, $recipientIds, $subject, $body);
+        $m->createMessages($gameId, $player->id, $recipientIds, $subject, $body);
 
-        var_dump($body);
-        dd($body);
+        // send response to client
+        $outbox = MessageSent::where('game_id', $gameId)
+            ->where('player_id', $player->id)
+            ->get();
+        return response()->json([
+            'outbox' => $outbox->map(function ($message) use ($f) {
+                return $f->formatMessageSent($message);
+            }),
+            'message' => __('game.messages.messageSent')
+        ]);
 
     }
 

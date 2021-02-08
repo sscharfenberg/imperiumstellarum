@@ -382,9 +382,11 @@ class FormatApiResponseService {
             'id' => $message->id,
             'senderId' => $message->sender_id,
             'repliesToId' => $message->message_id,
+            'recipientIds' => $message->recipient_ids,
             'subject' => $message->subject,
             'body' => $message->body,
-            'read' => $message->read
+            'read' => $message->read,
+            'createdAt' => $message->created_at
         ];
     }
 
@@ -397,10 +399,11 @@ class FormatApiResponseService {
     {
         return [
             'id' => $message->id,
-            'recipientId' => $message->sender_id,
             'repliesToId' => $message->message_id,
+            'recipientIds' => $message->recipient_ids,
             'subject' => $message->subject,
             'body' => $message->body,
+            'createdAt' => $message->created_at
         ];
     }
 

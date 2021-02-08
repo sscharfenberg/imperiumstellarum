@@ -39,6 +39,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSubject($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property array $recipient_ids
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereRecipientIds($value)
  */
 class Message extends Model
 {

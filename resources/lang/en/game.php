@@ -169,6 +169,7 @@ return [
             'subject' => 'The subject needs to have between :min and :max characters',
             'message' => 'The message needs to have between :min and :max characters'
         ],
+        'messageSent' => 'Message sent.'
     ]
 
 ];

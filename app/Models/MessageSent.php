@@ -35,6 +35,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereSubject($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property array $recipient_ids
+ * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereRecipientIds($value)
  */
 class MessageSent extends Model
 {
@@ -46,7 +48,7 @@ class MessageSent extends Model
      *
      * @var string
      */
-    protected $table = 'messages';
+    protected $table = 'messages_sent';
 
     /**
      * The primary key associated with the table.

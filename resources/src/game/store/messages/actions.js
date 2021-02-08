@@ -52,6 +52,11 @@ export default {
                     response.data.message
                 ) {
                     commit("SET_OUTBOX", response.data.outbox);
+                    commit("SET_SEARCH_TICKER", "");
+                    commit("RESET_RECIPIENTS");
+                    commit("SET_SUBJECT", "");
+                    commit("SET_BODY", "");
+                    commit("SET_PAGE", 1);
                 }
                 notify(response.data.message, "success");
             })
