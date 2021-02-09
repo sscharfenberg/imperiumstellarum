@@ -16,7 +16,7 @@ export default {
 
 <template>
     <div class="outbox">
-        <h1>Outbox</h1>
+        <h1>{{ messages.length }} Outbox</h1>
         {{ messages }}
     </div>
 </template>

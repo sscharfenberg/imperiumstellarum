@@ -79,7 +79,9 @@ class SendMessageController extends Controller
             'outbox' => $outbox->map(function ($message) use ($f) {
                 return $f->formatMessageSent($message);
             }),
-            'message' => __('game.messages.messageSent')
+            'message' => trans_choice('game.messages.messageSent', count($recipientIds), [
+                'num' => count($recipientIds)
+            ])
         ]);
 
     }

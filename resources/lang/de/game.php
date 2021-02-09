@@ -169,7 +169,7 @@ return [
             'subject' => 'Der Betreff muss zwischen :min und :max Zeichen enthalten.',
             'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.'
         ],
-        'messageSent' => 'Nachricht verschickt.'
+        'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.'
     ]
 
 ];

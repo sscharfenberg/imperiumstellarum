@@ -35,7 +35,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereSubject($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property array $recipient_ids
+ * @property string $recipient_ids
  * @method static \Illuminate\Database\Eloquent\Builder|MessageSent whereRecipientIds($value)
  */
 class MessageSent extends Model
@@ -69,15 +69,6 @@ class MessageSent extends Model
         'body',
         'subject',
         'recipient_ids'
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'recipient_ids' => 'array',
     ];
 
     /**

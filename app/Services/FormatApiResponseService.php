@@ -19,6 +19,7 @@ use App\Models\PlayerResource;
 use App\Models\Harvester;
 use App\Models\Shipyard;
 use App\Models\TechLevel;
+use Illuminate\Support\Carbon;
 
 class FormatApiResponseService {
 
@@ -378,15 +379,22 @@ class FormatApiResponseService {
      */
     public function formatMessage (Message $message): array
     {
+        // absolute=false does not work for diffInSeconds on php7.3
+        // https://github.com/briannesbitt/Carbon/issues/1503
+        // so, we'll work around this for now.
+        $createdAt = $message->created_at->diffInSeconds(Carbon::now());
+        if (now() > $message->created_at) {
+            $createdAt = -$createdAt;
+        }
         return [
             'id' => $message->id,
             'senderId' => $message->sender_id,
             'repliesToId' => $message->message_id,
-            'recipientIds' => $message->recipient_ids,
+            'recipientIds' => json_decode($message->recipient_ids),
             'subject' => $message->subject,
             'body' => $message->body,
-            'read' => $message->read,
-            'createdAt' => $message->created_at
+            'read' => $message->read ? true : false,
+            'createdAt' => $createdAt
         ];
     }
 
@@ -397,13 +405,20 @@ class FormatApiResponseService {
      */
     public function formatMessageSent (MessageSent $message): array
     {
+        // absolute=false does not work for diffInSeconds on php7.3
+        // https://github.com/briannesbitt/Carbon/issues/1503
+        // so, we'll work around this for now.
+        $createdAt = $message->created_at->diffInSeconds(Carbon::now());
+        if (now() > $message->created_at) {
+            $createdAt = -$createdAt;
+        }
         return [
             'id' => $message->id,
             'repliesToId' => $message->message_id,
-            'recipientIds' => $message->recipient_ids,
+            'recipientIds' => json_decode($message->recipient_ids),
             'subject' => $message->subject,
             'body' => $message->body,
-            'createdAt' => $message->created_at
+            'createdAt' => $createdAt
         ];
     }
 
