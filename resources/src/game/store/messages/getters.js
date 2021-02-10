@@ -14,7 +14,7 @@ export default {
     sentMessageById: (state) => (id) =>
         state.outbox.find((f) => f.id === id) || {},
 
-    // get broadcast by id
+    // get player by id
     playerById: (state) => (id) => state.players.find((p) => p.id === id) || {},
 
     /**

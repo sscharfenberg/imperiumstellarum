@@ -394,7 +394,7 @@ class FormatApiResponseService {
             'subject' => $message->subject,
             'body' => $message->body,
             'read' => $message->read ? true : false,
-            'createdAt' => $createdAt
+            'timestamp' => $createdAt
         ];
     }
 
@@ -418,7 +418,7 @@ class FormatApiResponseService {
             'recipientIds' => json_decode($message->recipient_ids),
             'subject' => $message->subject,
             'body' => $message->body,
-            'createdAt' => $createdAt
+            'timestamp' => $createdAt
         ];
     }
 
