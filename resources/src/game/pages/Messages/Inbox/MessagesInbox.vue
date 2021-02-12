@@ -20,7 +20,5 @@ export default {
 </script>
 
 <template>
-    <h1>{{ messages.length }} Inbox</h1>
-    {{ messages }}
     <mailbox-overview :messages="messages" mailbox="in" />
 </template>

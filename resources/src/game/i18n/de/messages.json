@@ -9,6 +9,13 @@
         "navTitle": "Ausgehend",
         "title": "Nachrichten Ausgang"
     },
+    "mailbox": {
+        "from": "Von",
+        "to": "An",
+        "recieved": "Empfangen",
+        "sent": "Gesendet",
+        "subject": "Betreff"
+    },
     "new": {
         "navTitle": "Neue Nachricht",
         "title": "Nachricht erstellen",

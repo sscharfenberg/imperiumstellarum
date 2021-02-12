@@ -1293,7 +1293,8 @@ return [
         ],
         'body' => [
             'min' => 3,
-            'max' => 1000
+            'max' => 1000,
+            'overviewMax' => 80 // max number of chars that are shown in overview
         ],
         'recipients' => [
             'min' => 1,

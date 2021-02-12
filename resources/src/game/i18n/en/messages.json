@@ -9,6 +9,13 @@
         "navTitle": "Outbox",
         "title": "Sent Messages"
     },
+    "mailbox": {
+        "from": "From",
+        "to": "To",
+        "recieved": "Recieved",
+        "sent": "Sent",
+        "subject": "Subject"
+    },
     "new": {
         "navTitle": "Create",
         "title": "Create new message",

@@ -1,11 +1,12 @@
 /******************************************************************************
  * formatting helpers
  *****************************************************************************/
+import { format } from "date-fns";
 
 /**
  * @function convert a latin number to roman number string
  * @param {Number} latin
- * @returns {string}
+ * @returns {String}
  */
 export const convertLatinToRoman = (latin) => {
     let result = "";
@@ -45,10 +46,29 @@ export const convertLatinToRoman = (latin) => {
  * simple helper function using the browsers toLocaleString(locale)
  * expects the locale as 'de-DE', 'at-DE' etc not supported (would be converted to 'at-AT').
  * @param {Number} number
- * @returns {string}
+ * @returns {String}
  */
 export const formatNumber = (number) => {
     const language = document.querySelector("html").lang;
     const locale = `${language}-${language.toUpperCase()}`;
     return number.toLocaleString(locale);
+};
+
+/**
+ * @function formats a js DateTime with the browser locale
+ * @param {Date} date
+ * @returns {String}
+ */
+export const formatDateTime = (date) => {
+    const language = document.querySelector("html").lang;
+    let formatting = (lang) => {
+        switch (lang) {
+            case "en":
+            default:
+                return "dd/MM/uuuu hh:mm:ss aaa";
+            case "de":
+                return "dd.MM.uuuu HH:mm:ss";
+        }
+    };
+    return format(date, formatting(language));
 };
