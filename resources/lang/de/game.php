@@ -167,7 +167,8 @@ return [
             'recipients' => 'Sie müssen zwischen :min und :max Empfänger wählen.',
             'players' => 'Einer oder mehrere der Empfänger scheinen nicht im Spiel eingeschrieben zu sein.',
             'subject' => 'Der Betreff muss zwischen :min und :max Zeichen enthalten.',
-            'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.'
+            'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.',
+            'messageOwner' => 'Sie sind nicht der Besitzer der Nachricht.'
         ],
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.'
     ]

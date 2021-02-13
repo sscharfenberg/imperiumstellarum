@@ -72,3 +72,14 @@ export const formatDateTime = (date) => {
     };
     return format(date, formatting(language));
 };
+
+/**
+ * @function format a minimarkdown message to html
+ * @param {String} body
+ * @returns {String}
+ */
+export const formatMessageBody = (body) => {
+    return body
+        .replace(/(<([^>]+)>)/gi, "") // make sure there really is no html in the string left.
+        .replace(/[\r\n]+/g, "<br />"); // linebreaks => <br>
+};

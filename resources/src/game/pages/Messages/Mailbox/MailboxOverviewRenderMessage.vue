@@ -101,8 +101,18 @@ export default {
         </span>
         <span class="message__subject">
             {{ subject }}
-            <i class="unread" v-if="!read" />
-            <i class="read" v-if="read" />
+            <i
+                class="unread"
+                v-if="mailbox === 'in' && !read"
+                :title="$t('messages.mailbox.unread')"
+                :aria-label="$t('messages.mailbox.unread')"
+            />
+            <i
+                class="read"
+                v-if="mailbox === 'in' && read"
+                :title="$t('messages.mailbox.read')"
+                :aria-label="$t('messages.mailbox.read')"
+            />
         </span>
         <span class="message__body">
             {{ bodyShortened }}
@@ -112,6 +122,8 @@ export default {
         v-if="showModal"
         :message-id="messageId"
         :mailbox="mailbox"
+        :timestamp-formatted="timestampFormatted"
+        :read="read"
         @close="showModal = false"
     />
 </template>
@@ -165,7 +177,7 @@ export default {
     }
 
     &--unread {
-        font-weight: normal;
+        font-weight: 600;
     }
 
     &__sender,
@@ -175,7 +187,8 @@ export default {
         padding: 4px;
         border: 1px solid transparent;
 
-        transition: border-color map-get($animation-speeds, "fast") linear;
+        transition: border-color map-get($animation-speeds, "fast") linear,
+            background-color map-get($animation-speeds, "fast") linear;
 
         @include respond-to("medium") {
             padding: 8px;
@@ -278,7 +291,8 @@ export default {
 
     &:hover > span {
         @include themed() {
-            border-color: t("b-christine");
+            background-color: t("g-ebony");
+            border-color: t("b-viking");
         }
     }
 }

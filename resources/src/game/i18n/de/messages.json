@@ -14,7 +14,9 @@
         "to": "An",
         "recieved": "Empfangen",
         "sent": "Gesendet",
-        "subject": "Betreff"
+        "subject": "Betreff",
+        "read": "Nachricht wurde bereits gelesen",
+        "unread": "Nachricht wurde noch nicht gelesen"
     },
     "new": {
         "navTitle": "Neue Nachricht",
@@ -41,5 +43,15 @@
             "charsUsed": "Zeichen eingegeben",
             "charsLeft": "Zeichen verfügbar"
         }
+    },
+    "details": {
+        "title": "Nachricht Details",
+        "sender": "Gesendet von",
+        "you": "{ticker} (Sie)",
+        "sentAt": "Gesendet am",
+        "recievedAt": "Empfangen am",
+        "recipients": "Empfänger|Empfänger",
+        "markUnread": "Als ungelesen markieren",
+        "reply": "Antworten"
     }
 }

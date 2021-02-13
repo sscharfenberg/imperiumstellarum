@@ -14,7 +14,9 @@
         "to": "To",
         "recieved": "Recieved",
         "sent": "Sent",
-        "subject": "Subject"
+        "subject": "Subject",
+        "read": "Message was read",
+        "unread": "Message was not yet read"
     },
     "new": {
         "navTitle": "Create",
@@ -41,5 +43,15 @@
             "charsUsed": "Characters used",
             "charsLeft": "Characters available"
         }
+    },
+    "details": {
+        "title": "Message Details",
+        "sender": "Sent by",
+        "you": "{ticker} (you)",
+        "sentAt": "Sent at",
+        "recievedAt": "Recieved at",
+        "recipients": "Recipient|Recipients",
+        "markUnread": "Mark unread",
+        "reply": "Reply"
     }
 }

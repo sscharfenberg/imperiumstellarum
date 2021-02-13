@@ -92,10 +92,13 @@ Route::middleware([
         [\App\Http\Controllers\Game\Diplomacy\DiplomacyController::class, 'gameData']);
 
     /**
-     * broadcasts api calls
+     * messages api calls
      */
     Route::get('/game/{game}/messages',
         [\App\Http\Controllers\Game\Messages\MessagesController::class, 'gameData']);
+    // mark message as read
+    Route::post('/game/{game}/messages/read',
+        [\App\Http\Controllers\Game\Messages\ReadMessageController::class, 'handle']);
 
 });
 

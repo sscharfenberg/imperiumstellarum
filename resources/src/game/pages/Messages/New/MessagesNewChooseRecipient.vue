@@ -13,11 +13,13 @@ export default {
     components: { GameButton, Icon, MessagesNewAddRecipient, SubHeadline },
     setup() {
         const store = useStore();
-        const players = computed(() =>
-            store.state.messages.players.filter((p) =>
-                p.ticker.includes(ticker.value)
-            )
-        );
+        const players = computed(() => {
+            const players = store.state.messages.players;
+            const selfId = store.state.empireId;
+            return players
+                .filter((p) => p.id !== selfId) // disallow sending messages to self
+                .filter((p) => p.ticker.includes(ticker.value));
+        });
         const relations = computed(() => store.state.messages.relations);
         const maxTickerLength = window.rules.player.ticker.max;
         const ticker = computed({

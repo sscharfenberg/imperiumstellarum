@@ -3,6 +3,7 @@
 namespace App\Http\Traits\Game;
 
 use App\Models\Game;
+use App\Models\Message;
 use App\Models\Player;
 use Ramsey\Uuid\Uuid;
 
@@ -69,6 +70,21 @@ trait UsesMessageVerification
         return is_string($body)
             && strlen($body) >= $rules['min']
             && strlen($body) <= $rules['max'];
+    }
+
+    /**
+     * @function verify that the message is in the players inbox
+     * @param string $messageId
+     * @param string $playerId
+     * @param string $gameId
+     * @return bool
+     */
+    public function messageBelongsToPlayer (string $messageId, string $playerId, string $gameId): bool
+    {
+        return !!Message::where('game_id', '=', $gameId)
+            ->where('id', '=', $messageId)
+            ->where('player_id', $playerId)
+            ->get();
     }
 
 }

@@ -68,4 +68,27 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function mark message as "read"
+     * @param {Function} commit - Vuex commit
+     * @param {Object} payload
+     */
+    MARK_MESSAGE_READ: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/messages/read`, payload)
+            .then((response) => {
+                if (response.status === 200 && response.data.inbox) {
+                    commit("SET_INBOX", response.data.inbox);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

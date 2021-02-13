@@ -2,7 +2,7 @@
 /******************************************************************************
  * PageComponent: MessagesInbox
  *****************************************************************************/
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
 import MailboxOverviewRenderMessage from "../Mailbox/MailboxOverviewRenderMessage";
 export default {
@@ -12,10 +12,19 @@ export default {
         mailbox: String, // "in" || "out"
     },
     components: { Icon, MailboxOverviewRenderMessage },
-    setup() {
+    setup(props) {
         const onClick = (id) => console.log("clicked", id);
         const sortDesc = ref(true);
-        return { onClick, sortDesc };
+        const messagesSorted = computed(() =>
+            props.messages
+                .slice()
+                .sort((a, b) =>
+                    sortDesc.value
+                        ? b.timestamp - a.timestamp
+                        : a.timestamp - b.timestamp
+                )
+        );
+        return { onClick, sortDesc, messagesSorted };
     },
 };
 </script>
@@ -38,27 +47,17 @@ export default {
                 <span v-if="mailbox === 'out'">{{
                     $t("messages.mailbox.sent")
                 }}</span>
-                <div class="messages__sort">
-                    <button
-                        @click="sortDesc = false"
-                        :class="{ active: !sortDesc }"
-                    >
-                        <icon name="expand_less" />
-                    </button>
-                    <button
-                        @click="sortDesc = true"
-                        :class="{ active: sortDesc }"
-                    >
-                        <icon name="expand_more" />
-                    </button>
-                </div>
+                <button class="messages__sort" @click="sortDesc = !sortDesc">
+                    <icon name="expand_less" :class="{ active: !sortDesc }" />
+                    <icon name="expand_more" :class="{ active: sortDesc }" />
+                </button>
             </li>
             <li class="messages__subject">
                 {{ $t("messages.mailbox.subject") }}
             </li>
         </ul>
         <mailbox-overview-render-message
-            v-for="message in messages"
+            v-for="message in messagesSorted"
             :key="message.id"
             :mailbox="mailbox"
             :message-id="message.id"
@@ -139,10 +138,8 @@ export default {
         right: 0;
         bottom: 0;
         flex-direction: column;
-    }
 
-    &__sort > button {
-        padding: 0;
+        padding: 0 4px;
         border: 0;
         margin: 0;
 
@@ -164,16 +161,22 @@ export default {
             }
         }
 
-        &.active > .icon {
-            @include themed() {
-                color: t("b-gorse");
-            }
-        }
-
         .icon {
-            width: 19px;
-            height: 19px;
-            flex: 0 0 19px;
+            width: 14px;
+            height: 14px;
+            flex: 0 0 14px;
+
+            @include respond-to("medium") {
+                width: 19px;
+                height: 19px;
+                flex: 0 0 19px;
+            }
+
+            &.active {
+                @include themed() {
+                    color: t("b-viking");
+                }
+            }
         }
     }
 }
