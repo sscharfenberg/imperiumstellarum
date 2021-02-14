@@ -17,7 +17,7 @@ export default {
     },
     components: { GameButton, Modal },
     emits: ["close"],
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
@@ -31,16 +31,51 @@ export default {
         const you = computed(() => `[${store.state.empireTicker}]`);
         const yourId = computed(() => store.state.empireId);
 
+        const onMarkUnreadClick = () => {
+            store.dispatch("messages/MARK_MESSAGE_READ", {
+                messageId: props.messageId,
+                read: false,
+            });
+            emit("close");
+        };
+
+        const onreplyClick = () => {
+            store.commit("messages/SET_SEARCH_TICKER", "");
+            store.commit("messages/RESET_RECIPIENTS");
+            store.commit("messages/ADD_RECIPIENT", message.value.senderId);
+            store.commit("messages/SET_REPLIES_TO_MESSAGE_ID", props.messageId);
+            store.commit(
+                "messages/SET_SUBJECT",
+                `RE: ${message.value.subject}`.substr(
+                    0,
+                    window.rules.messages.subject.max
+                )
+            );
+            store.commit("messages/SET_BODY", "");
+            store.commit("messages/SET_PAGE", 2);
+            emit("close");
+        };
+
         // before mount, call server and mark as read
         onBeforeMount(() => {
             if (!props.read && props.mailbox === "in") {
                 store.dispatch("messages/MARK_MESSAGE_READ", {
                     messageId: props.messageId,
+                    read: true,
                 });
             }
         });
 
-        return { requesting, message, player, you, yourId, formatMessageBody };
+        return {
+            requesting,
+            message,
+            player,
+            you,
+            yourId,
+            formatMessageBody,
+            onMarkUnreadClick,
+            onreplyClick,
+        };
     },
 };
 </script>
@@ -103,14 +138,16 @@ export default {
             <game-button
                 :text-string="$t('messages.details.reply')"
                 icon-name="reply"
-                :requesting="requesting"
+                :loading="requesting"
                 :disabled="requesting"
+                @click="onreplyClick"
             />
             <game-button
                 :text-string="$t('messages.details.markUnread')"
                 icon-name="markunread"
-                :requesting="requesting"
+                :loading="requesting"
                 :disabled="requesting"
+                @click="onMarkUnreadClick"
             />
         </div>
     </modal>

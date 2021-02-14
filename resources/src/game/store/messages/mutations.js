@@ -115,4 +115,13 @@ export default {
     SET_BODY: (state, payload) => {
         state.new.body = payload;
     },
+
+    /**
+     * @function SET message id to which this message replies to
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    SET_REPLIES_TO_MESSAGE_ID: (state, payload) => {
+        state.new.repliesToMessageId = payload;
+    },
 };

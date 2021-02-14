@@ -32,6 +32,10 @@
             "none": "No empires with this ticker.",
             "cancel": "Click to clear selection and ticker."
         },
+        "repliesTo": {
+            "headline": "Replying to message",
+            "label": "Original Message from {ticker}"
+        },
         "hdlCompose": "Write message",
         "subject": {
             "label": "Subject",

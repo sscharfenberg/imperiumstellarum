@@ -32,6 +32,10 @@
             "none": "Keine Imperien mit diesem Ticker.",
             "cancel": "Klicken um Auswahl und Ticker zu löschen."
         },
+        "repliesTo": {
+            "headline": "Antwort auf Nachricht",
+            "label": "Originalnachricht von {ticker}"
+        },
         "hdlCompose": "Nachricht",
         "subject": {
             "label": "Betreff",

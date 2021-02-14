@@ -84,7 +84,7 @@ export default {
     <button
         class="message"
         @click="showModal = true"
-        :class="{ 'message--unread': !read }"
+        :class="{ 'message--unread': mailbox === 'in' && !read }"
     >
         <span class="message__sender" v-if="mailbox === 'in'">
             [{{ senderTicker }}] {{ senderName }}

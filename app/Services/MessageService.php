@@ -19,19 +19,20 @@ class MessageService {
      * @param string $gameId
      * @param string|null $senderId
      * @param array $recipientIds
+     * @param string|null $repliesToId
      * @param string $subject
      * @param string $body
      * @return void
      */
-    private function createInboxMessages (string $gameId, ?string $senderId, array $recipientIds, string $subject, string $body)
+    private function createInboxMessages (string $gameId, ?string $senderId, array $recipientIds, ?string $repliesToId, string $subject, string $body)
     {
-        $messages = array_map(function($recipientId) use ($gameId, $senderId, $recipientIds, $subject, $body) {
+        $messages = array_map(function($recipientId) use ($gameId, $senderId, $recipientIds, $repliesToId, $subject, $body) {
             return [
                 'id' => Uuid::uuid4(),
                 'game_id' => $gameId,
                 'player_id' => $recipientId,
                 'sender_id' => $senderId,
-                'message_id' => null,
+                'message_id' => $repliesToId,
                 'subject' => $subject,
                 'body' => $body,
                 'recipient_ids' => json_encode($recipientIds),
@@ -51,16 +52,17 @@ class MessageService {
      * @param string $gameId
      * @param string $senderId
      * @param array $recipientIds
+     * @param string|null $repliesToId
      * @param string $subject
      * @param string $body
      * @return void
      */
-    private function createOutboxMessage (string $gameId, string $senderId, array $recipientIds, string $subject, string $body)
+    private function createOutboxMessage (string $gameId, string $senderId, array $recipientIds, ?string $repliesToId, string $subject, string $body)
     {
         MessageSent::create([
             'game_id' => $gameId,
             'player_id' => $senderId,
-            'message_id' => null,
+            'message_id' => $repliesToId,
             'subject' => $subject,
             'body' => $body,
             'recipient_ids' => json_encode($recipientIds),
@@ -73,14 +75,15 @@ class MessageService {
      * @param string $gameId
      * @param string $senderId
      * @param array $recipientIds
+     * @param string|null $repliesToId
      * @param string $subject
      * @param string $body
      * @return void
      */
-    public function createMessages (string $gameId, string $senderId, array $recipientIds, string $subject, string $body)
+    public function createMessages (string $gameId, string $senderId, array $recipientIds, ?string $repliesToId, string $subject, string $body)
     {
-        $this->createInboxMessages($gameId, $senderId, $recipientIds, $subject, $body);
-        $this->createOutboxMessage($gameId, $senderId, $recipientIds, $subject, $body);
+        $this->createInboxMessages($gameId, $senderId, $recipientIds, $repliesToId, $subject, $body);
+        $this->createOutboxMessage($gameId, $senderId, $recipientIds, $repliesToId, $subject, $body);
     }
 
     /**
@@ -93,7 +96,7 @@ class MessageService {
      */
     public function sendSystemMessage (string $gameId, array $recipientIds, string $subject, string $body)
     {
-        $this->createInboxMessages($gameId, null, $recipientIds, $subject, $body);
+        $this->createInboxMessages($gameId, null, $recipientIds, null, $subject, $body);
     }
 
 }

@@ -69,7 +69,7 @@ class SendMessageController extends Controller
         }
 
         // create inbox messages
-        $m->createMessages($gameId, $player->id, $recipientIds, $subject, $body);
+        $m->createMessages($gameId, $player->id, $recipientIds, $repliesTo, $subject, $body);
 
         // send response to client
         $outbox = MessageSent::where('game_id', $gameId)

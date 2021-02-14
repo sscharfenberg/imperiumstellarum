@@ -21,6 +21,7 @@ export default {
     new: {
         tickerSearch: "",
         recipients: [],
+        repliesToMessageId: "",
         subject: "",
         body: "",
     },

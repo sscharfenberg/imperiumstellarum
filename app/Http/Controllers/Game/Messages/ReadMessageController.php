@@ -18,7 +18,7 @@ class ReadMessageController extends Controller
     use UsesMessageVerification;
 
     /**
-     * @function send fleet to destination
+     * @function mark message as read/unread
      * @param Request $request
      * @return JsonResponse
      */
@@ -28,11 +28,16 @@ class ReadMessageController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $messageId = $request->input(['messageId']);
+        $read = $request->input(['read']);
 
         // verification
         if (!$this->messageBelongsToPlayer($messageId, $player->id, $gameId)) {
             return response()
                 ->json(['error' => __('game.messages.errors.messageOwner')], 419);
+        }
+        if (!is_bool($read)) {
+            return response()
+                ->json(['error' => __('game.messages.errors.bool')], 419);
         }
 
         // mark message as read
@@ -40,7 +45,7 @@ class ReadMessageController extends Controller
             ->where('id', '=', $messageId)
             ->where('player_id', $player->id)
             ->first();
-        $message->read = true;
+        $message->read = $read;
         $message->save();
 
         return response()->json([

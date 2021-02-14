@@ -5,10 +5,11 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import GameButton from "Components/Button/GameButton";
-import MessagesNewBody from "Pages/Messages/New/MessagesNewBody";
+import MessagesNewBody from "./MessagesNewBody";
 import MessagesNewChooseRecipient from "./MessagesNewChooseRecipient";
+import MessagesNewRepliesTo from "./MessagesNewRepliesTo";
 import MessagesNewShowRecipients from "./MessagesNewShowRecipients";
-import MessagesNewSubject from "Pages/Messages/New/MessagesNewSubject";
+import MessagesNewSubject from "./MessagesNewSubject";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "MessagesNew",
@@ -16,6 +17,7 @@ export default {
         GameButton,
         MessagesNewBody,
         MessagesNewChooseRecipient,
+        MessagesNewRepliesTo,
         MessagesNewShowRecipients,
         MessagesNewSubject,
         SubHeadline,
@@ -27,12 +29,30 @@ export default {
         const body = computed(() => store.state.messages.new.body);
         const rules = window.rules.messages;
 
+        const repliesToMessageId = computed(
+            () => store.state.messages.new.repliesToMessageId
+        );
+        const repliesToMessage = computed(() => {
+            if (!repliesToMessageId.value) return undefined;
+            return store.state.messages.inbox.find(
+                (m) => m.id === repliesToMessageId.value
+            ).body;
+        });
+        const repliesToSenderTicker = computed(() => {
+            if (!repliesToMessageId.value) return undefined;
+            const senderId = store.state.messages.inbox.find(
+                (m) => m.id === repliesToMessageId.value
+            ).senderId;
+            return store.state.messages.players.find((p) => p.id === senderId)
+                .ticker;
+        });
+
         const onSubmit = () => {
             store.dispatch("messages/SEND_MESSAGE", {
                 recipients: store.state.messages.new.recipients,
                 subject: store.state.messages.new.subject,
                 body: store.state.messages.new.body,
-                repliesTo: "",
+                repliesTo: store.state.messages.new.repliesToMessageId,
             });
         };
 
@@ -43,7 +63,16 @@ export default {
             store.commit("messages/SET_BODY", "");
         };
 
-        return { recipients, subject, body, rules, onSubmit, onCancel };
+        return {
+            recipients,
+            subject,
+            body,
+            repliesToMessage,
+            repliesToSenderTicker,
+            rules,
+            onSubmit,
+            onCancel,
+        };
     },
 };
 </script>
@@ -52,6 +81,11 @@ export default {
     <div class="new-message app-form">
         <messages-new-choose-recipient />
         <messages-new-show-recipients v-if="recipients.length > 0" />
+        <messages-new-replies-to
+            v-if="repliesToMessage"
+            :message-body="repliesToMessage"
+            :sender-ticker="repliesToSenderTicker"
+        />
         <sub-headline :headline="$t('messages.new.hdlCompose')" />
         <messages-new-subject />
         <messages-new-body />

@@ -168,7 +168,8 @@ return [
             'players' => 'One or more recipients seems to not be enlisted this game.',
             'subject' => 'The subject needs to have between :min and :max characters',
             'message' => 'The message needs to have between :min and :max characters',
-            'messageOwner' => 'This message does not belong to you.'
+            'messageOwner' => 'This message does not belong to you.',
+            'bool' => 'Message status must be boolean.'
         ],
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.'
     ]

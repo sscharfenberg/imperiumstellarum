@@ -70,7 +70,7 @@ export default {
     },
 
     /**
-     * @function mark message as "read"
+     * @function mark message as "read" / "unread"
      * @param {Function} commit - Vuex commit
      * @param {Object} payload
      */
