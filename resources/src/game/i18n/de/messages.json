@@ -55,6 +55,9 @@
         "sentAt": "Gesendet am",
         "recievedAt": "Empfangen am",
         "recipients": "Empfänger|Empfänger",
+        "subject": "Betreff",
+        "body": "Nachricht",
+        "repliesTo": "Nachricht antwortet auf Originalnachricht",
         "markUnread": "Als ungelesen markieren",
         "reply": "Antworten"
     }

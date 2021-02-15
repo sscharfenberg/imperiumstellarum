@@ -31,6 +31,32 @@ export default {
         const you = computed(() => `[${store.state.empireTicker}]`);
         const yourId = computed(() => store.state.empireId);
 
+        const repliesToMessage = computed(() => {
+            if (!message.value.repliesToId) return undefined;
+            let returnFormattedMessage;
+            if (props.mailbox === "out") {
+                returnFormattedMessage = formatMessageBody(
+                    store.getters["messages/messageById"](
+                        message.value.repliesToId
+                    ).body
+                );
+            } else if (props.mailbox === "in") {
+                console.log("messageId", message.value.repliesToId);
+                console.log(
+                    "message",
+                    store.getters["messages/sentMessageById"](
+                        message.value.repliesToId
+                    )
+                );
+                returnFormattedMessage = formatMessageBody(
+                    store.getters["messages/sentMessageById"](
+                        message.value.repliesToId
+                    ).body
+                );
+            }
+            return returnFormattedMessage;
+        });
+
         const onMarkUnreadClick = () => {
             store.dispatch("messages/MARK_MESSAGE_READ", {
                 messageId: props.messageId,
@@ -72,6 +98,7 @@ export default {
             player,
             you,
             yourId,
+            repliesToMessage,
             formatMessageBody,
             onMarkUnreadClick,
             onreplyClick,
@@ -112,26 +139,42 @@ export default {
                 <span
                     v-for="(recipient, index) in message.recipientIds"
                     :key="recipient"
-                    :class="{
-                        you:
-                            recipient === yourId &&
-                            message.recipientIds.length > 1,
-                    }"
                 >
-                    [{{ player(recipient).ticker }}]<span
-                        v-if="index !== message.recipientIds.length - 1"
+                    <span v-if="recipient === yourId">
+                        {{ $t("messages.details.you", { ticker: you }) }}
+                    </span>
+                    <span v-else> [{{ player(recipient).ticker }}] </span>
+                    <span v-if="index !== message.recipientIds.length - 1"
                         >,</span
                     >
                 </span>
             </li>
 
             <li class="stats--two-col text-left featured">
+                {{ $t("messages.details.subject") }}:
+            </li>
+            <li class="stats--two-col text-left">
                 {{ message.subject }}
             </li>
 
+            <li class="stats--two-col text-left featured">
+                {{ $t("messages.details.body") }}:
+            </li>
             <li
                 class="stats--two-col text-left"
                 v-html="formatMessageBody(message.body)"
+            />
+
+            <li
+                v-if="message.repliesToId"
+                class="stats--two-col text-left featured"
+            >
+                {{ $t("messages.details.repliesTo") }}:
+            </li>
+            <li
+                v-if="message.repliesToId"
+                class="stats--two-col text-left"
+                v-html="repliesToMessage"
             />
         </ul>
         <div class="actions" v-if="mailbox === 'in'">

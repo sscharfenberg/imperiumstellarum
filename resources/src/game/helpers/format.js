@@ -74,6 +74,25 @@ export const formatDateTime = (date) => {
 };
 
 /**
+ * @function formats a short js DateTime (only time!) with the browser locale
+ * @param {Date} date
+ * @returns {String}
+ */
+export const formatTime = (date) => {
+    const language = document.querySelector("html").lang;
+    let formatting = (lang) => {
+        switch (lang) {
+            case "en":
+            default:
+                return "hh:mm:ss aaa";
+            case "de":
+                return "HH:mm:ss";
+        }
+    };
+    return format(date, formatting(language));
+};
+
+/**
  * @function format a minimarkdown message to html
  * @param {String} body
  * @returns {String}

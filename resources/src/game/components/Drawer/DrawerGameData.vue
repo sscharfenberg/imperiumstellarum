@@ -4,7 +4,8 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-import { format, addSeconds } from "date-fns";
+import { addSeconds } from "date-fns";
+import { formatDateTime, formatTime } from "@/game/helpers/format";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "AppDrawerGameData",
@@ -15,10 +16,8 @@ export default {
         const dueDate = computed(() =>
             addSeconds(new Date(), store.state.turnDue)
         );
-        const dueShort = computed(() => format(dueDate.value, "HH:mm"));
-        const dueLong = computed(() =>
-            format(dueDate.value, "dd.MM.uuuu HH:mm:ss")
-        );
+        const dueShort = computed(() => formatTime(dueDate.value));
+        const dueLong = computed(() => formatDateTime(dueDate.value));
         const duePast = computed(() => store.state.turnDue <= 0);
         return {
             duePast,

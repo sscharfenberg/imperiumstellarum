@@ -3,6 +3,7 @@
  * local time in drawer
  *
  *****************************************************************************/
+import { formatTime } from "@/game/helpers/format";
 const _localTime = document.getElementById("localTime");
 
 /**
@@ -10,19 +11,17 @@ const _localTime = document.getElementById("localTime");
  * @param num
  * @returns {string|void}
  */
-const padZero = (num) => {
-    if (isNaN(num)) return;
-    return num <= 9 ? 0 + num.toString() : num.toString();
-};
+//const padZero = (num) => {
+//    if (isNaN(num)) return;
+//    return num <= 9 ? 0 + num.toString() : num.toString();
+//};
 
 /**
  * @function update current time in dom
  */
 const updateTime = () => {
     const now = new Date();
-    const formattedTime = `${padZero(now.getHours())}:${padZero(
-        now.getMinutes()
-    )}:${padZero(now.getSeconds())}`;
+    const formattedTime = formatTime(now);
     _localTime.textContent = formattedTime;
     _localTime.setAttribute("datetime", formattedTime);
 };

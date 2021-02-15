@@ -55,6 +55,9 @@
         "sentAt": "Sent at",
         "recievedAt": "Recieved at",
         "recipients": "Recipient|Recipients",
+        "subject": "Subject",
+        "body": "Message",
+        "repliesTo": "In reply to original message",
         "markUnread": "Mark unread",
         "reply": "Reply"
     }
