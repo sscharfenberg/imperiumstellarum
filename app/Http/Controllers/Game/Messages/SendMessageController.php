@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Game\Messages;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Player;
-use App\Models\MessageSent;
 
 use App\Services\FormatApiResponseService;
 use Illuminate\Support\Facades\Auth;
@@ -69,16 +68,16 @@ class SendMessageController extends Controller
         }
 
         // create inbox messages
-        $m->createMessages($gameId, $player->id, $recipientIds, $repliesTo, $subject, $body);
+        $m->sendPlayerMessage($gameId, $player->id, $repliesTo, $recipientIds, $subject, $body);
 
         // send response to client
-        $outbox = MessageSent::where('game_id', $gameId)
-            ->where('player_id', $player->id)
-            ->get();
+        //$outbox = MessageSent::where('game_id', $gameId)
+        //    ->where('player_id', $player->id)
+        //    ->get();
         return response()->json([
-            'outbox' => $outbox->map(function ($message) use ($f) {
-                return $f->formatMessageSent($message);
-            }),
+            //'outbox' => $outbox->map(function ($message) use ($f) {
+            //    return $f->formatMessageSent($message);
+            //}),
             'message' => trans_choice('game.messages.messageSent', count($recipientIds), [
                 'num' => count($recipientIds)
             ])

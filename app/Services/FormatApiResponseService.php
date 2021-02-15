@@ -377,7 +377,7 @@ class FormatApiResponseService {
      * @param Message $message
      * @return array
      */
-    public function formatMessage (Message $message): array
+    public function formatInboxMessage (Message $message): array
     {
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
@@ -400,10 +400,10 @@ class FormatApiResponseService {
 
     /**
      * @function format api respone for a sent message (outbox)
-     * @param MessageSent $message
+     * @param Message $message
      * @return array
      */
-    public function formatMessageSent (MessageSent $message): array
+    public function formatOutboxMessage (Message $message): array
     {
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
@@ -415,7 +415,9 @@ class FormatApiResponseService {
         return [
             'id' => $message->id,
             'repliesToId' => $message->message_id,
-            'recipientIds' => json_decode($message->recipient_ids),
+            'recipientIds' => $message->recipients->map(function($recipient) {
+                return $recipient->recipient_id;
+            })->toArray(),
             'subject' => $message->subject,
             'body' => $message->body,
             'timestamp' => $createdAt

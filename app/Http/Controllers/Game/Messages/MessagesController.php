@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
-use App\Models\MessageSent;
+use App\Models\Message;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
@@ -38,15 +38,15 @@ class MessagesController extends Controller
         //    return $p->id !== $player->id;
         //});
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
-        $outbox = $player->outbox;
-        $inbox = $player->inbox;
+        $outbox = Message::where('game_id', $gameId)
+            ->where('sender_id', $player->id)
+            ->with('recipients')
+            ->get();
 
         $returnData = [
-            'inbox' => $inbox->map(function ($message) use ($f) {
-                return $f->formatMessage($message);
-            }),
+            'inbox' => [],
             'outbox' => $outbox->map(function ($message) use ($f) {
-                return $f->formatMessageSent($message);
+                return $f->formatOutboxMessage($message);
             }),
             'players' => $allPlayers->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);

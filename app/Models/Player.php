@@ -67,13 +67,7 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $recipient_relation_changes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerRelationChange[] $relationChanges
  * @property-read int|null $relation_changes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
- * @property-read int|null $messages_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageSent[] $sentMessages
- * @property-read int|null $sent_messages_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $inbox
- * @property-read int|null $inbox_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageSent[] $outbox
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageRecipient[] $outbox
  * @property-read int|null $outbox_count
  */
 class Player extends Model
@@ -261,19 +255,11 @@ class Player extends Model
     }
 
     /**
-     * Get the inbox messages for this player
-     */
-    public function inbox()
-    {
-        return $this->hasMany('App\Models\Message', 'player_id');
-    }
-
-    /**
      * Get the outbox messages for this player
      */
     public function outbox()
     {
-        return $this->hasMany('App\Models\MessageSent', 'player_id');
+        return $this->hasMany('App\Models\MessageRecipient', 'recipient_id');
     }
 
 }
