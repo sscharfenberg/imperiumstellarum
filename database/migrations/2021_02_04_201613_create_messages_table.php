@@ -21,7 +21,7 @@ class CreateMessagesTable extends Migration
             $table->uuid('game_id');
             $table->uuid('sender_id')->nullable();
             $table->uuid('message_id')->nullable(); // replys use this as foreign key to message
-            $table->string('body', config('rules.messages.text.max'));
+            $table->string('body', config('rules.messages.body.max'));
             $table->string('subject', config('rules.messages.subject.max'));
             $table->boolean('read')->default(false);
             $table->foreign('game_id')->references('id')->on('games')

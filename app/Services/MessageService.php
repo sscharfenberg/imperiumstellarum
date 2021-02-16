@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Message;
 use App\Models\MessageRecipient;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
 
 class MessageService {
@@ -13,6 +15,38 @@ class MessageService {
      * @var int
      */
     private $chunkSize = 5;
+
+    /**
+     * @function get a player's inbox (incoming messages)
+     * @param string $playerId
+     * @param string $gameId
+     * @return Message[]|Collection
+     */
+    public function getPlayerInbox (string $playerId, string $gameId): Collection
+    {
+        return Message::where('game_id', $gameId)
+            ->whereHas('recipients', function (Builder $query) use ($playerId) {
+                $query->where('recipient_id', '=', $playerId);
+            })
+            ->with('recipients')
+            ->get();
+    }
+
+    /**
+     * @function get a player's outbox (sent messages)
+     * @param string $playerId
+     * @param string $gameId
+     * @return Message[]|Collection
+     */
+    public function getPlayerOutbox (string $playerId, string $gameId): Collection
+    {
+        return Message::where('game_id', $gameId)
+            ->where('sender_id', $playerId)
+            ->with('recipients')
+            ->get();
+    }
+
+
 
     /**
      * @function create message

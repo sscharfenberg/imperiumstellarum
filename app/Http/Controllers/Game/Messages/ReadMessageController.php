@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\Player;
 use App\Services\FormatApiResponseService;
 
+use App\Services\MessageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesMessageVerification;
@@ -25,6 +26,7 @@ class ReadMessageController extends Controller
     public function handle (Request $request): JsonResponse
     {
         $f = new FormatApiResponseService;
+        $m = new MessageService;
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $messageId = $request->input(['messageId']);
@@ -43,14 +45,15 @@ class ReadMessageController extends Controller
         // mark message as read
         $message = Message::where('game_id', '=', $gameId)
             ->where('id', '=', $messageId)
-            ->where('player_id', $player->id)
             ->first();
         $message->read = $read;
         $message->save();
 
+        // return fresh json to client
+        $inbox = $m->getPlayerInbox($player->id, $gameId);
         return response()->json([
-            'inbox' => $inbox = $player->inbox->map(function ($message) use ($f) {
-                return $f->formatMessage($message);
+            'inbox' => $inbox = $inbox->map(function ($message) use ($f) {
+                return $f->formatInboxMessage($message);
             })
         ]);
 

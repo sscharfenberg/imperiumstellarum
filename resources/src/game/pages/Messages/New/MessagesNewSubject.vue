@@ -35,7 +35,6 @@ export default {
                 class="form-control"
                 id="messageSubject"
                 v-model="subject"
-                required
                 aria-required="true"
                 :maxlength="subjectRules.max"
                 :placeholder="$t('messages.new.subject.placeholder')"

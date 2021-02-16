@@ -390,7 +390,9 @@ class FormatApiResponseService {
             'id' => $message->id,
             'senderId' => $message->sender_id,
             'repliesToId' => $message->message_id,
-            'recipientIds' => json_decode($message->recipient_ids),
+            'recipientIds' => $message->recipients->map(function($recipient) {
+                return $recipient->recipient_id;
+            })->toArray(),
             'subject' => $message->subject,
             'body' => $message->body,
             'read' => $message->read ? true : false,

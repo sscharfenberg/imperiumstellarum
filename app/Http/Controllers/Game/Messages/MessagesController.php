@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
-use App\Models\Game;
-use App\Models\Message;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
 use App\Services\FormatApiResponseService;
+use App\Services\MessageService;
 use App\Services\PlayerRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,6 +26,7 @@ class MessagesController extends Controller
         $a = new ApiService;
         $f = new FormatApiResponseService;
         $p = new PlayerRelationService;
+        $m = new MessageService;
         $defaultApiData = $a->defaultData($request);
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
@@ -38,13 +38,13 @@ class MessagesController extends Controller
         //    return $p->id !== $player->id;
         //});
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
-        $outbox = Message::where('game_id', $gameId)
-            ->where('sender_id', $player->id)
-            ->with('recipients')
-            ->get();
+        $outbox = $m->getPlayerOutbox($player->id, $gameId);
+        $inbox = $m->getPlayerInbox($player->id, $gameId);
 
         $returnData = [
-            'inbox' => [],
+            'inbox' => $inbox->map(function ($message) use ($f) {
+                return $f->formatInboxMessage($message);
+            }),
             'outbox' => $outbox->map(function ($message) use ($f) {
                 return $f->formatOutboxMessage($message);
             }),

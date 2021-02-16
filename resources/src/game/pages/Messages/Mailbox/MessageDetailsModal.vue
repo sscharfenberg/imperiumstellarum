@@ -57,6 +57,9 @@ export default {
             return returnFormattedMessage;
         });
 
+        /**
+         * @function click on "mark as unread": action with xhr to server, close modal
+         */
         const onMarkUnreadClick = () => {
             store.dispatch("messages/MARK_MESSAGE_READ", {
                 messageId: props.messageId,
@@ -65,6 +68,9 @@ export default {
             emit("close");
         };
 
+        /**
+         * @function click on "reply": prepare state for "new message" page
+         */
         const onreplyClick = () => {
             store.commit("messages/SET_SEARCH_TICKER", "");
             store.commit("messages/RESET_RECIPIENTS");
@@ -82,7 +88,9 @@ export default {
             emit("close");
         };
 
-        // before mount, call server and mark as read
+        /**
+         * @function before mount, call server and mark as read
+         */
         onBeforeMount(() => {
             if (!props.read && props.mailbox === "in") {
                 store.dispatch("messages/MARK_MESSAGE_READ", {

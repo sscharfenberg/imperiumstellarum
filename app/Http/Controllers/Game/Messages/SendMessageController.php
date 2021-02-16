@@ -71,13 +71,11 @@ class SendMessageController extends Controller
         $m->sendPlayerMessage($gameId, $player->id, $repliesTo, $recipientIds, $subject, $body);
 
         // send response to client
-        //$outbox = MessageSent::where('game_id', $gameId)
-        //    ->where('player_id', $player->id)
-        //    ->get();
+        $outbox = $m->getPlayerOutbox($player->id, $gameId);
         return response()->json([
-            //'outbox' => $outbox->map(function ($message) use ($f) {
-            //    return $f->formatMessageSent($message);
-            //}),
+            'outbox' => $outbox->map(function ($message) use ($f) {
+                return $f->formatOutboxMessage($message);
+            }),
             'message' => trans_choice('game.messages.messageSent', count($recipientIds), [
                 'num' => count($recipientIds)
             ])

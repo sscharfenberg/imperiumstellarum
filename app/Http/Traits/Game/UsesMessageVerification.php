@@ -5,6 +5,8 @@ namespace App\Http\Traits\Game;
 use App\Models\Game;
 use App\Models\Message;
 use App\Models\Player;
+use Illuminate\Database\Eloquent\Builder;
+use App\Services\MessageService;
 use Ramsey\Uuid\Uuid;
 
 trait UsesMessageVerification
@@ -81,10 +83,9 @@ trait UsesMessageVerification
      */
     public function messageBelongsToPlayer (string $messageId, string $playerId, string $gameId): bool
     {
-        return !!Message::where('game_id', '=', $gameId)
-            ->where('id', '=', $messageId)
-            ->where('player_id', $playerId)
-            ->get();
+        $m = new MessageService;
+        $inbox = $m->getPlayerInbox($playerId, $gameId);
+        return !!$inbox->containsStrict('id', $messageId);
     }
 
 }

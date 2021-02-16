@@ -79,6 +79,7 @@ export default {
                     :size="1"
                     :title="$t('messages.new.recipient.cancel')"
                     :aria-label="$t('messages.new.recipient.cancel')"
+                    tabindex="-1"
                     @click="onClear"
                     @keyup.enter="onClear"
                 />
