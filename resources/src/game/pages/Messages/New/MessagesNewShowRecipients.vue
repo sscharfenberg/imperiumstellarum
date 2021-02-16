@@ -33,6 +33,7 @@ export default {
         <game-button
             icon-name="cancel"
             @click="onClear"
+            tabindex="-1"
             :text-string="$t('messages.new.recipients.clear')"
             :size="0"
         />
@@ -50,6 +51,7 @@ export default {
             <game-button
                 icon-name="cancel"
                 :size="0"
+                tabindex="-1"
                 @click="onRemove(player.id)"
             />
         </li>
