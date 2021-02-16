@@ -16,7 +16,6 @@ use App\Http\Traits\UsesUuid;
  * @property string|null $message_id
  * @property string $body
  * @property string $subject
- * @property int $read
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
@@ -32,7 +31,6 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereMessageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Message whereRead($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSubject($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
@@ -68,7 +66,6 @@ class Message extends Model
         'message_id',
         'body',
         'subject',
-        'read',
         'recipient_ids'
     ];
 
@@ -88,9 +85,8 @@ class Message extends Model
         return $this->belongsTo(Player::class, 'sender_id');
     }
 
-
     /**
-     * Get the player that has sent the message
+     * Get the recipients of the message
      */
     public function recipients()
     {

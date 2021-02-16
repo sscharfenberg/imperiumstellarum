@@ -46,8 +46,6 @@ class MessageService {
             ->get();
     }
 
-
-
     /**
      * @function create message
      * @param string $gameId

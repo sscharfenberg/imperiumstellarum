@@ -7,6 +7,7 @@ use App\Models\ConstructionContract;
 use App\Models\Fleet;
 use App\Models\FleetMovement;
 use App\Models\Message;
+use App\Models\MessageRecipient;
 use App\Models\MessageSent;
 use App\Models\Player;
 use App\Models\PlayerRelationChange;
@@ -375,9 +376,10 @@ class FormatApiResponseService {
     /**
      * @function format api respone for a message (inbox)
      * @param Message $message
+     * @param string $playerId
      * @return array
      */
-    public function formatInboxMessage (Message $message): array
+    public function formatInboxMessage (Message $message, string $playerId): array
     {
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
@@ -386,6 +388,11 @@ class FormatApiResponseService {
         if (now() > $message->created_at) {
             $createdAt = -$createdAt;
         }
+        // get read status from recipient
+        $recipient = $message->recipients->where('message_id', '=', $message->id)
+            ->where('game_id', '=', $message->game_id)
+            ->where('recipient_id', '=', $playerId)
+            ->first();
         return [
             'id' => $message->id,
             'senderId' => $message->sender_id,
@@ -395,7 +402,7 @@ class FormatApiResponseService {
             })->toArray(),
             'subject' => $message->subject,
             'body' => $message->body,
-            'read' => $message->read ? true : false,
+            'read' => $recipient->read ? true : false,
             'timestamp' => $createdAt
         ];
     }

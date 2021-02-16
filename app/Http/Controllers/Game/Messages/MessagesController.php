@@ -34,16 +34,13 @@ class MessagesController extends Controller
             ->where('dead', false)
             ->with('user')
             ->get();
-        //$players = $allPlayers->filter(function($p) use ($player) {
-        //    return $p->id !== $player->id;
-        //});
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
         $outbox = $m->getPlayerOutbox($player->id, $gameId);
         $inbox = $m->getPlayerInbox($player->id, $gameId);
 
         $returnData = [
-            'inbox' => $inbox->map(function ($message) use ($f) {
-                return $f->formatInboxMessage($message);
+            'inbox' => $inbox->map(function ($message) use ($f, $player) {
+                return $f->formatInboxMessage($message, $player->id);
             }),
             'outbox' => $outbox->map(function ($message) use ($f) {
                 return $f->formatOutboxMessage($message);

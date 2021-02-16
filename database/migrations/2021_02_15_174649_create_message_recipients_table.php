@@ -21,6 +21,7 @@ class CreateMessageRecipientsTable extends Migration
             $table->uuid('game_id');
             $table->uuid('message_id');
             $table->uuid('recipient_id');
+            $table->boolean('read')->default(false);
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('message_id')->references('id')->on('messages')

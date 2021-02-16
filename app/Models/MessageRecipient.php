@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\UsesUuid;
 
+
 /**
  * App\Models\MessageRecipient
  *
@@ -13,6 +14,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $game_id
  * @property string $message_id
  * @property string $recipient_id
+ * @property bool $read
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Message $message
@@ -25,6 +27,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|MessageRecipient whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageRecipient whereMessageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageRecipient whereRecipientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MessageRecipient whereRead($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageRecipient whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -56,6 +59,7 @@ class MessageRecipient extends Model
         'game_id',
         'message_id',
         'recipient_id',
+        'read'
     ];
 
     /**

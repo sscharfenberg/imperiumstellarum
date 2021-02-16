@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
+use App\Models\MessageRecipient;
 use App\Models\Player;
 use App\Services\FormatApiResponseService;
 
@@ -43,17 +43,18 @@ class ReadMessageController extends Controller
         }
 
         // mark message as read
-        $message = Message::where('game_id', '=', $gameId)
-            ->where('id', '=', $messageId)
+        $messageRecipient = MessageRecipient::where('game_id', '=', $gameId)
+            ->where('message_id', '=', $messageId)
+            ->where('recipient_id', '=', $player->id)
             ->first();
-        $message->read = $read;
-        $message->save();
+        $messageRecipient->read = $read;
+        $messageRecipient->save();
 
         // return fresh json to client
         $inbox = $m->getPlayerInbox($player->id, $gameId);
         return response()->json([
-            'inbox' => $inbox = $inbox->map(function ($message) use ($f) {
-                return $f->formatInboxMessage($message);
+            'inbox' => $inbox = $inbox->map(function ($message) use ($f, $player) {
+                return $f->formatInboxMessage($message, $player->id);
             })
         ]);
 
