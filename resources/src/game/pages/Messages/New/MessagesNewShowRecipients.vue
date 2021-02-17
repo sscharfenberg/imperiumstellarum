@@ -17,19 +17,22 @@ export default {
                 recipientIds.includes(p.id)
             );
         });
+        const rules = window.rules.messages.recipients;
         const onClear = () => {
             store.commit("messages/RESET_RECIPIENTS");
         };
         const onRemove = (playerId) => {
             store.commit("messages/REMOVE_RECIPIENT", playerId);
         };
-        return { recipients, onClear, onRemove };
+        return { recipients, onClear, onRemove, rules };
     },
 };
 </script>
 
 <template>
-    <sub-headline :headline="$t('messages.new.recipients.headline')">
+    <sub-headline
+        :headline="$tc('messages.new.recipients.headline', recipients.length)"
+    >
         <game-button
             icon-name="cancel"
             @click="onClear"
@@ -56,6 +59,14 @@ export default {
             />
         </li>
     </ul>
+    <div class="description">
+        <span>
+            {{ $t("messages.new.recipients.maxRecipients") }}:
+            <cite>{{ rules.max }}</cite
+            >, {{ $t("messages.new.recipients.numRecipients") }}:
+            <cite>{{ rules.max - recipients.length }}</cite>
+        </span>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -64,17 +75,13 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 
     padding: 0 0 16px 0;
-    margin: 0 0 16px 0;
+    margin: 0;
     grid-gap: 4px;
 
     list-style: none;
 
     @include respond-to("medium") {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    @include themed() {
-        border-bottom: 2px solid t("g-ebony");
     }
 
     &__recipient {
@@ -114,6 +121,37 @@ export default {
 
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+}
+.description {
+    padding: 0 0 16px 0;
+    margin: 0 0 16px 0;
+
+    @include themed() {
+        border-bottom: 2px solid t("g-ebony");
+    }
+
+    > span {
+        display: block;
+
+        width: 100%;
+        padding: 5px;
+        border: 1px solid transparent;
+
+        font-size: 14px;
+
+        @include themed() {
+            color: t("t-tint");
+            border-color: t("b-darkbg");
+        }
+
+        > cite {
+            font-style: normal;
+
+            @include themed() {
+                color: t("g-white");
+            }
+        }
     }
 }
 </style>

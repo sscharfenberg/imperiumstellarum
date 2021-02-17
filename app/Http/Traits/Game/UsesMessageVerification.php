@@ -3,16 +3,18 @@
 namespace App\Http\Traits\Game;
 
 use App\Models\Game;
-use App\Models\Message;
 use App\Models\Player;
-use Illuminate\Database\Eloquent\Builder;
 use App\Services\MessageService;
 use Ramsey\Uuid\Uuid;
 
 trait UsesMessageVerification
 {
 
-
+    /**
+     * @function verify the recipient constraints (min/max) are met
+     * @param array $recipientIds
+     * @return bool
+     */
     public function recipientConstraintsMet (array $recipientIds): bool
     {
         $rules = config('rules.messages.recipients');
@@ -86,6 +88,19 @@ trait UsesMessageVerification
         $m = new MessageService;
         $inbox = $m->getPlayerInbox($playerId, $gameId);
         return !!$inbox->containsStrict('id', $messageId);
+    }
+
+    /**
+     * @function verify that the message is in reply to an inbox message of the player
+     * @param string $repliesToId
+     * @param Player $player
+     * @return bool
+     */
+    public function repliesToIdBelongsToInboxMessage (string $repliesToId, Player $player): bool
+    {
+        $m = new MessageService;
+        $messages = $m->getPlayerInbox($player->id, $player->game_id);
+        return $messages->containsStrict('id', $repliesToId);
     }
 
 }

@@ -23,8 +23,10 @@
         "title": "Create new message",
         "hdlChoose": "Choose one or more recipients",
         "recipients": {
-            "headline": "Recipient(s)",
-            "clear": "Clear all"
+            "headline": "Recipient|Recipients",
+            "clear": "Clear all",
+            "maxRecipients": "Max recipients",
+            "numRecipients": "recipients available"
         },
         "recipient": {
             "label": "Recipient ticker",

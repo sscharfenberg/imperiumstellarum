@@ -23,8 +23,10 @@
         "title": "Nachricht erstellen",
         "hdlChoose": "Wählen Sie einen oder mehrere Empfänger",
         "recipients": {
-            "headline": "Empfänger",
-            "clear": "Alle löschen"
+            "headline": "Empfänger|Empfänger",
+            "clear": "Alle löschen",
+            "maxRecipients": "Maximale Empfänger",
+            "numRecipients": "Empfänger verfügbar"
         },
         "recipient": {
             "label": "Empfänger Ticker",

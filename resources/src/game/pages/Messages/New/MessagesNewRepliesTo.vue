@@ -32,5 +32,6 @@ export default {
 <style lang="scss" scoped>
 .form-row {
     padding: 0 0 16px 0;
+    margin: 0 0 16px 0;
 }
 </style>

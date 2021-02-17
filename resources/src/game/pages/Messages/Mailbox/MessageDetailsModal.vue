@@ -33,28 +33,18 @@ export default {
 
         const repliesToMessage = computed(() => {
             if (!message.value.repliesToId) return undefined;
-            let returnFormattedMessage;
+            let returnedMessage;
             if (props.mailbox === "out") {
-                returnFormattedMessage = formatMessageBody(
-                    store.getters["messages/messageById"](
-                        message.value.repliesToId
-                    ).body
+                returnedMessage = store.getters["messages/messageById"](
+                    message.value.repliesToId
                 );
             } else if (props.mailbox === "in") {
-                console.log("messageId", message.value.repliesToId);
-                console.log(
-                    "message",
-                    store.getters["messages/sentMessageById"](
-                        message.value.repliesToId
-                    )
-                );
-                returnFormattedMessage = formatMessageBody(
-                    store.getters["messages/sentMessageById"](
-                        message.value.repliesToId
-                    ).body
+                returnedMessage = store.getters["messages/sentMessageById"](
+                    message.value.repliesToId
                 );
             }
-            return returnFormattedMessage;
+            if (!returnedMessage) return undefined;
+            return returnedMessage;
         });
 
         /**
@@ -173,16 +163,17 @@ export default {
                 v-html="formatMessageBody(message.body)"
             />
 
+            <!-- TODO: add subheadline and all headers of this message -->
             <li
-                v-if="message.repliesToId"
+                v-if="repliesToMessage.id"
                 class="stats--two-col text-left featured"
             >
                 {{ $t("messages.details.repliesTo") }}:
             </li>
             <li
-                v-if="message.repliesToId"
+                v-if="repliesToMessage.id"
                 class="stats--two-col text-left"
-                v-html="repliesToMessage"
+                v-html="formatMessageBody(repliesToMessage.body)"
             />
         </ul>
         <div class="actions" v-if="mailbox === 'in'">

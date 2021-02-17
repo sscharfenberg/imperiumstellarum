@@ -169,7 +169,8 @@ return [
             'subject' => 'Der Betreff muss zwischen :min und :max Zeichen enthalten.',
             'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.',
             'messageOwner' => 'Sie sind nicht der Besitzer der Nachricht.',
-            'bool' => 'Nachrichtenstatus muss boolescher operator sein. Hu?'
+            'bool' => 'Nachrichtenstatus muss boolescher operator sein. Hu?',
+            'replyToId' => 'Sie können auf diese Nachricht nicht antworten.'
         ],
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.'
     ]

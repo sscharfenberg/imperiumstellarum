@@ -169,7 +169,8 @@ return [
             'subject' => 'The subject needs to have between :min and :max characters',
             'message' => 'The message needs to have between :min and :max characters',
             'messageOwner' => 'This message does not belong to you.',
-            'bool' => 'Message status must be boolean.'
+            'bool' => 'Message status must be boolean.',
+            'replyToId' => 'You can\'t reply to this message.'
         ],
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.'
     ]

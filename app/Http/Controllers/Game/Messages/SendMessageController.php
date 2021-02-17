@@ -66,6 +66,11 @@ class SendMessageController extends Controller
                     'max' => config('rules.messages.body.max')
                 ])], 419);
         }
+        // if repliesTo != "", check if repliesToId referes to a message in players inbox.
+        if (strlen($repliesTo) > 0 && !$this->repliesToIdBelongsToInboxMessage($repliesTo, $player)) {
+            return response()
+                ->json(['error' => __('game.messages.errors.replyToId')], 419);
+        }
 
         // create inbox messages
         $m->sendPlayerMessage($gameId, $player->id, $repliesTo, $recipientIds, $subject, $body);
