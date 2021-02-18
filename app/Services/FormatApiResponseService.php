@@ -423,6 +423,7 @@ class FormatApiResponseService {
         }
         return [
             'id' => $message->id,
+            'senderId' => $message->sender_id,
             'repliesToId' => $message->message_id,
             'recipientIds' => $message->recipients->map(function($recipient) {
                 return $recipient->recipient_id;

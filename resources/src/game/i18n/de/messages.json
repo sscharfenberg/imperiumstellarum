@@ -59,7 +59,7 @@
         "recipients": "Empfänger|Empfänger",
         "subject": "Betreff",
         "body": "Nachricht",
-        "repliesTo": "Nachricht antwortet auf Originalnachricht",
+        "repliesTo": "Originalnachricht",
         "markUnread": "Als ungelesen markieren",
         "reply": "Antworten"
     }

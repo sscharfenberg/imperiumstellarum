@@ -59,7 +59,7 @@
         "recipients": "Recipient|Recipients",
         "subject": "Subject",
         "body": "Message",
-        "repliesTo": "In reply to original message",
+        "repliesTo": "Original message",
         "markUnread": "Mark unread",
         "reply": "Reply"
     }

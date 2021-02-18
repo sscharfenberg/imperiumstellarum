@@ -4,8 +4,10 @@
  *****************************************************************************/
 import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
-import { formatMessageBody } from "@/game/helpers/format";
+import { addSeconds } from "date-fns";
+import { formatMessageBody, formatDateTime } from "@/game/helpers/format";
 import GameButton from "Components/Button/GameButton";
+import MessageDetailsModalRepliesTo from "./MessageDetailsModalRepliesTo";
 import Modal from "Components/Modal/Modal";
 export default {
     name: "MessageDetailsModal",
@@ -15,7 +17,11 @@ export default {
         timestampFormatted: String, // pass as props because otherwise it would differ from whats shown on overview, since the data can be old(er)
         read: Boolean,
     },
-    components: { GameButton, Modal },
+    components: {
+        GameButton,
+        MessageDetailsModalRepliesTo,
+        Modal,
+    },
     emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();
@@ -98,6 +104,8 @@ export default {
             yourId,
             repliesToMessage,
             formatMessageBody,
+            addSeconds,
+            formatDateTime,
             onMarkUnreadClick,
             onreplyClick,
         };
@@ -107,7 +115,7 @@ export default {
 
 <template>
     <modal :title="message.subject" @close="$emit('close')" :full-size="false">
-        <ul class="stats">
+        <ul class="stats base-message">
             <li class="text-left">{{ $t("messages.details.sender") }}</li>
             <li class="text-left" v-if="mailbox === 'out'">
                 {{ $t("messages.details.you", { ticker: you }) }}
@@ -138,13 +146,13 @@ export default {
                     v-for="(recipient, index) in message.recipientIds"
                     :key="recipient"
                 >
-                    <span v-if="recipient === yourId">
-                        {{ $t("messages.details.you", { ticker: you }) }}
+                    <span v-if="recipient === yourId">{{
+                        $t("messages.details.you", { ticker: you })
+                    }}</span
+                    ><span v-else>[{{ player(recipient).ticker }}]</span
+                    ><span v-if="index !== message.recipientIds.length - 1"
+                        >,
                     </span>
-                    <span v-else> [{{ player(recipient).ticker }}] </span>
-                    <span v-if="index !== message.recipientIds.length - 1"
-                        >,</span
-                    >
                 </span>
             </li>
 
@@ -162,20 +170,25 @@ export default {
                 class="stats--two-col text-left"
                 v-html="formatMessageBody(message.body)"
             />
-
-            <!-- TODO: add subheadline and all headers of this message -->
-            <li
-                v-if="repliesToMessage.id"
-                class="stats--two-col text-left featured"
-            >
-                {{ $t("messages.details.repliesTo") }}:
-            </li>
-            <li
-                v-if="repliesToMessage.id"
-                class="stats--two-col text-left"
-                v-html="formatMessageBody(repliesToMessage.body)"
-            />
         </ul>
+
+        <message-details-modal-replies-to
+            v-if="repliesToMessage && repliesToMessage.id"
+            :message-id="repliesToMessage.id"
+            :mailbox="mailbox"
+            :sender="`[${player(repliesToMessage.senderId).ticker}] ${
+                player(repliesToMessage.senderId).name
+            }`"
+            :sent-at="
+                formatDateTime(
+                    addSeconds(new Date(), repliesToMessage.timestamp)
+                )
+            "
+            :recipient-ids="repliesToMessage.recipientIds"
+            :subject="repliesToMessage.subject"
+            :body="formatMessageBody(repliesToMessage.body)"
+        />
+
         <div class="actions" v-if="mailbox === 'in'">
             <game-button
                 :text-string="$t('messages.details.reply')"
@@ -198,6 +211,10 @@ export default {
 <style lang="scss" scoped>
 .stats {
     margin-bottom: 0;
+
+    &.base-message {
+        margin-bottom: 16px;
+    }
 }
 
 .you {
