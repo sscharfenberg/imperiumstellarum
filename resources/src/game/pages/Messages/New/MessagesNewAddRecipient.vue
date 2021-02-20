@@ -16,10 +16,14 @@ export default {
     setup(props) {
         const store = useStore();
         const recipients = computed(() => store.state.messages.new.recipients);
+        const addDisabled = computed(
+            () =>
+                recipients.value.length >= window.rules.messages.recipients.max
+        );
         const onClick = () => {
             store.commit("messages/ADD_RECIPIENT", props.playerId);
         };
-        return { recipients, onClick };
+        return { recipients, onClick, addDisabled };
     },
 };
 </script>
@@ -30,6 +34,7 @@ export default {
         @click="onClick"
         @keyup.enter="onClick"
         :class="{ selected: recipients.includes(playerId) }"
+        :disabled="addDisabled"
     >
         <span class="recipient__name">[{{ ticker }}] {{ name }}</span>
         <span
@@ -116,6 +121,12 @@ export default {
                 border-color: t("s-building");
             }
         }
+    }
+
+    &:disabled {
+        opacity: 0.6;
+
+        cursor: not-allowed;
     }
 }
 </style>
