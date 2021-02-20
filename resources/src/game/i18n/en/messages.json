@@ -61,6 +61,7 @@
         "body": "Message",
         "repliesTo": "Original message",
         "markUnread": "Mark unread",
-        "reply": "Reply"
+        "reply": "Reply",
+        "replyAll": "Reply to all"
     }
 }

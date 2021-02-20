@@ -91,6 +91,15 @@ export default {
     },
 
     /**
+     * @function SET recipients array
+     * @param {Object} state - vuex module "messages" state
+     * @param {Array} payload
+     */
+    SET_RECIPIENTS: (state, payload) => {
+        state.new.recipients = payload;
+    },
+
+    /**
      * @function RESET recipients array
      * @param {Object} state - vuex module "messages" state
      */

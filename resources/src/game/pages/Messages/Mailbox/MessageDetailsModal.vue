@@ -85,6 +85,31 @@ export default {
         };
 
         /**
+         * @function click on "reply all": prepare state for "new message" page
+         */
+        const onReplyAllClick = () => {
+            const newRecipients = [
+                ...message.value.recipientIds.filter(
+                    (r) => r !== store.state.empireId
+                ),
+                ...[message.value.senderId],
+            ];
+            store.commit("messages/SET_SEARCH_TICKER", "");
+            store.commit("messages/SET_RECIPIENTS", newRecipients);
+            store.commit("messages/SET_REPLIES_TO_MESSAGE_ID", props.messageId);
+            store.commit(
+                "messages/SET_SUBJECT",
+                `RE: ${message.value.subject}`.substr(
+                    0,
+                    window.rules.messages.subject.max
+                )
+            );
+            store.commit("messages/SET_BODY", "");
+            store.commit("messages/SET_PAGE", 2);
+            emit("close");
+        };
+
+        /**
          * @function before mount, call server and mark as read
          */
         onBeforeMount(() => {
@@ -108,6 +133,7 @@ export default {
             formatDateTime,
             onMarkUnreadClick,
             onreplyClick,
+            onReplyAllClick,
         };
     },
 };
@@ -115,6 +141,31 @@ export default {
 
 <template>
     <modal :title="message.subject" @close="$emit('close')" :full-size="false">
+        <div class="actions" v-if="mailbox === 'in'">
+            <game-button
+                :text-string="$t('messages.details.reply')"
+                icon-name="reply"
+                :loading="requesting"
+                :disabled="requesting"
+                @click="onreplyClick"
+            />
+            <game-button
+                v-if="message.recipientIds.length > 1"
+                :text-string="$t('messages.details.replyAll')"
+                icon-name="reply_all"
+                :loading="requesting"
+                :disabled="requesting"
+                @click="onReplyAllClick"
+            />
+            <game-button
+                :text-string="$t('messages.details.markUnread')"
+                icon-name="markunread"
+                :loading="requesting"
+                :disabled="requesting"
+                @click="onMarkUnreadClick"
+            />
+        </div>
+
         <ul class="stats base-message">
             <li class="text-left">{{ $t("messages.details.sender") }}</li>
             <li class="text-left" v-if="mailbox === 'out'">
@@ -188,23 +239,6 @@ export default {
             :subject="repliesToMessage.subject"
             :body="formatMessageBody(repliesToMessage.body)"
         />
-
-        <div class="actions" v-if="mailbox === 'in'">
-            <game-button
-                :text-string="$t('messages.details.reply')"
-                icon-name="reply"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onreplyClick"
-            />
-            <game-button
-                :text-string="$t('messages.details.markUnread')"
-                icon-name="markunread"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onMarkUnreadClick"
-            />
-        </div>
     </modal>
 </template>
 
@@ -227,7 +261,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
 
-    margin-top: 16px;
+    margin-bottom: 16px;
     gap: 4px;
 }
 </style>

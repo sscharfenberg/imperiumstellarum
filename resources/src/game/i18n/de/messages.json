@@ -61,6 +61,7 @@
         "body": "Nachricht",
         "repliesTo": "Originalnachricht",
         "markUnread": "Als ungelesen markieren",
-        "reply": "Antworten"
+        "reply": "Antworten",
+        "replyAll": "Allen Antworten"
     }
 }
