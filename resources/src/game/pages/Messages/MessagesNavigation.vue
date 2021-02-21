@@ -16,9 +16,8 @@ export default {
                 store.commit("messages/SET_PAGE", value);
             },
         });
-        return {
-            pageIndex,
-        };
+        const unreadMessages = computed(() => store.state.unreadMessages);
+        return { pageIndex, unreadMessages };
     },
 };
 </script>
@@ -32,6 +31,9 @@ export default {
         >
             <icon name="messages" />
             {{ $t("messages.inbox.navTitle") }}
+            <span v-if="unreadMessages > 0" class="unread"
+                >({{ unreadMessages }})</span
+            >
         </button>
         <button
             class="messages-nav__link"
@@ -124,6 +126,14 @@ export default {
                 margin-right: 16px;
             }
         }
+    }
+}
+
+.unread {
+    margin-left: 4px;
+
+    @include respond-to("medium") {
+        margin-left: 8px;
     }
 }
 </style>

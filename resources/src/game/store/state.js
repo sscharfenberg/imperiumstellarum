@@ -21,4 +21,5 @@ export default {
     resources: [],
     storageUpgrades: [],
     collapsibleExpandedIds: savedState.collapsibleExpandedIds || [],
+    unreadMessages: 0,
 };

@@ -28,6 +28,7 @@ export default {
         state.colour = payload.player.colour;
         state.resources = payload.resources;
         state.storageUpgrades = payload.storageUpgrades;
+        state.unreadMessages = payload.unreadMessages;
     },
 
     /**
@@ -58,6 +59,16 @@ export default {
      */
     SET_RESEARCH_PRIORITY: (state, payload) => {
         state.empireResearchPriority = payload;
+    },
+
+    /**
+     * SET NUMBER OF UNREAD MESSAGES
+     * @param state
+     * @param {Number} payload
+     * @constructor
+     */
+    SET_UNREAD_MESSAGES: (state, payload) => {
+        state.unreadMessages = payload;
     },
 
     /**

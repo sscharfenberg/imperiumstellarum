@@ -2,15 +2,16 @@
 /******************************************************************************
  * Navigation inside the drawer menu
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "DrawerGameNavigation",
     components: { Icon },
     setup() {
-        return {
-            ...useI18n(),
-        };
+        const store = useStore();
+        const unreadMessages = computed(() => store.state.unreadMessages);
+        return { unreadMessages };
     },
 };
 </script>
@@ -23,12 +24,15 @@ export default {
                     :to="{ name: 'Messages' }"
                     class="drawer-list__link"
                 >
-                    <icon name="messages" /> {{ t("messages.navTitle") }}
+                    <icon name="messages" /> {{ $t("messages.navTitle") }}
+                    <span v-if="unreadMessages > 0" class="unread">{{
+                        unreadMessages
+                    }}</span>
                 </router-link>
             </li>
             <li class="drawer-list__item">
                 <router-link :to="{ name: 'Empire' }" class="drawer-list__link">
-                    <icon name="empire" /> {{ t("empire.navTitle") }}
+                    <icon name="empire" /> {{ $t("empire.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -36,12 +40,12 @@ export default {
                     :to="{ name: 'Starchart' }"
                     class="drawer-list__link"
                 >
-                    <icon name="starchart" /> {{ t("starchart.navTitle") }}
+                    <icon name="starchart" /> {{ $t("starchart.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
                 <router-link :to="{ name: 'Fleets' }" class="drawer-list__link">
-                    <icon name="fleets" /> {{ t("fleets.navTitle") }}
+                    <icon name="fleets" /> {{ $t("fleets.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -49,7 +53,7 @@ export default {
                     :to="{ name: 'Shipyards' }"
                     class="drawer-list__link"
                 >
-                    <icon name="shipyards" /> {{ t("shipyards.navTitle") }}
+                    <icon name="shipyards" /> {{ $t("shipyards.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -57,7 +61,7 @@ export default {
                     :to="{ name: 'Research' }"
                     class="drawer-list__link"
                 >
-                    <icon name="research" /> {{ t("research.navTitle") }}
+                    <icon name="research" /> {{ $t("research.navTitle") }}
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -65,9 +69,34 @@ export default {
                     :to="{ name: 'Diplomacy' }"
                     class="drawer-list__link"
                 >
-                    <icon name="diplomacy" /> {{ t("diplomacy.navTitle") }}
+                    <icon name="diplomacy" /> {{ $t("diplomacy.navTitle") }}
                 </router-link>
             </li>
         </ul>
     </teleport>
 </template>
+
+<style lang="scss" scoped>
+.unread {
+    padding: 2px 4px;
+    margin-left: auto;
+
+    clip-path: polygon(
+        5px 0,
+        calc(100% - 5px) 0,
+        100% 5px,
+        100% calc(100% - 5px),
+        calc(100% - 5px) 100%,
+        5px 100%,
+        0 calc(100% - 5px),
+        0 5px
+    );
+
+    font-weight: 600;
+
+    @include themed() {
+        background-color: t("s-error");
+        color: t("s-warning");
+    }
+}
+</style>

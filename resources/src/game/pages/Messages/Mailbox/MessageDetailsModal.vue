@@ -61,7 +61,7 @@ export default {
                 messageId: props.messageId,
                 read: false,
             });
-            emit("close");
+            //emit("close");
         };
 
         /**
@@ -158,6 +158,7 @@ export default {
                 @click="onReplyAllClick"
             />
             <game-button
+                v-if="message.read"
                 :text-string="$t('messages.details.markUnread')"
                 icon-name="markunread"
                 :loading="requesting"

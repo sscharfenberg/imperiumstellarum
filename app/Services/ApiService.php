@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\MessageRecipient;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,6 +25,22 @@ class ApiService {
         });
     }
 
+    /**
+     * @function count number of unread messages
+     * @param string $playerId
+     * @param string $gameId
+     * @return int
+     */
+    public function unreadMessages (string $playerId, string $gameId): int
+    {
+        return count(
+            $unreadRecipients = MessageRecipient::where('game_id', '=', $gameId)
+                ->where('recipient_id', '=', $playerId)
+                ->where('read', false)
+                ->get()
+        );
+    }
+
 
     /**
      * @function create default stores of a player
@@ -38,7 +55,7 @@ class ApiService {
         $currentTurn = $game->turns->filter(function($turn) {
             return $turn->processed === null;
         })->first();
-        $r = new ResourceService();
+        $r = new ResourceService;
 
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
@@ -62,7 +79,8 @@ class ApiService {
                 'colour' => $player->colour
             ],
             'resources' => $r->getResources($player),
-            'storageUpgrades' => $this->storageUpgrades($player)
+            'storageUpgrades' => $this->storageUpgrades($player),
+            'unreadMessages' => $this->unreadMessages($player->id, $game->id)
         ];
     }
 

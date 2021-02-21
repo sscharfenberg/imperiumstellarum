@@ -81,6 +81,11 @@ export default {
             .then((response) => {
                 if (response.status === 200 && response.data.inbox) {
                     commit("SET_INBOX", response.data.inbox);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

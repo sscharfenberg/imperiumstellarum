@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Game\Messages;
 use App\Http\Controllers\Controller;
 use App\Models\MessageRecipient;
 use App\Models\Player;
+use App\Services\ApiService;
 use App\Services\FormatApiResponseService;
 
 use App\Services\MessageService;
@@ -27,6 +28,7 @@ class ReadMessageController extends Controller
     {
         $f = new FormatApiResponseService;
         $m = new MessageService;
+        $a = new ApiService;
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $messageId = $request->input(['messageId']);
@@ -55,7 +57,8 @@ class ReadMessageController extends Controller
         return response()->json([
             'inbox' => $inbox = $inbox->map(function ($message) use ($f, $player) {
                 return $f->formatInboxMessage($message, $player->id);
-            })
+            }),
+            'unreadMessages' => $a->unreadMessages($player->id, $gameId)
         ]);
 
     }
