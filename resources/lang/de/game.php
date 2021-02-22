@@ -172,7 +172,16 @@ return [
             'bool' => 'Nachrichtenstatus muss boolescher operator sein. Hu?',
             'replyToId' => 'Sie können auf diese Nachricht nicht antworten.'
         ],
-        'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.'
+        'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
+        'sys' => [
+            'greeting' => 'Furchtloser Anführer',
+            'fleet' => [
+                'arrival' => [
+                    'subject' => 'Flotte hat Ziel erreicht',
+                    'body' => 'Die Flotte \':name\' berichtet das Sie das Ziel :location erreicht hat.'
+                ]
+            ]
+        ]
     ]
 
 ];

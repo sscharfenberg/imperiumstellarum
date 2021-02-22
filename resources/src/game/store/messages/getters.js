@@ -21,9 +21,9 @@ export default {
      * multiples
      */
 
-    // get broadcasts (TODO: sort)
+    // get inbox messages
     inbox: (state) => state.inbox || [],
 
-    // get sent broadcasts (TODO: sort)
+    // get outbox messages
     outbox: (state) => state.outbox || [],
 };

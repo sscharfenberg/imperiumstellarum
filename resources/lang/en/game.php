@@ -172,7 +172,16 @@ return [
             'bool' => 'Message status must be boolean.',
             'replyToId' => 'You can\'t reply to this message.'
         ],
-        'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.'
+        'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
+        'sys' => [
+            'greeting' => 'Fearless leader',
+            'fleet' => [
+                'arrival' => [
+                    'subject' => 'fleet has arrived at location',
+                    'body' => 'The fleet :name reports that it has arrived at location :location.'
+                ]
+            ]
+        ]
     ]
 
 ];

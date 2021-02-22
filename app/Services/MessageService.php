@@ -129,7 +129,12 @@ class MessageService {
      * @param string $body
      * @return void
      */
-    public function sendSystemMessage (string $gameId, array $recipientIds, string $subject, string $body)
+    public function sendSystemMessage (
+        string $gameId,
+        array $recipientIds,
+        string $subject,
+        string $body
+    )
     {
         $message = $this->createMessage($gameId, null, null, $subject, $body);
         $this->createRecipients($gameId, $message->id, $recipientIds);
