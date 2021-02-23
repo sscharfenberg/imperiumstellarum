@@ -143,11 +143,11 @@ class ProcessTurn
      */
     public function handle(Game $game, Turn $turn)
     {
-        //$start = hrtime(true);
+        $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
-        //Log::info("TURN PROCESSING $turnSlug - START");
-        //$game->processing = true;
-        //$game->save();
+        Log::info("TURN PROCESSING $turnSlug - START");
+        $game->processing = true;
+        $game->save();
 
         // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turnSlug);
@@ -174,14 +174,14 @@ class ProcessTurn
 
 
         // #final: cleanup
-        //$turn->processed = now();
-        //$turn->save();
-        //$this->createNewTurn($game, $turn);
-        //$game->processing = false;
-        //$game->save();
+        $turn->processed = now();
+        $turn->save();
+        $this->createNewTurn($game, $turn);
+        $game->processing = false;
+        $game->save();
 
         // log execution time of turn processing.
-        //$execution = hrtime(true) - $start;
-        //Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
+        $execution = hrtime(true) - $start;
+        Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
     }
 }

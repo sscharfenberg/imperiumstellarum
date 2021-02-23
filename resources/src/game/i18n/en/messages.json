@@ -63,5 +63,6 @@
         "markUnread": "Mark unread",
         "reply": "Reply",
         "replyAll": "Reply to all"
-    }
+    },
+    "systemSender": "-System-"
 }

@@ -63,5 +63,6 @@
         "markUnread": "Als ungelesen markieren",
         "reply": "Antworten",
         "replyAll": "Allen Antworten"
-    }
+    },
+    "systemSender": "-System-"
 }

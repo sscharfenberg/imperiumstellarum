@@ -24,7 +24,14 @@ return [
             ],
             'deletion' => 'Could not delete, database error.'
         ],
-        'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.'
+        'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.',
+        'hulls' => [
+            'ark' => 'Ark',
+            'small' => 'Destroyer',
+            'medium' => 'Cruiser',
+            'large' => 'Battleship',
+            'xlarge' => 'Capital ship'
+        ]
     ],
 
     'empire' => [
@@ -175,10 +182,21 @@ return [
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
         'sys' => [
             'greeting' => 'Fearless leader',
-            'fleet' => [
+            'fleets' => [
                 'arrival' => [
                     'subject' => 'fleet has arrived at location',
                     'body' => 'The fleet :name reports that it has arrived at location :location.'
+                ]
+            ],
+            'shipyards' => [
+                'contractFinished' => [
+                    'subject' => 'Construction contract finished',
+                    'body' => 'The :type shipyard on planet :name reports that the construction contract for :construction ships has been completed.
+The shipyard is now available for further constructions.'
+                ],
+                'insufficientResources' => [
+                    'subject' => 'Insufficient resources for construction contract',
+                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources.'
                 ]
             ]
         ]

@@ -24,7 +24,14 @@ return [
             ],
             'deletion' => 'Löschen fehlgeschlagen, Datenbankfehler.'
         ],
-        'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.'
+        'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.',
+        'hulls' => [
+            'ark' => 'Arche',
+            'small' => 'Zerstörer',
+            'medium' => 'Kreuzer',
+            'large' => 'Schlachtschiff',
+            'xlarge' => 'Großkampfschiff'
+        ]
     ],
 
     'empire' => [
@@ -175,10 +182,21 @@ return [
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
         'sys' => [
             'greeting' => 'Furchtloser Anführer',
-            'fleet' => [
+            'fleets' => [
                 'arrival' => [
                     'subject' => 'Flotte hat Ziel erreicht',
                     'body' => 'Die Flotte \':name\' berichtet das Sie das Ziel :location erreicht hat.'
+                ]
+            ],
+            'shipyards' => [
+                'contractFinished' => [
+                    'subject' => 'Bauauftrag abgeschlossen',
+                    'body' => 'Die :type Werft auf Planet :name berichtet das der Bauauftrag für :construction Schiffe abgeschlossen wurde.
+Die Werft steht für neue Bauaufträge jetzt wieder zur Verfügung.'
+                ],
+                'insufficientResources' => [
+                    'subject' => 'Fehlende Resourcen für Schiffsbau',
+                    'body' => 'Die :type Werft auf Planet :name berichtet das ein Schiff der Klasse :shipclass nicht fertig gestellt werden konnte da uns die nötigen Resourcen fehlen. Der Bauauftrag wird fortgeführt sobald die nötigen Resourcen zur Verfügung stehen.'
                 ]
             ]
         ]

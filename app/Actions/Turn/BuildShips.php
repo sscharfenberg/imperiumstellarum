@@ -6,6 +6,8 @@ use App\Models\ConstructionContract;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Ship;
+use App\Services\FormatApiResponseService;
+use App\Services\MessageService;
 use App\Services\ResourceService;
 use Exception;
 use Illuminate\Support\Collection;
@@ -17,6 +19,16 @@ class BuildShips
 {
 
     /**
+     * @function get user locale from contract
+     * @param ConstructionContract $contract
+     * @return string
+     */
+    private function getContractLocale (ConstructionContract $contract): string
+    {
+        return $contract->player->user->locale;
+    }
+
+    /**
      * @function finalize a contract
      * @param ConstructionContract $contract
      * @param string $turnSlug
@@ -24,9 +36,23 @@ class BuildShips
      */
     private function contractFinished(ConstructionContract $contract, string $turnSlug)
     {
+        $m = new MessageService;
+        $f = new FormatApiResponseService;
         try {
             ConstructionContract::find($contract->id)->delete();
-            // TODO: send system message to player that a contract has finished.
+            $messageLocale = $this->getContractLocale($contract);
+            $planet = $contract->shipyard->planet;
+            $star = $planet->star;
+            $m->sendSystemMessage(
+                $contract->game_id,
+                [$contract->player_id],
+                __('game.messages.sys.shipyards.contractFinished.subject', [], $messageLocale),
+                __('game.messages.sys.shipyards.contractFinished.body', [
+                    'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
+                    'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
+                    'construction' => $contract->amount." x ".$contract->blueprint->name
+                ], $messageLocale)
+            );
             Log::notice("TURN PROCESSING $turnSlug - contract deleted since it was finished.");
         } catch(Exception $e) {
             Log::error("TURN PROCESSING $turnSlug - failed to delete a finished contract: ".$e->getMessage());
@@ -81,6 +107,9 @@ class BuildShips
     {
         $s = new ShipService;
         $r = new ResourceService;
+        $m = new MessageService;
+        $f = new FormatApiResponseService;
+
         foreach($contracts as $contract) {
             $player = $contract->player;
             // is the contract finished?
@@ -112,9 +141,23 @@ class BuildShips
                     $contract->hold = false;
                     Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the resource costs for the next ship.");
                 } else {
-                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
                     $contract->hold = true;
-                    // TODO: message to player - can't afford the next ship, on hold.
+                    // log message
+                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
+                    // send message to player
+                    $messageLocale = $this->getContractLocale($contract);
+                    $planet = $contract->shipyard->planet;
+                    $star = $planet->star;
+                    $m->sendSystemMessage(
+                        $contract->game_id,
+                        [$player->id],
+                        __('game.messages.sys.shipyards.insufficientResources.subject', [], $messageLocale),
+                        __('game.messages.sys.shipyards.insufficientResources.body', [
+                            'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
+                            'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
+                            'shipclass' => $contract->blueprint->name
+                        ], $messageLocale)
+                    );
                 }
 
                 // does the ship cost population (ark), and can the player afford the population costs?
@@ -133,6 +176,8 @@ class BuildShips
                         $contract->turns_left = 0;
                         $contract->hold = true;
                         // TODO: message to player - can't afford population cost for the next ship, on hold.
+                        // TODO: we subtract resources for arks on hold continously, which is incorrect.
+                        dd($contract);
                     }
                 }
 

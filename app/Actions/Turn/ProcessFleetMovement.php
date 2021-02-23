@@ -24,34 +24,30 @@ class ProcessFleetMovement
     private function completeFleetMovement(Collection $movements, string $turnSlug, string $gameId)
     {
         $m = new MessageService;
-        $gameUsers = User::whereHas('players', function (Builder $query) use ($gameId) {
-            $query->where('game_id', '=', $gameId);
-        })->get();
+        $gameUsers = $m->getGameUsers($gameId);
 
         foreach($movements as $movement) {
             $fleet = $movement->fleet;
             $destination = $movement->star;
             try {
-                //$movement->delete();
-                //$fleet->star_id = $destination->id;
-                //$fleet->save();
+                $movement->delete();
+                $fleet->star_id = $destination->id;
+                $fleet->save();
+                Log::notice("TURN PROCESSING $turnSlug - Fleet $fleet->name has arrived at $destination->name.");
                 $player = $fleet->player;
                 $messageLocale = $gameUsers
-                    ->where('id',$fleet->player->user_id)
+                    ->where('id', '=', $fleet->player->user_id)
                     ->first()
                     ->locale;
                 $m->sendSystemMessage(
                     $gameId,
                     [$player->id],
-                    __('game.messages.sys.fleet.arrival.subject',[],$messageLocale),
-                    __('game.messages.sys.fleet.arrival.body',[
+                    __('game.messages.sys.fleets.arrival.subject', [], $messageLocale),
+                    __('game.messages.sys.fleets.arrival.body', [
                         'name' => $fleet->name,
-                        'location' => $destination->name."($destination->coord_x/$destination->coord_y)"
-                    ],$messageLocale)
+                        'location' => $destination->name." ($destination->coord_x/$destination->coord_y)"
+                    ], $messageLocale)
                 );
-
-                // TODO: send system message to player that a fleet has arrived.
-                Log::notice("TURN PROCESSING $turnSlug - Fleet $fleet->name has arrived at $destination->name.");
             } catch(Exception $e) {
                 Log::error("TURN PROCESSING $turnSlug - failed to complete fleet movement $movement->id: ".$e->getMessage());
             }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Message;
 use App\Models\MessageRecipient;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
@@ -44,6 +45,19 @@ class MessageService {
             ->where('sender_id', $playerId)
             ->with('recipients')
             ->get();
+    }
+
+    /**
+     * @function get the users that have a player in a game.
+     * @param String $gameId
+     * @return Collection
+     */
+    public function getGameUsers (String $gameId): Collection
+    {
+        return User::whereHas('players', function (Builder $query) use ($gameId) {
+            $query->where('game_id', '=', $gameId)
+                ->where('dead', '=', false);
+        })->get();
     }
 
     /**

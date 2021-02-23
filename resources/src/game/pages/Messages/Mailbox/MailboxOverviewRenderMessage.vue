@@ -86,12 +86,15 @@ export default {
         @click="showModal = true"
         :class="{ 'message--unread': mailbox === 'in' && !read }"
     >
-        <span class="message__sender" v-if="mailbox === 'in'">
+        <span class="message__sender" v-if="mailbox === 'in' && senderId">
             [{{ senderTicker }}] {{ senderName }}
+        </span>
+        <span class="message__sender" v-else-if="mailbox === 'in' && !senderId">
+            {{ $t("messages.systemSender") }}
         </span>
         <span
             class="message__sender"
-            v-if="mailbox === 'out'"
+            v-else-if="mailbox === 'out'"
             :title="recipientTickers"
         >
             {{ recipientTickers }}

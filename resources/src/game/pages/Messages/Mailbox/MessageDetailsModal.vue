@@ -146,7 +146,7 @@ export default {
                 :text-string="$t('messages.details.reply')"
                 icon-name="reply"
                 :loading="requesting"
-                :disabled="requesting"
+                :disabled="requesting || !message.senderId"
                 @click="onreplyClick"
             />
             <game-button
@@ -172,9 +172,18 @@ export default {
             <li class="text-left" v-if="mailbox === 'out'">
                 {{ $t("messages.details.you", { ticker: you }) }}
             </li>
-            <li class="text-left" v-if="mailbox === 'in'">
+            <li
+                class="text-left"
+                v-else-if="mailbox === 'in' && message.senderId"
+            >
                 [{{ player(message.senderId).ticker }}]
                 {{ player(message.senderId).name }}
+            </li>
+            <li
+                class="text-left"
+                v-else-if="mailbox === 'in' && !message.senderId"
+            >
+                {{ $t("messages.systemSender") }}
             </li>
 
             <li class="text-left" v-if="mailbox === 'out'">
