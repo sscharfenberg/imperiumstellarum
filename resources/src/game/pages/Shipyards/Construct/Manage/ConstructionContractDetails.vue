@@ -70,22 +70,32 @@ export default {
         <ul class="data">
             <li>{{ $t("shipyards.constructions.details.costs") }}</li>
             <li class="col2">
-                {{ formatNumber(contract.costs.minerals) }}
-                <icon name="res-minerals" />
-                {{ formatNumber(contract.costs.energy) }}
-                <icon name="res-energy" />
+                <span v-if="contract.costs.minerals" class="costs">
+                    {{ formatNumber(contract.costs.minerals) }}
+                    <icon name="res-minerals" />
+                </span>
+                <span v-if="contract.costs.energy" class="costs">
+                    {{ formatNumber(contract.costs.energy) }}
+                    <icon name="res-energy" />
+                </span>
+                <span v-if="contract.costs.population" class="costs">
+                    {{ contract.costs.population }}
+                    <icon name="population" />
+                </span>
             </li>
         </ul>
-        <game-button
-            icon-name="search"
-            :text-string="$t('shipyards.constructions.details.toBlueprint')"
-            @click="toBlueprint"
-        />
-        <game-button
-            icon-name="delete"
-            :text-string="$t('shipyards.constructions.details.delete')"
-            @click="showModal = true"
-        />
+        <div class="actions">
+            <game-button
+                icon-name="search"
+                :text-string="$t('shipyards.constructions.details.toBlueprint')"
+                @click="toBlueprint"
+            />
+            <game-button
+                icon-name="delete"
+                :text-string="$t('shipyards.constructions.details.delete')"
+                @click="showModal = true"
+            />
+        </div>
     </div>
     <delete-construction-contract-modal
         v-if="showModal"
@@ -132,23 +142,35 @@ export default {
         //flex-basis: 50%;
 
         &:first-child,
-        &.col2 {
+        &.col2.col2 {
             display: flex;
             align-items: center;
             //justify-content: center;
 
             border-bottom: 4px solid transparent;
+            border-left: 0;
             flex-basis: 100%;
 
             @include themed() {
                 border-color: t("g-sunken");
             }
 
-            .icon {
-                margin-left: 8px;
+            > .costs {
+                display: flex;
+                align-items: center;
 
-                &:first-child {
+                margin-right: 8px;
+
+                @include respond-to("medium") {
                     margin-right: 16px;
+                }
+
+                .icon {
+                    margin-left: 4px;
+
+                    @include respond-to("medium") {
+                        margin-left: 8px;
+                    }
                 }
             }
         }
@@ -167,17 +189,15 @@ export default {
     }
 }
 
-.btn {
-    margin-right: 8px;
+.actions {
+    flex: 0 0 100%;
 
-    &:first-of-type {
-        @include respond-to("medium") {
-            margin-left: auto;
+    .btn {
+        margin-right: 8px;
+
+        &:last-of-type {
+            margin-right: 0;
         }
-    }
-
-    &:last-of-type {
-        margin-right: 0;
     }
 }
 </style>

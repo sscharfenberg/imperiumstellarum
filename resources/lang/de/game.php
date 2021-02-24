@@ -197,6 +197,10 @@ Die Werft steht für neue Bauaufträge jetzt wieder zur Verfügung.'
                 'insufficientResources' => [
                     'subject' => 'Fehlende Resourcen für Schiffsbau',
                     'body' => 'Die :type Werft auf Planet :name berichtet das ein Schiff der Klasse :shipclass nicht fertig gestellt werden konnte da uns die nötigen Resourcen fehlen. Der Bauauftrag wird fortgeführt sobald die nötigen Resourcen zur Verfügung stehen.'
+                ],
+                'insufficientPopulation' => [
+                    'subject' => 'Fehlende Bevölkerung für Schiffsbau',
+                    'body' => 'Die :type Werft auf Planet :name berichtet das ein Schiff der Klasse :shipclass nicht fertig gestellt werden konnte da uns die nötige Bevölkerung fehlt. Der Bauauftrag wird fortgeführt sobald die nötige Bevölkerung zur Verfügung steht.'
                 ]
             ]
         ]

@@ -31,7 +31,8 @@ class CreateConstructionContractsTable extends Migration
             $table->unsignedSmallInteger('costs_energy');
             $table->float('costs_population', 8,6)->default(0);
             $table->string('cached_ship', 1000); // json column
-            $table->boolean('hold')->default(false);
+            $table->boolean('hold_resources')->default(false); // player couldn't afford resource costs
+            $table->boolean('hold_population')->default(false); // player couldn't afford population costs
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')

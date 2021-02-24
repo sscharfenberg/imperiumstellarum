@@ -196,7 +196,11 @@ The shipyard is now available for further constructions.'
                 ],
                 'insufficientResources' => [
                     'subject' => 'Insufficient resources for construction contract',
-                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources.'
+                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources. The construction contract will be continued once we have sufficient resources.'
+                ],
+                'insufficientPopulation' => [
+                    'subject' => 'Insufficient population for construction contract',
+                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient population on the planet. The construction contract will be continued once we have sufficient population.'
                 ]
             ]
         ]

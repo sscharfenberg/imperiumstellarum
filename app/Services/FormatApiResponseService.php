@@ -258,6 +258,7 @@ class FormatApiResponseService {
             'costs' => [
                 'minerals' => $contract->costs_minerals,
                 'energy' => $contract->costs_energy,
+                'population' => $contract->costs_population
             ]
         ];
     }

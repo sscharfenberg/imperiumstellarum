@@ -120,7 +120,7 @@ class BuildShips
                 // no, proceed with next ship in the contract.
 
                 // if we didn't fail to pay the resource costs for the ship the last time, eject it.
-                if (!$contract->hold) {
+                if (!$contract->hold_resources && !$contract->hold_population) {
                     // create ship
                     $this->createShip($player, $contract->cached_ship, $turnSlug);
                     // since the ship was created, decrement amount_left.
@@ -135,29 +135,35 @@ class BuildShips
                 // can the player afford the costs for the next ship in the batch?
                 if ($r->playerCanAfford($player, $resourceCosts)) {
                     // pay for the next ship
-                    $r->subtractResources($player, $resourceCosts);
+                    if (!$contract->hold_population) {
+                        // if hold_population is true, player has paid the resources but not the population.
+                        $r->subtractResources($player, $resourceCosts);
+                    }
                     // reset turns clock so we start building the next ship
                     $contract->turns_left = $contract->turns_per_ship;
-                    $contract->hold = false;
+                    $contract->hold_resources = false;
                     Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the resource costs for the next ship.");
                 } else {
-                    $contract->hold = true;
                     // log message
                     Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
-                    // send message to player
-                    $messageLocale = $this->getContractLocale($contract);
-                    $planet = $contract->shipyard->planet;
-                    $star = $planet->star;
-                    $m->sendSystemMessage(
-                        $contract->game_id,
-                        [$player->id],
-                        __('game.messages.sys.shipyards.insufficientResources.subject', [], $messageLocale),
-                        __('game.messages.sys.shipyards.insufficientResources.body', [
-                            'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
-                            'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
-                            'shipclass' => $contract->blueprint->name
-                        ], $messageLocale)
-                    );
+                    if (!$contract->hold_resources) {
+                        // send message to player
+                        $messageLocale = $this->getContractLocale($contract);
+                        $planet = $contract->shipyard->planet;
+                        $star = $planet->star;
+                        $m->sendSystemMessage(
+                            $contract->game_id,
+                            [$player->id],
+                            __('game.messages.sys.shipyards.insufficientResources.subject', [], $messageLocale),
+                            __('game.messages.sys.shipyards.insufficientResources.body', [
+                                'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
+                                'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
+                                'shipclass' => $contract->blueprint->name
+                            ], $messageLocale)
+                        );
+                        // set contract to "hold", so we don't subtract resources again and don't send another message
+                        $contract->hold_resources = true;
+                    }
                 }
 
                 // does the ship cost population (ark), and can the player afford the population costs?
@@ -168,16 +174,29 @@ class BuildShips
                         $s->subtractPopulation($shipyard, $contract->costs_population);
                         // reset turns clock so we start building the next ship
                         $contract->turns_left = $contract->turns_per_ship;
-                        $contract->hold = false;
+                        $contract->hold_population = false;
                         Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the population costs for the next ship.");
                     } else {
                         Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the population costs of the next ship in the construction contract.");
+                        if (!$contract->hold_population) {
+                            $messageLocale = $this->getContractLocale($contract);
+                            $planet = $contract->shipyard->planet;
+                            $star = $planet->star;
+                            $m->sendSystemMessage(
+                                $contract->game_id,
+                                [$player->id],
+                                __('game.messages.sys.shipyards.insufficientPopulation.subject', [], $messageLocale),
+                                __('game.messages.sys.shipyards.insufficientPopulation.body', [
+                                    'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
+                                    'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
+                                    'shipclass' => $contract->blueprint->name
+                                ], $messageLocale)
+                            );
+                            // set contract to "hold", so we don't subtract population again and don't send another message
+                            $contract->hold_population = true;
+                        }
                         // reset turns_left since the player might have enough resources but not enough population.
                         $contract->turns_left = 0;
-                        $contract->hold = true;
-                        // TODO: message to player - can't afford population cost for the next ship, on hold.
-                        // TODO: we subtract resources for arks on hold continously, which is incorrect.
-                        dd($contract);
                     }
                 }
 
