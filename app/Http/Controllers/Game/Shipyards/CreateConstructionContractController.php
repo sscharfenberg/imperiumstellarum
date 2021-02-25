@@ -99,6 +99,9 @@ class CreateConstructionContractController extends Controller
             'costs_minerals' => $resourceCosts['minerals'],
             'costs_energy' => $resourceCosts['energy'],
             'costs_population' => $resourceCosts['population'] ?? 0,
+            'paid_minerals' => $resourceCosts['minerals'],
+            'paid_energy' => $resourceCosts['energy'],
+            'paid_population' => $resourceCosts['population'] ?? 0,
             'cached_ship' => $ship
         ]);
 

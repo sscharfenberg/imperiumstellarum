@@ -29,6 +29,89 @@ class BuildShips
     }
 
     /**
+     * @function get costs of a contract
+     * @param ConstructionContract $contract
+     * @return array
+     */
+    private function getContractCosts (ConstructionContract $contract): array
+    {
+        return [
+            'minerals' => $contract->costs_minerals,
+            'energy' => $contract->costs_energy,
+            'population' => $contract->costs_population
+        ];
+    }
+
+    /**
+     * @function get costs of a contract
+     * @param ConstructionContract $contract
+     * @return array
+     */
+    private function getContractPayments (ConstructionContract $contract): array
+    {
+        return [
+            'minerals' => $contract->paid_minerals,
+            'energy' => $contract->paid_energy,
+            'population' => $contract->paid_population
+        ];
+    }
+
+    /**
+     * @function verify if all costs have been paid
+     * @param array $costs
+     * @param array $paid
+     * @return bool
+     */
+    private function verifyCostsArePaid (array $costs, array $paid): bool
+    {
+        return is_array($costs)
+            && is_array($paid)
+            && count($costs) === count($paid)
+            && array_diff($costs, $paid) === array_diff($paid, $costs);
+    }
+
+    /**
+     * @function pay the costs for the next ship in the batch
+     * @param ConstructionContract $contract
+     * @param array $costs
+     * @param array $paid
+     * @param string $turnSlug
+     * @return array
+     */
+    private function payNextShipCosts (ConstructionContract $contract, array $costs, array &$paid, string $turnSlug): array
+    {
+        $r = new ResourceService;
+        $s = new ShipService;
+        $player = $contract->player;
+        $shipyard = $contract->shipyard;
+
+        // pay resources if they have not already been paid
+        if (
+            $r->playerCanAfford($player, $costs)
+            && $contract->costs_energy > $contract->paid_energy
+            && $contract->costs_minerals > $contract->paid_minerals
+        ) {
+            // pay for the next ship
+            $r->subtractResources($player, $costs);
+            $paid["energy"] = $costs["energy"];
+            $paid["minerals"] = $costs["minerals"];
+        }
+
+        // pay population if it has not already been paid
+        if (
+            $contract->costs_population > 0
+            && $contract->costs_population > $contract->paid_population
+            && $s->shipyardHasSufficientPopulation($shipyard, $contract->costs_population)
+        ) {
+            $s->subtractPopulation($shipyard, $contract->costs_population);
+            // reset turns clock so we start building the next ship
+            $paid["population"] = $costs["population"];
+        }
+
+        return $paid;
+    }
+
+    /**
      * @function finalize a contract
      * @param ConstructionContract $contract
      * @param string $turnSlug
@@ -98,6 +181,72 @@ class BuildShips
 
 
     /**
+     * @function process handling of the next ship in the construction contract:
+     * pay resources if possible, send message and put on hold if not.
+     * @param ConstructionContract $contract
+     * @param Player $player
+     * @param string $turnSlug
+     * @throws Exception
+     */
+     private function prepareNextShip (ConstructionContract $contract, Player $player, string $turnSlug)
+    {
+        $f = new FormatApiResponseService;
+        $m = new MessageService;
+        $costs = $this->getContractCosts($contract);
+        $paid = $this->getContractPayments($contract);
+
+        // if all costs are paid, eject ship
+        if ($this->verifyCostsArePaid($costs, $paid)) {
+            $this->createShip($player, $contract->cached_ship, $turnSlug);
+            // since the ship was created, decrement amount_left.
+            $contract->amount_left -= 1;
+            // reset the amount paid for the next ship-
+            $contract->paid_energy = $paid["energy"] = 0;
+            $contract->paid_minerals = $paid["minerals"] = 0;
+            $contract->paid_population = $paid["population"] = 0;
+            $contract->save();
+        }
+
+        // procced with payment for the next ship in the batch.
+        $paid = $this->payNextShipCosts($contract, $costs, $paid, $turnSlug);
+
+        // check if all costs have been paid
+        if ($this->verifyCostsArePaid($costs, $paid)) {
+            // all costs where paid. reset "notified", change turns_left for the next ship in the batch.
+            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid all costs for the next ship.");
+            $contract->notified = false;
+            $contract->turns_left = $contract->turns_per_ship;
+        } else {
+            // some costs have not been paid ^.^
+            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker could not pay all of the costs for the next ship in the contract. missing:\n".json_encode(array_diff($costs, $paid), JSON_PRETTY_PRINT));
+            if (!$contract->notified) { // notify the user _once_
+                $messageLocale = $this->getContractLocale($contract);
+                $planet = $contract->shipyard->planet;
+                $star = $planet->star;
+                $m->sendSystemMessage(
+                    $contract->game_id,
+                    [$player->id],
+                    __('game.messages.sys.shipyards.costsNotPaid.subject', [], $messageLocale),
+                    __('game.messages.sys.shipyards.costsNotPaid.body', [
+                        'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
+                        'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
+                        'shipclass' => $contract->blueprint->name,
+                        'missing' => json_encode(array_diff($costs, $paid), JSON_PRETTY_PRINT)
+                    ], $messageLocale)
+                );
+                $contract->notified = true;
+            }
+        }
+
+        // update the contract with what was paid.
+        $contract->paid_energy = $paid["energy"];
+        $contract->paid_minerals = $paid["minerals"];
+        $contract->paid_population = $paid["population"];
+        // save contract.
+        $contract->save();
+    }
+
+    /**
      * @function create ship from construction contract
      * @param Collection $contracts
      * @param string $turnSlug
@@ -105,11 +254,6 @@ class BuildShips
      */
     private function ejectShips(Collection $contracts, string $turnSlug)
     {
-        $s = new ShipService;
-        $r = new ResourceService;
-        $m = new MessageService;
-        $f = new FormatApiResponseService;
-
         foreach($contracts as $contract) {
             $player = $contract->player;
             // is the contract finished?
@@ -118,90 +262,7 @@ class BuildShips
                 $this->contractFinished($contract, $turnSlug);
             } else {
                 // no, proceed with next ship in the contract.
-
-                // if we didn't fail to pay the resource costs for the ship the last time, eject it.
-                if (!$contract->hold_resources && !$contract->hold_population) {
-                    // create ship
-                    $this->createShip($player, $contract->cached_ship, $turnSlug);
-                    // since the ship was created, decrement amount_left.
-                    $contract->amount_left -= 1;
-                }
-
-                $resourceCosts = [
-                    'minerals' => $contract->costs_minerals,
-                    'energy' => $contract->costs_energy
-                ];
-
-                // can the player afford the costs for the next ship in the batch?
-                if ($r->playerCanAfford($player, $resourceCosts)) {
-                    // pay for the next ship
-                    if (!$contract->hold_population) {
-                        // if hold_population is true, player has paid the resources but not the population.
-                        $r->subtractResources($player, $resourceCosts);
-                    }
-                    // reset turns clock so we start building the next ship
-                    $contract->turns_left = $contract->turns_per_ship;
-                    $contract->hold_resources = false;
-                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the resource costs for the next ship.");
-                } else {
-                    // log message
-                    Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the resource costs of the next ship in the construction contract.");
-                    if (!$contract->hold_resources) {
-                        // send message to player
-                        $messageLocale = $this->getContractLocale($contract);
-                        $planet = $contract->shipyard->planet;
-                        $star = $planet->star;
-                        $m->sendSystemMessage(
-                            $contract->game_id,
-                            [$player->id],
-                            __('game.messages.sys.shipyards.insufficientResources.subject', [], $messageLocale),
-                            __('game.messages.sys.shipyards.insufficientResources.body', [
-                                'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
-                                'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
-                                'shipclass' => $contract->blueprint->name
-                            ], $messageLocale)
-                        );
-                        // set contract to "hold", so we don't subtract resources again and don't send another message
-                        $contract->hold_resources = true;
-                    }
-                }
-
-                // does the ship cost population (ark), and can the player afford the population costs?
-                if ($contract->costs_population > 0) {
-                    $shipyard = $contract->shipyard;
-                    if ($s->shipyardHasSufficientPopulation($shipyard, $contract->costs_population)) {
-                        // pay population for next ship
-                        $s->subtractPopulation($shipyard, $contract->costs_population);
-                        // reset turns clock so we start building the next ship
-                        $contract->turns_left = $contract->turns_per_ship;
-                        $contract->hold_population = false;
-                        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid the population costs for the next ship.");
-                    } else {
-                        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker can't afford the population costs of the next ship in the construction contract.");
-                        if (!$contract->hold_population) {
-                            $messageLocale = $this->getContractLocale($contract);
-                            $planet = $contract->shipyard->planet;
-                            $star = $planet->star;
-                            $m->sendSystemMessage(
-                                $contract->game_id,
-                                [$player->id],
-                                __('game.messages.sys.shipyards.insufficientPopulation.subject', [], $messageLocale),
-                                __('game.messages.sys.shipyards.insufficientPopulation.body', [
-                                    'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
-                                    'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
-                                    'shipclass' => $contract->blueprint->name
-                                ], $messageLocale)
-                            );
-                            // set contract to "hold", so we don't subtract population again and don't send another message
-                            $contract->hold_population = true;
-                        }
-                        // reset turns_left since the player might have enough resources but not enough population.
-                        $contract->turns_left = 0;
-                    }
-                }
-
-                // save the contract
-                $contract->save();
+                $this->prepareNextShip($contract, $player, $turnSlug);
             }
         }
     }

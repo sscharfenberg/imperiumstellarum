@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * App\Models\ConstructionContract
  *
  * @property string $id
+ * @property string $game_id
+ * @property string $player_id
  * @property string $blueprint_id
  * @property string $shipyard_id
  * @property int $amount
@@ -21,11 +23,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $costs_minerals
  * @property int $costs_energy
  * @property float $costs_population
+ * @property int $paid_minerals
+ * @property int $paid_energy
+ * @property float $paid_population
+ * @property bool $notified
  * @property array $cached_ship
- * @property string $game_id
- * @property boolean $hold_resources
- * @property boolean $hold_population
- * @property string $player_id
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract query()
@@ -40,10 +42,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsEnergy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsMinerals($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereCostsPopulation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePaidEnergy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePaidMinerals($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePaidPopulation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereNotified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHullType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHoldResources($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereHoldPopulation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ConstructionContract whereShipyardId($value)
@@ -95,9 +99,11 @@ class ConstructionContract extends Model
         'costs_minerals',
         'costs_energy',
         'costs_population',
+        'paid_minerals',
+        'paid_energy',
+        'paid_population',
+        'notified',
         'cached_ship',
-        'hold_resources',
-        'hold_population'
     ];
 
     /**

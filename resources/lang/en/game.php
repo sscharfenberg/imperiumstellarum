@@ -194,13 +194,12 @@ return [
                     'body' => 'The :type shipyard on planet :name reports that the construction contract for :construction ships has been completed.
 The shipyard is now available for further constructions.'
                 ],
-                'insufficientResources' => [
+                'costsNotPaid' => [
                     'subject' => 'Insufficient resources for construction contract',
-                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources. The construction contract will be continued once we have sufficient resources.'
-                ],
-                'insufficientPopulation' => [
-                    'subject' => 'Insufficient population for construction contract',
-                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient population on the planet. The construction contract will be continued once we have sufficient population.'
+                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources and/or population. The construction contract will be continued once we have sufficient resources.
+Resources missing:
+:missing
+'
                 ]
             ]
         ]
