@@ -16,8 +16,29 @@ export default {
                 store.commit("messages/SET_PAGE", value);
             },
         });
-        const unreadMessages = computed(() => store.state.unreadMessages);
-        return { pageIndex, unreadMessages };
+        const numInbox = computed(
+            () => store.state.messages.inbox.filter((m) => m.senderId).length
+        );
+        const unreadInboxMessages = computed(
+            () =>
+                store.state.messages.inbox.filter((m) => m.senderId && !m.read)
+                    .length
+        );
+        const numSysbox = computed(
+            () => store.state.messages.inbox.filter((m) => !m.senderId).length
+        );
+        const unreadSysboxMessages = computed(
+            () =>
+                store.state.messages.inbox.filter((m) => !m.senderId && !m.read)
+                    .length
+        );
+        return {
+            pageIndex,
+            numInbox,
+            unreadInboxMessages,
+            numSysbox,
+            unreadSysboxMessages,
+        };
     },
 };
 </script>
@@ -29,11 +50,26 @@ export default {
             @click="pageIndex = 0"
             :class="{ active: pageIndex === 0 }"
         >
-            <icon name="messages" />
-            {{ $t("messages.inbox.navTitle") }}
-            <span v-if="unreadMessages > 0" class="unread"
-                >({{ unreadMessages }})</span
+            <icon name="info" />
+            {{ $t("messages.sysbox.navTitle") }}
+            <span
+                v-if="unreadSysboxMessages > 0"
+                class="pill"
+                :title="
+                    $t('messages.sysbox.navLabel', {
+                        unread: unreadSysboxMessages,
+                        num: numSysbox,
+                    })
+                "
+                :aria-label="
+                    $t('messages.sysbox.navLabel', {
+                        unread: unreadSysboxMessages,
+                        num: numSysbox,
+                    })
+                "
             >
+                {{ unreadSysboxMessages }}
+            </span>
         </button>
         <button
             class="messages-nav__link"
@@ -41,12 +77,38 @@ export default {
             :class="{ active: pageIndex === 1 }"
         >
             <icon name="messages" />
-            {{ $t("messages.outbox.navTitle") }}
+            {{ $t("messages.inbox.navTitle") }}
+            <span
+                v-if="unreadInboxMessages > 0"
+                class="pill"
+                :title="
+                    $t('messages.inbox.navLabel', {
+                        unread: unreadInboxMessages,
+                        num: numInbox,
+                    })
+                "
+                :aria-label="
+                    $t('messages.inbox.navLabel', {
+                        unread: unreadInboxMessages,
+                        num: numInbox,
+                    })
+                "
+            >
+                {{ unreadInboxMessages }}
+            </span>
         </button>
         <button
             class="messages-nav__link"
             @click="pageIndex = 2"
             :class="{ active: pageIndex === 2 }"
+        >
+            <icon name="messages" />
+            {{ $t("messages.outbox.navTitle") }}
+        </button>
+        <button
+            class="messages-nav__link messages-nav__link--new"
+            @click="pageIndex = 3"
+            :class="{ active: pageIndex === 3 }"
         >
             <icon name="edit" />
             {{ $t("messages.new.navTitle") }}
@@ -57,7 +119,7 @@ export default {
 <style lang="scss" scoped>
 .messages-nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-columns: 1fr;
 
     padding: 0;
     margin: 0 0 8px 0;
@@ -66,23 +128,29 @@ export default {
     list-style: none;
 
     @include respond-to("medium") {
+        grid-template-columns: 1fr 1fr 1fr;
+
         margin-bottom: 16px;
         grid-gap: 16px;
     }
 
     &__link {
         display: flex;
+        position: relative;
         align-items: center;
         justify-content: center;
 
+        overflow: hidden;
         padding: 8px;
         border: 2px solid transparent;
 
         outline: 0;
         cursor: pointer;
 
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 300;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         transition: background-color map-get($animation-speeds, "fast") linear,
             color map-get($animation-speeds, "fast") linear,
@@ -97,7 +165,7 @@ export default {
         @include respond-to("medium") {
             padding: 16px;
 
-            font-size: 24px;
+            font-size: 20px;
         }
 
         &:hover {
@@ -124,6 +192,35 @@ export default {
                 width: 48px;
                 height: 48px;
                 margin-right: 16px;
+            }
+        }
+
+        &--new {
+            grid-column: 1/-1;
+
+            padding: 2px;
+
+            @include respond-to("medium") {
+                padding: 4px;
+            }
+        }
+
+        .pill {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            padding: 2px 4px;
+
+            font-size: 16px;
+
+            @include respond-to("medium") {
+                padding: 4px 8px;
+            }
+
+            @include themed() {
+                background-color: t("g-raven");
+                color: t("t-light");
             }
         }
     }

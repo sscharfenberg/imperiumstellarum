@@ -30,7 +30,7 @@ export default {
 </script>
 
 <template>
-    <div class="mailbox">
+    <div class="mailbox" v-if="messages.length > 0">
         <ul class="messages">
             <li class="messages__from">
                 <span v-if="mailbox === 'in'">{{
@@ -68,6 +68,9 @@ export default {
             :body="message.body"
             :read="message.read"
         />
+    </div>
+    <div v-if="messages.length === 0" class="mailbox__empty">
+        {{ $t("messages.mailbox.empty") }}
     </div>
 </template>
 

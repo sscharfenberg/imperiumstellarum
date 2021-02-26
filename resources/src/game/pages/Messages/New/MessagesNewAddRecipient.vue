@@ -21,7 +21,9 @@ export default {
                 recipients.value.length >= window.rules.messages.recipients.max
         );
         const onClick = () => {
-            store.commit("messages/ADD_RECIPIENT", props.playerId);
+            if (!recipients.value.includes(props.playerId)) {
+                store.commit("messages/ADD_RECIPIENT", props.playerId);
+            }
         };
         return { recipients, onClick, addDisabled };
     },

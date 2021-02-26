@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
+import AreaSection from "Components/AreaSection/AreaSection";
 import GameButton from "Components/Button/GameButton";
 import MessagesNewBody from "./MessagesNewBody";
 import MessagesNewChooseRecipient from "./MessagesNewChooseRecipient";
@@ -14,6 +15,7 @@ import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "MessagesNew",
     components: {
+        AreaSection,
         GameButton,
         MessagesNewBody,
         MessagesNewChooseRecipient,
@@ -47,6 +49,8 @@ export default {
                 .ticker;
         });
 
+        const requesting = computed(() => store.state.messages.requesting);
+
         const onSubmit = () => {
             store.dispatch("messages/SEND_MESSAGE", {
                 recipients: store.state.messages.new.recipients,
@@ -70,6 +74,7 @@ export default {
             repliesToMessage,
             repliesToSenderTicker,
             rules,
+            requesting,
             onSubmit,
             onCancel,
         };
@@ -78,42 +83,44 @@ export default {
 </script>
 
 <template>
-    <div class="new-message app-form">
-        <messages-new-choose-recipient />
-        <messages-new-show-recipients v-if="recipients.length > 0" />
-        <messages-new-replies-to
-            v-if="repliesToMessage"
-            :message-body="repliesToMessage"
-            :sender-ticker="repliesToSenderTicker"
-        />
-        <sub-headline :headline="$t('messages.new.hdlCompose')" />
-        <messages-new-subject />
-        <messages-new-body />
-        <div class="form-row submit">
-            <div class="input input--justify no-label">
-                <game-button
-                    icon-name="send"
-                    text-string="Send Message"
-                    :primary="true"
-                    :disabled="
-                        recipients.length === 0 ||
-                        subject.length < rules.subject.min ||
-                        body.length < rules.body.min
-                    "
-                    @click="onSubmit"
-                />
-                <game-button
-                    icon-name="cancel"
-                    text-string="Cancel"
-                    :disabled="
-                        recipients.length === 0 ||
-                        (!subject.length && !body.length)
-                    "
-                    @click="onCancel"
-                />
+    <area-section :requesting="requesting" :headline="$t('messages.new.title')">
+        <div class="new-message app-form">
+            <messages-new-choose-recipient />
+            <messages-new-show-recipients v-if="recipients.length > 0" />
+            <messages-new-replies-to
+                v-if="repliesToMessage"
+                :message-body="repliesToMessage"
+                :sender-ticker="repliesToSenderTicker"
+            />
+            <sub-headline :headline="$t('messages.new.hdlCompose')" />
+            <messages-new-subject />
+            <messages-new-body />
+            <div class="form-row submit">
+                <div class="input input--justify no-label">
+                    <game-button
+                        icon-name="send"
+                        text-string="Send Message"
+                        :primary="true"
+                        :disabled="
+                            recipients.length === 0 ||
+                            subject.length < rules.subject.min ||
+                            body.length < rules.body.min
+                        "
+                        @click="onSubmit"
+                    />
+                    <game-button
+                        icon-name="cancel"
+                        text-string="Cancel"
+                        :disabled="
+                            recipients.length === 0 ||
+                            (!subject.length && !body.length)
+                        "
+                        @click="onCancel"
+                    />
+                </div>
             </div>
         </div>
-    </div>
+    </area-section>
 </template>
 
 <style lang="scss" scoped>

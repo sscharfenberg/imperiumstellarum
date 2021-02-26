@@ -2,14 +2,21 @@
     "title": "Nachrichten",
     "navTitle": "Nachrichten",
     "inbox": {
-        "navTitle": "Eingehend",
-        "title": "Nachrichten Eingang"
+        "navTitle": "Empfangen",
+        "navLabel": "Empfangene Nachrichten - {unread} ungelesen, {num} gesamt",
+        "title": "Empfangene Nachrichten"
     },
     "outbox": {
-        "navTitle": "Ausgehend",
-        "title": "Nachrichten Ausgang"
+        "navTitle": "Gesendet",
+        "title": "Gesendete Nachrichten"
+    },
+    "sysbox": {
+        "navTitle": "Benachrichtigungen",
+        "navLabel": "Empfangene System Nachrichten - {unread} ungelesen, {num} gesamt",
+        "title": "System Nachrichten"
     },
     "mailbox": {
+        "empty": "Bislang keine Nachrichten.",
         "from": "Von",
         "to": "An",
         "recieved": "Empfangen",

@@ -3,13 +3,20 @@
     "navTitle": "Messages",
     "inbox": {
         "navTitle": "Inbox",
+        "navLabel": "Inbox Messages - {unread} unread, {num} total",
         "title": "Recieved Messages"
     },
     "outbox": {
         "navTitle": "Outbox",
         "title": "Sent Messages"
     },
+    "sysbox": {
+        "navTitle": "Notifications",
+        "navLabel": "System notifications - {unread} unread, {num} total",
+        "title": "System notifications"
+    },
     "mailbox": {
+        "empty": "No messages yet.",
         "from": "From",
         "to": "To",
         "recieved": "Recieved",
