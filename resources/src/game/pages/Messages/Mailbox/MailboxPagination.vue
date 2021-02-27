@@ -25,7 +25,6 @@ export default {
         };
         const messagesPerPage = ref(props.perPage);
         const changePerPage = (changedValue) => {
-            console.log(changedValue);
             emit("changeperpage", parseInt(changedValue, 10));
         };
 
