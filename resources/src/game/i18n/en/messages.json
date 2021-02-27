@@ -23,7 +23,11 @@
         "sent": "Sent",
         "subject": "Subject",
         "read": "Message was read",
-        "unread": "Message was not yet read"
+        "unread": "Message was not yet read",
+        "pagination": {
+            "messages": "One Message|{num} Messages",
+            "perPage": "per page"
+        }
     },
     "new": {
         "navTitle": "Create",

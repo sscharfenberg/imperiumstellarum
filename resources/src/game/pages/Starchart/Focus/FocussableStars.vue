@@ -4,20 +4,21 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
-import DropDown from "Components/DropDown/DropDown";
 import GameButton from "Components/Button/GameButton";
+import VueSelect from "vue-next-select";
 export default {
     name: "FocussableStars",
     props: {
         dimensions: Number,
     },
-    components: { DropDown, GameButton },
+    components: { GameButton, VueSelect },
     setup(props) {
         const store = useStore();
         const stars = computed(() => store.state.starchart.playerStars);
         const sortOrder = computed(() => store.state.empire.starsSorted);
         const focusCoordX = ref("");
         const focusCoordY = ref("");
+        const focusSelectModel = ref(null);
 
         /**
          * @function get options from store, reformat them and sort them.
@@ -106,6 +107,7 @@ export default {
         };
 
         return {
+            focusSelectModel,
             options,
             handleSelected,
             handleInputX,
@@ -121,13 +123,15 @@ export default {
 <template>
     <div class="focus">
         <nav class="col">
-            <label for="focusStar">{{ $t("starchart.focus.stars") }}</label>
-            <drop-down
-                id="focusStar"
+            <label>{{ $t("starchart.focus.stars") }}</label>
+            <vue-select
+                v-model="focusSelectModel"
                 :options="options"
-                labeled-by="name"
+                :close-on-select="true"
+                :track-by="(option) => option.name"
+                label-by="name"
                 :place-holder="$t('common.dropdown.placeHolder')"
-                @on-selected="handleSelected"
+                @selected="handleSelected"
             />
         </nav>
         <nav class="col">
@@ -192,10 +196,15 @@ export default {
         }
 
         .vue-select {
+            min-width: auto;
             margin: 0 0 0 auto;
 
             @include respond-to("medium") {
                 margin: 0 0 0 16px;
+            }
+
+            .vue-dropdown {
+                min-width: 200px;
             }
         }
 

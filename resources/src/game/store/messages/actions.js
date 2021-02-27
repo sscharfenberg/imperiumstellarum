@@ -56,7 +56,7 @@ export default {
                     commit("RESET_RECIPIENTS");
                     commit("SET_SUBJECT", "");
                     commit("SET_BODY", "");
-                    commit("SET_PAGE", 1);
+                    commit("SET_PAGE", 2);
                 }
                 notify(response.data.message, "success");
             })

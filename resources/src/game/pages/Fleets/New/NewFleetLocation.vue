@@ -2,15 +2,16 @@
 /******************************************************************************
  * PageComponent: NewFleetLocation
  *****************************************************************************/
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import DropDown from "Components/DropDown/DropDown";
+import VueSelect from "vue-next-select";
 export default {
     name: "NewFleetLocation",
-    components: { DropDown },
+    components: { VueSelect },
     setup() {
         const store = useStore();
         const sortOrder = computed(() => store.state.empire.starsSorted);
+        const focusSelectModel = ref(null);
 
         /**
          * @function get options from store, reformat them and sort them.
@@ -64,7 +65,7 @@ export default {
             store.commit("fleets/SET_CREATE_FLEET_LOCATION", selectedStar.id);
         };
 
-        return { options, onSelected };
+        return { options, focusSelectModel, onSelected };
     },
 };
 </script>
@@ -77,13 +78,14 @@ export default {
             }}</label>
         </div>
         <div class="input">
-            <drop-down
-                id="fleetLocation"
+            <vue-select
+                v-model="focusSelectModel"
                 :options="options"
-                labeled-by="name"
+                :close-on-select="true"
+                :track-by="(option) => option.name"
+                label-by="name"
                 :place-holder="$t('common.dropdown.placeHolder')"
                 @selected="onSelected"
-                :adjust-to-input-height="true"
             />
         </div>
     </div>

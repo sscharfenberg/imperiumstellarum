@@ -27,7 +27,7 @@ export default {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
-            props.mailbox === "in"
+            props.mailbox === "in" || props.mailbox === "sys"
                 ? store.getters["messages/messageById"](props.messageId)
                 : store.getters["messages/sentMessageById"](props.messageId)
         );
@@ -44,7 +44,7 @@ export default {
                 returnedMessage = store.getters["messages/messageById"](
                     message.value.repliesToId
                 );
-            } else if (props.mailbox === "in") {
+            } else if (props.mailbox === "in" || props.mailbox === "sys") {
                 returnedMessage = store.getters["messages/sentMessageById"](
                     message.value.repliesToId
                 );
@@ -113,7 +113,10 @@ export default {
          * @function before mount, call server and mark as read
          */
         onBeforeMount(() => {
-            if (!props.read && props.mailbox === "in") {
+            if (
+                !props.read &&
+                (props.mailbox === "in" || props.mailbox === "sys")
+            ) {
                 store.dispatch("messages/MARK_MESSAGE_READ", {
                     messageId: props.messageId,
                     read: true,
@@ -141,16 +144,17 @@ export default {
 
 <template>
     <modal :title="message.subject" @close="$emit('close')" :full-size="false">
-        <div class="actions" v-if="mailbox === 'in'">
+        <div class="actions" v-if="mailbox === 'in' || mailbox === 'sys'">
             <game-button
+                v-if="message.senderId"
                 :text-string="$t('messages.details.reply')"
                 icon-name="reply"
                 :loading="requesting"
-                :disabled="requesting || !message.senderId"
+                :disabled="requesting"
                 @click="onreplyClick"
             />
             <game-button
-                v-if="message.recipientIds.length > 1"
+                v-if="message.recipientIds.length > 1 && message.senderId"
                 :text-string="$t('messages.details.replyAll')"
                 icon-name="reply_all"
                 :loading="requesting"

@@ -60,6 +60,23 @@ export default {
     },
 
     /**
+     * @function SET relations of this player
+     * @param {Object} state - vuex module "messages" state
+     * @param {Object} payload
+     */
+    SET_PER_PAGE: (state, payload) => {
+        state.perPage[payload.mailbox] = payload.perPage;
+        saveState(
+            {
+                in: state.perPage.in,
+                out: state.perPage.out,
+                sys: state.perPage.sys,
+            },
+            "messagesPerPage"
+        );
+    },
+
+    /**
      * new message
      */
 

@@ -1,39 +1,82 @@
 <script>
 /******************************************************************************
- * PageComponent: MessagesInbox
+ * PageComponent: MailboxOverview
  *****************************************************************************/
+import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import Icon from "Components/Icon/Icon";
 import MailboxOverviewRenderMessage from "../Mailbox/MailboxOverviewRenderMessage";
+import MailboxPagination from "Pages/Messages/Mailbox/MailboxPagination";
 export default {
-    name: "MessagesInbox",
+    name: "MailboxOverview",
     props: {
         messages: Array,
         mailbox: String, // "in" || "out"
     },
-    components: { Icon, MailboxOverviewRenderMessage },
+    components: { Icon, MailboxOverviewRenderMessage, MailboxPagination },
     setup(props) {
-        const onClick = (id) => console.log("clicked", id);
+        const store = useStore();
+
         const sortDesc = ref(true);
+        const page = ref(1);
+        const perPage = computed({
+            get: () => store.state.messages.perPage[props.mailbox],
+            set: (value) =>
+                store.commit("messages/SET_PER_PAGE", {
+                    mailbox: props.mailbox,
+                    perPage: value,
+                }),
+        });
+
+        /**
+         * @function all sorted messages, without pagination
+         * @type {ComputedRef<*>}
+         */
         const messagesSorted = computed(() =>
             props.messages
-                .slice()
+                .slice() // create a shallow copy so we don't mutate props.
                 .sort((a, b) =>
                     sortDesc.value
                         ? b.timestamp - a.timestamp
                         : a.timestamp - b.timestamp
                 )
         );
-        return { onClick, sortDesc, messagesSorted };
+
+        const displayedMessages = computed(() => {
+            const from = page.value * perPage.value - perPage.value;
+            const to = page.value * perPage.value;
+            return messagesSorted.value.slice(from, to);
+        });
+
+        const onPageChange = (changedPage) => (page.value = changedPage);
+        const onPerPageChange = (changedPerPage) =>
+            (perPage.value = changedPerPage);
+
+        return {
+            page,
+            perPage,
+            onPageChange,
+            onPerPageChange,
+            sortDesc,
+            displayedMessages,
+        };
     },
 };
 </script>
 
 <template>
+    <mailbox-pagination
+        v-if="messages.length > 0"
+        :current-page="page"
+        :per-page="perPage"
+        :num-messages="messages.length"
+        @changepage="onPageChange"
+        @changeperpage="onPerPageChange"
+    />
     <div class="mailbox" v-if="messages.length > 0">
         <ul class="messages">
             <li class="messages__from">
-                <span v-if="mailbox === 'in'">{{
+                <span v-if="mailbox === 'in' || mailbox === 'sys'">{{
                     $t("messages.mailbox.from")
                 }}</span>
                 <span v-if="mailbox === 'out'">{{
@@ -41,7 +84,7 @@ export default {
                 }}</span>
             </li>
             <li class="messages__timestamp">
-                <span v-if="mailbox === 'in'">{{
+                <span v-if="mailbox === 'in' || mailbox === 'sys'">{{
                     $t("messages.mailbox.recieved")
                 }}</span>
                 <span v-if="mailbox === 'out'">{{
@@ -57,7 +100,7 @@ export default {
             </li>
         </ul>
         <mailbox-overview-render-message
-            v-for="message in messagesSorted"
+            v-for="message in displayedMessages"
             :key="message.id"
             :mailbox="mailbox"
             :message-id="message.id"

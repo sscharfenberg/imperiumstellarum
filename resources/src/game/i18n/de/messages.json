@@ -23,7 +23,11 @@
         "sent": "Gesendet",
         "subject": "Betreff",
         "read": "Nachricht wurde bereits gelesen",
-        "unread": "Nachricht wurde noch nicht gelesen"
+        "unread": "Nachricht wurde noch nicht gelesen",
+        "pagination": {
+            "messages": "Eine Nachricht|{num} Nachrichten",
+            "perPage": "pro Seite"
+        }
     },
     "new": {
         "navTitle": "Neue Nachricht",

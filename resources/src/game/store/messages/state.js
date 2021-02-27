@@ -25,4 +25,6 @@ export default {
         subject: "",
         body: "",
     },
+    // per page settings for inboxes
+    perPage: savedState.messagesPerPage || {},
 };

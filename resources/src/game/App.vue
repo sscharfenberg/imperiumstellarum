@@ -25,4 +25,5 @@ export default {
 <style lang="scss">
 @import "@/shared/vendor-styles/noty.scss";
 @import "@/shared/vendor-styles/sunset.scss";
+@import "@/shared/vendor-styles/vue-select.scss";
 </style>

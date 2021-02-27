@@ -25,6 +25,6 @@ export default {
         :requesting="requesting"
         :headline="$t('messages.sysbox.title')"
     >
-        <mailbox-overview :messages="messages" mailbox="in" />
+        <mailbox-overview :messages="messages" mailbox="sys" />
     </area-section>
 </template>

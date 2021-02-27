@@ -1,46 +1,3 @@
-<script>
-/******************************************************************************
- * PageComponent: DropDown
- * https://iendeavor.github.io/vue-next-select/
- *****************************************************************************/
-import { ref } from "vue";
-import VueSelect from "vue-next-select";
-export default {
-    name: "DropDown",
-    components: { VueSelect },
-    emits: ["on-selected"],
-    props: {
-        options: Array,
-        labeledBy: String,
-        placeHolder: String,
-        adjustToInputHeight: Boolean,
-    },
-    setup(props, { emit }) {
-        const model = ref(null);
-        const handleSelected = (selectedOption) => {
-            emit("on-selected", selectedOption);
-        };
-        return {
-            model,
-            handleSelected,
-        };
-    },
-};
-</script>
-
-<template>
-    <vue-select
-        v-model="model"
-        :options="options"
-        label-by="name"
-        :track-by="(option) => option.name"
-        :close-on-select="true"
-        :placeholder="placeHolder"
-        @selected="handleSelected"
-    />
-</template>
-
-<style lang="scss">
 .vue-select {
     display: flex;
     position: relative;
@@ -234,7 +191,7 @@ export default {
         box-sizing: border-box;
         overflow-y: auto;
         width: inherit;
-        min-width: 200px;
+        min-width: 80px;
         max-width: 400px;
         max-height: 50vh;
         padding: 0;
@@ -310,7 +267,7 @@ export default {
         border-radius: 50%;
         border-color: #999 transparent transparent transparent;
 
-        animation: loading 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        animation: select-loading 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
     .icon.loading div:nth-child(1) {
@@ -321,7 +278,7 @@ export default {
     }
 }
 
-@keyframes loading {
+@keyframes select-loading {
     0% {
         transform: rotate(0deg);
     }
@@ -329,4 +286,3 @@ export default {
         transform: rotate(360deg);
     }
 }
-</style>

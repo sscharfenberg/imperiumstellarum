@@ -84,12 +84,17 @@ export default {
     <button
         class="message"
         @click="showModal = true"
-        :class="{ 'message--unread': mailbox === 'in' && !read }"
+        :class="{
+            'message--unread': (mailbox === 'in' || mailbox === 'sys') && !read,
+        }"
     >
         <span class="message__sender" v-if="mailbox === 'in' && senderId">
             [{{ senderTicker }}] {{ senderName }}
         </span>
-        <span class="message__sender" v-else-if="mailbox === 'in' && !senderId">
+        <span
+            class="message__sender"
+            v-else-if="mailbox === 'sys' && !senderId"
+        >
             {{ $t("messages.systemSender") }}
         </span>
         <span
@@ -106,13 +111,13 @@ export default {
             {{ subject }}
             <i
                 class="unread"
-                v-if="mailbox === 'in' && !read"
+                v-if="(mailbox === 'in' || mailbox === 'sys') && !read"
                 :title="$t('messages.mailbox.unread')"
                 :aria-label="$t('messages.mailbox.unread')"
             />
             <i
                 class="read"
-                v-if="mailbox === 'in' && read"
+                v-if="(mailbox === 'in' || mailbox === 'sys') && read"
                 :title="$t('messages.mailbox.read')"
                 :aria-label="$t('messages.mailbox.read')"
             />

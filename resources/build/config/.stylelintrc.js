@@ -149,6 +149,7 @@ module.exports = {
             {
                 emptyLineBefore: "always",
                 properties: [
+                    "appearance",
                     "background",
                     "background-color",
                     "background-image",

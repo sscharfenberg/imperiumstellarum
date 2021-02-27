@@ -22,6 +22,11 @@ const defaultState = {
     diplomacyShowNeutrals: true,
     diplomacyShowHostiles: true,
     diplomacySort: "desc",
+    messagesPerPage: {
+        in: 10,
+        out: 10,
+        sys: 10,
+    },
 };
 
 /**
