@@ -80,7 +80,7 @@ export default {
                 )
             );
             store.commit("messages/SET_BODY", "");
-            store.commit("messages/SET_PAGE", 2);
+            store.commit("messages/SET_PAGE", 3);
             emit("close");
         };
 
@@ -105,8 +105,16 @@ export default {
                 )
             );
             store.commit("messages/SET_BODY", "");
-            store.commit("messages/SET_PAGE", 2);
+            store.commit("messages/SET_PAGE", 3);
             emit("close");
+        };
+
+        const onDeleteClick = () => {
+            store.dispatch("messages/DELETE_MESSAGE", {
+                mailbox: props.mailbox,
+                messageIds: [props.messageId],
+            });
+            //emit("close");
         };
 
         /**
@@ -137,6 +145,7 @@ export default {
             onMarkUnreadClick,
             onreplyClick,
             onReplyAllClick,
+            onDeleteClick,
         };
     },
 };
@@ -144,9 +153,9 @@ export default {
 
 <template>
     <modal :title="message.subject" @close="$emit('close')" :full-size="false">
-        <div class="actions" v-if="mailbox === 'in' || mailbox === 'sys'">
+        <div class="actions">
             <game-button
-                v-if="message.senderId"
+                v-if="mailbox === 'in' && message.senderId"
                 :text-string="$t('messages.details.reply')"
                 icon-name="reply"
                 :loading="requesting"
@@ -154,7 +163,11 @@ export default {
                 @click="onreplyClick"
             />
             <game-button
-                v-if="message.recipientIds.length > 1 && message.senderId"
+                v-if="
+                    mailbox === 'in' &&
+                    message.recipientIds.length > 1 &&
+                    message.senderId
+                "
                 :text-string="$t('messages.details.replyAll')"
                 icon-name="reply_all"
                 :loading="requesting"
@@ -162,12 +175,19 @@ export default {
                 @click="onReplyAllClick"
             />
             <game-button
-                v-if="message.read"
+                v-if="(mailbox === 'in' || mailbox === 'sys') && message.read"
                 :text-string="$t('messages.details.markUnread')"
                 icon-name="markunread"
                 :loading="requesting"
                 :disabled="requesting"
                 @click="onMarkUnreadClick"
+            />
+            <game-button
+                :text-string="$t('messages.details.delete')"
+                icon-name="delete"
+                :loading="requesting"
+                :disabled="requesting"
+                @click="onDeleteClick"
             />
         </div>
 

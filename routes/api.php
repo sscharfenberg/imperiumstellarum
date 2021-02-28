@@ -225,5 +225,8 @@ Route::middleware([
      */
     Route::post('/game/{game}/messages/send',
         [\App\Http\Controllers\Game\Messages\SendMessageController::class, 'handle']);
+    Route::post('/game/{game}/messages/delete',
+        [\App\Http\Controllers\Game\Messages\DeleteMessageController::class, 'handle']);
+
 
 });

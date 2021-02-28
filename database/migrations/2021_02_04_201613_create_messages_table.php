@@ -23,6 +23,7 @@ class CreateMessagesTable extends Migration
             $table->uuid('message_id')->nullable(); // replys use this as foreign key to message
             $table->string('body', config('rules.messages.body.max'));
             $table->string('subject', config('rules.messages.subject.max'));
+            $table->boolean('sender_deleted')->default(false);
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('sender_id')->references('id')->on('players')

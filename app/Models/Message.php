@@ -16,6 +16,7 @@ use App\Http\Traits\UsesUuid;
  * @property string|null $message_id
  * @property string $body
  * @property string $subject
+ * @property bool $sender_deleted
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
@@ -33,6 +34,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereMessageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSubject($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereSenderDeleted($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -66,7 +68,8 @@ class Message extends Model
         'message_id',
         'body',
         'subject',
-        'recipient_ids'
+        'recipient_ids',
+        'sender_deleted'
     ];
 
     /**

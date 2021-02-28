@@ -73,7 +73,8 @@
         "repliesTo": "Original message",
         "markUnread": "Mark unread",
         "reply": "Reply",
-        "replyAll": "Reply to all"
+        "replyAll": "Reply to all",
+        "delete": "Delete"
     },
     "systemSender": "-System-"
 }

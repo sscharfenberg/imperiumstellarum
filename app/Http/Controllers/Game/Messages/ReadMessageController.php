@@ -35,7 +35,7 @@ class ReadMessageController extends Controller
         $read = $request->input(['read']);
 
         // verification
-        if (!$this->messageBelongsToPlayer($messageId, $player->id, $gameId)) {
+        if (!$this->playerOwnsInboxMessage($messageId, $player)) {
             return response()
                 ->json(['error' => __('game.messages.errors.messageOwner')], 419);
         }

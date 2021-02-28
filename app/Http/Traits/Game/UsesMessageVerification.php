@@ -4,7 +4,9 @@ namespace App\Http\Traits\Game;
 
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Message;
 use App\Services\MessageService;
+use Illuminate\Database\Eloquent\Builder;
 use Ramsey\Uuid\Uuid;
 
 trait UsesMessageVerification
@@ -79,28 +81,42 @@ trait UsesMessageVerification
     /**
      * @function verify that the message is in the players inbox
      * @param string $messageId
-     * @param string $playerId
-     * @param string $gameId
-     * @return bool
-     */
-    public function messageBelongsToPlayer (string $messageId, string $playerId, string $gameId): bool
-    {
-        $m = new MessageService;
-        $inbox = $m->getPlayerInbox($playerId, $gameId);
-        return !!$inbox->containsStrict('id', $messageId);
-    }
-
-    /**
-     * @function verify that the message is in reply to an inbox message of the player
-     * @param string $repliesToId
      * @param Player $player
      * @return bool
      */
-    public function repliesToIdBelongsToInboxMessage (string $repliesToId, Player $player): bool
+    public function playerOwnsInboxMessage (string $messageId, Player $player): bool
     {
         $m = new MessageService;
-        $messages = $m->getPlayerInbox($player->id, $player->game_id);
-        return $messages->containsStrict('id', $repliesToId);
+        $inbox = $m->getPlayerInbox($player->id, $player->game_id);
+        return $inbox->containsStrict('id', $messageId);
+    }
+
+    /**
+     * @function check if the messages exist and have the player as sender_id
+     * @param array $messageIds
+     * @param Player $player
+     * @return bool
+     */
+    public function messagesBelongToSender (array $messageIds, Player $player): bool
+    {
+        $m = new MessageService;
+        $inbox = $m->getPlayerOutbox($player->id, $player->game_id);
+        $messagesToDelete = $inbox->whereIn('id', $messageIds);
+        return count($messagesToDelete) === count($messageIds);
+    }
+
+    /**
+     * @function verify that the message is in the players inbox
+     * @param array $messageIds
+     * @param Player $player
+     * @return bool
+     */
+    public function playerOwnsInboxMessages (array $messageIds, Player $player): bool
+    {
+        $m = new MessageService;
+        $inbox = $m->getPlayerInbox($player->id, $player->game_id);
+        $messagesToDelete = $inbox->whereIn('id', $messageIds);
+        return count($messagesToDelete) === count($messageIds);
     }
 
 }

@@ -67,7 +67,7 @@ class SendMessageController extends Controller
                 ])], 419);
         }
         // if repliesTo != "", check if repliesToId referes to a message in players inbox.
-        if (strlen($repliesTo) > 0 && !$this->repliesToIdBelongsToInboxMessage($repliesTo, $player)) {
+        if (strlen($repliesTo) > 0 && !$this->playerOwnsInboxMessage($repliesTo, $player)) {
             return response()
                 ->json(['error' => __('game.messages.errors.replyToId')], 419);
         }

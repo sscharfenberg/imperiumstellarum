@@ -96,4 +96,40 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function delete a message
+     * @param commit
+     * @param payload
+     * @constructor
+     */
+    DELETE_MESSAGE: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/messages/delete`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.inbox &&
+                    response.data.outbox &&
+                    response.data.message
+                ) {
+                    commit("SET_INBOX", response.data.inbox);
+                    commit("SET_OUTBOX", response.data.outbox);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

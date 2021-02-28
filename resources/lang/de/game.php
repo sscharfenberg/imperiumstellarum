@@ -180,6 +180,7 @@ return [
             'replyToId' => 'Sie können auf diese Nachricht nicht antworten.'
         ],
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
+        'messageDeleted' => 'Nachricht gelöscht.|:num Nachrichten gelöscht.',
         'sys' => [
             'greeting' => 'Furchtloser Anführer',
             'fleets' => [
@@ -199,7 +200,7 @@ Die Werft steht für neue Bauaufträge jetzt wieder zur Verfügung.'
                     'body' => 'Die :type Werft auf Planet :name berichtet das ein Schiff der Klasse :shipclass nicht fertig gestellt werden konnte da uns die nötigen Resourcen und/oder Bevölkerung fehlen. Der Bauauftrag wird fortgeführt sobald die nötigen Resourcen zur Verfügung stehen.
 Fehlende Kosten:
 :missing
-'
+Mineralien und Energie wird immer gemeinsam in ein neues Schiff investiert.'
                 ]
             ]
         ]

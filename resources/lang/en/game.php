@@ -177,9 +177,10 @@ return [
             'message' => 'The message needs to have between :min and :max characters',
             'messageOwner' => 'This message does not belong to you.',
             'bool' => 'Message status must be boolean.',
-            'replyToId' => 'You can\'t reply to this message.'
+            'replyToId' => 'You can\'t reply to this message.',
         ],
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
+        'messageDeleted' => 'Message deleted.|:num messages deleted.',
         'sys' => [
             'greeting' => 'Fearless leader',
             'fleets' => [
@@ -199,7 +200,7 @@ The shipyard is now available for further constructions.'
                     'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources and/or population. The construction contract will be continued once we have sufficient resources.
 Resources missing:
 :missing
-'
+Minerals and Energy is always invested together into a new ship.'
                 ]
             ]
         ]

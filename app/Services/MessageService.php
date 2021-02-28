@@ -27,7 +27,8 @@ class MessageService {
     {
         return Message::where('game_id', $gameId)
             ->whereHas('recipients', function (Builder $query) use ($playerId) {
-                $query->where('recipient_id', '=', $playerId);
+                $query->where('recipient_id', '=', $playerId)
+                    ->where('deleted', '=', false);
             })
             ->with('recipients')
             ->get();
@@ -43,6 +44,7 @@ class MessageService {
     {
         return Message::where('game_id', $gameId)
             ->where('sender_id', $playerId)
+            ->where('sender_deleted', '=', false)
             ->with('recipients')
             ->get();
     }
