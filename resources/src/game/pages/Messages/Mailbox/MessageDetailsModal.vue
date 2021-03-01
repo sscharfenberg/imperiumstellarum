@@ -110,11 +110,11 @@ export default {
         };
 
         const onDeleteClick = () => {
-            store.dispatch("messages/DELETE_MESSAGE", {
+            store.dispatch("messages/DELETE_MESSAGES", {
                 mailbox: props.mailbox,
                 messageIds: [props.messageId],
             });
-            //emit("close");
+            emit("close");
         };
 
         /**

@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
+import AppCheckbox from "Components/Checkbox/AppCheckbox";
 import Icon from "Components/Icon/Icon";
 import MailboxOverviewRenderMessage from "../Mailbox/MailboxOverviewRenderMessage";
 import MailboxPagination from "Pages/Messages/Mailbox/MailboxPagination";
@@ -13,7 +14,12 @@ export default {
         messages: Array,
         mailbox: String, // "in" || "out"
     },
-    components: { Icon, MailboxOverviewRenderMessage, MailboxPagination },
+    components: {
+        AppCheckbox,
+        Icon,
+        MailboxOverviewRenderMessage,
+        MailboxPagination,
+    },
     setup(props) {
         const store = useStore();
 
@@ -52,11 +58,28 @@ export default {
         const onPerPageChange = (changedPerPage) =>
             (perPage.value = changedPerPage);
 
+        const onDeleteAllChecked = () => {
+            store.commit(
+                "messages/SET_MASS_DELETE_IDS",
+                displayedMessages.value.map((m) => m.id)
+            );
+        };
+        const onDeleteAllUnchecked = () => {
+            store.commit("messages/SET_MASS_DELETE_IDS", []);
+        };
+
+        const massDeleteMessageIds = computed(
+            () => store.state.messages.massDeleteIds
+        );
+
         return {
+            massDeleteMessageIds,
             page,
             perPage,
             onPageChange,
             onPerPageChange,
+            onDeleteAllChecked,
+            onDeleteAllUnchecked,
             sortDesc,
             displayedMessages,
         };
@@ -75,6 +98,16 @@ export default {
     />
     <div class="mailbox" v-if="messages.length > 0">
         <ul class="messages">
+            <li class="messages__delete">
+                <app-checkbox
+                    ref-id="deleteAll"
+                    :checked-initially="
+                        massDeleteMessageIds.length === displayedMessages.length
+                    "
+                    @checked="onDeleteAllChecked"
+                    @unchecked="onDeleteAllUnchecked"
+                />
+            </li>
             <li class="messages__from">
                 <span v-if="mailbox === 'in' || mailbox === 'sys'">{{
                     $t("messages.mailbox.from")
@@ -133,7 +166,7 @@ export default {
 
 .messages {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 40px 1fr 1fr;
 
     padding: 0;
     margin: 0;
@@ -142,7 +175,7 @@ export default {
     list-style: none;
 
     @include respond-to("medium") {
-        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-columns: 40px 2fr 1fr 2fr;
 
         grid-gap: 2px;
     }
@@ -155,6 +188,7 @@ export default {
         }
     }
 
+    &__delete,
     &__from,
     &__timestamp,
     &__subject {

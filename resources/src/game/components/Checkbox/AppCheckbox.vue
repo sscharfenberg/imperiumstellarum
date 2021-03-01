@@ -2,7 +2,7 @@
 /******************************************************************************
  * Component: AppCheckbox
  *****************************************************************************/
-import { computed, ref } from "vue";
+import { onBeforeUpdate, onBeforeMount, computed, ref } from "vue";
 export default {
     name: "AppCheckbox",
     props: {
@@ -14,10 +14,18 @@ export default {
         const reference = computed(
             () => props.refId ?? Math.random().toString(36).substring(2)
         );
-        const checkboxStatus = ref(props.checkedInitially);
-        const emitEvent = () =>
+        const checkboxStatus = ref(false);
+        const emitEvent = () => {
+            checkboxStatus.value = !checkboxStatus.value;
             checkboxStatus.value ? emit("checked") : emit("unchecked");
+        };
         const showSlot = computed(() => slots.default);
+        onBeforeUpdate(() => {
+            checkboxStatus.value = props.checkedInitially;
+        });
+        onBeforeMount(() => {
+            checkboxStatus.value = props.checkedInitially;
+        });
         return { reference, checkboxStatus, emitEvent, showSlot };
     },
 };
@@ -30,7 +38,7 @@ export default {
                 type="checkbox"
                 :name="reference"
                 :id="reference"
-                v-model="checkboxStatus"
+                :checked="!!checkboxStatus"
                 @change="emitEvent"
             />
             <span class="checkbox__inner"></span>

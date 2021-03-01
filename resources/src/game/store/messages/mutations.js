@@ -150,4 +150,37 @@ export default {
     SET_REPLIES_TO_MESSAGE_ID: (state, payload) => {
         state.new.repliesToMessageId = payload;
     },
+
+    /**
+     * @function SET IDs of messages which should be deleted
+     * @param {Object} state - vuex module "messages" state
+     * @param {Array} payload
+     */
+    SET_MASS_DELETE_IDS: (state, payload) => {
+        state.massDeleteIds = payload;
+    },
+
+    /**
+     * @function add a messageId to massDeleteIds
+     * @param state
+     * @param payload
+     * @constructor
+     */
+    ADD_MASS_DELETE_ID: (state, payload) => {
+        if (state.massDeleteIds.indexOf(payload) === -1) {
+            state.massDeleteIds.push(payload);
+        }
+    },
+
+    /**
+     * @function add a messageId to massDeleteIds
+     * @param state
+     * @param payload
+     * @constructor
+     */
+    REMOVE_MASS_DELETE_ID: (state, payload) => {
+        if (state.massDeleteIds.indexOf(payload) > -1) {
+            state.massDeleteIds.splice(state.massDeleteIds.indexOf(payload), 1);
+        }
+    },
 };

@@ -4,16 +4,19 @@
     "inbox": {
         "navTitle": "Empfangen",
         "navLabel": "Empfangene Nachrichten - {unread} ungelesen, {num} gesamt",
-        "title": "Empfangene Nachrichten"
+        "title": "Empfangene Nachrichten",
+        "explanation": "Diese Seite listet Nachrichten auf die Sie von anderen Imperien empfangen haben. Ein Klick auf die Nachricht öffnet die Detailansicht mit dem kompletten Text. Sie können mehrere Nachrichten auf einmal löschen indem Sie die checkboxen links verwenden."
     },
     "outbox": {
         "navTitle": "Gesendet",
-        "title": "Gesendete Nachrichten"
+        "title": "Gesendete Nachrichten",
+        "explanation": "Diese Seite listet Nachrichten auf die Sie anderen Imperien geschickt haben. Ein Klick auf die Nachricht öffnet die Detailansicht mit dem kompletten Text. Sie können mehrere Nachrichten auf einmal löschen indem Sie die checkboxen links verwenden."
     },
     "sysbox": {
         "navTitle": "Benachrichtigungen",
         "navLabel": "Empfangene System Nachrichten - {unread} ungelesen, {num} gesamt",
-        "title": "System Nachrichten"
+        "title": "System Nachrichten",
+        "explanation": "Diese Seite listet Benachrichtigungen vom System auf die Sie empfangen haben. Ein Klick auf die Nachricht öffnet die Detailansicht mit dem kompletten Text. Sie können mehrere Nachrichten auf einmal löschen indem Sie die checkboxen links verwenden."
     },
     "mailbox": {
         "empty": "Bislang keine Nachrichten.",
@@ -27,7 +30,8 @@
         "pagination": {
             "messages": "Eine Nachricht|{num} Nachrichten",
             "perPage": "pro Seite"
-        }
+        },
+        "massDelete": "{num} Nachricht löschen|{num} Nachrichten löschen"
     },
     "new": {
         "navTitle": "Neue Nachricht",

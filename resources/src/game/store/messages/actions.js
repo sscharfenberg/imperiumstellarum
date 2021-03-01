@@ -40,6 +40,10 @@ export default {
      * @function submit message
      * @param {Function} commit - Vuex commit
      * @param {Object} payload
+     * @param {Array} payload.recipients
+     * @param {String} payload.subject
+     * @param {String} payload.body
+     * @param {String} payload.repliesTo
      */
     SEND_MESSAGE: function ({ commit }, payload) {
         commit("SET_REQUESTING", true);
@@ -73,6 +77,8 @@ export default {
      * @function mark message as "read" / "unread"
      * @param {Function} commit - Vuex commit
      * @param {Object} payload
+     * @param {String} payload.messageId
+     * @param {String} payload.read
      */
     MARK_MESSAGE_READ: function ({ commit }, payload) {
         commit("SET_REQUESTING", true);
@@ -98,12 +104,14 @@ export default {
     },
 
     /**
-     * @function delete a message
+     * @function delete messages
      * @param commit
      * @param payload
+     * @param {Array} payload.messageIds
+     * @param {String} payload.mailbox
      * @constructor
      */
-    DELETE_MESSAGE: function ({ commit }, payload) {
+    DELETE_MESSAGES: function ({ commit }, payload) {
         commit("SET_REQUESTING", true);
         window.axios
             .post(`/api/game/${getGameId()}/messages/delete`, payload)

@@ -4,16 +4,19 @@
     "inbox": {
         "navTitle": "Inbox",
         "navLabel": "Inbox Messages - {unread} unread, {num} total",
-        "title": "Recieved Messages"
+        "title": "Recieved Messages",
+        "explanation": "This page lists messages that you have recieved from other empires. Clicking on a messages opens the details view modal with the full text. You can delete multiple messages at once by using the checboxes on the left."
     },
     "outbox": {
         "navTitle": "Outbox",
-        "title": "Sent Messages"
+        "title": "Sent Messages",
+        "explanation": "This page lists messages that you have sent to other empires. Clicking on a messages opens the details view modal with the full text. You can delete multiple messages at once by using the checboxes on the left."
     },
     "sysbox": {
         "navTitle": "Notifications",
         "navLabel": "System notifications - {unread} unread, {num} total",
-        "title": "System notifications"
+        "title": "System notifications",
+        "explanation": "This page lists system notifications that you have recieved. Clicking on a messages opens the details view modal with the full text. You can delete multiple messages at once by using the checboxes on the left."
     },
     "mailbox": {
         "empty": "No messages yet.",
@@ -27,7 +30,8 @@
         "pagination": {
             "messages": "One Message|{num} Messages",
             "perPage": "per page"
-        }
+        },
+        "massDelete": "Delete {num} message|Delete {num} messages"
     },
     "new": {
         "navTitle": "Create",
