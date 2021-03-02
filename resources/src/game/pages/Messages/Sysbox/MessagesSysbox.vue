@@ -2,7 +2,7 @@
 /******************************************************************************
  * PageComponent: MessagesSysbox
  *****************************************************************************/
-import { computed } from "vue";
+import { computed, onBeforeMount, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import AreaSection from "Components/AreaSection/AreaSection";
 import GameButton from "Components/Button/GameButton";
@@ -11,7 +11,8 @@ import Popover from "Components/Popover/Popover";
 export default {
     name: "MessagesSysbox",
     components: { AreaSection, GameButton, MailboxOverview, Popover },
-    setup() {
+    emits: ["mass-delete"],
+    setup(props, { emit }) {
         const store = useStore();
         const messages = computed(() =>
             store.state.messages.inbox.filter((m) => !m.senderId)
@@ -20,12 +21,13 @@ export default {
         const massDeleteMessageIds = computed(
             () => store.state.messages.massDeleteIds
         );
-        const onMassDelete = () => {
-            store.dispatch("messages/DELETE_MESSAGES", {
-                mailbox: "sys",
-                messageIds: massDeleteMessageIds.value,
-            });
-        };
+        const onMassDelete = () => emit("mass-delete");
+        onBeforeMount(() =>
+            store.commit("messages/SET_MASS_DELETE_MAILBOX", "sys")
+        );
+        onBeforeUnmount(() =>
+            store.commit("messages/SET_MASS_DELETE_MAILBOX", "")
+        );
         return { messages, requesting, massDeleteMessageIds, onMassDelete };
     },
 };

@@ -166,7 +166,7 @@ export default {
 
 .messages {
     display: grid;
-    grid-template-columns: 40px 1fr 1fr;
+    grid-template-columns: 32px 1fr 1fr;
 
     padding: 0;
     margin: 0;

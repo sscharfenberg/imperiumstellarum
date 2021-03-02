@@ -80,5 +80,10 @@
         "replyAll": "Reply to all",
         "delete": "Delete"
     },
+    "massDelete": {
+        "title": "Really delete message?|Really delete messages?",
+        "explanation": "Do you really want to delete one message? The message will be irrecoverably lost.|Do you really want to delete {num} messages? The messages will be irrecoverably lost.",
+        "submit": "Delete message|Delete {num} messages"
+    },
     "systemSender": "-System-"
 }

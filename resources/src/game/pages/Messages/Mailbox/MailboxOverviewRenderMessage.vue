@@ -256,10 +256,11 @@ export default {
 
     &__delete {
         margin: 2px 1px 0 0;
-        flex: 0 0 40px;
+        flex: 0 0 32px;
 
         @include respond-to("medium") {
             margin-right: 2px;
+            flex: 0 0 40px;
         }
     }
 

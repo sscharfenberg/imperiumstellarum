@@ -36,6 +36,7 @@ class ApiService {
         return count(
             $unreadRecipients = MessageRecipient::where('game_id', '=', $gameId)
                 ->where('recipient_id', '=', $playerId)
+                ->where('deleted', '=', false)
                 ->where('read', false)
                 ->get()
         );

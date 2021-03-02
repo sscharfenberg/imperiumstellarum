@@ -161,6 +161,15 @@ export default {
     },
 
     /**
+     * @function SET mailbox string for mass deletion
+     * @param {Object} state - vuex module "messages" state
+     * @param {String} payload
+     */
+    SET_MASS_DELETE_MAILBOX: (state, payload) => {
+        state.massDeleteMailbox = payload;
+    },
+
+    /**
      * @function add a messageId to massDeleteIds
      * @param state
      * @param payload

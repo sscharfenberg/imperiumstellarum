@@ -28,4 +28,5 @@ export default {
     // per page settings for inboxes
     perPage: savedState.messagesPerPage || {},
     massDeleteIds: [],
+    massDeleteMailbox: "",
 };

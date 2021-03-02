@@ -3,8 +3,9 @@
  * Page: Broadcasts
  *****************************************************************************/
 import { useStore } from "vuex";
-import { computed, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import GameHeader from "Components/Header/GameHeader";
+import MailboxMassDeleteModal from "Pages/Messages/Mailbox/MailboxMassDeleteModal";
 import MessagesInbox from "Pages/Messages/Inbox/MessagesInbox";
 import MessagesNavigation from "Pages/Messages/MessagesNavigation";
 import MessagesNew from "Pages/Messages/New/MessagesNew";
@@ -14,6 +15,7 @@ export default {
     name: "PageDiplomacy",
     components: {
         GameHeader,
+        MailboxMassDeleteModal,
         MessagesInbox,
         MessagesNavigation,
         MessagesNew,
@@ -22,11 +24,12 @@ export default {
     },
     setup() {
         const store = useStore();
+        const showMassDeleteModal = ref(false);
         const pageIndex = computed(() => store.state.messages.page);
         onBeforeMount(() => {
             store.dispatch("messages/GET_GAME_DATA");
         });
-        return { pageIndex };
+        return { pageIndex, showMassDeleteModal };
     },
 };
 </script>
@@ -35,11 +38,24 @@ export default {
     <game-header area="messages" />
     <messages-navigation />
     <transition name="messagepage" mode="out-in">
-        <messages-sysbox v-if="pageIndex === 0" />
-        <messages-inbox v-else-if="pageIndex === 1" />
-        <messages-outbox v-else-if="pageIndex === 2" />
+        <messages-sysbox
+            v-if="pageIndex === 0"
+            @mass-delete="showMassDeleteModal = true"
+        />
+        <messages-inbox
+            v-else-if="pageIndex === 1"
+            @mass-delete="showMassDeleteModal = true"
+        />
+        <messages-outbox
+            v-else-if="pageIndex === 2"
+            @mass-delete="showMassDeleteModal = true"
+        />
         <messages-new v-else-if="pageIndex === 3" />
     </transition>
+    <mailbox-mass-delete-modal
+        v-if="showMassDeleteModal"
+        @close="showMassDeleteModal = false"
+    />
 </template>
 
 <style lang="scss" scoped>
