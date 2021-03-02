@@ -20,8 +20,6 @@
     <form action="{{ route('users') }}" METHOD="POST">
         @csrf
 
-
-
         <section class="app-section">
             <header class="app-section__head">
                 <h1>@lang('admin.users.filter.sectionTitle')</h1>
