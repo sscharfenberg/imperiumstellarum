@@ -2,53 +2,109 @@
 
 namespace App\Actions\Turn;
 
-use App\Models\PlayerRelation;
-use App\Models\PlayerRelationChange;
-use Exception;
-use App\Models\Game;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Game;
+use App\Models\PlayerRelation;
+use App\Models\PlayerRelationChange;
+use App\Services\MessageService;
+use App\Services\PlayerRelationService;
+use Exception;
 
 class ProcessPlayerRelations
 {
 
     /**
-     * @function complete player relation changes
-     * @param Collection $relations
-     * @param string $turnSlug
-     * @throws Exception
-     * @return void
+     * @function notify both the initiator and the recipient of the relation change
+     * @param PlayerRelationChange $relationChange
+     * @param Collection $gameRelations
      */
-    public function completeRelationChange(Collection $relations, string $turnSlug)
+    private function notifyPlayers (PlayerRelationChange $relationChange, Collection $gameRelations)
     {
-        foreach($relations as $relation) {
-            $playerRelation = PlayerRelation::where('game_id', '=', $relation->game_id)
-                ->where('player_id', '=', $relation->player_id)
-                ->where('recipient_id', '=', $relation->recipient_id)
+        $m = new MessageService;
+        $p = new PlayerRelationService;
+        $gameUsers = $m->getGameUsers($relationChange->game_id);
+        $gameRelations = PlayerRelation::where('game_id', $relationChange->game_id)->get();
+        $initiator = $relationChange->player;
+        $recipient = $relationChange->recipient;
+
+        // notify initiator
+        $messageLocale = $gameUsers
+            ->where('id', '=', $initiator->user_id)
+            ->first()
+            ->locale;
+        $effectiveRelation = $p->getEffectiveRelation($initiator, $recipient, $gameRelations);
+        $m->sendSystemMessage(
+            $relationChange->game_id,
+            [$relationChange->player_id],
+            __('game.messages.sys.diplomacy.relationChangeInitiator.subject', [], $messageLocale),
+            __('game.messages.sys.diplomacy.relationChangeInitiator.body', [
+                'ticker' => $recipient->ticker,
+                'status' => $relationChange->status,
+                'statusString' => __('game.diplomacy.relations.'.$relationChange->status, [], $messageLocale),
+                'effective' => $effectiveRelation,
+                'effectiveString' => __('game.diplomacy.relations.'.$effectiveRelation, [], $messageLocale)
+            ], $messageLocale)
+        );
+
+        // notify recipient
+        $messageLocale = $gameUsers
+            ->where('id', '=', $recipient->user_id)
+            ->first()
+            ->locale;
+        $effectiveRelation = $p->getEffectiveRelation($recipient, $initiator, $gameRelations);
+        $m->sendSystemMessage(
+            $relationChange->game_id,
+            [$relationChange->recipient_id],
+            __('game.messages.sys.diplomacy.relationChangeRecipient.subject', [], $messageLocale),
+            __('game.messages.sys.diplomacy.relationChangeRecipient.body', [
+                'ticker' => $recipient->ticker,
+                'status' => $relationChange->status,
+                'statusString' => __('game.diplomacy.relations.'.$relationChange->status, [], $messageLocale),
+                'effective' => $effectiveRelation,
+                'effectiveString' => __('game.diplomacy.relations.'.$effectiveRelation, [], $messageLocale)
+            ], $messageLocale)
+        );
+    }
+
+
+    /**
+     * @function complete player relation changes
+     * @param Collection $relationChanges
+     * @param string $turnSlug
+     * @param string $gameId
+     * @return void
+     *@throws Exception
+     */
+    public function completeRelationChange(Collection $relationChanges, string $turnSlug, string $gameId)
+    {
+        foreach($relationChanges as $relationChange) {
+            $playerRelation = PlayerRelation::where('game_id', '=', $relationChange->game_id)
+                ->where('player_id', '=', $relationChange->player_id)
+                ->where('recipient_id', '=', $relationChange->recipient_id)
                 ->first();
-            $recipientTicker = $relation->recipient->ticker;
-            $playerTicker = $relation->player->ticker;
+            $recipientTicker = $relationChange->recipient->ticker;
+            $playerTicker = $relationChange->player->ticker;
             if ($playerRelation) {
-                $playerRelation->status = $relation->status;
+                $playerRelation->status = $relationChange->status;
                 $playerRelation->save();
-                Log::notice("TURN PROCESSING $turnSlug - updated PlayerRelation from $playerTicker to $recipientTicker with status $relation->status.");
+                Log::notice("TURN PROCESSING $turnSlug - updated PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
             } else {
                 PlayerRelation::create([
-                    'game_id' => $relation->game_id,
-                    'player_id' => $relation->player_id,
-                    'recipient_id' => $relation->recipient_id,
-                    'status' => $relation->status
+                    'game_id' => $relationChange->game_id,
+                    'player_id' => $relationChange->player_id,
+                    'recipient_id' => $relationChange->recipient_id,
+                    'status' => $relationChange->status
                 ]);
-                Log::notice("TURN PROCESSING $turnSlug - created new PlayerRelation from $playerTicker to $recipientTicker with status $relation->status.");
+                Log::notice("TURN PROCESSING $turnSlug - created new PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
             }
             // updates done, delete PlayerRelationChange
             try {
-                $relation->delete();
-                // TODO: send system message to player that relation was changed.
-                // TODO: determine if a message needs to be sent to recipient
+                $relationChange->delete();
+                $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
+                $this->notifyPlayers($relationChange, $gameRelations);
             } catch(Exception $e) {
-                Log::error("TURN PROCESSING $turnSlug - failed to delete PlayerRelationChanges $relation->id: ".$e->getMessage());
+                Log::error("TURN PROCESSING $turnSlug - failed to delete PlayerRelationChanges $relationChange->id: ".$e->getMessage());
             }
         };
     }
@@ -81,7 +137,7 @@ class ProcessPlayerRelations
         $num = count($relationChangesToComplete);
         if ($num > 0) {
             Log::notice("TURN PROCESSING $turnSlug - Finalizing $num pending PlayerRelationChanges.");
-            $this->completeRelationChange($relationChangesToComplete, $turnSlug);
+            $this->completeRelationChange($relationChangesToComplete, $turnSlug, $game->id);
         } else {
             Log::notice("TURN PROCESSING $turnSlug - No PlayerRelationChanges need to be completed.");
         }

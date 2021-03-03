@@ -164,7 +164,12 @@ return [
             'statusInvalid' => 'The supplied status is not valid.',
             'relationChangePending' => 'A change of diplomatic relations already exists.'
         ],
-        'relationChangeAccepted' => 'The relation to this empire will change in :num turns.'
+        'relationChangeAccepted' => 'The relation to this empire will change in :num turns.',
+        'relations' => [
+            '0' => 'Hostile',
+            '1' => 'Neutral',
+            '2' => 'Allied',
+        ]
     ],
 
     'messages' => [
@@ -182,7 +187,6 @@ return [
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
         'messageDeleted' => 'Message deleted.|:num messages deleted.',
         'sys' => [
-            'greeting' => 'Fearless leader',
             'fleets' => [
                 'arrival' => [
                     'subject' => 'fleet has arrived at location',
@@ -202,6 +206,18 @@ Resources missing:
 :missing
 Minerals and Energy is always invested together into a new ship.'
                 ]
+            ],
+            'diplomacy' => [
+                'relationChangeInitiator' => [
+                    'subject' => 'Diplomatic relations changed',
+                    'body' => 'We have changed the diplomatic relations to empire [:ticker] to :status (:statusString).
+The effective relations to [:ticker] is now :effective (:effectiveString).'
+                ],
+                'relationChangeRecipient' => [
+                    'subject' => 'Diplomatic relations changed',
+                    'body' => 'Empire [:ticker] has changed their diplomatic relations to us to :status (:statusString).
+The effective relations to [:ticker] is now :effective (:effectiveString).'
+                ],
             ]
         ]
     ]

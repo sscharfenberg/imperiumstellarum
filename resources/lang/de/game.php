@@ -164,7 +164,12 @@ return [
             'statusInvalid' => 'Der angegebene Status ist nicht gültig.',
             'relationChangePending' => 'Es existiert bereits eine laufende Änderung der diplomatischen Beziehung.'
         ],
-        'relationChangeAccepted' => 'Die Beziehung zu diesem Imperium wird sich in :num Runden ändern.'
+        'relationChangeAccepted' => 'Die Beziehung zu diesem Imperium wird sich in :num Runden ändern.',
+        'relations' => [
+            '0' => 'Verfeindet',
+            '1' => 'Neutral',
+            '2' => 'Verbündet',
+        ]
     ],
 
     'messages' => [
@@ -182,7 +187,6 @@ return [
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
         'messageDeleted' => 'Nachricht gelöscht.|:num Nachrichten gelöscht.',
         'sys' => [
-            'greeting' => 'Furchtloser Anführer',
             'fleets' => [
                 'arrival' => [
                     'subject' => 'Flotte hat Ziel erreicht',
@@ -202,6 +206,18 @@ Fehlende Kosten:
 :missing
 Mineralien und Energie wird immer gemeinsam in ein neues Schiff investiert.'
                 ]
+            ],
+            'diplomacy' => [
+                'relationChangeInitiator' => [
+                    'subject' => 'Diplomatische Beziehungen geändert',
+                    'body' => 'Wir haben die diplomatischen Beziehungen zu Imperium [:ticker] auf :status (:statusString) geändert.
+Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
+                ],
+                'relationChangeRecipient' => [
+                    'subject' => 'Diplomatic relations changed',
+                    'body' => 'Imperium [:ticker] hat die diplomatischen Beziehungen zu uns auf :status (:statusString) geändert.
+Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
+                ],
             ]
         ]
     ]
