@@ -204,7 +204,7 @@ The shipyard is now available for further constructions.'
                     'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources and/or population. The construction contract will be continued once we have sufficient resources.
 Resources missing:
 :missing
-Minerals and Energy is always invested together into a new ship.'
+Minerals and Energy are always invested together into a new ship.'
                 ]
             ],
             'diplomacy' => [
