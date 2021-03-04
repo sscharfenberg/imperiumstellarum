@@ -205,6 +205,11 @@ Die Werft steht für neue Bauaufträge jetzt wieder zur Verfügung.'
 Fehlende Kosten:
 :missing
 Mineralien und Energie werden immer gemeinsam in ein neues Schiff investiert.'
+                ],
+                'shipyardCompleted' => [
+                    'subject' => 'Werft fertiggestellt',
+                    'body' => 'Die Werft auf Planet :name berichtet das die Werftkonstruktion jetzt abgeschlossen ist. Größter herstellbarer Schiffsrumpf in der Werft ist jetzt: :type.
+Die Werft steht für Bauaufträge zur Verfügung.'
                 ]
             ],
             'diplomacy' => [
@@ -218,7 +223,7 @@ Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString)
                     'body' => 'Imperium [:ticker] hat die diplomatischen Beziehungen zu uns auf :status (:statusString) geändert.
 Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
                 ],
-            ]
+            ],
         ]
     ]
 

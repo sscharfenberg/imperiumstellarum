@@ -15,6 +15,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $player_id
  * @property string $type
  * @property int $until_complete
+ * @property boolean $notified
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
@@ -29,6 +30,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlanetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereNotified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereUntilComplete($value)
  * @mixin \Eloquent
@@ -65,6 +67,7 @@ class Shipyard extends Model
         'game_id',
         'type',
         'until_complete',
+        'notified'
     ];
 
     /**

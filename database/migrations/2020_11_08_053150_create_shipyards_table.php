@@ -22,8 +22,8 @@ class CreateShipyardsTable extends Migration
             $table->uuid('planet_id');
             $table->uuid('game_id');
             $table->uuid('player_id');
-            $table->enum('type', $shipyardTypes)
-                ->default($shipyardTypes[0]);
+            $table->enum('type', $shipyardTypes)->default($shipyardTypes[0]);
+            $table->boolean('notified')->default(false);
             $table->unsignedSmallInteger('until_complete');
             $table->foreign('planet_id')->references('id')->on('planets')
                 ->onDelete('cascade');

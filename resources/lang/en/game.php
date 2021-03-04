@@ -205,6 +205,11 @@ The shipyard is now available for further constructions.'
 Resources missing:
 :missing
 Minerals and Energy are always invested together into a new ship.'
+                ],
+                'shipyardCompleted' => [
+                    'subject' => 'Shipyard completed',
+                    'body' => 'The shipyard on planet :name reports that the shipyard construction is now completed. The largest ship that can be built in the shipyards is now a :type.
+The shipyard is now available for ship construction.'
                 ]
             ],
             'diplomacy' => [

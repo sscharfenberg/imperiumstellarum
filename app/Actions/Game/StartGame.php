@@ -139,6 +139,7 @@ class StartGame
             'player_id' => $player->id,
             'type' => array_keys(config('rules.shipyards.hullTypes'))[0],
             'until_complete' => 0,
+            'notified' => true
         ]);
         Log::info("Created starting shipyard for player $player->ticker ".json_encode($shipyard, JSON_PRETTY_PRINT));
 

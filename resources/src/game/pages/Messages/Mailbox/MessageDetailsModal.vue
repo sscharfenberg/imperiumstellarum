@@ -198,14 +198,18 @@ export default {
             </li>
             <li
                 class="text-left"
-                v-else-if="mailbox === 'in' && message.senderId"
+                v-else-if="
+                    (mailbox === 'in' || mailbox === 'sys') && message.senderId
+                "
             >
                 [{{ player(message.senderId).ticker }}]
                 {{ player(message.senderId).name }}
             </li>
             <li
                 class="text-left"
-                v-else-if="mailbox === 'in' && !message.senderId"
+                v-else-if="
+                    (mailbox === 'in' || mailbox === 'sys') && !message.senderId
+                "
             >
                 {{ $t("messages.systemSender") }}
             </li>
@@ -213,7 +217,7 @@ export default {
             <li class="text-left" v-if="mailbox === 'out'">
                 {{ $t("messages.details.sentAt") }}
             </li>
-            <li class="text-left" v-if="mailbox === 'in'">
+            <li class="text-left" v-if="mailbox === 'in' || mailbox === 'sys'">
                 {{ $t("messages.details.recievedAt") }}
             </li>
             <li class="text-left">{{ timestampFormatted }}</li>

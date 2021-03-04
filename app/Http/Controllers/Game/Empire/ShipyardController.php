@@ -68,6 +68,7 @@ class ShipyardController extends Controller
             'player_id' => $player->id,
             'type' => $type,
             'until_complete' => $turns,
+            'notified' => false
         ]);
 
         Log::info("Empire $player->ticker has started building a shipyard: ".json_encode($shipyard, JSON_PRETTY_PRINT));
@@ -121,6 +122,7 @@ class ShipyardController extends Controller
         // upgrade the shipyard
         $shipyard = $planet->shipyard;
         $shipyard->type = $type;
+        $shipyard->notified = false;
         $turns = config('rules.shipyards.hullTypes.'.$type.'.upgradeCosts.turns');
         $shipyard->until_complete = $turns;
         $shipyard->save();
