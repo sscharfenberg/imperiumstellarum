@@ -34,17 +34,17 @@ class ProcessPlayerRelations
             ->first()
             ->locale;
         $effectiveRelation = $p->getEffectiveRelation($initiator, $recipient, $gameRelations);
-        $m->sendSystemMessage(
-            $relationChange->game_id,
-            [$relationChange->player_id],
-            __('game.messages.sys.diplomacy.relationChangeInitiator.subject', [], $messageLocale),
-            __('game.messages.sys.diplomacy.relationChangeInitiator.body', [
+        $m->sendNotification(
+            $relationChange->player,
+            'game.messages.sys.diplomacy.relationChangeInitiator.subject',
+            'game.messages.sys.diplomacy.relationChangeInitiator.body',
+            [
                 'ticker' => $recipient->ticker,
                 'status' => $relationChange->status,
                 'statusString' => __('game.diplomacy.relations.'.$relationChange->status, [], $messageLocale),
                 'effective' => $effectiveRelation,
                 'effectiveString' => __('game.diplomacy.relations.'.$effectiveRelation, [], $messageLocale)
-            ], $messageLocale)
+            ]
         );
 
         // notify recipient
@@ -53,17 +53,17 @@ class ProcessPlayerRelations
             ->first()
             ->locale;
         $effectiveRelation = $p->getEffectiveRelation($recipient, $initiator, $gameRelations);
-        $m->sendSystemMessage(
-            $relationChange->game_id,
-            [$relationChange->recipient_id],
-            __('game.messages.sys.diplomacy.relationChangeRecipient.subject', [], $messageLocale),
-            __('game.messages.sys.diplomacy.relationChangeRecipient.body', [
+        $m->sendNotification(
+            $relationChange->recipient,
+            'game.messages.sys.diplomacy.relationChangeRecipient.subject',
+            'game.messages.sys.diplomacy.relationChangeRecipient.body',
+            [
                 'ticker' => $recipient->ticker,
                 'status' => $relationChange->status,
                 'statusString' => __('game.diplomacy.relations.'.$relationChange->status, [], $messageLocale),
                 'effective' => $effectiveRelation,
                 'effectiveString' => __('game.diplomacy.relations.'.$effectiveRelation, [], $messageLocale)
-            ], $messageLocale)
+            ]
         );
     }
 

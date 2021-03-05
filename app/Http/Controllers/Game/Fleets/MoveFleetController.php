@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\FleetMovement;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Star;
 use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
+use App\Services\MessageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Traits\Game\UsesFleetsVerification;
@@ -17,6 +19,24 @@ class MoveFleetController extends Controller
 {
 
     use UsesFleetsVerification;
+
+    /**
+     * @function send notification to owner of destination star
+     * @param Star $destination
+     */
+    private function notifyDestinationOwner (Star $destination)
+    {
+        $m = new MessageService;
+        $m->sendNotification(
+            $destination->owner,
+            'game.messages.sys.fleets.enroute.subject',
+            'game.messages.sys.fleets.enroute.body',
+            [
+                'name' => $destination->name." (".$destination->coord_x."/".$destination->coord_y.")"
+            ]
+        );
+    }
+
 
     /**
      * @function send fleet to destination
@@ -65,6 +85,11 @@ class MoveFleetController extends Controller
         // remove star id from fleet since the fleet is now in transit.
         $fleet->star_id = null;
         $fleet->save();
+
+        // does the destination have an owner other than the player?
+        if ($fl->starHasDifferentOwner($destination, $player)) {
+            $this->notifyDestinationOwner($destination);
+        }
 
         $updatedPlayer = Player::find(Auth::user()->selected_player);
         return response()->json([

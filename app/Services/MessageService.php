@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Message;
 use App\Models\MessageRecipient;
+use App\Models\Player;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -113,7 +114,6 @@ class MessageService {
         }
     }
 
-
     /**
      * @function send message from player
      * @param string $gameId
@@ -138,22 +138,26 @@ class MessageService {
     }
 
     /**
-     * @function create message by [system] to player
-     * @param string $gameId
-     * @param array $recipientIds
-     * @param string $subject
-     * @param string $body
-     * @return void
+     * @function send a notification to a player
+     * @param Player $recipient
+     * @param string $subjectKey
+     * @param string $bodyKey
+     * @param array $data
      */
-    public function sendSystemMessage (
-        string $gameId,
-        array $recipientIds,
-        string $subject,
-        string $body
-    )
+    public function sendNotification(Player $recipient, string $subjectKey, string $bodyKey, array $data)
     {
-        $message = $this->createMessage($gameId, null, null, $subject, $body);
-        $this->createRecipients($gameId, $message->id, $recipientIds);
+        $gameId = $recipient->game_id;
+        $messageLocale = $recipient->user->locale;
+        // create message
+        $message = $this->createMessage(
+            $gameId,
+            null,
+            null,
+            __($subjectKey, $data, $messageLocale),
+            __($bodyKey, $data, $messageLocale)
+        );
+        // create recipients
+        $this->createRecipients($gameId, $message->id, [$recipient->id]);
     }
 
 }

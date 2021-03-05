@@ -191,6 +191,10 @@ return [
                 'arrival' => [
                     'subject' => 'Flotte hat Ziel erreicht',
                     'body' => 'Die Flotte \':name\' berichtet das Sie das Ziel :location erreicht hat.'
+                ],
+                'enroute' => [
+                    'subject' => 'Flotte nimmt Kurs auf unseren Stern',
+                    'body' => 'Langstrecken Sensoren berichten das eine Flotte einen Hypersprung zu unserem Stern :name durchführt. Es ist unbekannt wann diese Flotte ankommen wird oder welches Imperium die Flotte geschickt hat.'
                 ]
             ],
             'shipyards' => [
@@ -201,7 +205,7 @@ Die Werft steht für neue Bauaufträge jetzt wieder zur Verfügung.'
                 ],
                 'costsNotPaid' => [
                     'subject' => 'Fehlende Resourcen für Schiffsbau',
-                    'body' => 'Die :type Werft auf Planet :name berichtet das ein Schiff der Klasse :shipclass nicht fertig gestellt werden konnte da uns die nötigen Resourcen und/oder Bevölkerung fehlen. Der Bauauftrag wird fortgeführt sobald die nötigen Resourcen zur Verfügung stehen.
+                    'body' => 'Die :type Werft auf Planet :name berichtet das das nächste Schiff der Klasse :shipclass nicht begonnen werden konnte da uns die nötigen Resourcen und/oder Bevölkerung fehlen. Der Bauauftrag wird fortgeführt sobald die nötigen Resourcen zur Verfügung stehen.
 Fehlende Kosten:
 :missing
 Mineralien und Energie werden immer gemeinsam in ein neues Schiff investiert.'

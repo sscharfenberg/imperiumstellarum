@@ -24,8 +24,6 @@ class ProcessFleetMovement
     private function completeFleetMovement(Collection $movements, string $turnSlug, string $gameId)
     {
         $m = new MessageService;
-        $gameUsers = $m->getGameUsers($gameId);
-
         foreach($movements as $movement) {
             $fleet = $movement->fleet;
             $destination = $movement->star;
@@ -34,19 +32,14 @@ class ProcessFleetMovement
                 $fleet->star_id = $destination->id;
                 $fleet->save();
                 Log::notice("TURN PROCESSING $turnSlug - Fleet $fleet->name has arrived at $destination->name.");
-                $player = $fleet->player;
-                $messageLocale = $gameUsers
-                    ->where('id', '=', $fleet->player->user_id)
-                    ->first()
-                    ->locale;
-                $m->sendSystemMessage(
-                    $gameId,
-                    [$player->id],
-                    __('game.messages.sys.fleets.arrival.subject', [], $messageLocale),
-                    __('game.messages.sys.fleets.arrival.body', [
+                $m->sendNotification(
+                    $fleet->player,
+                    'game.messages.sys.fleets.arrival.subject',
+                    'game.messages.sys.fleets.arrival.body',
+                    [
                         'name' => $fleet->name,
                         'location' => $destination->name." ($destination->coord_x/$destination->coord_y)"
-                    ], $messageLocale)
+                    ]
                 );
             } catch(Exception $e) {
                 Log::error("TURN PROCESSING $turnSlug - failed to complete fleet movement $movement->id: ".$e->getMessage());

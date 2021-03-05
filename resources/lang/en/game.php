@@ -191,6 +191,10 @@ return [
                 'arrival' => [
                     'subject' => 'fleet has arrived at location',
                     'body' => 'The fleet :name reports that it has arrived at location :location.'
+                ],
+                'enroute' => [
+                    'subject' => 'Fleet en route to our star',
+                    'body' => 'Long range sensors report that a fleet has begun a hyper jump to our star :name. It is unknown when the fleet will arrive or which empire has sent it.'
                 ]
             ],
             'shipyards' => [
@@ -201,7 +205,7 @@ The shipyard is now available for further constructions.'
                 ],
                 'costsNotPaid' => [
                     'subject' => 'Insufficient resources for construction contract',
-                    'body' => 'The :type shipyard on planet :name reports that the construction of a class :shipclass ship could not be completed since we do not have sufficient resources and/or population. The construction contract will be continued once we have sufficient resources.
+                    'body' => 'The :type shipyard on planet :name reports that the construction of the next :shipclass class ship could not be started since we do not have sufficient resources and/or population. The construction contract will be continued once we have sufficient resources.
 Resources missing:
 :missing
 Minerals and Energy are always invested together into a new ship.'

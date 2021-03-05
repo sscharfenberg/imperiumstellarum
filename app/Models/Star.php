@@ -95,7 +95,7 @@ class Star extends Model
      */
     public function owner()
     {
-        return $this->belongsTo('App\Models\Player');
+        return $this->belongsTo('App\Models\Player', 'player_id');
     }
 
     /**

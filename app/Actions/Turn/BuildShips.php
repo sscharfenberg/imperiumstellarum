@@ -126,15 +126,15 @@ class BuildShips
             $messageLocale = $this->getContractLocale($contract);
             $planet = $contract->shipyard->planet;
             $star = $planet->star;
-            $m->sendSystemMessage(
-                $contract->game_id,
-                [$contract->player_id],
-                __('game.messages.sys.shipyards.contractFinished.subject', [], $messageLocale),
-                __('game.messages.sys.shipyards.contractFinished.body', [
+            $m->sendNotification(
+                $contract->player,
+                'game.messages.sys.shipyards.contractFinished.subject',
+                'game.messages.sys.shipyards.contractFinished.body',
+                [
                     'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
                     'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
                     'construction' => $contract->amount." x ".$contract->blueprint->name
-                ], $messageLocale)
+                ]
             );
             Log::notice("TURN PROCESSING $turnSlug - contract deleted since it was finished.");
         } catch(Exception $e) {
@@ -223,16 +223,16 @@ class BuildShips
                 $messageLocale = $this->getContractLocale($contract);
                 $planet = $contract->shipyard->planet;
                 $star = $planet->star;
-                $m->sendSystemMessage(
-                    $contract->game_id,
-                    [$player->id],
-                    __('game.messages.sys.shipyards.costsNotPaid.subject', [], $messageLocale),
-                    __('game.messages.sys.shipyards.costsNotPaid.body', [
+                $m->sendNotification(
+                    $contract->player,
+                    'game.messages.sys.shipyards.costsNotPaid.subject',
+                    'game.messages.sys.shipyards.costsNotPaid.body',
+                    [
                         'type' => __('game.common.hulls.'.$contract->shipyard->type, [], $messageLocale),
                         'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
                         'shipclass' => $contract->blueprint->name,
                         'missing' => json_encode(array_diff($costs, $paid), JSON_PRETTY_PRINT)
-                    ], $messageLocale)
+                    ]
                 );
                 $contract->notified = true;
             }

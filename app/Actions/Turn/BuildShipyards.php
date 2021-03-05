@@ -34,14 +34,14 @@ class BuildShipyards
             $planet = $shipyard->planet;
             $star = $planet->star;
             $starname = $star->name." - ".$f->convertLatinToRoman($planet->orbital_index);
-            $m->sendSystemMessage(
-                $gameId,
-                [$player->id],
-                __('game.messages.sys.shipyards.shipyardCompleted.subject', [], $messageLocale),
-                __('game.messages.sys.shipyards.shipyardCompleted.body', [
+            $m->sendNotification(
+                $shipyard->player,
+                'game.messages.sys.shipyards.shipyardCompleted.subject',
+                'game.messages.sys.shipyards.shipyardCompleted.body',
+                [
                     'name' => $star->name." - ".$f->convertLatinToRoman($planet->orbital_index),
                     'type' => __('game.common.hulls.'.$shipyard->type, [], $messageLocale)
-                ], $messageLocale)
+                ]
             );
             $shipyard->notified = true;
             $shipyard->save();
