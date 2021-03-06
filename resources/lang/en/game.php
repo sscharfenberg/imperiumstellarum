@@ -31,6 +31,12 @@ return [
             'medium' => 'Cruiser',
             'large' => 'Battleship',
             'xlarge' => 'Capital ship'
+        ],
+        'resourceTypes' => [
+            'energy' => 'Energy',
+            'minerals' => 'Minerals',
+            'food' => 'Food',
+            'research' => 'Research',
         ]
     ],
 
@@ -187,9 +193,16 @@ return [
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
         'messageDeleted' => 'Message deleted.|:num messages deleted.',
         'sys' => [
+            'storageUpgrade' => [
+                'finished' => [
+                    'subject' => 'Storage upgrade completed',
+                    'body' => 'The Storage upgrade for :type has been completed and is now level :level.
+New storage capacity: :capacity'
+                ]
+            ],
             'fleets' => [
                 'arrival' => [
-                    'subject' => 'fleet has arrived at location',
+                    'subject' => 'Fleet has arrived at location',
                     'body' => 'The fleet :name reports that it has arrived at location :location.'
                 ],
                 'enroute' => [

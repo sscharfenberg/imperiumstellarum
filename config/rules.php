@@ -90,32 +90,32 @@ return [
                 '1' => [
                     'amount' => 750,
                     'costs' => [
-                        'minerals' => 250,
-                        'energy' => 550,
+                        'minerals' => 550,
+                        'energy' => 250,
                         'turns' => 24
                     ]
                 ],
                 '2' => [
                     'amount' => 1000,
                     'costs' => [
-                        'minerals' => 400,
-                        'energy' => 800,
+                        'minerals' => 800,
+                        'energy' => 400,
                         'turns' => 32
                     ]
                 ],
                 '3' => [
                     'amount' => 1500,
                     'costs' => [
-                        'minerals' => 750,
-                        'energy' => 1250,
+                        'minerals' => 1250,
+                        'energy' => 750,
                         'turns' => 48
                     ]
                 ],
                 '4' => [
                     'amount' => 2500,
                     'costs' => [
-                        'minerals' => 1500,
-                        'energy' => 2500,
+                        'minerals' => 2500,
+                        'energy' => 1500,
                         'turns' => 96
                     ]
                 ]
@@ -129,28 +129,32 @@ return [
                 '1' => [
                     'amount' => 1500,
                     'costs' => [
-                        'energy' => 800,
+                        'minerals' => 250,
+                        'energy' => 550,
                         'turns' => 16
                     ]
                 ],
                 '2' => [
                     'amount' => 2000,
                     'costs' => [
-                        'energy' => 1200,
+                        'minerals' => 400,
+                        'energy' => 800,
                         'turns' => 24
                     ]
                 ],
                 '3' => [
                     'amount' => 3000,
                     'costs' => [
-                        'energy' => 2000,
+                        'minerals' => 750,
+                        'energy' => 1250,
                         'turns' => 32
                     ]
                 ],
                 '4' => [
                     'amount' => 5000,
                     'costs' => [
-                        'energy' => 3000,
+                        'minerals' => 1500,
+                        'energy' => 2500,
                         'turns' => 64
                     ]
                 ]

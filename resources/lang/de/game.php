@@ -31,6 +31,12 @@ return [
             'medium' => 'Kreuzer',
             'large' => 'Schlachtschiff',
             'xlarge' => 'Großkampfschiff'
+        ],
+        'resourceTypes' => [
+            'energy' => 'Energie',
+            'minerals' => 'Mineralien',
+            'food' => 'Nahrung',
+            'research' => 'Forschung',
         ]
     ],
 
@@ -187,6 +193,13 @@ return [
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
         'messageDeleted' => 'Nachricht gelöscht.|:num Nachrichten gelöscht.',
         'sys' => [
+            'storageUpgrade' => [
+                'finished' => [
+                    'subject' => 'Lageraufrüstung fertiggestellt',
+                    'body' => 'Die Lageraufrüstung vom Typ :type wurde fertiggestellt und hat jetzt Stufe :level.
+Neue Lagerkapazität: :capacity'
+                ]
+            ],
             'fleets' => [
                 'arrival' => [
                     'subject' => 'Flotte hat Ziel erreicht',

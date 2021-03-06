@@ -143,28 +143,28 @@ class ProcessTurn
      */
     public function handle(Game $game, Turn $turn)
     {
-        $start = hrtime(true);
+//        $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
-        Log::info("TURN PROCESSING $turnSlug - START");
-        $game->processing = true;
-        $game->save();
-
-        // #1 process storage upgrades
+//        Log::info("TURN PROCESSING $turnSlug - START");
+//        $game->processing = true;
+//        $game->save();
+//
+//        // #1 process storage upgrades
         $this->processStorageUpgrades($game, $turnSlug);
-        // #2 process harvesters
-        $this->processHarvesters($game, $turnSlug);
-        // #3 population growth
-        $this->handleColonies($game, $turnSlug);
-        // #4 build shipyards
-        $this->processShipyards($game, $turnSlug);
-        // #5 do research
-        $this->processResearch($game, $turnSlug);
-        // #6 build ships
-        $this->buildships($game, $turnSlug);
-        // #7 move fleets
-        $this->moveFleets($game, $turnSlug);
-        // #8 change diplomatic relations
-        $this->changePlayerRelations($game, $turnSlug);
+//        // #2 process harvesters
+//        $this->processHarvesters($game, $turnSlug);
+//        // #3 population growth
+//        $this->handleColonies($game, $turnSlug);
+//        // #4 build shipyards
+//        $this->processShipyards($game, $turnSlug);
+//        // #5 do research
+//        $this->processResearch($game, $turnSlug);
+//        // #6 build ships
+//        $this->buildships($game, $turnSlug);
+//        // #7 move fleets
+//        $this->moveFleets($game, $turnSlug);
+//        // #8 change diplomatic relations
+//        $this->changePlayerRelations($game, $turnSlug);
         // #9 resolve fleet combat
         // #10 colonize star system
         // #11 change system ownership
@@ -174,14 +174,14 @@ class ProcessTurn
 
 
         // #final: cleanup
-        $turn->processed = now();
-        $turn->save();
-        $this->createNewTurn($game, $turn);
-        $game->processing = false;
-        $game->save();
-
-        // log execution time of turn processing.
-        $execution = hrtime(true) - $start;
-        Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
+//        $turn->processed = now();
+//        $turn->save();
+//        $this->createNewTurn($game, $turn);
+//        $game->processing = false;
+//        $game->save();
+//
+//        // log execution time of turn processing.
+//        $execution = hrtime(true) - $start;
+//        Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
     }
 }

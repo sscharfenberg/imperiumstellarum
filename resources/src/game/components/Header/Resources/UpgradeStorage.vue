@@ -34,6 +34,7 @@ export default {
         },
     },
     components: { Modal, GameButton, Costs },
+    emits: ["close"],
     setup(props, { emit }) {
         const store = useStore();
         const resources = computed(() => store.state.resources);
