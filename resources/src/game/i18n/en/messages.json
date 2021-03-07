@@ -78,7 +78,8 @@
         "markUnread": "Mark unread",
         "reply": "Reply",
         "replyAll": "Reply to all",
-        "delete": "Delete"
+        "delete": "Delete",
+        "report": "Report Message"
     },
     "massDelete": {
         "title": "Really delete message?|Really delete messages?",

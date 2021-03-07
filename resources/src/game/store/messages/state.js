@@ -29,4 +29,5 @@ export default {
     perPage: savedState.messagesPerPage || {},
     massDeleteIds: [],
     massDeleteMailbox: "",
+    reportMessageId: "",
 };

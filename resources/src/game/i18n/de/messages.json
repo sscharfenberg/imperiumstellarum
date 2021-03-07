@@ -78,7 +78,8 @@
         "markUnread": "Als ungelesen markieren",
         "reply": "Antworten",
         "replyAll": "Allen Antworten",
-        "delete": "Löschen"
+        "delete": "Löschen",
+        "report": "Nachricht melden"
     },
     "massDelete": {
         "title": "Nachricht wirklich löschen?|Nachrichten wirklich löschen?",

@@ -7,7 +7,7 @@ import { useStore } from "vuex";
 import { addSeconds } from "date-fns";
 import { formatDateTime } from "@/game/helpers/format";
 import AppCheckbox from "Components/Checkbox/AppCheckbox";
-import MessageDetailsModal from "./MessageDetailsModal";
+import MessageDetailsModal from "../MessageDetails/MessageDetailsModal";
 export default {
     name: "MailboxOverviewRenderMessage",
     props: {
@@ -20,8 +20,9 @@ export default {
         body: String,
         read: Boolean,
     },
+    emits: ["report"],
     components: { AppCheckbox, MessageDetailsModal },
-    setup(props, { emit }) {
+    setup(props) {
         const store = useStore();
 
         const showModal = ref(false);
@@ -56,9 +57,6 @@ export default {
                 .join(", ");
         });
 
-        // emit event handler
-        const onClick = () => emit("clicked", props.messageId);
-
         // bodyShortened
         const bodyShortened = computed(() => {
             let maxStringLength = window.rules.messages.body.overviewMax;
@@ -84,7 +82,6 @@ export default {
             timestampFormatted,
             recipientTickers,
             bodyShortened,
-            onClick,
             showModal,
             massDeleteIds,
             onDeleteChecked,
@@ -158,6 +155,7 @@ export default {
         :timestamp-formatted="timestampFormatted"
         :read="read"
         @close="showModal = false"
+        @report="$emit('report')"
     />
 </template>
 

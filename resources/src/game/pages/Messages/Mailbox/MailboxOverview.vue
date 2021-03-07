@@ -72,6 +72,13 @@ export default {
             () => store.state.messages.massDeleteIds
         );
 
+        const onReport = () => {
+            console.log(
+                "reporting message!",
+                store.state.messages.reportMessageId
+            );
+        };
+
         return {
             massDeleteMessageIds,
             page,
@@ -82,6 +89,7 @@ export default {
             onDeleteAllUnchecked,
             sortDesc,
             displayedMessages,
+            onReport,
         };
     },
 };
@@ -143,6 +151,7 @@ export default {
             :subject="message.subject"
             :body="message.body"
             :read="message.read"
+            @report="onReport"
         />
     </div>
     <div v-if="messages.length === 0" class="mailbox__empty">

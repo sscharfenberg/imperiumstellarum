@@ -171,8 +171,8 @@ export default {
 
     /**
      * @function add a messageId to massDeleteIds
-     * @param state
-     * @param payload
+     * @param {Object} state
+     * @param {String} payload
      * @constructor
      */
     ADD_MASS_DELETE_ID: (state, payload) => {
@@ -183,13 +183,23 @@ export default {
 
     /**
      * @function add a messageId to massDeleteIds
-     * @param state
-     * @param payload
+     * @param {Object} state
+     * @param {String} payload
      * @constructor
      */
     REMOVE_MASS_DELETE_ID: (state, payload) => {
         if (state.massDeleteIds.indexOf(payload) > -1) {
             state.massDeleteIds.splice(state.massDeleteIds.indexOf(payload), 1);
         }
+    },
+
+    /**
+     * @function set ID for "report message"
+     * @param {Object} state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_REPORT_MESSAGE_ID: (state, payload) => {
+        state.reportMessageId = payload;
     },
 };

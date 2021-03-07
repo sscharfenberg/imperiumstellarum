@@ -6,7 +6,7 @@ import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 import { addSeconds } from "date-fns";
 import { formatMessageBody, formatDateTime } from "@/game/helpers/format";
-import GameButton from "Components/Button/GameButton";
+import MessageDetailsModalActions from "./MessageDetailsModalActions";
 import MessageDetailsModalRepliesTo from "./MessageDetailsModalRepliesTo";
 import Modal from "Components/Modal/Modal";
 export default {
@@ -18,12 +18,12 @@ export default {
         read: Boolean,
     },
     components: {
-        GameButton,
+        MessageDetailsModalActions,
         MessageDetailsModalRepliesTo,
         Modal,
     },
-    emits: ["close"],
-    setup(props, { emit }) {
+    emits: ["close", "report"],
+    setup(props) {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
@@ -54,70 +54,6 @@ export default {
         });
 
         /**
-         * @function click on "mark as unread": action with xhr to server, close modal
-         */
-        const onMarkUnreadClick = () => {
-            store.dispatch("messages/MARK_MESSAGE_READ", {
-                messageId: props.messageId,
-                read: false,
-            });
-            //emit("close");
-        };
-
-        /**
-         * @function click on "reply": prepare state for "new message" page
-         */
-        const onreplyClick = () => {
-            store.commit("messages/SET_SEARCH_TICKER", "");
-            store.commit("messages/RESET_RECIPIENTS");
-            store.commit("messages/ADD_RECIPIENT", message.value.senderId);
-            store.commit("messages/SET_REPLIES_TO_MESSAGE_ID", props.messageId);
-            store.commit(
-                "messages/SET_SUBJECT",
-                `RE: ${message.value.subject}`.substr(
-                    0,
-                    window.rules.messages.subject.max
-                )
-            );
-            store.commit("messages/SET_BODY", "");
-            store.commit("messages/SET_PAGE", 3);
-            emit("close");
-        };
-
-        /**
-         * @function click on "reply all": prepare state for "new message" page
-         */
-        const onReplyAllClick = () => {
-            const newRecipients = [
-                ...message.value.recipientIds.filter(
-                    (r) => r !== store.state.empireId
-                ),
-                ...[message.value.senderId],
-            ];
-            store.commit("messages/SET_SEARCH_TICKER", "");
-            store.commit("messages/SET_RECIPIENTS", newRecipients);
-            store.commit("messages/SET_REPLIES_TO_MESSAGE_ID", props.messageId);
-            store.commit(
-                "messages/SET_SUBJECT",
-                `RE: ${message.value.subject}`.substr(
-                    0,
-                    window.rules.messages.subject.max
-                )
-            );
-            store.commit("messages/SET_BODY", "");
-            store.commit("messages/SET_PAGE", 3);
-            emit("close");
-        };
-
-        const onDeleteClick = () => {
-            store.dispatch("messages/DELETE_MESSAGES", {
-                mailbox: props.mailbox,
-                messageIds: [props.messageId],
-            });
-            emit("close");
-        };
-
-        /**
          * @function before mount, call server and mark as read
          */
         onBeforeMount(() => {
@@ -130,6 +66,7 @@ export default {
                     read: true,
                 });
             }
+            store.commit("messages/SET_REPORT_MESSAGE_ID", "");
         });
 
         return {
@@ -142,10 +79,6 @@ export default {
             formatMessageBody,
             addSeconds,
             formatDateTime,
-            onMarkUnreadClick,
-            onreplyClick,
-            onReplyAllClick,
-            onDeleteClick,
         };
     },
 };
@@ -153,44 +86,13 @@ export default {
 
 <template>
     <modal :title="message.subject" @close="$emit('close')" :full-size="false">
-        <div class="actions">
-            <game-button
-                v-if="mailbox === 'in' && message.senderId"
-                :text-string="$t('messages.details.reply')"
-                icon-name="reply"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onreplyClick"
-            />
-            <game-button
-                v-if="
-                    mailbox === 'in' &&
-                    message.recipientIds.length > 1 &&
-                    message.senderId
-                "
-                :text-string="$t('messages.details.replyAll')"
-                icon-name="reply_all"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onReplyAllClick"
-            />
-            <game-button
-                v-if="(mailbox === 'in' || mailbox === 'sys') && message.read"
-                :text-string="$t('messages.details.markUnread')"
-                icon-name="markunread"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onMarkUnreadClick"
-            />
-            <game-button
-                :text-string="$t('messages.details.delete')"
-                icon-name="delete"
-                :loading="requesting"
-                :disabled="requesting"
-                @click="onDeleteClick"
-            />
-        </div>
-
+        <message-details-modal-actions
+            :message-id="messageId"
+            :mailbox="mailbox"
+            :read="read"
+            @close="$emit('close')"
+            @report="$emit('report')"
+        />
         <ul class="stats base-message">
             <li class="text-left">{{ $t("messages.details.sender") }}</li>
             <li class="text-left" v-if="mailbox === 'out'">
