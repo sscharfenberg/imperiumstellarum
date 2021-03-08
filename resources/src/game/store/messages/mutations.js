@@ -202,4 +202,14 @@ export default {
     SET_REPORT_MESSAGE_ID: (state, payload) => {
         state.reportMessageId = payload;
     },
+
+    /**
+     * @function set ID for "report message"
+     * @param {Object} state
+     * @param {String} payload
+     * @constructor
+     */
+    SET_REPORT_MESSAGE_COMMENT: (state, payload) => {
+        state.reportMessageComment = payload;
+    },
 };

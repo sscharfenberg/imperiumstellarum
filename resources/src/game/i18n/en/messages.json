@@ -86,5 +86,14 @@
         "explanation": "Do you really want to delete one message? The message will be irrecoverably lost.|Do you really want to delete {num} messages? The messages will be irrecoverably lost.",
         "submit": "Delete message|Delete {num} messages"
     },
+    "report": {
+        "title": "Report Message",
+        "message": "Reported Message",
+        "explanation": "When you report this message it will be brought to attention to Imperium Stellarum's staff. We will take action if appropriate.",
+        "abuse": "Do not abuse this feature - spamming reports for ingame enemies will have consequences.",
+        "commentLabel": "Your comment",
+        "commentPlaceholder": "enter your comment (required)",
+        "submit": "Submit report"
+    },
     "systemSender": "-System-"
 }

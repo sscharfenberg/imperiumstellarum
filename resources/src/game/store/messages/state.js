@@ -30,4 +30,5 @@ export default {
     massDeleteIds: [],
     massDeleteMailbox: "",
     reportMessageId: "",
+    reportMessageComment: "",
 };

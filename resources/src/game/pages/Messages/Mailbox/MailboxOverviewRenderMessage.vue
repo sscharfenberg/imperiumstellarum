@@ -20,7 +20,6 @@ export default {
         body: String,
         read: Boolean,
     },
-    emits: ["report"],
     components: { AppCheckbox, MessageDetailsModal },
     setup(props) {
         const store = useStore();
@@ -155,7 +154,6 @@ export default {
         :timestamp-formatted="timestampFormatted"
         :read="read"
         @close="showModal = false"
-        @report="$emit('report')"
     />
 </template>
 

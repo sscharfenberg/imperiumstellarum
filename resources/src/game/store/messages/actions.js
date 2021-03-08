@@ -104,7 +104,7 @@ export default {
     },
 
     /**
-     * @function delete messages
+     * @function submit a message report
      * @param commit
      * @param payload
      * @param {Array} payload.messageIds
@@ -124,6 +124,34 @@ export default {
                 ) {
                     commit("SET_INBOX", response.data.inbox);
                     commit("SET_OUTBOX", response.data.outbox);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    notify(response.data.message, "success");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    REPORT_MESSAGE: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(`/api/game/${getGameId()}/messages/report`, payload)
+            .then((response) => {
+                if (
+                    response.status === 200 &&
+                    response.data.inbox &&
+                    response.data.message
+                ) {
+                    commit("SET_INBOX", response.data.inbox);
                     commit(
                         "SET_UNREAD_MESSAGES",
                         response.data.unreadMessages,

@@ -22,7 +22,7 @@ export default {
         MessageDetailsModalRepliesTo,
         Modal,
     },
-    emits: ["close", "report"],
+    emits: ["close"],
     setup(props) {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
@@ -91,7 +91,6 @@ export default {
             :mailbox="mailbox"
             :read="read"
             @close="$emit('close')"
-            @report="$emit('report')"
         />
         <ul class="stats base-message">
             <li class="text-left">{{ $t("messages.details.sender") }}</li>

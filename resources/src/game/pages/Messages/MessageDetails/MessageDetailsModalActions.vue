@@ -93,7 +93,6 @@ export default {
 
         const onReportClick = () => {
             store.commit("messages/SET_REPORT_MESSAGE_ID", props.messageId);
-            emit("report");
             emit("close");
         };
 

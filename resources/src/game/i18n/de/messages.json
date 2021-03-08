@@ -86,5 +86,14 @@
         "explanation": "Wollen Sie wirklich die Nachricht löschen? Die Nachricht wird endgültig gelöscht und kann nicht wiederhergestellt werden.|Wollen Sie wirklich {num} Nachrichten löschen? Die Nachrichten werden für immer verloren sein.",
         "submit": "Nachricht löschen|{num} Nachrichten löschen"
     },
+    "report": {
+        "title": "Nachricht melden",
+        "message": "Zu meldende Nachricht",
+        "explanation": "Wenn Sie diese Nachricht melden dann wird Sie dem Imperium Stellarum Stab vorgelegt. Wir werden, falls nötig, entsprechend eingreifen.",
+        "abuse": "Missbrauchen Sie diese Funktion nicht - harmlose Nachrichten von ingame Feinden zu melden hat Konsequenzen.",
+        "commentLabel": "Ihre Anmerkung",
+        "commentPlaceholder": "Anmerkung eingeben (Pflichtfeld)",
+        "submit": "Nachricht melden"
+    },
     "systemSender": "-System-"
 }

@@ -1303,6 +1303,10 @@ return [
         'recipients' => [
             'min' => 1,
             'max' => 10
+        ],
+        'reportComment' => [
+            'min' => 5,
+            'max' => 100
         ]
     ]
 

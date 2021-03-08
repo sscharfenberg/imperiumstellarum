@@ -8,6 +8,7 @@ import AppCheckbox from "Components/Checkbox/AppCheckbox";
 import Icon from "Components/Icon/Icon";
 import MailboxOverviewRenderMessage from "../Mailbox/MailboxOverviewRenderMessage";
 import MailboxPagination from "Pages/Messages/Mailbox/MailboxPagination";
+import ReportMessageModal from "Pages/Messages/Report/ReportMessageModal";
 export default {
     name: "MailboxOverview",
     props: {
@@ -19,6 +20,7 @@ export default {
         Icon,
         MailboxOverviewRenderMessage,
         MailboxPagination,
+        ReportMessageModal,
     },
     setup(props) {
         const store = useStore();
@@ -72,11 +74,13 @@ export default {
             () => store.state.messages.massDeleteIds
         );
 
-        const onReport = () => {
-            console.log(
-                "reporting message!",
-                store.state.messages.reportMessageId
-            );
+        const reportMessageId = computed({
+            get: () => store.state.messages.reportMessageId,
+            set: (value) =>
+                store.commit("messages/SET_REPORT_MESSAGE_ID", value),
+        });
+        const onReportClose = () => {
+            console.log("close report modal!");
         };
 
         return {
@@ -89,7 +93,8 @@ export default {
             onDeleteAllUnchecked,
             sortDesc,
             displayedMessages,
-            onReport,
+            reportMessageId,
+            onReportClose,
         };
     },
 };
@@ -151,10 +156,14 @@ export default {
             :subject="message.subject"
             :body="message.body"
             :read="message.read"
-            @report="onReport"
+        />
+        <report-message-modal
+            v-if="reportMessageId.length > 0"
+            :message-id="reportMessageId"
+            @close="reportMessageId = ''"
         />
     </div>
-    <div v-if="messages.length === 0" class="mailbox__empty">
+    <div v-else-if="messages.length === 0" class="mailbox__empty">
         {{ $t("messages.mailbox.empty") }}
     </div>
 </template>
