@@ -8,6 +8,7 @@ use App\Models\Fleet;
 use App\Models\FleetMovement;
 use App\Models\Message;
 use App\Models\MessageRecipient;
+use App\Models\MessageReport;
 use App\Models\MessageSent;
 use App\Models\Player;
 use App\Models\PlayerRelationChange;
@@ -434,5 +435,22 @@ class FormatApiResponseService {
             'timestamp' => $createdAt
         ];
     }
+
+    /**
+     * @function format api reponse for a message report
+     * @param MessageReport $report
+     * @return array
+     */
+    public function formatMessageReport (MessageReport $report): array
+    {
+        return [
+            'id' => $report->id,
+            'reporter_id' => $report->reporter_id,
+            'reportee_id' => $report->reportee_id,
+            'comment' => $report->comment,
+            'resolved' => !!$report->resolved_admin
+        ];
+    }
+
 
 }

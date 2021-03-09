@@ -17,6 +17,7 @@ export default {
     page: savedState.messagesPage || 0,
     players: [],
     relations: [],
+    reports: [],
     // new message
     new: {
         tickerSearch: "",

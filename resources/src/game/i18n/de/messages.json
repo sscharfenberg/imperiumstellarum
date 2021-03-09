@@ -89,7 +89,7 @@
     "report": {
         "title": "Nachricht melden",
         "message": "Zu meldende Nachricht",
-        "explanation": "Wenn Sie diese Nachricht melden dann wird Sie dem Imperium Stellarum Stab vorgelegt. Wir werden, falls nötig, entsprechend eingreifen.",
+        "explanation": "Wenn Sie diese Nachricht melden dann wird Sie dem Imperium Stellarum Stab vorgelegt. Falls Verstöße gegen unsere Nutzungsbedingungen vorliegen werden wir entsprechend eingreifen.",
         "abuse": "Missbrauchen Sie diese Funktion nicht - harmlose Nachrichten von ingame Feinden zu melden hat Konsequenzen.",
         "commentLabel": "Ihre Anmerkung",
         "commentPlaceholder": "Anmerkung eingeben (Pflichtfeld)",

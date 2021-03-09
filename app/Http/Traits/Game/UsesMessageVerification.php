@@ -3,6 +3,7 @@
 namespace App\Http\Traits\Game;
 
 use App\Models\Game;
+use App\Models\MessageReport;
 use App\Models\Player;
 use App\Models\Message;
 use App\Services\MessageService;
@@ -115,8 +116,35 @@ trait UsesMessageVerification
     {
         $m = new MessageService;
         $inbox = $m->getPlayerInbox($player->id, $player->game_id);
-        $messagesToDelete = $inbox->whereIn('id', $messageIds);
-        return count($messagesToDelete) === count($messageIds);
+        $messages = $inbox->whereIn('id', $messageIds);
+        return count($messages) === count($messageIds);
+    }
+
+    /**
+     * @function verify that the comment requirements are met.
+     * @param string $body
+     * @return bool
+     */
+    public function commentConstraintsMet (string $body): bool
+    {
+        $rules = config('rules.messages.reportComment');
+        return is_string($body)
+            && strlen($body) >= $rules['min']
+            && strlen($body) <= $rules['max'];
+    }
+
+    /**
+     * @function verify that the player has not already reported this message
+     * @param string $messageId
+     * @param Player $player
+     * @return bool
+     */
+    public function playerHasNoReportForMessage (string $messageId, Player $player): bool
+    {
+        return !MessageReport::where('game_id', '=', $player->game_id)
+            ->where('message_id', '=', $messageId)
+            ->where('reporter_id', '=', $player->id)
+            ->first();
     }
 
 }

@@ -189,9 +189,12 @@ return [
             'messageOwner' => 'This message does not belong to you.',
             'bool' => 'Message status must be boolean.',
             'replyToId' => 'You can\'t reply to this message.',
+            'comment' => 'The comment needs to have between :min and :max characters',
+            'alreadyReported' => 'You have already reported this message.'
         ],
         'messageSent' => 'Message sent to one recipient.|Message sent to :num recipients.',
         'messageDeleted' => 'Message deleted.|:num messages deleted.',
+        'reportRecieved' => 'Report submitted. A member of our staff will look into this.',
         'sys' => [
             'storageUpgrade' => [
                 'finished' => [

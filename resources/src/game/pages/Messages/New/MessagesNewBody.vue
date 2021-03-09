@@ -15,7 +15,19 @@ export default {
             },
         });
         const bodyRules = window.rules.messages.body;
-        return { body, bodyRules };
+        const onKeyDown = (ev) => {
+            if (body.value.length > bodyRules.max) {
+                body.value = body.value.slice(0, bodyRules.max);
+            }
+            if (
+                body.value.length === bodyRules.max &&
+                ev.key !== "Backspace" &&
+                ev.key !== "Delete"
+            ) {
+                ev.preventDefault();
+            }
+        };
+        return { body, bodyRules, onKeyDown };
     },
 };
 </script>
@@ -30,6 +42,7 @@ export default {
                 class="form-control"
                 id="messageBody"
                 v-model="body"
+                @keydown="onKeyDown"
             ></textarea>
         </div>
         <div class="descr">

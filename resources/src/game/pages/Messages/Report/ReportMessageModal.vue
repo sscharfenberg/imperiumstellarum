@@ -15,7 +15,7 @@ export default {
     },
     components: { CollapsibleItem, GameButton, Modal },
     emits: ["close"],
-    setup(props) {
+    setup(props, { emit }) {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
@@ -36,6 +36,20 @@ export default {
                 messageId: props.messageId,
                 comment: explanation.value,
             });
+            emit("close");
+        };
+        const onKeyDown = (ev) => {
+            console.log(ev);
+            if (explanation.value.length > rules.max) {
+                explanation.value = explanation.value.slice(0, rules.max);
+            }
+            if (
+                explanation.value.length === rules.max &&
+                ev.key !== "Backspace" &&
+                ev.key !== "Delete"
+            ) {
+                ev.preventDefault();
+            }
         };
         return {
             requesting,
@@ -47,6 +61,7 @@ export default {
             rules,
             onSubmit,
             explanation,
+            onKeyDown,
         };
     },
 };
@@ -126,15 +141,14 @@ export default {
                     }}</label>
                 </div>
                 <div class="input">
-                    <input
-                        type="text"
+                    <textarea
                         class="form-control"
                         id="reportComment"
                         :placeholder="$t('messages.report.commentPlaceholder')"
                         v-model="explanation"
-                        :maxlength="rules.max"
+                        @keydown="onKeyDown"
                         @keyup.enter="onSubmit"
-                    />
+                    ></textarea>
                 </div>
                 <div class="descr">
                     {{ $t("messages.new.body.charsUsed") }}:
@@ -197,5 +211,9 @@ export default {
 
 .stats.abuse {
     margin: 16px 0 0 0;
+}
+
+textarea {
+    height: 88px;
 }
 </style>

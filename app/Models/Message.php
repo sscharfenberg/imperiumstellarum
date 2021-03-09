@@ -17,11 +17,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $body
  * @property string $subject
  * @property bool $sender_deleted
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageRecipient[] $recipients
- * @property-read int|null $recipients_count
  * @property-read Message|null $repliesTo
  * @property-read \App\Models\Player|null $sender
  * @method static \Illuminate\Database\Eloquent\Builder|Message newModelQuery()
@@ -36,6 +32,12 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSubject($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereSenderDeleted($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageRecipient[] $recipients
+ * @property-read int|null $recipients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageReport[] $reports
+ * @property-read int|null $reports_count
  * @mixin \Eloquent
  */
 class Message extends Model
@@ -102,6 +104,14 @@ class Message extends Model
     public function repliesTo()
     {
         return $this->belongsTo(Message::class, 'message_id');
+    }
+
+    /**
+     * Get the message that this message replies to
+     */
+    public function reports()
+    {
+        return $this->belongsTo(MessageReport::class, 'message_id', 'id');
     }
 
 }

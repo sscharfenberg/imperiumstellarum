@@ -25,6 +25,7 @@ export default {
                     commit("SET_OUTBOX", response.data.outbox);
                     commit("SET_PLAYERS", response.data.players);
                     commit("SET_RELATIONS", response.data.relations);
+                    commit("SET_REPORTS", response.data.reports);
                 }
             })
             .catch((e) => {
@@ -148,10 +149,10 @@ export default {
             .then((response) => {
                 if (
                     response.status === 200 &&
-                    response.data.inbox &&
+                    response.data.reports &&
                     response.data.message
                 ) {
-                    commit("SET_INBOX", response.data.inbox);
+                    commit("SET_REPORTS", response.data.reports);
                     commit(
                         "SET_UNREAD_MESSAGES",
                         response.data.unreadMessages,

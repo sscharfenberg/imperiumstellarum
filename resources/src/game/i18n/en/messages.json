@@ -89,7 +89,7 @@
     "report": {
         "title": "Report Message",
         "message": "Reported Message",
-        "explanation": "When you report this message it will be brought to attention to Imperium Stellarum's staff. We will take action if appropriate.",
+        "explanation": "When you report this message it will be brought to attention to Imperium Stellarum's staff. If there are violations of our terms of use we will take appropriate actions.",
         "abuse": "Do not abuse this feature - spamming reports for ingame enemies will have consequences.",
         "commentLabel": "Your comment",
         "commentPlaceholder": "enter your comment (required)",

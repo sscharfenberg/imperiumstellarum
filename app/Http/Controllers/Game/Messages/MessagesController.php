@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Game\Messages;
 
 use App\Http\Controllers\Controller;
+use App\Models\MessageReport;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
@@ -37,6 +38,9 @@ class MessagesController extends Controller
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
         $outbox = $m->getPlayerOutbox($player->id, $gameId);
         $inbox = $m->getPlayerInbox($player->id, $gameId);
+        $reports = MessageReport::where('game_id', '=', $gameId)
+            ->where('reporter_id', '=', $player->id)
+            ->get();
 
         $returnData = [
             'inbox' => $inbox->map(function ($message) use ($f, $player) {
@@ -49,6 +53,9 @@ class MessagesController extends Controller
                 return $f->formatPlayer($player);
             })->values(),
             'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $allPlayers),
+            'reports' => $reports->map(function ($report) use ($f) {
+                return $f->formatMessageReport($report);
+            })
         ];
 
         return response()->json(array_merge($defaultApiData, $returnData));

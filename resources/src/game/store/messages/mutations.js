@@ -60,6 +60,15 @@ export default {
     },
 
     /**
+     * @function SET reports that this player has reported
+     * @param {Object} state - vuex module "messages" state
+     * @param {Array} payload
+     */
+    SET_REPORTS: (state, payload) => {
+        state.reports = payload;
+    },
+
+    /**
      * @function SET relations of this player
      * @param {Object} state - vuex module "messages" state
      * @param {Object} payload

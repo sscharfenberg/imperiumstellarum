@@ -188,10 +188,13 @@ return [
             'message' => 'Die Nachricht muss zwischen :min und :max Zeichen enthalten.',
             'messageOwner' => 'Sie sind nicht der Besitzer der Nachricht.',
             'bool' => 'Nachrichtenstatus muss boolescher operator sein. Hu?',
-            'replyToId' => 'Sie können auf diese Nachricht nicht antworten.'
+            'replyToId' => 'Sie können auf diese Nachricht nicht antworten.',
+            'comment' => 'Ihre Anmerkungen müssen zwischen :min und :max Zeichen enthalten.',
+            'alreadyReported' => 'Sie haben diese Nachricht bereits gemeldet.'
         ],
         'messageSent' => 'Nachricht an einen Empfänger verschickt.|Nachricht an :num Empfänger verschickt.',
         'messageDeleted' => 'Nachricht gelöscht.|:num Nachrichten gelöscht.',
+        'reportRecieved' => 'Nachricht gemeldet. Ein Mitglied des Admin-Teams wird sich der Sache annehmen.',
         'sys' => [
             'storageUpgrade' => [
                 'finished' => [

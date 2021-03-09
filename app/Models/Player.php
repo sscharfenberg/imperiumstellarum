@@ -69,6 +69,10 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $relation_changes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageRecipient[] $outbox
  * @property-read int|null $outbox_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageReport[] $reporters
+ * @property-read int|null $reporters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageReport[] $reportees
+ * @property-read int|null $reportees_count
  */
 class Player extends Model
 {
@@ -260,6 +264,22 @@ class Player extends Model
     public function outbox()
     {
         return $this->hasMany('App\Models\MessageRecipient', 'recipient_id');
+    }
+
+    /**
+     * Get the reports that this player has made as reporter
+     */
+    public function reporters()
+    {
+        return $this->hasMany(MessageReport::class, 'reporter_id', 'id');
+    }
+
+    /**
+     * Get the reports that where made about this player
+     */
+    public function reportees()
+    {
+        return $this->hasMany(MessageReport::class, 'reportee_id', 'id');
     }
 
 }
