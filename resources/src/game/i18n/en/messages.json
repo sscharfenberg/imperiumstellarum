@@ -31,7 +31,13 @@
             "messages": "One Message|{num} Messages",
             "perPage": "per page"
         },
-        "massDelete": "Delete {num} message|Delete {num} messages"
+        "massDelete": "Delete {num} message|Delete {num} messages",
+        "report": {
+            "label": "You have reported this message.",
+            "headline": "Message reported",
+            "commentLabel": "Your comment",
+            "resolvedLabel": "Resolved"
+        }
     },
     "new": {
         "navTitle": "Create",

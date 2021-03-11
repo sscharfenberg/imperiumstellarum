@@ -39,7 +39,6 @@ export default {
             emit("close");
         };
         const onKeyDown = (ev) => {
-            console.log(ev);
             if (explanation.value.length > rules.max) {
                 explanation.value = explanation.value.slice(0, rules.max);
             }
@@ -147,7 +146,6 @@ export default {
                         :placeholder="$t('messages.report.commentPlaceholder')"
                         v-model="explanation"
                         @keydown="onKeyDown"
-                        @keyup.enter="onSubmit"
                     ></textarea>
                 </div>
                 <div class="descr">

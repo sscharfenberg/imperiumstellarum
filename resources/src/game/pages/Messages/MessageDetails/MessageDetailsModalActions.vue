@@ -25,6 +25,10 @@ export default {
                 : store.getters["messages/sentMessageById"](props.messageId)
         );
 
+        const hasReport = computed(
+            () => !!store.getters["messages/messageReport"](props.messageId).id
+        );
+
         /**
          * @function click on "mark as unread": action with xhr to server, close modal
          */
@@ -99,6 +103,7 @@ export default {
         return {
             requesting,
             message,
+            hasReport,
             onMarkUnreadClick,
             onreplyClick,
             onReplyAllClick,
@@ -151,7 +156,7 @@ export default {
             :text-string="$t('messages.details.report')"
             icon-name="warning"
             :loading="requesting"
-            :disabled="requesting"
+            :disabled="requesting || hasReport"
             @click="onReportClick"
         />
     </div>

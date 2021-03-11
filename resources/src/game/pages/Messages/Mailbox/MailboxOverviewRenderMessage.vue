@@ -7,6 +7,7 @@ import { useStore } from "vuex";
 import { addSeconds } from "date-fns";
 import { formatDateTime } from "@/game/helpers/format";
 import AppCheckbox from "Components/Checkbox/AppCheckbox";
+import Icon from "Components/Icon/Icon";
 import MessageDetailsModal from "../MessageDetails/MessageDetailsModal";
 export default {
     name: "MailboxOverviewRenderMessage",
@@ -20,7 +21,7 @@ export default {
         body: String,
         read: Boolean,
     },
-    components: { AppCheckbox, MessageDetailsModal },
+    components: { AppCheckbox, Icon, MessageDetailsModal },
     setup(props) {
         const store = useStore();
 
@@ -65,13 +66,18 @@ export default {
                 : str;
         });
 
+        // messageReport
+        const hasReport = computed(
+            () => !!store.getters["messages/messageReport"](props.messageId).id
+        );
+
         const massDeleteIds = computed(
             () => store.state.messages.massDeleteIds
         );
-        const onDeleteChecked = () => {
+        const onCheckDelete = () => {
             store.commit("messages/ADD_MASS_DELETE_ID", props.messageId);
         };
-        const onDeleteUnchecked = () => {
+        const onUncheckDelete = () => {
             store.commit("messages/REMOVE_MASS_DELETE_ID", props.messageId);
         };
 
@@ -83,8 +89,9 @@ export default {
             bodyShortened,
             showModal,
             massDeleteIds,
-            onDeleteChecked,
-            onDeleteUnchecked,
+            onCheckDelete,
+            onUncheckDelete,
+            hasReport,
         };
     },
 };
@@ -96,8 +103,8 @@ export default {
             <app-checkbox
                 :ref-id="`delete-${messageId}`"
                 :checked-initially="massDeleteIds.includes(messageId)"
-                @checked="onDeleteChecked"
-                @unchecked="onDeleteUnchecked"
+                @checked="onCheckDelete"
+                @unchecked="onUncheckDelete"
             />
         </label>
         <button
@@ -128,6 +135,14 @@ export default {
                 {{ timestampFormatted }}
             </span>
             <span class="message__subject">
+                <span
+                    v-if="hasReport"
+                    class="report"
+                    :aria-label="$t('messages.mailbox.report.label')"
+                    :title="$t('messages.mailbox.report.label')"
+                >
+                    <icon name="warning" />
+                </span>
                 {{ subject }}
                 <i
                     class="unread"
@@ -268,11 +283,12 @@ export default {
     }
 
     &__subject {
+        display: flex;
         position: relative;
+        align-items: center;
         grid-column: span 2;
 
         overflow: hidden;
-        padding-right: 24px;
 
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -283,20 +299,14 @@ export default {
 
         .unread,
         .read {
-            position: absolute;
-            top: 50%;
-            right: 4px;
+            display: block;
 
             width: 8px;
             height: 8px;
-            transform: translate3d(0, -50%, 0);
+            margin-left: auto;
             flex: 0 0 8px;
 
             border-radius: 50%;
-
-            @include respond-to("medium") {
-                right: 8px;
-            }
         }
 
         .read {
@@ -316,6 +326,17 @@ export default {
                     t("b-gorse"),
                     t("b-christine")
                 );
+            }
+        }
+
+        .report svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 4px;
+            flex: 0 0 18px;
+
+            @include themed() {
+                color: t("s-warning");
             }
         }
     }

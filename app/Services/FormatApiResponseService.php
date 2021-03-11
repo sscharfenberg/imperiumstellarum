@@ -445,8 +445,9 @@ class FormatApiResponseService {
     {
         return [
             'id' => $report->id,
-            'reporter_id' => $report->reporter_id,
-            'reportee_id' => $report->reportee_id,
+            'messageId' => $report->message_id,
+            'reporterId' => $report->reporter_id,
+            'reporteeId' => $report->reportee_id,
             'comment' => $report->comment,
             'resolved' => !!$report->resolved_admin
         ];

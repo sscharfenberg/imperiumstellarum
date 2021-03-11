@@ -31,7 +31,13 @@
             "messages": "Eine Nachricht|{num} Nachrichten",
             "perPage": "pro Seite"
         },
-        "massDelete": "{num} Nachricht löschen|{num} Nachrichten löschen"
+        "massDelete": "{num} Nachricht löschen|{num} Nachrichten löschen",
+        "report": {
+            "label": "Sie haben diese Nachricht gemeldet.",
+            "headline": "Nachricht gemeldet",
+            "commentLabel": "Ihre Anmerkung",
+            "resolvedLabel": "Abgeschlossen"
+        }
     },
     "new": {
         "navTitle": "Neue Nachricht",

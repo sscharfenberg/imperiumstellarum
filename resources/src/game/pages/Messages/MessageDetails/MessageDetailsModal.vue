@@ -8,6 +8,7 @@ import { addSeconds } from "date-fns";
 import { formatMessageBody, formatDateTime } from "@/game/helpers/format";
 import MessageDetailsModalActions from "./MessageDetailsModalActions";
 import MessageDetailsModalRepliesTo from "./MessageDetailsModalRepliesTo";
+import MessageDetailsModalReport from "./MessageDetailsModalReport";
 import Modal from "Components/Modal/Modal";
 export default {
     name: "MessageDetailsModal",
@@ -20,6 +21,7 @@ export default {
     components: {
         MessageDetailsModalActions,
         MessageDetailsModalRepliesTo,
+        MessageDetailsModalReport,
         Modal,
     },
     emits: ["close"],
@@ -53,6 +55,10 @@ export default {
             return returnedMessage;
         });
 
+        const messageReport = computed(() =>
+            store.getters["messages/messageReport"](props.messageId)
+        );
+
         /**
          * @function before mount, call server and mark as read
          */
@@ -67,6 +73,7 @@ export default {
                 });
             }
             store.commit("messages/SET_REPORT_MESSAGE_ID", "");
+            store.commit("messages/SET_REPORT_MESSAGE_COMMENT", "");
         });
 
         return {
@@ -79,6 +86,7 @@ export default {
             formatMessageBody,
             addSeconds,
             formatDateTime,
+            messageReport,
         };
     },
 };
@@ -161,6 +169,12 @@ export default {
                 v-html="formatMessageBody(message.body)"
             />
         </ul>
+
+        <message-details-modal-report
+            v-if="messageReport.id"
+            :comment="messageReport.comment"
+            :resolved="messageReport.resolved"
+        />
 
         <message-details-modal-replies-to
             v-if="repliesToMessage && repliesToMessage.id"

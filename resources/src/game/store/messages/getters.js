@@ -17,6 +17,10 @@ export default {
     // get player by id
     playerById: (state) => (id) => state.players.find((p) => p.id === id) || {},
 
+    // report for message
+    messageReport: (state) => (id) =>
+        state.reports.find((m) => m.messageId === id) || {},
+
     /**
      * multiples
      */
