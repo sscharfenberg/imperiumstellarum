@@ -197,7 +197,16 @@ return [
             'string' => 'Die Farbe muss eine Zeichenkette sein.',
             'size' => 'Die Farbe muss genau sechs Zeichen haben.',
             'regex' => 'Die Farbe darf nur 0-9 und a-f enthalten.',
-        ]
+        ],
+        'reporteeMsg' => [
+            'min' => 'Die Nachricht muss mindestens :min Zeichen enthalten.',
+            'max' => 'Die Nachricht darf nicht länger als :max Zeichen sein.'
+        ],
+        'reporterMsg' => [
+            'required' => 'Bitte geben Sie die Nachricht für den meldenden Spieler ein.',
+            'min' => 'Die Nachricht muss mindestens :min Zeichen enthalten.',
+            'max' => 'Die Nachricht darf nicht länger als :max Zeichen sein.'
+        ],
     ],
 
     /*

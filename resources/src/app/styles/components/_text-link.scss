@@ -15,5 +15,10 @@
 
     &:hover {
         text-decoration: none;
+
+        @include themed() {
+            background-color: t("b-viking");
+            color: t("t-dark");
+        }
     }
 }

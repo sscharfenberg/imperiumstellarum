@@ -31,7 +31,15 @@ return [
             'notstarted' => 'Spiele die auf den Start warten',
             'canEnlist' => 'Beitretbare Spiele',
             'finished' => 'Abgeschlossene Spiele'
+        ],
+        'reports' => [
+            'sectionTitle' => 'Meldungen',
+            'sectionSubtitle' => 'Meldungen betrachten und verwalten.',
+            'unresolved' => 'Nicht abgeschlossene Meldungen',
+            'resolved' => 'Abgeschlossene Meldungen',
+            'total' => 'Meldungen gesamt',
         ]
+
     ],
 
     'users' => [
@@ -248,5 +256,67 @@ return [
             ],
         ]
     ],
+
+    'reports' => [
+        'navTitle' => 'Meldungen',
+        'title' => 'Meldungen verwalten',
+        'thead' => [
+            'created_at' => 'Erstellt',
+            'game' => 'Spiel',
+            'reporter' => 'Meldender Spieler',
+            'reportee' => 'Gemeldeter Spieler',
+            'comment' => 'Anmerkung',
+            'resolved' => 'Abgeschlossen',
+        ],
+        'pagination' => [
+            'num' => 'Zeige :reports von :total Meldungen',
+            'sort' => 'Sortiert nach ":sort" :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Zeige',
+            'results' => 'Ergebnisse pro Seite.'
+        ],
+        'sort' => [
+            'asc' => 'Aufsteigend',
+            'desc' => 'Absteigend'
+        ],
+    ],
+
+    'report' => [
+        'navTitle' => 'Gemeldete Nachricht',
+        'title' => 'Gemeldete Nachricht von [:ticker]',
+        'notfound' => 'Diese Meldung existiert nicht.',
+        'data' => [
+            'headline' => 'Daten der Meldung',
+            'game' => 'Spiel',
+            'gameDetails' => 'Details zu Spiel g:game',
+            'reporter' => 'Gemeldet von (Opfer)',
+            'reporterComment' => 'Anmerkung',
+            'reportee' => 'Gemeldeter Spieler (Täter)',
+            'reporteeUser' => 'Benutzer des gemeldeten Spielers',
+            'reporteeUserDetails' => 'Details zum Benutzer',
+            'reportedAt' => 'Gemeldet'
+        ],
+        'message' => [
+            'headline' => 'Details zur gemeldeten Nachricht',
+            'sentAt' => 'Gesendet',
+            'recipients' => 'Empfänger',
+            'subject' => 'Betreff',
+            'body' => 'Nachrichten Inhalt'
+        ],
+        'resolve' => [
+            'headline' => 'Meldung abschließen',
+            'explanation' => 'Bitte analysieren Sie die Nachricht sorgfältig ob Verstöße gegen unsere Nutzungsbedingungen vorliegen. Sie können den Benutzer sperren oder eine Warnung aussprechen - bitte schreiben Sie sowohl dem meldenden als auch dem gemeldeten Spieler eine Nachricht. Diese Nachricht taucht bei den \'System Benachrichtigungen\' auf.',
+            'suspension' => 'Gemeldeten Benutzer [:ticker] sperren (optional!)',
+            'suspensionExplanation' => 'Sperren Sie den Benutzer von [:ticker] (Täter) nur wenn klare Verstöße gegen unsere Nutzungsbedingungen vorliegen.',
+            'reporteeMsgLabel' => 'Nachricht an [:ticker] (Täter) (optional)',
+            'reporteeMsgExplanation' => 'Dies ist optional und wird als System Benachrichtigung an [:ticker] (Täter) geschickt. Wenn Sie den Benutzer sperren, wird es zusätzlich per Mail verschickt.',
+            'reporterMsgLabel' => 'Nachricht an [:ticker] (Opfer)',
+            'reporterMsgExplanation' => 'Dies wird an [:ticker] (Opfer) als System Benachrichtigung verschickt.',
+            'msgLength' => 'Mindestens :min Zeichen, maximal :max Zeichen.',
+            'submit' => 'Meldung abschließen',
+            'success' => 'Sie haben die Meldung abgeschlossen. Danke schön!'
+        ]
+    ]
 
 ];

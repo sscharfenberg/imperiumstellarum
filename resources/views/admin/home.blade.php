@@ -87,4 +87,33 @@
         </div>
     </main>
 
+    <main class="admin-section">
+        <header class="admin-section__head">
+            <h1>@lang('admin.home.reports.sectionTitle')</h1>
+            <p>@lang('admin.home.reports.sectionSubtitle')</p>
+        </header>
+        <div class="admin-section__body">
+            <dl>
+                <dt>@lang('admin.home.reports.unresolved')</dt>
+                <dd>{{ $reportsUnresolved }}</dd>
+            </dl>
+            <dl>
+                <dt>@lang('admin.home.reports.resolved')</dt>
+                <dd>{{ $reportsResolved }}</dd>
+            </dl>
+            <dl>
+                <dt>@lang('admin.home.reports.total')</dt>
+                <dd>{{ $reportsTotal }}</dd>
+            </dl>
+            <nav class="admin-section__actions app-btn-group app-btn-group--end">
+                <a class="app-btn both" href="{{ route('reports') }}">
+                    <x-icon name="warning" size="2" />
+                    <span>
+                        @lang('admin.reports.title')
+                    </span>
+                </a>
+            </nav>
+        </div>
+    </main>
+
 @endsection

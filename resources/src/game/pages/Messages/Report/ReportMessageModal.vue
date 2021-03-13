@@ -30,7 +30,7 @@ export default {
             set: (value) =>
                 store.commit("messages/SET_REPORT_MESSAGE_COMMENT", value),
         });
-        const rules = window.rules.messages.reportComment;
+        const rules = window.rules.reports.comment;
         const onSubmit = () => {
             store.dispatch("messages/REPORT_MESSAGE", {
                 messageId: props.messageId,

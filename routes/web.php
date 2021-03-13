@@ -160,4 +160,15 @@ Route::middleware(['auth','verified','suspended','can:useMod'])->group(function 
     Route::post('/admin/game/{game}/seed', [GameController::class, 'seedGame'])
         ->name('seed-game')->middleware('can:useAdmin');
 
+    // reports admin
+    Route::get('/admin/reports', [\App\Http\Controllers\Admin\ReportsController::class, 'show'])
+        ->name('reports');
+    // sort + filter reports
+    Route::post('/admin/reports', [\App\Http\Controllers\Admin\ReportsController::class, 'sortFilter']);
+    // report details
+    Route::get('/admin/report/{report}', [\App\Http\Controllers\Admin\ReportController::class, 'show'])
+        ->name('report');
+    Route::post('/admin/report/{report}/resolve', [\App\Http\Controllers\Admin\ReportController::class, 'resolve'])
+        ->name('report-resolve');
+
 });

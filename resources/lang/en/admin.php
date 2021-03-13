@@ -31,6 +31,13 @@ return [
             'notstarted' => 'Games waiting for start',
             'canEnlist' => 'Enlistable games',
             'finished' => 'Finished Games'
+        ],
+        'reports' => [
+            'sectionTitle' => 'Reports',
+            'sectionSubtitle' => 'Manage and view reported messages.',
+            'unresolved' => 'Unresolved reports',
+            'resolved' => 'Resolved reports',
+            'total' => 'Total reports',
         ]
     ],
 
@@ -248,5 +255,67 @@ return [
             ],
         ]
     ],
+
+    'reports' => [
+        'navTitle' => 'Reports',
+        'title' => 'Manage reports',
+        'thead' => [
+            'created_at' => 'Created',
+            'game' => 'Game',
+            'reporter' => 'Reporting Player',
+            'reportee' => 'Reported Player',
+            'comment' => 'Comment',
+            'resolved' => 'Resolved',
+        ],
+        'pagination' => [
+            'num' => 'showing :reports of :total reports',
+            'sort' => 'sorted by ":sort" :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Showing',
+            'results' => 'results per page.'
+        ],
+        'sort' => [
+            'asc' => 'ascending',
+            'desc' => 'descending'
+        ],
+    ],
+
+    'report' => [
+        'navTitle' => 'Reported Message',
+        'title' => 'Reported Message from [:ticker]',
+        'notfound' => 'This report does not exist.',
+        'data' => [
+            'headline' => 'Report Data',
+            'game' => 'Game',
+            'gameDetails' => 'Details for Game g:game',
+            'reporter' => 'Reporting by (victim)',
+            'reporterComment' => 'Comment',
+            'reportee' => 'Reported Player (offender)',
+            'reporteeUser' => 'User of reported player',
+            'reporteeUserDetails' => 'User Details',
+            'reportedAt' => 'Reported at',
+        ],
+        'message' => [
+            'headline' => 'Details for reported message',
+            'sentAt' => 'Sent at',
+            'recipients' => 'Recipients',
+            'subject' => 'Subject',
+            'body' => 'Message body'
+        ],
+        'resolve' => [
+            'headline' => 'Resolve report',
+            'explanation' => 'Please analyze the message carefully whether there are violations of our terms of use. You can suspend the user or issue warnings - please enter a message to the reporter and the reportee. This message appears in the \'system notifications\'.',
+            'suspension' => 'Suspend offender [:ticker] (optional!)',
+            'suspensionExplanation' => 'Only suspend [:ticker] (the offender) if there is a clear violation of our terms of use.',
+            'reporteeMsgLabel' => 'Message to [:ticker] (offender) (optional)',
+            'reporteeMsgExplanation' => 'This is optional and sent as a system notification to [:ticker] (offender). If you suspend the user, it is also sent to the user\'s email.',
+            'reporterMsgLabel' => 'Message to [:ticker] (victim)',
+            'reporterMsgExplanation' => 'This is sent to [:ticker] (victim) as a system notification.',
+            'msgLength' => 'At least :min characters, max :max characters.',
+            'submit' => 'Resolve Report',
+            'success' => 'You have resolved the report. Thanks!'
+        ]
+    ]
 
 ];

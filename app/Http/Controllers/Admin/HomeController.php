@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MessageReport;
 use App\Models\Suspension;
 use App\Models\User;
 use App\Models\Game;
@@ -23,6 +24,9 @@ class HomeController extends Controller
         $enlistableGames = Game::where('can_enlist', true)->count();
         $gamesToStart = Game::where('active', false)->where('start_date', '>', now())->count();
         $finishedGames = Game::where('active', false)->where('start_date', '<', now())->count();
+        $reportsTotal = MessageReport::get();
+        $reportsResolved = $reportsTotal->whereNotNull('resolved_admin')->count();
+        $reportsUnresolved = $reportsTotal->whereNull('resolved_admin')->count();
 
         $suspensions = [];
         foreach (Suspension::all() as $suspension) {
@@ -38,7 +42,10 @@ class HomeController extends Controller
             'activeGames' => $activeGames,
             'enlistableGames' => $enlistableGames,
             'gamesToStart' => $gamesToStart,
-            'finishedGames' => $finishedGames
+            'finishedGames' => $finishedGames,
+            'reportsTotal' => count($reportsTotal),
+            'reportsResolved' => $reportsResolved,
+            'reportsUnresolved' => $reportsUnresolved
         ]);
     }
 

@@ -199,7 +199,17 @@ return [
             'string' => 'The colour should be a string.',
             'size' => 'The colour should have exactly six letters.',
             'regex' => 'The colour can only contain 0-9 and a-f.',
-        ]
+        ],
+        'reporteeMsg' => [
+            'required' => 'Please enter the message for the reported player.',
+            'min' => 'The message must have at least :min characters.',
+            'max' => 'The message should not be longer than :max characters.'
+        ],
+        'reporterMsg' => [
+            'required' => 'Please enter the message for the reporting player.',
+            'min' => 'The message must have at least :min characters.',
+            'max' => 'The message should not be longer than :max characters.'
+        ],
     ],
 
     /*

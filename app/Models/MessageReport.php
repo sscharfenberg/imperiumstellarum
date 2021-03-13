@@ -16,12 +16,15 @@ use App\Http\Traits\UsesUuid;
  * @property string $reportee_id
  * @property string $comment
  * @property int|null $resolved_admin
+ * @property string|null $admin_comment
+ * @property string|null $admin_reply
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Message $message
  * @property-read \App\Models\Player $reportee
  * @property-read \App\Models\Player $reporter
+ * @property-read \App\Models\Message $reply
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport query()
@@ -66,7 +69,9 @@ class MessageReport extends Model
         'reporter_id',
         'reportee_id',
         'comment',
-        'resolved_admin'
+        'resolved_admin',
+        'admin_comment',
+        'admin_reply'
     ];
 
     /**
@@ -99,6 +104,14 @@ class MessageReport extends Model
     public function message()
     {
         return $this->belongsTo(Message::class, 'message_id');
+    }
+
+    /**
+     * Get the admin reply message of this report
+     */
+    public function reply()
+    {
+        return $this->belongsTo(Message::class, 'admin_comment');
     }
 
 }
