@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Services\UserService;
 
 class SuspensionController extends Controller
 {
@@ -31,23 +32,8 @@ class SuspensionController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
-            $duration = $request->input(['duration']);
-            $until = $duration === '99' ? Carbon::now()->addYears($duration) : Carbon::now()->addDays($duration);
-            $suspension = Suspension::create([
-                'user_id' => $userId,
-                'until' => $until,
-                'issuer_id' => Auth::user()->id,
-                'issuer_reason' => $request->input(['reason'])
-            ]);
-            $suspension['duration'] = $duration;
-
-            // send notification to user.
-            $user = User::find($userId);
-            $user->notify(
-                (new UserSuspended($duration, $until, $request->input(['reason'])))
-                ->locale($user->locale)
-            );
-
+            $u = new UserService;
+            $u->suspend($userId, Auth::user(), $request->input(['duration']), $request->input(['reason']));
             return back()
                 ->with('status', __('admin.user.suspensions.success'))
                 ->with('severity', 'success');

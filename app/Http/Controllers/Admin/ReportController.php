@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Player;
 use App\Models\MessageReport;
+use App\Services\MessageService;
+use App\Services\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
@@ -42,14 +46,49 @@ class ReportController extends Controller
      */
     public function resolve (Request $request): RedirectResponse
     {
+        $u = new UserService;
+        $m = new MessageService;
+        $reportId = $request->route('report');
+        $report = MessageReport::find($reportId);
+        $duration = $request->input(['duration']);
+        $reporteeMsg = $request->input(['reporteeMsg']);
+        $reporterMsg = $request->input(['reporteeMsg']);
+        $reporter = Player::find($report->reporter_id);
         $validator = Validator::make($request->input(), [
             'reporteeMsg' => ['max:'.config('rules.reports.reportMessage.max')],
-            'reporterMsg' => ['required', 'string', 'min:'.config('rules.reports.reportMessage.min'), 'max:'.config('rules.reports.reportMessage.max')],
+            'reporterMsg' => [
+                'required',
+                'string',
+                'min:'.config('rules.reports.reportMessage.min'),
+                'max:'.config('rules.reports.reportMessage.max')
+            ],
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
-            dd($request->input());
+            // if suspension, suspend player.
+            if ($duration !== null) {
+                $u->suspend($report->reportee_id, Auth::user(), $duration, $request->input(['reporteeMsg']));
+            }
+            // if message to reportee, send it.
+            if ($reporteeMsg !== null) {
+                $reportee = Player::find($report->reportee_id);
+                $m->sendAdminMessage(
+                    $reportee,
+                    'admin.report.reporteeMsg.subject',
+                    $request->input(['reporteeMsg']),
+                );
+            }
+            // send admin message to reporter
+            $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg);
+
+            // resolve the report
+            $report->resolved_admin = Auth::user()->id;
+            $report->admin_reportee_msg = $reporteeMsg;
+            $report->admin_reporter_msg = $reporterMsg;
+            $report->suspension_duration = $duration;
+            $report->save();
+
             return back()
                 ->with('status', __('admin.report.resolve.success'))
                 ->with('severity', 'success');

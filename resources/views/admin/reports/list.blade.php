@@ -74,7 +74,17 @@
                         <td>[{{$report->reporter->ticker}}]</td>
                         <td>[{{$report->reportee->ticker}}]</td>
                         <td>{{substr($report->comment, 0, 20)}}</td>
-                        <td>{{$report->resolved_admin}}</td>
+                        <td>
+                            @if($report->resolved_admin !== null)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

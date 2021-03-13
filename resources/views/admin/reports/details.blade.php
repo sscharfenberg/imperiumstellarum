@@ -35,6 +35,28 @@
 
         <div class="form-row has-divider">
             <div class="label">
+                <label>@lang('admin.report.data.resolved')</label>
+            </div>
+            <div class="input">
+                @if($report->resolved_admin !== null)
+                    <span class="symbol success">
+                        <x-icon name="done" size="2" />
+                    </span>
+                    <span>&nbsp; ID: {{ $report->resolved_admin }}</span>
+                @else
+                    <span class="symbol error">
+                        <x-icon name="cancel" size="2" />
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        @if($report->resolved_admin !== null)
+            TODO: message sent to reportee, reporter and duration.
+        @endif
+
+        <div class="form-row has-divider">
+            <div class="label">
                 <label>@lang('admin.report.data.game')</label>
             </div>
             <div class="input">

@@ -24,8 +24,9 @@ class CreateMessageReportsTable extends Migration
             $table->uuid('reportee_id');
             $table->string('comment', config('rules.reports.comment.max'));
             $table->unsignedBigInteger('resolved_admin')->nullable();
-            $table->string('admin_comment', config('rules.reports.adminComment.max'))->nullable(); // tmp?
-            $table->uuid('admin_reply')->nullable(); // tmp?
+            $table->unsignedBigInteger('suspension_duration')->nullable();
+            $table->string('admin_reportee_msg', config('rules.reports.reportMessage.max'))->nullable();
+            $table->string('admin_reporter_msg', config('rules.reports.reportMessage.max'))->nullable();
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('message_id')->references('id')->on('messages')
@@ -33,8 +34,6 @@ class CreateMessageReportsTable extends Migration
             $table->foreign('reporter_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->foreign('reportee_id')->references('id')->on('players')
-                ->onDelete('cascade');
-            $table->foreign('admin_comment')->references('id')->on('messages')
                 ->onDelete('cascade');
             $table->timestamps();
         });

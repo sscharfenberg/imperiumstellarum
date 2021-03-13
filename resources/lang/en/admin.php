@@ -133,7 +133,7 @@ return [
             'introduction' => 'We are sorry to inform you that your account for Imperium Stellarum has been suspended for :days days, effective immediately.',
             'introductionForever' => 'We are sorry to inform you that your account for Imperium Stellarum has been suspended forever, effective immediately.',
             'reason' => 'The reason for the suspension is: \':reason\'.',
-            'appeal' => 'If you think this suspension happened in error, you are free to appeal this ban in our forums - please contact an admin. Please make sure to check our terms of use before doing so.',
+            'appeal' => 'If you think this suspension happened in error, you are free to appeal this ban on our forums - please contact an admin. Please make sure to check our terms of use before doing so.',
             'action' => 'Imperium Stellarum Staff',
             'until' => 'The suspension will last until :until. Until this date, you will not be able to login into the game. The discussion forums are not affected by this suspension.',
         ],
@@ -295,6 +295,8 @@ return [
             'reporteeUser' => 'User of reported player',
             'reporteeUserDetails' => 'User Details',
             'reportedAt' => 'Reported at',
+            'resolved' => 'Report resolved',
+            'resolvedBy' => 'Resolved von'
         ],
         'message' => [
             'headline' => 'Details for reported message',
@@ -315,6 +317,12 @@ return [
             'msgLength' => 'At least :min characters, max :max characters.',
             'submit' => 'Resolve Report',
             'success' => 'You have resolved the report. Thanks!'
+        ],
+        'reporteeMsg' => [
+            'subject' => 'A message by you was reported.',
+        ],
+        'reporterMsg' => [
+            'subject' => 'Your report has been resolved.'
         ]
     ]
 

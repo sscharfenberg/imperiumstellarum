@@ -67,9 +67,10 @@ export default {
         });
 
         // messageReport
-        const hasReport = computed(
-            () => !!store.getters["messages/messageReport"](props.messageId).id
+        const report = computed(() =>
+            store.getters["messages/messageReport"](props.messageId)
         );
+        const hasReport = computed(() => !!report.value.id);
 
         const massDeleteIds = computed(
             () => store.state.messages.massDeleteIds
@@ -91,6 +92,7 @@ export default {
             massDeleteIds,
             onCheckDelete,
             onUncheckDelete,
+            report,
             hasReport,
         };
     },
@@ -138,6 +140,7 @@ export default {
                 <span
                     v-if="hasReport"
                     class="report"
+                    :class="{ resolved: report.resolved }"
                     :aria-label="$t('messages.mailbox.report.label')"
                     :title="$t('messages.mailbox.report.label')"
                 >
@@ -337,6 +340,12 @@ export default {
 
             @include themed() {
                 color: t("s-warning");
+            }
+        }
+
+        .report.resolved svg {
+            @include themed() {
+                color: t("s-success");
             }
         }
     }

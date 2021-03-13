@@ -122,7 +122,7 @@ class MessageService {
      * @param array $recipientIds
      * @param string $subject
      * @param string $body
-     * @return void
+     * @return Message
      */
     public function sendPlayerMessage (
         string $gameId,
@@ -131,20 +131,22 @@ class MessageService {
         array $recipientIds,
         string $subject,
         string $body
-    )
+    ): Message
     {
         $message = $this->createMessage($gameId, $senderId, $repliesToId, $subject, $body);
         $this->createRecipients($gameId, $message->id, $recipientIds);
+        return $message;
     }
 
     /**
-     * @function send a notification to a player
+     * @function send a system notification to a player
      * @param Player $recipient
      * @param string $subjectKey
      * @param string $bodyKey
      * @param array $data
+     * @return Message
      */
-    public function sendNotification(Player $recipient, string $subjectKey, string $bodyKey, array $data)
+    public function sendNotification(Player $recipient, string $subjectKey, string $bodyKey, array $data): Message
     {
         $gameId = $recipient->game_id;
         $messageLocale = $recipient->user->locale;
@@ -158,6 +160,31 @@ class MessageService {
         );
         // create recipients
         $this->createRecipients($gameId, $message->id, [$recipient->id]);
+        return $message;
+    }
+
+    /**
+     * @function send a system notification to a player
+     * @param Player $recipient
+     * @param string $subjectKey
+     * @param string $body
+     * @return Message
+     */
+    public function sendAdminMessage(Player $recipient, string $subjectKey, string $body): Message
+    {
+        $gameId = $recipient->game_id;
+        $messageLocale = $recipient->user->locale;
+        // create message
+        $message = $this->createMessage(
+            $gameId,
+            null,
+            null,
+            __($subjectKey, [], $messageLocale),
+            $body
+        );
+        // create recipients
+        $this->createRecipients($gameId, $message->id, [$recipient->id]);
+        return $message;
     }
 
 }

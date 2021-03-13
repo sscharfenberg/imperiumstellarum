@@ -1318,10 +1318,6 @@ return [
             'min' => 5,
             'max' => 200
         ],
-        'adminComment' => [
-            'min' => 20,
-            'max' => 200
-        ],
         'reportMessage' => [
             'min' => 20,
             'max' => 1000

@@ -16,15 +16,15 @@ use App\Http\Traits\UsesUuid;
  * @property string $reportee_id
  * @property string $comment
  * @property int|null $resolved_admin
- * @property string|null $admin_comment
- * @property string|null $admin_reply
+ * @property string|null $admin_reportee_msg
+ * @property string|null $admin_reporter_msg
+ * @property int|null $suspension_duration
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Message $message
  * @property-read \App\Models\Player $reportee
  * @property-read \App\Models\Player $reporter
- * @property-read \App\Models\Message $reply
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport query()
@@ -70,8 +70,9 @@ class MessageReport extends Model
         'reportee_id',
         'comment',
         'resolved_admin',
-        'admin_comment',
-        'admin_reply'
+        'admin_reportee_msg',
+        'admin_reporter_msg',
+        'suspension_duration'
     ];
 
     /**

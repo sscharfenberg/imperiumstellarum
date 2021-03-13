@@ -295,7 +295,9 @@ return [
             'reportee' => 'Gemeldeter Spieler (Täter)',
             'reporteeUser' => 'Benutzer des gemeldeten Spielers',
             'reporteeUserDetails' => 'Details zum Benutzer',
-            'reportedAt' => 'Gemeldet'
+            'reportedAt' => 'Gemeldet',
+            'resolved' => 'Meldung abgeschlossen',
+            'resolvedBy' => 'Abgeschlossen von'
         ],
         'message' => [
             'headline' => 'Details zur gemeldeten Nachricht',
@@ -316,6 +318,12 @@ return [
             'msgLength' => 'Mindestens :min Zeichen, maximal :max Zeichen.',
             'submit' => 'Meldung abschließen',
             'success' => 'Sie haben die Meldung abgeschlossen. Danke schön!'
+        ],
+        'reporteeMsg' => [
+            'subject' => 'Eine Nachricht von Ihnen wurde gemeldet.',
+        ],
+        'reporterMsg' => [
+            'subject' => 'Ihre Meldung wurde abgeschlossen.'
         ]
     ]
 
