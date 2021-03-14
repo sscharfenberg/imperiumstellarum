@@ -64,13 +64,13 @@
             </a>
         </li>
         <li class="drawer-list__item">
-            <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link" rel="noopener">
-                <x-icon name="github" size="2" /> @lang('app.drawer.github')
+            <a href="https://discord.gg/P5NUmUfNtR" class="drawer-list__link" rel="noopener">
+                <x-icon name="discord" size="2" /> @lang('app.drawer.discord')
             </a>
         </li>
         <li class="drawer-list__item">
-            <a href="https://github.com/sscharfenberg/imperiumstellarum/issues" class="drawer-list__link" rel="noopener">
-                <x-icon name="bug" size="2" /> @lang('app.drawer.bugs')
+            <a href="https://github.com/sscharfenberg/imperiumstellarum" class="drawer-list__link" rel="noopener">
+                <x-icon name="github" size="2" /> @lang('app.drawer.github')
             </a>
         </li>
         <li class="drawer-list__item">

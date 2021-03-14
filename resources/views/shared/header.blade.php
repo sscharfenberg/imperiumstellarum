@@ -21,6 +21,11 @@
                 <a class="header__link both" href="{{ route('admin') }}">
                     <x-icon name="build" size="2" />
                     <span>@lang("admin.home.navTitle")</span>
+                    @if(App\Models\MessageReport::whereNull('resolved_admin')->count() > 0)
+                        <span class="header__link-pip">
+                            {{ App\Models\MessageReport::whereNull('resolved_admin')->count() }}
+                        </span>
+                    @endif
                 </a>
             </li>
         @endif

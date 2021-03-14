@@ -87,6 +87,7 @@
 
     &__link {
         display: flex;
+        position: relative;
         align-items: center;
 
         padding: 5px;
@@ -139,6 +140,24 @@
                 background: t("g-ebony");
                 color: t("b-christine");
             }
+        }
+    }
+
+    &__link-pip {
+        display: none;
+
+        padding: 2px;
+        margin: 0 0 0 5px;
+
+        line-height: 1;
+
+        @include respond-to("medium") {
+            display: block;
+        }
+
+        @include themed() {
+            background: t("s-error");
+            color: t("g-white");
         }
     }
 }
