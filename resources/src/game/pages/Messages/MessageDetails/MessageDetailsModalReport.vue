@@ -2,6 +2,8 @@
 /******************************************************************************
  * PageComponent: MessageDetailsModalReport
  *****************************************************************************/
+import { computed } from "vue";
+import { useStore } from "vuex";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 import { formatMessageBody } from "@/game/helpers/format";
 export default {
@@ -9,10 +11,15 @@ export default {
     props: {
         comment: String,
         resolved: Boolean,
+        adminMessageId: String,
     },
     components: { SubHeadline },
-    setup() {
-        return { formatMessageBody };
+    setup(props) {
+        const store = useStore();
+        const adminReply = computed(() =>
+            store.getters["messages/messageById"](props.adminMessageId)
+        );
+        return { formatMessageBody, adminReply };
     },
 };
 </script>
@@ -30,6 +37,14 @@ export default {
         <li class="text-left">
             {{ resolved ? $t("common.boolean.yes") : $t("common.boolean.no") }}
         </li>
+        <li v-if="adminReply.id" class="text-left">
+            {{ $t("messages.mailbox.report.replyLabel") }}
+        </li>
+        <li
+            v-if="adminReply.id"
+            class="text-left"
+            v-html="formatMessageBody(adminReply.body)"
+        />
     </ul>
 </template>
 

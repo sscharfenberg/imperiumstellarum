@@ -174,6 +174,7 @@ export default {
             v-if="messageReport.id"
             :comment="messageReport.comment"
             :resolved="messageReport.resolved"
+            :admin-message-id="messageReport.adminMsgId"
         />
 
         <message-details-modal-replies-to

@@ -41,8 +41,8 @@ class ReportMessageController extends Controller
         if (!$this->commentConstraintsMet($comment)) {
             return response()
                 ->json(['error' => __('game.messages.errors.comment', [
-                    'min' => config('rules.messages.reportComment.min'),
-                    'max' => config('rules.messages.reportComment.max')
+                    'min' => config('rules.reports.comment.min'),
+                    'max' => config('rules.reports.comment.max')
                 ])], 419);
         }
         if (!$this->playerOwnsInboxMessages([$messageId], $player)) {

@@ -36,7 +36,8 @@
             "label": "Sie haben diese Nachricht gemeldet.",
             "headline": "Nachricht gemeldet",
             "commentLabel": "Ihre Anmerkung",
-            "resolvedLabel": "Abgeschlossen"
+            "resolvedLabel": "Abgeschlossen",
+            "replyLabel": "Antwort der Admins"
         }
     },
     "new": {

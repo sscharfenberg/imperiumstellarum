@@ -16,15 +16,17 @@ use App\Http\Traits\UsesUuid;
  * @property string $reportee_id
  * @property string $comment
  * @property int|null $resolved_admin
- * @property string|null $admin_reportee_msg
- * @property string|null $admin_reporter_msg
  * @property int|null $suspension_duration
+ * @property string|null $admin_reportee_message_id
+ * @property string|null $admin_reporter_message_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Message $message
  * @property-read \App\Models\Player $reportee
  * @property-read \App\Models\Player $reporter
+ * @property-read \App\Models\Message|null $reporteeMessage
+ * @property-read \App\Models\Message|null $reporterMessage
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport query()
@@ -37,6 +39,9 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereReporterId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereResolvedAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereAdminReporteeMessageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereAdminReporterMessageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MessageReport whereSuspensionDuration($value)
  * @mixin \Eloquent
  */
 class MessageReport extends Model
@@ -70,9 +75,9 @@ class MessageReport extends Model
         'reportee_id',
         'comment',
         'resolved_admin',
-        'admin_reportee_msg',
-        'admin_reporter_msg',
-        'suspension_duration'
+        'suspension_duration',
+        'admin_reportee_message_id',
+        'admin_reporter_message_id'
     ];
 
     /**
@@ -108,11 +113,19 @@ class MessageReport extends Model
     }
 
     /**
-     * Get the admin reply message of this report
+     * Get the admin message to the reporter
      */
-    public function reply()
+    public function reporterMessage()
     {
-        return $this->belongsTo(Message::class, 'admin_comment');
+        return $this->belongsTo(Message::class, 'admin_reporter_message_id');
+    }
+
+    /**
+     * Get the admin message to the reporter
+     */
+    public function reporteeMessage()
+    {
+        return $this->belongsTo(Message::class, 'admin_reportee_message_id');
     }
 
 }

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MessageReport;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\View\View;
 use Jenssegers\Agent\Agent;
 
 class UserController extends Controller
@@ -17,9 +20,9 @@ class UserController extends Controller
      * edit/view user
      * @param  \Illuminate\Http\Request  $request
      * @param int $userId
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function details(Request $request, int $userId): \Illuminate\View\View
+    public function details(Request $request, int $userId): View
     {
         $sessions = [];
         if (config('session.driver') == 'database') {
@@ -44,7 +47,23 @@ class UserController extends Controller
                 });
         }
         $user = User::find($userId);
-        return view('admin.user', compact ('user', 'sessions'));
+        $players = $user->players;
+        $playerIds = $players->map(function($player) {
+            return $player->id;
+        });
+        $userReports = MessageReport::whereHas('reportee', function (Builder $query) use ($playerIds) {
+            $query->whereIn('reportee_id', $playerIds);
+        })->get();
+        $userReportedReports = MessageReport::whereHas('reporter', function (Builder $query) use ($playerIds) {
+            $query->whereIn('reporter_id', $playerIds);
+        })->get();
+        return view('admin.users.details', compact (
+            'user',
+            'sessions',
+            'userReports',
+            'userReportedReports',
+            'players'
+        ));
     }
 
     /**

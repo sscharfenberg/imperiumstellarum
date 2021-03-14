@@ -41,7 +41,7 @@ class UsersController extends Controller
                 $suspensions[] = $suspension->user_id;
             }
         }
-        return View::make('admin.users', compact(
+        return View::make('admin.users.list', compact(
             'users', 'sortBy', 'order', 'perPage', 'filterEmail', 'filterRole', 'filterId', 'suspensions'
         ));
     }
@@ -79,7 +79,7 @@ class UsersController extends Controller
                 $suspensions[] = $suspension->user_id;
             }
         }
-        return View::make('admin.users', compact(
+        return View::make('admin.users.list', compact(
             'users', 'sortBy', 'order', 'perPage', 'filterEmail', 'filterRole', 'filterId', 'suspensions'
         ));
     }

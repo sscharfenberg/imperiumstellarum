@@ -102,6 +102,74 @@
         </div>
     </form>
 
+
+    @if(count($players) > 0)
+        <div class="suspensions">
+            <header class="suspensions__title">
+                <h1>@lang('admin.user.players.sectionTitle')</h1>
+            </header>
+            <table class="suspensions__table">
+                <thead>
+                <tr>
+                    <th>@lang('admin.user.players.game')</th>
+                    <th>@lang('admin.user.players.player')</th>
+                    <th>@lang('admin.user.players.gameStart')</th>
+                    <th>@lang('admin.user.players.gameActive')</th>
+                    <th>@lang('admin.user.players.gameEnd')</th>
+                    <th>@lang('admin.user.players.gameDetails')</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($players as $player)
+                    <tr>
+                        <td>g{{ $player->game->number }}</td>
+                        <td>[{{ $player->ticker }}] {{ $player->name }}</td>
+                        <td>
+                            <time
+                                datetime="{{ \Carbon\Carbon::parse($player->game->start_date)->format('d.m.Y H:i:s') }}"
+                                title="{{ \Carbon\Carbon::parse($player->game->start_date)->format('d.m.Y H:i:s') }}">
+                                {{ \Carbon\Carbon::parse($player->game->start_date)->format('d.m.Y H:i:s') }}
+                                ({{ \Carbon\Carbon::parse($player->game->start_date)->diffForHumans() }})
+                            </time>
+                        </td>
+                        <td>
+                            @if($player->game->active)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($player->game->finished)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
+                        <td style="text-align: right;">
+                            <a class="app-btn both" href="{{ route('game-details', ['game' => $player->game->id]) }}" style="display: inline-flex;">
+                                <x-icon name="search" size="2" />
+                                <span>
+                                    @lang('admin.user.players.gameDetails')
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+
     @if(count($user->suspensions) !== 0)
         <div class="suspensions">
             <header class="suspensions__title">
@@ -177,6 +245,122 @@
                             @endif
                         </tr>
                     @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+    @if(count($userReports) !== 0)
+        <div class="suspensions">
+            <header class="suspensions__title">
+                <h1>@lang('admin.user.reporteeReports.sectionTitle')</h1>
+            </header>
+            <table class="suspensions__table">
+                <thead>
+                <tr>
+                    <th>@lang('admin.user.reporteeReports.created')</th>
+                    <th>@lang('admin.user.reporteeReports.game')</th>
+                    <th>@lang('admin.user.reporteeReports.reporter')</th>
+                    <th>@lang('admin.user.reporteeReports.comment')</th>
+                    <th>@lang('admin.user.reporteeReports.resolved')</th>
+                    <th>@lang('admin.user.reporteeReports.details')</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($userReports as $report)
+                    <tr>
+                        <td>
+                            <time
+                                datetime="{{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}"
+                                title="{{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}">
+                                {{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}
+                                ({{ \Carbon\Carbon::parse($report->created_at)->diffForHumans() }})
+                            </time>
+                        </td>
+                        <td>g{{$report->game->number}}</td>
+                        <td>
+                            [{{$report->reporter->ticker}}]
+                        </td>
+                        <td>{{substr($report->comment, 0, 20)}}</td>
+                        <td>
+                            @if($report->resolved_admin !== null)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
+                        <td style="text-align: right;">
+                            <a class="app-btn both" href="{{ route('report', ['report' => $report->id]) }}" style="display: inline-flex;">
+                                <x-icon name="search" size="2" />
+                                <span>
+                                    @lang('admin.user.reporteeReports.details')
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
+    @if(count($userReportedReports) !== 0)
+        <div class="suspensions">
+            <header class="suspensions__title">
+                <h1>@lang('admin.user.reporterReports.sectionTitle')</h1>
+            </header>
+            <table class="suspensions__table">
+                <thead>
+                <tr>
+                    <th>@lang('admin.user.reporterReports.created')</th>
+                    <th>@lang('admin.user.reporterReports.game')</th>
+                    <th>@lang('admin.user.reporterReports.reportee')</th>
+                    <th>@lang('admin.user.reporterReports.comment')</th>
+                    <th>@lang('admin.user.reporterReports.resolved')</th>
+                    <th>@lang('admin.user.reporterReports.details')</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($userReportedReports as $report)
+                    <tr>
+                        <td>
+                            <time
+                                datetime="{{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}"
+                                title="{{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}">
+                                {{ \Carbon\Carbon::parse($report->created_at)->format('d.m.Y H:i:s') }}
+                                ({{ \Carbon\Carbon::parse($report->created_at)->diffForHumans() }})
+                            </time>
+                        </td>
+                        <td>g{{$report->game->number}}</td>
+                        <td>
+                            [{{$report->reportee->ticker}}]
+                        </td>
+                        <td>{{substr($report->comment, 0, 20)}}</td>
+                        <td>
+                            @if($report->resolved_admin !== null)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
+                        <td style="text-align: right;">
+                            <a class="app-btn both" href="{{ route('report', ['report' => $report->id]) }}" style="display: inline-flex;">
+                                <x-icon name="search" size="2" />
+                                <span>
+                                    @lang('admin.user.reporterReports.details')
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

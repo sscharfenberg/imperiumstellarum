@@ -21,7 +21,7 @@ class CreateSuspensionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->datetime('until');
             $table->uuid('issuer_id');
-            $table->string('issuer_reason', 200);
+            $table->string('issuer_reason', config('rules.reports.reportMessage.max'));
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade');

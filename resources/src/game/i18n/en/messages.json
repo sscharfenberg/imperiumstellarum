@@ -36,7 +36,8 @@
             "label": "You have reported this message.",
             "headline": "Message reported",
             "commentLabel": "Your comment",
-            "resolvedLabel": "Resolved"
+            "resolvedLabel": "Resolved",
+            "replyLabel": "Staff reply"
         }
     },
     "new": {

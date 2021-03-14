@@ -99,6 +99,15 @@ return [
             'lastActive' => 'Last active',
             'none' => 'No active sessions found.'
         ],
+        'players' => [
+            'sectionTitle' => 'Enlisted Players',
+            'game' => 'Game',
+            'player' => 'Player',
+            'gameStart' => 'Game Start',
+            'gameEnd' => 'Game finished?',
+            'gameActive' => 'Game Active?',
+            'gameDetails' => 'Game Details'
+        ],
         'suspensions' => [
             'sectionTitle' => 'User Suspensions',
             'intro' => 'Red background means the suspension is currently active (\'Until\' is in the future).',
@@ -142,6 +151,24 @@ return [
             'introduction' => 'The suspension until :until on your account has been lifted.',
             'reason' => 'The original reason for the suspension was \':reason\'',
             'result' => 'You are now free to login into the game again. Please note that the record of the suspension on your account was deleted.'
+        ],
+        'reporteeReports' => [
+            'sectionTitle' => 'Reports where this user was reported',
+            'created' => 'Created',
+            'game' => 'Game',
+            'reporter' => 'Reported by',
+            'comment' => 'Reporter Comment',
+            'resolved' => 'Resolved',
+            'details' => 'Details'
+        ],
+        'reporterReports' => [
+            'sectionTitle' => 'Reports that this user created',
+            'created' => 'Created',
+            'game' => 'Game',
+            'reportee' => 'Reported player',
+            'comment' => 'Reporter Comment',
+            'resolved' => 'Resolved',
+            'details' => 'Details'
         ]
     ],
 
@@ -296,10 +323,14 @@ return [
             'reporteeUserDetails' => 'User Details',
             'reportedAt' => 'Reported at',
             'resolved' => 'Report resolved',
-            'resolvedBy' => 'Resolved von'
+            'resolvedBy' => 'Resolved von',
+            'reporterMessage' => 'Message to reporter [:ticker]',
+            'reporteeMessage' => 'Message to reported player [:ticker]',
+            'reporteeSuspensionDuration' => 'Reported player [:ticker] suspension duration'
         ],
         'message' => [
             'headline' => 'Details for reported message',
+            'sentBy' => 'Sent by',
             'sentAt' => 'Sent at',
             'recipients' => 'Recipients',
             'subject' => 'Subject',

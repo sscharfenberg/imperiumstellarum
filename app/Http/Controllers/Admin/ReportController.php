@@ -52,7 +52,7 @@ class ReportController extends Controller
         $report = MessageReport::find($reportId);
         $duration = $request->input(['duration']);
         $reporteeMsg = $request->input(['reporteeMsg']);
-        $reporterMsg = $request->input(['reporteeMsg']);
+        $reporterMsg = $request->input(['reporterMsg']);
         $reporter = Player::find($report->reporter_id);
         $validator = Validator::make($request->input(), [
             'reporteeMsg' => ['max:'.config('rules.reports.reportMessage.max')],
@@ -68,27 +68,28 @@ class ReportController extends Controller
         } else {
             // if suspension, suspend player.
             if ($duration !== null) {
-                $u->suspend($report->reportee_id, Auth::user(), $duration, $request->input(['reporteeMsg']));
+                $u->suspend($report->reportee->user_id, Auth::user(), $duration, $request->input(['reporteeMsg']));
+                $report->suspension_duration = $duration;
             }
             // if message to reportee, send it.
             if ($reporteeMsg !== null) {
                 $reportee = Player::find($report->reportee_id);
-                $m->sendAdminMessage(
+                $reporteeMessage = $m->sendAdminMessage(
                     $reportee,
                     'admin.report.reporteeMsg.subject',
                     $request->input(['reporteeMsg']),
                 );
+                $report->admin_reportee_message_id = $reporteeMessage->id;
             }
             // send admin message to reporter
-            $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg);
+            $reporterMessage = $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg);
 
             // resolve the report
             $report->resolved_admin = Auth::user()->id;
-            $report->admin_reportee_msg = $reporteeMsg;
-            $report->admin_reporter_msg = $reporterMsg;
-            $report->suspension_duration = $duration;
+            $report->admin_reporter_message_id = $reporterMessage->id;
             $report->save();
 
+            // redirect back to details page.
             return back()
                 ->with('status', __('admin.report.resolve.success'))
                 ->with('severity', 'success');

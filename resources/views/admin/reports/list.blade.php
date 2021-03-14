@@ -71,9 +71,15 @@
                             </time>
                         </td>
                         <td>g{{$report->game->number}}</td>
-                        <td>[{{$report->reporter->ticker}}]</td>
-                        <td>[{{$report->reportee->ticker}}]</td>
-                        <td>{{substr($report->comment, 0, 20)}}</td>
+                        <td class="locale">
+                            [{{$report->reporter->ticker}}]
+                            <img src="/assets/images/flags/{{ $report->reporter->user->locale }}.svg" />
+                        </td>
+                        <td class="locale">
+                            [{{$report->reportee->ticker}}]
+                            <img src="/assets/images/flags/{{ $report->reportee->user->locale }}.svg" />
+                        </td>
+                        <td>{{substr($report->comment, 0, 40)}}</td>
                         <td>
                             @if($report->resolved_admin !== null)
                                 <span class="symbol success">
@@ -98,8 +104,6 @@
             </div>
             {{ $reports->appends(['sortBy' => $sortBy, 'order' => $order, 'perPage' => $perPage])->links('shared.pagination') }}
         </div>
-
-
 
     </form>
 

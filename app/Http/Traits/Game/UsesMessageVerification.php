@@ -127,7 +127,7 @@ trait UsesMessageVerification
      */
     public function commentConstraintsMet (string $body): bool
     {
-        $rules = config('rules.messages.reportComment');
+        $rules = config('rules.reports.comment');
         return is_string($body)
             && strlen($body) >= $rules['min']
             && strlen($body) <= $rules['max'];

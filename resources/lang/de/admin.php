@@ -100,8 +100,17 @@ return [
             'lastActive' => 'Zuletzt aktiv',
             'none' => 'Keine aktiven Sitzungen gefunden.'
         ],
+        'players' => [
+            'sectionTitle' => 'Eingeschriebene Spieler',
+            'game' => 'Spiel',
+            'player' => 'Spieler',
+            'gameStart' => 'Spielstart',
+            'gameEnd' => 'Spiel beendet?',
+            'gameActive' => 'Aktives Spiel?',
+            'gameDetails' => 'Details zum Spiel'
+        ],
         'suspensions' => [
-            'sectionTitle' => 'Benutzer Sperren',
+            'sectionTitle' => 'Sperren des Benutzers',
             'intro' => 'Ein roter Hintergrund bedeutet die Sperre ist aktiv (\'Bis\' liegt in der Zukunft).',
             'issued' => 'Erteilt am',
             'until' => 'Bis',
@@ -143,6 +152,24 @@ return [
             'introduction' => 'Die Sperre Ihres Benutzerkontos bis :until wurde entfernt.',
             'reason' => 'Der ursprüngliche Grund für die Sperre war \':reason\'',
             'result' => 'Es steht Ihnen jetzt frei sich wieder in Website/Spiel einzuloggen. Bitte beachten Sie das die Sperre von Ihrem Benutzerkonto gelöscht wurde, es verbleibt kein Hinweis auf diese Sperre.'
+        ],
+        'reporteeReports' => [
+            'sectionTitle' => 'Meldungen über diesen Benutzer',
+            'created' => 'Erstellt',
+            'game' => 'Spiel',
+            'reporter' => 'Gemeldet von',
+            'comment' => 'Anmerkung des meldenden Spielers',
+            'resolved' => 'Abgeschlossen',
+            'details' => 'Details'
+        ],
+        'reporterReports' => [
+            'sectionTitle' => 'Meldungen die dieser Benutzer erstellt hat',
+            'created' => 'Erstellt',
+            'game' => 'Game',
+            'reportee' => 'Gemeldeter Spieler',
+            'comment' => 'Anmerkung des Benutzers',
+            'resolved' => 'Abgeschlossen',
+            'details' => 'Details'
         ]
     ],
 
@@ -297,10 +324,14 @@ return [
             'reporteeUserDetails' => 'Details zum Benutzer',
             'reportedAt' => 'Gemeldet',
             'resolved' => 'Meldung abgeschlossen',
-            'resolvedBy' => 'Abgeschlossen von'
+            'resolvedBy' => 'Abgeschlossen von',
+            'reporterMessage' => 'Nachricht an Meldenden Spieler [:ticker]',
+            'reporteeMessage' => 'Nachricht an gemeldeten Spieler [:ticker]',
+            'reporteeSuspensionDuration' => 'Dauer der Sperre des gemeldeten Spielers'
         ],
         'message' => [
             'headline' => 'Details zur gemeldeten Nachricht',
+            'sentBy' => 'Versendet von',
             'sentAt' => 'Gesendet',
             'recipients' => 'Empfänger',
             'subject' => 'Betreff',
