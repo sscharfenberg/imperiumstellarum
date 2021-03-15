@@ -29,9 +29,7 @@ export default {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
-            props.mailbox === "in" || props.mailbox === "sys"
-                ? store.getters["messages/messageById"](props.messageId)
-                : store.getters["messages/sentMessageById"](props.messageId)
+            store.getters["messages/anyMessageById"](props.messageId)
         );
         const player = (playerId) =>
             store.getters["messages/playerById"](playerId);
@@ -41,18 +39,9 @@ export default {
 
         const repliesToMessage = computed(() => {
             if (!message.value.repliesToId) return undefined;
-            let returnedMessage;
-            if (props.mailbox === "out") {
-                returnedMessage = store.getters["messages/messageById"](
-                    message.value.repliesToId
-                );
-            } else if (props.mailbox === "in" || props.mailbox === "sys") {
-                returnedMessage = store.getters["messages/sentMessageById"](
-                    message.value.repliesToId
-                );
-            }
-            if (!returnedMessage) return undefined;
-            return returnedMessage;
+            return store.getters["messages/anyMessageById"](
+                message.value.repliesToId
+            );
         });
 
         const messageReport = computed(() =>

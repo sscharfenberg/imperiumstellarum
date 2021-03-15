@@ -20,9 +20,7 @@ export default {
         const store = useStore();
         const requesting = computed(() => store.state.messages.requesting);
         const message = computed(() =>
-            props.mailbox === "in" || props.mailbox === "sys"
-                ? store.getters["messages/messageById"](props.messageId)
-                : store.getters["messages/sentMessageById"](props.messageId)
+            store.getters["messages/anyMessageById"](props.messageId)
         );
 
         const hasReport = computed(

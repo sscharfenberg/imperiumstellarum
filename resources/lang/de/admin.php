@@ -313,6 +313,8 @@ return [
         'navTitle' => 'Gemeldete Nachricht',
         'title' => 'Gemeldete Nachricht von [:ticker]',
         'notfound' => 'Diese Meldung existiert nicht.',
+        'noSelfPolicing' => 'Sie können keinen Meldungen abschließen bei denen Sie selbst der gemeldete Spieler sind.',
+        'ownReport' => 'Sie können keine Meldungen betrachten bei denen Sie selbst der gemeldete Spieler sind.',
         'data' => [
             'headline' => 'Daten der Meldung',
             'game' => 'Spiel',

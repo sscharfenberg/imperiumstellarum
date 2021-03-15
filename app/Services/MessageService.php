@@ -168,9 +168,10 @@ class MessageService {
      * @param Player $recipient
      * @param string $subjectKey
      * @param string $body
+     * @param string|null $replyToId
      * @return Message
      */
-    public function sendAdminMessage(Player $recipient, string $subjectKey, string $body): Message
+    public function sendAdminMessage(Player $recipient, string $subjectKey, string $body, ?string $replyToId): Message
     {
         $gameId = $recipient->game_id;
         $messageLocale = $recipient->user->locale;
@@ -178,7 +179,7 @@ class MessageService {
         $message = $this->createMessage(
             $gameId,
             null,
-            null,
+            $replyToId,
             __($subjectKey, [], $messageLocale),
             $body
         );
@@ -186,5 +187,8 @@ class MessageService {
         $this->createRecipients($gameId, $message->id, [$recipient->id]);
         return $message;
     }
+
+
+
 
 }

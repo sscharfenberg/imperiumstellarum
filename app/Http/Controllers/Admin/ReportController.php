@@ -33,8 +33,16 @@ class ReportController extends Controller
                 ->with('status', __('admin.report.notfound'))
                 ->with('severity', 'error');
         } else {
+            $adminPlayerIds = Auth::user()->players->map(function ($player) {
+                return $player->id;
+            });
+            if($adminPlayerIds->contains($report->reportee_id)) {
+                return redirect()->back()
+                    ->with('status', __('admin.report.ownReport'))
+                    ->with('severity', 'error');
+            }
             return view('admin.reports.details', compact(
-                'report', 'messageRecipients'
+                'report', 'messageRecipients', 'adminPlayerIds'
             ));
         }
     }
@@ -54,6 +62,17 @@ class ReportController extends Controller
         $reporteeMsg = $request->input(['reporteeMsg']);
         $reporterMsg = $request->input(['reporterMsg']);
         $reporter = Player::find($report->reporter_id);
+
+        // make sure an admin does not try to resolve his own reports.
+        $adminPlayerIds = Auth::user()->players->map(function ($player) {
+            return $player->id;
+        });
+        if($adminPlayerIds->contains($report->reportee_id)) {
+            return redirect()->back()
+                ->with('status', __('admin.report.noSelfPolicing'))
+                ->with('severity', 'error');
+        }
+        // validation
         $validator = Validator::make($request->input(), [
             'reporteeMsg' => ['max:'.config('rules.reports.reportMessage.max')],
             'reporterMsg' => [
@@ -78,11 +97,12 @@ class ReportController extends Controller
                     $reportee,
                     'admin.report.reporteeMsg.subject',
                     $request->input(['reporteeMsg']),
+                    null
                 );
                 $report->admin_reportee_message_id = $reporteeMessage->id;
             }
             // send admin message to reporter
-            $reporterMessage = $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg);
+            $reporterMessage = $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg, $report->message_id);
 
             // resolve the report
             $report->resolved_admin = Auth::user()->id;

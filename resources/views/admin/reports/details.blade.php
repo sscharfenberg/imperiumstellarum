@@ -243,7 +243,7 @@
 
     </div>
 
-    @if($report->resolved_admin === null)
+    @if($report->resolved_admin === null && !$adminPlayerIds->contains($report->reportee_id))
         <form
             class="app-form"
             action="{{ route('report-resolve', ['report' => $report->id]) }}"

@@ -53,7 +53,6 @@ export default {
                 {{ $tc("messages.details.recipients", recipientIds.length) }}
             </li>
             <li class="text-left">
-                {{ recipientIds.length }}
                 <span
                     v-for="(recipient, index) in recipientIds"
                     :key="recipient"
