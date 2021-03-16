@@ -312,8 +312,8 @@ return [
         'navTitle' => 'Reported Message',
         'title' => 'Reported Message from [:ticker]',
         'notfound' => 'This report does not exist.',
-        'noSelfPolicing' => 'You can\'t resolve reports where you are the reported player.',
-        'ownReport' => 'You can\'t view reports about yourself.',
+        'noSelfPolicing' => 'You can\'t resolve reports you are involved as reporter or reportee.',
+        'ownReport' => 'You can\'t view reports where you are involved as reporter or reportee.',
         'data' => [
             'headline' => 'Report Data',
             'game' => 'Game',

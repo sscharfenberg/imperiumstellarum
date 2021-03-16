@@ -100,5 +100,5 @@ export const formatTime = (date) => {
 export const formatMessageBody = (body) => {
     return body
         .replace(/(<([^>]+)>)/gi, "") // make sure there really is no html in the string left.
-        .replace(/[\r\n]+/g, "<br />"); // linebreaks => <br>
+        .replace(/(?:\r\n|\r|\n)/g, "<br />"); // linebreaks => <br>
 };

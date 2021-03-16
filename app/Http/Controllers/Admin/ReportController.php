@@ -36,7 +36,7 @@ class ReportController extends Controller
             $adminPlayerIds = Auth::user()->players->map(function ($player) {
                 return $player->id;
             });
-            if($adminPlayerIds->contains($report->reportee_id)) {
+            if($adminPlayerIds->contains($report->reportee_id) || $adminPlayerIds->contains($report->reporter_id)) {
                 return redirect()->back()
                     ->with('status', __('admin.report.ownReport'))
                     ->with('severity', 'error');
@@ -63,11 +63,11 @@ class ReportController extends Controller
         $reporterMsg = $request->input(['reporterMsg']);
         $reporter = Player::find($report->reporter_id);
 
-        // make sure an admin does not try to resolve his own reports.
+        // make sure an admin can't resolve reports where the admin is involved.
         $adminPlayerIds = Auth::user()->players->map(function ($player) {
             return $player->id;
         });
-        if($adminPlayerIds->contains($report->reportee_id)) {
+        if($adminPlayerIds->contains($report->reportee_id) || $adminPlayerIds->contains($report->reporter_id)) {
             return redirect()->back()
                 ->with('status', __('admin.report.noSelfPolicing'))
                 ->with('severity', 'error');
@@ -97,12 +97,17 @@ class ReportController extends Controller
                     $reportee,
                     'admin.report.reporteeMsg.subject',
                     $request->input(['reporteeMsg']),
-                    null
+                    $report->message_id
                 );
                 $report->admin_reportee_message_id = $reporteeMessage->id;
             }
             // send admin message to reporter
-            $reporterMessage = $m->sendAdminMessage($reporter, 'admin.report.reporterMsg.subject', $reporterMsg, $report->message_id);
+            $reporterMessage = $m->sendAdminMessage(
+                $reporter,
+                'admin.report.reporterMsg.subject',
+                $reporterMsg,
+                $report->message_id
+            );
 
             // resolve the report
             $report->resolved_admin = Auth::user()->id;
