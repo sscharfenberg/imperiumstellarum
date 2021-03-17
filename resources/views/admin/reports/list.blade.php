@@ -28,8 +28,6 @@
             <div class="pagination__perpage">
                 @lang('admin.reports.perPage.showing')
                 <select name="perPage" data-perpage>
-                    <option value="2"{{ $perPage == '2' ? ' selected' : '' }}>2</option>
-                    <option value="5"{{ $perPage == '5' ? ' selected' : '' }}>5</option>
                     <option value="10"{{ $perPage == '10' ? ' selected' : '' }}>10</option>
                     <option value="20"{{ $perPage == '20' ? ' selected' : '' }}>20</option>
                     <option value="50"{{ $perPage == '50' ? ' selected' : '' }}>50</option>

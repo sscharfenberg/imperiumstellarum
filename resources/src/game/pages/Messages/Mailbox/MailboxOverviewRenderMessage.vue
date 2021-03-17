@@ -333,10 +333,10 @@ export default {
         }
 
         .report svg {
-            width: 18px;
-            height: 18px;
+            width: 17px;
+            height: 17px;
             margin-right: 4px;
-            flex: 0 0 18px;
+            flex: 0 0 17px;
 
             @include themed() {
                 color: t("s-warning");
