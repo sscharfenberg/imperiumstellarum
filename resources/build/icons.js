@@ -8,7 +8,7 @@
 const path = require("path");
 const fs = require("fs");
 // node packages
-const svgo = require("svgo");
+const { optimize } = require("svgo");
 const svgstore = require("svgstore");
 const chalk = require("chalk");
 // variables/functions/objects
@@ -36,44 +36,6 @@ const writeSpriteSheet = (sprites) => {
         )
     );
 };
-const svgoInstance = new svgo({
-    plugins: [
-        { cleanupAttrs: true },
-        { removeDoctype: true },
-        { removeXMLProcInst: true },
-        { removeComments: true },
-        { removeMetadata: true },
-        { removeTitle: true },
-        { removeDesc: true },
-        { removeUselessDefs: true },
-        { removeEditorsNSData: true },
-        { removeEmptyAttrs: true },
-        { removeHiddenElems: true },
-        { removeEmptyText: true },
-        { removeEmptyContainers: true },
-        { removeViewBox: false },
-        { cleanUpEnableBackground: true },
-        { convertStyleToAttrs: true },
-        { convertColors: true },
-        { convertPathData: true },
-        { convertTransform: true },
-        { removeUnknownsAndDefaults: true },
-        { removeNonInheritableGroupAttrs: true },
-        { removeUselessStrokeAndFill: true },
-        { removeUnusedNS: true },
-        { cleanupIDs: true },
-        { cleanupNumericValues: true },
-        { moveElemsAttrsToGroup: true },
-        { moveGroupAttrsToElems: true },
-        { collapseGroups: true },
-        { removeRasterImages: false },
-        { mergePaths: true },
-        { convertShapeToPath: true },
-        { sortAttrs: true },
-        { transformsWithOnePath: false },
-        { removeDimensions: true },
-    ],
-});
 
 const BASE_PATH = path.resolve(PROJECTROOT, "resources/src/icons");
 const SVGO_PATH = path.resolve(PROJECTROOT, "public", "svgo");
@@ -106,13 +68,17 @@ baseFiles.forEach((file) => {
     const filePath = path.join(BASE_PATH, file);
     const id = file.replace(".svg", "");
     const svgFile = fs.readFileSync(filePath, "utf8");
-    svgoInstance.optimize(svgFile, { path: filePath }).then(function (result) {
-        counter++;
-        sprites.add(id, result.data);
-        if (counter === baseFiles.length) {
-            // all svgs optimized.
-            writeSpriteSheet(sprites);
-            fs.rmdirSync(SVGO_PATH);
-        }
+    const result = optimize(svgFile, {
+        // optional but recommended field
+        path: filePath,
+        // all config fields are also available here
+        multipass: true,
     });
+    counter++;
+    sprites.add(id, result.data);
+    if (counter === baseFiles.length) {
+        // all svgs optimized.
+        writeSpriteSheet(sprites);
+        fs.rmdirSync(SVGO_PATH);
+    }
 });
