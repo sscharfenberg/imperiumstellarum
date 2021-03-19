@@ -31,7 +31,7 @@ class ProcessFleetMovement
                 $movement->delete();
                 $fleet->star_id = $destination->id;
                 $fleet->save();
-                Log::notice("TURN PROCESSING $turnSlug - Fleet $fleet->name has arrived at $destination->name.");
+                Log::channel('turn')->notice("$turnSlug - Fleet $fleet->name has arrived at $destination->name.");
                 $m->sendNotification(
                     $fleet->player,
                     'game.messages.sys.fleets.arrival.subject',
@@ -42,10 +42,10 @@ class ProcessFleetMovement
                     ]
                 );
             } catch(Exception $e) {
-                Log::error("TURN PROCESSING $turnSlug - failed to complete fleet movement $movement->id: ".$e->getMessage());
+                Log::channel('turn')->error("$turnSlug - failed to complete fleet movement $movement->id: ".$e->getMessage());
             }
         }
-        Log::notice("TURN PROCESSING $turnSlug - finished looping all fleet movements.");
+        Log::channel('turn')->notice("$turnSlug - finished looping all fleet movements.");
     }
 
 
@@ -62,9 +62,9 @@ class ProcessFleetMovement
             ->where('until_arrival', '>', '0')
             ->decrement('until_arrival');
         if ($movedFleets) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_arrival' for $movedFleets fleets.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'until_arrival' for $movedFleets fleets.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No moving fleets.");
+            Log::channel('turn')->notice("$turnSlug - No moving fleets.");
         }
 
         // check if any FleetMovements are completed
@@ -73,12 +73,12 @@ class ProcessFleetMovement
             ->get();
         $num = count($completedMovements);
         if ($num > 0) {
-            Log::notice("TURN PROCESSING $turnSlug - Completing movement of $num fleets.");
+            Log::channel('turn')->notice("$turnSlug - Completing movement of $num fleets.");
             $this->completeFleetMovement($completedMovements, $turnSlug, $game->id);
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No fleet movement has been completed.");
+            Log::channel('turn')->notice("$turnSlug - No fleet movement has been completed.");
         }
-        Log::notice("TURN PROCESSING $turnSlug - finished processing fleet movements.");
+        Log::channel('turn')->notice("$turnSlug - finished processing fleet movements.");
     }
 
 }

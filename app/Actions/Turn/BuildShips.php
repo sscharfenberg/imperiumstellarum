@@ -121,6 +121,7 @@ class BuildShips
     {
         $m = new MessageService;
         $f = new FormatApiResponseService;
+        Log::channel('turn')->notice("$turnSlug - finishing contract $contract->id.");
         try {
             ConstructionContract::find($contract->id)->delete();
             $messageLocale = $this->getContractLocale($contract);
@@ -136,9 +137,9 @@ class BuildShips
                     'construction' => $contract->amount." x ".$contract->blueprint->name
                 ]
             );
-            Log::notice("TURN PROCESSING $turnSlug - contract deleted since it was finished.");
+            Log::channel('turn')->notice("$turnSlug - contract deleted since it was finished.");
         } catch(Exception $e) {
-            Log::error("TURN PROCESSING $turnSlug - failed to delete a finished contract: ".$e->getMessage());
+            Log::channel('turn')->error("$turnSlug - failed to delete a finished contract: ".$e->getMessage());
         }
     }
 
@@ -175,7 +176,7 @@ class BuildShips
             'colony' => $shipData['colony'],
             'acceleration' => $shipData['acceleration']
         ]);
-        Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has created a new ship, $ship->name");
+        Log::channel('turn')->notice("$turnSlug - Empire $player->ticker has created a new ship, $ship->name");
         return $ship;
     }
 
@@ -213,12 +214,12 @@ class BuildShips
         // check if all costs have been paid
         if ($this->verifyCostsArePaid($costs, $paid)) {
             // all costs where paid. reset "notified", change turns_left for the next ship in the batch.
-            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker has paid all costs for the next ship.");
+            Log::channel('turn')->notice("$turnSlug - Empire $player->ticker has paid all costs for the next ship.");
             $contract->notified = false;
             $contract->turns_left = $contract->turns_per_ship;
         } else {
             // some costs have not been paid ^.^
-            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker could not pay all of the costs for the next ship in the contract. missing:\n".json_encode(array_diff($costs, $paid), JSON_PRETTY_PRINT));
+            Log::channel('turn')->notice("$turnSlug - Empire $player->ticker could not pay all of the costs for the next ship in the contract. missing:\n".json_encode(array_diff($costs, $paid), JSON_PRETTY_PRINT));
             if (!$contract->notified) { // notify the user _once_
                 $messageLocale = $this->getContractLocale($contract);
                 $planet = $contract->shipyard->planet;
@@ -282,9 +283,9 @@ class BuildShips
             ->where('turns_left', '>', '0')
             ->decrement('turns_left');
         if ($decrementedContracts) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'turns_left' for $decrementedContracts contracts.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'turns_left' for $decrementedContracts contracts.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No construction contracts where turns_left was decremented.");
+            Log::channel('turn')->notice("$turnSlug - No construction contracts where turns_left was decremented.");
         }
 
         // check if any ships are ready to be ejected.
@@ -293,14 +294,14 @@ class BuildShips
             ->get();
         if(count($contractsWithShipsReady) > 0) {
             $num = count($contractsWithShipsReady);
-            Log::notice("TURN PROCESSING $turnSlug - Trying to eject $num ships.");
+            Log::channel('turn')->notice("$turnSlug - Trying to eject $num ships.");
             $this->ejectShips($contractsWithShipsReady, $turnSlug);
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No ships are ready to be ejected.");
+            Log::channel('turn')->notice("$turnSlug - No ships are ready to be ejected.");
         }
 
         // all done.
-        Log::info("TURN PROCESSING $turnSlug - done processing ship construction / construction contract handling.");
+        Log::channel('turn')->info("$turnSlug - done processing ship construction / construction contract handling.");
     }
 
 }

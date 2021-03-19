@@ -18,7 +18,7 @@ class ProcessTurn
      */
     private function createNewTurn (Game $game, Turn $turn): Turn
     {
-        Log::info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
+        Log::channel('turn')->info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
         return Turn::create([
             'game_id' => $game->id,
             'number' => $turn->number + 1,
@@ -34,7 +34,7 @@ class ProcessTurn
      */
     private function processStorageUpgrades(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 1: Storage Upgrades.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 1: Storage Upgrades.");
         $s = new \App\Actions\Turn\BuildStorageUpgrades;
         $s->handle($game, $turnSlug);
     }
@@ -47,7 +47,7 @@ class ProcessTurn
      */
     private function processHarvesters(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 2: Process Harvesters.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 2: Process Harvesters.");
         $h = new \App\Actions\Turn\ProcessHarvesters;
         $h->handle($game, $turnSlug);
     }
@@ -60,7 +60,7 @@ class ProcessTurn
      */
     private function handleColonies(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 3: Population Growth.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 3: Population Growth.");
         $c = new \App\Actions\Turn\ProcessColonies;
         $c->handle($game, $turnSlug);
     }
@@ -73,7 +73,7 @@ class ProcessTurn
      */
     private function processShipyards(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 4: Build Shipyards.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 4: Build Shipyards.");
         $s = new \App\Actions\Turn\BuildShipyards;
         $s->handle($game, $turnSlug);
     }
@@ -86,7 +86,7 @@ class ProcessTurn
      */
     private function processResearch(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 5: PROCESS RESEARCH.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 5: PROCESS RESEARCH.");
         $s = new \App\Actions\Turn\ProcessResearch;
         $s->handle($game, $turnSlug);
     }
@@ -100,7 +100,7 @@ class ProcessTurn
      */
     private function buildships(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 6: BUILD SHIPS.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 6: BUILD SHIPS.");
         $s = new \App\Actions\Turn\BuildShips;
         $s->handle($game, $turnSlug);
     }
@@ -114,7 +114,7 @@ class ProcessTurn
      */
     private function moveFleets(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 7: MOVE FLEETS.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 7: MOVE FLEETS.");
         $s = new \App\Actions\Turn\ProcessFleetMovement;
         $s->handle($game, $turnSlug);
     }
@@ -128,7 +128,7 @@ class ProcessTurn
      */
     private function changePlayerRelations(Game $game, string $turnSlug)
     {
-        Log::info("TURN PROCESSING $turnSlug - STEP 8: CHANGE PLAYER RELATIONS.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - STEP 8: CHANGE PLAYER RELATIONS.");
         $s = new \App\Actions\Turn\ProcessPlayerRelations;
         $s->handle($game, $turnSlug);
     }
@@ -145,7 +145,7 @@ class ProcessTurn
     {
         $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
-        Log::info("TURN PROCESSING $turnSlug - START");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - START");
         $game->processing = true;
         $game->save();
 
@@ -182,6 +182,6 @@ class ProcessTurn
 
         // log execution time of turn processing.
         $execution = hrtime(true) - $start;
-        Log::info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
+        Log::channel('turn')->info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
     }
 }

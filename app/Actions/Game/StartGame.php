@@ -122,15 +122,15 @@ class StartGame
         // check if the homesystem has sufficient resources
         $toAdd = $this->getMissingResourceSlots($star);
         if (array_sum($toAdd) > 0) {
-            Log::info("Home System of Empire $player->ticker does not have sufficient resourceSlots, missing: ".json_encode($toAdd, JSON_PRETTY_PRINT));
+            Log::channel('game')->info("Home System of Empire $player->ticker does not have sufficient resourceSlots, missing: ".json_encode($toAdd, JSON_PRETTY_PRINT));
             $colony->resources = $this->addSlotsToColony($toAdd, $colony);
-            Log::info("Colony after manipulation: ".json_encode($colony->resources, JSON_PRETTY_PRINT));
+            Log::channel('game')->info("Colony after manipulation: ".json_encode($colony->resources, JSON_PRETTY_PRINT));
         } else {
-            Log::info("$player->ticker has sufficient resources.");
+            Log::channel('game')->info("$player->ticker has sufficient resources.");
         }
 
         $colony->save();
-        Log::info("Chose Planet $colony->orbital_index as starting colony for empire $player->ticker.");
+        Log::channel('game')->info("Chose Planet $colony->orbital_index as starting colony for empire $player->ticker.");
 
         // create starting shipyard
         $shipyard = Shipyard::create([
@@ -141,7 +141,7 @@ class StartGame
             'until_complete' => 0,
             'notified' => true
         ]);
-        Log::info("Created starting shipyard for player $player->ticker ".json_encode($shipyard, JSON_PRETTY_PRINT));
+        Log::channel('game')->info("Created starting shipyard for player $player->ticker ".json_encode($shipyard, JSON_PRETTY_PRINT));
 
         // TODO: Ark blueprint, Destroyer Blueprint? Ships? Home Fleets.
     }
@@ -153,7 +153,7 @@ class StartGame
      * @return void
      */
     public function seedPlayerStars ($game) {
-        Log::notice('Seeding player starting colonies.');
+        Log::channel('game')->notice('Seeding player starting colonies.');
         $players = $game->players;
         $homeSystems = $game->stars->filter(function ($value) {
             return $value['home_system'] === true;
@@ -168,7 +168,7 @@ class StartGame
             });
             $playerHome->player_id = $player->id;
             $playerHome->save();
-            Log::info("Chose Star $playerHome->name as home system for empire $player->ticker.");
+            Log::channel('game')->info("Chose Star $playerHome->name as home system for empire $player->ticker.");
             $this->seedPlayerColony($playerHome, $player);
         }
     }
@@ -184,19 +184,19 @@ class StartGame
         $game->processing = true;
         $game->can_enlist = false;
         $game->save();
-        Log::info('Set g'.$game->number.' meta data to \'processing\'=true, \'can_enlist\'=false.');
+        Log::channel('game')->info('Set g'.$game->number.' meta data to \'processing\'=true, \'can_enlist\'=false.');
         // create a turn
         $turn = $this->createInitialTurn($game);
-        Log::info('created turn t'.$turn->number.' for g'.$game->number);
-        Log::notice('Selecting starting systems for all enlisted players.');
+        Log::channel('game')->info('created turn t'.$turn->number.' for g'.$game->number);
+        Log::channel('game')->notice('Selecting starting systems for all enlisted players.');
         $this->seedPlayerStars($game);
-        Log::notice('Finished selecting starting systems for all enlisted players.');
+        Log::channel('game')->notice('Finished selecting starting systems for all enlisted players.');
         // save game after all processing is done.
         $game->processing = false;
         $game->map = null;
         $game->active = true;
         $game->save();
-        Log::info('Unset \'processing\'. for g'.$game->number);
-        Log::notice('Finished starting game g'.$game->number);
+        Log::channel('game')->info('Unset \'processing\'. for g'.$game->number);
+        Log::channel('game')->notice('Finished starting game g'.$game->number);
     }
 }

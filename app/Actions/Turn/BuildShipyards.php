@@ -45,7 +45,7 @@ class BuildShipyards
             );
             $shipyard->notified = true;
             $shipyard->save();
-            Log::notice("TURN PROCESSING $turnSlug - construction of $shipyard->type shipyard on planet $starname is completed, owner notified.");
+            Log::channel('turn')->notice("$turnSlug - construction of $shipyard->type shipyard on planet $starname is completed, owner notified.");
         }
     }
 
@@ -61,9 +61,9 @@ class BuildShipyards
             ->where('until_complete', '>', '0')
             ->decrement('until_complete');
         if ($decrementedShipyards) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_complete' for $decrementedShipyards shipyards.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'until_complete' for $decrementedShipyards shipyards.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No shipyards building.");
+            Log::channel('turn')->notice("$turnSlug - No shipyards building.");
         }
 
         // send player notifications

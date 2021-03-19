@@ -49,10 +49,39 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/imperiumstellarum.log'),
+            'path' => storage_path('logs/is.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
+
+        /*
+         | imperium stellarum custom log channels
+         */
+
+        'game' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/is-game.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'turn' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/is-turn.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'encounter' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/is-encounter.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        /*
+         | end imperium stellarum custom log channels
+         */
 
         'slack' => [
             'driver' => 'slack',

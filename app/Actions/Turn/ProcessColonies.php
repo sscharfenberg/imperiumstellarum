@@ -37,7 +37,7 @@ class ProcessColonies
                 if ($foodResource->storage === 0) {
                     // no food -> set consumption to zero.
                     $planet->food_consumption = 0;
-                    Log::notice("TURN PROCESSING $turnSlug - Planet $planet->id no food to consume.");
+                    Log::channel('turn')->notice("$turnSlug - Planet $planet->id no food to consume.");
                 }
 
                 // set new food resources
@@ -45,11 +45,11 @@ class ProcessColonies
                     // not enough food for this colony. set to 0, use current consumption
                     $planet->food_consumption = round($foodResource->storage / $planet->population, 8);
                     $foodResource->storage = 0;
-                    Log::notice("TURN PROCESSING $turnSlug - Planet $planet->id not enough food for consumption, using the rest.");
+                    Log::channel('turn')->notice("$turnSlug - Planet $planet->id not enough food for consumption, using the rest.");
                 } else {
                     // enough resources to feed the colony.
                     $foodResource->storage -= $consumption;
-                    Log::notice("TURN PROCESSING $turnSlug - Planet $planet->id consumed food.");
+                    Log::channel('turn')->notice("$turnSlug - Planet $planet->id consumed food.");
                 }
                 $foodResource->save();
 
@@ -57,14 +57,14 @@ class ProcessColonies
                 $newPop = $this->calculateNewPopulation(
                     $planet->population, $planet->food_consumption
                 );
-                Log::notice("TURN PROCESSING $turnSlug - Planet $planet->id population changed $planet->population => $newPop");
+                Log::channel('turn')->notice("$turnSlug - Planet $planet->id population changed $planet->population => $newPop");
                 $planet->population = $newPop;
 
                 // save planet and resources.
                 $planet->save();
 
             } else {
-                Log::notice("TURN PROCESSING $turnSlug - Planet $planet->id has no owner, skipping.");
+                Log::channel('turn')->notice("$turnSlug - Planet $planet->id has no owner, skipping.");
             }
 
         }

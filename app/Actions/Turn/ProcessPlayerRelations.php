@@ -88,7 +88,7 @@ class ProcessPlayerRelations
             if ($playerRelation) {
                 $playerRelation->status = $relationChange->status;
                 $playerRelation->save();
-                Log::notice("TURN PROCESSING $turnSlug - updated PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
+                Log::channel('turn')->notice("$turnSlug - updated PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
             } else {
                 PlayerRelation::create([
                     'game_id' => $relationChange->game_id,
@@ -96,7 +96,7 @@ class ProcessPlayerRelations
                     'recipient_id' => $relationChange->recipient_id,
                     'status' => $relationChange->status
                 ]);
-                Log::notice("TURN PROCESSING $turnSlug - created new PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
+                Log::channel('turn')->notice("$turnSlug - created new PlayerRelation from $playerTicker to $recipientTicker with status $relationChange->status.");
             }
             // updates done, delete PlayerRelationChange
             try {
@@ -104,7 +104,7 @@ class ProcessPlayerRelations
                 $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
                 $this->notifyPlayers($relationChange, $gameRelations);
             } catch(Exception $e) {
-                Log::error("TURN PROCESSING $turnSlug - failed to delete PlayerRelationChanges $relationChange->id: ".$e->getMessage());
+                Log::channel('turn')->error("$turnSlug - failed to delete PlayerRelationChanges $relationChange->id: ".$e->getMessage());
             }
         };
     }
@@ -124,9 +124,9 @@ class ProcessPlayerRelations
             ->where('until_done', '>', '0')
             ->decrement('until_done');
         if ($relationChangePending) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_done' for $relationChangePending PlayerRelationChanges.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'until_done' for $relationChangePending PlayerRelationChanges.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No PlayerRelationChanges.");
+            Log::channel('turn')->notice("$turnSlug - No PlayerRelationChanges.");
         }
 
         // find out which relationChanges are finished
@@ -136,12 +136,12 @@ class ProcessPlayerRelations
 
         $num = count($relationChangesToComplete);
         if ($num > 0) {
-            Log::notice("TURN PROCESSING $turnSlug - Finalizing $num pending PlayerRelationChanges.");
+            Log::channel('turn')->notice("$turnSlug - Finalizing $num pending PlayerRelationChanges.");
             $this->completeRelationChange($relationChangesToComplete, $turnSlug, $game->id);
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No PlayerRelationChanges need to be completed.");
+            Log::channel('turn')->notice("$turnSlug - No PlayerRelationChanges need to be completed.");
         }
-        Log::notice("TURN PROCESSING $turnSlug - finished processing PlayerRelationChanges.");
+        Log::channel('turn')->notice("$turnSlug - finished processing PlayerRelationChanges.");
 
     }
 

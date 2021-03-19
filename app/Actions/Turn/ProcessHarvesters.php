@@ -26,9 +26,9 @@ class ProcessHarvesters
             ->where('until_complete', '>', '0')
             ->decrement('until_complete');
         if ($decrementedHarvesters) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_complete' for $decrementedHarvesters harvesters.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'until_complete' for $decrementedHarvesters harvesters.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No harvesters building.");
+            Log::channel('turn')->notice("$turnSlug - No harvesters building.");
         }
     }
 
@@ -70,10 +70,10 @@ class ProcessHarvesters
                 return $f->formatPlayerResource($res);
             });
 
-            Log::notice("TURN PROCESSING $turnSlug - Empire $player->ticker resources after production: ".json_encode($resourcesAfterProduction));
+            Log::channel('turn')->notice("$turnSlug - Empire $player->ticker resources after production: ".json_encode($resourcesAfterProduction));
         }
 
-        Log::notice("TURN PROCESSING $turnSlug - Looped all players for resource production from harvesters.");
+        Log::channel('turn')->notice("$turnSlug - Looped all players for resource production from harvesters.");
     }
 
 

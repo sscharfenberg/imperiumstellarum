@@ -45,19 +45,19 @@ class ProcessResearch
                     // delete the research job
                     try {
                         $job->delete();
-                        Log::error("TURN PROCESSING $turnSlug - Empire $player->ticker has increased the $job->type TL to $techLevel->level");
+                        Log::channel('turn')->error("$turnSlug - Empire $player->ticker has increased the $job->type TL to $techLevel->level");
                     } catch(\Exception $e) {
-                        Log::error("TURN PROCESSING $turnSlug - Exception while attempting to delete a finished research job:\n". $e->getMessage());
+                        Log::channel('turn')->error("$turnSlug - Exception while attempting to delete a finished research job:\n". $e->getMessage());
                     }
                 } else {
                     $job->save();
                 }
             } else {
-                Log::info("TURN PROCESSING $turnSlug - Empire $player->ticker can\'t afford the assigned research, skipping.");
+                Log::channel('turn')->info("$turnSlug - Empire $player->ticker can\'t afford the assigned research, skipping.");
             }
         }
 
-        Log::notice("TURN PROCESSING $turnSlug - Looped all players for research processing.");
+        Log::channel('turn')->notice("$turnSlug - Looped all players for research processing.");
 
     }
 

@@ -22,7 +22,7 @@ class BuildStorageUpgrades
         $m = new MessageService;
         $ticker = $upgrade->player->ticker;
         $type = $upgrade->resource_type;
-        Log::info("TURN PROCESSING $turnSlug - finalizing $type storage upgrade for empire [$ticker]");
+        Log::channel('turn')->info("$turnSlug - finalizing $type storage upgrade for empire [$ticker]");
         $playerResource = $upgrade->player->resources
             ->where('resource_type', $upgrade->resource_type)->first();
         $player = $upgrade->player;
@@ -41,9 +41,9 @@ class BuildStorageUpgrades
                     'capacity' => config('rules.player.resourceTypes.energy.'.$upgrade->new_level.'.amount')
                 ]
             );
-            Log::info("TURN PROCESSING $turnSlug - Empire [$ticker] has upgraded $type storage to level $upgrade->new_level");
+            Log::channel('turn')->info("$turnSlug - Empire [$ticker] has upgraded $type storage to level $upgrade->new_level");
         } catch (\Exception $e) {
-            Log::error("TURN PROCESSING $turnSlug - Exception while handling a finished storage upgrade:\n". $e->getMessage());
+            Log::channel('turn')->error("$turnSlug - Exception while handling a finished storage upgrade:\n". $e->getMessage());
         }
     }
 
@@ -62,9 +62,9 @@ class BuildStorageUpgrades
             ->decrement('until_complete');
 
         if ($decrementedUpgrades) {
-            Log::notice("TURN PROCESSING $turnSlug - Decreased 'until_complete' for $decrementedUpgrades storage upgrades.");
+            Log::channel('turn')->notice("$turnSlug - Decreased 'until_complete' for $decrementedUpgrades storage upgrades.");
         } else {
-            Log::notice("TURN PROCESSING $turnSlug - No storage upgrades building.");
+            Log::channel('turn')->notice("$turnSlug - No storage upgrades building.");
         }
 
         // handle finished upgrades
