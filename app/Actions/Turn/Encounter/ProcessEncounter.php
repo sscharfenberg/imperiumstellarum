@@ -28,6 +28,10 @@ class ProcessEncounter
                 .$encounter['star']['name'].".\n"
                 .$encounter->toJson(JSON_PRETTY_PRINT)
             );
+        foreach($encounter['defenderShips'] as $ship) {
+            echo "$ship->name\n";
+        }
+        dd(count($encounter['defenderShips']));
     }
 
 }
