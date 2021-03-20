@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\UsesUuid;
 
@@ -37,10 +36,11 @@ use App\Http\Traits\UsesUuid;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContract
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
  * @property-read int|null $ships_count
+ * @property-read \App\Models\Star $star
  */
 class Shipyard extends Model
 {
-    use HasFactory, UsesUuid;
+    use UsesUuid;
 
     /**
      * The table associated with the model.
@@ -108,6 +108,14 @@ class Shipyard extends Model
     public function ships()
     {
         return $this->hasMany('App\Models\Ship');
+    }
+
+    /**
+     * Get the star where the shipyard is located
+     */
+    public function star()
+    {
+        return $this->belongsTo(Star::class, 'star_id');
     }
 
 }

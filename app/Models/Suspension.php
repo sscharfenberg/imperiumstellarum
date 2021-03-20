@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Suspension whereUserId($value)
  * @mixin \Eloquent
+ * @method static \Database\Factories\SuspensionFactory factory(...$parameters)
  */
 class Suspension extends Model
 {

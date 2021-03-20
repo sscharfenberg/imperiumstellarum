@@ -20,12 +20,15 @@ class CreateShipyardsTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->uuid('id')->primary();
             $table->uuid('planet_id');
+            $table->uuid('star_id');
             $table->uuid('game_id');
             $table->uuid('player_id');
             $table->enum('type', $shipyardTypes)->default($shipyardTypes[0]);
             $table->boolean('notified')->default(false);
             $table->unsignedSmallInteger('until_complete');
             $table->foreign('planet_id')->references('id')->on('planets')
+                ->onDelete('cascade');
+            $table->foreign('star_id')->references('id')->on('stars')
                 ->onDelete('cascade');
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

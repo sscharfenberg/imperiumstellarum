@@ -41,6 +41,7 @@ class ProcessFleetMovement
                         'location' => $destination->name." ($destination->coord_x/$destination->coord_y)"
                     ]
                 );
+                // TODO: check if fleet is at a player-owned location other than the player's own systems. Notify owner.
             } catch(Exception $e) {
                 Log::channel('turn')->error("$turnSlug - failed to complete fleet movement $movement->id: ".$e->getMessage());
             }

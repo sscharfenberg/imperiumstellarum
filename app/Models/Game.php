@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
-use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Game
@@ -81,7 +79,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Game extends Model
 {
-    use HasFactory, UsesUuid;
+    use UsesUuid;
 
     /**
      * The table associated with the model.

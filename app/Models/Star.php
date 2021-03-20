@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Http\Traits\UsesUuid;
 
@@ -39,10 +38,14 @@ use \App\Http\Traits\UsesUuid;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FleetMovement[] $fleetMovements
  * @property-read int|null $fleet_movements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Fleet[] $fleets
+ * @property-read int|null $fleets_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
+ * @property-read int|null $shipyards_count
  */
 class Star extends Model
 {
-    use HasFactory, UsesUuid;
+    use UsesUuid;
 
     /**
      * The table associated with the model.
@@ -112,6 +115,22 @@ class Star extends Model
     public function fleetMovements()
     {
         return $this->hasMany('App\Models\FleetMovement');
+    }
+
+    /**
+     * Get the fleets at this star
+     */
+    public function fleets()
+    {
+        return $this->hasMany(Fleet::class, 'star_id', 'id');
+    }
+
+    /**
+     * Get the shipyards at this star
+     */
+    public function shipyards()
+    {
+        return $this->hasMany(Shipyard::class, 'star_id', 'id');
     }
 
 }

@@ -64,6 +64,7 @@ class ShipyardController extends Controller
         $turns = config('rules.shipyards.hullTypes.'.$type.'.costs.turns');
         $shipyard = Shipyard::create([
             'planet_id' => $planet->id,
+            'star_id' => $planet->star->id,
             'game_id' => $planet->game->id,
             'player_id' => $player->id,
             'type' => $type,

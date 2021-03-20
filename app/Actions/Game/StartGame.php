@@ -135,6 +135,7 @@ class StartGame
         // create starting shipyard
         $shipyard = Shipyard::create([
             'planet_id' => $colony->id,
+            'star_id' => $colony->star->id,
             'game_id' => $star->game->id,
             'player_id' => $player->id,
             'type' => array_keys(config('rules.shipyards.hullTypes'))[0],

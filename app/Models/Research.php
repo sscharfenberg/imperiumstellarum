@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Http\Traits\UsesUuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -41,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Research extends Model
 {
-    use HasFactory, UsesUuid;
+    use UsesUuid;
 
     /**
      * The table associated with the model.
