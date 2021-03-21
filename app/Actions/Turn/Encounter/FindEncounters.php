@@ -9,6 +9,7 @@ use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Game;
 
+use App\Services\FleetService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -48,32 +49,6 @@ class FindEncounters
     }
 
     /**
-     * @function static damage ranges setup
-     * @return array
-     */
-    private function damageRanges (): array
-    {
-        return [
-            'small.laser' => 0,
-            'small.missile' => 0,
-            'small.railgun' => 0,
-            'small.plasma' => 0,
-            'medium.laser' => 0,
-            'medium.missile' => 0,
-            'medium.railgun' => 0,
-            'medium.plasma' => 0,
-            'large.laser' => 0,
-            'large.missile' => 0,
-            'large.railgun' => 0,
-            'large.plasma' => 0,
-            'xlarge.laser' => 0,
-            'xlarge.missile' => 0,
-            'xlarge.railgun' => 0,
-            'xlarge.plasma' => 0,
-        ];
-    }
-
-    /**
      * @function format a fleet for data handling
      * @param Fleet $fleet
      * @param array $ships
@@ -82,29 +57,13 @@ class FindEncounters
      */
     private function formatFleet (Fleet $fleet, array $ships, int $col): array
     {
-        $dmg = $this->damageRanges();
-        $preferedRange = 10;
-        foreach($ships as $ship) {
-            $hullType = $ship['hull_type'];
-            if ($ship['dmg_laser'] > 0) $dmg[$hullType.".laser"] += $ship['dmg_laser'];
-            if ($ship['dmg_missile'] > 0) $dmg[$hullType.".missile"] += $ship['dmg_missile'];
-            if ($ship['dmg_railgun'] > 0) $dmg[$hullType.".railgun"] += $ship['dmg_railgun'];
-            if ($ship['dmg_plasma'] > 0) $dmg[$hullType.".plasma"] += $ship['dmg_plasma'];
-        }
-        $maxDmg = max($dmg);
-        if ($maxDmg > 0) {
-            $maxDmgWpnType = array_search(max($dmg), $dmg);
-            $preferedRange = collect(config('rules.modules'))->filter(function($mod) use ($maxDmgWpnType) {
-                return $mod['hullType'] === explode('.', $maxDmgWpnType)[0]
-                    && $mod['techType'] === explode('.', $maxDmgWpnType)[1];
-            })->first()['range'];
-        }
+        $f = new FleetService;
         return [
             'id' => $fleet->id,
             'player_id' => $fleet->player_id,
             'name' => '['.$fleet->player->ticker.'] '.$fleet->name,
             'col' => $col,
-            'prefered_range' => $preferedRange,
+            'prefered_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships)
         ];
     }
