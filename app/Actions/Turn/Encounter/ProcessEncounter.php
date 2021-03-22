@@ -19,7 +19,7 @@ class ProcessEncounter
     private function moveFleets (Collection $encounter, string $turnSlug, int $turn)
     {
         Log::channel('encounter')
-            ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: MOVE FLEETS.");
+            ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
 
         //foreach($encounter['attacker'] as $fleet) {
 //

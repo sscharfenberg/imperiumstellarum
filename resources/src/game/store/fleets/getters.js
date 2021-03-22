@@ -39,6 +39,13 @@ export default {
             a.name.localeCompare(b.name, "en", { numeric: true })
         ) || [],
 
+    foreignFleetsSortedByStarName: (state) =>
+        state.foreignFleets.sort((a, b) =>
+            a.starName.localeCompare(b.starName, "en", {
+                numeric: true,
+            })
+        ) || [],
+
     // get ships by fleet id
     shipsByFleetId: (state) => (fleetId) =>
         state.ships.filter((ship) => ship.fleetId === fleetId) || [],

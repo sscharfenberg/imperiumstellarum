@@ -9,6 +9,7 @@ import FleetShipSummary from "Components/Fleet/FleetShipSummary";
 import Icon from "Components/Icon/Icon";
 import ShowShipHolder from "../FleetDetails/ShowShipHolder";
 import ShowShipHolderLocation from "./ShowShipHolderLocation";
+import ShowFleetRange from "Pages/Fleets/ListShipHolders/ShowFleetRange";
 import ShowShipyardStatus from "./ShowShipyardStatus";
 export default {
     name: "ListShipHolders",
@@ -18,6 +19,7 @@ export default {
         Icon,
         ShowShipHolder,
         ShowShipHolderLocation,
+        ShowFleetRange,
         ShowShipyardStatus,
     },
     setup() {
@@ -73,6 +75,10 @@ export default {
                 v-if="holder.planetName"
                 :shipyard-id="holder.id"
             />
+            <show-fleet-range
+                v-if="holder.preferredRange && holderShips(holder.id).length"
+                :range="holder.preferredRange"
+            />
             <show-ship-holder-location :holder-id="holder.id" />
         </template>
         <show-ship-holder :holder-id="holder.id" />
@@ -107,6 +113,16 @@ export default {
 
     @include respond-to("medium") {
         margin-left: 16px;
+    }
+}
+
+.range {
+    padding: 5px;
+
+    line-height: 1;
+
+    @include themed() {
+        background: t("g-bunker");
     }
 }
 </style>

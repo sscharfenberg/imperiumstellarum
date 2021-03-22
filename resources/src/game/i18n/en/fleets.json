@@ -51,6 +51,7 @@
                 "noFtl": "Fleet is incapable of FTL."
             }
         },
+        "range": "Preferred range of fleet: {num}",
         "shipyard": {
             "construction": "Shipyard is in construction, will be ready in {turns} turns.",
             "ready": "Shipyard is ready to build ships."
@@ -135,5 +136,8 @@
             "placeholder": "Ticker",
             "submit": "Find Empire"
         }
+    },
+    "other": {
+        "headline": "Foreign fleets currently in scan range"
     }
 }

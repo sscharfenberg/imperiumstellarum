@@ -51,6 +51,7 @@
                 "noFtl": "Flotte ist nicht fähig FTL Sprünge durchzuführen."
             }
         },
+        "range": "Bevorzugte Reichweite der Flotte: {num}",
         "shipyard": {
             "construction": "Werft ist im bau und wird in {turns} Runden bereit stehen.",
             "ready": "Werft ist bereitsSchiffe zu bauen."
@@ -135,5 +136,8 @@
             "placeholder": "Ticker",
             "submit": "Imperium finden"
         }
+    },
+    "other": {
+        "headline": "Fremde Flotten in Ortungsreichweite"
     }
 }

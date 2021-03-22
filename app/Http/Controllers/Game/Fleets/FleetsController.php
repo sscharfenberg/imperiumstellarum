@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Game\Fleets;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\Game\UsesTotalPopulation;
 use App\Models\Player;
+use App\Models\PlayerRelation;
 use App\Models\Star;
 use App\Services\ApiService;
+use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -26,6 +28,7 @@ class FleetsController extends Controller
     {
         $a = new ApiService;
         $f = new FormatApiResponseService;
+        $fl = new FleetService;
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $player->game_id;
         $defaultApiData = $a->defaultData($request);
@@ -47,6 +50,7 @@ class FleetsController extends Controller
             ->concat($fleetStars)
             ->unique('id')
             ->values(); // without values, the array keys are not correctly numbered, resulting in js confusion.
+        $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
 
         $returnData = [
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
@@ -68,6 +72,9 @@ class FleetsController extends Controller
                 return $f->formatPlayer($player);
             }),
             'maxFleets' => round($numMaxFleets),
+            'foreignFleets' => $fl->getForeignFleets($player)->map(function ($fleet) use ($f, $player, $gameRelations) {
+                return $f->formatForeignFleet($player, $fleet, $gameRelations);
+            })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
 

@@ -22,6 +22,7 @@ use App\Models\Harvester;
 use App\Models\Shipyard;
 use App\Models\TechLevel;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class FormatApiResponseService {
 
@@ -159,6 +160,7 @@ class FormatApiResponseService {
     {
         $planet = Planet::find($shipyard->planet_id);
         $star = Star::find($planet->star_id);
+        $f = new FleetService;
         return [
             'id' => $shipyard->id,
             'planetId' => $shipyard->planet_id,
@@ -166,7 +168,8 @@ class FormatApiResponseService {
             'planetName' => $star->name." - ".$this->convertLatinToRoman($planet->orbital_index),
             'type' => $shipyard->type,
             'untilComplete' => $shipyard->until_complete,
-            'population' => $planet->population
+            'population' => $planet->population,
+            'preferredRange' => $f->getFleetPreferredRange($shipyard->ships->toArray())
         ];
     }
 
@@ -273,12 +276,48 @@ class FormatApiResponseService {
     {
         $ftl = count($fleet->ships->where('ftl', false)) === 0
             && count($fleet->ships) > 0;
+        $f = new FleetService;
         return [
             'id' => $fleet->id,
             'playerId' => $fleet->player_id,
             'starId' => $fleet->star_id,
             'name' => $fleet->name,
-            'ftl' => $ftl
+            'ftl' => $ftl,
+            'preferredRange' => $f->getFleetPreferredRange($fleet->ships->toArray())
+        ];
+    }
+
+    /**
+     * @function format api response for a foreign fleet.
+     * The response needs to be different since the amount of information needs to be different (ftl, preferredRange)
+     * @param Fleet $fleet
+     * @param Player $player
+     * @param Collection $gameRelations
+     * @return array
+     */
+    public function formatForeignFleet (Player $player, Fleet $fleet, Collection $gameRelations): array
+    {
+        $p = new PlayerRelationService;
+        $star = $fleet->star;
+        $foreignPlayer = $fleet->player;
+        return [
+            'id' => $fleet->id,
+            'playerId' => $fleet->player_id,
+            'playerTicker' => $foreignPlayer->ticker,
+            'starId' => $fleet->star_id,
+            'name' => $fleet->name,
+            'starName' => $star->name,
+            'starX' => $star->coord_x,
+            'starY' => $star->coord_y,
+            'playerRelation' => $p->getEffectiveRelation($player, $foreignPlayer, $gameRelations),
+            // TODO: count the number of ships!
+            'numShips' => [
+                'ark' => 0,
+                'small' => 0,
+                'medium' => 0,
+                'large' => 0,
+                'xlarge' => 0
+            ]
         ];
     }
 

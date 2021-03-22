@@ -41,6 +41,10 @@ export default {
         const setShipView = (val) => {
             store.commit("fleets/SET_SHIP_VIEW", val);
         };
+        const tmpForeignFleets = computed(
+            () => store.getters["fleets/foreignFleetsSortedByStarName"]
+        );
+
         onBeforeMount(() => {
             store.dispatch("fleets/GET_GAME_DATA");
         });
@@ -54,6 +58,7 @@ export default {
             shipView,
             setShipView,
             requesting,
+            tmpForeignFleets,
         };
     },
 };
@@ -102,6 +107,14 @@ export default {
             </popover>
         </template>
         <list-ship-holders />
+    </area-section>
+    <area-section
+        :headline="$t('fleets.other.headline')"
+        :requesting="requesting"
+    >
+        <div v-for="fleet in tmpForeignFleets" :key="fleet.id">
+            {{ fleet }}
+        </div>
     </area-section>
 </template>
 

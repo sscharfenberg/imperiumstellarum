@@ -5,6 +5,8 @@ use App\Models\Fleet;
 use App\Models\Player;
 use App\Models\Star;
 use Exception;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 class FleetService {
 
@@ -23,6 +25,39 @@ class FleetService {
             pow($end->coord_y - $start->coord_y, 2)
         );
         return (int)ceil($distance * $turnsPerDistance);
+    }
+
+
+    public function getForeignFleets (Player $player): Collection
+    {
+        // IDs of player owned stars
+        $playerStarIds = Star::where('game_id', '=', $player->game_id)
+            ->where('player_id', '=', $player->id)
+            ->get()
+            ->map(function($star) {
+                return $star->id;
+            })->toArray();
+        // IDs of stars where one of the player's fleets is located.
+        $fleetStarIds = Fleet::where('game_id', '=', $player->game_id)
+            ->where('player_id', '=', $player->id)
+            ->whereNotNull('star_id')
+            ->whereNotIn('star_id', $playerStarIds)
+            ->get()
+            ->map(function($fleet){
+                return $fleet->star_id;
+            });
+        // find the 'foreign' fleets
+        return Fleet::where('game_id', '=', $player->game_id)
+            // foreign fleets at the player's stars
+            ->where('player_id', '!=', $player->id)
+            ->whereIn('star_id', $playerStarIds)
+            // foreign fleets at foreign stars that have at least one of the player's fleets present
+            ->orWhere(function($query) use ($player, $fleetStarIds) {
+                $query->where('game_id', '=', $player->game_id)
+                    ->where('player_id', '!=', $player->id)
+                    ->whereIn('star_id', $fleetStarIds);
+            })
+            ->get();
     }
 
     /**
