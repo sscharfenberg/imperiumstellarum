@@ -138,6 +138,10 @@
         }
     },
     "other": {
-        "headline": "Foreign fleets currently in scan range"
+        "headline": "Foreign fleets currently in scan range",
+        "ownStar": "Fleet is located at one of our stars!",
+        "summary": "Composition of foreign fleet",
+        "starName": "Star name",
+        "starLocation": "Location of the star where the fleet is located"
     }
 }

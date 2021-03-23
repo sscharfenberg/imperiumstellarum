@@ -8,6 +8,11 @@
         "2": "Verbündet",
         "9": "Nicht gesetzt"
     },
+    "empireStatus": {
+        "0": "Feindliches Imperium",
+        "1": "Neutrales Imperium",
+        "2": "Verbündetes Imperium"
+    },
     "list": {
         "headline": "Diplomatische Beziehungen zu anderen Imperien",
         "filter": {

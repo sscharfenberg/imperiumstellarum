@@ -138,6 +138,10 @@
         }
     },
     "other": {
-        "headline": "Fremde Flotten in Ortungsreichweite"
+        "headline": "Fremde Flotten in Ortungsreichweite",
+        "ownStar": "Flotte befindet sich in einem unserer Systeme!",
+        "summary": "Zusammensetzung der fremden Flotte",
+        "starName": "Name des Sternensystems",
+        "starLocation": "Koordinaten des Sterns"
     }
 }

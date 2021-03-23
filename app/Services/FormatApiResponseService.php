@@ -300,23 +300,24 @@ class FormatApiResponseService {
         $p = new PlayerRelationService;
         $star = $fleet->star;
         $foreignPlayer = $fleet->player;
+        $ships = $fleet->ships;
         return [
             'id' => $fleet->id,
             'playerId' => $fleet->player_id,
             'playerTicker' => $foreignPlayer->ticker,
+            'playerColour' => $foreignPlayer->colour,
             'starId' => $fleet->star_id,
             'name' => $fleet->name,
             'starName' => $star->name,
-            'starX' => $star->coord_x,
-            'starY' => $star->coord_y,
+            'coordX' => $star->coord_x,
+            'coordY' => $star->coord_y,
             'playerRelation' => $p->getEffectiveRelation($player, $foreignPlayer, $gameRelations),
-            // TODO: count the number of ships!
             'numShips' => [
-                'ark' => 0,
-                'small' => 0,
-                'medium' => 0,
-                'large' => 0,
-                'xlarge' => 0
+                'ark' => $ships->filter(function($ship) { return $ship->hull_type === 'ark'; })->count(),
+                'small' => $ships->filter(function($ship) { return $ship->hull_type === 'small'; })->count(),
+                'medium' => $ships->filter(function($ship) { return $ship->hull_type === 'medium'; })->count(),
+                'large' => $ships->filter(function($ship) { return $ship->hull_type === 'large'; })->count(),
+                'xlarge' => $ships->filter(function($ship) { return $ship->hull_type === 'xlarge'; })->count()
             ]
         ];
     }

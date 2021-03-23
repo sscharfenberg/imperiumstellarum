@@ -8,6 +8,11 @@
         "2": "Allied",
         "9": "Not set"
     },
+    "empireStatus": {
+        "0": "Hostile empire",
+        "1": "Neutral Empire",
+        "2": "Allied Empire"
+    },
     "list": {
         "headline": "Diplomatic relations to other empires",
         "filter": {

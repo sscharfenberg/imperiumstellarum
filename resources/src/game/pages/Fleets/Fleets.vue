@@ -8,6 +8,7 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import FleetsSummary from "./FleetsSummary";
 import GameButton from "Components/Button/GameButton";
 import GameHeader from "Components/Header/GameHeader";
+import ListForeignFleets from "./ForeignFleets/ListForeignFleets";
 import ListShipHolders from "./ListShipHolders/ListShipHolders";
 import NewFleetModal from "./New/NewFleetModal";
 import Popover from "Components/Popover/Popover";
@@ -19,6 +20,7 @@ export default {
         GameButton,
         GameHeader,
         ListShipHolders,
+        ListForeignFleets,
         NewFleetModal,
         Popover,
     },
@@ -41,7 +43,7 @@ export default {
         const setShipView = (val) => {
             store.commit("fleets/SET_SHIP_VIEW", val);
         };
-        const tmpForeignFleets = computed(
+        const foreignFleets = computed(
             () => store.getters["fleets/foreignFleetsSortedByStarName"]
         );
 
@@ -58,7 +60,7 @@ export default {
             shipView,
             setShipView,
             requesting,
-            tmpForeignFleets,
+            foreignFleets,
         };
     },
 };
@@ -109,12 +111,11 @@ export default {
         <list-ship-holders />
     </area-section>
     <area-section
+        v-if="foreignFleets.length"
         :headline="$t('fleets.other.headline')"
         :requesting="requesting"
     >
-        <div v-for="fleet in tmpForeignFleets" :key="fleet.id">
-            {{ fleet }}
-        </div>
+        <list-foreign-fleets :fleets="foreignFleets" />
     </area-section>
 </template>
 
