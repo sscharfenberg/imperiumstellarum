@@ -40,6 +40,13 @@ export default {
                 .includes(starId); // does the array of IDs contain the star in question?
         };
 
+        /**
+         * @function get a fleets hullTypes from xhr response. Since the xhr is an object with the number of
+         * ships for each hullType, we can't use the FleetSummary Component (Components/Fleet/FleetSummary)
+         * The xhr is different since we don't want to send information to the client that is not displayed.
+         * @param {Object} ships
+         * @returns {Array}
+         */
         const fleetHullTypes = (ships) =>
             Object.keys(ships)
                 .filter((ht) => ships[ht] !== 0)

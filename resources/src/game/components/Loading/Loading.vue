@@ -43,14 +43,14 @@ $duration: 1.4s;
     //animation: rotator $duration linear infinite;
 }
 
-@keyframes rotator {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(270deg);
-    }
-}
+//@keyframes rotator {
+//    0% {
+//        transform: rotate(0deg);
+//    }
+//    100% {
+//        transform: rotate(270deg);
+//    }
+//}
 
 .path {
     transform-origin: center;
@@ -58,11 +58,15 @@ $duration: 1.4s;
     stroke-dasharray: $offset;
     stroke-dashoffset: 0;
 
-    animation: dash $duration ease-in-out infinite,
-        colors ($duration * 4) ease-in-out infinite;
+    animation: loading-dash $duration ease-in-out infinite,
+        loading-colors ($duration * 4) ease-in-out infinite;
 }
+</style>
 
-@keyframes colors {
+<style lang="scss">
+$offset: 187;
+
+@keyframes loading-colors {
     0% {
         stroke: #4285f4;
     }
@@ -80,7 +84,7 @@ $duration: 1.4s;
     }
 }
 
-@keyframes dash {
+@keyframes loading-dash {
     0% {
         stroke-dashoffset: $offset;
     }

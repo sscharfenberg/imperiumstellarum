@@ -85,7 +85,9 @@ export default {
         fill: t("g-raven");
     }
 }
+</style>
 
+<style lang="scss">
 @keyframes grid-flash {
     0% {
         opacity: 0;
