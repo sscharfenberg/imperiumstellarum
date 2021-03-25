@@ -34,8 +34,9 @@
         "ownerTicker": "Owner Ticker",
         "numPlanets": "Number of planets",
         "population": "Total Population",
-        "fleetsHereLabel": "Fleets at this star",
-        "fleetsMovingHere": "Fleet en route to this star | Fleets en route to this star",
+        "fleetsHereLabel": "Our fleets at this star",
+        "fleetsMovingHere": "Our fleet en route to this star | Our fleets en route to this star",
+        "foreignFleetsLabel": "Foreign Fleets at this star",
         "fleetsLabel": "Click to check fleet on 'Fleets' page",
         "sendHere": {
             "headline": "Move Fleets to this system",

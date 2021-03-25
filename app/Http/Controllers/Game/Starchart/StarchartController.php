@@ -7,6 +7,7 @@ use App\Models\Game;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
+use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
 use App\Services\PlayerRelationService;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,7 @@ class StarchartController extends Controller
         $a = new ApiService;
         $p = new PlayerRelationService;
         $f = new FormatApiResponseService;
+        $fl = new FleetService;
         $defaultApiData = $a->defaultData($request);
 
         $gameId = $request->route('game');
@@ -63,6 +65,9 @@ class StarchartController extends Controller
             'shipyards' => $player->shipyards->map(function ($shipyard) use ($f) {
                 return $f->formatShipyard($shipyard);
             }),
+            'foreignFleets' => $fl->getForeignFleets($player)->map(function ($fleet) use ($f, $player, $gameRelations) {
+                return $f->formatForeignFleet($player, $fleet, $gameRelations);
+            })
         ];
         return response()->json(array_merge($defaultApiData, $returnData));
     }

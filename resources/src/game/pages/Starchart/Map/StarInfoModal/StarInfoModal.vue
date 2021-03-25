@@ -8,6 +8,7 @@ import GameButton from "Components/Button/GameButton";
 import Loading from "Components/Loading/Loading";
 import Modal from "Components/Modal/Modal";
 import StarInfoModalFleetsAtStar from "./StarInfoModalFleetsAtStar";
+import StarInfoModalForeignFleets from "Pages/Starchart/Map/StarInfoModal/StarInfoModalForeignFleets";
 import StarInfoModalMovingFleets from "./StarInfoModalMovingFleets";
 import StarInfoModalSendFleetsHere from "./StarInfoModalSendFleetsHere";
 export default {
@@ -21,6 +22,7 @@ export default {
         Loading,
         Modal,
         StarInfoModalFleetsAtStar,
+        StarInfoModalForeignFleets,
         StarInfoModalMovingFleets,
         StarInfoModalSendFleetsHere,
     },
@@ -167,9 +169,15 @@ export default {
                 <li class="text-left" v-if="population">{{ population }}</li>
 
                 <star-info-modal-fleets-at-star :star-id="starId" />
+
                 <star-info-modal-moving-fleets :star-id="starId" />
+
+                <star-info-modal-foreign-fleets :star-id="starId" />
             </ul>
-            <star-info-modal-send-fleets-here :star-id="starId" />
+            <star-info-modal-send-fleets-here
+                v-if="availableFleets"
+                :star-id="starId"
+            />
             <div class="scanning" v-if="requesting">
                 <loading :size="32" />
                 <span>Scanning Star...</span>

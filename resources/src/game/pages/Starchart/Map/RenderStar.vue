@@ -23,6 +23,9 @@ export default {
         hasShipyard: Boolean,
         transitFleets: Number,
         relationStatus: Number,
+        foreignFleetsHostile: Number,
+        foreignFleetsAllied: Number,
+        foreignFleetsNeutral: Number,
     },
     components: { Icon, StarInfoModal },
     setup(props) {
@@ -82,6 +85,21 @@ export default {
         <span class="shipyard" v-if="hasShipyard && zoom > 2">
             <icon name="shipyards" />
         </span>
+        <span
+            v-if="foreignFleetsHostile > 0 && zoom > 2"
+            class="foreign-fleets foreign-fleets--hostile"
+            >{{ foreignFleetsHostile }}</span
+        >
+        <span
+            v-if="foreignFleetsAllied > 0 && zoom > 2"
+            class="foreign-fleets foreign-fleets--allied"
+            >{{ foreignFleetsAllied }}</span
+        >
+        <span
+            v-if="foreignFleetsNeutral > 0 && zoom > 2"
+            class="foreign-fleets foreign-fleets--neutral"
+            >{{ foreignFleetsNeutral }}</span
+        >
         <span class="transit" v-if="transitFleets > 0 && zoom > 2">
             <span v-if="transitFleets > 1">{{ transitFleets }}</span>
             <icon name="transit" :style="{ '--fleetColour': playerColour }" />
@@ -252,6 +270,50 @@ export default {
     &.neutral {
         @include themed() {
             background-color: t("s-building");
+        }
+    }
+}
+
+.foreign-fleets {
+    position: absolute;
+
+    padding: calc(var(--cssTileSize) / 20) calc(var(--cssTileSize) / 15);
+
+    font-size: calc(var(--cssTileSize) / 6);
+
+    &--hostile {
+        top: 50%;
+        right: 1px;
+
+        transform: translate3d(0, -50%, 0);
+
+        @include themed() {
+            background: t("s-error");
+            color: t("g-white");
+        }
+    }
+
+    &--allied {
+        top: 50%;
+        left: 1px;
+
+        transform: translate3d(0, -50%, 0);
+
+        @include themed() {
+            background: t("s-success");
+            color: t("g-white");
+        }
+    }
+
+    &--neutral {
+        top: 50%;
+        left: 50%;
+
+        transform: translate3d(-50%, -50%, 0);
+
+        @include themed() {
+            background: rgba(t("g-sunken"), 0.9);
+            color: t("g-white");
         }
     }
 }

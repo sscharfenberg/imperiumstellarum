@@ -17,6 +17,7 @@ export default {
     relations: [],
     players: [],
     fleets: [],
+    foreignFleets: [],
     fleetMovements: [],
     ships: [],
     cameraX: savedState.cameraX || 0,

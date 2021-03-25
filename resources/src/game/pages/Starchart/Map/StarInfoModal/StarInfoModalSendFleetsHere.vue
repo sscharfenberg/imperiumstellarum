@@ -4,15 +4,15 @@
  *****************************************************************************/
 import { computed, onBeforeMount, ref } from "vue";
 import { useStore } from "vuex";
+import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import FleetShipSummary from "Components/Fleet/FleetShipSummary";
 import Icon from "Components/Icon/Icon";
-import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
     name: "StarInfoModalSendFleetsHere",
     props: {
         starId: String,
     },
-    components: { SubHeadline, Icon, FleetShipSummary },
+    components: { CollapsibleItem, Icon, FleetShipSummary },
     setup(props) {
         const store = useStore();
         const availableFleets = computed(() =>
@@ -60,8 +60,14 @@ export default {
 </script>
 
 <template>
-    <div v-if="availableFleets.length" class="send-here">
-        <sub-headline :headline="$t('starchart.star.sendHere.headline')" />
+    <collapsible-item
+        class="send-here"
+        :collapsible-id="`starInfoModal-${starId}`"
+        :alt-bg="true"
+    >
+        <template v-slot:topic>{{
+            $t("starchart.star.sendHere.headline")
+        }}</template>
         <button
             class="send-here__fleet"
             :class="{ active: selectedMoveId === fleet.id }"
@@ -96,7 +102,7 @@ export default {
                 </span>
             </span>
         </button>
-    </div>
+    </collapsible-item>
 </template>
 
 <style lang="scss" scoped>

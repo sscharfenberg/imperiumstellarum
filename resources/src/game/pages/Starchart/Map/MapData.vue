@@ -52,6 +52,22 @@ export default {
             }
         };
 
+        // number of foreign fleets with relation
+        const foreignFleetsHostile = (starId) =>
+            store.state.starchart.foreignFleets.filter(
+                (f) => f.starId === starId && f.playerRelation === 0
+            ).length;
+
+        const foreignFleetsAllied = (starId) =>
+            store.state.starchart.foreignFleets.filter(
+                (f) => f.starId === starId && f.playerRelation === 2
+            ).length;
+
+        const foreignFleetsNeutral = (starId) =>
+            store.state.starchart.foreignFleets.filter(
+                (f) => f.starId === starId && f.playerRelation === 1
+            ).length;
+
         // css values
         const cssTileSize = computed(() => availableTilePixels.value + "px");
         const bgPos = computed(() => {
@@ -96,6 +112,9 @@ export default {
             numStarFleets,
             hasShipyard,
             starFleetTransit,
+            foreignFleetsHostile,
+            foreignFleetsAllied,
+            foreignFleetsNeutral,
         };
     },
 };
@@ -125,6 +144,9 @@ export default {
             :has-shipyard="!!hasShipyard(star.id)"
             :transit-fleets="starFleetTransit(star.id)"
             :relation-status="getEmpireRelation(star.ownerId)"
+            :foreign-fleets-hostile="foreignFleetsHostile(star.id)"
+            :foreign-fleets-allied="foreignFleetsAllied(star.id)"
+            :foreign-fleets-neutral="foreignFleetsNeutral(star.id)"
         />
     </div>
 </template>

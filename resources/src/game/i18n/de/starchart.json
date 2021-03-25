@@ -34,8 +34,9 @@
         "ownerTicker": "Ticker des Besitzers",
         "numPlanets": "Anzahl Planeten",
         "population": "Gesamt Bevölkerung",
-        "fleetsHereLabel": "Flotten in diesem System",
-        "fleetsMovingHere": "Flotte unterwegs in dieses System | Flotten unterwegs in dieses System",
+        "fleetsHereLabel": "Eigene Flotten in diesem System",
+        "fleetsMovingHere": "Eigene Flotte unterwegs in dieses System | Eigene Flotten unterwegs in dieses System",
+        "foreignFleetsLabel": "Fremde Flotten in diesem System",
         "fleetsLabel": "Klicken um diese Flotte auf der 'Flotten' Seite zu sehen.",
         "sendHere": {
             "headline": "Flotte zu diesem System bewegen",

@@ -64,6 +64,15 @@ export default {
     },
 
     /**
+     * @function SET foreign fleets
+     * @param {Object} state - vuex module "starchart" state
+     * @param {Array} payload
+     */
+    SET_FOREIGN_FLEETS: (state, payload) => {
+        state.foreignFleets = payload;
+    },
+
+    /**
      * @function SET player fleet ships
      * @param {Object} state - vuex module "starchart" state
      * @param {Array} payload
