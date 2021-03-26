@@ -63,7 +63,7 @@ class FindEncounters
             'player_id' => $fleet->player_id,
             'name' => '['.$fleet->player->ticker.'] '.$fleet->name,
             'col' => $col,
-            'prefered_range' => $f->getFleetPreferredRange($ships),
+            'preferred_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships)
         ];
     }
@@ -77,12 +77,14 @@ class FindEncounters
      */
     private function formatShipyard (Shipyard $shipyard, array $ships, int $col): array
     {
+        $f = new FleetService;
         return [
             'id' => $shipyard->id,
             'player_id' => $shipyard->player_id,
             'starName' => $shipyard->planet->star->name,
             'planetOrbitalIndex' => $shipyard->planet->orbital_index,
             'col' => $col,
+            'preferred_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships)
         ];
     }

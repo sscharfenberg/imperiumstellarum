@@ -58,6 +58,14 @@ export default {
             <icon class="legend__icon legend__icon--no" name="cancel" />
             {{ $t("starchart.map.legend.starDetailIcons.no") }}
         </li>
+        <li class="legend__item" v-if="zoom > 2">
+            <icon class="legend__icon legend__icon--yes" name="done" />
+            {{ $t("starchart.map.legend.foreignFleets.yes") }}
+        </li>
+        <li class="legend__item" v-if="zoom <= 2">
+            <icon class="legend__icon legend__icon--no" name="cancel" />
+            {{ $t("starchart.map.legend.foreignFleets.no") }}
+        </li>
         <li class="legend__item">
             <icon class="legend__icon legend__icon--yes" name="done" />
             {{ $t("starchart.map.legend.playerRelation") }}

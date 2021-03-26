@@ -11,12 +11,16 @@
         "label": "Sternenkarte",
         "legend": {
             "starDetailIcons": {
-                "yes": "Flotten, Flottenbewegungen und Werften werden angezeigt.",
-                "no": "Flotten, Flottenbewegungen und Werften werden NICHT angezeigt."
+                "yes": "Eigene Flotten, Flottenbewegungen und Werften werden angezeigt.",
+                "no": "Eigene Flotten, Flottenbewegungen und Werften werden NICHT angezeigt."
             },
             "zoomLevel": "Zoom Stufe",
             "coords": "Karte zentriert auf (gerundet)",
-            "playerRelation": "Diplomatische Beziehung zum Besitzer wird angezeigt (Punkt links unten)"
+            "playerRelation": "Diplomatische Beziehung zum Besitzer wird angezeigt (Punkt links unten)",
+            "foreignFleets": {
+                "yes": "Fremde Flotten in Ortungsreichweite werden angezeigt",
+                "no": "Fremde Flotten werden NICHT angezeigt"
+            }
         }
     },
     "star": {

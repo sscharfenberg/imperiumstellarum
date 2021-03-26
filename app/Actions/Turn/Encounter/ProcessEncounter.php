@@ -11,22 +11,74 @@ class ProcessEncounter
 {
 
     /**
+     * @function calculate the new column of a fleet
+     * calculate the direction that the fleet wants to move: away from oppenents or closer to opponents
+     * then compare acceleration with one of the closest opponent fleets
+     * if fleet has better acceleration, move in preferred direction.
+     * @param Collection $opponents
+     * @param array $fleet
+     * @param int $dir - direction: [-1,1]
+     * @return int
+     */
+    private function getNewColumn (Collection $opponents, array $fleet, int $dir): int
+    {
+        $newCol = $fleet['col'];
+        // fleet does not want to change col, default preferredColumn === col
+        $preferredDirection = 0;
+        // find column of closest oppenent
+        $colOpponents = $dir === 1 ? $opponents->max('col') : $opponents->min('col');
+        // calculate preferred column of fleet
+        $preferredColumn = $colOpponents + ($fleet['preferred_range'] * $dir);
+        // fleet wants to move by +1
+        if ($preferredColumn > $fleet['col']) $preferredDirection = +1;
+        // fleet wants to move by -1
+        if ($preferredColumn < $fleet['col']) $preferredDirection = -1;
+        echo "current col=".$fleet['col']." opp col=".$colOpponents." - range=".$fleet['preferred_range']." - preferredColumn: ".$preferredColumn;
+        echo " acc ".$fleet['ships']->min('acceleration')."\n";
+        // get a random oppenent in the column closest to the fleet.
+        $closestOpponent = $opponents->where('col', $colOpponents)->random();
+        $oppAcceleration = $closestOpponent['ships']->min('acceleration');
+        if ($fleet['ships']->min('acceleration') >= $oppAcceleration) {
+            $newCol = $fleet['col'] + $preferredDirection;
+            echo "fleet has better acc than a random closest opp, moving by ".$preferredDirection."\n";
+        }
+        return $newCol;
+    }
+
+
+
+    /**
      * @function move fleets (changing row)
      * @param Collection $encounter
      * @param string $turnSlug
      * @param int $turn
+     * @return Collection
      */
-    private function moveFleets (Collection $encounter, string $turnSlug, int $turn)
+    private function moveFleets (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
 
-        //foreach($encounter['attacker'] as $fleet) {
-//
-        //    dd($fleet['ships']);
-        //}
-        // find out which distance the fleet wants to be at
-        // move as far as possible to this column
+        echo "\ndefender\n";
+        $encounter['defender'] = $encounter['defender']->map(function($fleet) use ($encounter) {
+            $newColumn = $this->getNewColumn($encounter['attacker'], $fleet, -1);
+            $name = isset($fleet['name']) ? $fleet['name'] : "shipyard ".$fleet['starName'];
+            echo "Fleet $name new column: ".$newColumn."\n";
+            $fleet['col'] = $newColumn;
+            return $fleet;
+        });
+
+        echo "\nattacker\n";
+        $encounter['attacker'] = $encounter['attacker']->map(function($fleet) use ($encounter) {
+            $newColumn = $this->getNewColumn($encounter['defender'], $fleet, 1);
+            echo "Fleet ".$fleet['name']." new column: ".$newColumn."\n";
+            $fleet['col'] = $newColumn;
+            return $fleet;
+        });
+
+        echo "\n\n";
+
+        return $encounter;
     }
 
 
@@ -40,7 +92,7 @@ class ProcessEncounter
                 ->notice("#".$encounter['id']." start processing turn $turn.");
             echo "encounter turn $turn\n";
             // 1) Move Fleets
-            $this->moveFleets($encounter, $turnSlug, $turn);
+            $encounter = $this->moveFleets($encounter, $turnSlug, $turn);
             // 2) Select targets for ships
             // 3) Assign damage to targets
             // 4) Check for destroyed ships and remove them

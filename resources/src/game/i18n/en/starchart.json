@@ -16,7 +16,11 @@
             },
             "zoomLevel": "Zoom level",
             "coords": "Map coordinates centered on (rounded)",
-            "playerRelation": "Diplomatic relation to owner is shown (dot bottom left)"
+            "playerRelation": "Diplomatic relation to owner is shown (dot bottom left)",
+            "foreignFleets": {
+                "yes": "Foreign fleets in scan range are shown",
+                "no": "Foreign fleets are NOT shown"
+            }
         }
     },
     "star": {
