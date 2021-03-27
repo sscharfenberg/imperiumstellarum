@@ -4,7 +4,6 @@ namespace App\Actions\Turn\Encounter;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use App\Models\Game;
 use Exception;
 
 class ProcessEncounter
@@ -35,13 +34,16 @@ class ProcessEncounter
         if ($preferredColumn < $fleet['col']) $preferredDirection = -1;
         echo "current col=".$fleet['col']." opp col=".$colOpponents." - range=".$fleet['preferred_range']." - preferredColumn: ".$preferredColumn;
         echo " acc ".$fleet['ships']->min('acceleration')."\n";
-        // get a random oppenent in the column closest to the fleet.
+        // determine the closest opponent. if there is more than one, choose a random one.
         $closestOpponent = $opponents->where('col', $colOpponents)->random();
-        $oppAcceleration = $closestOpponent['ships']->min('acceleration');
-        if ($fleet['ships']->min('acceleration') >= $oppAcceleration) {
+        // if acceleration is >= closest opponent, modify $newCol by -1/+1
+        if ($fleet['ships']->min('acceleration') >= $closestOpponent['ships']->min('acceleration')) {
             $newCol = $fleet['col'] + $preferredDirection;
             echo "fleet has better acc than a random closest opp, moving by ".$preferredDirection."\n";
         }
+        // ensure ships don't move out of the arena
+        if ($newCol > 10) $newCol = 10;
+        if ($newCol < 0) $newCol = 0;
         return $newCol;
     }
 
@@ -58,22 +60,36 @@ class ProcessEncounter
     {
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
+        // concat all fleets into one collection and shuffle for random turn order.
+        $allFleets = $encounter['defender']->concat($encounter['attacker'])->shuffle();
+        // get attacker IDs so we can find out if a fleet is attacker or defender.
+        $attackerFleetIds = $encounter['attacker']->map(function($fleet) {
+            return $fleet['id'];
+        })->toArray();
 
-        echo "\ndefender\n";
-        $encounter['defender'] = $encounter['defender']->map(function($fleet) use ($encounter) {
-            $newColumn = $this->getNewColumn($encounter['attacker'], $fleet, -1);
-            $name = isset($fleet['name']) ? $fleet['name'] : "shipyard ".$fleet['starName'];
-            echo "Fleet $name new column: ".$newColumn."\n";
+        // loop over all fleets in the random turn order determined above.
+        $allFleets = $allFleets->map(function ($fleet) use ($encounter, $attackerFleetIds) {
+            // find out if fleet is attacker or defender.
+            $isAttacker = true;
+            if (!in_array($fleet['id'], $attackerFleetIds)) $isAttacker = false;
+            echo $fleet['name']." is ".($isAttacker ? "attacker" : "defender")."\n";
+            // calculate new column.
+            if ($isAttacker) {
+                $newColumn = $this->getNewColumn($encounter['defender'], $fleet, 1);
+            } else {
+                $newColumn = $this->getNewColumn($encounter['attacker'], $fleet, -1);
+            }
             $fleet['col'] = $newColumn;
+            echo "new column = ".$newColumn."\n";
             return $fleet;
         });
 
-        echo "\nattacker\n";
-        $encounter['attacker'] = $encounter['attacker']->map(function($fleet) use ($encounter) {
-            $newColumn = $this->getNewColumn($encounter['defender'], $fleet, 1);
-            echo "Fleet ".$fleet['name']." new column: ".$newColumn."\n";
-            $fleet['col'] = $newColumn;
-            return $fleet;
+        // set $encounter fleets to changed values with new col
+        $encounter['attacker'] = $allFleets->filter(function($fleet) use ($attackerFleetIds) {
+            return in_array($fleet['id'], $attackerFleetIds);
+        });
+        $encounter['defender'] = $allFleets->filter(function($fleet) use ($attackerFleetIds) {
+            return !in_array($fleet['id'], $attackerFleetIds);
         });
 
         echo "\n\n";

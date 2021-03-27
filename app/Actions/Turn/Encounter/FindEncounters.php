@@ -10,6 +10,7 @@ use App\Models\Star;
 use App\Models\Game;
 
 use App\Services\FleetService;
+use App\Services\FormatApiResponseService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -45,6 +46,7 @@ class FindEncounters
             'defender' => collect(),
             'shipyards' => $shipyards,
             'attacker' => collect(),
+            'deadships' => collect()
         ]);
     }
 
@@ -64,7 +66,8 @@ class FindEncounters
             'name' => '['.$fleet->player->ticker.'] '.$fleet->name,
             'col' => $col,
             'preferred_range' => $f->getFleetPreferredRange($ships),
-            'ships' => collect($ships)
+            'ships' => collect($ships),
+            'is_shipyard' => false
         ];
     }
 
@@ -77,15 +80,16 @@ class FindEncounters
      */
     private function formatShipyard (Shipyard $shipyard, array $ships, int $col): array
     {
-        $f = new FleetService;
+        $fl = new FleetService;
+        $f = new FormatApiResponseService;
         return [
             'id' => $shipyard->id,
             'player_id' => $shipyard->player_id,
-            'starName' => $shipyard->planet->star->name,
-            'planetOrbitalIndex' => $shipyard->planet->orbital_index,
+            'name' => '['.$shipyard->player->ticker.'] '.$shipyard->planet->star->name." - ".$f->convertLatinToRoman($shipyard->planet->orbital_index),
             'col' => $col,
-            'preferred_range' => $f->getFleetPreferredRange($ships),
-            'ships' => collect($ships)
+            'preferred_range' => $fl->getFleetPreferredRange($ships),
+            'ships' => collect($ships),
+            'is_shipyard' => true
         ];
     }
 
