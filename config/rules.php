@@ -1322,6 +1322,19 @@ return [
             'min' => 20,
             'max' => 1000
         ]
+    ],
+
+    /**
+    |
+    |--------------------------------------------------------------------------
+    | Rules for encounters (fleet combat)
+    |--------------------------------------------------------------------------
+    |
+    */
+    'encounters' => [
+        // modifies acceleration for fleet movement turns.
+        // 0.4 = acc is multiplied by 0.8 to 1.2
+        'accDeviation' => 0.4
     ]
 
 ];

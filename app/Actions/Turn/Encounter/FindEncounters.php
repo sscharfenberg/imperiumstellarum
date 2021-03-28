@@ -4,7 +4,6 @@ namespace App\Actions\Turn\Encounter;
 
 use App\Models\Fleet;
 use App\Models\PlayerRelation;
-use App\Models\Ship;
 use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Game;
@@ -14,7 +13,6 @@ use App\Services\FormatApiResponseService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use PhpParser\Node\Expr\Array_;
 use Ramsey\Uuid\Uuid;
 
 use App\Services\PlayerRelationService;
@@ -32,8 +30,9 @@ class FindEncounters
      */
     private function createEncounter (Star $star, Collection $shipyards, int $game, int $turn): Collection
     {
+        $encounterId = Uuid::uuid4();
         return collect([
-            'id' => Uuid::uuid4(),
+            'id' => $encounterId,
             'game' => $game,
             'turn' => $turn,
             'game_id' => $star->game_id,
@@ -46,7 +45,9 @@ class FindEncounters
             'defender' => collect(),
             'shipyards' => $shipyards,
             'attacker' => collect(),
-            'deadships' => collect()
+            'deadships' => collect(),
+            'turns' => collect()
+
         ]);
     }
 
