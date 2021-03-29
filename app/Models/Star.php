@@ -42,6 +42,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $fleets_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Shipyard[] $shipyards
  * @property-read int|null $shipyards_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Encounter[] $encounters
+ * @property-read int|null $encounters_count
  */
 class Star extends Model
 {
@@ -131,6 +133,14 @@ class Star extends Model
     public function shipyards()
     {
         return $this->hasMany(Shipyard::class, 'star_id', 'id');
+    }
+
+    /**
+     * Get the encounters for this star
+     */
+    public function encounters()
+    {
+        return $this->hasMany(Encounter::class, 'star_id', 'id');
     }
 
 }

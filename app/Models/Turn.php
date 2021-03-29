@@ -27,8 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Turn whereProcessed($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Turn whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ConstructionContract[] $constructionContracts
- * @property-read int|null $construction_contracts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Encounter[] $encounters
+ * @property-read int|null $encounters_count
  */
 class Turn extends Model
 {
@@ -85,6 +85,14 @@ class Turn extends Model
     public function game()
     {
         return $this->belongsTo('App\Models\Game');
+    }
+
+    /**
+     * Get the encounters for this turn
+     */
+    public function encounters()
+    {
+        return $this->hasMany(Encounter::class, 'turn_id', 'id');
     }
 
 }

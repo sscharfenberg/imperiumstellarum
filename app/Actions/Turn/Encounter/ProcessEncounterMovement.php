@@ -2,14 +2,14 @@
 
 namespace App\Actions\Turn\Encounter;
 
+use App\Models\EncounterTurn;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use App\Actions\Turn\Encounter\UsesTurnLogging;
 
 class ProcessEncounterMovement
 {
 
-    use UsesTurnLogging;
+    use UsesEncounterLogging;
 
     /**
      * @param Collection $opponents
@@ -93,11 +93,12 @@ class ProcessEncounterMovement
      * @function move fleets (changing row)
      * @param Collection $encounter
      * @param string $turnSlug
-     * @param int $turn
+     * @param EncounterTurn $encounterTurn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
+    public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
     {
+        $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
         // concat all fleets into one collection and shuffle for random turn order.
@@ -107,10 +108,8 @@ class ProcessEncounterMovement
             return $fleet['id'];
         })->toArray();
 
-        $log = collect();
-
         // loop over all fleets in the random turn order determined above.
-        $allFleets = $allFleets->map(function ($fleet) use ($encounter, $attackerFleetIds, $turnSlug, $log) {
+        $allFleets = $allFleets->map(function ($fleet) use ($encounter, $attackerFleetIds, $turnSlug) {
             // find out if fleet is attacker or defender.
             $isAttacker = true;
             if (!in_array($fleet['id'], $attackerFleetIds)) $isAttacker = false;
@@ -123,13 +122,6 @@ class ProcessEncounterMovement
             Log::channel('encounter')->info(
                 "$turnSlug #".$encounter['id']." Fleet ".$fleet['name']." movement ".$fleet['col']." => ".$newColumn
             );
-            if ($fleet['col'] !== $newColumn) {
-                $log->push([
-                    'fleet_id' => $fleet['id'],
-                    'old_col' => $fleet['col'],
-                    'new_col' => $newColumn
-                ]);
-            }
             $fleet['col'] = $newColumn;
             return $fleet;
         });
@@ -141,8 +133,6 @@ class ProcessEncounterMovement
         $encounter['defender'] = $allFleets->filter(function($fleet) use ($attackerFleetIds) {
             return !in_array($fleet['id'], $attackerFleetIds);
         });
-        // add to log for this turns movement
-        $encounter['turns'] = $this->logTurnMovement($encounter['turns'], $log, $turn);
 
         return $encounter;
     }

@@ -37,6 +37,8 @@ use App\Http\Traits\UsesUuid;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
  * @property-read int|null $ships_count
  * @property-read \App\Models\Star $star
+ * @property string $star_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereStarId($value)
  */
 class Shipyard extends Model
 {

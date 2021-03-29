@@ -2,12 +2,14 @@
 
 namespace App\Actions\Turn\Encounter;
 
+use App\Models\Encounter;
 use App\Models\Fleet;
 use App\Models\PlayerRelation;
 use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Game;
 
+use App\Models\Turn;
 use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
 use Illuminate\Support\Collection;
@@ -23,17 +25,14 @@ class FindEncounters
     /**
      * @function default encounter model
      * @param Star $star
-     * @param Collection $shipyards
-     * @param int $game
      * @param int $turn
      * @return Collection
      */
-    private function createEncounter (Star $star, Collection $shipyards, int $game, int $turn): Collection
+    private function createEncounter (Star $star, int $turn): Collection
     {
-        $encounterId = Uuid::uuid4();
+        $encounterId = Uuid::uuid4()->toString();
         return collect([
             'id' => $encounterId,
-            'game' => $game,
             'turn' => $turn,
             'game_id' => $star->game_id,
             'star' => [
@@ -43,11 +42,8 @@ class FindEncounters
                 'owner' => $star->owner
             ],
             'defender' => collect(),
-            'shipyards' => $shipyards,
             'attacker' => collect(),
-            'deadships' => collect(),
             'turns' => collect()
-
         ]);
     }
 
@@ -100,18 +96,10 @@ class FindEncounters
      * @param Collection $gameRelations
      * @param Collection $shipyards
      * @param string $turnSlug
-     * @param int $game
      * @param int $turn
      * @return Collection
      */
-    private function getStarEncounter (
-        Star $star,
-        Collection $gameRelations,
-        Collection $shipyards,
-        string $turnSlug,
-        int $game,
-        int $turn
-    ): Collection
+    private function getStarEncounter (Star $star, Collection $gameRelations, Collection $shipyards, string $turnSlug, int $turn): Collection
     {
         $p = new PlayerRelationService;
 
@@ -126,7 +114,7 @@ class FindEncounters
                 "$turnSlug found ".count($star->fleets)
                 ." fleets and ".count($starShipyards)." shipyards in system."
             );
-        $encounter = $this->createEncounter($star, $starShipyards, $game, $turn);
+        $encounter = $this->createEncounter($star, $turn);
 
         // assign fleet ships to attacker/defender
         foreach($star->fleets as $fleet) {
@@ -199,18 +187,17 @@ class FindEncounters
         // main loop - check each star and see if there is an encounter.
         foreach($stars as $star) {
             // create encounter with all necessary data
-            $encounter = $this->getStarEncounter($star, $gameRelations, $shipyards, $turnSlug, $game->number, $turn->number);
+            $encounter = $this->getStarEncounter($star, $gameRelations, $shipyards, $turnSlug, $turn->number);
             // if there are attacking ships, handle encounter processing
             if (count($encounter['attacker']) > 0) {
                 Log::channel('turn')
                     ->notice("$turnSlug found valid encounter ".$encounter['id']." @ [".$star->owner->ticker."] $star->name.");
-                $p->handle($encounter, $turnSlug);
+                $p->handle($encounter, $game, $turnSlug);
             } else {
                 Log::channel('turn')
                     ->notice("$turnSlug no encounter @ [".$star->owner->ticker."] $star->name.");
             }
         }
-
     }
 
 }

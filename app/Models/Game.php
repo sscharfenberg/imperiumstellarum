@@ -76,6 +76,10 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $recipients_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $reports
  * @property-read int|null $reports_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Encounter[] $encounters
+ * @property-read int|null $encounters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterTurn[] $encounterTurns
+ * @property-read int|null $encounter_turns_count
  */
 class Game extends Model
 {
@@ -285,6 +289,22 @@ class Game extends Model
     public function reports()
     {
         return $this->hasMany(MessageReport::class, 'game_id', 'id');
+    }
+
+    /**
+     * Get the encounters for this game
+     */
+    public function encounters()
+    {
+        return $this->hasMany(Encounter::class, 'game_id', 'id');
+    }
+
+    /**
+     * Get the encounters for this game
+     */
+    public function encounterTurns()
+    {
+        return $this->hasMany(EncounterTurn::class, 'game_id', 'id');
     }
 
 }
