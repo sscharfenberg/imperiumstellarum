@@ -21,18 +21,19 @@ const setTheme = (theme) => {
 };
 
 /**
- * get current theme
- * @returns {string} theme
+ * @function toggle theme, initiated by user action (changing of radio buttons)
+ * @param {String} theme
  */
-const getTheme = () => {
-    return document.querySelector("html").dataset.theme;
-};
-
 const onToggle = (theme) => {
-    console.log("setting theme to ", theme);
+    console.log("setting theme to", theme);
     let savedState = getPersistantAppState();
-    for (let i = 0; i < _toggles.length; i++) {
-        _toggles[i].checked = theme === "dark";
+    // get radio buttons with correct values
+    const _radios = document.querySelectorAll(
+        "[data-theme-toggle][value=" + theme + "]"
+    );
+    // set radio buttons to checked
+    for (let _radio of _radios) {
+        _radio.checked = true;
     }
     savedState.theme = theme;
     setTheme(theme);
@@ -49,15 +50,18 @@ export const initThemeToggle = () => {
         savePersistantAppState(defaultState);
     } else {
         setTheme(savedState.theme);
-        // update checkboxes
-        for (let i = 0; i < _toggles.length; i++) {
-            _toggles[i].checked = savedState.theme === "dark";
+        // get radio buttons with correct values
+        const _radios = document.querySelectorAll(
+            "[data-theme-toggle][value=" + savedState.theme + "]"
+        );
+        // set radio buttons to checked
+        for (let _radio of _radios) {
+            _radio.checked = true;
         }
     }
-
     for (let i = 0; i < _toggles.length; i++) {
-        _toggles[i].addEventListener("click", () => {
-            onToggle(getTheme() === "dark" ? "light" : "dark");
+        _toggles[i].addEventListener("change", (ev) => {
+            onToggle(ev.target.value);
         });
     }
 };

@@ -1,0 +1,101 @@
+/**
+ *
+ * app radio component
+ *
+ **/
+
+.app-radio {
+    margin: 0 0 4px 0;
+    flex: 0 0 100%;
+
+    @include respond-to("medium") {
+        margin: 0 0 8px 0;
+    }
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        + label {
+            display: flex;
+            align-items: center;
+
+            &::before {
+                display: inline-block;
+                position: relative;
+                //top: -0.2em;
+
+                width: 24px;
+                height: 24px;
+                margin-right: 8px;
+                flex: 0 0 24px;
+
+                border-radius: 100%;
+
+                text-align: center;
+
+                vertical-align: top;
+
+                content: "";
+
+                transition: all 250ms ease;
+
+                @include respond-to("medium") {
+                    margin-right: 16px;
+                }
+
+                @include themed() {
+                    background-color: t("g-fog");
+                }
+            }
+
+            &:not(:disabled) {
+                cursor: pointer;
+            }
+        }
+
+        &:checked + label::before {
+            @include themed() {
+                background-color: t("g-ebony");
+                box-shadow: inset 0 0 0 4px t("g-mystic");
+            }
+        }
+
+        &:focus + label::before,
+        &:active + label::before {
+            outline: none;
+
+            @include themed() {
+                box-shadow: inset 0 0 0 4px t("b-gorse");
+            }
+        }
+
+        &:disabled + label {
+            cursor: not-allowed;
+
+            &::before {
+                @include themed() {
+                    background: t("g-charcoal");
+                    box-shadow: inset 0 0 0 4px t("g-iron");
+                }
+            }
+        }
+
+        + label:empty::before {
+            margin-right: 0;
+        }
+    }
+
+    // group of radio buttons
+    &__group {
+        margin: 4px 0;
+
+        @include respond-to("medium") {
+            margin: 8px 0;
+        }
+    }
+}

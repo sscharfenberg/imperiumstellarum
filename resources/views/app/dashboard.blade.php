@@ -29,7 +29,21 @@
                         @lang('app.dashboard.theme.label')
                     </div>
                     <div class="input">
-                        <x-switch ref-id="themeToggle" is-checked="1" label-on="dark" label-off="light" data="theme-toggle"/>
+                        <!--<x-switch ref-id="themeToggle" is-checked="1" label-on="dark" label-off="light" data="theme-toggle"/>-->
+                        <div class="app-radio__group">
+                            <div class="app-radio">
+                                <input id="themeToggleBrowser" name="theme" type="radio" value="dark" data-theme-toggle checked />
+                                <label for="themeToggleBrowser">@lang('app.dashboard.theme.dark')</label>
+                            </div>
+                            <div class="app-radio">
+                                <input id="themeToggleDark" name="theme" type="radio" value="light" data-theme-toggle />
+                                <label  for="themeToggleDark">@lang('app.dashboard.theme.light')</label>
+                            </div>
+                            <div class="app-radio">
+                                <input id="themeToggleLight" name="theme" type="radio" value="browser" data-theme-toggle />
+                                <label for="themeToggleLight">@lang('app.dashboard.theme.browser')</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="descr">@lang("app.dashboard.theme.description")</div>
                 </div>

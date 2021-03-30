@@ -73,9 +73,6 @@
                 <x-icon name="github" size="2" /> @lang('app.drawer.github')
             </a>
         </li>
-        <li class="drawer-list__item">
-            <x-switch ref-id="themeToggle" is-checked="1" label-on="D" label-off="L" data="theme-toggle"/>
-        </li>
         <li class="drawer-list__item drawer-list__version">
             v{{ config('app.version') }}
         </li>

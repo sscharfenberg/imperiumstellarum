@@ -157,6 +157,9 @@ return [
             'sectionTitle' => 'Motiv',
             'sectionSubtitle' => 'Wählen Sie zwischen einem dunklen und einem hellen Motiv',
             'label' => 'Wählen Sie Ihr Motiv.',
+            'dark' => 'Dunkles Motiv',
+            'light' => 'Helles Motiv',
+            'browser' => 'Browser / Betriebssystem entscheidet',
             'description' => 'Die Einstellungen für das Motiv werden in Ihrem Browser gespeichert.'
         ],
         'notifications' => [

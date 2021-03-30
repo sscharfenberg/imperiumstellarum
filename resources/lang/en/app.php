@@ -157,6 +157,9 @@ return [
             'sectionTitle' => 'Theme',
             'sectionSubtitle' => 'Choose between dark and light theme',
             'label' => 'Choose your theme',
+            'dark' => 'Dark theme',
+            'light' => 'Light theme',
+            'browser' => 'Browser / OS decides',
             'description' => 'Your theme settings are saved in your browser.'
         ],
         'notifications' => [
