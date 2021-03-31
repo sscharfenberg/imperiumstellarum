@@ -32,4 +32,29 @@ export default {
                 commit("SET_REQUESTING", false);
             });
     },
+
+    /**
+     * @function GET encounter details
+     * @param {Function} commit - Vuex commit
+     * @param {String} payload - encounterId
+     */
+    GET_ENCOUNTER_DETAILS: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .get(`/api/game/${getGameId()}/encounters/${payload}/details`)
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("SET_GAME_META_DATA", response.data, { root: true });
+                    commit("SET_ENCOUNTER_DETAILS", response.data.encounter);
+                    commit("SET_ENCOUNTERS", response.data.encounters);
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                notify(e.response.data.error, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
 };

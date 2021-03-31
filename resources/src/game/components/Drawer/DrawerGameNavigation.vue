@@ -4,14 +4,17 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "DrawerGameNavigation",
     components: { Icon },
     setup() {
         const store = useStore();
+        const route = useRoute();
         const unreadMessages = computed(() => store.state.unreadMessages);
-        return { unreadMessages };
+        const withinEncounters = computed(() => !!route.params.encounterId);
+        return { unreadMessages, withinEncounters };
     },
 };
 </script>
@@ -68,6 +71,7 @@ export default {
                 <router-link
                     :to="{ name: 'Encounters' }"
                     class="drawer-list__link"
+                    :class="{ active: withinEncounters }"
                 >
                     <icon name="encounters" /> {{ $t("encounters.navTitle") }}
                 </router-link>

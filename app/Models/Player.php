@@ -72,6 +72,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $reporters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageReport[] $reportees
  * @property-read int|null $reportees_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterParticipant[] $encounterParticipants
+ * @property-read int|null $encounter_participants_count
  */
 class Player extends Model
 {
@@ -279,6 +281,14 @@ class Player extends Model
     public function reportees()
     {
         return $this->hasMany(MessageReport::class, 'reportee_id', 'id');
+    }
+
+    /**
+     * Get the encounter participants of this player
+     */
+    public function encounterParticipants()
+    {
+        return $this->hasMany(EncounterParticipant::class, 'player_id', 'id');
     }
 
 }

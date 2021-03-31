@@ -80,6 +80,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $encounters_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterTurn[] $encounterTurns
  * @property-read int|null $encounter_turns_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterParticipant[] $encounterParticipants
+ * @property-read int|null $encounter_participants_count
  */
 class Game extends Model
 {
@@ -305,6 +307,14 @@ class Game extends Model
     public function encounterTurns()
     {
         return $this->hasMany(EncounterTurn::class, 'game_id', 'id');
+    }
+
+    /**
+     * Get the encounter participants for this game
+     */
+    public function encounterParticipants()
+    {
+        return $this->hasMany(EncounterParticipant::class, 'game_id', 'id');
     }
 
 }

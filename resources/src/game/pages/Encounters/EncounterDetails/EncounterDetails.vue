@@ -15,7 +15,10 @@ export default {
         const requesting = computed(() => store.state.encounters.requesting);
         const encounterId = route.params.encounterId;
         onBeforeMount(() => {
-            store.dispatch("encounters/GET_GAME_DATA");
+            store.dispatch(
+                "encounters/GET_ENCOUNTER_DETAILS",
+                route.params.encounterId
+            );
         });
         return {
             requesting,

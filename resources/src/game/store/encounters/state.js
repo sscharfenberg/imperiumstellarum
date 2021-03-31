@@ -12,4 +12,5 @@ export default {
     requesting: false,
     // area meta data
     encounters: [],
+    encounterDetails: {},
 };

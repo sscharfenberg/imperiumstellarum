@@ -16,9 +16,18 @@ export default {
     /**
      * @function SET encounters
      * @param {Object} state - vuex module "encounters" state
-     * @param {Boolean} payload
+     * @param {Array} payload
      */
     SET_ENCOUNTERS: (state, payload) => {
         state.encounters = payload;
+    },
+
+    /**
+     * @function SET encounter details
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Object} payload
+     */
+    SET_ENCOUNTER_DETAILS: (state, payload) => {
+        state.encounterDetails = payload;
     },
 };
