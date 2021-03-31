@@ -100,6 +100,12 @@ Route::middleware([
     Route::post('/game/{game}/messages/read',
         [\App\Http\Controllers\Game\Messages\ReadMessageController::class, 'handle']);
 
+    /**
+     * encounters api calls
+     */
+    Route::get('/game/{game}/encounters',
+        [\App\Http\Controllers\Game\Encounters\EncountersController::class, 'gameData']);
+
 });
 
 /**

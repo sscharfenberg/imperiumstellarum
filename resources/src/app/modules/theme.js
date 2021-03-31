@@ -25,7 +25,6 @@ const setTheme = (theme) => {
  * @param {String} theme
  */
 const onToggle = (theme) => {
-    console.log("setting theme to", theme);
     let savedState = getPersistantAppState();
     // get radio buttons with correct values
     const _radios = document.querySelectorAll(

@@ -4,12 +4,11 @@ namespace App\Services;
 
 use App\Models\Blueprint;
 use App\Models\ConstructionContract;
+use App\Models\Encounter;
 use App\Models\Fleet;
 use App\Models\FleetMovement;
 use App\Models\Message;
-use App\Models\MessageRecipient;
 use App\Models\MessageReport;
-use App\Models\MessageSent;
 use App\Models\Player;
 use App\Models\PlayerRelationChange;
 use App\Models\Research;
@@ -21,6 +20,7 @@ use App\Models\PlayerResource;
 use App\Models\Harvester;
 use App\Models\Shipyard;
 use App\Models\TechLevel;
+
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -492,5 +492,18 @@ class FormatApiResponseService {
         ];
     }
 
+    /**
+     * @function format api response for an encounter
+     * @param Encounter $encounter
+     * @return array
+     */
+    public function formatEncounter (Encounter $encounter): array
+    {
+        return [
+            'id' => $encounter->id,
+            'turn' => $encounter->gameTurn->number,
+            'starId' => $encounter->star_id
+        ];
+    }
 
 }

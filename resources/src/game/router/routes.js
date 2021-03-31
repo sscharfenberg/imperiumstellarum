@@ -55,4 +55,20 @@ export default [
                 /* webpackChunkName: "messages" */ "Pages/Messages/Messages"
             ),
     },
+    {
+        path: "/encounters",
+        name: "Encounters",
+        component: () =>
+            import(
+                /* webpackChunkName: "encounters" */ "Pages/Encounters/Encounters"
+            ),
+    },
+    {
+        path: "/encounter/:encounterId/details",
+        name: "EncounterDetails",
+        component: () =>
+            import(
+                /* webpackChunkName: "encounters" */ "Pages/Encounters/EncounterDetails/EncounterDetails"
+            ),
+    },
 ];

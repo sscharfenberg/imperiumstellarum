@@ -11,6 +11,7 @@ import research from "./research.json";
 import shipyards from "./shipyards.json";
 import starchart from "./starchart.json";
 import messages from "./messages.json";
+import encounters from "./encounters.json";
 
 export default {
     common,
@@ -21,4 +22,5 @@ export default {
     shipyards,
     starchart,
     messages,
+    encounters,
 };

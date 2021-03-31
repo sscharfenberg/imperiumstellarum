@@ -9,6 +9,7 @@ import shipyards from "./shipyards";
 import fleets from "./fleets";
 import diplomacy from "./diplomacy";
 import messages from "./messages";
+import encounters from "./encounters";
 import state from "./state";
 import mutations from "./mutations";
 import actions from "./actions";
@@ -30,6 +31,7 @@ const store = createStore({
         fleets,
         diplomacy,
         messages,
+        encounters,
     },
 });
 

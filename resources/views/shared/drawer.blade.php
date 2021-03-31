@@ -46,6 +46,11 @@
                         <x-icon name="research" size="2" /> @lang("game.research.navTitle")
                     </a>
                 </li>
+                <li class="drawer-list__item">
+                    <a href="/game/{{ Auth::user()->selectedGame()->id }}/encounters" class="drawer-list__link{{ Request::is('*/encounters') ? " active" : "" }}">
+                        <x-icon name="encounters" size="2" /> @lang("game.encounters.navTitle")
+                    </a>
+                </li>
                 <li class="drawer-list__item drawer-list__item--both-borders">
                     <a href="/game/{{ Auth::user()->selectedGame()->id }}/diplomacy" class="drawer-list__link{{ Request::is('*/diplomacy') ? " active" : "" }}">
                         <x-icon name="diplomacy" size="2" /> @lang("game.diplomacy.navTitle")

@@ -226,5 +226,9 @@ export default {
         z-index: z("form");
         align-items: center;
     }
+
+    &__amount {
+        color: palette("dark", "g-white");
+    }
 }
 </style>

@@ -75,6 +75,22 @@
     @return null;
 }
 
+/** Map deep get
+ * @author Hugo Giraudel
+ * @access public
+ * @param {Map} $map - Map
+ * @param {Arglist} $keys - Key chain
+ * @return {*} - Desired value
+ * Usage: map-deep-get($themes, "dark", "b-viking")
+ */
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+
+    @return $map;
+}
+
 /*
  * theme function - outputs themed styles, for dark and light theme
  * https://medium.com/@katiemctigue/how-to-create-a-dark-mode-in-sass-609f131a3995

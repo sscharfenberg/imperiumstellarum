@@ -66,6 +66,14 @@ export default {
             </li>
             <li class="drawer-list__item">
                 <router-link
+                    :to="{ name: 'Encounters' }"
+                    class="drawer-list__link"
+                >
+                    <icon name="encounters" /> {{ $t("encounters.navTitle") }}
+                </router-link>
+            </li>
+            <li class="drawer-list__item">
+                <router-link
                     :to="{ name: 'Diplomacy' }"
                     class="drawer-list__link"
                 >

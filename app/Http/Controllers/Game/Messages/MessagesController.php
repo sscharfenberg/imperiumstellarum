@@ -18,7 +18,7 @@ class MessagesController extends Controller
 {
 
     /**
-     * @function api gameData for "diplomacy" endpoint
+     * @function api gameData for "messages" endpoint
      * @param Request $request
      * @return JsonResponse
      */

@@ -110,6 +110,11 @@ header {
             background-image: t("messages");
         }
     }
+    &.encounters {
+        @include themed() {
+            background-image: t("encounters");
+        }
+    }
 }
 
 .area {
