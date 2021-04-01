@@ -8,6 +8,7 @@ use App\Models\MessageReport;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
+use App\Services\EncounterService;
 use App\Services\FormatApiResponseService;
 use App\Services\MessageService;
 use App\Services\PlayerRelationService;
@@ -28,6 +29,7 @@ class EncountersController extends Controller
         $a = new ApiService;
         $f = new FormatApiResponseService;
         $p = new PlayerRelationService;
+        $e = new EncounterService;
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $allPlayers = Player::where('game_id', $gameId)
@@ -35,9 +37,7 @@ class EncountersController extends Controller
             ->with('user')
             ->get();
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
-        $encounters = Encounter::where('game_id', '=', $gameId)
-            //->whereNotNull('processed_at')
-            ->get();
+        $encounters = $e->getPlayerEncounters($player, $gameId);
 
         $returnData = [
             'encounters' => $encounters->map(function ($encounter) use ($f) {

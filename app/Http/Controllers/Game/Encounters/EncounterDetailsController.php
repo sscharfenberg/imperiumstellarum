@@ -7,6 +7,7 @@ use App\Models\Encounter;
 use App\Models\Player;
 use App\Models\PlayerRelation;
 use App\Services\ApiService;
+use App\Services\EncounterService;
 use App\Services\FormatApiResponseService;
 use App\Services\PlayerRelationService;
 use Illuminate\Http\JsonResponse;
@@ -25,20 +26,25 @@ class EncounterDetailsController extends Controller
     {
         $a = new ApiService;
         $f = new FormatApiResponseService;
+        $e = new EncounterService;
         //$p = new PlayerRelationService;
-        //$player = Player::find(Auth::user()->selected_player);
+        $encounterId = $request->route('encounter');
+        $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
-        $encounters = Encounter::where('game_id', '=', $gameId)
-            //->whereNotNull('processed_at')
-            ->get();
+        $encounters = $e->getPlayerEncounters($player, $gameId);
+        $encounter = $encounters->where('id', '=', $encounterId)->first();
 
-        // TODO: make sure the player is involved in the encounter
+        // verification
+        if (count($encounters) === 0 || !$encounter) {
+            return response()
+                ->json(['error' => __('game.encounters.errors.noEncounter')], 419);
+        }
 
         $returnData = [
             'encounters' => $encounters->map(function ($encounter) use ($f) {
                 return $f->formatEncounter($encounter);
             }),
-            'encounter' => [],
+            'encounterDetails' => $f->formatEncounterDetails($encounter),
         ];
 
         return response()->json(array_merge($a->defaultData($request), $returnData));

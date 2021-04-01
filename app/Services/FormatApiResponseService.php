@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Blueprint;
 use App\Models\ConstructionContract;
 use App\Models\Encounter;
+use App\Models\EncounterTurn;
 use App\Models\Fleet;
 use App\Models\FleetMovement;
 use App\Models\Message;
@@ -503,6 +504,39 @@ class FormatApiResponseService {
             'id' => $encounter->id,
             'turn' => $encounter->gameTurn->number,
             'starId' => $encounter->star_id
+        ];
+    }
+
+    /**
+     * @function format api response for an encounter turn
+     * @param EncounterTurn $turn
+     * @return array
+     *
+     */
+    public function formatEncounterTurn (EncounterTurn $turn): array
+    {
+        return [
+            'turn' => $turn->turn,
+            'attacker' => $turn->attacker,
+            'defender' => $turn->defender,
+            'damage' => $turn->damage
+        ];
+    }
+
+    /**
+     * @function format api response for the encounter details, including turns
+     * @param Encounter $encounter
+     * @return array
+     */
+    public function formatEncounterDetails (Encounter $encounter): array
+    {
+        return [
+            'id' => $encounter->id,
+            'turn' => $encounter->gameTurn->number,
+            'starId' => $encounter->star_id,
+            'turns' => $encounter->encounterTurns->map(function ($turn) {
+                return $this->formatEncounterTurn($turn);
+            })
         ];
     }
 

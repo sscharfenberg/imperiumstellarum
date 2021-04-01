@@ -14,6 +14,9 @@ export default {
         const route = useRoute();
         const requesting = computed(() => store.state.encounters.requesting);
         const encounterId = route.params.encounterId;
+        const encounter = computed(
+            () => store.state.encounters.encounterDetails
+        );
         onBeforeMount(() => {
             store.dispatch(
                 "encounters/GET_ENCOUNTER_DETAILS",
@@ -23,6 +26,7 @@ export default {
         return {
             requesting,
             encounterId,
+            encounter,
         };
     },
 };
@@ -33,4 +37,7 @@ export default {
     Encounter Details!
     {{ requesting }}
     {{ encounterId }}
+    <div>
+        {{ encounter }}
+    </div>
 </template>

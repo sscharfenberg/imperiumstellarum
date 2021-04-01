@@ -28,6 +28,7 @@ export default {
      * @param {Object} payload
      */
     SET_ENCOUNTER_DETAILS: (state, payload) => {
+        console.log(payload);
         state.encounterDetails = payload;
     },
 };

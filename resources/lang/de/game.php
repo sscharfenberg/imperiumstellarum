@@ -249,6 +249,9 @@ Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString)
 
     'encounters' => [
         'navTitle' => 'Gefechte',
+        'errors' => [
+            'noEncounter' => 'Dieses Gefecht existiert nicht oder Sie haben nicht teilgenommen.',
+        ]
     ]
 
 ];

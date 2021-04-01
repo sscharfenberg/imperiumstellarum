@@ -2,12 +2,14 @@
 
 namespace App\Actions\Turn\Encounter;
 
+use App\Models\EncounterParticipant;
 use App\Models\EncounterTurn;
 use App\Models\Game;
 use App\Models\Turn;
 use App\Models\Encounter;
 use App\Services\FleetService;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Uuid;
 
 trait UsesEncounterLogging
 {
@@ -18,16 +20,39 @@ trait UsesEncounterLogging
      */
     private function createEncounter (Collection $encounter)
     {
+        // find the current turn
         $turnId = Turn::where('game_id', '=', $encounter['game_id'])
             ->whereNull('processed')
             ->first()
             ->id;
+        // find all unique players involved in this encounter
+        $participantIds = $encounter['defender']->map(function ($fleet) {
+            return $fleet['player_id'];
+        })->concat($encounter['attacker']->map(function($fleet) {
+            return $fleet['player_id'];
+        }))->concat([$encounter['star']['owner']['id']])
+            ->unique();
+        $participants = $participantIds->map(function($participantId) use ($encounter) {
+            return [
+                'id' => Uuid::uuid4(),
+                'game_id' => $encounter['game_id'],
+                'encounter_id' => $encounter['id'],
+                'player_id' => $participantId,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        })->toArray();
+
+        // create the encounter entry
         Encounter::create([
             'id' => $encounter['id'],
             'game_id' => $encounter['game_id'],
             'turn_id' => $turnId,
             'star_id' => $encounter['star']['id']
         ]);
+
+        // create the encounter participants
+        EncounterParticipant::insert($participants);
     }
 
     /**

@@ -61,7 +61,6 @@ class ProcessEncounter
         //Log::channel('encounter')
         //    ->info("$turnSlug #".$encounter['id']." final log: ".json_encode($encounter['log'], JSON_PRETTY_PRINT));
 
-        dd($encounter);
     }
 
 
@@ -88,10 +87,10 @@ class ProcessEncounter
             ->debug("#".$encounter['id']." attacker: ".json_encode($encounter['attacker'], JSON_PRETTY_PRINT));
         Log::channel('encounter')
             ->debug("#".$encounter['id']." defender: ".json_encode($encounter['defender'], JSON_PRETTY_PRINT));
-        // create db entry for encounter
+        // create db entry for encounter and participants
         $this->createEncounter($encounter);
         // start processing.
-        $this->processEncounter($encounter, $game, $turnSlug);
+        $this->processEncounter($encounter, $turnSlug);
     }
 
 }

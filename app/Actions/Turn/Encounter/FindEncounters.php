@@ -2,14 +2,12 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\Encounter;
 use App\Models\Fleet;
 use App\Models\PlayerRelation;
 use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Game;
 
-use App\Models\Turn;
 use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
 use Illuminate\Support\Collection;

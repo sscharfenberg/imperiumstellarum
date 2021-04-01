@@ -249,6 +249,9 @@ The effective relations to [:ticker] is now :effective (:effectiveString).'
 
     'encounters' => [
         'navTitle' => 'Encounters',
+        'errors' => [
+            'noEncounter' => 'This encounter does not exist or you are not involved.',
+        ]
     ]
 
 ];
