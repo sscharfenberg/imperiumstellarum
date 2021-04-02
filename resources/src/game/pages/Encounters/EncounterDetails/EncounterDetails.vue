@@ -6,7 +6,7 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { onBeforeMount, onBeforeUnmount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
-import EncounterDetailsRenderTurn from "Pages/Encounters/EncounterDetails/EncounterDetailsRenderTurn";
+import EncounterDetailsRenderTurn from "Pages/Encounters/EncounterDetails/Turn/EncounterDetailsRenderTurn";
 export default {
     name: "EncounterDetails",
     components: { GameHeader, EncounterDetailsRenderTurn },
