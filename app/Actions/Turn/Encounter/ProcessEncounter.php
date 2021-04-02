@@ -21,6 +21,8 @@ class ProcessEncounter
     {
         $resolved = false;
         $turn = 0;
+        $setupTurn = $this->createNewTurn($encounter, $turn);
+        $this->updateTurnFleetData($encounter, $setupTurn);
 
         // main turn loop
         while(!$resolved) {

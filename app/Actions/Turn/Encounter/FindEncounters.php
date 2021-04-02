@@ -60,6 +60,7 @@ class FindEncounters
             'player_id' => $fleet->player_id,
             'name' => '['.$fleet->player->ticker.'] '.$fleet->name,
             'col' => $col,
+            'row' => 0,
             'preferred_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships),
             'is_shipyard' => false
@@ -82,10 +83,29 @@ class FindEncounters
             'player_id' => $shipyard->player_id,
             'name' => '['.$shipyard->player->ticker.'] '.$shipyard->planet->star->name." - ".$f->convertLatinToRoman($shipyard->planet->orbital_index),
             'col' => $col,
+            'row' => 0,
             'preferred_range' => $fl->getFleetPreferredRange($ships),
             'ships' => collect($ships),
             'is_shipyard' => true
         ];
+    }
+
+    /**
+     * @function assign Rows to fleets
+     * @param Collection $encounter
+     * @return Collection
+     */
+    private function assignRows (Collection $encounter): Collection
+    {
+        $encounter['attacker'] = $encounter['attacker']->map(function ($fleet, $index) use ($encounter) {
+            $fleet['row'] = $index;
+            return $fleet;
+        });
+        $encounter['defender'] = $encounter['defender']->map(function ($fleet, $index) use ($encounter) {
+            $fleet['row'] = $index + ($encounter['attacker']->max('row') + 1);
+            return $fleet;
+        });
+        return $encounter;
     }
 
     /**
@@ -190,6 +210,7 @@ class FindEncounters
             if (count($encounter['attacker']) > 0) {
                 Log::channel('turn')
                     ->notice("$turnSlug found valid encounter ".$encounter['id']." @ [".$star->owner->ticker."] $star->name.");
+                $encounter = $this->assignRows($encounter);
                 $p->handle($encounter, $game, $turnSlug);
             } else {
                 Log::channel('turn')

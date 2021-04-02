@@ -13,4 +13,6 @@ export default {
     // area meta data
     encounters: [],
     encounterDetails: {},
+    players: [],
+    renderTurn: 0,
 };

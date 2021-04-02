@@ -4,11 +4,12 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { onBeforeMount, computed } from "vue";
+import { onBeforeMount, onBeforeUnmount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
+import EncounterDetailsRenderTurn from "Pages/Encounters/EncounterDetails/EncounterDetailsRenderTurn";
 export default {
     name: "EncounterDetails",
-    components: { GameHeader },
+    components: { GameHeader, EncounterDetailsRenderTurn },
     setup() {
         const store = useStore();
         const route = useRoute();
@@ -22,11 +23,24 @@ export default {
                 "encounters/GET_ENCOUNTER_DETAILS",
                 route.params.encounterId
             );
+            store.commit("encounters/SET_TURN", 0);
         });
+        onBeforeUnmount(() => {
+            store.commit("encounters/SET_ENCOUNTER_DETAILS", {});
+            store.commit("encounters/SET_TURN", 0);
+        });
+        const onTurnClick = (turn) => store.commit("encounters/SET_TURN", turn);
+        const currentTurn = computed(() => store.state.encounters.renderTurn);
+        const sortedTurnNumbers = computed(() =>
+            encounter.value.turns.map((t) => t.turn).sort((a, b) => a - b)
+        );
         return {
             requesting,
             encounterId,
             encounter,
+            onTurnClick,
+            currentTurn,
+            sortedTurnNumbers,
         };
     },
 };
@@ -35,9 +49,17 @@ export default {
 <template>
     <game-header area="encounters" />
     Encounter Details!
-    {{ requesting }}
     {{ encounterId }}
-    <div>
-        {{ encounter }}
+    <div v-if="encounter.turns">
+        {{ encounter.turns.length }} Turns
+        <button
+            v-for="turn in sortedTurnNumbers"
+            :key="turn"
+            @click="onTurnClick(turn)"
+        >
+            {{ turn }}
+        </button>
+        <br />
+        <encounter-details-render-turn :turn="currentTurn" />
     </div>
 </template>

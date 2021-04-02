@@ -28,7 +28,24 @@ export default {
      * @param {Object} payload
      */
     SET_ENCOUNTER_DETAILS: (state, payload) => {
-        console.log(payload);
         state.encounterDetails = payload;
+    },
+
+    /**
+     * @function SET encounter players
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Array} payload
+     */
+    SET_PLAYERS: (state, payload) => {
+        state.players = payload;
+    },
+
+    /**
+     * @function SET encounter turn
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Array} payload
+     */
+    SET_TURN: (state, payload) => {
+        state.renderTurn = payload;
     },
 };

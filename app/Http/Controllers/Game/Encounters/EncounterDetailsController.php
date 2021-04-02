@@ -33,6 +33,10 @@ class EncounterDetailsController extends Controller
         $gameId = $request->route('game');
         $encounters = $e->getPlayerEncounters($player, $gameId);
         $encounter = $encounters->where('id', '=', $encounterId)->first();
+        $allPlayers = Player::where('game_id', $gameId)
+            ->where('dead', false)
+            ->with('user')
+            ->get();
 
         // verification
         if (count($encounters) === 0 || !$encounter) {
@@ -45,6 +49,9 @@ class EncounterDetailsController extends Controller
                 return $f->formatEncounter($encounter);
             }),
             'encounterDetails' => $f->formatEncounterDetails($encounter),
+            'players' => $allPlayers->map(function ($player) use ($f) {
+                return $f->formatPlayer($player);
+            })->values(),
         ];
 
         return response()->json(array_merge($a->defaultData($request), $returnData));

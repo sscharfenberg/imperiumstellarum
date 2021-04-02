@@ -84,6 +84,7 @@ trait UsesEncounterLogging
                 'playerId' => $fleet['player_id'],
                 'name' => $fleet['name'],
                 'col' => $fleet['col'],
+                'row' => $fleet['row'],
                 'ships' => $this->formatShips($fleet['ships'])
             ];
         })->toArray());
@@ -93,6 +94,7 @@ trait UsesEncounterLogging
                 'playerId' => $fleet['player_id'],
                 'name' => $fleet['name'],
                 'col' => $fleet['col'],
+                'row' => $fleet['row'],
                 'ships' => $this->formatShips($fleet['ships'])
             ];
         })->toArray());
@@ -107,23 +109,28 @@ trait UsesEncounterLogging
      */
     private function formatShips (Collection $ships): array
     {
-        return [
-            'ark' => count($ships->filter(function($ship) {
-                return $ship['hull_type'] === 'ark';
-            })),
-            'small' => count($ships->filter(function($ship) {
-                return $ship['hull_type'] === 'small';
-            })),
-            'medium' => count($ships->filter(function($ship) {
-                return $ship['hull_type'] === 'medium';
-            })),
-            'large' => count($ships->filter(function($ship) {
-                return $ship['hull_type'] === 'large';
-            })),
-            'xlarge' => count($ships->filter(function($ship) {
-                return $ship['hull_type'] === 'xlarge';
-            })),
-        ];
+        $return = [];
+        $numArks = count($ships->filter(function($ship) {
+            return $ship['hull_type'] === 'ark';
+        }));
+        $numSmall = count($ships->filter(function($ship) {
+            return $ship['hull_type'] === 'small';
+        }));
+        $numMedium = count($ships->filter(function($ship) {
+            return $ship['hull_type'] === 'medium';
+        }));
+        $numLarge = count($ships->filter(function($ship) {
+            return $ship['hull_type'] === 'large';
+        }));
+        $numXlarge = count($ships->filter(function($ship) {
+            return $ship['hull_type'] === 'xlarge';
+        }));
+        if ($numArks > 0) $return['ark'] = $numArks;
+        if ($numSmall > 0) $return['small'] = $numSmall;
+        if ($numMedium > 0) $return['medium'] = $numMedium;
+        if ($numLarge > 0) $return['large'] = $numLarge;
+        if ($numXlarge > 0) $return['xlarge'] = $numXlarge;
+        return $return;
     }
 
 

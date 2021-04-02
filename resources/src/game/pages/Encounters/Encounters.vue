@@ -26,14 +26,16 @@ export default {
 <template>
     <game-header area="encounters" />
     {{ encounters }}
-    <router-link
-        v-for="encounter in encounters"
-        :key="encounter.id"
-        :to="{
-            name: 'EncounterDetails',
-            params: { encounterId: encounter.id },
-        }"
-    >
-        {{ encounter.starId }}
-    </router-link>
+    <ul>
+        <li v-for="encounter in encounters" :key="encounter.id">
+            <router-link
+                :to="{
+                    name: 'EncounterDetails',
+                    params: { encounterId: encounter.id },
+                }"
+            >
+                {{ encounter.starId }}
+            </router-link>
+        </li>
+    </ul>
 </template>
