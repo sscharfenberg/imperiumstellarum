@@ -48,4 +48,13 @@ export default {
     SET_TURN: (state, payload) => {
         state.renderTurn = payload;
     },
+
+    /**
+     * @function SET tape playing
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Boolean} payload
+     */
+    SET_TAPE_PLAYING: (state, payload) => {
+        state.playing = payload;
+    },
 };

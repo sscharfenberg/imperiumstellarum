@@ -7,9 +7,10 @@ import { useRoute } from "vue-router";
 import { onBeforeMount, onBeforeUnmount, computed } from "vue";
 import GameHeader from "Components/Header/GameHeader";
 import EncounterDetailsRenderTurn from "Pages/Encounters/EncounterDetails/Turn/EncounterDetailsRenderTurn";
+import EncounterTape from "Pages/Encounters/EncounterDetails/Tape/EncounterTape";
 export default {
     name: "EncounterDetails",
-    components: { GameHeader, EncounterDetailsRenderTurn },
+    components: { GameHeader, EncounterDetailsRenderTurn, EncounterTape },
     setup() {
         const store = useStore();
         const route = useRoute();
@@ -51,15 +52,26 @@ export default {
     Encounter Details!
     {{ encounterId }}
     <div v-if="encounter.turns">
-        {{ encounter.turns.length }} Turns
+        {{ encounter.turns.length - 1 }} Turns
         <button
             v-for="turn in sortedTurnNumbers"
             :key="turn"
             @click="onTurnClick(turn)"
+            :class="{ active: turn === currentTurn }"
         >
             {{ turn }}
         </button>
+        <encounter-tape />
         <br />
         <encounter-details-render-turn :turn="currentTurn" />
     </div>
 </template>
+
+<style lang="scss" scoped>
+.active {
+    @include themed() {
+        background-color: t("b-viking");
+        color: t("t-dark");
+    }
+}
+</style>

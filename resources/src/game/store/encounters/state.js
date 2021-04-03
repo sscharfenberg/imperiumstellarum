@@ -15,4 +15,5 @@ export default {
     encounterDetails: {},
     players: [],
     renderTurn: 0,
+    playing: false,
 };
