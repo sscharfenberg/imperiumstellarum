@@ -32,7 +32,7 @@ class ProcessEncounterMovement
      * @param int $acc
      * @return float
      */
-    private function randomlyModifyAcceleration (int $acc): float
+    private function getAccelerationDeviation (int $acc): float
     {
         $scale = pow(10, 2);
         $defaultDeviation = config('rules.encounters.accDeviation');
@@ -40,6 +40,24 @@ class ProcessEncounterMovement
         $max = 1 + ($defaultDeviation / 2);
         $deviation = mt_rand($min * $scale, $max * $scale) / $scale;
         return $deviation * $acc;
+    }
+
+    /**
+     * @function change encounter fleets by setting turn_acceleration for all fleets.
+     * @param Collection $encounter
+     * @return Collection
+     */
+    private function modifyTurnAcceleration (Collection $encounter): Collection
+    {
+        $encounter['attacker'] = $encounter['attacker']->map(function ($fleet) use ($encounter) {
+            $fleet['turn_acceleration'] = $this->getAccelerationDeviation($fleet['ships']->min('acceleration'));
+            return $fleet;
+        });
+        $encounter['defender'] = $encounter['defender']->map(function ($fleet) use ($encounter) {
+            $fleet['turn_acceleration'] = $this->getAccelerationDeviation($fleet['ships']->min('acceleration'));
+            return $fleet;
+        });
+        return $encounter;
     }
 
     /**
@@ -69,23 +87,37 @@ class ProcessEncounterMovement
         if ($preferredColumn < $fleet['col']) $preferredDirection = -1;
         // determine the closest opponent. if there is more than one, choose a random one.
         $closestOpponent = $opponents->where('col', $colOpponents)->random();
-        // if acceleration is >= closest opponent, modify $newCol by -1/+1
-        $fleetAcceleration = $this->randomlyModifyAcceleration($fleet['ships']->min('acceleration'));
-        $oppAcceleration = $this->randomlyModifyAcceleration($closestOpponent['ships']->min('acceleration'));
+        $fleetAcceleration = $fleet['turn_acceleration'];
+        $oppAcceleration = $closestOpponent['turn_acceleration'];
+
+        //echo $fleet['name']." col=".$fleet['col']
+        //.", closest opponent ".$closestOpponent['name']." @".$colOpponents.", range =".$fleet['preferred_range']
+        //.", preferred col=".$preferredColumn
+        //.", current acc=".$fleetAcceleration.", closest opponent acc=".$oppAcceleration."\n";
+
         Log::channel('encounter')->info(
-            "$turnSlug #".$encounterId." Fleet ".$fleet['name']." col=".$fleet['col']
-            .", closest opponent @".$colOpponents.", range =".$fleet['preferred_range'].", preferred col=".$preferredColumn
+            "$turnSlug #".$encounterId." => "
+            .$fleet['name']." col=".$fleet['col']
+            .", closest opponent ".$closestOpponent['name']." @".$colOpponents.", range =".$fleet['preferred_range']
+            .", preferred col=".$preferredColumn
             .", current acc=".$fleetAcceleration.", closest opponent acc=".$oppAcceleration
         );
+
+        // if acceleration is >= closest opponent, modify $newCol by -1/+1
         if ($fleetAcceleration >= $oppAcceleration) {
             $newCol = $fleet['col'] + $preferredDirection;
+            //echo " => ".$fleet['name']." has acc >= random closest opponent, "
+            //    ."moving by $preferredDirection\n";
             Log::channel('encounter')->info(
-                "$turnSlug #".$encounterId." Fleet ".$fleet['name']." has acc >= random closest opponent."
+                "$turnSlug #".$encounterId." => ".$fleet['name']." has acc >= random closest opponent, "
+                ."moving by $preferredDirection"
             );
         }
+
         // ensure ships don't move out of the arena
         if ($newCol > 10) $newCol = 10;
         if ($newCol < 0) $newCol = 0;
+
         return $newCol;
     }
 
@@ -101,6 +133,10 @@ class ProcessEncounterMovement
         $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
+
+        // randomly modify fleet acceleration for this turn
+        $encounter = $this->modifyTurnAcceleration($encounter);
+
         // concat all fleets into one collection and shuffle for random turn order.
         $allFleets = $encounter['defender']->concat($encounter['attacker'])->shuffle();
         // get attacker IDs so we can find out if a fleet is attacker or defender.
@@ -119,10 +155,13 @@ class ProcessEncounterMovement
             } else {
                 $newColumn = $this->getNewColumn($encounter['attacker'], $fleet, -1, $turnSlug, $encounter['id']);
             }
-            Log::channel('encounter')->info(
-                "$turnSlug #".$encounter['id']." Fleet ".$fleet['name']." movement ".$fleet['col']." => ".$newColumn
-            );
-            $fleet['col'] = $newColumn;
+            if ($fleet['col'] !== $newColumn) {
+                Log::channel('encounter')->info(
+                    "$turnSlug #".$encounter['id']." ".$fleet['name']
+                    ." movement ".$fleet['col']." => ".$newColumn
+                );
+                $fleet['col'] = $newColumn;
+            }
             return $fleet;
         });
 

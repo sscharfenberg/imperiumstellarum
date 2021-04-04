@@ -30,6 +30,8 @@ class ProcessEncounter
             Log::channel('encounter')
                 ->notice("$turnSlug #".$encounter['id']." start processing turn $turn.");
 
+            //echo "Turn $turn\n\n";
+
             // add new turn to encounter log and database
             $encounterTurn = $this->createNewTurn($encounter, $turn);
             $encounter['turns']->push([
@@ -40,6 +42,7 @@ class ProcessEncounter
             $m = new \App\Actions\Turn\Encounter\ProcessEncounterMovement;
             $encounter = $m->handle($encounter, $turnSlug, $encounterTurn);
 
+            //echo "\n";
 
             // 2) Select targets for ships
             // 3) Assign damage to targets
@@ -51,7 +54,7 @@ class ProcessEncounter
             $this->updateTurnFleetData($encounter, $encounterTurn);
 
             // temp so it is not never-ending.
-            if ($turn >= 10) $resolved = true;
+            if ($turn >= 50) $resolved = true;
         }
 
         Log::channel('encounter')
@@ -60,8 +63,6 @@ class ProcessEncounter
                 .$encounter['star']['owner']->ticker."] "
                 .$encounter['star']['name']
             );
-        //Log::channel('encounter')
-        //    ->info("$turnSlug #".$encounter['id']." final log: ".json_encode($encounter['log'], JSON_PRETTY_PRINT));
 
     }
 
@@ -86,9 +87,14 @@ class ProcessEncounter
         Log::channel('encounter')
             ->debug("#".$encounter['id']." star: ".json_encode($encounter['star'], JSON_PRETTY_PRINT));
         Log::channel('encounter')
+            ->info("#".$encounter['id']." ".count($encounter['attacker'])." attacking fleets:");
+        Log::channel('encounter')
             ->debug("#".$encounter['id']." attacker: ".json_encode($encounter['attacker'], JSON_PRETTY_PRINT));
         Log::channel('encounter')
+            ->info("#".$encounter['id']." ".count($encounter['defender'])." defending fleets:");
+        Log::channel('encounter')
             ->debug("#".$encounter['id']." defender: ".json_encode($encounter['defender'], JSON_PRETTY_PRINT));
+
         // create db entry for encounter and participants
         $this->createEncounter($encounter);
         // start processing.

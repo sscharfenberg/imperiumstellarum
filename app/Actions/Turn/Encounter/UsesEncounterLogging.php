@@ -4,10 +4,9 @@ namespace App\Actions\Turn\Encounter;
 
 use App\Models\EncounterParticipant;
 use App\Models\EncounterTurn;
-use App\Models\Game;
 use App\Models\Turn;
 use App\Models\Encounter;
-use App\Services\FleetService;
+
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
@@ -17,6 +16,7 @@ trait UsesEncounterLogging
     /**
      * @function create db entry for encounter
      * @param Collection $encounter
+     * @return void
      */
     private function createEncounter (Collection $encounter)
     {
@@ -85,7 +85,8 @@ trait UsesEncounterLogging
                 'name' => $fleet['name'],
                 'col' => $fleet['col'],
                 'row' => $fleet['row'],
-                'ships' => $this->formatShips($fleet['ships'])
+                'ships' => $this->formatShips($fleet['ships']),
+                'acc' => $fleet['turn_acceleration']
             ];
         })->toArray());
         $encounterTurn->defender = array_values($encounter['defender']->map(function ($fleet) {
@@ -95,7 +96,8 @@ trait UsesEncounterLogging
                 'name' => $fleet['name'],
                 'col' => $fleet['col'],
                 'row' => $fleet['row'],
-                'ships' => $this->formatShips($fleet['ships'])
+                'ships' => $this->formatShips($fleet['ships']),
+                'acc' => $fleet['turn_acceleration']
             ];
         })->toArray());
         $encounterTurn->save();
@@ -109,7 +111,7 @@ trait UsesEncounterLogging
      */
     private function formatShips (Collection $ships): array
     {
-        $return = [];
+        $fleetShips = [];
         $numArks = count($ships->filter(function($ship) {
             return $ship['hull_type'] === 'ark';
         }));
@@ -125,12 +127,12 @@ trait UsesEncounterLogging
         $numXlarge = count($ships->filter(function($ship) {
             return $ship['hull_type'] === 'xlarge';
         }));
-        if ($numArks > 0) $return['ark'] = $numArks;
-        if ($numSmall > 0) $return['small'] = $numSmall;
-        if ($numMedium > 0) $return['medium'] = $numMedium;
-        if ($numLarge > 0) $return['large'] = $numLarge;
-        if ($numXlarge > 0) $return['xlarge'] = $numXlarge;
-        return $return;
+        if ($numArks > 0) $fleetShips['ark'] = $numArks;
+        if ($numSmall > 0) $fleetShips['small'] = $numSmall;
+        if ($numMedium > 0) $fleetShips['medium'] = $numMedium;
+        if ($numLarge > 0) $fleetShips['large'] = $numLarge;
+        if ($numXlarge > 0) $fleetShips['xlarge'] = $numXlarge;
+        return $fleetShips;
     }
 
 

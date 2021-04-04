@@ -63,7 +63,8 @@ class FindEncounters
             'row' => 0,
             'preferred_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships),
-            'is_shipyard' => false
+            'is_shipyard' => false,
+            'turn_acceleration' => collect($ships)->min('acceleration')
         ];
     }
 
@@ -86,7 +87,8 @@ class FindEncounters
             'row' => 0,
             'preferred_range' => $fl->getFleetPreferredRange($ships),
             'ships' => collect($ships),
-            'is_shipyard' => true
+            'is_shipyard' => true,
+            'turn_acceleration' => collect($ships)->min('acceleration')
         ];
     }
 

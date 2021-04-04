@@ -70,6 +70,8 @@ span {
 
     margin-left: var(--fleet-margin);
 
+    transition: margin-left map-get($animation-speeds, "fast") linear;
+
     @include themed() {
         background-color: t("g-deep");
     }
