@@ -3,6 +3,7 @@
 namespace App\Actions\Turn\Encounter;
 
 use App\Models\EncounterTurn;
+use App\Services\EncounterService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -130,6 +131,7 @@ class ProcessEncounterMovement
      */
     public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
     {
+        $e = new EncounterService;
         $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
@@ -138,7 +140,7 @@ class ProcessEncounterMovement
         $encounter = $this->modifyTurnAcceleration($encounter);
 
         // concat all fleets into one collection and shuffle for random turn order.
-        $allFleets = $encounter['defender']->concat($encounter['attacker'])->shuffle();
+        $allFleets = $e->randomOrder($encounter);
         // get attacker IDs so we can find out if a fleet is attacker or defender.
         $attackerFleetIds = $encounter['attacker']->map(function($fleet) {
             return $fleet['id'];

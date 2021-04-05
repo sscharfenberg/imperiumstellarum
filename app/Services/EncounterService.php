@@ -25,5 +25,15 @@ class EncounterService {
             ->get();
     }
 
+    /**
+     * @function shuffle the encounter fleets for random order
+     * @param Collection $encounter
+     * @return Collection
+     */
+    public function randomOrder (Collection $encounter): Collection
+    {
+        return $encounter['defender']->concat($encounter['attacker'])->shuffle();
+    }
+
 
 }

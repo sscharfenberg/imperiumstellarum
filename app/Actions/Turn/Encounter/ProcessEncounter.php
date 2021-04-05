@@ -30,7 +30,7 @@ class ProcessEncounter
             Log::channel('encounter')
                 ->notice("$turnSlug #".$encounter['id']." start processing turn $turn.");
 
-            //echo "Turn $turn\n\n";
+            echo "Turn $turn\n\n";
 
             // add new turn to encounter log and database
             $encounterTurn = $this->createNewTurn($encounter, $turn);
@@ -42,10 +42,12 @@ class ProcessEncounter
             $m = new \App\Actions\Turn\Encounter\ProcessEncounterMovement;
             $encounter = $m->handle($encounter, $turnSlug, $encounterTurn);
 
-            //echo "\n";
+            // 2) Process Damage
+            $d = new \App\Actions\Turn\Encounter\ProcessEncounterDamage;
+            $encounter = $d->handle($encounter, $turnSlug, $encounterTurn);
 
-            // 2) Select targets for ships
-            // 3) Assign damage to targets
+            echo "\n";
+
             // 4) Check for destroyed ships and remove them
             // 5) check if encounter ends (no attacker or defender ships)
             // 6) increase turn
