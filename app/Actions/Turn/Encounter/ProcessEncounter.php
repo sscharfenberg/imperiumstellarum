@@ -3,6 +3,7 @@
 namespace App\Actions\Turn\Encounter;
 
 use App\Models\Game;
+use App\Services\EncounterService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -72,13 +73,14 @@ class ProcessEncounter
     /**
      * @function find out if any encounters need to be processed and trigger processing.
      * @param Collection $encounter
-     * @param Game $game
      * @param string $turnSlug
      * @throws Exception
      * @return void
      */
-    public function handle(Collection $encounter, Game $game, string $turnSlug)
+    public function handle(Collection $encounter, string $turnSlug)
     {
+        $e = new EncounterService;
+        Log::channel('encounter')->debug(json_encode($encounter, JSON_PRETTY_PRINT));
         // tons of logging.
         Log::channel('encounter')
             ->notice(
@@ -89,16 +91,16 @@ class ProcessEncounter
         Log::channel('encounter')
             ->debug("#".$encounter['id']." star: ".json_encode($encounter['star'], JSON_PRETTY_PRINT));
         Log::channel('encounter')
-            ->info("#".$encounter['id']." ".count($encounter['attacker'])." attacking fleets:");
+            ->info("#".$encounter['id']." ".count($e->getAttackers($encounter))." attacking fleets:");
         Log::channel('encounter')
-            ->debug("#".$encounter['id']." attacker: ".json_encode($encounter['attacker'], JSON_PRETTY_PRINT));
+            ->debug("#".$encounter['id']." attacker: ".json_encode($e->getAttackers($encounter), JSON_PRETTY_PRINT));
         Log::channel('encounter')
-            ->info("#".$encounter['id']." ".count($encounter['defender'])." defending fleets:");
+            ->info("#".$encounter['id']." ".count($e->getDefenders($encounter))." defending fleets:");
         Log::channel('encounter')
-            ->debug("#".$encounter['id']." defender: ".json_encode($encounter['defender'], JSON_PRETTY_PRINT));
+            ->debug("#".$encounter['id']." defender: ".json_encode($e->getDefenders($encounter), JSON_PRETTY_PRINT));
 
         // create db entry for encounter and participants
-        $this->createEncounter($encounter);
+        $this->createDbEncounter($encounter);
         // start processing.
         $this->processEncounter($encounter, $turnSlug);
     }

@@ -50,15 +50,10 @@ class ProcessEncounterMovement
      */
     private function modifyTurnAcceleration (Collection $encounter): Collection
     {
-        $encounter['attacker'] = $encounter['attacker']->map(function ($fleet) use ($encounter) {
+        return $encounter['fleets']->map(function ($fleet) use ($encounter) {
             $fleet['turn_acceleration'] = $this->getAccelerationDeviation($fleet['ships']->min('acceleration'));
             return $fleet;
         });
-        $encounter['defender'] = $encounter['defender']->map(function ($fleet) use ($encounter) {
-            $fleet['turn_acceleration'] = $this->getAccelerationDeviation($fleet['ships']->min('acceleration'));
-            return $fleet;
-        });
-        return $encounter;
     }
 
     /**
@@ -137,25 +132,17 @@ class ProcessEncounterMovement
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
 
         // randomly modify fleet acceleration for this turn
-        $encounter = $this->modifyTurnAcceleration($encounter);
+        $encounter['fleets'] = $this->modifyTurnAcceleration($encounter);
 
         // concat all fleets into one collection and shuffle for random turn order.
-        $allFleets = $e->randomOrder($encounter);
-        // get attacker IDs so we can find out if a fleet is attacker or defender.
-        $attackerFleetIds = $encounter['attacker']->map(function($fleet) {
-            return $fleet['id'];
-        })->toArray();
+        $encounter['fleets'] = $e->randomFleetOrder($encounter);
 
         // loop over all fleets in the random turn order determined above.
-        $allFleets = $allFleets->map(function ($fleet) use ($encounter, $attackerFleetIds, $turnSlug) {
-            // find out if fleet is attacker or defender.
-            $isAttacker = true;
-            if (!in_array($fleet['id'], $attackerFleetIds)) $isAttacker = false;
-            // calculate new column.
-            if ($isAttacker) {
-                $newColumn = $this->getNewColumn($encounter['defender'], $fleet, 1, $turnSlug, $encounter['id']);
+        $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($encounter, $turnSlug, $e) {
+            if ($fleet['attacker']) {
+                $newColumn = $this->getNewColumn($e->getDefenders($encounter), $fleet, 1, $turnSlug, $encounter['id']);
             } else {
-                $newColumn = $this->getNewColumn($encounter['attacker'], $fleet, -1, $turnSlug, $encounter['id']);
+                $newColumn = $this->getNewColumn($e->getAttackers($encounter), $fleet, -1, $turnSlug, $encounter['id']);
             }
             if ($fleet['col'] !== $newColumn) {
                 Log::channel('encounter')->info(
@@ -165,14 +152,6 @@ class ProcessEncounterMovement
                 $fleet['col'] = $newColumn;
             }
             return $fleet;
-        });
-
-        // set $encounter fleets to changed values with new col
-        $encounter['attacker'] = $allFleets->filter(function($fleet) use ($attackerFleetIds) {
-            return in_array($fleet['id'], $attackerFleetIds);
-        });
-        $encounter['defender'] = $allFleets->filter(function($fleet) use ($attackerFleetIds) {
-            return !in_array($fleet['id'], $attackerFleetIds);
         });
 
         return $encounter;

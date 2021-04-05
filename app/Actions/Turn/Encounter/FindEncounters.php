@@ -8,6 +8,7 @@ use App\Models\Shipyard;
 use App\Models\Star;
 use App\Models\Game;
 
+use App\Services\EncounterService;
 use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
 use Illuminate\Support\Collection;
@@ -28,9 +29,8 @@ class FindEncounters
      */
     private function createEncounter (Star $star, int $turn): Collection
     {
-        $encounterId = Uuid::uuid4()->toString();
         return collect([
-            'id' => $encounterId,
+            'id' => Uuid::uuid4()->toString(),
             'turn' => $turn,
             'game_id' => $star->game_id,
             'star' => [
@@ -39,8 +39,7 @@ class FindEncounters
                 'spectral' => $star->spectral,
                 'owner' => $star->owner
             ],
-            'defender' => collect(),
-            'attacker' => collect(),
+            'fleets' => collect(),
             'turns' => collect()
         ]);
     }
@@ -50,9 +49,10 @@ class FindEncounters
      * @param Fleet $fleet
      * @param array $ships
      * @param int $col
+     * @param bool $attacker
      * @return array
      */
-    private function formatFleet (Fleet $fleet, array $ships, int $col): array
+    private function formatFleet (Fleet $fleet, array $ships, int $col, bool $attacker): array
     {
         $f = new FleetService;
         return [
@@ -64,6 +64,7 @@ class FindEncounters
             'preferred_range' => $f->getFleetPreferredRange($ships),
             'ships' => collect($ships),
             'is_shipyard' => false,
+            'attacker' => $attacker,
             'turn_acceleration' => collect($ships)->min('acceleration')
         ];
     }
@@ -88,6 +89,7 @@ class FindEncounters
             'preferred_range' => $fl->getFleetPreferredRange($ships),
             'ships' => collect($ships),
             'is_shipyard' => true,
+            'attacker' => false,
             'turn_acceleration' => collect($ships)->min('acceleration')
         ];
     }
@@ -99,15 +101,10 @@ class FindEncounters
      */
     private function assignRows (Collection $encounter): Collection
     {
-        $encounter['attacker'] = $encounter['attacker']->map(function ($fleet, $index) use ($encounter) {
+        return $encounter['fleets']->map(function ($fleet, $index) {
             $fleet['row'] = $index;
             return $fleet;
         });
-        $encounter['defender'] = $encounter['defender']->map(function ($fleet, $index) use ($encounter) {
-            $fleet['row'] = $index + ($encounter['attacker']->max('row') + 1);
-            return $fleet;
-        });
-        return $encounter;
     }
 
     /**
@@ -145,26 +142,29 @@ class FindEncounters
                 if ($effectiveRelation === 0 && count($fleet->ships) > 0) {
                     Log::channel('turn')
                         ->notice("$turnSlug found hostile fleet [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
-                    $encounter['attacker']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 10));
+                    $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 10, true));
                 }
                 // allied fleet, add to defender collection
                 if ($effectiveRelation === 2 && count($fleet->ships) > 0) {
                     Log::channel('turn')
                         ->notice("$turnSlug found allied fleet [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
-                    $encounter['defender']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0));
+                    $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0, false));
                 }
             } else if (count($fleet->ships) > 0) {
                 // star owner fleet, add to defender
                 Log::channel('turn')
                     ->notice("$turnSlug found fleet of star owner [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
-                $encounter['defender']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0));
+                $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0, false));
             }
         }
 
         // assign shipyard ships to defender
         foreach ($starShipyards as $shipyard) {
-            if (count($shipyard->ships) > 0)
-            $encounter['defender']->push($this->formatShipyard($shipyard, $shipyard->ships->toArray(), 0));
+            if (count($shipyard->ships) > 0) {
+                $encounter['fleets']->push($this->formatShipyard($shipyard, $shipyard->ships->toArray(), 0));
+                Log::channel('turn')
+                    ->notice("$turnSlug found shipyard @ ".$shipyard->planet->star->name." with ".count($shipyard->ships)." ships.");
+            }
         }
 
         return $encounter;
@@ -180,6 +180,7 @@ class FindEncounters
     public function handle(Game $game, string $turnSlug)
     {
         $p = new \App\Actions\Turn\Encounter\ProcessEncounter;
+        $e = new EncounterService;
         $gameRelations = PlayerRelation::where('game_id', $game->id)
             ->get();
         $stars = Star::where('game_id', '=', $game->id)
@@ -209,11 +210,11 @@ class FindEncounters
             // create encounter with all necessary data
             $encounter = $this->getStarEncounter($star, $gameRelations, $shipyards, $turnSlug, $turn->number);
             // if there are attacking ships, handle encounter processing
-            if (count($encounter['attacker']) > 0) {
+            if (count($e->getAttackers($encounter)) > 0 && count($e->getDefenders($encounter)) > 0) {
                 Log::channel('turn')
                     ->notice("$turnSlug found valid encounter ".$encounter['id']." @ [".$star->owner->ticker."] $star->name.");
-                $encounter = $this->assignRows($encounter);
-                $p->handle($encounter, $game, $turnSlug);
+                $encounter['fleets'] = $this->assignRows($encounter);
+                $p->handle($encounter, $turnSlug);
             } else {
                 Log::channel('turn')
                     ->notice("$turnSlug no encounter @ [".$star->owner->ticker."] $star->name.");

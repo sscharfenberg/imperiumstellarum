@@ -34,11 +34,9 @@ class ProcessEncounterDamage
             ->info("$turnSlug #".$encounter['id']." turn $turn STEP 2: process damage.");
 
         // concat all fleets into one collection and shuffle for random turn order.
-        $allFleetIds = $e->randomOrder($encounter)->map(function($fleet) {
-            return $fleet['id'];
-        });
-        $allFleetIds->each(function ($fleetId) use ($encounter) {
-            echo "Fleet $fleetId\n";
+        $encounter['fleets'] = $e->randomFleetOrder($encounter);
+        $encounter['fleets']->each(function ($fleet) {
+            echo "Fleet ".$fleet['id']."\n";
         });
 
         return $encounter;

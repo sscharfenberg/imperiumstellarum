@@ -30,10 +30,33 @@ class EncounterService {
      * @param Collection $encounter
      * @return Collection
      */
-    public function randomOrder (Collection $encounter): Collection
+    public function randomFleetOrder (Collection $encounter): Collection
     {
-        return $encounter['defender']->concat($encounter['attacker'])->shuffle();
+        return $encounter['fleets']->shuffle();
     }
 
+    /**
+     * @function get the encounters attackers
+     * @param Collection $encounter
+     * @return Collection
+     */
+    public function getAttackers (Collection $encounter): Collection
+    {
+        return $encounter['fleets']->filter(function ($fleet) {
+            return $fleet['attacker'];
+        });
+    }
+
+    /**
+     * @function get the encounters defenders
+     * @param Collection $encounter
+     * @return Collection
+     */
+    public function getDefenders (Collection $encounter): Collection
+    {
+        return $encounter['fleets']->filter(function ($fleet) {
+            return !$fleet['attacker'];
+        });
+    }
 
 }

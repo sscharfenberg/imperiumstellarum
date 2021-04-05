@@ -7,6 +7,7 @@ use App\Models\EncounterTurn;
 use App\Models\Turn;
 use App\Models\Encounter;
 
+use App\Services\EncounterService;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
@@ -18,7 +19,7 @@ trait UsesEncounterLogging
      * @param Collection $encounter
      * @return void
      */
-    private function createEncounter (Collection $encounter)
+    private function createDbEncounter (Collection $encounter)
     {
         // find the current turn
         $turnId = Turn::where('game_id', '=', $encounter['game_id'])
@@ -26,11 +27,9 @@ trait UsesEncounterLogging
             ->first()
             ->id;
         // find all unique players involved in this encounter
-        $participantIds = $encounter['defender']->map(function ($fleet) {
+        $participantIds = $encounter['fleets']->map(function ($fleet) {
             return $fleet['player_id'];
-        })->concat($encounter['attacker']->map(function($fleet) {
-            return $fleet['player_id'];
-        }))->concat([$encounter['star']['owner']['id']])
+        })->concat([$encounter['star']['owner']['id']])
             ->unique();
         $participants = $participantIds->map(function($participantId) use ($encounter) {
             return [
@@ -78,7 +77,8 @@ trait UsesEncounterLogging
      */
     private function updateTurnFleetData (Collection $encounter, EncounterTurn $encounterTurn): Collection
     {
-        $encounterTurn->attacker = array_values($encounter['attacker']->map(function ($fleet) {
+        $e = new EncounterService;
+        $encounterTurn->attacker = array_values($e->getAttackers($encounter)->map(function ($fleet) {
             return [
                 'fleetId' => $fleet['id'],
                 'playerId' => $fleet['player_id'],
@@ -89,7 +89,7 @@ trait UsesEncounterLogging
                 'acc' => $fleet['turn_acceleration']
             ];
         })->toArray());
-        $encounterTurn->defender = array_values($encounter['defender']->map(function ($fleet) {
+        $encounterTurn->defender = array_values($e->getDefenders($encounter)->map(function ($fleet) {
             return [
                 'fleetId' => $fleet['id'],
                 'playerId' => $fleet['player_id'],
