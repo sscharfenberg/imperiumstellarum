@@ -33,23 +33,23 @@ class ProcessEncounterDamage
 
     /**
      * @function save target of a fleet (fleetId and shipId) to encounter collection
-     * @param string $targettingFleetId
-     * @param string $targettedFleetId
-     * @param string $targettedShipId
+     * @param string $targetingFleetId
+     * @param string $targetedFleetId
+     * @param string $targetedShipId
      * @param Collection $encounter
      * @return Collection
      */
     private function saveTarget(
-        string $targettingFleetId,
-        string $targettedFleetId,
-        string $targettedShipId,
+        string $targetingFleetId,
+        string $targetedFleetId,
+        string $targetedShipId,
         Collection $encounter): Collection
     {
         $encounter['fleets'] = $encounter['fleets']->map(
-            function ($fleet) use ($targettingFleetId, $targettedFleetId, $targettedShipId) {
-                if ($fleet['id'] === $targettingFleetId) {
-                    $fleet['target_fleet_id'] = $targettedFleetId;
-                    $fleet['target_ship_id'] = $targettedShipId;
+            function ($fleet) use ($targetingFleetId, $targetedFleetId, $targetedShipId) {
+                if ($fleet['id'] === $targetingFleetId) {
+                    $fleet['target_fleet_id'] = $targetedFleetId;
+                    $fleet['target_ship_id'] = $targetedShipId;
                 }
                 return $fleet;
             }
@@ -78,7 +78,7 @@ class ProcessEncounterDamage
 
         // fleet has no target to shoot at.
         else {
-            echo "fleet is already targetting fleet ".$fleet['target_fleet_id']."\n";
+            echo "fleet is already targeting fleet ".$fleet['target_fleet_id']."\n";
             if (
                 $e->fleetExists($fleet['target_fleet_id'], $encounter)
                 && $e->fleetShipExists($fleet['target_fleet_id'], $fleet['target_ship_id'], $encounter)
@@ -128,13 +128,13 @@ class ProcessEncounterDamage
             // get fleet and ship so we can output values to logfile.
             $targetFleet = $encounter['fleets']->where('id', $fleet['target_fleet_id'])->first();
             $targetShip = $targetFleet['ships']->where('id', $fleet['target_ship_id'])->first();
-            echo $e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").") => targetting "
+            echo $e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").") => targeting "
                 .$e->getFleetFullName($targetFleet['name']).", targetShip='".$targetShip['name']."'\n";
             Log::channel('encounter')
                 ->info(
                     "$turnSlug #".$encounter['id']." '"
                     .$e->getFleetFullName($fleet)."' (".($fleet['attacker'] ? "attacker" : "defender").")"
-                    ." targetting '".$e->getFleetFullName($targetFleet['name'])."' ("
+                    ." targeting '".$e->getFleetFullName($targetFleet['name'])."' ("
                     .($targetFleet['attacker'] ? "attacker" : "defender").")"
                     ."targetShip='".$targetShip['name']."'"
                 );
