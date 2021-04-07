@@ -63,10 +63,12 @@ class FindEncounters
             'col' => $col,
             'row' => 0,
             'preferred_range' => $f->getFleetPreferredRange($ships),
-            'ships' => collect($ships),
+            'target_fleet_id' => null,
+            'target_ship_id' => null,
             'is_shipyard' => false,
             'attacker' => $attacker,
-            'turn_acceleration' => collect($ships)->min('acceleration')
+            'turn_acceleration' => collect($ships)->min('acceleration'),
+            'ships' => collect($ships)
         ];
     }
 
@@ -89,10 +91,12 @@ class FindEncounters
             'col' => $col,
             'row' => 0,
             'preferred_range' => $fl->getFleetPreferredRange($ships),
-            'ships' => collect($ships),
+            'target_fleet_id' => null,
+            'target_ship_id' => null,
             'is_shipyard' => true,
             'attacker' => false,
-            'turn_acceleration' => collect($ships)->min('acceleration')
+            'turn_acceleration' => collect($ships)->min('acceleration'),
+            'ships' => collect($ships),
         ];
     }
 

@@ -15,12 +15,12 @@ class ProcessEncounterDamage
     use UsesEncounterLogging;
 
     /**
-     * @function select a target fleet: random fleet in the closest column to $fleet
+     * @function find a target fleet: random fleet in the closest column to $fleet
      * @param array $fleet
      * @param Collection $encounter
      * @return array
      */
-    private function selectTargetFleet(array $fleet, Collection $encounter): array
+    private function findTargetFleet(array $fleet, Collection $encounter): array
     {
         $e = new EncounterService;
         // find out what the opponents of $fleet are
@@ -30,6 +30,76 @@ class ProcessEncounterDamage
         // pick a random fleet in the calculated column
         return $opponents->where('col', $closestColumn)->random();
     }
+
+    /**
+     * @function save target of a fleet (fleetId and shipId) to encounter collection
+     * @param string $targettingFleetId
+     * @param string $targettedFleetId
+     * @param string $targettedShipId
+     * @param Collection $encounter
+     * @return Collection
+     */
+    private function saveTarget(
+        string $targettingFleetId,
+        string $targettedFleetId,
+        string $targettedShipId,
+        Collection $encounter): Collection
+    {
+        $encounter['fleets'] = $encounter['fleets']->map(
+            function ($fleet) use ($targettingFleetId, $targettedFleetId, $targettedShipId) {
+                if ($fleet['id'] === $targettingFleetId) {
+                    $fleet['target_fleet_id'] = $targettedFleetId;
+                    $fleet['target_ship_id'] = $targettedShipId;
+                }
+                return $fleet;
+            }
+        );
+        return $encounter;
+    }
+
+    /**
+     * @function select a target fleet: random fleet in the closest column to $fleet
+     * @param array $fleet
+     * @param Collection $encounter
+     * @return Collection
+     */
+    private function chooseTarget(array $fleet, Collection $encounter): Collection
+    {
+        $e = new EncounterService;
+        $targetFleet = null;
+        $targetShipId = null;
+
+        // does the fleet have a target?
+        if (!$fleet['target_fleet_id'] || !$fleet['target_ship_id']) {
+            echo "fleet has no targets\n";
+            $targetFleet = $this->findTargetFleet($fleet, $encounter);
+            $targetShipId = $targetFleet['ships']->random()['id'];
+        }
+
+        // fleet has no target to shoot at.
+        else {
+            echo "fleet is already targetting fleet ".$fleet['target_fleet_id']."\n";
+            if (
+                $e->fleetExists($fleet['target_fleet_id'], $encounter)
+                && $e->fleetShipExists($fleet['target_fleet_id'], $fleet['target_ship_id'], $encounter)
+            ) {
+                // target fleet and ship still exist. proceed with saved values.
+                echo "fleet targets still exist, proceeding.\n";
+                $targetFleet = $encounter['fleets']->where('id', $fleet['target_fleet_id'])->first();
+                $targetShipId = $fleet['target_ship_id'];
+            } else {
+                // find new target
+                echo "fleet targets do not exists anymore, finding new target.\n";
+                $targetFleet = $this->findTargetFleet($fleet, $encounter);
+                $targetShipId = $targetFleet['ships']->random()['id'];
+            }
+        }
+
+        $encounter = $this->saveTarget($fleet['id'], $targetFleet['id'], $targetShipId, $encounter);
+        return $encounter;
+    }
+
+
 
     /**
      * @function move fleets (changing row)
@@ -48,16 +118,25 @@ class ProcessEncounterDamage
         // concat all fleets into one collection and shuffle for random turn order.
         $encounter['fleets'] = $e->randomFleetOrder($encounter);
         $encounter['fleets']->each(function ($fleet) use (&$encounter, $turnSlug, $e) {
-            $targetFleet = $this->selectTargetFleet($fleet, $encounter);
+            $encounter = $this->chooseTarget($fleet, $encounter);
 
+            // encounter was updated, but $fleet does still have the old values - refresh $fleet:
+            $updatedFleet = $encounter['fleets']->where('id', $fleet['id'])->first();
+            $fleet['target_fleet_id'] = $updatedFleet['target_fleet_id'];
+            $fleet['target_ship_id'] = $updatedFleet['target_ship_id'];
 
-
-            echo $e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").") => targetting ".$e->getFleetFullName($targetFleet)."\n";
+            // get fleet and ship so we can output values to logfile.
+            $targetFleet = $encounter['fleets']->where('id', $fleet['target_fleet_id'])->first();
+            $targetShip = $targetFleet['ships']->where('id', $fleet['target_ship_id'])->first();
+            echo $e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").") => targetting "
+                .$e->getFleetFullName($targetFleet['name']).", targetShip='".$targetShip['name']."'\n";
             Log::channel('encounter')
                 ->info(
                     "$turnSlug #".$encounter['id']." '"
                     .$e->getFleetFullName($fleet)."' (".($fleet['attacker'] ? "attacker" : "defender").")"
-                    ." targetting '".$e->getFleetFullName($targetFleet)."' (".($targetFleet['attacker'] ? "attacker" : "defender").")"
+                    ." targetting '".$e->getFleetFullName($targetFleet['name'])."' ("
+                    .($targetFleet['attacker'] ? "attacker" : "defender").")"
+                    ."targetShip='".$targetShip['name']."'"
                 );
         });
 

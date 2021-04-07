@@ -85,4 +85,32 @@ class EncounterService {
         return "[".$fleet['playerTicker']."] ".$fleet['name'];
     }
 
+    /**
+     * @function check if a fleet with id exists
+     * @param string $fleetId
+     * @param Collection $encounter
+     * @return bool
+     */
+    public function fleetExists (string $fleetId, Collection $encounter): bool
+    {
+        return $encounter['fleets']->where('id', $fleetId)->count() === 1;
+    }
+
+    /**
+     * @function check if a fleetShip with id exists
+     * @param string $fleetId
+     * @param string $shipId
+     * @param Collection $encounter
+     * @return bool
+     */
+    public function fleetShipExists (string $fleetId, string $shipId, Collection $encounter): bool
+    {
+        $fleet = $encounter['fleets']->where('id', $fleetId)->first();
+        if (!$fleet) {
+            return false;
+        } else {
+            return $fleet['ships']->where('id', $shipId)->count() === 1;
+        }
+    }
+
 }
