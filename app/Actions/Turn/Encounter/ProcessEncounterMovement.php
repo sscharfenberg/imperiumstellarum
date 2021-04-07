@@ -13,22 +13,6 @@ class ProcessEncounterMovement
     use UsesEncounterLogging;
 
     /**
-     * @param Collection $opponents
-     * @param int $column
-     * @return int|null
-     */
-    private function getClosestOpponentCol (Collection $opponents, int $column): int
-    {
-        $closest = null;
-        foreach ($opponents as $fleet) {
-            if ($closest === null || abs($column - $closest) > abs($fleet['col'] - $column)) {
-                $closest = $fleet['col'];
-            }
-        }
-        return $closest;
-    }
-
-    /**
      * @function modify acceleration by random deviation
      * @param int $acc
      * @return float
@@ -70,11 +54,12 @@ class ProcessEncounterMovement
      */
     private function getNewColumn (Collection $opponents, array $fleet, int $dir, string $turnSlug, string $encounterId): int
     {
+        $e = new EncounterService;
         $newCol = $fleet['col'];
         // fleet does not want to change col, default preferredColumn === col
         $preferredDirection = 0;
         // find column of closest oppenent
-        $colOpponents = $this->getClosestOpponentCol($opponents, $fleet['col']);
+        $colOpponents = $e->getClosestOpponentCol($opponents, $fleet['col']);
         // calculate preferred column of fleet
         $preferredColumn = $colOpponents + ($fleet['preferred_range'] * $dir);
         // fleet wants to move by +1
@@ -86,15 +71,15 @@ class ProcessEncounterMovement
         $fleetAcceleration = $fleet['turn_acceleration'];
         $oppAcceleration = $closestOpponent['turn_acceleration'];
 
-        //echo $fleet['name']." col=".$fleet['col']
-        //.", closest opponent ".$closestOpponent['name']." @".$colOpponents.", range =".$fleet['preferred_range']
+        //echo $e->getFleetFullName($fleet)." col=".$fleet['col']
+        //.", closest opponent ".$e->getFleetFullName($closestOpponent)." @".$colOpponents.", range =".$fleet['preferred_range']
         //.", preferred col=".$preferredColumn
         //.", current acc=".$fleetAcceleration.", closest opponent acc=".$oppAcceleration."\n";
 
         Log::channel('encounter')->info(
             "$turnSlug #".$encounterId." => "
-            .$fleet['name']." col=".$fleet['col']
-            .", closest opponent ".$closestOpponent['name']." @".$colOpponents.", range =".$fleet['preferred_range']
+            .$e->getFleetFullName($fleet)." col=".$fleet['col']
+            .", closest opponent ".$e->getFleetFullName($closestOpponent)." @".$colOpponents.", range =".$fleet['preferred_range']
             .", preferred col=".$preferredColumn
             .", current acc=".$fleetAcceleration.", closest opponent acc=".$oppAcceleration
         );
@@ -102,10 +87,10 @@ class ProcessEncounterMovement
         // if acceleration is >= closest opponent, modify $newCol by -1/+1
         if ($fleetAcceleration >= $oppAcceleration) {
             $newCol = $fleet['col'] + $preferredDirection;
-            //echo " => ".$fleet['name']." has acc >= random closest opponent, "
+            //echo " => ".$e->getFleetFullName($fleet)." has acc >= random closest opponent, "
             //    ."moving by $preferredDirection\n";
             Log::channel('encounter')->info(
-                "$turnSlug #".$encounterId." => ".$fleet['name']." has acc >= random closest opponent, "
+                "$turnSlug #".$encounterId." => ".$e->getFleetFullName($fleet)." has acc >= random closest opponent, "
                 ."moving by $preferredDirection"
             );
         }
@@ -146,7 +131,7 @@ class ProcessEncounterMovement
             }
             if ($fleet['col'] !== $newColumn) {
                 Log::channel('encounter')->info(
-                    "$turnSlug #".$encounter['id']." ".$fleet['name']
+                    "$turnSlug #".$encounter['id']." ".$e->getFleetFullName($fleet)
                     ." movement ".$fleet['col']." => ".$newColumn
                 );
                 $fleet['col'] = $newColumn;

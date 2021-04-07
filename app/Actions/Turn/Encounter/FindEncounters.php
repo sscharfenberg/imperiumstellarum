@@ -58,7 +58,8 @@ class FindEncounters
         return [
             'id' => $fleet->id,
             'player_id' => $fleet->player_id,
-            'name' => '['.$fleet->player->ticker.'] '.$fleet->name,
+            'name' => $fleet->name,
+            'playerTicker' => $fleet->player->ticker,
             'col' => $col,
             'row' => 0,
             'preferred_range' => $f->getFleetPreferredRange($ships),
@@ -83,7 +84,8 @@ class FindEncounters
         return [
             'id' => $shipyard->id,
             'player_id' => $shipyard->player_id,
-            'name' => '['.$shipyard->player->ticker.'] '.$shipyard->planet->star->name." - ".$f->convertLatinToRoman($shipyard->planet->orbital_index),
+            'name' => $shipyard->planet->star->name." - ".$f->convertLatinToRoman($shipyard->planet->orbital_index),
+            'playerTicker' => $shipyard->player->ticker,
             'col' => $col,
             'row' => 0,
             'preferred_range' => $fl->getFleetPreferredRange($ships),

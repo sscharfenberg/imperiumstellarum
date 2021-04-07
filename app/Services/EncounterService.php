@@ -26,6 +26,22 @@ class EncounterService {
     }
 
     /**
+     * @param Collection $opponents
+     * @param int $column
+     * @return int|null
+     */
+    public function getClosestOpponentCol (Collection $opponents, int $column): int
+    {
+        $closest = null;
+        foreach ($opponents as $fleet) {
+            if ($closest === null || abs($column - $closest) > abs($fleet['col'] - $column)) {
+                $closest = $fleet['col'];
+            }
+        }
+        return $closest;
+    }
+
+    /**
      * @function shuffle the encounter fleets for random order
      * @param Collection $encounter
      * @return Collection
@@ -57,6 +73,16 @@ class EncounterService {
         return $encounter['fleets']->filter(function ($fleet) {
             return !$fleet['attacker'];
         });
+    }
+
+    /**
+     * @function format the name of a fleet/shipyard
+     * @param array $fleet
+     * @return string
+     */
+    public function getFleetFullName (array $fleet): string
+    {
+        return "[".$fleet['playerTicker']."] ".$fleet['name'];
     }
 
 }

@@ -40,6 +40,10 @@ class ChangeFleetNameController extends Controller
             return response()
                 ->json(['error' => __('game.fleets.errors.name')], 419);
         }
+        if (!$this->isFleetNameUnique($player, $name)) {
+            return response()
+                ->json(['error' => __('game.fleets.errors.nameUnique')], 419);
+        }
 
         // all good, change fleet
         $fleet->name = $name;
