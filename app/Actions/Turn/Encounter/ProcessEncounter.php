@@ -20,6 +20,7 @@ class ProcessEncounter
      */
     private function processEncounter (Collection $encounter, string $turnSlug)
     {
+        $e = new EncounterService;
         $resolved = false;
         $turn = 0;
         $setupTurn = $this->createNewTurn($encounter, $turn);
@@ -39,11 +40,15 @@ class ProcessEncounter
                 $encounterTurn->turn => $encounterTurn->id
             ]);
 
-            // 1) Move Fleets
+            // 1) determine turn order
+            $t = new \App\Actions\Turn\Encounter\ProcessEncounterTurnOrder;
+            $encounter = $t->handle($encounter, $turnSlug, $encounterTurn);
+
+            // 2) Move Fleets
             $m = new \App\Actions\Turn\Encounter\ProcessEncounterMovement;
             $encounter = $m->handle($encounter, $turnSlug, $encounterTurn);
 
-            // 2) Process Damage
+            // 3) Process Damage
             $d = new \App\Actions\Turn\Encounter\ProcessEncounterDamage;
             $encounter = $d->handle($encounter, $turnSlug, $encounterTurn);
 

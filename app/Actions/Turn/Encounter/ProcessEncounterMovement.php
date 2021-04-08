@@ -114,13 +114,10 @@ class ProcessEncounterMovement
         $e = new EncounterService;
         $turn = $encounterTurn->turn;
         Log::channel('encounter')
-            ->info("$turnSlug #".$encounter['id']." turn $turn STEP 1: move fleets.");
+            ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 2: move fleets.");
 
         // randomly modify fleet acceleration for this turn
         $encounter['fleets'] = $this->modifyTurnAcceleration($encounter);
-
-        // concat all fleets into one collection and shuffle for random turn order.
-        $encounter['fleets'] = $e->randomFleetOrder($encounter);
 
         // loop over all fleets in the random turn order determined above.
         $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($encounter, $turnSlug, $e) {
@@ -131,7 +128,7 @@ class ProcessEncounterMovement
             }
             if ($fleet['col'] !== $newColumn) {
                 Log::channel('encounter')->info(
-                    "$turnSlug #".$encounter['id']." ".$e->getFleetFullName($fleet)
+                    "$turnSlug #".$encounter['id']." => ".$e->getFleetFullName($fleet)
                     ." movement ".$fleet['col']." => ".$newColumn
                 );
                 $fleet['col'] = $newColumn;

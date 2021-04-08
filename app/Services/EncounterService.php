@@ -42,16 +42,6 @@ class EncounterService {
     }
 
     /**
-     * @function shuffle the encounter fleets for random order
-     * @param Collection $encounter
-     * @return Collection
-     */
-    public function randomFleetOrder (Collection $encounter): Collection
-    {
-        return $encounter['fleets']->shuffle();
-    }
-
-    /**
      * @function get the encounters attackers
      * @param Collection $encounter
      * @return Collection

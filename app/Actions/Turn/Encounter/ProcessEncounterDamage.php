@@ -113,10 +113,8 @@ class ProcessEncounterDamage
         $e = new EncounterService;
         $turn = $encounterTurn->turn;
         Log::channel('encounter')
-            ->info("$turnSlug #".$encounter['id']." turn $turn STEP 2: process damage.");
+            ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 3: process damage.");
 
-        // concat all fleets into one collection and shuffle for random turn order.
-        $encounter['fleets'] = $e->randomFleetOrder($encounter);
         $encounter['fleets']->each(function ($fleet) use (&$encounter, $turnSlug, $e) {
             $encounter = $this->chooseTarget($fleet, $encounter);
 
@@ -129,14 +127,14 @@ class ProcessEncounterDamage
             $targetFleet = $encounter['fleets']->where('id', $fleet['target_fleet_id'])->first();
             $targetShip = $targetFleet['ships']->where('id', $fleet['target_ship_id'])->first();
             echo $e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").") => targeting "
-                .$e->getFleetFullName($targetFleet['name']).", targetShip='".$targetShip['name']."'\n";
+                .$e->getFleetFullName($targetFleet).", targetShip='".$targetShip['name']."'\n";
             Log::channel('encounter')
                 ->info(
-                    "$turnSlug #".$encounter['id']." '"
-                    .$e->getFleetFullName($fleet)."' (".($fleet['attacker'] ? "attacker" : "defender").")"
-                    ." targeting '".$e->getFleetFullName($targetFleet['name'])."' ("
+                    "$turnSlug #".$encounter['id']." => "
+                    .$e->getFleetFullName($fleet)." (".($fleet['attacker'] ? "attacker" : "defender").")"
+                    ." targeting ".$e->getFleetFullName($targetFleet)." ("
                     .($targetFleet['attacker'] ? "attacker" : "defender").")"
-                    ."targetShip='".$targetShip['name']."'"
+                    .", targetShip='".$targetShip['name']."'"
                 );
         });
 
