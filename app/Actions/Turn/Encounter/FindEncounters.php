@@ -40,6 +40,9 @@ class FindEncounters
                 'owner' => $star->owner
             ],
             'fleets' => collect(),
+            'attacker_queue' => collect(),
+            'defender_queue' => collect(),
+            'resolved' => false,
             'turns' => collect()
         ]);
     }
@@ -59,12 +62,11 @@ class FindEncounters
             'id' => $fleet->id,
             'player_id' => $fleet->player_id,
             'name' => $fleet->name,
-            'playerTicker' => $fleet->player->ticker,
+            'player_ticker' => $fleet->player->ticker,
             'col' => $col,
             'row' => 0,
             'preferred_range' => $f->getFleetPreferredRange($ships),
-            'target_fleet_id' => null,
-            'target_ship_id' => null,
+            'target_fleet_id' => "",
             'is_shipyard' => false,
             'attacker' => $attacker,
             'turn_acceleration' => collect($ships)->min('acceleration'),
@@ -87,12 +89,11 @@ class FindEncounters
             'id' => $shipyard->id,
             'player_id' => $shipyard->player_id,
             'name' => $shipyard->planet->star->name." - ".$f->convertLatinToRoman($shipyard->planet->orbital_index),
-            'playerTicker' => $shipyard->player->ticker,
+            'player_ticker' => $shipyard->player->ticker,
             'col' => $col,
             'row' => 0,
             'preferred_range' => $fl->getFleetPreferredRange($ships),
-            'target_fleet_id' => null,
-            'target_ship_id' => null,
+            'target_fleet_id' => "",
             'is_shipyard' => true,
             'attacker' => false,
             'turn_acceleration' => collect($ships)->min('acceleration'),
@@ -149,27 +150,43 @@ class FindEncounters
                     Log::channel('turn')
                         ->notice("$turnSlug found hostile fleet [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
                     $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 10, true));
+                    $encounter['defender_queue']->push([
+                        'fleet_id' => $fleet->id,
+                        'ship_id' => $fleet->ships->random()->id
+                    ]);
                 }
                 // allied fleet, add to defender collection
                 if ($effectiveRelation === 2 && count($fleet->ships) > 0) {
                     Log::channel('turn')
                         ->notice("$turnSlug found allied fleet [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
                     $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0, false));
+                    $encounter['attacker_queue']->push([
+                        'fleet_id' => $fleet->id,
+                        'ship_id' => $fleet->ships->random()->id
+                    ]);
                 }
             } else if (count($fleet->ships) > 0) {
                 // star owner fleet, add to defender
                 Log::channel('turn')
                     ->notice("$turnSlug found fleet of star owner [".$fleet->player->ticker."] $fleet->name with ".count($fleet->ships)." ships.");
                 $encounter['fleets']->push($this->formatFleet($fleet, $fleet->ships->toArray(), 0, false));
+                $encounter['attacker_queue']->push([
+                    'fleet_id' => $fleet->id,
+                    'ship_id' => $fleet->ships->random()->id
+                ]);
             }
         }
 
         // assign shipyard ships to defender
         foreach ($starShipyards as $shipyard) {
             if (count($shipyard->ships) > 0) {
-                $encounter['fleets']->push($this->formatShipyard($shipyard, $shipyard->ships->toArray(), 0));
                 Log::channel('turn')
                     ->notice("$turnSlug found shipyard @ ".$shipyard->planet->star->name." with ".count($shipyard->ships)." ships.");
+                $encounter['fleets']->push($this->formatShipyard($shipyard, $shipyard->ships->toArray(), 0));
+                $encounter['attacker_queue']->push([
+                    'fleet_id' => $shipyard->id,
+                    'ship_id' => $shipyard->ships->random()->id
+                ]);
             }
         }
 

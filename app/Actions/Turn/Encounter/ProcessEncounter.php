@@ -20,19 +20,17 @@ class ProcessEncounter
      */
     private function processEncounter (Collection $encounter, string $turnSlug)
     {
-        $e = new EncounterService;
-        $resolved = false;
         $turn = 0;
         $setupTurn = $this->createNewTurn($encounter, $turn);
         $this->updateTurnFleetData($encounter, $setupTurn);
 
         // main turn loop
-        while(!$resolved) {
+        while(!$encounter['resolved']) {
             $turn++;
             Log::channel('encounter')
-                ->notice("$turnSlug #".$encounter['id']." start processing turn $turn.");
+                ->notice("\n\n$turnSlug #".$encounter['id']." start processing turn $turn.\n");
 
-            echo "Turn $turn\n\n";
+            echo "\nTurn $turn\n\n";
 
             // add new turn to encounter log and database
             $encounterTurn = $this->createNewTurn($encounter, $turn);
@@ -52,17 +50,16 @@ class ProcessEncounter
             $d = new \App\Actions\Turn\Encounter\ProcessEncounterDamage;
             $encounter = $d->handle($encounter, $turnSlug, $encounterTurn);
 
-            echo "\n";
+            // 4) Cleanup: remove dead ships/fleets, update target queues if targets are dead.
+            $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
+            $encounter = $k->handle($encounter, $turnSlug, $encounterTurn);
 
-            // 4) Check for destroyed ships and remove them
-            // 5) check if encounter ends (no attacker or defender ships)
-            // 6) increase turn
+            // 5) check if encounter ends (no attacker or defender ships). this sets $encounter['resolved'] if needed.
+            $e = new \App\Actions\Turn\Encounter\ProcessEncounterEndCheck;
+            $encounter = $e->handle($encounter, $turnSlug, $encounterTurn);
 
             // update encounter turn data
             $this->updateTurnFleetData($encounter, $encounterTurn);
-
-            // temp so it is not never-ending.
-            if ($turn >= 50) $resolved = true;
         }
 
         Log::channel('encounter')
@@ -71,6 +68,8 @@ class ProcessEncounter
                 .$encounter['star']['owner']->ticker."] "
                 .$encounter['star']['name']
             );
+
+        $encounter = null;
 
     }
 
@@ -85,7 +84,6 @@ class ProcessEncounter
     public function handle(Collection $encounter, string $turnSlug)
     {
         $e = new EncounterService;
-        Log::channel('encounter')->debug(json_encode($encounter, JSON_PRETTY_PRINT));
         // tons of logging.
         Log::channel('encounter')
             ->notice(

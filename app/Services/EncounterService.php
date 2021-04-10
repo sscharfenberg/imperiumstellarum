@@ -30,7 +30,7 @@ class EncounterService {
      * @param int $column
      * @return int|null
      */
-    public function getClosestOpponentCol (Collection $opponents, int $column): int
+    public function getClosestOpponentCol (Collection $opponents, int $column): ?int
     {
         $closest = null;
         foreach ($opponents as $fleet) {
@@ -66,16 +66,6 @@ class EncounterService {
     }
 
     /**
-     * @function format the name of a fleet/shipyard
-     * @param array $fleet
-     * @return string
-     */
-    public function getFleetFullName (array $fleet): string
-    {
-        return "[".$fleet['playerTicker']."] ".$fleet['name'];
-    }
-
-    /**
      * @function check if a fleet with id exists
      * @param string $fleetId
      * @param Collection $encounter
@@ -83,7 +73,8 @@ class EncounterService {
      */
     public function fleetExists (string $fleetId, Collection $encounter): bool
     {
-        return $encounter['fleets']->where('id', $fleetId)->count() === 1;
+        return $encounter['fleets']->where('id', $fleetId)->count() === 1
+            && $encounter['fleets']->where('id', $fleetId)->first()['ships']->count() > 0;
     }
 
     /**
@@ -96,11 +87,109 @@ class EncounterService {
     public function fleetShipExists (string $fleetId, string $shipId, Collection $encounter): bool
     {
         $fleet = $encounter['fleets']->where('id', $fleetId)->first();
-        if (!$fleet) {
-            return false;
-        } else {
-            return $fleet['ships']->where('id', $shipId)->count() === 1;
-        }
+        return $fleet['ships']->where('id', $shipId)->count() === 1
+            && $fleet['ships']->where('id', $shipId)->first()['hp_structure_current'] > 0;
+    }
+
+    /**
+     * @function get a fleet's ships. only returns ships that are not dead.
+     * @param array $fleet
+     * @return Collection $fleet['ships']
+     */
+    public function getNotDeadShips (array $fleet): Collection
+    {
+        return $fleet['ships']->filter( function($ship) {
+            return $ship['hp_structure_current'] > 0;
+        });
+    }
+
+    /**
+     * @function format the name of a fleet/shipyard
+     * @param array $fleet
+     * @return string
+     */
+    public function getFleetFullName (array $fleet): string
+    {
+        return "[".$fleet['player_ticker']."] ".$fleet['name'];
+    }
+
+    /**
+     * @function get targetted ship from target queue by fleetId
+     * @param Collection $encounter
+     * @param bool $attacker
+     * @param string $fleetId
+     * @return string
+     */
+    public function getShipIdFromTargetQueue (Collection $encounter, bool $attacker, string $fleetId): string
+    {
+        $queue = $attacker ? $encounter['attacker_queue'] : $encounter['defender_queue'];
+        $target = $queue->where('fleet_id', $fleetId)->first();
+        return $target['ship_id'];
+    }
+
+    /**
+     * @function get weapon range from rules config
+     * @param string $techType
+     * @param string $hullType
+     * @return int
+     */
+    public function getWeaponRange (string $techType, string $hullType): int
+    {
+        return collect(config('rules.modules'))->filter(function ($mod) use ($hullType, $techType) {
+            return $mod['moduleType'] === 'offensive'
+                && $mod['hullType'] === $hullType
+                && $mod['techType'] === $techType;
+        })->first()['range'];
+    }
+
+    /**
+     * @function calculate distance between two fleets.
+     * @param array $fleet
+     * @param array $targetFleet
+     * @return int
+     */
+    public function getFleetDistance (array $fleet, array $targetFleet): int
+    {
+        return max($fleet['col'], $targetFleet['col']) - min($fleet['col'], $targetFleet['col']);
+    }
+
+    /**
+     * @function get offensive tech types as flat array
+     * @return array
+     */
+    public function getWeaponTechAreas (): array
+    {
+        return array_keys(
+            collect(config('rules.tech.areas'))->filter(function ($area) {
+                return isset($area['dmgMultipliers']);
+            })->toArray()
+        );
+    }
+
+    /**
+     * @function get damage multiplier for a techType vs. a hpArea
+     * @param string $techType
+     * @param string $hpArea
+     * @return float
+     */
+    public function getDamageMultiplier (string $techType, string $hpArea): float
+    {
+        if ($hpArea === 'structure') return 1;
+        return config('rules.tech.areas.'.$techType.'.dmgMultipliers.'.$hpArea);
+    }
+
+    /**
+     * @function get range multiplier for damage from distance and range
+     * @param int $distance
+     * @param int $range
+     * @return float
+     */
+    public function getRangeMultiplier (int $distance, int $range): float
+    {
+        if ($range >= $distance) return 1; // within range
+        if ($range * config('rules.encounters.falloff.rangeMultiplier') >= $distance)
+            return config('rules.encounters.falloff.damageMultiplier'); // falloff
+        return 0; // out of range
     }
 
 }
