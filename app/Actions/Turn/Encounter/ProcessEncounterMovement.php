@@ -2,15 +2,14 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\EncounterTurn;
 use App\Services\EncounterService;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class ProcessEncounterMovement
 {
 
-    use UsesEncounterLogging;
 
     /**
      * @function modify acceleration by random deviation
@@ -27,6 +26,7 @@ class ProcessEncounterMovement
         return $deviation * $acc;
     }
 
+
     /**
      * @function change encounter fleets by setting turn_acceleration for all fleets.
      * @param Collection $encounter
@@ -39,6 +39,7 @@ class ProcessEncounterMovement
             return $fleet;
         });
     }
+
 
     /**
      * @function calculate the new column of a fleet
@@ -102,17 +103,17 @@ class ProcessEncounterMovement
         return $newCol;
     }
 
+
     /**
      * @function move fleets (changing row)
      * @param Collection $encounter
      * @param string $turnSlug
-     * @param EncounterTurn $encounterTurn
+     * @param int $turn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
+    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
-        $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 2: move fleets.");
 

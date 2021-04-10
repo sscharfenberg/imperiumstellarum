@@ -2,16 +2,59 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\Game;
+use App\Models\Encounter;
+use App\Models\EncounterParticipant;
+use App\Models\Turn;
+
 use App\Services\EncounterService;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Ramsey\Uuid\Uuid;
 
 class ProcessEncounter
 {
 
-    use UsesEncounterLogging;
+    /**
+     * @function create db entry for encounter
+     * @param Collection $encounter
+     * @return void
+     */
+    private function createDbEncounter (Collection $encounter)
+    {
+        // find the current turn
+        $turnId = Turn::where('game_id', '=', $encounter['game_id'])
+            ->whereNull('processed')
+            ->first()
+            ->id;
+        // find all unique players involved in this encounter
+        $participantIds = $encounter['fleets']->map(function ($fleet) {
+            return $fleet['player_id'];
+        })->concat([$encounter['star']['owner']['id']])
+            ->unique();
+        $participants = $participantIds->map(function($participantId) use ($encounter) {
+            return [
+                'id' => Uuid::uuid4(),
+                'game_id' => $encounter['game_id'],
+                'encounter_id' => $encounter['id'],
+                'player_id' => $participantId,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        })->toArray();
+
+        // create the encounter entry
+        Encounter::create([
+            'id' => $encounter['id'],
+            'game_id' => $encounter['game_id'],
+            'turn_id' => $turnId,
+            'star_id' => $encounter['star']['id']
+        ]);
+
+        // create the encounter participants
+        EncounterParticipant::insert($participants);
+    }
 
     /**
      * @function main function for processing encounters
@@ -21,8 +64,8 @@ class ProcessEncounter
     private function processEncounter (Collection $encounter, string $turnSlug)
     {
         $turn = 0;
-        $setupTurn = $this->createNewTurn($encounter, $turn);
-        $this->updateTurnFleetData($encounter, $setupTurn);
+        $t = new \App\Actions\Turn\Encounter\PersistTurn;
+        $t->handle($encounter, $turnSlug, $turn);
 
         // main turn loop
         while(!$encounter['resolved']) {
@@ -32,34 +75,37 @@ class ProcessEncounter
 
             echo "\nTurn $turn\n\n";
 
-            // add new turn to encounter log and database
-            $encounterTurn = $this->createNewTurn($encounter, $turn);
+            // 1) determine turn order
+            $o = new \App\Actions\Turn\Encounter\ProcessEncounterTurnOrder;
+            $encounter = $o->handle($encounter, $turnSlug, $turn);
+
+            // 2) Move Fleets
+            $m = new \App\Actions\Turn\Encounter\ProcessEncounterMovement;
+            $encounter = $m->handle($encounter, $turnSlug, $turn);
+
+            // 3) Process Damage
+            $d = new \App\Actions\Turn\Encounter\ProcessEncounterDamage;
+            $encounter = $d->handle($encounter, $turnSlug, $turn);
+
+            // 4) Cleanup: remove dead ships/fleets, update target queues if targets are dead.
+            $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
+            $encounter = $k->handle($encounter, $turnSlug, $turn);
+
+            // 5) check if encounter ends (no attacker or defender ships). this sets $encounter['resolved'] if needed.
+            $e = new \App\Actions\Turn\Encounter\ProcessEncounterEndCheck;
+            $encounter = $e->handle($encounter, $turnSlug, $turn);
+
+            // 6) update encounter turn data in database
+            $encounterTurn = $t->handle($encounter, $turnSlug, $turn);
             $encounter['turns']->push([
                 $encounterTurn->turn => $encounterTurn->id
             ]);
 
-            // 1) determine turn order
-            $t = new \App\Actions\Turn\Encounter\ProcessEncounterTurnOrder;
-            $encounter = $t->handle($encounter, $turnSlug, $encounterTurn);
-
-            // 2) Move Fleets
-            $m = new \App\Actions\Turn\Encounter\ProcessEncounterMovement;
-            $encounter = $m->handle($encounter, $turnSlug, $encounterTurn);
-
-            // 3) Process Damage
-            $d = new \App\Actions\Turn\Encounter\ProcessEncounterDamage;
-            $encounter = $d->handle($encounter, $turnSlug, $encounterTurn);
-
-            // 4) Cleanup: remove dead ships/fleets, update target queues if targets are dead.
-            $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
-            $encounter = $k->handle($encounter, $turnSlug, $encounterTurn);
-
-            // 5) check if encounter ends (no attacker or defender ships). this sets $encounter['resolved'] if needed.
-            $e = new \App\Actions\Turn\Encounter\ProcessEncounterEndCheck;
-            $encounter = $e->handle($encounter, $turnSlug, $encounterTurn);
-
-            // update encounter turn data
-            $this->updateTurnFleetData($encounter, $encounterTurn);
+            // 7) persist encounter if it is resolved.
+            if ($encounter['resolved']) {
+                $p = new \App\Actions\Turn\Encounter\PersistEncounter;
+                $p->handle($encounter, $turnSlug, $encounterTurn);
+            }
         }
 
         Log::channel('encounter')
@@ -104,6 +150,7 @@ class ProcessEncounter
 
         // create db entry for encounter and participants
         $this->createDbEncounter($encounter);
+
         // start processing.
         $this->processEncounter($encounter, $turnSlug);
     }

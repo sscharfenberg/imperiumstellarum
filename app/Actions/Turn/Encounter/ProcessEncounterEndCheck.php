@@ -2,8 +2,6 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\EncounterTurn;
-
 use App\Services\EncounterService;
 
 use Illuminate\Support\Collection;
@@ -20,7 +18,7 @@ class ProcessEncounterEndCheck
      */
     private function handleAttackersWon (Collection $encounter, string $turnSlug)
     {
-        echo "============================== ATTACKERS WIN ==============================";
+        echo "============================== ATTACKERS WIN ==============================\n";
         Log::channel('encounter')
             ->notice(
                 "\n\n============================== ATTACKERS WIN ==============================\n"
@@ -38,7 +36,7 @@ class ProcessEncounterEndCheck
      */
     private function handleDefendersWon (Collection $encounter, string $turnSlug)
     {
-        echo "============================== DEFENDERS WON ==============================";
+        echo "============================== DEFENDERS WON ==============================\n";
         Log::channel('encounter')
             ->notice(
                 "\n\n============================== DEFENDERS WIN ==============================\n"
@@ -55,7 +53,7 @@ class ProcessEncounterEndCheck
      */
     private function handleDraw (Collection $encounter, string $turnSlug)
     {
-        echo "============================== DRAW ==============================";
+        echo "============================== DRAW ==============================\n";
         Log::channel('encounter')
             ->notice(
                 "\n\n============================== DRAW ==============================\n"
@@ -70,13 +68,12 @@ class ProcessEncounterEndCheck
      * @function handle cleanup step: remove dead ships/fleets, update target queues if needed.
      * @param Collection $encounter
      * @param string $turnSlug
-     * @param EncounterTurn $encounterTurn
+     * @param int $turn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
+    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
-        $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 5: check if encounter ends.");
 

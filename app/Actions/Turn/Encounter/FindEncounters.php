@@ -11,12 +11,12 @@ use App\Models\Game;
 use App\Services\EncounterService;
 use App\Services\FleetService;
 use App\Services\FormatApiResponseService;
+use App\Services\PlayerRelationService;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Ramsey\Uuid\Uuid;
-
-use App\Services\PlayerRelationService;
 
 class FindEncounters
 {

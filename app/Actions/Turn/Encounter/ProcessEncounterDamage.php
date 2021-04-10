@@ -2,8 +2,6 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\EncounterTurn;
-
 use App\Services\EncounterService;
 
 use Illuminate\Support\Collection;
@@ -12,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 class ProcessEncounterDamage
 {
 
-    use UsesEncounterLogging;
 
     /**
      * @function find a target fleet: random fleet in the closest column to $fleet
@@ -118,7 +115,7 @@ class ProcessEncounterDamage
      * @param Collection $encounter
      * @param string $fleetId
      * @param string $shipId
-     * @param float $damage
+     * @param int $damage
      * @param string $hpArea
      * @return Collection
      */
@@ -126,7 +123,7 @@ class ProcessEncounterDamage
         Collection $encounter,
         string $fleetId,
         string $shipId,
-        float $damage,
+        int $damage,
         string $hpArea
     ): Collection
     {
@@ -210,7 +207,7 @@ class ProcessEncounterDamage
 
                     else if ($targetShip['hp_'.$area.'_current'] > 0 && !$dmgAssigned) {
                         $dmgAssigned = true;
-                        $damage = ceil($firingShip['dmg_'.$tech] * $dmgMultiplier * $rangeMultiplier);
+                        $damage = intval(round($firingShip['dmg_'.$tech] * $dmgMultiplier * $rangeMultiplier), 10);
                         $encounter = $this->applyDamage($encounter, $targetFleetId, $targetShipId, $damage, $area);
                         Log::channel('encounter')
                             ->info(
@@ -270,12 +267,11 @@ class ProcessEncounterDamage
      * @function move fleets (changing row)
      * @param Collection $encounter
      * @param string $turnSlug
-     * @param EncounterTurn $encounterTurn
+     * @param int $turn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
+    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
     {
-        $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 3: process damage.");
 

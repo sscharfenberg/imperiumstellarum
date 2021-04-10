@@ -2,8 +2,6 @@
 
 namespace App\Actions\Turn\Encounter;
 
-use App\Models\EncounterTurn;
-
 use App\Services\EncounterService;
 
 use Illuminate\Support\Collection;
@@ -124,13 +122,12 @@ class ProcessEncounterCleanup
      * @function handle cleanup step: remove dead ships/fleets, update target queues if needed.
      * @param Collection $encounter
      * @param string $turnSlug
-     * @param EncounterTurn $encounterTurn
+     * @param int $turn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn): Collection
+    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
-        $turn = $encounterTurn->turn;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 4: cleanup.");
 

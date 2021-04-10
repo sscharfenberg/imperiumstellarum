@@ -1251,8 +1251,8 @@ return [
             'max' => 40
         ],
         'num' => [
-            'max' => 10, // hardcap maximum
-            'factor' => 0.4 // totalPopulation * factor is the max of a player
+            'max' => 12, // hardcap maximum
+            'factor' => 0.6 // totalPopulation * factor is the max of a player
         ],
         'movement' => [
             'turnsPerDistance' => 2.5
