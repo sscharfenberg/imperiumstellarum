@@ -16,6 +16,9 @@ use Ramsey\Uuid\Uuid;
 class ProcessEncounter
 {
 
+
+    use UsesDamageLogging;
+
     /**
      * @function create db entry for encounter
      * @param Collection $encounter
@@ -56,6 +59,7 @@ class ProcessEncounter
         EncounterParticipant::insert($participants);
     }
 
+
     /**
      * @function main function for processing encounters
      * @param Collection $encounter
@@ -72,8 +76,10 @@ class ProcessEncounter
             $turn++;
             Log::channel('encounter')
                 ->notice("\n\n$turnSlug #".$encounter['id']." start processing turn $turn.\n");
-
             echo "\nTurn $turn\n\n";
+
+            // 0) initiate damage log
+            $encounter = $this->initiateDamageLog($encounter);
 
             // 1) determine turn order
             $o = new \App\Actions\Turn\Encounter\ProcessEncounterTurnOrder;
@@ -97,9 +103,6 @@ class ProcessEncounter
 
             // 6) update encounter turn data in database
             $encounterTurn = $t->handle($encounter, $turnSlug, $turn);
-            $encounter['turns']->push([
-                $encounterTurn->turn => $encounterTurn->id
-            ]);
 
             // 7) persist encounter if it is resolved.
             if ($encounter['resolved']) {

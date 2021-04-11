@@ -21,6 +21,7 @@ use Ramsey\Uuid\Uuid;
 class FindEncounters
 {
 
+
     /**
      * @function default encounter model
      * @param Star $star
@@ -42,10 +43,11 @@ class FindEncounters
             'fleets' => collect(),
             'attacker_queue' => collect(),
             'defender_queue' => collect(),
-            'resolved' => false,
-            'turns' => collect()
+            'damage_log' => collect(),
+            'resolved' => false
         ]);
     }
+
 
     /**
      * @function format a fleet for data handling
@@ -74,6 +76,7 @@ class FindEncounters
         ];
     }
 
+
     /**
      * @function format a fleet for data handling
      * @param Shipyard $shipyard
@@ -101,6 +104,7 @@ class FindEncounters
         ];
     }
 
+
     /**
      * @function assign Rows to fleets
      * @param Collection $encounter
@@ -113,6 +117,7 @@ class FindEncounters
             return $fleet;
         });
     }
+
 
     /**
      * @function get the encounters for a star
@@ -193,6 +198,7 @@ class FindEncounters
         return $encounter;
     }
 
+
     /**
      * @function find out if any encounters need to be processed and trigger processing.
      * @param Game $game
@@ -244,5 +250,6 @@ class FindEncounters
             }
         }
     }
+
 
 }

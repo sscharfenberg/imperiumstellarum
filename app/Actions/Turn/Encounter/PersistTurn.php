@@ -79,7 +79,8 @@ class PersistTurn
                     'ships' => $this->formatShips($fleet['ships']),
                     'acc' => $fleet['turn_acceleration']
                 ];
-            })->toArray())
+            })->toArray()),
+            'damage' => $encounter['damage_log']
         ]);
         Log::channel('encounter')
             ->notice(

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 class ProcessEncounterDamage
 {
 
+    use UsesDamageLogging;
 
     /**
      * @function find a target fleet: random fleet in the closest column to $fleet
@@ -127,17 +128,19 @@ class ProcessEncounterDamage
         string $hpArea
     ): Collection
     {
+        $actualDamage = $damage;
         // map fleets
-        $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($fleetId, $shipId, $damage, $hpArea) {
+        $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($fleetId, $shipId, $damage, $hpArea, $actualDamage) {
             // if we are at the correct fleet,
             if ($fleet['id'] === $fleetId) {
                 // map ships
-                $fleet['ships'] = $fleet['ships']->map(function($ship) use ($shipId, $hpArea, $damage) {
+                $fleet['ships'] = $fleet['ships']->map(function($ship) use ($shipId, $hpArea, $damage, $actualDamage) {
                     // if we are at the correct ship,
                     if ($ship['id'] === $shipId) {
                         // apply damage
                         $ship['hp_'.$hpArea.'_current'] -= $damage;
                         if ($ship['hp_'.$hpArea.'_current'] < 0) {
+                            $actualDamage = $actualDamage - abs($ship['hp_'.$hpArea.'_current']);
                             $ship['hp_'.$hpArea.'_current'] = 0;
                         }
                     }
@@ -146,7 +149,8 @@ class ProcessEncounterDamage
             }
             return $fleet;
         })->values();
-        return $encounter;
+        // return the encounter
+        return $this->logTurnDamage($encounter, $fleetId, $actualDamage);
     }
 
 
@@ -207,7 +211,9 @@ class ProcessEncounterDamage
 
                     else if ($targetShip['hp_'.$area.'_current'] > 0 && !$dmgAssigned) {
                         $dmgAssigned = true;
+                        // calculate actual damage, modified by range and weaponType vs. hullArea
                         $damage = intval(round($firingShip['dmg_'.$tech] * $dmgMultiplier * $rangeMultiplier), 10);
+                        // apply damage in encounter collection
                         $encounter = $this->applyDamage($encounter, $targetFleetId, $targetShipId, $damage, $area);
                         Log::channel('encounter')
                             ->info(
