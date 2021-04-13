@@ -155,6 +155,43 @@ class ProcessEncounterDamage
 
 
     /**
+     * @function choose a new target ship from a $fleetId and update queue.
+     * @param Collection $encounter
+     * @param bool $attackerQueue
+     * @param string $fleetId
+     * @return Collection
+     */
+    private function chooseNewTargetShip (Collection $encounter, bool $attackerQueue, string $fleetId): Collection
+    {
+        $e = new EncounterService;
+        $targetFleet = $encounter['fleets']->where('id', $fleetId)->first();
+        $availableShips = $e->getNotDeadShips($targetFleet);
+        // if the fleet has non dead ships left, choose a random ship and update ship_id for the fleet
+        if (count($availableShips) > 0) {
+            $targetShip = $availableShips->random();
+            //echo "reassigning target to ".$targetShip['name'].", id=".$targetShip['id']." from ".count($availableShips)." available\n";
+            if ($attackerQueue) {
+                $encounter['attacker_queue'] = $encounter['attacker_queue']->map(function ($target) use ($fleetId, $targetShip) {
+                    if ($target['fleet_id'] === $fleetId) {
+                        $target['ship_id'] = $targetShip['id'];
+                    }
+                    return $target;
+                });
+            } else {
+                $encounter['defender_queue'] = $encounter['defender_queue']->map(function ($target) use ($fleetId, $targetShip) {
+                    if ($target['fleet_id'] === $fleetId) {
+                        $target['ship_id'] = $targetShip['id'];
+                    }
+                    return $target;
+                });
+            }
+            //echo "reassigning target to ".$targetShip['name']."\n";
+        }
+        return $encounter;
+    }
+
+
+    /**
      * @function process damage from a ship to a target ship
      * @param Collection $encounter
      * @param array $firingShip
@@ -176,10 +213,24 @@ class ProcessEncounterDamage
         $e = new EncounterService;
         $firingFleet = $encounter['fleets']->where('id', $firingFleetId)->first();
         $targetFleet = $encounter['fleets']->where('id', $targetFleetId)->first();
-        $targetShipId = $e->getShipIdFromTargetQueue($encounter, $firingFleet['attacker'], $targetFleet['id']);
-        $targetShip = $targetFleet['ships']->where('id', $targetShipId)->first();
         $distance = max($column, $targetFleet['col']) - min($column, $targetFleet['col']);
         $hpAreas = ['shields', 'armour', 'structure'];
+        $targetShipId = $e->getShipIdFromTargetQueue($encounter, $firingFleet['attacker'], $targetFleet['id']);
+        $targetShip = $targetFleet['ships']->where('id', $targetShipId)->first();
+
+        // if the ship is dead, choose a new one.
+        if ($targetShip['hp_structure_current'] <= 0) {
+            //echo $firingShip['name']." REPORTS: TARGET ".$targetShip['name']." IS ALREADY DEAD; FUCK.\n";
+            $encounter = $this->chooseNewTargetShip($encounter, $firingFleet['attacker'], $targetFleetId);
+            $targetShipId = $e->getShipIdFromTargetQueue($encounter, $firingFleet['attacker'], $targetFleet['id']);
+            $targetShip = $targetFleet['ships']->where('id', $targetShipId)->first();
+            //echo "reassigned target to ".$targetShip['name'].", hp = ".$targetShip['hp_structure_current']."\n";
+            Log::channel('encounter')
+                ->info(
+                    "$turnSlug #".$encounter['id']." * "
+                    .$firingShip['name']." target switched to ".$targetShip['name'].", dist=$distance"
+                );
+        }
 
         //echo "=> ".$firingShip['name'].", targetting fleet ".$targetFleet['name'].", targetShip='".$targetShip['name']."' at distance=".$distance."\n";
 
@@ -187,16 +238,13 @@ class ProcessEncounterDamage
         foreach($e->getWeaponTechAreas() as $tech) {
             // check if ship has damage > 0 and the target is in range
             if ($firingShip['dmg_' . $tech] > 0 ) {
-
-
-
                 $dmgAssigned = false;
                 // loop all hpAreas and check if there are hitpoints left
                 foreach($hpAreas as $area) {
                     $dmgMultiplier = $e->getDamageMultiplier($tech, $area);
                     $range = $e->getWeaponRange($tech, $firingShip['hull_type']);
                     $rangeMultiplier = $e->getRangeMultiplier($distance, $range);
-
+                    // out of range
                     if ($rangeMultiplier === 0.0 && !$dmgAssigned) {
                         $dmgAssigned = true;
                         Log::channel('encounter')
@@ -208,7 +256,6 @@ class ProcessEncounterDamage
                         echo $firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range"
                             ." => out of effective range.\n";
                     }
-
                     else if ($targetShip['hp_'.$area.'_current'] > 0 && !$dmgAssigned) {
                         $dmgAssigned = true;
                         // calculate actual damage, modified by range and weaponType vs. hullArea
