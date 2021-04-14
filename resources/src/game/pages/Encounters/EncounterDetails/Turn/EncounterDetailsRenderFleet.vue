@@ -56,7 +56,10 @@ export default {
         :title="name"
         :style="{ '--fleet-margin': columnMargin() }"
     >
-        <span :style="{ width: columnWidth[col] + 'px' }">{{ name }}</span>
+        <span :style="{ width: columnWidth[col] + 'px' }">
+            {{ name }}
+            {{ ships }}
+        </span>
     </li>
 </template>
 

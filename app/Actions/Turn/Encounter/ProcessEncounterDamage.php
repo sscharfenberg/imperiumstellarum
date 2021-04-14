@@ -74,21 +74,7 @@ class ProcessEncounterDamage
     {
         $e = new EncounterService;
         $targetingFleet = $encounter['fleets']->where('id', $targetingFleetId)->first();
-
-        // if fleet has a target, and the target is still in range.
-        if ($targetingFleet['target_fleet_id']) {
-            $targetFleet = $encounter['fleets']->where('id', $targetingFleet['target_fleet_id'])->first();
-            // target fleet does not exist anymore.
-            if (!$targetFleet || !$e->fleetExists($targetFleet['id'], $encounter)) {
-                $targetFleet = $this->findTargetFleet($targetingFleet, $encounter);
-            }
-        }
-
-        // otherwise, find new target
-        else {
-            $targetFleet = $this->findTargetFleet($targetingFleet, $encounter);
-        }
-
+        $targetFleet = $this->findTargetFleet($targetingFleet, $encounter);
         // get targetship so we can log the name.
         $targetShipId = $e->getShipIdFromTargetQueue($encounter, $targetingFleet['attacker'], $targetFleet['id']);
         $targetShip = $targetFleet['ships']->where('id', $targetShipId)->first();
@@ -227,7 +213,7 @@ class ProcessEncounterDamage
             //echo "reassigned target to ".$targetShip['name'].", hp = ".$targetShip['hp_structure_current']."\n";
             Log::channel('encounter')
                 ->info(
-                    "$turnSlug #".$encounter['id']." * "
+                    "$turnSlug #".$encounter['id']." # "
                     .$firingShip['name']." target switched to ".$targetShip['name'].", dist=$distance"
                 );
         }
