@@ -78,15 +78,23 @@ class ProcessEncounterEndCheck
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 5: check if encounter ends.");
 
         $attackers = $e->getAttackers($encounter);
+        $attackerShips = 0;
+        $attackers->each(function ($fleet) use (&$attackerShips) {
+            $attackerShips += $fleet['ships']->count();
+        });
         $defenders = $e->getDefenders($encounter);
+        $defenderShips = 0;
+        $defenders->each(function ($fleet) use (&$defenderShips) {
+            $defenderShips += $fleet['ships']->count();;
+        });
 
         // no attackers left, defender won.
-        if ($attackers->count() === 0) {
+        if ($attackers->count() === 0 || $attackerShips === 0) {
             $encounter['resolved'] = true;
             $this->handleDefendersWon($encounter, $turnSlug);
         }
         // no defenders left, attacker won.
-        if ($defenders->count() === 0) {
+        if ($defenders->count() === 0 || $defenderShips === 0) {
             $encounter['resolved'] = true;
             $this->handleAttackersWon($encounter, $turnSlug);
         }

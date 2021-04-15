@@ -85,7 +85,7 @@ class PersistTurn
         Log::channel('encounter')
             ->notice(
                 "$turnSlug #".$encounter['id']." TURN $turn"
-                .($turn !== 0 ? " STEP 4" : "")
+                .($turn !== 0 ? " STEP 6" : "")
                 .": persisted encounter turn in database, id="
                 .$encounterTurn->id
             );

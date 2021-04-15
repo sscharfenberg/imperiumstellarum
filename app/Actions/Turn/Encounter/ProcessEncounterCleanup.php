@@ -12,15 +12,14 @@ class ProcessEncounterCleanup
 
 
     /**
-     * @function remove dead ships and fleets from encounter
+     * @function remove dead ships
      * @param Collection $encounter
      * @param string $turnSlug
      * @return Collection
      */
-    private function removeCorpses (Collection $encounter, string $turnSlug): Collection
+    private function removeDeadShips (Collection $encounter, string $turnSlug): Collection
     {
         $deadShips = collect();
-        $deadFleets = collect();
         // map fleets and filter dead ships.
         $encounter['fleets'] = $encounter['fleets']->map( function($fleet) use ($deadShips) {
             $fleet['ships'] = $fleet['ships']->filter( function($ship) use ($deadShips) {
@@ -31,6 +30,32 @@ class ProcessEncounterCleanup
             });
             return $fleet;
         })->values();
+        // log cleanup
+        if ($deadShips->count() > 0) {
+            Log::channel('encounter')
+                ->debug(
+                    "$turnSlug #".$encounter['id']." => removed ".$deadShips->count()." dead ships: "
+                    .json_encode($deadShips, JSON_PRETTY_PRINT)
+                );
+        } else {
+            Log::channel('encounter')
+                ->info("$turnSlug #".$encounter['id']." => no ships removed.");
+        }
+        echo "removed ".$deadShips->count()." dead ships:\n";
+        dump($deadShips);
+        return $encounter;
+    }
+
+
+    /**
+     * @function remove dead ships and fleets from encounter
+     * @param Collection $encounter
+     * @param string $turnSlug
+     * @return Collection
+     */
+    private function removeDeadFleets (Collection $encounter, string $turnSlug): Collection
+    {
+        $deadFleets = collect();
         // filter fleets and remove fleets without ships
         $encounter['fleets'] = $encounter['fleets']->filter( function($fleet) use ($deadFleets) {
             if ($fleet['ships']->count() === 0) {
@@ -39,29 +64,18 @@ class ProcessEncounterCleanup
             return $fleet['ships']->count() > 0;
         });
 
-        // TODO: add to log/turn for frontend.
         // log cleanup
-        if ($deadShips->count() > 0) {
-            Log::channel('encounter')
-                ->debug(
-                    "$turnSlug #".$encounter['id']." => removed ".$deadShips->count()." dead ships: "
-                    .json_encode($deadShips, JSON_PRETTY_PRINT)
-                );
-        }
         if ($deadFleets->count() > 0) {
             Log::channel('encounter')
                 ->debug(
                     "$turnSlug #".$encounter['id']." => removed ".$deadFleets->count()." dead fleets: "
                     .json_encode($deadFleets, JSON_PRETTY_PRINT)
                 );
-        }
-        if ($deadFleets->count() === 0 && $deadShips->count() === 0) {
+        } else {
             Log::channel('encounter')
-                ->info("$turnSlug #".$encounter['id']." => no ships or fleets removed.");
+                ->info("$turnSlug #".$encounter['id']." => no fleets removed.");
         }
 
-        echo "removed ".$deadShips->count()." dead ships:\n";
-        dump($deadShips);
         echo "removed ".$deadFleets->count()." dead fleets:\n";
         dump($deadFleets);
 
@@ -119,21 +133,39 @@ class ProcessEncounterCleanup
 
 
     /**
+     * @function handle cleanup step part A: remove dead ships/fleets, update target queues if needed.
+     * @param Collection $encounter
+     * @param string $turnSlug
+     * @param int $turn
+     * @return Collection
+     */
+    public function handleShips (Collection $encounter, string $turnSlug, int $turn): Collection
+    {
+        $e = new EncounterService;
+        Log::channel('encounter')
+            ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 4: cleanup Part A.");
+
+        // part A: cleanup dead ships and fleets
+        return $this->removeDeadShips($encounter, $turnSlug);
+    }
+
+
+    /**
      * @function handle cleanup step: remove dead ships/fleets, update target queues if needed.
      * @param Collection $encounter
      * @param string $turnSlug
      * @param int $turn
      * @return Collection
      */
-    public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
+    public function handleFleets (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
         Log::channel('encounter')
-            ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 4: cleanup.");
+            ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 7: cleanup Part B and C.");
 
-        // part 1: cleanup dead ships and fleets
-        $encounter = $this->removeCorpses($encounter, $turnSlug);
-        // part 2: update target queues
+        // part B: cleanup dead ships and fleets
+        $encounter = $this->removeDeadFleets($encounter, $turnSlug);
+        // part C: update target queues
         $encounter = $this->updateTargetQueues($encounter, $turnSlug);
 
         // return encounter

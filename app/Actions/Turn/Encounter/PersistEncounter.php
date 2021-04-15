@@ -22,7 +22,7 @@ class PersistEncounter
     public function handle (Collection $encounter, string $turnSlug, EncounterTurn $encounterTurn)
     {
 
-        echo "PERSISTING ENCOUNTER TO DATABASE\n";
+        echo "\n\nTODO: PERSISTING ENCOUNTER TO DATABASE\n";
 
 
     }

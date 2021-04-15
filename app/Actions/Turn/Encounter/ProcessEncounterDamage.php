@@ -4,6 +4,7 @@ namespace App\Actions\Turn\Encounter;
 
 use App\Services\EncounterService;
 
+use App\Services\FleetService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -16,11 +17,12 @@ class ProcessEncounterDamage
      * @function find a target fleet: random fleet in the closest column to $fleet
      * @param array $fleet
      * @param Collection $encounter
-     * @return array|string
+     * @return null|array
      */
     private function findTargetFleet(array $fleet, Collection $encounter): ?array
     {
         $e = new EncounterService;
+        $f = new FleetService;
         // find out what the opponents of $fleet are
         $opponents = $fleet['attacker'] ? $e->getDefenders($encounter) : $e->getAttackers($encounter);
         if (!$opponents) return null;
@@ -35,7 +37,18 @@ class ProcessEncounterDamage
         })->sortBy('distance')->values();
         // if there are no opponents left, we can't target anything.
         if ($opponents->count() === 0) return null;
-        return $opponents->first();
+        $targetFleet = $opponents->first();
+        // calculate distance between targetingFleet and closest opponents
+        $distance = max($col, $targetFleet['col']) - min($col, $targetFleet['col']);
+        // calculate prefered range
+        $range = $f->getFleetPreferredRange($targetFleet['ships']->toArray());
+        // range * falloff modifier >= distance? return targetFleet.
+        if ($range * config('rules.encounters.falloff.rangeMultiplier') >= $distance) {
+            return $targetFleet;
+        } else {
+            //  return null if not (no targets)
+            return null;
+        }
     }
 
 
@@ -75,25 +88,23 @@ class ProcessEncounterDamage
         $e = new EncounterService;
         $targetingFleet = $encounter['fleets']->where('id', $targetingFleetId)->first();
         $targetFleet = $this->findTargetFleet($targetingFleet, $encounter);
-        // get targetship so we can log the name.
-        $targetShipId = $e->getShipIdFromTargetQueue($encounter, $targetingFleet['attacker'], $targetFleet['id']);
-        $targetShip = $targetFleet['ships']->where('id', $targetShipId)->first();
-
-        Log::channel('encounter')
-            ->info(
-                "$turnSlug #".$encounter['id']." => "
-                .$e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
+        if ($targetFleet) {
+            Log::channel('encounter')
+                ->info(
+                    "$turnSlug #".$encounter['id']." => "
+                    .$e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
+                    ." targeting ".$e->getFleetFullName($targetFleet)." ("
+                    .($targetFleet['attacker'] ? "attacker" : "defender").")"
+                );
+            echo $e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
                 ." targeting ".$e->getFleetFullName($targetFleet)." ("
-                .($targetFleet['attacker'] ? "attacker" : "defender")."), targetship='".$targetShip['name']."'"
-            );
-        echo $e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
-            ." targeting ".$e->getFleetFullName($targetFleet)." ("
-            .($targetFleet['attacker'] ? "attacker" : "defender")
-            ."), targetship='".$targetShip['name']."'\n";
-
-        // return the encounter
-        return $this->saveTarget($targetingFleetId, $targetFleet['id'], $encounter);
-
+                .($targetFleet['attacker'] ? "attacker" : "defender")."\n";
+            // return the encounter
+            return $this->saveTarget($targetingFleetId, $targetFleet['id'], $encounter);
+        } else {
+            // we don't have a target, so simply return encounter.
+            return $encounter;
+        }
     }
 
 
@@ -291,12 +302,14 @@ class ProcessEncounterDamage
         $encounter = $this->setFleetTarget($encounter, $fleetId, $turnSlug);
         $fleet = $encounter['fleets']->where('id', $fleetId)->first();
 
-        // loop ships in fleet and process ships
-        $fleet['ships']->each(function ($ship) use (&$encounter, $fleet, $fleetId, $turnSlug) {
-            $encounter = $this->processShip(
-                $encounter, $ship, $fleet['id'], $fleet['target_fleet_id'], $fleet['col'], $turnSlug
-            );
-        });
+        if ($fleet['target_fleet_id']) {
+            // loop ships in fleet and process ships
+            $fleet['ships']->each(function ($ship) use (&$encounter, $fleet, $fleetId, $turnSlug) {
+                $encounter = $this->processShip(
+                    $encounter, $ship, $fleet['id'], $fleet['target_fleet_id'], $fleet['col'], $turnSlug
+                );
+            });
+        }
 
         return $encounter;
     }
