@@ -298,17 +298,25 @@ class ProcessEncounterDamage
      */
     private function processFleet (Collection $encounter, string $fleetId, string $turnSlug): Collection
     {
+        $e = new EncounterService;
         // first, set targets for this fleet
         $encounter = $this->setFleetTarget($encounter, $fleetId, $turnSlug);
         $fleet = $encounter['fleets']->where('id', $fleetId)->first();
 
-        if ($fleet['target_fleet_id']) {
+        if ($fleet['target_fleet_id'] && $e->fleetExists($fleet['target_fleet_id'], $encounter)) {
             // loop ships in fleet and process ships
             $fleet['ships']->each(function ($ship) use (&$encounter, $fleet, $fleetId, $turnSlug) {
                 $encounter = $this->processShip(
                     $encounter, $ship, $fleet['id'], $fleet['target_fleet_id'], $fleet['col'], $turnSlug
                 );
             });
+        } else {
+            Log::channel('encounter')
+                ->info(
+                    "$turnSlug #".$encounter['id']." * "
+                    .$e->getFleetFullName($fleet)." has not targets, everything seems to be out of range!"
+                );
+            echo "fleet ".$fleet['name']. " has no targets, everything seems to be out of range!\n";
         }
 
         return $encounter;

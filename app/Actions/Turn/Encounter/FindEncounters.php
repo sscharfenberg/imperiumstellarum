@@ -44,6 +44,8 @@ class FindEncounters
             'attacker_queue' => collect(),
             'defender_queue' => collect(),
             'damage_log' => collect(),
+            'dead_ships' => collect(),
+            'dead_fleets' => collect(),
             'resolved' => false
         ]);
     }

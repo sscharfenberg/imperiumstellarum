@@ -12,6 +12,19 @@ class ProcessEncounterCleanup
 
 
     /**
+     * @function save a dead ship to encounter
+     * @param Collection $encounter
+     * @param Collection $shipIds
+     * @return Collection
+     */
+    private function saveDeadShips (Collection $encounter, Collection $shipIds): Collection
+    {
+        $encounter['dead_ships'] = $encounter['dead_ships']->concat($shipIds);
+        return $encounter;
+    }
+
+
+    /**
      * @function remove dead ships
      * @param Collection $encounter
      * @param string $turnSlug
@@ -41,9 +54,12 @@ class ProcessEncounterCleanup
             Log::channel('encounter')
                 ->info("$turnSlug #".$encounter['id']." => no ships removed.");
         }
-        echo "removed ".$deadShips->count()." dead ships:\n";
+        echo "removed ".$deadShips->count()." dead ships\n";
         dump($deadShips);
-        return $encounter;
+        // save dead ships to encounter and return the updated encounter.
+        return $this->saveDeadShips($encounter, $deadShips->map(function ($ship) {
+            return $ship['id'];
+        }));
     }
 
 
