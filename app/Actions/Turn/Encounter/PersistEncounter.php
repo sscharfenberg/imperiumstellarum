@@ -25,7 +25,8 @@ class PersistEncounter
         echo "\n\nTODO: PERSISTING ENCOUNTER TO DATABASE\n";
         echo "remove these ships from the database:\n";
         dump($encounter['dead_ships']);
-
+        echo "remove these fleets from the database:\n";
+        dump($encounter['dead_fleets']);
     }
 
 }

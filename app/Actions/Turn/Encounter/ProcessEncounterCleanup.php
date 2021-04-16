@@ -19,7 +19,24 @@ class ProcessEncounterCleanup
      */
     private function saveDeadShips (Collection $encounter, Collection $shipIds): Collection
     {
-        $encounter['dead_ships'] = $encounter['dead_ships']->concat($shipIds);
+        if ($shipIds->count() > 0) {
+            $encounter['dead_ships'] = $encounter['dead_ships']->concat($shipIds);
+        }
+        return $encounter;
+    }
+
+
+    /**
+     * @function save a dead fleet to encounter
+     * @param Collection $encounter
+     * @param Collection $fleetIds
+     * @return Collection
+     */
+    private function saveDeadFleets (Collection $encounter, Collection $fleetIds): Collection
+    {
+        if ($fleetIds->count() > 0) {
+            $encounter['dead_fleets'] = $encounter['dead_fleets']->concat($fleetIds);
+        }
         return $encounter;
     }
 
@@ -43,6 +60,7 @@ class ProcessEncounterCleanup
             });
             return $fleet;
         })->values();
+
         // log cleanup
         if ($deadShips->count() > 0) {
             Log::channel('encounter')
@@ -54,8 +72,10 @@ class ProcessEncounterCleanup
             Log::channel('encounter')
                 ->info("$turnSlug #".$encounter['id']." => no ships removed.");
         }
-        echo "removed ".$deadShips->count()." dead ships\n";
-        dump($deadShips);
+
+        //echo "removed ".$deadShips->count()." dead ships\n";
+        //dump($deadShips);
+
         // save dead ships to encounter and return the updated encounter.
         return $this->saveDeadShips($encounter, $deadShips->map(function ($ship) {
             return $ship['id'];
@@ -95,7 +115,10 @@ class ProcessEncounterCleanup
         echo "removed ".$deadFleets->count()." dead fleets:\n";
         dump($deadFleets);
 
-        return $encounter;
+        // save dead ships to encounter and return the updated encounter.
+        return  $this->saveDeadFleets($encounter, $deadFleets->map(function ($fleet) {
+            return $fleet['id'];
+        }));
     }
 
 
@@ -155,7 +178,7 @@ class ProcessEncounterCleanup
      * @param int $turn
      * @return Collection
      */
-    public function handleShips (Collection $encounter, string $turnSlug, int $turn): Collection
+    public function handlePrePersistTurn (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
         Log::channel('encounter')
@@ -173,7 +196,7 @@ class ProcessEncounterCleanup
      * @param int $turn
      * @return Collection
      */
-    public function handleFleets (Collection $encounter, string $turnSlug, int $turn): Collection
+    public function handlePostPersistTurn (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
         Log::channel('encounter')

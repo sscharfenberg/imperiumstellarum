@@ -95,7 +95,7 @@ class ProcessEncounter
 
             // 4) Cleanup Part A: remove dead ships
             $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
-            $encounter = $k->handleShips($encounter, $turnSlug, $turn);
+            $encounter = $k->handlePrePersistTurn($encounter, $turnSlug, $turn);
 
             // 5) check if encounter ends (no attacker or defender ships). this sets $encounter['resolved'] if needed.
             $e = new \App\Actions\Turn\Encounter\ProcessEncounterEndCheck;
@@ -104,11 +104,9 @@ class ProcessEncounter
             // 6) update encounter turn data in database
             $encounterTurn = $t->handle($encounter, $turnSlug, $turn);
 
-            if (!$encounter['resolved']) {
-                // 7) Cleanup Part B+C: remove dead Fleets, update target queues
-                $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
-                $encounter = $k->handleFleets($encounter, $turnSlug, $turn);
-            }
+            // 7) Cleanup Part B+C: remove dead Fleets, update target queues
+            $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
+            $encounter = $k->handlePostPersistTurn($encounter, $turnSlug, $turn);
 
             // 8) persist encounter if it is resolved.
             if ($encounter['resolved']) {

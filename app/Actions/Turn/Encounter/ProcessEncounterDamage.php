@@ -26,29 +26,33 @@ class ProcessEncounterDamage
         // find out what the opponents of $fleet are
         $opponents = $fleet['attacker'] ? $e->getDefenders($encounter) : $e->getAttackers($encounter);
         if (!$opponents) return null;
-        $col = $fleet['col'];
-        $opponents = $opponents->map(function($fleet) use ($col) {
-            $fleet['distance'] = max($fleet['col'], $col) - min($fleet['col'], $col);
-            return $fleet;
-        });
-        // filter fleets without ships, then sort by distance - lowest distance first
-        $opponents = $opponents->filter(function ($fleet) {
-            return $fleet['ships']->count() > 0;
-        })->sortBy('distance')->values();
-        // if there are no opponents left, we can't target anything.
-        if ($opponents->count() === 0) return null;
-        $targetFleet = $opponents->first();
-        // calculate distance between targetingFleet and closest opponents
-        $distance = max($col, $targetFleet['col']) - min($col, $targetFleet['col']);
-        // calculate prefered range
-        $range = $f->getFleetPreferredRange($targetFleet['ships']->toArray());
-        // range * falloff modifier >= distance? return targetFleet.
-        if ($range * config('rules.encounters.falloff.rangeMultiplier') >= $distance) {
-            return $targetFleet;
-        } else {
-            //  return null if not (no targets)
-            return null;
-        }
+        $closestCol = $e->getClosestOpponentCol($opponents, $fleet['col']);
+        return $opponents->where('col', $closestCol)->random();
+
+        //$col = $fleet['col'];
+        //$opponents = $opponents->map(function($fleet) use ($col) {
+        //    $fleet['distance'] = max($fleet['col'], $col) - min($fleet['col'], $col);
+        //    return $fleet;
+        //});
+        //// filter fleets without ships, then sort by distance - lowest distance first
+        //$opponents = $opponents->filter(function ($fleet) {
+        //    return $fleet['ships']->count() > 0;
+        //})->sortBy('distance')->values();
+        //// if there are no opponents left, we can't target anything.
+        //if ($opponents->count() === 0) return null;
+        //$targetFleet = $opponents->first();
+        //// calculate distance between targetingFleet and closest opponents
+        //$distance = max($col, $targetFleet['col']) - min($col, $targetFleet['col']);
+        //// calculate prefered range
+        //$range = $f->getFleetPreferredRange($targetFleet['ships']->toArray());
+        //
+        //// range * falloff modifier >= distance? return targetFleet.
+        //if ($range * config('rules.encounters.falloff.rangeMultiplier') >= $distance) {
+        //    return $targetFleet;
+        //} else {
+        //    //  return null if not (no targets)
+        //    return null;
+        //}
     }
 
 
@@ -102,6 +106,12 @@ class ProcessEncounterDamage
             // return the encounter
             return $this->saveTarget($targetingFleetId, $targetFleet['id'], $encounter);
         } else {
+            Log::channel('encounter')
+                ->info(
+                    "$turnSlug #".$encounter['id']." => "
+                    .$e->getFleetFullName($targetingFleet)." has no targets, nothing seems to be in range!"
+                );
+            echo $e->getFleetFullName($targetingFleet)." has no targets, nothing seems to be in range!\n";
             // we don't have a target, so simply return encounter.
             return $encounter;
         }
@@ -310,13 +320,6 @@ class ProcessEncounterDamage
                     $encounter, $ship, $fleet['id'], $fleet['target_fleet_id'], $fleet['col'], $turnSlug
                 );
             });
-        } else {
-            Log::channel('encounter')
-                ->info(
-                    "$turnSlug #".$encounter['id']." * "
-                    .$e->getFleetFullName($fleet)." has not targets, everything seems to be out of range!"
-                );
-            echo "fleet ".$fleet['name']. " has no targets, everything seems to be out of range!\n";
         }
 
         return $encounter;

@@ -34,7 +34,7 @@ export default {
                     params: { encounterId: encounter.id },
                 }"
             >
-                {{ encounter.starId }}
+                {{ encounter.id }}
             </router-link>
         </li>
     </ul>
