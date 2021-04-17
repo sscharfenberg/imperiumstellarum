@@ -181,7 +181,7 @@ class ProcessTurn
         // #9 resolve encounters
         $this->processEncounters($game, $turnSlug);
         // #10 colonize star system
-        // #11 change system ownership
+        // #11 shield regen, ship repairs
         // #12 process dead players
         // #13 process winners
         // ...

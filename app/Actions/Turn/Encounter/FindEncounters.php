@@ -46,7 +46,8 @@ class FindEncounters
             'damage_log' => collect(),
             'dead_ships' => collect(),
             'dead_fleets' => collect(),
-            'resolved' => false
+            'resolved' => false,
+            'winner' => ""
         ]);
     }
 

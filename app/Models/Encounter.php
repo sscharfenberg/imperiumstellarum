@@ -13,6 +13,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $turn_id
  * @property string $star_id
  * @property \Illuminate\Support\Carbon $processed_at
+ * @property string $winner
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Star $star
  * @property-read \App\Models\Turn $turn
@@ -24,6 +25,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereTurnId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereStarId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereProcessedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereWinner($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterTurn[] $encounterTurns
  * @property-read int|null $encounter_turns_count

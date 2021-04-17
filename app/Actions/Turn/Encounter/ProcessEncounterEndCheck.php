@@ -16,7 +16,7 @@ class ProcessEncounterEndCheck
      * @param Collection $encounter
      * @param string $turnSlug
      */
-    private function handleAttackersWon (Collection $encounter, string $turnSlug)
+    private function handleAttackersWon (Collection $encounter, string $turnSlug): Collection
     {
         echo "============================== ATTACKERS WIN ==============================\n";
         Log::channel('encounter')
@@ -24,8 +24,8 @@ class ProcessEncounterEndCheck
                 "\n\n============================== ATTACKERS WIN ==============================\n"
                 ."$turnSlug #".$encounter['id']." ends with a attacker win.\n"
             );
-        // TODO: change ownership, determine new owner of star.
-        // TODO: send system notifications
+        $encounter['winner'] = 'attacker';
+        return $encounter;
     }
 
 
@@ -34,7 +34,7 @@ class ProcessEncounterEndCheck
      * @param Collection $encounter
      * @param string $turnSlug
      */
-    private function handleDefendersWon (Collection $encounter, string $turnSlug)
+    private function handleDefendersWon (Collection $encounter, string $turnSlug): Collection
     {
         echo "============================== DEFENDERS WON ==============================\n";
         Log::channel('encounter')
@@ -42,7 +42,8 @@ class ProcessEncounterEndCheck
                 "\n\n============================== DEFENDERS WIN ==============================\n"
                 ."$turnSlug #".$encounter['id']." ends with a defender win.\n"
             );
-        // TODO: send system notifications
+        $encounter['winner'] = 'defender';
+        return $encounter;
     }
 
 
@@ -51,7 +52,7 @@ class ProcessEncounterEndCheck
      * @param Collection $encounter
      * @param string $turnSlug
      */
-    private function handleDraw (Collection $encounter, string $turnSlug)
+    private function handleDraw (Collection $encounter, string $turnSlug): Collection
     {
         echo "============================== DRAW ==============================\n";
         Log::channel('encounter')
@@ -59,8 +60,8 @@ class ProcessEncounterEndCheck
                 "\n\n============================== DRAW ==============================\n"
                 ."$turnSlug #".$encounter['id']." ends in a draw.\n"
             );
-        // TODO: attacker fleets jump back to own systems.
-        // TODO: send system notifications
+        $encounter['winner'] = 'draw';
+        return $encounter;
     }
 
 
@@ -91,17 +92,17 @@ class ProcessEncounterEndCheck
         // no attackers left, defender won.
         if ($attackers->count() === 0 || $attackerShips === 0) {
             $encounter['resolved'] = true;
-            $this->handleDefendersWon($encounter, $turnSlug);
+            $encounter = $this->handleDefendersWon($encounter, $turnSlug);
         }
         // no defenders left, attacker won.
         if ($defenders->count() === 0 || $defenderShips === 0) {
             $encounter['resolved'] = true;
-            $this->handleAttackersWon($encounter, $turnSlug);
+            $encounter = $this->handleAttackersWon($encounter, $turnSlug);
         }
         // turn limit reached, draw.
         if ($turn >= config('rules.encounters.maxTurns')) {
             $encounter['resolved'] = true;
-            $this->handleDraw($encounter, $turnSlug);
+            $encounter = $this->handleDraw($encounter, $turnSlug);
         }
 
         // return encounter

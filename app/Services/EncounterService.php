@@ -18,7 +18,7 @@ class EncounterService {
     public function getPlayerEncounters (Player $player, string $gameId): Collection
     {
         return Encounter::where('game_id', '=', $gameId)
-            //->whereNotNull('processed_at')
+            ->whereNotNull('processed_at')
             ->whereHas('participants', function (Builder $query) use ($player) {
                 $query->where('player_id', '=', $player->id);
             })

@@ -108,10 +108,10 @@ class ProcessEncounter
             $k = new \App\Actions\Turn\Encounter\ProcessEncounterCleanup;
             $encounter = $k->handlePostPersistTurn($encounter, $turnSlug, $turn);
 
-            // 8) persist encounter if it is resolved.
+            // 8) persist results in database if it is resolved.
             if ($encounter['resolved']) {
                 $p = new \App\Actions\Turn\Encounter\PersistEncounter;
-                $p->handle($encounter, $turnSlug, $encounterTurn);
+                $p->handle($encounter, $turnSlug, $turn);
             }
         }
 

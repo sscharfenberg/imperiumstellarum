@@ -28,31 +28,6 @@ class ProcessEncounterDamage
         if (!$opponents) return null;
         $closestCol = $e->getClosestOpponentCol($opponents, $fleet['col']);
         return $opponents->where('col', $closestCol)->random();
-
-        //$col = $fleet['col'];
-        //$opponents = $opponents->map(function($fleet) use ($col) {
-        //    $fleet['distance'] = max($fleet['col'], $col) - min($fleet['col'], $col);
-        //    return $fleet;
-        //});
-        //// filter fleets without ships, then sort by distance - lowest distance first
-        //$opponents = $opponents->filter(function ($fleet) {
-        //    return $fleet['ships']->count() > 0;
-        //})->sortBy('distance')->values();
-        //// if there are no opponents left, we can't target anything.
-        //if ($opponents->count() === 0) return null;
-        //$targetFleet = $opponents->first();
-        //// calculate distance between targetingFleet and closest opponents
-        //$distance = max($col, $targetFleet['col']) - min($col, $targetFleet['col']);
-        //// calculate prefered range
-        //$range = $f->getFleetPreferredRange($targetFleet['ships']->toArray());
-        //
-        //// range * falloff modifier >= distance? return targetFleet.
-        //if ($range * config('rules.encounters.falloff.rangeMultiplier') >= $distance) {
-        //    return $targetFleet;
-        //} else {
-        //    //  return null if not (no targets)
-        //    return null;
-        //}
     }
 
 
