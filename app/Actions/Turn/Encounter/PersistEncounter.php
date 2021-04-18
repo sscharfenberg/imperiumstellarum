@@ -184,6 +184,113 @@ class PersistEncounter
     }
 
 
+    /**
+     * @function notify players of the owner change.
+     * @param string $gameId
+     * @param string $losingPlayer
+     * @param string $winningPlayer
+     * @param Star $star
+     * @return void
+     */
+    private function notifyOwnerChange (string $gameId, string $losingPlayer, string $winningPlayer, Star $star)
+    {
+        $m = new MessageService;
+        $playerLost = Player::where('game_id', '=', $gameId)
+            ->where('id', '=', $losingPlayer)
+            ->first();
+        $playerGained = Player::where('game_id', '=', $gameId)
+            ->where('id', '=', $winningPlayer)
+            ->first();
+        $numShipyards = $star->shipyards_count;
+        $numHarvesters = 0;
+        $star->planets->each(function ($planet) use (&$numHarvesters) {
+            $numHarvesters += $planet->harvesters_count;
+        });
+        // send notification to the player that has lost the system.
+        $m->sendNotification(
+            $playerLost,
+            'game.messages.sys.encounterStar.lost.subject',
+            'game.messages.sys.encounterStar.lost.body',
+            [
+                'star' => $star->name." (".$star->coord_x."/".$star->coord_y.")",
+                'empire' => "[$playerGained->ticker] $playerGained->name",
+                'numShipyards' => $numShipyards,
+                'numHarvesters' => $numHarvesters
+            ]
+        );
+        // send notification to the player that has won the system.
+        $m->sendNotification(
+            $playerGained,
+            'game.messages.sys.encounterStar.gained.subject',
+            'game.messages.sys.encounterStar.gained.body',
+            [
+                'star' => $star->name." (".$star->coord_x."/".$star->coord_y.")",
+                'empire' => "[$playerLost->ticker] $playerLost->name",
+                'numShipyards' => $numShipyards,
+                'numHarvesters' => $numHarvesters
+            ]
+        );
+    }
+
+
+    /**
+     * @function handle owner change of star
+     * @param Collection $encounter
+     * @param string $turnSlug
+     * @return void
+     */
+    private function ownerChange (Collection $encounter, string $turnSlug)
+    {
+        $e = new EncounterService;
+        // find out which attacking player gets star ownership
+        $attackerFleets = $e->getAttackers($encounter);
+        $attackingPlayers = $attackerFleets->pluck('player_id')->countBy()->map(function ($player) { return 0; });
+        $attackerFleets->each(function ($fleet) use (&$attackingPlayers) {
+            $currentCount = $attackingPlayers->get($fleet['player_id']);
+            $currentCount += config('rules.encounters.ownerChange.ark') * count($fleet['ships']->filter(function($ship) {
+                return $ship['hull_type'] === 'ark';
+            }));
+            $currentCount += config('rules.encounters.ownerChange.small') * count($fleet['ships']->filter(function($ship) {
+                return $ship['hull_type'] === 'small';
+            }));
+            $currentCount += config('rules.encounters.ownerChange.medium') * count($fleet['ships']->filter(function($ship) {
+                return $ship['hull_type'] === 'medium';
+            }));
+            $currentCount += config('rules.encounters.ownerChange.large') * count($fleet['ships']->filter(function($ship) {
+                return $ship['hull_type'] === 'large';
+            }));
+            $currentCount += config('rules.encounters.ownerChange.xlarge') * count($fleet['ships']->filter(function($ship) {
+                return $ship['hull_type'] === 'xlarge';
+            }));
+            $attackingPlayers->put($fleet['player_id'], $currentCount);
+        });
+        $newOwnerId = $attackingPlayers->sortDesc()->take(1)->keys()->first();
+        if ($newOwnerId) {
+            $star = Star::where('game_id', '=', $encounter['game_id'])
+                ->where('id', '=', $encounter['star']['id'])
+                ->first();
+            $this->notifyOwnerChange($encounter['game_id'], $star->player_id, $newOwnerId, $star);
+            if (!$this->dryRun) {
+                $star->player_id = $newOwnerId;
+                $star->save();
+                $shipyards = $star->shipyards;
+                $harvesters = $star->planets->harvesters;
+                $constructionContract = $star->shipyards->constructionContract;
+                if ($shipyards->count() > 0) {
+                    $shipyards->update(['player_id' => $newOwnerId]);
+                }
+                if ($harvesters->count() > 0) {
+                    $harvesters->update(['player_id' => $newOwnerId]);
+                }
+                if ($constructionContract) {
+                    $constructionContract->delete();
+                }
+            } else {
+                echo "changing ownership of star to player ".$newOwnerId."\n";
+            }
+        }
+        // TODO: TEST THIS.
+    }
 
     /**
      * @function handle persisting encounter - update/delete database entries.
@@ -209,8 +316,14 @@ class PersistEncounter
         $this->updateDamagedShips($encounter, $turnSlug);
 
         // 4) change ownership
+        if ($encounter['winner'] === 'attacker') {
+            $this->ownerChange($encounter, $turnSlug);
+        }
 
         // 6) if draw, attacking fleets return home.
+        if ($encounter['winner'] === 'draw') {
+            echo "handle draw, send attacking fleets home.\n";
+        }
 
         // 7) update encounter
         $this->updateDbEncounter($encounter, $turnSlug);

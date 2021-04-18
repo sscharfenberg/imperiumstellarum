@@ -244,10 +244,20 @@ The effective relations to [:ticker] is now :effective (:effectiveString).'
 The effective relations to [:ticker] is now :effective (:effectiveString).'
                 ],
             ],
-            'encounter' => [
-                'subject' => 'Encounter involvement',
-                'body' => 'Our empire was involved in an encounter - fleets have been fighting over :starName.
-Please check the encounters page for details.'
+            'encounterStar' => [
+                'lost' => [
+                    'subject' => 'System lost',
+                    'body' => 'We have lost the star :star to Empire :empire. Check the encounter page for details.
+With the star we have also lost ownership of :numShipyards shipyards and :numHarvesters harvesters.
+If there where any construction contracts, they where stopped.'
+                ],
+                'gained' => [
+                    'subject' => 'System conquered',
+                    'body' => 'We have conquered the star :star from Empire :empire. Check the encounter page for details.
+The star is now available on the empire page.
+With the star we have also won ownership of :numShipyards shipyards and :numHarvesters harvesters.
+If there where any construction contracts, they where stopped.'
+                ]
             ]
         ]
     ],

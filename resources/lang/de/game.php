@@ -244,10 +244,20 @@ Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString)
 Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
                 ],
             ],
-            'encounter' => [
-                'subject' => 'Flottengefecht',
-                'body' => 'Unser Imperium war in ein Flottengefecht involviert - Flotten haben um die Herrschaft über :starName gekämpft.
-Detaillierte Informationen finden Sie auf der Seite \'Gefechte\'.'
+            'encounterStar' => [
+                'lost' => [
+                    'subject' => 'Sternensystem verloren',
+                    'body' => 'Wir haben das Sternensystem :star an das Imperium :empire verloren. Bitte prüfen Sie die Gefechts Seite für weitere Details.
+Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Ernter verloren.
+Wenn es Bauaufträge gab, wurden Sie abgebrochen.'
+                ],
+                'gained' => [
+                    'subject' => 'System conquered',
+                    'body' => 'Wir haben das Sternensystem :star vom Imperium :empire erobert. Bitte prüfen Sie die Gefechts Seite für weitere Details.
+Das Sternensystem steht jetzt auf der Imperiums-Seite zur Verfügung.
+Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Ernter erobert.
+Wenn es Bauaufträge gab, wurden diese abgebrochen.'
+                ]
             ]
         ]
     ],

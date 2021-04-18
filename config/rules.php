@@ -1339,6 +1339,14 @@ return [
         'falloff' => [
             'rangeMultiplier' => 1.5, // range * multiplier > distance => falloff
             'damageMultiplier' => 0.5 // multiplier for damage if distance is within falloff.
+        ],
+        //
+        'ownerChange' => [
+            'ark' => 2,
+            'small' => 1,
+            'medium' => 2,
+            'large' => 3,
+            'xlarge' => 4
         ]
     ]
 
