@@ -28,6 +28,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|EncounterTurn whereDefender($value)
  * @method static \Illuminate\Database\Eloquent\Builder|EncounterTurn whereDamage($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterTurn whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterTurn whereUpdatedAt($value)
  */
 class EncounterTurn extends Model
 {

@@ -239,11 +239,16 @@ Die Werft steht für Bauaufträge zur Verfügung.'
 Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
                 ],
                 'relationChangeRecipient' => [
-                    'subject' => 'Diplomatic relations changed',
+                    'subject' => 'Diplomatische Beziehungen geändert',
                     'body' => 'Imperium [:ticker] hat die diplomatischen Beziehungen zu uns auf :status (:statusString) geändert.
 Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString).'
                 ],
             ],
+            'encounter' => [
+                'subject' => 'Flottengefecht',
+                'body' => 'Unser Imperium war in ein Flottengefecht involviert - Flotten haben um die Herrschaft über :starName gekämpft.
+Detaillierte Informationen finden Sie auf der Seite \'Gefechte\'.'
+            ]
         ]
     ],
 

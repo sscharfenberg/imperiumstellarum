@@ -25,6 +25,16 @@ export default {
                     commit("SET_PLANETS", response.data.planets);
                     commit("SET_HARVESTERS", response.data.harvesters);
                     commit("SET_SHIPYARDS", response.data.shipyards);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

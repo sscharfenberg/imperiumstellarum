@@ -13,8 +13,9 @@ export default {
         const store = useStore();
         const route = useRoute();
         const unreadMessages = computed(() => store.state.unreadMessages);
+        const unreadEncounters = computed(() => store.state.unreadEncounters);
         const withinEncounters = computed(() => !!route.params.encounterId);
-        return { unreadMessages, withinEncounters };
+        return { unreadMessages, unreadEncounters, withinEncounters };
     },
 };
 </script>
@@ -74,6 +75,9 @@ export default {
                     :class="{ active: withinEncounters }"
                 >
                     <icon name="encounters" /> {{ $t("encounters.navTitle") }}
+                    <span v-if="unreadEncounters > 0" class="unread">{{
+                        unreadEncounters
+                    }}</span>
                 </router-link>
             </li>
             <li class="drawer-list__item">

@@ -24,6 +24,16 @@ export default {
                     commit("SET_POPULATION", response.data.totalPopulation);
                     commit("SET_TECH_LEVELS", response.data.techLevels);
                     commit("SET_RESEARCH_JOBS", response.data.researchJobs);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

@@ -32,6 +32,16 @@ export default {
                     commit("SET_FLEET_MOVEMENTS", response.data.fleetMovements);
                     commit("SET_DIMENSIONS", response.data.dimensions);
                     commit("SET_PLAYER_STARS", response.data.playerStars);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {
@@ -64,6 +74,16 @@ export default {
                     commit("SET_FLEET_MOVEMENTS", response.data.fleetMovements);
                     commit("SET_DIMENSIONS", response.data.dimensions);
                     commit("SET_PLAYER_STARS", response.data.playerStars);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

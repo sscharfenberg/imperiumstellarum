@@ -29,6 +29,16 @@ export default {
                     commit("SET_STARS", response.data.stars);
                     commit("SET_PLAYERS", response.data.players);
                     commit("SET_MAX_FLEETS", response.data.maxFleets);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

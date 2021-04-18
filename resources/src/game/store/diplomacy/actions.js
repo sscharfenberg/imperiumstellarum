@@ -27,6 +27,16 @@ export default {
                         "SET_RELATION_CHANGES",
                         response.data.relationChanges
                     );
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

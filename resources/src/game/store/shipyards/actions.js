@@ -29,6 +29,16 @@ export default {
                         "SET_CONSTRUCTION_CONTRACTS",
                         response.data.constructionContracts
                     );
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

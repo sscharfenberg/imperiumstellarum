@@ -6,9 +6,12 @@ use App\Models\Encounter;
 use App\Models\EncounterTurn;
 
 use App\Models\Fleet;
+use App\Models\Player;
 use App\Models\Ship;
+use App\Models\Star;
 use App\Services\EncounterService;
 
+use App\Services\MessageService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -94,7 +97,6 @@ class PersistEncounter
      * @function check the surviving ships in the encounter and update them if they are different from db values
      * @param Collection $encounter
      * @param string $turnSlug
-     * @throw Exception
      * @return void
      */
     private function updateDamagedShips (Collection $encounter, string $turnSlug)
@@ -166,15 +168,6 @@ class PersistEncounter
     }
 
 
-    private function sendNotifications (Collection $encounter, string $turnSlug)
-    {
-        $participants = collect();
-        //$encounter['fleets']->each(function ($fleet) use (&$participants) {
-
-        //});
-    }
-
-
     /**
      * @function update encounter in database
      * @param Collection $encounter
@@ -215,9 +208,7 @@ class PersistEncounter
         // 3) update damaged ships
         $this->updateDamagedShips($encounter, $turnSlug);
 
-        // 4) send notifications to players that an encounter has occured.
-
-        // 5) change ownership
+        // 4) change ownership
 
         // 6) if draw, attacking fleets return home.
 

@@ -46,6 +46,7 @@ class FindEncounters
             'damage_log' => collect(),
             'dead_ships' => collect(),
             'dead_fleets' => collect(),
+            'player_ids' => collect([$star->player_id]),
             'resolved' => false,
             'winner' => ""
         ]);
@@ -150,6 +151,7 @@ class FindEncounters
 
         // assign fleet ships to attacker/defender
         foreach($star->fleets as $fleet) {
+            $encounter['player_ids']->push($fleet['player_id']);
             // check fleet owner
             if ($star->owner->id !== $fleet->player_id) {
                 $effectiveRelation = $p->getEffectiveRelation($fleet->player, $star->owner, $gameRelations);

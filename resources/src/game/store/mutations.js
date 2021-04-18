@@ -72,6 +72,16 @@ export default {
     },
 
     /**
+     * SET NUMBER OF UNREAD ENCOUNTERS
+     * @param state
+     * @param {Number} payload
+     * @constructor
+     */
+    SET_UNREAD_ENCOUNTERS: (state, payload) => {
+        state.unreadEncounters = payload;
+    },
+
+    /**
      * TOGGLE COLLAPSIBLE ID
      * @param state
      * @param {String} payload

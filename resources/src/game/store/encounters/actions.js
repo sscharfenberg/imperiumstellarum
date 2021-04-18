@@ -23,6 +23,16 @@ export default {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_ENCOUNTERS", response.data.encounters);
                     commit("SET_PLAYERS", response.data.players);
+                    commit(
+                        "SET_UNREAD_MESSAGES",
+                        response.data.unreadMessages,
+                        { root: true }
+                    );
+                    commit(
+                        "SET_UNREAD_ENCOUNTERS",
+                        response.data.unreadEncounters,
+                        { root: true }
+                    );
                 }
             })
             .catch((e) => {

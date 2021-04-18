@@ -32,6 +32,12 @@ use App\Http\Traits\UsesUuid;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterParticipant[] $participant
  * @property-read int|null $participant_count
  * @property-read \App\Models\Turn $gameTurn
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\EncounterParticipant[] $participants
+ * @property-read int|null $participants_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereUpdatedAt($value)
  */
 class Encounter extends Model
 {

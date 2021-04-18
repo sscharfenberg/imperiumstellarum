@@ -243,6 +243,11 @@ The effective relations to [:ticker] is now :effective (:effectiveString).'
                     'body' => 'Empire [:ticker] has changed their diplomatic relations to us to :status (:statusString).
 The effective relations to [:ticker] is now :effective (:effectiveString).'
                 ],
+            ],
+            'encounter' => [
+                'subject' => 'Encounter involvement',
+                'body' => 'Our empire was involved in an encounter - fleets have been fighting over :starName.
+Please check the encounters page for details.'
             ]
         ]
     ],

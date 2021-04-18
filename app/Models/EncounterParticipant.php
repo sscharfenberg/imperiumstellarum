@@ -5,6 +5,31 @@ namespace App\Models;
 use App\Http\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\EncounterParticipant
+ *
+ * @property string $id
+ * @property string $game_id
+ * @property string $encounter_id
+ * @property string $player_id
+ * @property int $read
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Encounter $encounter
+ * @property-read \App\Models\Game $game
+ * @property-read \App\Models\Player $player
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereEncounterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereRead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EncounterParticipant whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class EncounterParticipant extends Model
 {
 
