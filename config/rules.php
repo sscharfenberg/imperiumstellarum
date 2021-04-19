@@ -1347,6 +1347,16 @@ return [
             'medium' => 2,
             'large' => 3,
             'xlarge' => 4
+        ],
+        'homeStarFactors' => [
+            'harvester' => 1,
+            'shipyard' => [
+                'small' => 8,
+                'medium' => 12,
+                'large' => 16,
+                'xlarge' => 20
+            ],
+            'fleet' => 2
         ]
     ]
 

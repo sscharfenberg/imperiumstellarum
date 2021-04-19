@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Encounter;
 use App\Models\Player;
 
+use App\Models\Star;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -191,5 +192,34 @@ class EncounterService {
             return config('rules.encounters.falloff.damageMultiplier'); // falloff
         return 0; // out of range
     }
+
+
+    /**
+     * @function get a home destination for a player so the fleets can return home.
+     * @param Player $player
+     * @return Star
+     */
+    public function getHomeDestination (Player $player): Star
+    {
+        $playerStars = $player->stars;
+        $starsScored = collect();
+        $playerStars->each(function ($star) use (&$starsScored) {
+            $rules = config('rules.encounters.homeStarFactors');
+            $harvesters = $star->harvesters_count;
+            $shipyards = $star->shipyards;
+            $shipyardsScore = $shipyards->reduce(function ($carry, $shipyard) use ($rules) {
+                return $carry + $rules['shipyard'][$shipyard->type];
+            });
+            $fleetsScore = $star->fleets->count() * $rules['fleet'];
+            // push star with score into collection
+            $starsScored->push([
+                $star->id => $harvesters * $rules['harvester'] + $shipyardsScore + $fleetsScore
+            ]);
+        });
+        // get key of the star with the highest score.
+        $destinationId = key($starsScored->sortDesc()->first());
+        return Star::find($destinationId);
+    }
+
 
 }

@@ -6,14 +6,17 @@ use App\Models\Encounter;
 use App\Models\EncounterTurn;
 
 use App\Models\Fleet;
+use App\Models\FleetMovement;
 use App\Models\Player;
 use App\Models\Ship;
 use App\Models\Star;
 use App\Services\EncounterService;
 
+use App\Services\FleetService;
 use App\Services\MessageService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Exception;
 
 class PersistEncounter
@@ -289,14 +292,76 @@ class PersistEncounter
                 echo "changing ownership of star to player ".$newOwnerId."\n";
             }
         }
+        Log::channel('encounter')
+            ->notice("$turnSlug #".$encounter['id']." done handling owner change.");
         // TODO: TEST THIS.
     }
+
+
+    /**
+     * @function return attacking fleets home
+     * @param Collection $encounter
+     * @param string $turnSlug
+     */
+    private function returnAttackers (Collection $encounter, string $turnSlug)
+    {
+        $e = new EncounterService;
+        $fl = new FleetService;
+        // find out which attacking player gets star ownership
+        $attackerFleets = $e->getAttackers($encounter);
+        $gameId = $encounter['game_id'];
+        $attackingPlayerIds = $attackerFleets->pluck('player_id')->unique();
+        $attackingPlayers = Player::where('game_id', '=', $gameId)
+            ->whereIn('id', $attackingPlayerIds)
+            ->get();
+        $from = Star::where('game_id', '=', $gameId)
+            ->where('id', $encounter['star']['id'])
+            ->first();
+        // loop the players
+        $attackingPlayers->each( function ($player) use ($attackerFleets, $gameId, $from, $turnSlug, $encounter, $e, $fl) {
+            $fleetIds = $attackerFleets->filter(function ($fleet) use ($player) {
+                return $fleet['player_id'] === $player->id;
+            })->map(function ($fleet) use ($player) {
+                return $fleet['id'];
+            });
+            $fleets = Fleet::where('game_id', '=', $gameId)
+                ->whereIn('id', $fleetIds);
+            $destination = $e->getHomeDestination($player);
+            $travelTime = $fl->travelTime($from, $destination);
+            $movements = $fleets->get()->map(function ($fleet) use ($player, $destination, $travelTime) {
+                return [
+                    'id' => Str::uuid(),
+                    'game_id' => $fleet->game_id,
+                    'player_id' => $player->id,
+                    'fleet_id' => $fleet->id,
+                    'star_id' => $destination->id,
+                    'until_arrival' => $travelTime,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            });
+            $chunks = array_chunk($movements->toArray(), 5);
+            if (!$this->dryRun) {
+                $fleets->update(['star_id' => null]);
+                foreach($chunks as $chunk) {
+                    FleetMovement::insert($chunk);
+                }
+                Log::channel('encounter')
+                    ->notice("$turnSlug #".$encounter['id']." fleets from player [$player->ticker] returning home.");
+            } else {
+                echo "create fleet movements for ".$fleets->count()." fleets from player ".$player->ticker."\n";
+            }
+        });
+
+    }
+
 
     /**
      * @function handle persisting encounter - update/delete database entries.
      * @param Collection $encounter
      * @param string $turnSlug
      * @param int $turn
+     * @throw Exception
      * @return void
      */
     public function handle (Collection $encounter, string $turnSlug, int $turn)
@@ -306,29 +371,75 @@ class PersistEncounter
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 8: persist results in database.");
 
-        // 1) delete the ships that died during the encounter.
-        $this->deleteDeadShips($encounter, $turnSlug);
+        try {
+            // 1) delete the ships that died during the encounter.
+            $this->deleteDeadShips($encounter, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    "$turnSlug #".$encounter['id']." Exception while attempting to delete ships:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
 
-        // 2) delete the fleets that died during the encounter.
-        $this->deleteDeadFleets($encounter, $turnSlug);
+        try {
+            // 2) delete the fleets that died during the encounter.
+            $this->deleteDeadFleets($encounter, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    "$turnSlug #".$encounter['id']." Exception while attempting to delete fleets:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
 
-        // 3) update damaged ships
-        $this->updateDamagedShips($encounter, $turnSlug);
+        try {
+            // 3) update damaged ships
+            $this->updateDamagedShips($encounter, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    "$turnSlug #".$encounter['id']." Exception while attempting to update damaged ships:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
 
-        // 4) change ownership
         if ($encounter['winner'] === 'attacker') {
-            $this->ownerChange($encounter, $turnSlug);
+            try {
+                // 4) change ownership
+                $this->ownerChange($encounter, $turnSlug);
+            } catch (Exception $e) {
+                Log::channel('encounter')
+                    ->error(
+                        "$turnSlug #" . $encounter['id'] . " Exception while attempting handle owner change:\n"
+                        . $e->getMessage() . "\n" . $e->getTraceAsString()
+                    );
+            }
         }
 
         // 6) if draw, attacking fleets return home.
         if ($encounter['winner'] === 'draw') {
-            echo "handle draw, send attacking fleets home.\n";
+            try {
+                $this->returnAttackers($encounter, $turnSlug);
+            } catch (Exception $e) {
+                Log::channel('encounter')
+                    ->error(
+                        "$turnSlug #" . $encounter['id'] . " Exception while attempting to send attacker fleets home:\n"
+                        . $e->getMessage() . "\n" . $e->getTraceAsString()
+                    );
+            }
         }
 
         // 7) update encounter
-        $this->updateDbEncounter($encounter, $turnSlug);
-
-
+        try {
+            $this->updateDbEncounter($encounter, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    "$turnSlug #" . $encounter['id'] . " Exception while attempting update db encounter:\n"
+                    . $e->getMessage() . "\n" . $e->getTraceAsString()
+                );
+        }
     }
 
 }
