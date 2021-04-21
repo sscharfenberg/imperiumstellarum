@@ -252,7 +252,7 @@ Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Er
 Wenn es Bauaufträge gab, wurden Sie abgebrochen.'
                 ],
                 'gained' => [
-                    'subject' => 'System conquered',
+                    'subject' => 'Sternensystem erobert',
                     'body' => 'Wir haben das Sternensystem :star vom Imperium :empire erobert. Bitte prüfen Sie die Gefechts Seite für weitere Details.
 Das Sternensystem steht jetzt auf der Imperiums-Seite zur Verfügung.
 Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Ernter erobert.

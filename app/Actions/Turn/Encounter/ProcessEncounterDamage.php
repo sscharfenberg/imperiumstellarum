@@ -75,9 +75,9 @@ class ProcessEncounterDamage
                     ." targeting ".$e->getFleetFullName($targetFleet)." ("
                     .($targetFleet['attacker'] ? "attacker" : "defender").")"
                 );
-            echo $e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
-                ." targeting ".$e->getFleetFullName($targetFleet)." ("
-                .($targetFleet['attacker'] ? "attacker" : "defender")."\n";
+            //echo $e->getFleetFullName($targetingFleet)." (".($targetingFleet['attacker'] ? "attacker" : "defender").")"
+            //    ." targeting ".$e->getFleetFullName($targetFleet)." ("
+            //    .($targetFleet['attacker'] ? "attacker" : "defender")."\n";
             // return the encounter
             return $this->saveTarget($targetingFleetId, $targetFleet['id'], $encounter);
         } else {
@@ -86,7 +86,7 @@ class ProcessEncounterDamage
                     "$turnSlug #".$encounter['id']." => "
                     .$e->getFleetFullName($targetingFleet)." has no targets, nothing seems to be in range!"
                 );
-            echo $e->getFleetFullName($targetingFleet)." has no targets, nothing seems to be in range!\n";
+            //echo $e->getFleetFullName($targetingFleet)." has no targets, nothing seems to be in range!\n";
             // we don't have a target, so simply return encounter.
             return $encounter;
         }
@@ -235,8 +235,8 @@ class ProcessEncounterDamage
                                 .$firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range"
                                 ." => out of effective range."
                             );
-                        echo $firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range"
-                            ." => out of effective range.\n";
+                        //echo $firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range"
+                        //    ." => out of effective range.\n";
                     }
                     else if ($targetShip['hp_'.$area.'_current'] > 0 && !$dmgAssigned) {
                         $dmgAssigned = true;
@@ -251,9 +251,9 @@ class ProcessEncounterDamage
                                 ." rangeMultiplier=".$rangeMultiplier.", dmgMultiplier=".$dmgMultiplier
                                 .", causing ".$damage." damage to ".$area
                             );
-                        echo " * ".$firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range, "
-                            ." rangeMultiplier=".$rangeMultiplier.", dmgMultiplier=".$dmgMultiplier
-                            .", causing ".$damage." damage to ".$area."\n";
+                        //echo " * ".$firingShip['name']." firing at ".$targetShip['name'].", dist=$distance, range=$range, "
+                        //    ." rangeMultiplier=".$rangeMultiplier.", dmgMultiplier=".$dmgMultiplier
+                        //    .", causing ".$damage." damage to ".$area."\n";
                     }
                     //if ($targetShip['hp_structure_current'] === 0) {
                     //    Log::channel('encounter')

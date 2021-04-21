@@ -15,13 +15,14 @@ class ProcessEncounterEndCheck
      * @function handle what happens when attackers have won.
      * @param Collection $encounter
      * @param string $turnSlug
+     * @return Collection
      */
     private function handleAttackersWon (Collection $encounter, string $turnSlug): Collection
     {
-        echo "============================== ATTACKERS WIN ==============================\n";
+        //echo "============================== ATTACKERS WIN ==============================\n";
         Log::channel('encounter')
             ->notice(
-                "\n\n============================== ATTACKERS WIN ==============================\n"
+                "\n\n============================== ATTACKERS WIN ==============================\n\n"
                 ."$turnSlug #".$encounter['id']." ends with a attacker win.\n"
             );
         $encounter['winner'] = 'attacker';
@@ -33,13 +34,14 @@ class ProcessEncounterEndCheck
      * @function handle what happens when defenders have won.
      * @param Collection $encounter
      * @param string $turnSlug
+     * @return Collection
      */
     private function handleDefendersWon (Collection $encounter, string $turnSlug): Collection
     {
-        echo "============================== DEFENDERS WON ==============================\n";
+        //echo "============================== DEFENDERS WON ==============================\n";
         Log::channel('encounter')
             ->notice(
-                "\n\n============================== DEFENDERS WIN ==============================\n"
+                "\n\n============================== DEFENDERS WIN ==============================\n\n"
                 ."$turnSlug #".$encounter['id']." ends with a defender win.\n"
             );
         $encounter['winner'] = 'defender';
@@ -51,13 +53,14 @@ class ProcessEncounterEndCheck
      * @function handle what happens in case of a draw
      * @param Collection $encounter
      * @param string $turnSlug
+     * @return Collection
      */
     private function handleDraw (Collection $encounter, string $turnSlug): Collection
     {
-        echo "============================== DRAW ==============================\n";
+        //echo "============================== DRAW ==============================\n";
         Log::channel('encounter')
             ->notice(
-                "\n\n============================== DRAW ==============================\n"
+                "\n\n============================== DRAW ==============================\n\n"
                 ."$turnSlug #".$encounter['id']." ends in a draw.\n"
             );
         $encounter['winner'] = 'draw';

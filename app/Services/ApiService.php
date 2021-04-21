@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\EncounterParticipant;
 use App\Models\MessageRecipient;
 use App\Models\Player;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class ApiService {
     }
 
     /**
-     * @function count number of unread messages
+     * @function count number of unread encounters (that are processed!)
      * @param string $playerId
      * @param string $gameId
      * @return int
@@ -55,6 +56,9 @@ class ApiService {
             EncounterParticipant::where('game_id', '=', $gameId)
                 ->where('player_id', '=', $playerId)
                 ->where('read', false)
+                ->whereHas('encounter', function (Builder $query) use ($playerId) {
+                    $query->whereNotNull('processed_at');
+                })
                 ->get()
         );
     }

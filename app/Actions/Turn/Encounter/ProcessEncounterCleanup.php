@@ -112,8 +112,8 @@ class ProcessEncounterCleanup
                 ->info("$turnSlug #".$encounter['id']." => no fleets removed.");
         }
 
-        echo "removed ".$deadFleets->count()." dead fleets:\n";
-        dump($deadFleets);
+        //echo "removed ".$deadFleets->count()." dead fleets:\n";
+        //dump($deadFleets);
 
         // save dead ships to encounter and return the updated encounter.
         return  $this->saveDeadFleets($encounter, $deadFleets->map(function ($fleet) {
@@ -180,7 +180,6 @@ class ProcessEncounterCleanup
      */
     public function handlePrePersistTurn (Collection $encounter, string $turnSlug, int $turn): Collection
     {
-        $e = new EncounterService;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 4: cleanup Part A.");
 
@@ -198,7 +197,6 @@ class ProcessEncounterCleanup
      */
     public function handlePostPersistTurn (Collection $encounter, string $turnSlug, int $turn): Collection
     {
-        $e = new EncounterService;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 7: cleanup Part B and C.");
 

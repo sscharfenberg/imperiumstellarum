@@ -3,7 +3,6 @@
 namespace App\Actions\Turn\Encounter;
 
 use App\Models\Encounter;
-use App\Models\EncounterTurn;
 
 use App\Models\Fleet;
 use App\Models\FleetMovement;
@@ -25,9 +24,10 @@ class PersistEncounter
 
     /**
      * actually do database updates or not
+     * set this to "true" if you want to test something and not actually write to db
      * @var bool
      */
-    private $dryRun = true;
+    private $dryRun = false;
 
 
     /**
@@ -159,7 +159,7 @@ class PersistEncounter
                 Log::channel('encounter')
                     ->notice(
                         "$turnSlug #".$encounter['id']." successfully updated damaged ship '"
-                        .$e->getFleetFullName($encounterShip)."' in db. changed: "
+                        .$ship->name."' in db. changed: "
                         .json_encode($updated)
                     );
             }
@@ -244,10 +244,13 @@ class PersistEncounter
      */
     private function ownerChange (Collection $encounter, string $turnSlug)
     {
+        // TODO: TEST THIS.
         $e = new EncounterService;
         // find out which attacking player gets star ownership
         $attackerFleets = $e->getAttackers($encounter);
+        // prepare collection with all playerIds as keys and 0 as value
         $attackingPlayers = $attackerFleets->pluck('player_id')->countBy()->map(function ($player) { return 0; });
+        // count fleetships and add to playercount, larger ships count more
         $attackerFleets->each(function ($fleet) use (&$attackingPlayers) {
             $currentCount = $attackingPlayers->get($fleet['player_id']);
             $currentCount += config('rules.encounters.ownerChange.ark') * count($fleet['ships']->filter(function($ship) {
@@ -267,10 +270,14 @@ class PersistEncounter
             }));
             $attackingPlayers->put($fleet['player_id'], $currentCount);
         });
+        // sort and take the first player
         $newOwnerId = $attackingPlayers->sortDesc()->take(1)->keys()->first();
         if ($newOwnerId) {
             $star = Star::where('game_id', '=', $encounter['game_id'])
                 ->where('id', '=', $encounter['star']['id'])
+                ->first();
+            $newOwner = Player::where('game_id', '=', $encounter['game_id'])
+                ->where('id', '=', $newOwnerId)
                 ->first();
             $this->notifyOwnerChange($encounter['game_id'], $star->player_id, $newOwnerId, $star);
             if (!$this->dryRun) {
@@ -281,20 +288,33 @@ class PersistEncounter
                 $constructionContract = $star->shipyards->constructionContract;
                 if ($shipyards->count() > 0) {
                     $shipyards->update(['player_id' => $newOwnerId]);
+                    Log::channel('encounter')
+                        ->notice(
+                            "$turnSlug #".$encounter['id']." transfered ".$shipyards->count()
+                            ." shipyards to [$newOwner->ticker]."
+                        );
                 }
                 if ($harvesters->count() > 0) {
                     $harvesters->update(['player_id' => $newOwnerId]);
+                    Log::channel('encounter')
+                        ->notice(
+                            "$turnSlug #".$encounter['id']." transfered ".$harvesters->count()
+                            ." harvesters to [$newOwner->ticker]."
+                        );
                 }
                 if ($constructionContract) {
                     $constructionContract->delete();
+                    Log::channel('encounter')
+                        ->notice("$turnSlug #".$encounter['id']." cancelled construction contract from old owner");
                 }
+                Log::channel('encounter')
+                    ->notice("$turnSlug #".$encounter['id']." transfered star ownership to [$newOwner->ticker].");
             } else {
                 echo "changing ownership of star to player ".$newOwnerId."\n";
             }
         }
         Log::channel('encounter')
             ->notice("$turnSlug #".$encounter['id']." done handling owner change.");
-        // TODO: TEST THIS.
     }
 
 
@@ -305,6 +325,7 @@ class PersistEncounter
      */
     private function returnAttackers (Collection $encounter, string $turnSlug)
     {
+        // TODO: test this
         $e = new EncounterService;
         $fl = new FleetService;
         // find out which attacking player gets star ownership
@@ -319,15 +340,18 @@ class PersistEncounter
             ->first();
         // loop the players
         $attackingPlayers->each( function ($player) use ($attackerFleets, $gameId, $from, $turnSlug, $encounter, $e, $fl) {
+            // get fleetIds of this player
             $fleetIds = $attackerFleets->filter(function ($fleet) use ($player) {
                 return $fleet['player_id'] === $player->id;
             })->map(function ($fleet) use ($player) {
                 return $fleet['id'];
             });
+            // fleets query. no ->get() since we want to hold it open so we can use ->update()
             $fleets = Fleet::where('game_id', '=', $gameId)
                 ->whereIn('id', $fleetIds);
             $destination = $e->getHomeDestination($player);
             $travelTime = $fl->travelTime($from, $destination);
+            // create fleet movements
             $movements = $fleets->get()->map(function ($fleet) use ($player, $destination, $travelTime) {
                 return [
                     'id' => Str::uuid(),
@@ -340,6 +364,7 @@ class PersistEncounter
                     'updated_at' => now()
                 ];
             });
+            // chunking might not be necessary, but should speed it up a bit.
             $chunks = array_chunk($movements->toArray(), 5);
             if (!$this->dryRun) {
                 $fleets->update(['star_id' => null]);
@@ -352,7 +377,6 @@ class PersistEncounter
                 echo "create fleet movements for ".$fleets->count()." fleets from player ".$player->ticker."\n";
             }
         });
-
     }
 
 
@@ -367,7 +391,7 @@ class PersistEncounter
     public function handle (Collection $encounter, string $turnSlug, int $turn)
     {
 
-        echo "\n\nPERSISTING ENCOUNTER TO DATABASE\n";
+        //echo "\n\nPERSISTING ENCOUNTER TO DATABASE\n";
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 8: persist results in database.");
 

@@ -76,7 +76,7 @@ class ProcessEncounter
             $turn++;
             Log::channel('encounter')
                 ->notice("\n\n$turnSlug #".$encounter['id']." start processing turn $turn.\n");
-            echo "\nTurn $turn\n\n";
+            //echo "\nTurn $turn\n\n";
 
             // 0) initiate damage log
             $encounter = $this->initiateDamageLog($encounter);
@@ -137,7 +137,7 @@ class ProcessEncounter
     public function handle(Collection $encounter, string $turnSlug)
     {
         $e = new EncounterService;
-        // tons of logging.
+        // logging.
         Log::channel('encounter')
             ->notice(
                 "$turnSlug start processing of #".$encounter['id']." at ["
