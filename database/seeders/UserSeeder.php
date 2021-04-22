@@ -29,9 +29,32 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+        DB::table('users')->insert([
+            'id' => 2,
+            'email' => 'ally@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'locale' => 'de',
+            'role' => 'user',
+            'password' => Hash::make('password'),
+            'game_mail_optin' => true,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('users')->insert([
+            'id' => 3,
+            'email' => 'enemy@gmailcom',
+            'email_verified_at' => Carbon::now(),
+            'locale' => 'de',
+            'role' => 'user',
+            'password' => Hash::make('password'),
+            'game_mail_optin' => true,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
 
         User::factory()
-            ->times(10)
+            ->times(7)
             ->create();
     }
 }

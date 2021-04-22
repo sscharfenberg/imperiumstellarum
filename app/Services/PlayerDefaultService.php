@@ -11,7 +11,7 @@ class PlayerDefaultService {
      * @param string $playerId
      * @return array
      */
-    public function resources (string $playerId)
+    public function resources (string $playerId): array
     {
         $rules = config('rules.player.resourceTypes');
         $resources = [];
@@ -35,7 +35,7 @@ class PlayerDefaultService {
      * @param string $playerId
      * @return array
      */
-    public function techLevels (string $playerId)
+    public function techLevels (string $playerId): array
     {
         $rules = config('rules.tech.areas');
         $techLevels = [];

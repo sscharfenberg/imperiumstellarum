@@ -87,7 +87,7 @@ class PlayerSeeder extends Seeder
     public function run()
     {
 
-        $userIds = range(1,11);
+        $userIds = range(1,10);
         $gameIds = range(1,2);
         $users = User::whereIn('id', $userIds)->get();
         $games = Game::whereIn('number', $gameIds)->get();

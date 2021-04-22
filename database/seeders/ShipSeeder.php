@@ -119,6 +119,12 @@ class ShipSeeder extends Seeder
         ];
         $s = new ShipService;
         foreach($games as $game) {
+
+            // players with userId !== 1,2,3
+            $players = $game->players->filter(function($player) {
+                return !in_array($player['user_id'], [1,2,3]);
+            })->values();
+
             foreach($game->players as $player) {
                 $fleets = $player->fleets;
                 foreach($fleets as $index => $fleet) {

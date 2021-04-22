@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Fleet;
 use App\Models\Game;
+use App\Models\Player;
 use App\Models\PlayerRelation;
 use Illuminate\Database\Seeder;
 
@@ -26,21 +27,23 @@ class PlayerRelationSeeder extends Seeder
         foreach($games as $game) {
             $players = $game->players;
 
-            foreach($players as $player) {
-                $star = $player->stars->first();
-                $players = $game->players->reject(function($p) use ($player) {
+            $rest = $players->filter(function($player) {
+                return !in_array($player['user_id'], [1,2,3]);
+            })->values();
+
+            foreach($rest as $player) {
+                $rest = $game->players->reject(function($p) use ($player) {
                     return $p->id === $player->id;
                 });
-
                 for ($i = 0; $i < 4; $i++) {
-                    $recipient = $players->random();
+                    $recipient = $rest->random();
                     PlayerRelation::create([
                         'game_id' => $game->id,
                         'player_id' => $player->id,
                         'recipient_id' => $recipient->id,
                         'status' => random_int(0, 2),
                     ]);
-                    $players = $players->reject(function ($p) use ($recipient) {
+                    $rest = $rest->reject(function ($p) use ($recipient) {
                         return $p->id === $recipient->id;
                     });
                 }
