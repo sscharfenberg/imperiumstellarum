@@ -43,7 +43,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
@@ -74,7 +77,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
@@ -110,7 +116,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
@@ -146,7 +155,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
@@ -193,7 +205,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
@@ -225,7 +240,10 @@ export default {
             })
             .catch((e) => {
                 console.error(e);
-                notify(e.response.data.error, "error");
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
             })
             .finally(() => {
                 commit("SET_REQUESTING", false);
