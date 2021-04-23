@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id' => 3,
-            'email' => 'enemy@gmailcom',
+            'email' => 'enemy@gmail.com',
             'email_verified_at' => Carbon::now(),
             'locale' => 'de',
             'role' => 'user',

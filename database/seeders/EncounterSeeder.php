@@ -164,7 +164,7 @@ class EncounterSeeder extends Seeder
             /**
              * Player Relations
              */
-            // ash|qaed <> pom: hostile
+            // ash|ally <> hostile
             PlayerRelation::create([
                 'game_id' => $game->id,
                 'player_id' => $ash->id,
@@ -177,7 +177,7 @@ class EncounterSeeder extends Seeder
                 'recipient_id' => $ally->id,
                 'status' => 0,
             ]);
-            // ash <> qaed: allied
+            // ash <> ally: allied
             PlayerRelation::create([
                 'game_id' => $game->id,
                 'player_id' => $ash->id,

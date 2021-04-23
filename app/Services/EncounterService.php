@@ -3,10 +3,11 @@ namespace App\Services;
 
 use App\Models\Encounter;
 use App\Models\Player;
-
 use App\Models\Star;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Log;
 
 class EncounterService {
 
@@ -216,6 +217,10 @@ class EncounterService {
                 $star->id => $harvesters * $rules['harvester'] + $shipyardsScore + $fleetsScore
             ]);
         });
+        Log::channel('encounter')->debug(
+            "calculated star scores for player [$player->ticker]: "
+            .json_encode($starsScored, JSON_PRETTY_PRINT)
+        );
         // get key of the star with the highest score.
         $destinationId = key($starsScored->sortDesc()->first());
         return Star::find($destinationId);

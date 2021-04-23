@@ -2,12 +2,15 @@
 
 namespace App\Actions\Turn\Encounter;
 
+use App\Models\ConstructionContract;
 use App\Models\Encounter;
 
 use App\Models\Fleet;
 use App\Models\FleetMovement;
+use App\Models\Harvester;
 use App\Models\Player;
 use App\Models\Ship;
+use App\Models\Shipyard;
 use App\Models\Star;
 use App\Services\EncounterService;
 
@@ -204,10 +207,10 @@ class PersistEncounter
         $playerGained = Player::where('game_id', '=', $gameId)
             ->where('id', '=', $winningPlayer)
             ->first();
-        $numShipyards = $star->shipyards_count;
+        $numShipyards = count($star->shipyards);
         $numHarvesters = 0;
         $star->planets->each(function ($planet) use (&$numHarvesters) {
-            $numHarvesters += $planet->harvesters_count;
+            $numHarvesters += count($planet->harvesters);
         });
         // send notification to the player that has lost the system.
         $m->sendNotification(
@@ -244,7 +247,6 @@ class PersistEncounter
      */
     private function ownerChange (Collection $encounter, string $turnSlug)
     {
-        // TODO: TEST THIS.
         $e = new EncounterService;
         // find out which attacking player gets star ownership
         $attackerFleets = $e->getAttackers($encounter);
@@ -283,9 +285,13 @@ class PersistEncounter
             if (!$this->dryRun) {
                 $star->player_id = $newOwnerId;
                 $star->save();
-                $shipyards = $star->shipyards;
-                $harvesters = $star->planets->harvesters;
-                $constructionContract = $star->shipyards->constructionContract;
+                $planetIds = $star->planets->map(function($planet) {
+                    return $planet->id;
+                });
+
+                // check if there are shipyards and change player_id
+                $shipyards = Shipyard::where('game_id', '=', $encounter['game_id'])
+                    ->whereIn('planet_id', $planetIds); // keep Query open so we can update
                 if ($shipyards->count() > 0) {
                     $shipyards->update(['player_id' => $newOwnerId]);
                     Log::channel('encounter')
@@ -294,6 +300,10 @@ class PersistEncounter
                             ." shipyards to [$newOwner->ticker]."
                         );
                 }
+
+                // check if there are harvesters and transfer them
+                $harvesters = Harvester::where('game_id', '=', $encounter['game_id'])
+                    ->whereIn('planet_id', $planetIds); // keep Query open so we can update
                 if ($harvesters->count() > 0) {
                     $harvesters->update(['player_id' => $newOwnerId]);
                     Log::channel('encounter')
@@ -302,8 +312,15 @@ class PersistEncounter
                             ." harvesters to [$newOwner->ticker]."
                         );
                 }
-                if ($constructionContract) {
-                    $constructionContract->delete();
+                $shipyardIds = $shipyards->get()->map(function($shipyard) {
+                    return $shipyard->id;
+                });
+
+                // check if there are construction contracts and delete them
+                $constructionContracts = ConstructionContract::where('game_id', '=', $encounter['game_id'])
+                    ->whereIn('shipyard_id', $shipyardIds); // keep Query open so we can update
+                if ($constructionContracts->get()->count() > 0) {
+                    $constructionContracts->delete();
                     Log::channel('encounter')
                         ->notice("$turnSlug #".$encounter['id']." cancelled construction contract from old owner");
                 }
@@ -325,7 +342,6 @@ class PersistEncounter
      */
     private function returnAttackers (Collection $encounter, string $turnSlug)
     {
-        // TODO: test this
         $e = new EncounterService;
         $fl = new FleetService;
         // find out which attacking player gets star ownership

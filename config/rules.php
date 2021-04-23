@@ -1332,15 +1332,13 @@ return [
     |
     */
     'encounters' => [
-        // modifies acceleration for fleet movement turns.
-        // 0.4 = acc is multiplied by 0.8 to 1.2
-        'accDeviation' => 0.4,
-        'maxTurns' => 50,
+        'accDeviation' => 0.4, // modifies acceleration for fleet movement turns. 0.4 = acc is multiplied by 0.8 to 1.2
+        'maxTurns' => 50, // we'll see if this is too small or too big, can't say.
         'falloff' => [
             'rangeMultiplier' => 1.5, // range * multiplier > distance => falloff
             'damageMultiplier' => 0.5 // multiplier for damage if distance is within falloff.
         ],
-        //
+        // for owner changes, calculate scores (who gets the star?) based on these factors-
         'ownerChange' => [
             'ark' => 2,
             'small' => 1,
@@ -1348,6 +1346,7 @@ return [
             'large' => 3,
             'xlarge' => 4
         ],
+        // if a fleet returns home, calculate star scores based on these factors (where does the fleet return to?)
         'homeStarFactors' => [
             'harvester' => 1,
             'shipyard' => [

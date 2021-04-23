@@ -248,14 +248,14 @@ The effective relations to [:ticker] is now :effective (:effectiveString).'
                 'lost' => [
                     'subject' => 'System lost',
                     'body' => 'We have lost the star :star to Empire :empire. Check the encounter page for details.
-With the star we have also lost ownership of :numShipyards shipyards and :numHarvesters harvesters.
+With the star we have also lost ownership of :numShipyards shipyard(s) and :numHarvesters harvester(s).
 If there where any construction contracts, they where stopped.'
                 ],
                 'gained' => [
                     'subject' => 'System conquered',
                     'body' => 'We have conquered the star :star from Empire :empire. Check the encounter page for details.
 The star is now available on the empire page.
-With the star we have also won ownership of :numShipyards shipyards and :numHarvesters harvesters.
+With the star we have also won ownership of :numShipyards shipyard(s) and :numHarvesters harvester(s).
 If there where any construction contracts, they where stopped.'
                 ]
             ]

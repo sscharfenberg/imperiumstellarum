@@ -248,14 +248,14 @@ Die effektiven Beziehungen zu [:ticker] sind jetzt :effective (:effectiveString)
                 'lost' => [
                     'subject' => 'Sternensystem verloren',
                     'body' => 'Wir haben das Sternensystem :star an das Imperium :empire verloren. Bitte prüfen Sie die Gefechts Seite für weitere Details.
-Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Ernter verloren.
+Mit dem Sternensystem haben wir auch :numShipyards Werft(en) und :numHarvesters Ernter verloren.
 Wenn es Bauaufträge gab, wurden Sie abgebrochen.'
                 ],
                 'gained' => [
                     'subject' => 'Sternensystem erobert',
                     'body' => 'Wir haben das Sternensystem :star vom Imperium :empire erobert. Bitte prüfen Sie die Gefechts Seite für weitere Details.
 Das Sternensystem steht jetzt auf der Imperiums-Seite zur Verfügung.
-Mit dem Sternensystem haben wir auch :numShipyards Werften und :numHarvesters Ernter erobert.
+Mit dem Sternensystem haben wir auch :numShipyards Werft(en) und :numHarvesters Ernter erobert.
 Wenn es Bauaufträge gab, wurden diese abgebrochen.'
                 ]
             ]
