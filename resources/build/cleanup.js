@@ -14,5 +14,6 @@ globs.forEach((glob) => {
     rimraf(glob, (err) => {
         if (err) throw err;
     });
-    console.log();
 });
+
+console.log();
