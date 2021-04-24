@@ -12,6 +12,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $planet_id
  * @property string $game_id
  * @property string $player_id
+ * @property string $star_id
  * @property string $type
  * @property int $until_complete
  * @property boolean $notified
@@ -27,6 +28,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlanetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereStarId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereNotified($value)
@@ -37,8 +39,6 @@ use App\Http\Traits\UsesUuid;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ship[] $ships
  * @property-read int|null $ships_count
  * @property-read \App\Models\Star $star
- * @property string $star_id
- * @method static \Illuminate\Database\Eloquent\Builder|Shipyard whereStarId($value)
  */
 class Shipyard extends Model
 {
@@ -65,6 +65,7 @@ class Shipyard extends Model
      */
     protected $fillable = [
         'planet_id',
+        'star_id',
         'player_id',
         'game_id',
         'type',

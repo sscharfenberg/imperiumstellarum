@@ -800,6 +800,11 @@ return [
         'name' => [
             'min' => 4,
             'max' => 80
+        ],
+        'regen' => [
+            'shields' => 0.01, // 1% of shields regenerates per turn
+            'armour' => 0.2, // 20% of armour is repaired in a shipyard per turn
+            'structure' => 0.2 // 20% of structure is repaired in a shipyard per turn
         ]
     ],
 

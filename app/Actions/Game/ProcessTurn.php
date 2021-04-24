@@ -10,20 +10,36 @@ use Illuminate\Support\Facades\Log;
 class ProcessTurn
 {
 
+
+    /**
+     * create a new turn or not
+     * set this to "true" if you want to test something and not actually write to db
+     * @var bool
+     */
+    private $dryRun = true;
+
     /**
      * @function create the new turn
      * @param Game $game
      * @param Turn $turn
-     * @return Turn
+     * @return void
      */
-    private function createNewTurn (Game $game, Turn $turn): Turn
+    private function createNewTurn (Game $game, Turn $turn)
     {
-        Log::channel('turn')->info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
-        return Turn::create([
-            'game_id' => $game->id,
-            'number' => $turn->number + 1,
-            'due' => now()->addMinutes($game->turn_duration)
-        ]);
+        try {
+            Log::channel('turn')->info('TURN PROCESSING: creating new turn for g'.$game->number.'.');
+            Turn::create([
+                'game_id' => $game->id,
+                'number' => $turn->number + 1,
+                'due' => now()->addMinutes($game->turn_duration)
+            ]);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    "g".$game->number."t".$turn->number." Exception while attempting to create new turn:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -34,9 +50,17 @@ class ProcessTurn
      */
     private function processStorageUpgrades(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 1: Storage Upgrades.");
-        $s = new \App\Actions\Turn\BuildStorageUpgrades;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 1: Storage Upgrades.");
+            $s = new \App\Actions\Turn\BuildStorageUpgrades;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to process storage upgrades:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -47,9 +71,17 @@ class ProcessTurn
      */
     private function processHarvesters(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 2: Process Harvesters.");
-        $h = new \App\Actions\Turn\ProcessHarvesters;
-        $h->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 2: Process Harvesters.");
+            $h = new \App\Actions\Turn\ProcessHarvesters;
+            $h->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to process harvesters:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -60,9 +92,17 @@ class ProcessTurn
      */
     private function handleColonies(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 3: Population Growth.");
-        $c = new \App\Actions\Turn\ProcessColonies;
-        $c->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 3: Handle Colonies.");
+            $c = new \App\Actions\Turn\ProcessColonies;
+            $c->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to handle colonies:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -73,9 +113,17 @@ class ProcessTurn
      */
     private function processShipyards(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 4: Build Shipyards.");
-        $s = new \App\Actions\Turn\BuildShipyards;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 4: Build Shipyards.");
+            $s = new \App\Actions\Turn\BuildShipyards;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to build shipyards:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -86,9 +134,17 @@ class ProcessTurn
      */
     private function processResearch(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 5: PROCESS RESEARCH.");
-        $s = new \App\Actions\Turn\ProcessResearch;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 5: PROCESS RESEARCH.");
+            $s = new \App\Actions\Turn\ProcessResearch;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to process research:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -100,9 +156,17 @@ class ProcessTurn
      */
     private function buildships(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 6: BUILD SHIPS.");
-        $s = new \App\Actions\Turn\BuildShips;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 6: BUILD SHIPS.");
+            $s = new \App\Actions\Turn\BuildShips;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to build ships:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -114,9 +178,17 @@ class ProcessTurn
      */
     private function moveFleets(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 7: MOVE FLEETS.");
-        $s = new \App\Actions\Turn\ProcessFleetMovement;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 7: MOVE FLEETS.");
+            $s = new \App\Actions\Turn\ProcessFleetMovement;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to move fleets:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -128,9 +200,17 @@ class ProcessTurn
      */
     private function changePlayerRelations(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 8: CHANGE PLAYER RELATIONS.");
-        $s = new \App\Actions\Turn\ProcessPlayerRelations;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 8: CHANGE PLAYER RELATIONS.");
+            $s = new \App\Actions\Turn\ProcessPlayerRelations;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to change player relations:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -138,13 +218,43 @@ class ProcessTurn
      * @param Game $game
      * @param string $turnSlug
      * @throws Exception
-     * @return void*
+     * @return void
      */
     private function processEncounters(Game $game, string $turnSlug)
     {
-        Log::channel('turn')->info("$turnSlug - STEP 9: PROCESS FLEET ENCOUNTERS.");
-        $s = new \App\Actions\Turn\Encounter\FindEncounters;
-        $s->handle($game, $turnSlug);
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 9: PROCESS FLEET ENCOUNTERS.");
+            $s = new \App\Actions\Turn\Encounter\FindEncounters;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to process fleet encounters:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
+    }
+
+    /**
+     * @function process ship regeneration: natural shield regeneration, armour/structure repair at shipyards
+     * @param Game $game
+     * @param string $turnSlug
+     * @throws Exception
+     * @return void
+     */
+    private function processShipRegen(Game $game, string $turnSlug)
+    {
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 11: PROCESS SHIP REGENERATION.");
+            $s = new \App\Actions\Turn\ProcessShipRegen;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('encounter')
+                ->error(
+                    $turnSlug." Exception while attempting to process ship regen:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
     }
 
     /**
@@ -159,8 +269,10 @@ class ProcessTurn
         $start = hrtime(true);
         $turnSlug = 'g'.$game->number.'t'.$turn->number;
         Log::channel('turn')->info("TURN PROCESSING $turnSlug - START");
-//        $game->processing = true;
-//        $game->save();
+        if (!$this->dryRun) {
+            $game->processing = true;
+            $game->save();
+        }
 
         // #1 process storage upgrades
 //        $this->processStorageUpgrades($game, $turnSlug);
@@ -176,26 +288,27 @@ class ProcessTurn
 //        $this->buildships($game, $turnSlug);
 //        // #7 move fleets
         $this->moveFleets($game, $turnSlug);
-//        // #8 change diplomatic relations
-//        $this->changePlayerRelations($game, $turnSlug);
+        // #8 change diplomatic relations
+        $this->changePlayerRelations($game, $turnSlug);
         // #9 resolve encounters
         $this->processEncounters($game, $turnSlug);
         // #10 colonize star system
         // #11 shield regen, ship repairs
+        $this->processShipRegen($game, $turnSlug);
         // #12 process dead players
         // #13 process winners
         // ...
 
-
         // #final: cleanup
-//        $turn->processed = now();
-//        $turn->save();
-//        $this->createNewTurn($game, $turn);
-//        $game->processing = false;
-//        $game->save();
-
-        // log execution time of turn processing.
-        $execution = hrtime(true) - $start;
-        Log::channel('turn')->info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
+        if (!$this->dryRun) {
+            $turn->processed = now();
+            $turn->save();
+            $this->createNewTurn($game, $turn);
+            $game->processing = false;
+            $game->save();
+            // log execution time of turn processing.
+            $execution = hrtime(true) - $start;
+            Log::channel('turn')->info("TURN PROCESSING $turnSlug - finished in ".$execution/1e+9." seconds.");
+        }
     }
 }
