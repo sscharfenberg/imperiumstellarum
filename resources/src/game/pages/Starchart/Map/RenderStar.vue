@@ -234,6 +234,7 @@ export default {
 
     @include themed() {
         background: rgba(t("g-sunken"), 0.9);
+        color: t("t-light");
     }
 
     .icon {

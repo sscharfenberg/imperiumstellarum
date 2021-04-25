@@ -504,7 +504,8 @@ return [
                 'min' => 0,
                 'max' => 20
             ],
-            'startingColony' => 10
+            'startingColony' => 10,
+            'newColonyFactor' => 1.25
         ],
 
         /*

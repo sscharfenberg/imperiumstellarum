@@ -258,6 +258,16 @@ The star is now available on the empire page.
 With the star we have also won ownership of :numShipyards shipyard(s) and :numHarvesters harvester(s).
 If there where any construction contracts, they where stopped.'
                 ]
+            ],
+            'colonization' => [
+                'won' => [
+                    'subject' => 'Star system colonized',
+                    'body' => 'We have colonized a previously unclaimed star system! The star :star is now ours and available at the \'Empire\' page.'
+                ],
+                'lost' => [
+                    'subject' => 'Unable to colonize star system',
+                    'body' => 'We could not colonize :star since the fleets from empire :empire where bigger than ours, we had to stand down.'
+                ]
             ]
         ]
     ],

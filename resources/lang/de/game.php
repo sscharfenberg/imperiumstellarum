@@ -258,6 +258,16 @@ Das Sternensystem steht jetzt auf der Imperiums-Seite zur Verfügung.
 Mit dem Sternensystem haben wir auch :numShipyards Werft(en) und :numHarvesters Ernter erobert.
 Wenn es Bauaufträge gab, wurden diese abgebrochen.'
                 ]
+            ],
+            'colonization' => [
+                'won' => [
+                    'subject' => 'Sternensystem besiedelt',
+                    'body' => 'Wir haben eine neue Kolonie im Sternensystem :star errichtet! Der Stern gehört jetzt uns und steht auf der \'Imperium\' Seite zur Verfügung um Ernter o.ä. zu bauen.'
+                ],
+                'lost' => [
+                    'subject' => 'Sternensystem konnte nicht besiedelt werden',
+                    'body' => 'Wir konnten keine Kolonie im Sternensystem :star errichten da Flotten vom Imperium :empire größer waren als unsere, wir haben uns zurückgezogen.'
+                ]
             ]
         ]
     ],

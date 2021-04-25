@@ -217,7 +217,7 @@ class EncounterService {
                 $star->id => $harvesters * $rules['harvester'] + $shipyardsScore + $fleetsScore
             ]);
         });
-        Log::channel('encounter')->debug(
+        Log::channel('turn')->debug(
             "calculated star scores for player [$player->ticker]: "
             .json_encode($starsScored, JSON_PRETTY_PRINT)
         );

@@ -34,7 +34,7 @@ class ProcessTurn
                 'due' => now()->addMinutes($game->turn_duration)
             ]);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     "g".$game->number."t".$turn->number." Exception while attempting to create new turn:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -55,7 +55,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\BuildStorageUpgrades;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to process storage upgrades:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -76,7 +76,7 @@ class ProcessTurn
             $h = new \App\Actions\Turn\ProcessHarvesters;
             $h->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to process harvesters:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -97,7 +97,7 @@ class ProcessTurn
             $c = new \App\Actions\Turn\ProcessColonies;
             $c->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to handle colonies:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -118,7 +118,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\BuildShipyards;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to build shipyards:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -139,7 +139,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\ProcessResearch;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to process research:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -161,7 +161,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\BuildShips;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to build ships:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -183,7 +183,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\ProcessFleetMovement;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to move fleets:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -205,7 +205,7 @@ class ProcessTurn
             $s = new \App\Actions\Turn\ProcessPlayerRelations;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to change player relations:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -220,7 +220,7 @@ class ProcessTurn
      * @throws Exception
      * @return void
      */
-    private function processEncounters(Game $game, string $turnSlug)
+    private function processEncounters (Game $game, string $turnSlug)
     {
         try {
             Log::channel('turn')->info("$turnSlug - STEP 9: PROCESS FLEET ENCOUNTERS.");
@@ -236,20 +236,42 @@ class ProcessTurn
     }
 
     /**
+     * @function process colonization of unclaimed stars
+     * @param Game $game
+     * @param string $turnSlug
+     * @throws Exception
+     * @return void
+     */
+    private function processColonization (Game $game, string $turnSlug)
+    {
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 10: PROCESS COLONIZATION OF UNCLAIMED STARS.");
+            $s = new \App\Actions\Turn\ProcessColonization;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('turn')
+                ->error(
+                    $turnSlug." Exception while attempting to process colonization of unclaimed stars:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
+    }
+
+    /**
      * @function process ship regeneration: natural shield regeneration, armour/structure repair at shipyards
      * @param Game $game
      * @param string $turnSlug
      * @throws Exception
      * @return void
      */
-    private function processShipRegen(Game $game, string $turnSlug)
+    private function processShipRegen (Game $game, string $turnSlug)
     {
         try {
             Log::channel('turn')->info("$turnSlug - STEP 11: PROCESS SHIP REGENERATION.");
             $s = new \App\Actions\Turn\ProcessShipRegen;
             $s->handle($game, $turnSlug);
         } catch (Exception $e) {
-            Log::channel('encounter')
+            Log::channel('turn')
                 ->error(
                     $turnSlug." Exception while attempting to process ship regen:\n"
                     .$e->getMessage()."\n".$e->getTraceAsString()
@@ -293,6 +315,7 @@ class ProcessTurn
         // #9 resolve encounters
         $this->processEncounters($game, $turnSlug);
         // #10 colonize star system
+        $this->processColonization($game, $turnSlug);
         // #11 shield regen, ship repairs
         $this->processShipRegen($game, $turnSlug);
         // #12 process dead players

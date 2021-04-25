@@ -109,10 +109,10 @@ export default {
 }
 
 .summary {
-    margin-left: 8px;
+    padding-left: 8px;
 
     @include respond-to("medium") {
-        margin-left: 16px;
+        padding-left: 16px;
     }
 }
 
