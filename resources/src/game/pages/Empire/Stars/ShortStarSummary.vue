@@ -34,7 +34,7 @@ export default {
                     .population;
                 if (population) num += population;
             });
-            return Math.floor(num);
+            return num;
         });
         const shipyardLabel = computed(() =>
             i18n.t(
@@ -75,7 +75,7 @@ export default {
             :aria-label="populationLabel"
         >
             <icon name="population" />
-            {{ population }}
+            {{ Math.floor(population) }}
         </li>
     </ul>
 </template>
