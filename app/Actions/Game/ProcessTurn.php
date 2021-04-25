@@ -280,6 +280,26 @@ class ProcessTurn
     }
 
     /**
+     * @function pcoess dead players - check for players fit the criteria, mark and notify them
+     * @param Game $game
+     * @param string $turnSlug
+     */
+    private function processDeadPlayers (Game $game, string $turnSlug)
+    {
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 12: PROCESS DEAD PLAYERS.");
+            $s = new \App\Actions\Turn\ProcessDeadPlayers;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('turn')
+                ->error(
+                    $turnSlug." Exception while attempting to process dead players:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
+    }
+
+    /**
      * @function handle game start
      * @param  Game $game
      * @param Turn $turn
@@ -309,9 +329,9 @@ class ProcessTurn
 //        // #6 build ships
 //        $this->buildships($game, $turnSlug);
 //        // #7 move fleets
-        $this->moveFleets($game, $turnSlug);
-        // #8 change diplomatic relations
-        $this->changePlayerRelations($game, $turnSlug);
+//        $this->moveFleets($game, $turnSlug);
+//        // #8 change diplomatic relations
+//        $this->changePlayerRelations($game, $turnSlug);
         // #9 resolve encounters
         $this->processEncounters($game, $turnSlug);
         // #10 colonize star system
@@ -319,6 +339,7 @@ class ProcessTurn
         // #11 shield regen, ship repairs
         $this->processShipRegen($game, $turnSlug);
         // #12 process dead players
+        $this->processDeadPlayers($game, $turnSlug);
         // #13 process winners
         // ...
 

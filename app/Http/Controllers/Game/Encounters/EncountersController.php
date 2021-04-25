@@ -46,7 +46,7 @@ class EncountersController extends Controller
             'players' => $allPlayers->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             })->values(),
-            'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $allPlayers),
+            'relations' => $p->formatAllPlayerRelations($player, $gameRelations, $allPlayers),
         ];
 
         return response()->json(array_merge($a->defaultData($request), $returnData));

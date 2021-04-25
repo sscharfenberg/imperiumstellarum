@@ -39,7 +39,7 @@ class DiplomacyController extends Controller
             'players' => $players->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             }),
-            'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $players),
+            'relations' => $p->formatAllPlayerRelations($player, $gameRelations, $players),
             'relationChanges' => $player->relationChanges->map(function ($relationChange) use ($f) {
                 return $f->formatPlayerRelationChange($relationChange);
             }),

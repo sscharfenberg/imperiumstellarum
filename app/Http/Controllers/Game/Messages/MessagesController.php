@@ -52,7 +52,7 @@ class MessagesController extends Controller
             'players' => $allPlayers->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);
             })->values(),
-            'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $allPlayers),
+            'relations' => $p->formatAllPlayerRelations($player, $gameRelations, $allPlayers),
             'reports' => $reports->map(function ($report) use ($f) {
                 return $f->formatMessageReport($report);
             })

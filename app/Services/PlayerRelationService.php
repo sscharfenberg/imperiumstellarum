@@ -38,18 +38,16 @@ class PlayerRelationService {
 
     /**
      * @function format all relations of a player
-     * @param string $playerId
+     * @param Player $player
      * @param Collection $gameRelations
      * @param Collection $players
      * @return array
      */
-    public function formatAllPlayerRelations (string $playerId, Collection $gameRelations, Collection $players): array
+    public function formatAllPlayerRelations (Player $player, Collection $gameRelations, Collection $players): array
     {
         $f = new FormatApiResponseService;
         $relations = collect();
-
-        $playerRelations = $gameRelations->where('player_id', $playerId);
-        $player = $players->where('id', $playerId)->first();
+        $playerRelations = $gameRelations->where('player_id', $player->id);
 
         // first, get all relations where the player has a relation to the recipient
         foreach($playerRelations as $relation) {
@@ -60,13 +58,13 @@ class PlayerRelationService {
             $relations->push($f->formatPlayerRelation(
                 $relation->recipient_id, // playerId of recipient
                 $relation->status, // what the player has set to the recipient
-                isset($recipientRelation->status) ? $recipientRelation->status : 9,
+                $recipientRelation->status ?? 9,
                 $effectiveRelation // effective relation, taking into account what recipient has set to player.
             ));
         }
 
         // now, add the relations where the recipient has set a relation to the player
-        $recipientRelations = $gameRelations->where('recipient_id', $playerId);
+        $recipientRelations = $gameRelations->where('recipient_id', $player->id);
         foreach($recipientRelations as $relation) {
             $recipient = $players->where('id', $relation->player_id)->first();
             if (count($relations->where('playerId', $recipient->id)) === 0) {
@@ -76,7 +74,7 @@ class PlayerRelationService {
                 $relations->push($f->formatPlayerRelation(
                     $relation->player_id, // playerId of recipient
                     9, // player has not set anything to the recipient, so we use 9 as a placeholder.
-                    isset($recipientRelation->status) ? $recipientRelation->status : 9,
+                    $recipientRelation->status ?? 9,
                     $effectiveRelation // effective relation, taking into account what recipient has set to player.
                 ));
             }

@@ -112,7 +112,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * @function checks if the user has an active suspension.
-     * TODO: make this accessible; currently we can't access this function from relations
      * @return bool
      */
     public function isSuspended() {

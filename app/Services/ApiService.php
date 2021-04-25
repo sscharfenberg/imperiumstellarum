@@ -98,7 +98,8 @@ class ApiService {
                 'empireTicker' => $player->ticker,
                 'researchPriority' => $player->research_priority,
                 'id' => $player->id,
-                'colour' => $player->colour
+                'colour' => $player->colour,
+                'dead' => !!$player->dead
             ],
             'resources' => $r->getResources($player),
             'storageUpgrades' => $this->storageUpgrades($player),

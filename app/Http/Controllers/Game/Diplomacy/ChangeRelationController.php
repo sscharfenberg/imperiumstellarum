@@ -70,7 +70,7 @@ class ChangeRelationController extends Controller
             ->get();
         $turns = config('rules.diplomacy.turnsUntilEffective');
         return response()->json([
-            'relations' => $p->formatAllPlayerRelations($player->id, $gameRelations, $players),
+            'relations' => $p->formatAllPlayerRelations($player, $gameRelations, $players),
             'relationChanges' => $updatedPlayer->relationChanges->map(function ($relationChange) use ($f) {
                 return $f->formatPlayerRelationChange($relationChange);
             }),
