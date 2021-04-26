@@ -29,11 +29,6 @@ export default {
                         response.data.unreadMessages,
                         { root: true }
                     );
-                    commit(
-                        "SET_UNREAD_ENCOUNTERS",
-                        response.data.unreadEncounters,
-                        { root: true }
-                    );
                 }
             })
             .catch((e) => {

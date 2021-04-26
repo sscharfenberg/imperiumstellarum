@@ -37,11 +37,6 @@ export default {
                         response.data.unreadMessages,
                         { root: true }
                     );
-                    commit(
-                        "SET_UNREAD_ENCOUNTERS",
-                        response.data.unreadEncounters,
-                        { root: true }
-                    );
                 }
             })
             .catch((e) => {
@@ -80,11 +75,6 @@ export default {
                     commit(
                         "SET_UNREAD_MESSAGES",
                         response.data.unreadMessages,
-                        { root: true }
-                    );
-                    commit(
-                        "SET_UNREAD_ENCOUNTERS",
-                        response.data.unreadEncounters,
                         { root: true }
                     );
                 }
