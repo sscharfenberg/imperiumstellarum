@@ -29,6 +29,7 @@ export default {
         state.resources = payload.resources;
         state.storageUpgrades = payload.storageUpgrades;
         state.unreadMessages = payload.unreadMessages;
+        state.dead = payload.player.dead;
     },
 
     /**

@@ -285,9 +285,7 @@ class PersistEncounter
             if (!$this->dryRun) {
                 $star->player_id = $newOwnerId;
                 $star->save();
-                $planetIds = $star->planets->map(function($planet) {
-                    return $planet->id;
-                });
+                $planetIds = $star->planets->map(function($planet) { return $planet->id; });
 
                 // check if there are shipyards and change player_id
                 $shipyards = Shipyard::where('game_id', '=', $encounter['game_id'])

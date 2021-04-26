@@ -24,6 +24,10 @@
             "newStorage": "New Storage",
             "install": "Install upgrade",
             "untilComplete": "Turns until completion"
+        },
+        "dead": {
+            "headline": "Your empire has collapsed.",
+            "moody": "Do not go gentle into that good night, rage, rage against the dying of the light."
         }
     },
     "resourceTypes": {

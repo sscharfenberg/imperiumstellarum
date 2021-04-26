@@ -4,12 +4,13 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import DeadPlayer from "./DeadPlayer";
 import FetchButton from "./FetchButton";
 import Icon from "Components/Icon/Icon";
 import PlayerResources from "./Resources/PlayerResources";
 export default {
     name: "GameHeader",
-    components: { Icon, FetchButton, PlayerResources },
+    components: { DeadPlayer, Icon, FetchButton, PlayerResources },
     props: {
         area: {
             type: String,
@@ -22,6 +23,7 @@ export default {
         const name = computed(() => state.empireName);
         const ticker = computed(() => state.empireTicker);
         const requesting = computed(() => state[props.area].requesting);
+        const dead = computed(() => state.dead);
         const turnSlug = computed(
             () => `g${state.gameNumber}t${state.gameTurn}`
         );
@@ -31,6 +33,7 @@ export default {
             ticker,
             requesting,
             turnSlug,
+            dead,
         };
     },
 };
@@ -48,7 +51,8 @@ export default {
             <span v-if="ticker">[{{ ticker }}]</span>
             <span v-if="name">{{ name }}</span>
         </h1>
-        <player-resources />
+        <player-resources v-if="!dead" />
+        <dead-player v-else-if="dead && !requesting" />
     </header>
 </template>
 

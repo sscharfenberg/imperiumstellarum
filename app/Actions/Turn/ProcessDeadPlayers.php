@@ -13,6 +13,7 @@ use App\Models\PlayerResource;
 use App\Models\Research;
 use App\Models\StorageUpgrade;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 
 class ProcessDeadPlayers
@@ -83,15 +84,17 @@ class ProcessDeadPlayers
     public function handle(Game $game, string $turnSlug)
     {
         $corpses = Player::where('game_id', '=', $game->id)
-            ->whereDoesntHave('stars')
+            ->whereDoesntHave('stars') // player has not stars
+            ->whereDoesntHave('ships') // and no ships
+            ->with('fleets')
             ->get();
         if (count($corpses) > 0) {
-            Log::channel('turn')->notice("$turnSlug found ".count($corpses)." players without stars.");
+            Log::channel('turn')->notice("$turnSlug found ".count($corpses)." players with no stars and no ships.");
             $corpses->each( function ($player) use ($game, $turnSlug) {
                 $this->handleDeadPlayer($game, $player, $turnSlug);
             });
         } else {
-            Log::channel('turn')->notice("$turnSlug no players without stars. Everything cool.");
+            Log::channel('turn')->notice("$turnSlug no players with no stars and no ships. Everything cool.");
         }
     }
 

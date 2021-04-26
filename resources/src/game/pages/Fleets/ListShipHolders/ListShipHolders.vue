@@ -108,7 +108,7 @@ export default {
     }
 }
 
-.summary {
+.summary.summary {
     padding-left: 8px;
 
     @include respond-to("medium") {
