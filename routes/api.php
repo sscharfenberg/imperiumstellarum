@@ -105,6 +105,8 @@ Route::middleware([
      */
     Route::get('/game/{game}/encounters',
         [\App\Http\Controllers\Game\Encounters\EncountersController::class, 'gameData']);
+    Route::get('/game/{game}/encounters/{encounter}/details',
+        [\App\Http\Controllers\Game\Encounters\EncounterDetailsController::class, 'getDetails']);
 
 });
 
@@ -117,7 +119,8 @@ Route::middleware([
     'suspended',
     'gameStarted',
     'enlisted',
-    'notProcessing'
+    'notProcessing',
+    'notDead'
 ])->group(function () {
 
     // install storage upgrade
@@ -236,10 +239,6 @@ Route::middleware([
     Route::post('/game/{game}/messages/report',
         [\App\Http\Controllers\Game\Messages\ReportMessageController::class, 'handle']);
 
-    /**
-     * encounters api calls
-     */
-    Route::get('/game/{game}/encounters/{encounter}/details',
-        [\App\Http\Controllers\Game\Encounters\EncounterDetailsController::class, 'getDetails']);
+
 
 });

@@ -22,7 +22,8 @@ return [
                 'alreadyBuilding' => 'There is already a storage upgrade of this type in construction.',
                 'level' => 'This storage level can not be constructed.'
             ],
-            'deletion' => 'Could not delete, database error.'
+            'deletion' => 'Could not delete, database error.',
+            'dead' => 'Your empire has collapsed, you can\'t give orders anymore.'
         ],
         'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.',
         'hulls' => [

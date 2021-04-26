@@ -22,7 +22,8 @@ return [
                 'alreadyBuilding' => 'Es ist bereits eine Verbesserung des Lagers im Bau.',
                 'level' => 'Diese Verbesserung kann nicht installiert werden.'
             ],
-            'deletion' => 'Löschen fehlgeschlagen, Datenbankfehler.'
+            'deletion' => 'Löschen fehlgeschlagen, Datenbankfehler.',
+            'dead' => 'Ihr Imperium ist kollabiert, Sie können keine Befehle mehr erteilen.'
         ],
         'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.',
         'hulls' => [
