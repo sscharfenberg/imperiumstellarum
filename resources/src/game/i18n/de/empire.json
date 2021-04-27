@@ -25,6 +25,7 @@
         },
         "location": "Springe zu Sternenposition"
     },
+    "none": "Unser Imperium bestitzt keine Sternensysteme.",
     "planet": {
         "typeLabel": "Planetarer Typ",
         "types": {

@@ -27,7 +27,7 @@
         },
         "dead": {
             "headline": "Your empire has collapsed.",
-            "moody": "Do not go gentle into that good night, rage, rage against the dying of the light."
+            "moody": "Do not go gentle into that good night. Rage, rage against the dying of the light."
         }
     },
     "resourceTypes": {

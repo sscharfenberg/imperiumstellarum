@@ -2,22 +2,53 @@
 
 namespace App\Actions\Turn;
 
-use App\Models\Blueprint;
 use App\Models\ConstructionContract;
 use App\Models\Fleet;
 use App\Models\Game;
 use App\Models\Player;
-
+use App\Models\PlayerRelation;
 use App\Models\PlayerRelationChange;
 use App\Models\PlayerResource;
 use App\Models\Research;
 use App\Models\StorageUpgrade;
+use App\Services\MessageService;
+
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
+use App\Notifications\GameOver;
 
 class ProcessDeadPlayers
 {
+
+
+    private function sendEmail (Game $game, Player $player, string $turnSlug)
+    {
+        $user = $player->user;
+        $user->notify(
+            (new GameOver($game->number, "[$player->ticker] $player->name"))->locale($user->locale)
+        );
+        Log::channel('turn')->notice(
+            "$turnSlug sent email to player [$player->ticker] $player->name ($user->email)."
+        );
+    }
+
+    /**
+     * @function send notification to dead player
+     * @param Player $player
+     * @param string $turnSlug
+     */
+    private function sendNotification (Player $player, string $turnSlug)
+    {
+        $m = new MessageService;
+        $m->sendNotification(
+            $player,
+            'game.messages.sys.playerDied.subject',
+            'game.messages.sys.playerDied.body',
+            []
+        );
+        Log::channel('turn')->notice("$turnSlug notification sent to player [$player->ticker] $player->name.");
+    }
+
 
     /**
      * @function handle dead player. mark as dead, delete fleets.
@@ -44,6 +75,12 @@ class ProcessDeadPlayers
             ->delete();
         Log::channel('turn')->notice("$turnSlug deleted $deletedContracts construction contracts.");
 
+        // PlayerRelations
+        $deletedRelations = PlayerRelation::where('game_id','=', $game->id)
+            ->where('player_id', '=', $player->id)
+            ->orWhere('recipient_id', '=', $player->id)
+            ->delete();
+        Log::channel('turn')->notice("$turnSlug deleted $deletedRelations player relations.");
         // playerRelationChanges
         $deletedRelationChanges = PlayerRelationChange::where('game_id','=', $game->id)
             ->where('player_id', '=', $player->id)
@@ -68,8 +105,11 @@ class ProcessDeadPlayers
             ->delete();
         Log::channel('turn')->notice("$turnSlug deleted $deletedStorageUpgrades storage upgrades.");
 
-        // TODO: send notification
-        // TODO: send email to user
+        // send notification
+        $this->sendNotification($player, $turnSlug);
+
+        // send email to user
+        $this->sendEmail($game, $player, $turnSlug);
 
     }
 
@@ -84,6 +124,7 @@ class ProcessDeadPlayers
     public function handle(Game $game, string $turnSlug)
     {
         $corpses = Player::where('game_id', '=', $game->id)
+            ->where('dead', '=', false)
             ->whereDoesntHave('stars') // player has not stars
             ->whereDoesntHave('ships') // and no ships
             ->with('fleets')

@@ -269,6 +269,11 @@ Wenn es Bauaufträge gab, wurden diese abgebrochen.'
                     'subject' => 'Sternensystem konnte nicht besiedelt werden',
                     'body' => 'Wir konnten keine Kolonie im Sternensystem :star errichten da Flotten vom Imperium :empire größer waren als unsere, wir haben uns zurückgezogen.'
                 ]
+            ],
+            'playerDied' => [
+                'subject' => 'Imperium ist kollabiert',
+                'body' => 'Ihr Imperium ist kollabiert - Sie haben das letzte Sternensystem und alle Schiffe verloren. Dieses Spiel ist für Sie vorbei.
+Sie können nach wie vor die Sternenkarte betrachten und sich Gefechte anschauen oder Nachrichten lesen, aber Sie können keinerlei Befehle mehr erteilen.'
             ]
         ]
     ],
@@ -278,6 +283,15 @@ Wenn es Bauaufträge gab, wurden diese abgebrochen.'
         'errors' => [
             'noEncounter' => 'Dieses Gefecht existiert nicht oder Sie haben nicht teilgenommen.',
         ]
+    ],
+
+    'mail' => [
+        'gameOver' => [
+            'subject' => 'Game over man, game over',
+            'important' => 'Wir bedauern Sie informieren zu müssen das Ihr Imperium :empire in Spiel g:game kollabiert ist. Das Spiel ist für Sie beendet.',
+            'login' => 'Sie können sich nach wie vor das Spiel anschauen, aber keine Befehle mehr erteilen.',
+            'next' => 'Bitte prüfen Sie Ihre Zentrale oder unsere Foren um keine startenden Spiele zu verpassen.',
+        ],
     ]
 
 ];

@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
-import { addSeconds } from "date-fns";
+import { addMilliseconds } from "date-fns";
 import { formatMessageBody, formatDateTime } from "@/game/helpers/format";
 import MessageDetailsModalActions from "./MessageDetailsModalActions";
 import MessageDetailsModalRepliesTo from "./MessageDetailsModalRepliesTo";
@@ -73,7 +73,7 @@ export default {
             yourId,
             repliesToMessage,
             formatMessageBody,
-            addSeconds,
+            addMilliseconds,
             formatDateTime,
             messageReport,
         };
@@ -175,7 +175,7 @@ export default {
             }`"
             :sent-at="
                 formatDateTime(
-                    addSeconds(new Date(), repliesToMessage.timestamp)
+                    addMilliseconds(new Date(), repliesToMessage.timestamp)
                 )
             "
             :recipient-ids="repliesToMessage.recipientIds"

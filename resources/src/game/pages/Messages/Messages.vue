@@ -26,10 +26,11 @@ export default {
         const store = useStore();
         const showMassDeleteModal = ref(false);
         const pageIndex = computed(() => store.state.messages.page);
+        const dead = computed(() => store.state.dead);
         onBeforeMount(() => {
             store.dispatch("messages/GET_GAME_DATA");
         });
-        return { pageIndex, showMassDeleteModal };
+        return { pageIndex, showMassDeleteModal, dead };
     },
 };
 </script>
@@ -50,7 +51,7 @@ export default {
             v-else-if="pageIndex === 2"
             @mass-delete="showMassDeleteModal = true"
         />
-        <messages-new v-else-if="pageIndex === 3" />
+        <messages-new v-else-if="pageIndex === 3 && !dead" />
     </transition>
     <mailbox-mass-delete-modal
         v-if="showMassDeleteModal"

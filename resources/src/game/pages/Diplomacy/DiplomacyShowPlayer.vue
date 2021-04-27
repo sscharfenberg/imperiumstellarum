@@ -28,7 +28,8 @@ export default {
                 return 0;
             }
         });
-        return { showModal, relationChangePending, empireTicker };
+        const dead = computed(() => store.state.dead);
+        return { showModal, relationChangePending, empireTicker, dead };
     },
 };
 </script>
@@ -41,6 +42,7 @@ export default {
         :aria-label="
             $t('diplomacy.list.buttonLabel', { ticker: player.ticker })
         "
+        :disabled="dead"
     >
         <span
             class="player__ticker"

@@ -50,6 +50,7 @@ export default {
             return title;
         });
         const playerColour = computed(() => "#" + store.state.colour);
+        const dead = computed(() => store.state.dead);
         return {
             showModal,
             bgColour,
@@ -57,6 +58,7 @@ export default {
             starTitle,
             playerColour,
             ownSystem,
+            dead,
         };
     },
 };
@@ -75,6 +77,7 @@ export default {
         }"
         :title="starTitle"
         :aria-label="starTitle"
+        :disabled="dead"
         @click="showModal = true"
     >
         <span class="ticker" v-if="ticker">{{ ticker }}</span>

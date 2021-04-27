@@ -427,7 +427,7 @@ class FormatApiResponseService {
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
         // so, we'll work around this for now.
-        $createdAt = $message->created_at->diffInSeconds(Carbon::now());
+        $createdAt = $message->created_at->diffInMilliseconds(Carbon::now());
         if (now() > $message->created_at) {
             $createdAt = -$createdAt;
         }
@@ -460,7 +460,7 @@ class FormatApiResponseService {
         // absolute=false does not work for diffInSeconds on php7.3
         // https://github.com/briannesbitt/Carbon/issues/1503
         // so, we'll work around this for now.
-        $createdAt = $message->created_at->diffInSeconds(Carbon::now());
+        $createdAt = $message->created_at->diffInMilliseconds(Carbon::now());
         if (now() > $message->created_at) {
             $createdAt = -$createdAt;
         }

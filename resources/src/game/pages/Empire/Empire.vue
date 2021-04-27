@@ -43,6 +43,7 @@ export default {
         <show-summary />
     </area-section>
     <area-section
+        v-if="numStars > 0"
         :requesting="requesting"
         :headline="t('empire.stars', { num: numStars })"
     >
@@ -53,4 +54,5 @@ export default {
         </template>
         <list-stars />
     </area-section>
+    <div v-if="numStars === 0">{{ $t("empire.none") }}</div>
 </template>

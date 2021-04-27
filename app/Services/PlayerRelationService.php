@@ -67,7 +67,7 @@ class PlayerRelationService {
         $recipientRelations = $gameRelations->where('recipient_id', $player->id);
         foreach($recipientRelations as $relation) {
             $recipient = $players->where('id', $relation->player_id)->first();
-            if (count($relations->where('playerId', $recipient->id)) === 0) {
+            if ($recipient && count($relations->where('playerId', $recipient->id)) === 0) {
                 // this relation does not already exist, add it.
                 $effectiveRelation = $this->getEffectiveRelation($player, $recipient, $gameRelations);
                 $recipientRelation = $recipientRelations->where('player_id', $recipient->id)->first();

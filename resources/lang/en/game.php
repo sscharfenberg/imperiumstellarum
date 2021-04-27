@@ -269,6 +269,11 @@ If there where any construction contracts, they where stopped.'
                     'subject' => 'Unable to colonize star system',
                     'body' => 'We could not colonize :star since the fleets from empire :empire where bigger than ours, we had to stand down.'
                 ]
+            ],
+            'playerDied' => [
+                'subject' => 'Empire has collapsed',
+                'body' => 'Your empire has collapsed - you have lost the last star and all of your ships. This game is over for you.
+You can still check the Starmap, view encounters or read messages, but you can\'t give orders anymore.'
             ]
         ]
     ],
@@ -278,6 +283,15 @@ If there where any construction contracts, they where stopped.'
         'errors' => [
             'noEncounter' => 'This encounter does not exist or you are not involved.',
         ]
+    ],
+
+    'mail' => [
+        'gameOver' => [
+            'subject' => 'Game over man, game over',
+            'important' => 'We are sorry to inform you that your empire :empire in game :game has collapsed. This game has ended for you.',
+            'login' => 'You can still login and check the game, but you can\'t give orders anymore.',
+            'next' => 'Please check your dashboard or the forums for any new games that will start. ',
+        ],
     ]
 
 ];

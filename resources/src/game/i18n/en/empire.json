@@ -25,6 +25,7 @@
         },
         "location": "Jump to star location"
     },
+    "none": "Our empire does not own star systems.",
     "planet": {
         "typeLabel": "Planetary Type",
         "types": {

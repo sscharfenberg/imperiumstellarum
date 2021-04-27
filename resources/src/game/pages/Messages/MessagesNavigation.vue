@@ -32,6 +32,7 @@ export default {
                 store.state.messages.inbox.filter((m) => !m.senderId && !m.read)
                     .length
         );
+        const dead = computed(() => store.state.dead);
         const onPageChange = (page) => {
             store.commit("messages/SET_MASS_DELETE_IDS", []);
             pageIndex.value = page;
@@ -43,6 +44,7 @@ export default {
             numSysbox,
             unreadSysboxMessages,
             onPageChange,
+            dead,
         };
     },
 };
@@ -111,6 +113,7 @@ export default {
             {{ $t("messages.outbox.navTitle") }}
         </button>
         <button
+            v-if="!dead"
             class="messages-nav__link messages-nav__link--new"
             @click="onPageChange(3)"
             :class="{ active: pageIndex === 3 }"

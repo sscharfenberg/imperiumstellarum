@@ -38,12 +38,14 @@ export default {
                 store.getters["research/researchJobsOrdered"].length ===
                 window.rules.tech.queue
         );
+        const dead = computed(() => store.state.dead);
         return {
             rules,
             tl,
             nextLevel,
             isQueueMaxed,
             showModal,
+            dead,
         };
     },
 };
@@ -55,7 +57,7 @@ export default {
         <section class="overview">
             <h4>{{ $t("research.tl." + tl.type) }}</h4>
             <game-button
-                v-if="nextLevel < rules.bounds.max && !isQueueMaxed"
+                v-if="nextLevel < rules.bounds.max && !isQueueMaxed && !dead"
                 :text-string="
                     $t('research.tl.researchBtn', { level: nextLevel })
                 "

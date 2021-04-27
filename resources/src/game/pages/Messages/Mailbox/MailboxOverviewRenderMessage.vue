@@ -4,7 +4,7 @@
  *****************************************************************************/
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { addSeconds } from "date-fns";
+import { addMilliseconds } from "date-fns";
 import { formatDateTime } from "@/game/helpers/format";
 import AppCheckbox from "Components/Checkbox/AppCheckbox";
 import Icon from "Components/Icon/Icon";
@@ -42,7 +42,7 @@ export default {
 
         // formatted timestamp when the message was sent
         const timestampFormatted = computed(() => {
-            return formatDateTime(addSeconds(new Date(), props.datetime));
+            return formatDateTime(addMilliseconds(new Date(), props.datetime));
         });
 
         // formatted recipient tickers
