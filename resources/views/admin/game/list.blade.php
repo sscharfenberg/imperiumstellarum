@@ -62,6 +62,7 @@
                 <th>@lang('admin.games.thead.active')</th>
                 <th>@lang('admin.games.thead.processing')</th>
                 <th>@lang('admin.games.thead.can_enlist')</th>
+                <th>@lang('admin.games.thead.finished')</th>
                 <th>@lang('admin.games.thead.players')</th>
                 <th class="sortable{{ $sortBy == 'start_date' ? ' sorted' : '' }}">
                     @lang('admin.games.thead.start_date')
@@ -106,6 +107,17 @@
                         </td>
                         <td>
                             @if($game->can_enlist)
+                                <span class="symbol success">
+                                    <x-icon name="done" size="2" />
+                                </span>
+                            @else
+                                <span class="symbol error">
+                                    <x-icon name="cancel" size="2" />
+                                </span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($game->finished)
                                 <span class="symbol success">
                                     <x-icon name="done" size="2" />
                                 </span>

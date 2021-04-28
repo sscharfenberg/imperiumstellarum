@@ -6,11 +6,12 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import DeadPlayer from "./DeadPlayer";
 import FetchButton from "./FetchButton";
+import GameOver from "./GameOver";
 import Icon from "Components/Icon/Icon";
 import PlayerResources from "./Resources/PlayerResources";
 export default {
     name: "GameHeader",
-    components: { DeadPlayer, Icon, FetchButton, PlayerResources },
+    components: { DeadPlayer, FetchButton, GameOver, Icon, PlayerResources },
     props: {
         area: {
             type: String,
@@ -24,6 +25,7 @@ export default {
         const ticker = computed(() => state.empireTicker);
         const requesting = computed(() => state[props.area].requesting);
         const dead = computed(() => state.dead);
+        const gameOver = computed(() => state.gameEnded);
         const turnSlug = computed(
             () => `g${state.gameNumber}t${state.gameTurn}`
         );
@@ -34,6 +36,7 @@ export default {
             requesting,
             turnSlug,
             dead,
+            gameOver,
         };
     },
 };
@@ -53,6 +56,7 @@ export default {
         </h1>
         <player-resources v-if="!dead" />
         <dead-player v-else-if="dead && !requesting" />
+        <game-over v-if="gameOver" />
     </header>
 </template>
 

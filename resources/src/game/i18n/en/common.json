@@ -28,6 +28,10 @@
         "dead": {
             "headline": "Your empire has collapsed.",
             "moody": "Do not go gentle into that good night. Rage, rage against the dying of the light."
+        },
+        "gameOver": {
+            "headline": "The game has ended.",
+            "explanation": "Empire {empire} owns the majority of the galaxy's population. All hail the new emperor!"
         }
     },
     "resourceTypes": {

@@ -92,6 +92,7 @@ class ApiService {
                 'number' => $game->number,
                 'turn' => $currentTurn->number,
                 'turnDue' => $turnDue,
+                'finished' => $game->finished
             ],
             'player' => [
                 'empireName' => $player->name,

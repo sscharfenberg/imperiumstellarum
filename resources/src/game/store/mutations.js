@@ -20,6 +20,7 @@ export default {
         state.gameNumber = payload.game.number;
         state.gameTurn = payload.game.turn;
         state.turnDue = payload.game.turnDue;
+        state.gameEnded = payload.game.finished;
         // empire
         state.empireName = payload.player.empireName;
         state.empireTicker = payload.player.empireTicker;

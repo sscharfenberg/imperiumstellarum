@@ -24,4 +24,5 @@ export default {
     unreadMessages: 0,
     unreadEncounters: 0,
     dead: false,
+    gameEnded: false,
 };

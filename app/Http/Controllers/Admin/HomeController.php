@@ -23,7 +23,7 @@ class HomeController extends Controller
         $activeGames = Game::where('active', true)->count();
         $enlistableGames = Game::where('can_enlist', true)->count();
         $gamesToStart = Game::where('active', false)->where('start_date', '>', now())->count();
-        $finishedGames = Game::where('active', false)->where('start_date', '<', now())->count();
+        $finishedGames = Game::where('finished', true)->count();
         $reportsTotal = MessageReport::get();
         $reportsResolved = $reportsTotal->whereNotNull('resolved_admin')->count();
         $reportsUnresolved = $reportsTotal->whereNull('resolved_admin')->count();

@@ -28,6 +28,10 @@
         "dead": {
             "headline": "Das Imperium ist kollabiert.",
             "moody": "Geh nicht gelassen in die gute Nacht. Verfluch den Tod des Lichts mit aller Macht."
+        },
+        "gameOver": {
+            "headline": "Das Spiel ist beendet.",
+            "explanation": "Das Imperium {empire} besitzt die Mehrzahl der Bevölkerung der Galaxie. Preiset den neuen Imperator!"
         }
     },
     "resourceTypes": {

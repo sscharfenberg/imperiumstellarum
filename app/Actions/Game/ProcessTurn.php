@@ -300,6 +300,26 @@ class ProcessTurn
     }
 
     /**
+     * @function pcoess winners - check if any player has won the game and react accordingly
+     * @param Game $game
+     * @param string $turnSlug
+     */
+    private function processWinners (Game $game, string $turnSlug)
+    {
+        try {
+            Log::channel('turn')->info("$turnSlug - STEP 13: PROCESS WINNERS.");
+            $s = new \App\Actions\Turn\ProcessWinners;
+            $s->handle($game, $turnSlug);
+        } catch (Exception $e) {
+            Log::channel('turn')
+                ->error(
+                    $turnSlug." Exception while attempting to process winners:\n"
+                    .$e->getMessage()."\n".$e->getTraceAsString()
+                );
+        }
+    }
+
+    /**
      * @function handle game start
      * @param  Game $game
      * @param Turn $turn
@@ -341,7 +361,7 @@ class ProcessTurn
         // #12 process dead players
         $this->processDeadPlayers($game, $turnSlug);
         // #13 process winners
-        // ...
+        $this->processWinners($game, $turnSlug);
 
         // #final: cleanup
         if (!$this->dryRun) {

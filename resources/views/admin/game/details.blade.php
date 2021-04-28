@@ -73,6 +73,23 @@
 
         <div class="form-row has-divider">
             <div class="label">
+                <label>@lang("admin.game.edit.finished")</label>
+            </div>
+            <div class="input">
+                @if($game->finished)
+                    <span class="symbol success">
+                        <x-icon name="done" size="2" />
+                    </span>
+                @else
+                    <span class="symbol error">
+                        <x-icon name="cancel" size="2" />
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-row has-divider">
+            <div class="label">
                 <label for="dimensions">@lang("admin.game.create.dimensionsLabel")</label>
             </div>
             <div class="input">
