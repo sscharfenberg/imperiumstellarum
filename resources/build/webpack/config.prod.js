@@ -17,6 +17,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const { extendDefaultPlugins } = require("svgo");
 // imports
 const pkg = require("../../../package.json");
 const common = require("./config.common");
@@ -136,11 +137,12 @@ module.exports = merge(common, {
                     [
                         "svgo",
                         {
-                            plugins: [
+                            plugins: extendDefaultPlugins([
                                 {
-                                    removeViewBox: false,
+                                    name: "removeViewBox",
+                                    active: false,
                                 },
-                            ],
+                            ]),
                         },
                     ],
                 ],

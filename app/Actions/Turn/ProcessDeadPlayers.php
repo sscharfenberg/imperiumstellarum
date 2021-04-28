@@ -21,6 +21,12 @@ class ProcessDeadPlayers
 {
 
 
+    /**
+     * @function send email to user of dead player
+     * @param Game $game
+     * @param Player $player
+     * @param string $turnSlug
+     */
     private function sendEmail (Game $game, Player $player, string $turnSlug)
     {
         $user = $player->user;
