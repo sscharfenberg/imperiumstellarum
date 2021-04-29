@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereStorageLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $game_id
+ * @property-read \App\Models\Game $game
+ * @method static \Illuminate\Database\Eloquent\Builder|PlayerResource whereGameId($value)
  */
 class PlayerResource extends Model
 {
@@ -52,6 +55,8 @@ class PlayerResource extends Model
      * @var array
      */
     protected $fillable = [
+        'game_id',
+        'player_id',
         'resource_type',
         'storage',
         'storage_level',
@@ -63,5 +68,13 @@ class PlayerResource extends Model
     public function player()
     {
         return $this->belongsTo('App\Models\Player');
+    }
+
+    /**
+     * Get the game that owns the player.
+     */
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
     }
 }

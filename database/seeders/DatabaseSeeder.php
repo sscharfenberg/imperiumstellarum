@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ShipSeeder::class,
             EncounterSeeder::class,
             //EncounterSeederKillPlayer::class
+            WinnerSeeder::class
         ]);
         $execution = hrtime(true) - $start;
         echo("Database seeding took \033[92m".$execution/1e+9."\033[39m seconds.\n\n");

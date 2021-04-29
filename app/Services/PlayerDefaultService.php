@@ -9,9 +9,10 @@ class PlayerDefaultService {
     /**
      * @function create default stores of a player
      * @param string $playerId
+     * @param string $gameId
      * @return array
      */
-    public function resources (string $playerId): array
+    public function resources (string $playerId, string $gameId): array
     {
         $rules = config('rules.player.resourceTypes');
         $resources = [];
@@ -19,6 +20,7 @@ class PlayerDefaultService {
             $resources[] = [
                 'id' => Str::uuid(),
                 'player_id' => $playerId,
+                'game_id' => $gameId,
                 'resource_type' => $key,
                 'storage' => $rule['0']['amount'],
                 'storage_level' => 0,

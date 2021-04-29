@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayerResourcesTable extends Migration
+class CreateFinishedGameParticipantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreatePlayerResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_resources', function (Blueprint $table) {
+        Schema::create('finished_game_participants', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->uuid('id')->primary();
             $table->uuid('game_id');
-            $table->uuid('player_id');
-            $table->enum('resource_type', array_keys(config('rules.player.resourceTypes')));
-            $table->integer('storage')->default(0);
-            $table->unsignedTinyInteger('storage_level')->default(0);
-            $table->foreign('game_id')->references('id')->on('games')
-                ->onDelete('cascade');
-            $table->foreign('player_id')->references('id')->on('players')
+            $table->string('name', config('rules.player.name.max'));
+            $table->string('ticker', config('rules.player.ticker.max'));
+            $table->string('colour', 6);
+            $table->boolean('died')->default(false);
+            $table->float('total_population', 10,6);
+            $table->unsignedTinyInteger('stars')->default(0);
+            $table->unsignedSmallInteger('ships')->default(0);
+            $table->foreign('game_id')->references('id')->on('finished_games')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -39,6 +40,6 @@ class CreatePlayerResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('finished_game_participants');
     }
 }

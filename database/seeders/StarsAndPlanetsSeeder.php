@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Game;
-use App\Models\Star;
 use App\Services\SeedGameService;
 use Illuminate\Database\Seeder;
 

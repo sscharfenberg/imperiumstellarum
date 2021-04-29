@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\PlayerResource;
+use App\Models\Star;
 use App\Models\TechLevel;
 use App\Models\User;
 use App\Services\PlayerDefaultService;
@@ -88,9 +89,9 @@ class PlayerSeeder extends Seeder
     {
 
         $userIds = range(1,10);
-        $gameIds = range(1,2);
+        $gameNumbers = range(1,2);
         $users = User::whereIn('id', $userIds)->get();
-        $games = Game::whereIn('number', $gameIds)->get();
+        $games = Game::whereIn('number', $gameNumbers)->get();
         $d = new PlayerDefaultService;
 
         foreach($games->reverse() as $game) {
@@ -107,7 +108,7 @@ class PlayerSeeder extends Seeder
                     'ticker' => $player['ticker'],
                     'colour' => $player['colour']
                 ]);
-                PlayerResource::insert($d->resources($player->id));
+                PlayerResource::insert($d->resources($player->id, $game->id));
                 TechLevel::insert($d->techLevels($player->id));
                 $user->selected_player = $player->id;
                 $user->save();

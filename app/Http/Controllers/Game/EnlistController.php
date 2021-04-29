@@ -100,7 +100,7 @@ class EnlistController extends Controller
 
         // add default settings for player - storage, techLevels, selected_player
         $d = new PlayerDefaultService;
-        PlayerResource::insert($d->resources($player->id));
+        PlayerResource::insert($d->resources($player->id, $game->id));
         TechLevel::insert($d->techLevels($player->id));
         $user = Auth::user();
         $user->selected_player = $player->id;
