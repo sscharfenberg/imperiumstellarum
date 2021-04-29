@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useI18n } from "vue-i18n";
 import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import Icon from "Components/Icon/Icon";
 import StorageLevels from "./StorageLevels";
 import UpgradeStorage from "./UpgradeStorage";
@@ -33,6 +34,7 @@ export default {
     },
     components: { Icon, StorageLevels, UpgradeStorage },
     setup(props) {
+        const store = useStore();
         const resourceBarWidth = computed(() => {
             return `${100 - (props.amount / props.max) * 100}%`;
         });
@@ -43,13 +45,19 @@ export default {
             return Math.round((props.amount / props.max) * 100);
         });
         const buttonDisabled = computed(() => {
-            return props.storageLevel >= props.maxLevel;
+            return (
+                props.storageLevel >= props.maxLevel ||
+                dead.value ||
+                gameOver.value
+            );
         });
         const buttonClass = computed(() => {
             let classList =
                 props.storageLevel >= props.maxLevel ? ["disabled"] : [];
             return classList.join(" ");
         });
+        const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         const showModal = ref(false);
         return {
             resourceBarWidth,
@@ -74,7 +82,6 @@ export default {
                 : t('common.header.storageUpgrades.buttonAriaLabel')
         "
         :disabled="buttonDisabled"
-        :aria-disabled="buttonDisabled"
         @click="showModal = true"
     >
         <span
@@ -147,7 +154,7 @@ export default {
         color: t("t-light");
     }
 
-    &:not(.disabled):hover .res {
+    &:not(:disabled):hover .res {
         @include themed() {
             background-color: t("g-bunker");
         }

@@ -13,9 +13,11 @@ export default {
         const store = useStore();
         const shipyards = computed(() => store.state.shipyards.shipyards);
         const blueprints = computed(() => store.state.shipyards.blueprints);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             shipyards,
             blueprints,
+            gameOver,
         };
     },
 };
@@ -23,5 +25,5 @@ export default {
 
 <template>
     <manage-blueprints v-if="blueprints" />
-    <design-blueprint v-if="shipyards" />
+    <design-blueprint v-if="shipyards && !gameOver" />
 </template>

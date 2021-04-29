@@ -39,6 +39,7 @@ export default {
                 window.rules.tech.queue
         );
         const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             rules,
             tl,
@@ -46,6 +47,7 @@ export default {
             isQueueMaxed,
             showModal,
             dead,
+            gameOver,
         };
     },
 };
@@ -57,7 +59,12 @@ export default {
         <section class="overview">
             <h4>{{ $t("research.tl." + tl.type) }}</h4>
             <game-button
-                v-if="nextLevel < rules.bounds.max && !isQueueMaxed && !dead"
+                v-if="
+                    nextLevel < rules.bounds.max &&
+                    !isQueueMaxed &&
+                    !dead &&
+                    !gameOver
+                "
                 :text-string="
                     $t('research.tl.researchBtn', { level: nextLevel })
                 "

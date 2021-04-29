@@ -23,7 +23,8 @@ return [
                 'level' => 'This storage level can not be constructed.'
             ],
             'deletion' => 'Could not delete, database error.',
-            'dead' => 'Your empire has collapsed, you can\'t give orders anymore.'
+            'dead' => 'Your empire has collapsed, you can\'t give orders anymore.',
+            'gameOver' => 'The game has ended, you can\'t give orders anymore.'
         ],
         'storageUpgradeOrdered' => 'You have begun construction of a storage upgrade. It will be ready in :num turns.',
         'hulls' => [

@@ -2,7 +2,6 @@
 /******************************************************************************
  * Component: ShowColony
  *****************************************************************************/
-import { useI18n } from "vue-i18n";
 import { useStore } from "vuex";
 import { computed, ref, onBeforeMount } from "vue";
 import GameButton from "Components/Button/GameButton";
@@ -56,6 +55,7 @@ export default {
             });
             emit("close");
         };
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             planet,
             convertLatinToRoman,
@@ -63,7 +63,7 @@ export default {
             change,
             onChange,
             onSubmit,
-            ...useI18n(),
+            gameOver,
         };
     },
 };
@@ -72,7 +72,7 @@ export default {
 <template>
     <modal
         :title="
-            t('empire.planet.population.colony.title', {
+            $t('empire.planet.population.colony.title', {
                 name: starName + ' - ' + convertLatinToRoman(index),
             })
         "
@@ -80,22 +80,22 @@ export default {
     >
         <ul class="stats">
             <li>
-                {{ t("empire.planet.population.colony.pop") }}<br />{{
+                {{ $t("empire.planet.population.colony.pop") }}<br />{{
                     planet.population
                 }}
             </li>
             <li>
-                {{ t("empire.planet.population.colony.effectivePop") }}<br />{{
+                {{ $t("empire.planet.population.colony.effectivePop") }}<br />{{
                     Math.floor(planet.population)
                 }}
             </li>
             <li class="stats--two-col hdl">
                 <icon name="res-food" />
-                {{ t("empire.planet.population.food.title") }}
+                {{ $t("empire.planet.population.food.title") }}
             </li>
             <li class="stats--two-col perpop">
                 <label :for="`setFood-number-${planetId}`">{{
-                    t("empire.planet.population.food.perPop")
+                    $t("empire.planet.population.food.perPop")
                 }}</label>
                 <input
                     type="range"
@@ -106,6 +106,7 @@ export default {
                     aria-valuemax="3"
                     step="0.01"
                     v-model="foodPerPop"
+                    :disabled="gameOver"
                     @change="onChange"
                 />
                 <input
@@ -122,23 +123,25 @@ export default {
                         ' ' +
                         $t('empire.planet.population.food.perPop')
                     "
+                    :readonly="gameOver"
                     @change="onChange"
                 />
             </li>
             <li class="total">
-                {{ t("empire.planet.population.food.total") }}<br />
+                {{ $t("empire.planet.population.food.total") }}<br />
                 {{ Math.ceil(planet.population * foodPerPop) }}
             </li>
             <li class="change" :class="{ pos: change > 0, neg: change < 0 }">
-                {{ t("empire.planet.population.food.change") }}<br />
+                {{ $t("empire.planet.population.food.change") }}<br />
                 {{ change }}
             </li>
         </ul>
         <template v-slot:actions>
             <game-button
-                :text-string="t('empire.planet.population.food.submit')"
+                :text-string="$t('empire.planet.population.food.submit')"
                 icon-name="done"
                 :primary="true"
+                :disabled="gameOver"
                 @click="onSubmit"
             />
         </template>

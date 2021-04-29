@@ -29,7 +29,14 @@ export default {
             }
         });
         const dead = computed(() => store.state.dead);
-        return { showModal, relationChangePending, empireTicker, dead };
+        const gameOver = computed(() => store.state.gameEnded);
+        return {
+            showModal,
+            relationChangePending,
+            empireTicker,
+            dead,
+            gameOver,
+        };
     },
 };
 </script>
@@ -42,7 +49,7 @@ export default {
         :aria-label="
             $t('diplomacy.list.buttonLabel', { ticker: player.ticker })
         "
-        :disabled="dead"
+        :disabled="dead || gameOver"
     >
         <span
             class="player__ticker"
@@ -128,7 +135,6 @@ export default {
     border: 2px solid transparent;
 
     outline: 0;
-    cursor: pointer;
 
     transition: background-color map-get($animation-speeds, "fast") linear;
 
@@ -138,7 +144,9 @@ export default {
         border-color: t("g-deep");
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
+        cursor: pointer;
+
         @include themed() {
             background-color: t("g-ebony");
         }

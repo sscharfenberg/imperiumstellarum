@@ -51,6 +51,7 @@ export default {
         });
         const playerColour = computed(() => "#" + store.state.colour);
         const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             showModal,
             bgColour,
@@ -59,6 +60,7 @@ export default {
             playerColour,
             ownSystem,
             dead,
+            gameOver,
         };
     },
 };
@@ -77,7 +79,7 @@ export default {
         }"
         :title="starTitle"
         :aria-label="starTitle"
-        :disabled="dead"
+        :disabled="dead || gameOver"
         @click="showModal = true"
     >
         <span class="ticker" v-if="ticker">{{ ticker }}</span>
@@ -142,8 +144,6 @@ export default {
     border-style: dashed;
     border-color: var(--ownerColour);
 
-    cursor: pointer;
-
     text-align: right;
 
     &.my {
@@ -153,6 +153,10 @@ export default {
     &:active,
     &:focus {
         outline: 0;
+    }
+
+    :not(:disabled) {
+        cursor: pointer;
     }
 }
 

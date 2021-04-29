@@ -2,30 +2,29 @@
 
 namespace App\Http\Middleware\Game;
 
-use App\Models\Player;
+use App\Models\Game;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class NotDead
+class GameOver
 {
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        $player = Player::find(Auth::user()->selected_player);
+        $game = Game::find($request->route('game'));
 
-        if (!$player || $player->dead) {
+        if ($game->finished) {
             if ($request->wantsJson()) {
-                return response()->json(['error' => __('game.common.errors.dead')], 419);
+                return response()->json(['error' => __('game.common.errors.gameOver')], 419);
             } else {
                 return redirect()->back()
-                    ->with('status', __('game.common.errors.dead'))
+                    ->with('status', __('game.common.errors.gameOver'))
                     ->with('severity', 'error');
             }
         }

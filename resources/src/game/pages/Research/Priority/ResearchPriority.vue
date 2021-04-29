@@ -26,12 +26,14 @@ export default {
             return Math.ceil(priority.value * totalPopulation.value);
         });
         const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             rules,
             priority,
             isRequesting,
             calculatedCosts,
             dead,
+            gameOver,
         };
     },
 };
@@ -52,7 +54,7 @@ export default {
                 :aria-valuemax="rules.max"
                 step="0.1"
                 v-model="priority"
-                :disabled="isRequesting || dead"
+                :disabled="isRequesting || dead || gameOver"
             />
             <input
                 type="number"
@@ -63,7 +65,7 @@ export default {
                 :aria-valuemax="rules.max"
                 step="0.5"
                 v-model="priority"
-                :disabled="isRequesting || dead"
+                :disabled="isRequesting || dead || gameOver"
             />
         </div>
         <div class="result">

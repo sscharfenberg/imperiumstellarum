@@ -22,8 +22,10 @@ export default {
         onBeforeMount(() => {
             store.dispatch("shipyards/GET_GAME_DATA");
         });
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             shipyardPage,
+            gameOver,
         };
     },
 };
@@ -33,5 +35,5 @@ export default {
     <game-header area="shipyards" />
     <shipyard-navigation />
     <shipyards-plan v-if="shipyardPage === 0" />
-    <construct-index v-else-if="shipyardPage === 1" />
+    <construct-index v-else-if="shipyardPage === 1 && !gameOver" />
 </template>

@@ -25,10 +25,12 @@ export default {
                 store.commit("shipyards/SET_PAGE", value);
             },
         });
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             pageIndex,
             hasBlueprints,
             hasShipyards,
+            gameOver,
         };
     },
 };
@@ -45,7 +47,7 @@ export default {
             {{ $t("shipyards.design.navTitle") }}
         </button>
         <button
-            v-if="hasBlueprints && hasShipyards"
+            v-if="hasBlueprints && hasShipyards && !gameOver"
             class="shipard-nav__link"
             @click="pageIndex = 1"
             :class="{ active: pageIndex === 1 }"

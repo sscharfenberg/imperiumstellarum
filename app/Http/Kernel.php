@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'enlisted' => \App\Http\Middleware\Game\Enlisted::class,
         'notProcessing' => \App\Http\Middleware\Game\NotProcessing::class,
         'notDead' => \App\Http\Middleware\Game\NotDead::class,
+        'gameOver' => \App\Http\Middleware\Game\GameOver::class,
     ];
 }

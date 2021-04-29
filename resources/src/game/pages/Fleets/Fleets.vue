@@ -46,7 +46,7 @@ export default {
         const foreignFleets = computed(
             () => store.getters["fleets/foreignFleetsSortedByStarName"]
         );
-
+        const gameOver = computed(() => store.state.gameEnded);
         onBeforeMount(() => {
             store.dispatch("fleets/GET_GAME_DATA");
         });
@@ -61,6 +61,7 @@ export default {
             setShipView,
             requesting,
             foreignFleets,
+            gameOver,
         };
     },
 };
@@ -99,7 +100,7 @@ export default {
             />
             <game-button
                 class="add"
-                v-if="fleets.length < maxFleets"
+                v-if="fleets.length < maxFleets && !gameOver"
                 icon-name="add"
                 :text-string="$t('fleets.new.btnNewFleet')"
                 @click="showCreate = true"

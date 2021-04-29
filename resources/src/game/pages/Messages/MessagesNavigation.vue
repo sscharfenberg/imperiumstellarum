@@ -33,6 +33,7 @@ export default {
                     .length
         );
         const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         const onPageChange = (page) => {
             store.commit("messages/SET_MASS_DELETE_IDS", []);
             pageIndex.value = page;
@@ -45,6 +46,7 @@ export default {
             unreadSysboxMessages,
             onPageChange,
             dead,
+            gameOver,
         };
     },
 };
@@ -113,7 +115,7 @@ export default {
             {{ $t("messages.outbox.navTitle") }}
         </button>
         <button
-            v-if="!dead"
+            v-if="!dead && !gameOver"
             class="messages-nav__link messages-nav__link--new"
             @click="onPageChange(3)"
             :class="{ active: pageIndex === 3 }"

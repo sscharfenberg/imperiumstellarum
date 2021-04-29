@@ -29,17 +29,24 @@ export default {
             store.getters["empire/planetNameById"](planet.value.id)
         );
         const showModal = ref(false);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             showModal,
             btnLabel,
             planetName,
+            gameOver,
         };
     },
 };
 </script>
 
 <template>
-    <button :title="btnLabel" :aria-label="btnLabel" @click="showModal = true">
+    <button
+        :title="btnLabel"
+        :aria-label="btnLabel"
+        @click="showModal = true"
+        :disabled="gameOver"
+    >
         <icon :name="`res-${resourceType}`" />
     </button>
     <install-harvester
@@ -61,7 +68,6 @@ button {
     border: 2px dashed transparent;
 
     outline: 0;
-    cursor: pointer;
 
     transition: background-color map-get($animation-speeds, "fast") linear,
         border-color map-get($animation-speeds, "fast") linear,
@@ -76,6 +82,8 @@ button {
     &:hover:not([disabled]),
     &:focus:not([disabled]) {
         opacity: 0.8;
+
+        cursor: pointer;
 
         @include themed() {
             background: t("g-ebony");

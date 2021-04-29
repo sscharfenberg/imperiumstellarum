@@ -23,7 +23,8 @@ return [
                 'level' => 'Diese Verbesserung kann nicht installiert werden.'
             ],
             'deletion' => 'Löschen fehlgeschlagen, Datenbankfehler.',
-            'dead' => 'Ihr Imperium ist kollabiert, Sie können keine Befehle mehr erteilen.'
+            'dead' => 'Ihr Imperium ist kollabiert, Sie können keine Befehle mehr erteilen.',
+            'gameOver' => 'Das Spiel ist beendet, Sie können keine Befehle mehr erteilen.'
         ],
         'storageUpgradeOrdered' => 'Sie haben begonnen eine Lager Erweiterung zu bauen. Sie wird in :num Runden bereit stehen.',
         'hulls' => [

@@ -120,7 +120,8 @@ Route::middleware([
     'gameStarted',
     'enlisted',
     'notProcessing',
-    'notDead'
+    'notDead',
+    //'gameOver'
 ])->group(function () {
 
     // install storage upgrade

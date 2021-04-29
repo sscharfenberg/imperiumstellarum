@@ -67,6 +67,7 @@ export default {
             );
             showTransferModal.value = true;
         };
+        const gameOver = computed(() => store.state.gameEnded);
 
         return {
             showEditModal,
@@ -77,6 +78,7 @@ export default {
             transferDisabled,
             holder,
             doTransferShips,
+            gameOver,
         };
     },
 };
@@ -85,7 +87,7 @@ export default {
 <template>
     <nav class="fleet-meta__actions">
         <game-button
-            v-if="!holder.planetName"
+            v-if="!holder.planetName && !gameOver"
             icon-name="edit"
             :text-string="$t('fleets.active.actions.edit')"
             @click="showEditModal = true"
@@ -97,7 +99,7 @@ export default {
         />
 
         <game-button
-            v-if="!holder.planetName"
+            v-if="!holder.planetName && !gameOver"
             icon-name="delete"
             :text-string="$t('fleets.active.actions.delete')"
             :disabled="ships.length > 0"
@@ -111,7 +113,7 @@ export default {
         />
 
         <game-button
-            v-if="!holder.planetName"
+            v-if="!holder.planetName && !gameOver"
             icon-name="transit"
             :text-string="$t('fleets.active.actions.move')"
             :disabled="!holder.ftl || !holder.starId"
@@ -124,6 +126,7 @@ export default {
         />
 
         <game-button
+            v-if="!gameOver"
             icon-name="transfer"
             :text-string="$t('fleets.active.actions.transfer')"
             :disabled="transferDisabled"
