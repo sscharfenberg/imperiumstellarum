@@ -31,7 +31,7 @@
         },
         "gameOver": {
             "headline": "The game has ended.",
-            "explanation": "Empire {empire} owns the majority of the galaxy's population. All hail the new emperor!"
+            "explanation": "All hail the new emperor, "
         }
     },
     "resourceTypes": {

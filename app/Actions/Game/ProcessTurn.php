@@ -16,7 +16,7 @@ class ProcessTurn
      * set this to "true" if you want to test something and not actually write to db
      * @var bool
      */
-    private $dryRun = true;
+    private $dryRun = false;
 
     /**
      * @function create the new turn
@@ -337,21 +337,21 @@ class ProcessTurn
         }
 
         // #1 process storage upgrades
-//        $this->processStorageUpgrades($game, $turnSlug);
-//        // #2 process harvesters
-//        $this->processHarvesters($game, $turnSlug);
-//        // #3 population growth
-//        $this->handleColonies($game, $turnSlug);
-//        // #4 build shipyards
-//        $this->processShipyards($game, $turnSlug);
-//        // #5 do research
-//        $this->processResearch($game, $turnSlug);
-//        // #6 build ships
-//        $this->buildships($game, $turnSlug);
-//        // #7 move fleets
-//        $this->moveFleets($game, $turnSlug);
-//        // #8 change diplomatic relations
-//        $this->changePlayerRelations($game, $turnSlug);
+        $this->processStorageUpgrades($game, $turnSlug);
+        // #2 process harvesters
+        $this->processHarvesters($game, $turnSlug);
+        // #3 population growth
+        $this->handleColonies($game, $turnSlug);
+        // #4 build shipyards
+        $this->processShipyards($game, $turnSlug);
+        // #5 do research
+        $this->processResearch($game, $turnSlug);
+        // #6 build ships
+        $this->buildships($game, $turnSlug);
+        // #7 move fleets
+        $this->moveFleets($game, $turnSlug);
+        // #8 change diplomatic relations
+        $this->changePlayerRelations($game, $turnSlug);
         // #9 resolve encounters
         $this->processEncounters($game, $turnSlug);
         // #10 colonize star system

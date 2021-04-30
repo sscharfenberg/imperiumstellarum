@@ -20,12 +20,15 @@ class ProcessWinners
      * @param Game $game
      * @param string $turnSlug
      */
-    private function updateFinishedGame (Game $game, string $turnSlug)
+    private function updateFinishedGame (Game $game, Player $winner, string $turnSlug)
     {
         $game->finished = true;
         $game->active = false;
         $game->save();
         Log::channel('turn')->info("$turnSlug game set to 'finished'.");
+        // process finished game
+        $g = new \App\Actions\Game\ProcessFinishedGame;
+        $g->processGame($game, $winner, $turnSlug);
     }
 
     /**
@@ -69,13 +72,15 @@ class ProcessWinners
 
         // get player and population
         $playerIdWithPeakPopulation = $playerPopulation->sortDesc()->keys()->first();
-        $playerWithPeakPopulation = $players->find($playerIdWithPeakPopulation);
+        $playerWithPeakPopulation = $players->where('id', '=', $playerIdWithPeakPopulation)->first();
         $peakPopulation = $playerPopulation->sortDesc()->first();
         Log::channel('turn')->notice(
             "$turnSlug player with highest population is '[$playerWithPeakPopulation->ticker] "
             .$playerWithPeakPopulation->name."' with $peakPopulation total population."
         );
 
+        // victory condition: population
+        // TODO: military victory? political victory?
         if ($peakPopulation >= $totalPopulation * config('rules.winner.populationShare')) {
             Log::channel('turn')->info(
                 "\n\n\n===============================================================\n"
@@ -84,7 +89,7 @@ class ProcessWinners
                 ."\n===============================================================\n\n"
             );
             // update game
-            $this->updateFinishedGame($game, $turnSlug);
+            $this->updateFinishedGame($game, $playerWithPeakPopulation, $turnSlug);
             // ...
         } else {
             Log::channel('turn')->info(

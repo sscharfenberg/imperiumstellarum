@@ -4,6 +4,20 @@
  *****************************************************************************/
 export default {
     name: "GameOver",
+    props: {
+        winnerTicker: {
+            type: String,
+            required: true,
+        },
+        winnerColour: {
+            type: String,
+            required: true,
+        },
+        winnerName: {
+            type: String,
+            required: true,
+        },
+    },
     setup() {
         return {};
     },
@@ -13,7 +27,15 @@ export default {
 <template>
     <aside class="gameover">
         <h1>{{ $t("common.header.gameOver.headline") }}</h1>
-        <p>{{ $t("common.header.gameOver.explanation") }}</p>
+        <p>
+            {{ $t("common.header.gameOver.explanation") }}
+            <span
+                class="winner"
+                :style="{ 'background-color': '#' + winnerColour }"
+                >[{{ winnerTicker }}] {{ winnerName }}</span
+            >
+            !
+        </p>
     </aside>
 </template>
 
@@ -41,6 +63,19 @@ export default {
 
         &:last-child {
             margin: 0;
+        }
+    }
+
+    .winner {
+        padding: 4px 8px;
+
+        letter-spacing: 2px;
+
+        @include themed() {
+            color: t("g-white");
+
+            text-shadow: 1px 1px t("g-black"), -1px 1px t("g-black"),
+                1px -1px t("g-black"), -1px -1px t("g-black");
         }
     }
 }

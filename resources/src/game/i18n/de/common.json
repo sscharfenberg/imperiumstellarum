@@ -31,7 +31,7 @@
         },
         "gameOver": {
             "headline": "Das Spiel ist beendet.",
-            "explanation": "Das Imperium {empire} besitzt die Mehrzahl der Bevölkerung der Galaxie. Preiset den neuen Imperator!"
+            "explanation": "Preiset den neuen Imperator, "
         }
     },
     "resourceTypes": {

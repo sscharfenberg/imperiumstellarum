@@ -15,6 +15,10 @@ use App\Http\Traits\UsesUuid;
  * @property string|null $winner_id
  * @property string $start_date
  * @property string $end_date
+ * @property float $population
+ * @property int $stars
+ * @property array $ships
+ * @property array $shipyards
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\FinishedGame $game
@@ -31,6 +35,20 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereWinnerId($value)
  * @mixin \Eloquent
+ * @property string $game_id
+ * @property string $name
+ * @property string $ticker
+ * @property string $colour
+ * @property int $died
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereColour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereDied($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant wherePopulation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereShips($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereShipyards($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereStars($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereTicker($value)
  */
 class FinishedGameParticipant extends Model
 {
@@ -42,7 +60,7 @@ class FinishedGameParticipant extends Model
      *
      * @var string
      */
-    protected $table = 'finished_games';
+    protected $table = 'finished_game_participants';
 
     /**
      * The primary key associated with the table.
@@ -57,14 +75,26 @@ class FinishedGameParticipant extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'game_id',
         'name',
         'ticker',
         'colour',
         'died',
-        'total_population',
+        'population',
         'stars',
-        'ships'
+        'ships',
+        'shipyards'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ships' => 'array',
+        'shipyards' => 'array',
     ];
 
     /**

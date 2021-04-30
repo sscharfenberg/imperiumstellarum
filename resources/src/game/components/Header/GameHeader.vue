@@ -26,6 +26,7 @@ export default {
         const requesting = computed(() => state[props.area].requesting);
         const dead = computed(() => state.dead);
         const gameOver = computed(() => state.gameEnded);
+        const winner = computed(() => state.winner);
         const turnSlug = computed(
             () => `g${state.gameNumber}t${state.gameTurn}`
         );
@@ -37,6 +38,7 @@ export default {
             turnSlug,
             dead,
             gameOver,
+            winner,
         };
     },
 };
@@ -56,7 +58,12 @@ export default {
         </h1>
         <player-resources v-if="!dead" />
         <dead-player v-else-if="dead && !requesting" />
-        <game-over v-if="gameOver" />
+        <game-over
+            v-if="gameOver"
+            :winner-ticker="winner.ticker"
+            :winner-colour="winner.colour"
+            :winner-name="winner.name"
+        />
     </header>
 </template>
 

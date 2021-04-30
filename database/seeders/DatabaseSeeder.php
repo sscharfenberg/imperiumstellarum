@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             PlayerRelationSeeder::class,
             ShipSeeder::class,
             EncounterSeeder::class,
-            //EncounterSeederKillPlayer::class
+            //EncounterSeederKillPlayer::class,
             WinnerSeeder::class
         ]);
         $execution = hrtime(true) - $start;

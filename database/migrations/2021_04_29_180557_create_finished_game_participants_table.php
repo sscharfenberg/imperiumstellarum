@@ -23,9 +23,10 @@ class CreateFinishedGameParticipantsTable extends Migration
             $table->string('ticker', config('rules.player.ticker.max'));
             $table->string('colour', 6);
             $table->boolean('died')->default(false);
-            $table->float('total_population', 10,6);
+            $table->float('population', 10,6);
             $table->unsignedTinyInteger('stars')->default(0);
-            $table->unsignedSmallInteger('ships')->default(0);
+            $table->longText('ships')->nullable();
+            $table->longText('shipyards')->nullable();
             $table->foreign('game_id')->references('id')->on('finished_games')
                 ->onDelete('cascade');
             $table->timestamps();

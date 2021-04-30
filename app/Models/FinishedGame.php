@@ -93,7 +93,7 @@ class FinishedGame extends Model
      */
     public function winner()
     {
-        return $this->hasOne(FinishedGameParticipant::class);
+        return $this->hasOne(FinishedGameParticipant::class, 'id', 'winner_id');
     }
 
     /**

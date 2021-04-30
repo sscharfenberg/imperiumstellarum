@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\EncounterParticipant;
+use App\Models\FinishedGame;
 use App\Models\MessageRecipient;
 use App\Models\Player;
 use Illuminate\Database\Eloquent\Builder;
@@ -87,12 +88,12 @@ class ApiService {
             $turnDue = -$turnDue;
         }
 
-        return [
+        $returnData = [
             'game' => [
                 'number' => $game->number,
                 'turn' => $currentTurn->number,
                 'turnDue' => $turnDue,
-                'finished' => $game->finished
+                'finished' => $game->finished,
             ],
             'player' => [
                 'empireName' => $player->name,
@@ -107,6 +108,19 @@ class ApiService {
             'unreadMessages' => $this->unreadMessages($player->id, $game->id),
             'unreadEncounters' => $this->unreadEncounters($player->id, $game->id)
         ];
+
+        if ($game->finished) {
+            $winner = FinishedGame::where('number', '=', $game->number)
+                ->first()
+                ->winner;
+            $returnData['winner'] = [
+                'ticker' => $winner->ticker,
+                'name' => $winner->name,
+                'colour' => $winner->colour
+            ];
+        }
+
+        return $returnData;
     }
 
 

@@ -25,4 +25,5 @@ export default {
     unreadEncounters: 0,
     dead: false,
     gameEnded: false,
+    winner: undefined,
 };

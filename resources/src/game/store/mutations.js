@@ -32,6 +32,7 @@ export default {
         state.unreadMessages = payload.unreadMessages;
         state.unreadEncounters = payload.unreadEncounters;
         state.dead = payload.player.dead;
+        if (payload.winner) state.winner = payload.winner;
     },
 
     /**

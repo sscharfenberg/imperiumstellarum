@@ -13,11 +13,11 @@ class PersistTurn
 {
 
     /**
-     * @function format ship
+     * @function format ships
      * @param Collection $ships
      * @return array
      */
-    private function formatShips (Collection $ships): array
+    public function formatShips (Collection $ships): array
     {
         $fleetShips = [];
         $numArks = count($ships->filter(function($ship) {
