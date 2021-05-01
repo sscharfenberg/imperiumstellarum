@@ -13,6 +13,13 @@ class ProcessFinishedGame {
 
 
     /**
+     * size of chunks for database operations
+     * @var int
+     */
+    private $chunkSize = 20;
+
+
+    /**
      * @function format json for player shipyards
      * @param Collection $shipyards
      * @return array
@@ -59,9 +66,8 @@ class ProcessFinishedGame {
      */
     private function processFinishedGameParticipant (FinishedGame $game, Collection $players, string $turnSlug)
     {
-        // chunking would be preferred, but php complains about "array to string conversion" and I have no idea why.
-        $players->each(function ($player) use ($game) {
-            FinishedGameParticipant::create([
+        $participants = $players->map(function ($player) use ($game) {
+            return [
                 'id' => $player->id,
                 'game_id' => $game->id,
                 'name' => $player->name,
@@ -70,10 +76,20 @@ class ProcessFinishedGame {
                 'died' => $player->dead,
                 'population' => $player->population,
                 'stars' => count($player->stars),
-                'ships' => count($player->ships) > 0 ? $this->formatPlayerShips($player->ships) : null,
-                'shipyards' => count($player->shipyards) > 0 ? $this->formatPlayerShipyards($player->shipyards) : null,
-            ]);
-        });
+                'ships' => count($player->ships) > 0
+                    ? json_encode($this->formatPlayerShips($player->ships))
+                    : null,
+                'shipyards' => count($player->shipyards) > 0
+                    ? json_encode($this->formatPlayerShipyards($player->shipyards))
+                    : null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        })->toArray();
+        $chunks = array_chunk($participants, $this->chunkSize);
+        foreach($chunks as $chunk) {
+            FinishedGameParticipant::insert($chunk);
+        }
     }
 
 
