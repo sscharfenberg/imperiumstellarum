@@ -365,9 +365,12 @@ class ProcessTurn
 
         // #final: cleanup
         if (!$this->dryRun) {
+            $updatedGame = Game::where('game_id', '=', $game->id)->first();
             $turn->processed = now();
             $turn->save();
-            $this->createNewTurn($game, $turn);
+            if (!$updatedGame->finished) {
+                $this->createNewTurn($game, $turn);
+            }
             $game->processing = false;
             $game->save();
             // log execution time of turn processing.

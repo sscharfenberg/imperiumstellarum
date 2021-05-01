@@ -37,11 +37,9 @@ export default {
         <div class="statistics">
             <span class="production">{{ totalPopulation }}</span>
             {{
-                $t(
-                    "empire.summary.colonies",
-                    { num: colonies.length },
-                    colonies.length
-                )
+                $tc("empire.summary.colonies", colonies.length, {
+                    num: colonies.length,
+                })
             }}
         </div>
     </li>

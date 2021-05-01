@@ -16,7 +16,7 @@ class ProcessFinishedGame {
      * size of chunks for database operations
      * @var int
      */
-    private $chunkSize = 20;
+    private $chunkSize = 50;
 
 
     /**

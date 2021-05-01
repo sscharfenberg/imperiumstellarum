@@ -48,7 +48,7 @@ class Heartbeat extends Command
         /**
          * #1 - start games
          */
-        Log::channel('game')->info("HEARTBEAT: #1 Checking games if any need to be started.");
+        Log::channel('game')->info("HEARTBEAT: #1 Checking non-active and non-finished games if any need to be started.");
         $gamesToStart = Game::where('processing', false)
             ->where('finished', false)
             ->where('active', false)
@@ -67,6 +67,8 @@ class Heartbeat extends Command
                     $g = new StartGame;
                     $g->handle($game);
                 }
+            } else {
+                Log::channel('game')->notice("HEARTBEAT: Game g$game->number does not need to be started.");
             }
         }
         if (count($gamesToStart) === 0) {
@@ -76,20 +78,20 @@ class Heartbeat extends Command
         /**
          * #2 process turns
          */
-        Log::channel('turn')->info("HEARTBEAT: #2 Checking if any turns need to be processed.");
+        Log::channel('game')->info("HEARTBEAT: #2 Checking if any turns need to be processed.");
         $gamesToProcessTurns = Game::where('processing', false)
             ->where('finished', false)
             ->where('active',true)
             ->with('turns')
             ->get();
         foreach($gamesToProcessTurns as $game) {
-            Log::channel('turn')->notice('HEARTBEAT: checking g'.$game->number);
+            Log::channel('game')->notice('HEARTBEAT: checking g'.$game->number);
             $dueTurn = $game->turns
                 ->whereNull('processed')
                 ->where('due', '<=', now())->first();
             // check if we need to process a turn.
             if (count($game->turns) > 0 && $dueTurn) {
-                Log::channel('turn')->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
+                Log::channel('game')->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
                 $t = new ProcessTurn;
                 $t->handle($game, $dueTurn);
             }
@@ -97,7 +99,7 @@ class Heartbeat extends Command
 
         // log execution time of heartbeat process.
         $execution = hrtime(true) - $start;
-        Log::channel('turn')->info('HEARTBEAT finished in '.$execution/1e+9.' seconds.');
+        Log::channel('game')->info('HEARTBEAT finished in '.$execution/1e+9.' seconds.');
 
     }
 }

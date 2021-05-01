@@ -121,13 +121,14 @@ class ShipSeeder extends Seeder
         foreach($games as $game) {
 
             // players with userId !== 1,2,3
-            $players = $game->players->filter(function($player) {
-                return !in_array($player['user_id'], [1,2,3]);
-            })->values();
+            $players = $game->players;
+            // uncomment the next three lines when you want to use the detailed seeding in EncounterSeeder*
+            //$players = $players->filter(function($player) {
+            //    return !in_array($player['user_id'], [1,2,3]);
+            //})->values();
 
-            foreach($game->players as $player) {
-                $fleets = $player->fleets;
-                foreach($fleets as $index => $fleet) {
+            foreach($players as $player) {
+                foreach($player->fleets as $index => $fleet) {
 
                     // 2 arks for first fleet
                     if ($index === 0) {

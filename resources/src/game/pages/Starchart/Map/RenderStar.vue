@@ -155,7 +155,7 @@ export default {
         outline: 0;
     }
 
-    :not(:disabled) {
+    &:not([disabled]) {
         cursor: pointer;
     }
 }

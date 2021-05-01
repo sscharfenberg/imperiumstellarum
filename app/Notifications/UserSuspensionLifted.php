@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserSuspensionLifted extends Notification
+class UserSuspensionLifted extends Notification implements ShouldQueue
 {
     use Queueable;
 

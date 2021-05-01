@@ -175,7 +175,7 @@ export default {
                 <star-info-modal-foreign-fleets :star-id="starId" />
             </ul>
             <star-info-modal-send-fleets-here
-                v-if="availableFleets"
+                v-if="availableFleets && availableFleets.length"
                 :star-id="starId"
             />
             <div class="scanning" v-if="requesting">

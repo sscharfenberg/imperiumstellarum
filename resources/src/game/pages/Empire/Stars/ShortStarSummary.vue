@@ -36,13 +36,6 @@ export default {
             });
             return num;
         });
-        const shipyardLabel = computed(() =>
-            i18n.t(
-                "empire.star.summary.shipyards",
-                { num: numShipyards.value },
-                numShipyards.value
-            )
-        );
         const populationLabel = computed(() =>
             i18n.t("empire.star.summary.population", { num: population.value })
         );
@@ -50,7 +43,6 @@ export default {
             planetIds,
             numShipyards,
             population,
-            shipyardLabel,
             populationLabel,
         };
     },
@@ -62,8 +54,16 @@ export default {
         <li
             v-if="numShipyards > 0"
             class="shipyards"
-            :title="shipyardLabel"
-            :aria-label="shipyardLabel"
+            :title="
+                $tc('empire.star.summary.shipyards', numShipyards, {
+                    num: numShipyards,
+                })
+            "
+            :aria-label="
+                $tc('empire.star.summary.shipyards', numShipyards, {
+                    num: numShipyards,
+                })
+            "
         >
             <icon name="shipyards" />
             {{ numShipyards }}
