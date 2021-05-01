@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class GameOver extends Notification implements ShouldQueue
+class GameFinished extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -17,20 +17,27 @@ class GameOver extends Notification implements ShouldQueue
     protected $gameNumber;
 
     /**
-     * @var string $empire
+     * @var int $turn
      */
-    protected $empire;
+    protected $turn;
+
+    /**
+     * @var string $winner
+     */
+    protected $winner;
 
     /**
      * Create a new notification instance.
      * @param int $gameNumber
-     * @param string $empire
+     * @param int $turn
+     * @param string $winner
      * @return void
      */
-    public function __construct(int $gameNumber, string $empire)
+    public function __construct(int $gameNumber, int $turn, string $winner)
     {
         $this->gameNumber = $gameNumber;
-        $this->empire = $empire;
+        $this->turn = $turn;
+        $this->winner = $winner;
     }
 
     /**
@@ -48,15 +55,15 @@ class GameOver extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(__('game.mail.gameOver.subject'))
-            ->line(__('game.mail.gameOver.important', ['empire' => $this->empire, 'game' => $this->gameNumber]))
-            ->line(__('game.mail.gameOver.login'))
-            ->line(__('game.mail.gameOver.next'));
+            ->subject(__('game.mail.gameFinished.subject', ['game' => $this->gameNumber]))
+            ->line(__('game.mail.gameFinished.important', ['game' => $this->gameNumber, 'winner' => $this->winner, 'turn' => $this->turn]))
+            ->line(__('game.mail.gameFinished.login'))
+            ->line(__('game.mail.gameFinished.next'));
     }
 
     /**

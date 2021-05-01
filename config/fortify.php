@@ -103,7 +103,7 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        config('app.allowRegistration') ?? Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::updateProfileInformation(),

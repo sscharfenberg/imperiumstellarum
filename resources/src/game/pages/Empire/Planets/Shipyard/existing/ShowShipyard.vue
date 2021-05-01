@@ -20,6 +20,8 @@ export default {
             store.getters["empire/shipyardByPlanetId"](props.planetId)
         );
         const showModal = ref(false);
+        const dead = computed(() => store.state.dead);
+        const gameOver = computed(() => store.state.gameEnded);
         const btnTitle = computed(() => {
             const planetName = store.getters["empire/planetNameById"](
                 props.planetId
@@ -35,6 +37,8 @@ export default {
             shipyard,
             showModal,
             btnTitle,
+            dead,
+            gameOver,
         };
     },
 };
@@ -46,6 +50,7 @@ export default {
         @click="showModal = true"
         :title="btnTitle"
         :aria-label="btnTitle"
+        :disabled="dead || gameOver"
         :class="{
             building: shipyard.untilComplete !== 0,
             active: shipyard.untilComplete === 0,
@@ -75,7 +80,6 @@ export default {
     margin: 0 5px 5px 0;
 
     outline: 0;
-    cursor: pointer;
 
     transition: background-color map-get($animation-speeds, "fast") linear,
         border-color map-get($animation-speeds, "fast") linear,
@@ -89,6 +93,8 @@ export default {
 
     &:hover:not([disabled]) {
         opacity: 0.8;
+
+        cursor: pointer;
 
         @include themed() {
             background: t("g-ebony");

@@ -6,10 +6,13 @@ use App\Models\Game;
 
 use App\Models\Planet;
 use App\Models\Player;
+use App\Models\User;
+use App\Services\MessageService;
+
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
-
+use App\Notifications\GameFinished;
 
 class ProcessWinners
 {
@@ -18,6 +21,7 @@ class ProcessWinners
     /**
      * @function update the game that is finished.
      * @param Game $game
+     * @param Player $winner
      * @param string $turnSlug
      */
     private function updateFinishedGame (Game $game, Player $winner, string $turnSlug)
@@ -30,6 +34,62 @@ class ProcessWinners
         $g = new \App\Actions\Game\ProcessFinishedGame;
         $g->processGame($game, $winner, $turnSlug);
     }
+
+
+    /**
+     * @function send ingame notifications to all players that the game has ended.
+     * @param Game $game
+     * @param Player $winner
+     * @param string $turnSlug
+     */
+    private function sendNotifications (Game $game, Player $winner, string $turnSlug)
+    {
+        $m = new MessageService;
+        $gameNumber = $game->number;
+        $turn = $game->turns->max('number');
+        $game->players->each(function ($player) use ($gameNumber, $turn, $winner, $m, $turnSlug) {
+            $m->sendNotification(
+                $player,
+                'game.messages.sys.gameOver.subject',
+                'game.messages.sys.gameOver.body',
+                [
+                    'number' => $gameNumber,
+                    'winner' => "[$winner->ticker] $winner->name",
+                    'turn' => $turn
+                ]
+            );
+            Log::channel('turn')->notice("$turnSlug notification sent to player [$player->ticker] $player->name.");
+        });
+    }
+
+
+    /**
+     * @function send emails to all players that have optin activated
+     * @param Game $game
+     * @param Player $winner
+     * @param string $turnSlug
+     */
+    private function sendEmails (Game $game, Player $winner, string $turnSlug)
+    {
+        $userIds = $game->players->map(function ($player) {
+            return $player->user_id;
+        });
+        $recipients = User::whereIn('id', $userIds)->get()
+            ->filter( function($user) {
+                return $user->game_mail_optin;
+            });
+        $gameNumber = $game->number;
+        $turn = $game->turns->max('number');
+        $recipients->each( function ($recipient) use ($gameNumber, $turn, $winner, $turnSlug) {
+            $recipient->notify(
+                (new GameFinished(
+                    $gameNumber, $turn, "[$winner->ticker] $winner->name")
+                )->locale($recipient->locale)
+            );
+            Log::channel('turn')->notice("$turnSlug email sent to user $recipient->email");
+        });
+    }
+
 
     /**
      * @function build ships
@@ -88,9 +148,16 @@ class ProcessWinners
                 .$playerWithPeakPopulation->name."' has won the game!"
                 ."\n===============================================================\n\n"
             );
+
             // update game
-            $this->updateFinishedGame($game, $playerWithPeakPopulation, $turnSlug);
-            // ...
+            //$this->updateFinishedGame($game, $playerWithPeakPopulation, $turnSlug);
+
+            // send notifications to all players.
+            //$this->sendNotifications($game, $playerWithPeakPopulation, $turnSlug);
+
+            // send emails to players with game_mail_optin
+            $this->sendEmails($game, $playerWithPeakPopulation, $turnSlug);
+
         } else {
             Log::channel('turn')->info(
                 "$turnSlug player does not have sufficient population to qualify for a game win."

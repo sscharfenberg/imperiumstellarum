@@ -19,11 +19,13 @@ export default {
         const dueShort = computed(() => formatTime(dueDate.value));
         const dueLong = computed(() => formatDateTime(dueDate.value));
         const duePast = computed(() => store.state.turnDue <= 0);
+        const gameOver = computed(() => store.state.gameEnded);
         return {
             duePast,
             dueShort,
             dueLong,
             gameTurn,
+            gameOver,
         };
     },
 };
@@ -39,7 +41,7 @@ export default {
                     {{ gameTurn }}
                 </li>
             </ul>
-            <ul>
+            <ul v-if="!gameOver">
                 <li>{{ $t("common.drawer.nextTurn") }}<br /></li>
                 <li v-if="!duePast">
                     <time :datetime="dueLong" :title="dueLong">{{

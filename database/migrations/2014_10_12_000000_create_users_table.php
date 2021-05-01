@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', config('app.supportedRoles'))
                 ->default(config('app.supportedRoles')[0]);
             $table->string('password',180);
-            $table->boolean('game_mail_optin')->default(false);
+            $table->boolean('game_mail_optin')->default(true);
             $table->boolean('drawer_open')->default(false);
             $table->uuid('selected_player')->nullable();
             $table->rememberToken();

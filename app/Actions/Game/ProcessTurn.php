@@ -365,7 +365,7 @@ class ProcessTurn
 
         // #final: cleanup
         if (!$this->dryRun) {
-            $updatedGame = Game::where('game_id', '=', $game->id)->first();
+            $updatedGame = Game::where('id', '=', $game->id)->first();
             $turn->processed = now();
             $turn->save();
             if (!$updatedGame->finished) {

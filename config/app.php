@@ -241,8 +241,9 @@ return [
     |
     */
 
-    'version' => '0.4.5',
+    'version' => '0.5.0',
     'supportedLocales' => ['en', 'de'],
-    'supportedRoles' => ['user', 'mod', 'admin']
+    'supportedRoles' => ['user', 'mod', 'admin'],
+    'allowRegistration' => false
 
 ];

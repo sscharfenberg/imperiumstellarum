@@ -275,6 +275,12 @@ Wenn es Bauaufträge gab, wurden diese abgebrochen.'
                 'subject' => 'Imperium ist kollabiert',
                 'body' => 'Ihr Imperium ist kollabiert - Sie haben das letzte Sternensystem und alle Schiffe verloren. Dieses Spiel ist für Sie vorbei.
 Sie können nach wie vor die Sternenkarte betrachten und sich Gefechte anschauen oder Nachrichten lesen, aber Sie können keinerlei Befehle mehr erteilen.'
+            ],
+            'gameOver' => [
+                'subject' => 'Spiel beendet',
+                'body' => 'Die Partie g:number wurde von :winner in Runde :turn gewonnen - die Galaxie feiert und gratuliert dem neuen Imperator!
+Bitte schauen Sie ins Forum oder Ihre Zentrale um zu sehen wann neue Spiele starten.
+Sie können nach wie vor die Sternenkarte betrachten und sich Gefechte anschauen oder Nachrichten lesen, aber Sie können keinerlei Befehle mehr erteilen.'
             ]
         ]
     ],
@@ -293,6 +299,12 @@ Sie können nach wie vor die Sternenkarte betrachten und sich Gefechte anschauen
             'login' => 'Sie können sich nach wie vor das Spiel anschauen, aber keine Befehle mehr erteilen.',
             'next' => 'Bitte prüfen Sie Ihre Zentrale oder unsere Foren um keine startenden Spiele zu verpassen.',
         ],
+        'gameFinished' => [
+            'subject' => 'Spiel g:game ist beendet.',
+            'important' => 'Das Spiel g:game wurde in Runde t:turn vom Imperium :winner gewonnen. Die Galaxie feiert und gratuliert dem neuen Imperator!',
+            'login' => 'Sie können sich nach wie vor das Spiel anschauen, aber keine Befehle mehr erteilen.',
+            'next' => 'Bitte prüfen Sie Ihre Zentrale oder unsere Foren um keine startenden Spiele zu verpassen.',
+        ]
     ]
 
 ];

@@ -274,7 +274,13 @@ If there where any construction contracts, they where stopped.'
             'playerDied' => [
                 'subject' => 'Empire has collapsed',
                 'body' => 'Your empire has collapsed - you have lost the last star and all of your ships. This game is over for you.
-You can still check the Starmap, view encounters or read messages, but you can\'t give orders anymore.'
+You can still check the starmap, view encounters or read messages, but you can\'t give orders anymore.'
+            ],
+            'gameOver' => [
+                'subject' => 'Game Over',
+                'body' => 'The game g:number was won by :winner on turn :turn - the galaxy rejoices and congratulates our new emperor!
+Please check the forums or the dashboard for any new games that will be started.
+For now, you can still check the starmap, view encounters or read messages, but you can\'t give orders anymore.'
             ]
         ]
     ],
@@ -293,6 +299,12 @@ You can still check the Starmap, view encounters or read messages, but you can\'
             'login' => 'You can still login and check the game, but you can\'t give orders anymore.',
             'next' => 'Please check your dashboard or the forums for any new games that will start. ',
         ],
+        'gameFinished' => [
+            'subject' => 'Game g:game has ended.',
+            'important' => 'The game g:game was won by empire \':winner\' in turn t:turn. The galaxy rejoices and congratulates our new emperor!',
+            'login' => 'You can still login and check the game, but you can\'t give orders anymore.',
+            'next' => 'Please check your dashboard or the forums for any new games that will start.',
+        ]
     ]
 
 ];

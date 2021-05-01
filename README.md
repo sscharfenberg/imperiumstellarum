@@ -16,9 +16,9 @@ I will create pre-releases whenever one or more areas are done.
  
 Use at your own risk.
 
-Latest Pre-release is 0.4.0:
-* [Github release](https://github.com/sscharfenberg/imperiumstellarum/releases/tag/0.4.0)
-* [Blog Post](https://discuss.imperiumstellarum.io/index.php?/blogs/entry/5-040-pre-release-fleets-and-diplomacy/)
+Latest Pre-release is 0.5.0.
+* [Github release](https://github.com/sscharfenberg/imperiumstellarum/releases/tag/0.5.0)
+* [Blog Post](https://discuss.imperiumstellarum.io/index.php?/blogs/entry/7-050-pre-release-encounters/)
 
 ## Usage: npm Scripts
 

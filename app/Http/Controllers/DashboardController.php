@@ -145,8 +145,8 @@ class DashboardController extends Controller
     public function delete(Request $request): RedirectResponse
     {
         $user = Auth::user();
-        $user->delete();
         Auth::logout();
+        $user->delete();
 
         return redirect()
             ->route('welcome')

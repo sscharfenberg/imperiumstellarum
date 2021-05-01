@@ -75,23 +75,32 @@ class ApiService {
         $user = Auth::user();
         $game = $user->selectedGame();
         $player = Player::find($user->selected_player);
-        $currentTurn = $game->turns->filter(function($turn) {
-            return $turn->processed === null;
-        })->first();
         $r = new ResourceService;
 
-        // absolute=false does not work for diffInSeconds on php7.3
-        // https://github.com/briannesbitt/Carbon/issues/1503
-        // so, we'll work around this for now.
-        $turnDue = $currentTurn->due->diffInSeconds(Carbon::now());
-        if (now() > $currentTurn->due) {
-            $turnDue = -$turnDue;
+        // games that are not finished calculated turn due and current turn
+        if (!$game->finished) {
+            $currentTurn = $game->turns->filter(function($turn) {
+                return $turn->processed === null;
+            })->first();
+            // absolute=false does not work for diffInSeconds on php7.3
+            // https://github.com/briannesbitt/Carbon/issues/1503
+            // so, we'll work around this for now.
+            $turnDue = $currentTurn->due->diffInSeconds(Carbon::now());
+            if (now() > $currentTurn->due) {
+                $turnDue = -$turnDue;
+            }
+            $turn = $currentTurn->number;
+        }
+        // finished games do not have a due turn and use the highest turn as the current turn.
+        else {
+            $turn = $game->turns->max('number');
+            $turnDue = null;
         }
 
         $returnData = [
             'game' => [
                 'number' => $game->number,
-                'turn' => $currentTurn->number,
+                'turn' => $turn,
                 'turnDue' => $turnDue,
                 'finished' => $game->finished,
             ],

@@ -115,8 +115,9 @@ class ProcessDeadPlayers
         $this->sendNotification($player, $turnSlug);
 
         // send email to user
-        $this->sendEmail($game, $player, $turnSlug);
-
+        if ($player->user->game_mail_optin) {
+            $this->sendEmail($game, $player, $turnSlug);
+        }
     }
 
 

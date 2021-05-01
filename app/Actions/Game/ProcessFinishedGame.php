@@ -115,7 +115,7 @@ class ProcessFinishedGame {
             ->with('shipyards')
             ->get();
 
-        // count the number of pl
+        // add player population to collection
         $players = $players->map(function ($player) {
             $stars = $player->stars;
             $population = 0;

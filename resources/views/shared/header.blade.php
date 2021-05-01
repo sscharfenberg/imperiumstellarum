@@ -82,12 +82,14 @@
                 <span>@lang("app.login.navTitle")</span>
             </a>
         </li>
-        <li class="header__item">
-            <a class="header__link both" href="{{ route('register') }}">
-                <x-icon name="lightbulb" size="2" />
-                <span>@lang("app.register.navTitle")</span>
-            </a>
-        </li>
+        @if(config('app.allowRegistration'))
+            <li class="header__item">
+                <a class="header__link both" href="{{ route('register') }}">
+                    <x-icon name="lightbulb" size="2" />
+                    <span>@lang("app.register.navTitle")</span>
+                </a>
+            </li>
+        @endif
     @endguest
     @auth
         <li class="header__item">
