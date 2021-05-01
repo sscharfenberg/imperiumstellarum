@@ -38,6 +38,12 @@ Latest Pre-release is 0.4.0:
 - **setup mailserver for development**: I use [https://mailtrap.io/](https://mailtrap.io/) - this can be used like a normal smtp server, but does not actually send anything. Instead, the mails are placed conveniently in an inbox for you to study. Create a free inbox, and copy the credentials to `.env`.
 - `php artisan key:generate` to generate your own application key
 - `php artisan storage:link` to create a symlink from `public` to `storage`.
+- For development, you need a queue worker and a running schedule in two different consoles:
+  - `php artisan schedule:work`
+  - `php artisan queue:work`
+- Please check the Laravel documentation for how to implement this on a production server:
+  - [Running the Scheduler](https://laravel.com/docs/8.x/scheduling#running-the-scheduler)
+  - [Queue Workers: Running `supervisor`](https://laravel.com/docs/8.x/queues#supervisor-configuration)  
   
 ## Setup with test data
 
