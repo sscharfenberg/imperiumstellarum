@@ -4,6 +4,7 @@ namespace App\Actions\Turn\Encounter;
 
 use App\Services\EncounterService;
 
+use App\Services\FleetService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -114,6 +115,7 @@ class ProcessEncounterMovement
     public function handle (Collection $encounter, string $turnSlug, int $turn): Collection
     {
         $e = new EncounterService;
+        $f = new FleetService;
         Log::channel('encounter')
             ->info("$turnSlug #".$encounter['id']." TURN $turn STEP 2: move fleets.");
 
@@ -121,7 +123,8 @@ class ProcessEncounterMovement
         $encounter['fleets'] = $this->modifyTurnAcceleration($encounter);
 
         // loop over all fleets in the random turn order determined above.
-        $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($encounter, $turnSlug, $e) {
+        $encounter['fleets'] = $encounter['fleets']->map(function ($fleet) use ($encounter, $turnSlug, $e, $f) {
+            $fleet['prefered_range'] = $f->getFleetPreferredRange($fleet['ships']->toArray());
             if ($fleet['attacker']) {
                 $newColumn = $this->getNewColumn($e->getDefenders($encounter), $fleet, 1, $turnSlug, $encounter['id']);
             } else {

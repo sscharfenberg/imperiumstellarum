@@ -150,10 +150,10 @@ class ProcessWinners
             );
 
             // update game
-            //$this->updateFinishedGame($game, $playerWithPeakPopulation, $turnSlug);
+            $this->updateFinishedGame($game, $playerWithPeakPopulation, $turnSlug);
 
             // send notifications to all players.
-            //$this->sendNotifications($game, $playerWithPeakPopulation, $turnSlug);
+            $this->sendNotifications($game, $playerWithPeakPopulation, $turnSlug);
 
             // send emails to players with game_mail_optin
             $this->sendEmails($game, $playerWithPeakPopulation, $turnSlug);
