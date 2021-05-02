@@ -24,7 +24,7 @@
         %><link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[index] %>" />
         <% } } } %>
     </head>
-    <body{{ Auth::user() ? ' data-user-id='.Auth::user()->id : '' }}>
+    <body{{ Auth::user() ? ' data-user-id='.Auth::user()->id : '' }} data-route-name='{{request()->route()->getName()}}'>
         <div class="wrapper">
             @include('shared.header')
             <main class="wrapper__body">

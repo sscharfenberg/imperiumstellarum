@@ -45,7 +45,12 @@ return [
     'home' => [
         'navTitle' => 'Home',
         'title' => 'Welcome to Imperium Stellarum',
-        'description' => 'a turn-based multiplayer browser game of galactic conquest'
+        'description' => 'a turn-based multiplayer browser game of galactic conquest',
+        'hero' => [
+            'left' => 'Your',
+            'middle' => 'empire',
+            'right' => 'awaits',
+        ]
     ],
 
     'register' => [

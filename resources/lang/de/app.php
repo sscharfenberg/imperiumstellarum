@@ -37,15 +37,20 @@ return [
     ],
 
     'user' => [
-        'suspended' => 'Ihr Benutzerkonto ist bist :until gesperrt. Bitte überprüfen Sie Ihre Mailbox.'
+        'suspended' => 'Ihr Benutzerkonto ist bis :until gesperrt. Bitte überprüfen Sie Ihre Mailbox.'
     ],
 
     // PAGES
 
     'home' => [
         'navTitle' => 'Home',
-        'title' => 'Wilkommen bei Imperium Stellarum',
-        'description' => 'ein rundenbasiertes Mehrspieler Browser Spiel der galaktischen Eroberung.'
+        'title' => 'Willkommen bei Imperium Stellarum',
+        'description' => 'ein rundenbasiertes Mehrspieler Browser Spiel der galaktischen Eroberung.',
+        'hero' => [
+            'left' => 'Ihr',
+            'middle' => 'Imperium',
+            'right' => 'wartet',
+        ]
     ],
 
     'register' => [

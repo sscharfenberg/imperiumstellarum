@@ -9,75 +9,44 @@
         </aside>
     </header>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam architecto atque aut corporis
-        cupiditate dicta doloribus eius eligendi, et eum expedita facilis id impedit ipsum iste laboriosam magnam minus
-        molestiae nam nemo nihil nulla odio porro quaerat quasi quibusdam ratione repudiandae sapiente similique sunt
-        ullam ut velit voluptas voluptates voluptatibus? Asperiores cumque ducimus eveniet fuga iure molestiae neque
-        quis rem suscipit totam! Alias aspernatur iusto necessitatibus quam quia. At blanditiis doloribus, eaque earum
-        exercitationem magnam natus nesciunt placeat ratione reiciendis temporibus tenetur totam ut voluptas,
-        voluptatibus. Alias deleniti, dolor expedita, fugiat illum incidunt, ipsum laborum modi molestias nam neque
-        nostrum sint sit? Adipisci commodi consequatur distinctio dolore eius, in laborum laudantium modi, neque
-        nesciunt non, omnis optio possimus saepe velit voluptas voluptate. Ad alias amet animi at doloremque earum iste,
-        nemo, obcaecati, provident quaerat saepe sapiente! Architecto at consequatur consequuntur dicta dolorem ea est
-        et eveniet facilis inventore itaque maiores minima minus nesciunt nostrum numquam obcaecati pariatur quaerat
-        quam quasi qui quis repellat rerum sequi, soluta tempora totam veritatis. Alias consectetur debitis earum eius
-        explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
-        incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam architecto atque aut corporis
-        cupiditate dicta doloribus eius eligendi, et eum expedita facilis id impedit ipsum iste laboriosam magnam minus
-        molestiae nam nemo nihil nulla odio porro quaerat quasi quibusdam ratione repudiandae sapiente similique sunt
-        ullam ut velit voluptas voluptates voluptatibus? Asperiores cumque ducimus eveniet fuga iure molestiae neque
-        quis rem suscipit totam! Alias aspernatur iusto necessitatibus quam quia. At blanditiis doloribus, eaque earum
-        exercitationem magnam natus nesciunt placeat ratione reiciendis temporibus tenetur totam ut voluptas,
-        voluptatibus. Alias deleniti, dolor expedita, fugiat illum incidunt, ipsum laborum modi molestias nam neque
-        nostrum sint sit? Adipisci commodi consequatur distinctio dolore eius, in laborum laudantium modi, neque
-        nesciunt non, omnis optio possimus saepe velit voluptas voluptate. Ad alias amet animi at doloremque earum iste,
-        nemo, obcaecati, provident quaerat saepe sapiente! Architecto at consequatur consequuntur dicta dolorem ea est
-        et eveniet facilis inventore itaque maiores minima minus nesciunt nostrum numquam obcaecati pariatur quaerat
-        quam quasi qui quis repellat rerum sequi, soluta tempora totam veritatis. Alias consectetur debitis earum eius
-        explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
-        incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam architecto atque aut corporis
-        cupiditate dicta doloribus eius eligendi, et eum expedita facilis id impedit ipsum iste laboriosam magnam minus
-        molestiae nam nemo nihil nulla odio porro quaerat quasi quibusdam ratione repudiandae sapiente similique sunt
-        ullam ut velit voluptas voluptates voluptatibus? Asperiores cumque ducimus eveniet fuga iure molestiae neque
-        quis rem suscipit totam! Alias aspernatur iusto necessitatibus quam quia. At blanditiis doloribus, eaque earum
-        exercitationem magnam natus nesciunt placeat ratione reiciendis temporibus tenetur totam ut voluptas,
-        voluptatibus. Alias deleniti, dolor expedita, fugiat illum incidunt, ipsum laborum modi molestias nam neque
-        nostrum sint sit? Adipisci commodi consequatur distinctio dolore eius, in laborum laudantium modi, neque
-        nesciunt non, omnis optio possimus saepe velit voluptas voluptate. Ad alias amet animi at doloremque earum iste,
-        nemo, obcaecati, provident quaerat saepe sapiente! Architecto at consequatur consequuntur dicta dolorem ea est
-        et eveniet facilis inventore itaque maiores minima minus nesciunt nostrum numquam obcaecati pariatur quaerat
-        quam quasi qui quis repellat rerum sequi, soluta tempora totam veritatis. Alias consectetur debitis earum eius
-        explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
-        incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam architecto atque aut corporis
-        cupiditate dicta doloribus eius eligendi, et eum expedita facilis id impedit ipsum iste laboriosam magnam minus
-        molestiae nam nemo nihil nulla odio porro quaerat quasi quibusdam ratione repudiandae sapiente similique sunt
-        ullam ut velit voluptas voluptates voluptatibus? Asperiores cumque ducimus eveniet fuga iure molestiae neque
-        quis rem suscipit totam! Alias aspernatur iusto necessitatibus quam quia. At blanditiis doloribus, eaque earum
-        exercitationem magnam natus nesciunt placeat ratione reiciendis temporibus tenetur totam ut voluptas,
-        voluptatibus. Alias deleniti, dolor expedita, fugiat illum incidunt, ipsum laborum modi molestias nam neque
-        nostrum sint sit? Adipisci commodi consequatur distinctio dolore eius, in laborum laudantium modi, neque
-        nesciunt non, omnis optio possimus saepe velit voluptas voluptate. Ad alias amet animi at doloremque earum iste,
-        nemo, obcaecati, provident quaerat saepe sapiente! Architecto at consequatur consequuntur dicta dolorem ea est
-        et eveniet facilis inventore itaque maiores minima minus nesciunt nostrum numquam obcaecati pariatur quaerat
-        quam quasi qui quis repellat rerum sequi, soluta tempora totam veritatis. Alias consectetur debitis earum eius
-        explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
-        incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias aperiam architecto atque aut corporis
-        cupiditate dicta doloribus eius eligendi, et eum expedita facilis id impedit ipsum iste laboriosam magnam minus
-        molestiae nam nemo nihil nulla odio porro quaerat quasi quibusdam ratione repudiandae sapiente similique sunt
-        ullam ut velit voluptas voluptates voluptatibus? Asperiores cumque ducimus eveniet fuga iure molestiae neque
-        quis rem suscipit totam! Alias aspernatur iusto necessitatibus quam quia. At blanditiis doloribus, eaque earum
-        exercitationem magnam natus nesciunt placeat ratione reiciendis temporibus tenetur totam ut voluptas,
-        voluptatibus. Alias deleniti, dolor expedita, fugiat illum incidunt, ipsum laborum modi molestias nam neque
-        nostrum sint sit? Adipisci commodi consequatur distinctio dolore eius, in laborum laudantium modi, neque
-        nesciunt non, omnis optio possimus saepe velit voluptas voluptate. Ad alias amet animi at doloremque earum iste,
-        nemo, obcaecati, provident quaerat saepe sapiente! Architecto at consequatur consequuntur dicta dolorem ea est
-        et eveniet facilis inventore itaque maiores minima minus nesciunt nostrum numquam obcaecati pariatur quaerat
-        quam quasi qui quis repellat rerum sequi, soluta tempora totam veritatis. Alias consectetur debitis earum eius
-        explicabo iure libero minus obcaecati, optio placeat rem, sit sunt vero voluptas voluptatum? Dolor error fugit
-        incidunt minus officia pariatur quos recusandae voluptas voluptatibus.</p>
+    <section class="hero">
+        <span class="hero__text">@lang('app.home.hero.left')</span>
+        <span class="hero__text">@lang('app.home.hero.middle')</span>
+        <span class="hero__text">@lang('app.home.hero.right')</span>
+    </section>
+
+    <ul class="features">
+        <li class="features__feature">
+            <x-icon name="tech-laser" size="4" />
+            <span>
+                Inspired by games like
+                <a class="text-link" href="https://en.wikipedia.org/wiki/The_Ashes_of_Empire" target="_blank">The Ashes of Empire</a>,
+                <a class="text-link" href="http://www.planetarion.com/" target="_blank">Planetarion</a> or
+                <a class="text-link" href="https://en.wikipedia.org/wiki/VGA_Planets">VGA Planets</a>,
+                Imperium Stellarum mixes politics and strategy into a sort of 4x model: eXplore, eXpand, eXploit & eXterminate.
+            </span>
+        </li>
+        <li class="features__feature">
+            <x-icon name="github" size="4" />
+            <span>
+            Imperium Stellarum is open source. The sourcecode is availble on github with a permissible license. If you want, read the sourcecode, fork it and use it for your own game.
+            </span>
+
+        </li>
+        <li class="features__feature">
+            <x-icon name="tech-ftl" size="4" />
+            <span>For each game, a new map is generated with potentially different parameters, leading to different experiences.</span>
+        </li>
+        <li class="features__feature">
+            <x-icon name="shipyards" size="4" />
+            <span>Customize your ship blueprints by deciding which modules to install. Offensive glass-cannons? Long-range ships with heavy shield protection? You decide.</span>
+        </li>
+        <li class="features__feature">Commodi eos, maxime perferendis quae quaerat quibusdam sapiente! Asperiores aspernatur cum iure maxime
+            repudiandae. A maxime quasi quis quod voluptatem? Aliquid animi assumenda ducimus id. Blanditiis deserunt
+            expedita similique tenetur?
+        </li>
+    </ul>
+
+
 
 @endsection

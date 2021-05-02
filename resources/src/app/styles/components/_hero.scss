@@ -1,0 +1,64 @@
+/**
+ *
+ * app hero component
+ *
+ **/
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    min-height: 250px;
+    padding: 8px;
+    border: 2px solid transparent;
+    margin-bottom: 8px;
+
+    background: image("hero.jpg") 0 0 no-repeat;
+    background-size: cover;
+
+    @include respond-to("medium") {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    @include themed() {
+        border-width: 5px;
+
+        background-color: t("g-bunker");
+        color: t("t-light");
+        border-color: t("g-deep");
+    }
+
+    &__text {
+        font-size: 48px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 2px;
+
+        @include themed() {
+            text-shadow:
+                3px  3px 0 t("g-black"),
+                -1px -1px 0 t("g-black"),
+                1px -1px 0 t("g-black"),
+                -1px  1px 0 t("g-black"),
+                1px  1px 0 t("g-black");
+        }
+
+        &:nth-child(1) {
+            text-align: left;
+
+            @include respond-to("medium") {
+                margin-left: 40px;
+            }
+        }
+
+        &:nth-child(3) {
+            text-align: right;
+
+            @include respond-to("medium") {
+                margin-right: 40px;
+            }
+        }
+    }
+}

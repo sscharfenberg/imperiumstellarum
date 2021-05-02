@@ -24,8 +24,8 @@
  * @require $base-url
  *
  */
-@function image($path, $base: "./") {
-    @return asset($base, "static/", $path);
+@function image($path, $base: "") {
+    @return asset($base, "../../static/images/", $path);
 }
 
 /*
