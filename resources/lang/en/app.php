@@ -343,7 +343,45 @@ return [
 
     'terms' => [
         'navTitle' => 'Terms of use',
-        'title' => 'Terms of use'
+        'title' => 'Terms of use',
+        'intro' => 'Please read these terms of use carefully before registering an account.',
+        'acceptance' => [
+            'title' => 'Acceptance of the terms of use',
+            'paragraph1' => 'Your access to and use of the Imperium Stellarum website is depending on your acceptance and compliance of these terms of use. ',
+            'paragraph2' => 'Furthermore, it is also depending on acceptance und compliance with the Privacy Policy of the Imperium Stellarum website. Our Privacy Policy describes our policies and procedures on the collection, use and disclosure of your personal information when you use the Imperium Stellarum website and tells you about your privacy rights and how the law protects you. Please read our Privacy Policy carefully before using our Service.'
+        ],
+        'termination' => [
+            'title' => 'Termination or suspension of your account',
+            'paragraph' => 'Failure to adhere to our terms of use can result in a warning via ingame notification or private message on our forums, or in a suspension of your account for a specific amount of time, or in a termination of your account, depending on the violation at discretion of the Imperium Stellarum administration team.'
+        ],
+        'warranty' => [
+            'title' => 'Liability and warranty',
+            'paragraph1' => 'The Imperium Stellarum contributers, as well as the Imperium Stellarum administration and hosting team, can not be held responsible for any faults or errors that exist in the website and/or the game. Errors or faults can result in the loss of your data or loss of privacy information. As descibed in our Privacy Policy, we take great care to only require the minimum amount of personal information - your email address.',
+            'contributors' => 'Imperium Stellarum contributors'
+        ],
+        'communityGuidelines' => [
+            'title' => 'Community guidelines',
+            'paragraph1' => 'Imperium Stellarum is a game that should, above all, be fun and challenging to play for everyone. We require all registered users of the website to differentiate strictly between the empires that are played in the game and the humans that play the empires.',
+            'paragraph2' => 'This means, in the game, pretty much anything goes. Feel free to betray, extort, lie or threaten other empires. Feel free to make two other empires go to war with each other, then take their systems. Feel free to have smaller empires do your bidding. Feel free to backstab larger empires when they have you do their bidding.',
+            'paragraph3' => 'However, there are limits to \'anything goes\', specifically when sending messages to other players. Do not bring real life into the game, do not address the user playing the empire directly. While roleplaying an evil empire is fine, do not overdo it - in short, don\'t be a dick to other players when sending messages.',
+            'paragraph4' => 'Moreover - Racism, misogyny, discriminating other users based on heritage, social standing, body shape or others will under no circumstances be tolerated and will result in a termination or suspension of your account.',
+            'paragraph5' => 'Every player has the option to report offending incoming messages to the administration team. The admin team will investigate all reports and deal with them accordingly.'
+        ],
+        'exploits' => [
+            'title' => 'Security issues and game exploits',
+            'paragraph1' => 'We ask all users to report any possible exploits or security issues directly to the admin team to make the game safe and fair for all players.',
+            'paragraph2' => 'If you encounter an exploit or security issue, please contact the staff via private message in the forums - do not post these publicly.',
+            'staff' => 'Imperium Stellarum staff',
+            'paragraph3' => 'Exploiting bugs or faults in the game will result in a punishment at the discretion of the administration team.',
+            'paragraph4' => 'Exploiting security issues in the website or the game - or manipulating or influencing the Imperium Stellarum servers or services - will always result in a lifetime ban, and possibly alerting of german law enforcement authorities (depending on severity).'
+        ],
+        'multiBoxing' => [
+            'title' => 'Multiple accounts',
+            'paragraph1' => 'You are only allowed to have exactly one account. If you create a second account - be it to have ingame advantages, or to evade an account suspension - the additional accounts will be terminated, and we will issue an appropriate punishment to the original account.',
+            'paragraph2' => 'We encourage all players to inform the administration team of suspected multi-accounting.',
+            'paragraph3' => 'Evading a ban by using a different email address will result in a suspension, possibly a lifetime ban - depending on motivation, severity and context',
+            'paragraph4' => 'If you have problems accessing your account, please try to resolve this issue by yourself (forgot password). If this doesn\'t help, the admin staff will be happy to help.',
+        ],
     ],
 
 

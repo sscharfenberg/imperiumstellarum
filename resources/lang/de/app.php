@@ -241,7 +241,7 @@ return [
     'privacy' => [
         'navTitle' => 'Datenschutz',
         'title' => 'Hinweise zum Datenschutz',
-        'description' => 'Diese Hinweise zum Datenschutz zeigt auf wie die WEbsite Ihre persönlichen Daten verwendet.',
+        'description' => 'Diese Hinweise zum Datenschutz zeigt auf wie die Website Ihre persönlichen Daten verwendet.',
         'whatData' => [
             'title' => 'Welche Daten sammeln wir?',
             'paragraph1' => 'Wir stellen sicher so wenig wie möglich persönliche Daten von Ihnen zu sammeln. Wir speichern lediglich Ihre E-Mail-Adresse in unserer Datenbank. Darüberhinaus werden keine weiteren persönlichen Daten gesammelt oder gespeichert.'
@@ -343,7 +343,45 @@ return [
 
     'terms' => [
         'navTitle' => 'Nutzungsbedingungen',
-        'title' => 'Nutzungsbedingungen'
+        'title' => 'Nutzungsbedingungen',
+        'intro' => 'Bitte lesen Sie sich diese Nutzungsbedingungen sorgfältig durch bevor Sie ein Benutzerkonto erstellen.',
+        'acceptance' => [
+            'title' => 'Akzeptieren der Nutzungsbedingungen',
+            'paragraph1' => 'Ihr Zugriff auf die Imperium Stellarum website hängt von Ihrer Zustimmung zu und Einhaltung dieser Nutzungsbedingungen ab.',
+            'paragraph2' => 'Der Zugriff hängt außerdem von der Zustimmung zu den Datenschutzbedingungen der Imperium Stellarum website ab. Unsere Datenschutzbedingungen beschreben welche persönlichen Daten wir von Ihnen sammeln und wie diese verwendet werden, und führt Ihre Datenschutzrechte auf. Bitte lesen Sie sich unsere Datenschutz Hinweise ebenfalls sorgfältig durch.'
+        ],
+        'termination' => [
+            'title' => 'Beendigung oder Sperre Ihres Benutzerkontos',
+            'paragraph' => 'Verstöße gegen unsere Nutzungsbedingungen kann in einer Warnung per ingame Benachrichtigung oder Privatnachricht in den Foren resultieren, oder in der Sperre Ihres Benutzerkontos für eine bestimmte Zeit, oder aber in der Sperre Ihres Benutzerkontos, abhängig von dem Verstoß nach Ermessen des Imperium Stellarum Administrations Teams.'
+        ],
+        'warranty' => [
+            'title' => 'Haftungsausschluß',
+            'paragraph1' => 'Die Imperium Stellarum Entwickler, als auch das Imperium Stellarum Administrations und Hosting Team, können nicht haftbar gemacht werden für jegliche Fehler in der Website und/oder dem Spiel. Fehler können dazu führen das Ihre Daten verloren gehen oder private Informationen bekannt werden. Wie in unseren Hinweisen zum Datenschutz aufgeführt, stellen wir sicher so wenig wie mögliche poersönliche Daten von Ihnen zu sammeln - wir sammeln und speichern ausschließlich Ihre E-Mail-Adresse.',
+            'contributors' => 'Imperium Stellarum Entwickler'
+        ],
+        'communityGuidelines' => [
+            'title' => 'Gemeinschafts Richtlinien',
+            'paragraph1' => 'Imperium Stellarum ist ein Spiel das vor allem Spaß machen soll und eine Herausforderung darstellen für alle Spieler. Wir erwarten von allen registrierten Benutzern das Sie genau unterscheiden zwischen den Imperien die im Spiel gespielt werden und den Menschen die diese Imperien steuern.',
+            'paragraph2' => 'Das bedeutet das an Spielmechaniken praktisch alles zugelassen ist. Sie dürfen andere Imperien betrügen, ausnehmen, erpresssen, belügen oder bedrohen. Sie dürfen zwei andere Imperien gegeneinander aufhetzen, um dann Ihre System zu übernehmen. Sie dürfen kleinere Imperien Befehle erteilen. Sie dürfen größere Imperien betrügen wenn Ihnen Befehle erteilt werden.',
+            'paragraph3' => 'Allerdings gibt es Grenzen, ganz besonders wenn Nachrichten an andere Spieler verschickt werden. Lassen Sie das reallife außen vor, sprechen Sie nicht den Menschen an der das Imperium steuert. Es ist in Ordnung die Rolle eines bösen Imperium zu spielen, aber übertreiben Sie es nicht. Kurz gesagt - seien Sie kein Arsch wenn Sie anderen Spielern Nachrichten schicken.',
+            'paragraph4' => 'Außerdem - Rassismus, Frauenfeindlichkeit, Diskriminierung andere Benutzer aufgrund von sozialem Status, Herkunft oder anderem wird unter keinen Umständen toleriert und resultiert in der Beendigung oder Sperre des Benutzerkontos.',
+            'paragraph5' => 'Jeder Spieler hat die Option beleidigende oder verletzende Nachricht an das Admin Team zu melden. Das Admin Team wird nachforschen und entsprechende Maßnahmen ergreifen.'
+        ],
+        'exploits' => [
+            'title' => 'Sicherheitsprobleme und das Ausnutzen von Spiel Unschärfen/Fehlern/Exploits',
+            'paragraph1' => 'Wir bitten alle Benutzer jegliche Exploits oder Sicherheitsprobleme direkt dem Administrationsteam zu melden um das Spiel sicher und fair für alle Spieler zu machen.',
+            'paragraph2' => 'Wenn Sie Kentniss von einem Exploit oder einem Sicherheitsproblem erlangen, kontaktieren Sie bitte das Administrationsteam per Direktnachricht im Forum - posten Sie Exploits und Sicherheitsprobleme nicht öffentlich.',
+            'staff' => 'Imperium Stellarum Administrationsteam',
+            'paragraph3' => 'Das Ausnutzen von Fehlern im Spiel resultiert in einer Strafe nach Ermessen des Administrationsteams.',
+            'paragraph4' => 'Das Ausnutzen von Sicherheitsproblemen in der Website oder im Spiel - oder das Manipulieren oder Beeinflussen der Imperium Stellarum Server und Dienste - wird immer in einer Sperre auf Lebenszeit resultieren, und möglicherweise bei deutschen Strafverfolgungsbehörden zur Anzeige gebracht, abhängig von der Schwere des Vorfalls.'
+        ],
+        'multiBoxing' => [
+            'title' => 'Mehrfache Benutzerkonten',
+            'paragraph1' => 'Sie dürfen nur maximal ein Benutzerkonto haben. Sollten Sie ein zweites Benutzerkonto erstellen - Sei es um Vorteile im Spiel zu erlangen, oder um eine Sperre des Benutzerkontos zu umgehen - wird das zusätzliche Benutzerkonto gesperrt, und wird werden entsprechende Strafen gegen das ursprüngliche Benutzerkonto verhängen.',
+            'paragraph2' => 'Wir fordern alle Spieler auf dem Administrationsteam vermutete mehrfache Benutzerkonto zu melden.',
+            'paragraph3' => 'Eine Sperre des Benutzerkontos durch ein weiteres Benutzerkonto zu umgehen resultiert immer in einer Sperre oder Beendigung des Benutzerkontos, abhängig von Motivation, Schwere und Kontext.',
+            'paragraph4' => 'Wenn Sie Probleme haben auf Ihr Benutzerkonto zuzugreifen, versuchen Sie bitte als erstes dies Probleme selbst zu lösen (Passwort vergessen). Sollte das nicht helfen wird das Administrationsteam Ihnen gerne behilflich sein.',
+        ],
     ],
 
 
