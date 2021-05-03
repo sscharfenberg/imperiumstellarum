@@ -1,0 +1,86 @@
+/**
+ *
+ * welcome page
+ *
+ **/
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+
+    list-style: none;
+
+    @include respond-to("medium") {
+        gap: 16px;
+    }
+
+    &__item {
+        display: flex;
+
+        padding: 8px;
+        border: 1px solid transparent;
+        flex: 1 1 100%;
+        gap: 8px;
+
+        @include themed() {
+            min-width: 340px;
+
+            background-color: t("g-sunken");
+            border-color: t("g-deep");
+        }
+
+        @include respond-to("medium") {
+            justify-content: space-between;
+
+            padding: 16px;
+            flex: 1 1 calc(33.33% - 16px);
+            gap: 16px;
+        }
+
+        .icon {
+            align-self: center;
+
+            width: 64px;
+            height: 64px;
+            flex: 0 0 64px;
+        }
+
+        &--viking .icon {
+            @include themed() {
+                color: t("b-viking");
+            }
+        }
+
+        &--gorse .icon {
+            @include themed() {
+                color: t("b-gorse");
+            }
+        }
+
+        &--christine .icon {
+            @include themed() {
+                color: t("b-christine");
+            }
+        }
+    }
+
+    &__text p {
+        margin: 0 0 16px 0;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    &--margin-bottom {
+        margin-bottom: 8px;
+
+        @include respond-to("medium") {
+            margin-bottom: 16px;
+        }
+    }
+}

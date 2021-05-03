@@ -50,6 +50,59 @@ return [
             'left' => 'Ihr',
             'middle' => 'Imperium',
             'right' => 'wartet',
+        ],
+        'features' => [
+            '4x' => [
+                'p1' => 'Erforschen Sie die Galaxie. Vergrößern Sie Ihr Imperium. Nutzen Sie Ihre Nachbarn aus. Löschen Sie Ihre Feinde aus.',
+                'p2' => 'Inspiriert von klassischen Spielen wie',
+                'or' => 'oder'
+            ],
+            'oss' => [
+                'p1' => 'Imperium Stellarum ist freie Open Source Software.',
+                'p2' => 'Der Quelltext steht auf Github unter einer MIT License zur Verfügung. Wenn gewünscht, erstellen Sie einen Fork und benutzen Imperium Stellarum - oder Teile davon - für Ihr eigenes Projekt.',
+            ],
+            'free' => [
+                'p1' => 'Imperium Stellarum ist kostenlos spielbar.',
+                'p2' => 'Keine Werbung. Keine Micro-Transactions. Keine Loot Boxen. Kein Shop. Kein User-Tracking. Keine Möglichkeit Geld für das Spiel auszugeben.',
+                'p3' => 'Allerdings - es kostet Zeit zu spielen. 🤔',
+            ],
+            'map' => [
+                'p1' => 'Für jedes Spiel wird eine neue Karte generiert. Kartengröße kann variiert werden für mehr/weniger Spieler.',
+                'p2' => 'Sterne und Planeten werden zufällig festgelegt.',
+                'p3' => 'Keine zwei Spiele sind gleich.'
+            ],
+            'blueprints' => [
+                'p1' => 'Passen Sie Ihre Baupläne an indem Sie entscheiden welche Module verwendet werden sollen.',
+                'p2' => 'Schnelle Schiffe mit Waffen kurzer Reichweite und wenig Verteidigung? Langsame Schiffe mit Waffen großer Reichweite und schwerer Panzerung oder Schilden? Eine Mischung aus beidem? Sie entscheiden.'
+            ],
+            'privacy' => [
+                'p1' => 'Die einzige persönliche Information die zum Registrieren erforderlich ist, ist Ihre E-Mail-Adresse - welche anderen Spielern nicht angezeigt wird.',
+                'p2' => 'Wir empfehlen eine Wegwerf E-Mail-Adresse zu verwenden.'
+            ],
+            'turn' => [
+                'p1' => 'Imperium Stellarum ist runden-basiert.',
+                'p2' => 'In der Standardeinstellung wird alle 15 Minuten eine Runde berechnet; längere oder kürzere Runden sind möglich.',
+                'p3' => 'Das Spiel läuft 24/7.'
+            ],
+            'diplomacy' => [
+                'p1' => 'Diplomatie gewinnt Spiele - schließen Sie Freundschaften. Und Feindschaften.',
+                'p2' => 'Unsere Gemeinschaftsrichtline erlauben ausdrücklich Verrat, Lügen, Ausnutzen oder Drohungen.',
+                'p3' => 'Aber - zu viele Feinde macht es schwer die Partie zu gewinnen.'
+            ]
+        ],
+        'stats' => [
+            'active' => [
+                'headline' => 'Laufende Spiele',
+                'game' => 'Spiel g:game',
+                'turn' => 'Aktuelle Runde ist t:turn',
+                'dimensions' => 'Kartengröße ist :dimensions x :dimensions',
+                'players' => ':players eingeschriebene Spieler',
+                'none' => 'Aktuell laufen keine Spiele.'
+            ],
+            'finished' => [
+                'headline' => 'Zuletzt beendete Spiele',
+                'none' => 'Bislang wurden keine Spiele abgeschlossen ¯\_(ツ)_/¯'
+            ]
         ]
     ],
 

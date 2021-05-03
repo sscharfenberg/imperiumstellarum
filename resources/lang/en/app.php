@@ -50,6 +50,59 @@ return [
             'left' => 'Your',
             'middle' => 'empire',
             'right' => 'awaits',
+        ],
+        'features' => [
+            '4x' => [
+                'p1' => 'eXplore the galaxy. eXpand your empire. eXploit your neighbours. eXterminate your enemies.',
+                'p2' => 'Inspired by classic games like',
+                'or' => 'or'
+            ],
+            'oss' => [
+                'p1' => 'Imperium Stellarum is free and open source software.',
+                'p2' => 'The sourcecode is availble on github with a permissible license. If you want, read the sourcecode, fork it and use it - or parts of it - for your own game.',
+            ],
+            'free' => [
+                'p1' => 'Imperium Stellarum is free to play.',
+                'p2' => 'No ads. No micro-transactions. No loot boxes. No shop. No user-tracking. No way to spend money on the game.',
+                'p3' => 'It will cost you time to play, though 🤔.',
+            ],
+            'map' => [
+                'p1' => 'A new map is generated for each game. Map dimensions can be varied for smaller or bigger games.',
+                'p2' => 'Stars and planets are randomly generated.',
+                'p3' => 'No two games are the same.'
+            ],
+            'blueprints' => [
+                'p1' => 'Customize your ship blueprints by deciding which modules to install.',
+                'p2' => 'Fast ships with lots of weapons and no defense? Slow ships with long range weapons and heavy armour or shields? A mixture of both? You decide.'
+            ],
+            'privacy' => [
+                'p1' => 'The only personal information that is needed to sign up is an e-mail address - which is never shown to other players.',
+                'p2' => 'We encourage you to use a throwaway email.'
+            ],
+            'turn' => [
+                'p1' => 'Imperium Stellarum is turn-based.',
+                'p2' => 'The default setting is a turn is calculated every 15 minutes, though longer or shorter turns are possible.',
+                'p3' => 'The game runs 24/7.'
+            ],
+            'diplomacy' => [
+                'p1' => 'Diplomacy wins games - so, make friends. And enemies.',
+                'p2' => 'Our community guidelines explicitly allow betrayal, lying, extortion or threats.',
+                'p3' => 'Just remember, too many enemies will make it hard to win the game.'
+            ]
+        ],
+        'stats' => [
+            'active' => [
+                'headline' => 'Active games',
+                'game' => 'Game g:game',
+                'turn' => 'Current turn is t:turn',
+                'dimensions' => 'Map size is :dimensions x :dimensions',
+                'players' => ':players enlisted players',
+                'none' => 'There are currently no active games'
+            ],
+            'finished' => [
+                'headline' => 'Last finished games',
+                'none' => 'No games have been finished yet ¯\_(ツ)_/¯'
+            ]
         ]
     ],
 

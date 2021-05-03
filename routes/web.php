@@ -25,9 +25,8 @@ use App\Http\Controllers\Admin\PlayerController;
  * Public routes, no auth
  */
 // Homepage
-Route::get('/', function () {
-    return view('app.welcome');
-})->name('welcome');
+Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index'])
+    ->name('welcome');
 // Language Switcher
 Route::get('/lang/{locale}', [\App\Http\Controllers\LocaleController::class, 'change'])
     ->name('locale');

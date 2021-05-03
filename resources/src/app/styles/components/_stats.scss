@@ -1,0 +1,148 @@
+/**
+ *
+ * game-stats module (welcome page)
+ *
+ **/
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 0;
+    margin: 0 0 8px 0;
+    gap: 8px;
+
+    list-style: none;
+
+    @include respond-to("medium") {
+        margin: 0 0 16px 0;
+        gap: 16px;
+    }
+
+    &__item {
+        padding: 8px;
+        border: 5px solid transparent;
+        flex: 1 1 100%;
+
+        @include themed() {
+            background-color: rgba(t("g-ebony"), 0.6);
+            border-color: t("g-deep");
+        }
+
+        @include respond-to("medium") {
+            justify-content: space-between;
+            flex-direction: row;
+
+            padding: 16px;
+            flex: 1 1 calc(33.33% - 16px);
+            gap: 16px;
+        }
+    }
+
+    &__headline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 8px;
+
+        @include respond-to("medium") {
+            margin-bottom: 16px;
+        }
+
+        &::after,
+        &::before {
+            display: block;
+
+            min-width: 30px;
+            height: 3px;
+
+            flex-grow: 1;
+
+            content: " ";
+
+            @include themed() {
+                background: linear-gradient(
+                    to left,
+                    t("b-gorse"),
+                    t("b-christine")
+                );
+            }
+        }
+
+        &::after {
+            margin-left: 8px;
+
+            @include themed() {
+                background: linear-gradient(
+                    to right,
+                    t("b-gorse"),
+                    t("b-christine")
+                );
+            }
+
+            @include respond-to("medium") {
+                margin-left: 16px;
+            }
+        }
+
+        &::before {
+            margin-right: 8px;
+
+            @include respond-to("medium") {
+                margin-right: 16px;
+            }
+        }
+    }
+
+    &__game {
+        display: grid;
+        position: relative;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+
+        margin-bottom: 7px;
+        grid-gap: 4px;
+
+        @include respond-to("medium") {
+            margin-bottom: 15px;
+            grid-gap: 8px;
+        }
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        > span {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            padding: 8px;
+            flex-grow: 1;
+
+            @include themed() {
+                background-color: t("g-bunker");
+            }
+        }
+
+        &:not(:last-of-type)::after {
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: -4px;
+            left: 0;
+
+            height: 1px;
+
+            content: " ";
+
+            @include themed() {
+                background-color: t("b-viking");
+            }
+
+            @include respond-to("medium") {
+                bottom: -8px;
+            }
+        }
+    }
+}
