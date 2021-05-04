@@ -25,7 +25,7 @@
 
     <x-text-section :hdl="__('app.imprint.attribution')">
         <p>@lang('app.imprint.paragraph3')</p>
-        <a class="text-link" href="https://github.com/sscharfenberg/imperiumstellarum/ATTRIBUTION.md" rel="noopener"><x-icon name="link" size="2" /> Attribution</a>
+        <a class="text-link" href="https://github.com/sscharfenberg/imperiumstellarum/blob/master/ATTRIBUTION.md" rel="noopener"><x-icon name="link" size="2" /> Attribution</a>
     </x-text-section>
 
     <x-text-section :hdl="__('app.imprint.disclaimer')">

@@ -44,10 +44,14 @@
         align-items: center;
         justify-content: center;
 
-        margin-bottom: 8px;
+        margin: 8px 0;
 
         @include respond-to("medium") {
-            margin-bottom: 16px;
+            margin: 16px 0;
+        }
+
+        &:first-of-type {
+            margin-top: 0;
         }
 
         &::after,
@@ -112,7 +116,12 @@
             margin-bottom: 0;
         }
 
-        > span {
+        &--upcoming {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        > span,
+        > time {
             display: flex;
             align-items: center;
             justify-content: space-evenly;
@@ -143,6 +152,23 @@
             @include respond-to("medium") {
                 bottom: -8px;
             }
+        }
+    }
+
+    &__game-winner.stats__game-winner {
+        display: block;
+        grid-column: span 4;
+
+        text-align: center;
+    }
+
+    .app-btn {
+        display: inline-flex;
+
+        margin: 8px 0 0 0;
+
+        @include respond-to("medium") {
+            margin: 16px 0 0 0;
         }
     }
 }

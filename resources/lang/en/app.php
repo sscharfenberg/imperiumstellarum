@@ -99,9 +99,21 @@ return [
                 'players' => ':players enlisted players',
                 'none' => 'There are currently no active games'
             ],
+            'upcoming' => [
+                'headline' => 'Upcoming games',
+                'game' => 'Game g:game',
+                'start' => 'Game starts at :start',
+                'players' => ':players/:max enlisted players',
+                'none' => 'No upcoming games yet.'
+            ],
             'finished' => [
                 'headline' => 'Last finished games',
-                'none' => 'No games have been finished yet ¯\_(ツ)_/¯'
+                'game' => 'Game g:game',
+                'end' => 'Game ended at :end',
+                'dimensions' => 'Map size was :dimensions x :dimensions',
+                'players' => ':players participating players',
+                'winner' => 'Winner',
+                'none' => 'No games have been finished yet.'
             ]
         ]
     ],
@@ -442,5 +454,10 @@ return [
         ],
     ],
 
+    'halloffame' => [
+        'navTitle' => 'Hall of Fame',
+        'title' => 'Hall of Fame',
+        'description' => 'All of the games that where finished and the empires that won them.'
+    ]
 
 ];

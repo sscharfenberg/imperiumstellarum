@@ -42,6 +42,9 @@ Route::get('/legal-notice', function() {
 Route::get('/terms-of-use', function() {
     return view('app.terms');
 })->name('terms');
+// Hall of Fame
+Route::get('/hall-of-fame', [\App\Http\Controllers\HallOfFameController::class, 'index'])
+    ->name('halloffame');
 
 /**
  * Fortify Overrides

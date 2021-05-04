@@ -101,7 +101,7 @@ class FinishedGame extends Model
      */
     public function participants()
     {
-        return $this->hasMany(FinishedGameParticipant::class);
+        return $this->hasMany(FinishedGameParticipant::class, 'game_id', 'id');
     }
 
 }

@@ -99,9 +99,21 @@ return [
                 'players' => ':players eingeschriebene Spieler',
                 'none' => 'Aktuell laufen keine Spiele.'
             ],
+            'upcoming' => [
+                'headline' => 'Demnächst startende Spiele',
+                'game' => 'Spiel g:game',
+                'start' => 'Spiel startet am :start',
+                'players' => ':players/:max eingeschriebene Spieler',
+                'none' => 'Keine demnächst startenden SpieleNo upcoming games yet.'
+            ],
             'finished' => [
                 'headline' => 'Zuletzt beendete Spiele',
-                'none' => 'Bislang wurden keine Spiele abgeschlossen ¯\_(ツ)_/¯'
+                'game' => 'Spiel g:game',
+                'end' => 'Spiel endete am :end',
+                'dimensions' => 'Kartengröße war :dimensions x :dimensions',
+                'players' => ':players Spieler haben teilgenommen',
+                'winner' => 'Gewinner',
+                'none' => 'Bislang wurden keine Spiele abgeschlossen.'
             ]
         ]
     ],
@@ -441,6 +453,12 @@ return [
             'paragraph4' => 'Wenn Sie Probleme haben auf Ihr Benutzerkonto zuzugreifen, versuchen Sie bitte als erstes dies Probleme selbst zu lösen (Passwort vergessen). Sollte das nicht helfen wird das Administrationsteam Ihnen gerne behilflich sein.',
         ],
     ],
+
+    'halloffame' => [
+        'navTitle' => 'Ruhmeshalle',
+        'title' => 'Halle der vergangenen Imperatoren',
+        'description' => 'Alle beendeten Spiele und die Imperien die sie gewonnen haben.'
+    ]
 
 
 ];
