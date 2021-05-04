@@ -268,6 +268,7 @@ return [
         'players' => [
             'sectionTitle' => 'My Games',
             'sectionSubtitle' => 'This shows games that you have joined.',
+            'started' => 'Game started',
             'quit' => 'Quit Game',
             'quitTitle' => 'Quit Game g:game',
             'quitWarning' => 'Are you sure you want to quit the game? You might not be able to claim your slot again. If the game is already running, your empire will be deleted.',

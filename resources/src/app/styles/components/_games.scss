@@ -21,20 +21,26 @@
     td {
         display: block;
 
+        width: 100%;
         padding: 10px;
         border-right: $border;
         border-bottom: $border;
 
         transition: background-color map-get($animation-speeds, "fast") linear;
 
-        &:last-of-type {
-            border-right: $border;
-        }
-
         @include respond-to("medium") {
             display: table-cell;
 
+            width: auto;
             border-right: 0;
+        }
+
+        &:last-child {
+            border-right: $border;
+
+            @include themed() {
+                border-color: t("g-abbey");
+            }
         }
 
         @include themed() {

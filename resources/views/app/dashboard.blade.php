@@ -150,7 +150,11 @@
                                     <td>{{ count($player->game->players) }} / {{ $player->game->max_players }} @lang('app.dashboard.availableGames.players')</td>
                                     <td>[{{ $player->ticker }}]</td>
                                     <td>
-                                        @lang('app.dashboard.availableGames.start')
+                                        @if($player->game->start_date > now())
+                                            @lang('app.dashboard.availableGames.start')
+                                        @else
+                                            @lang('app.dashboard.players.started')
+                                        @endif
                                         <time
                                             datetime="{{ \Carbon\Carbon::parse($player->game->start_date)->format('d.m.Y H:i:s') }}"
                                             title="{{ \Carbon\Carbon::parse($player->game->start_date)->format('d.m.Y H:i:s') }}">
@@ -158,7 +162,7 @@
                                         </time>
                                     </td>
                                     <td class="games__enlist">
-                                        <button class="app-btn small both" data-modal="quitGameModal">
+                                        <button class="app-btn small both" data-modal="quitGameModal" @if($player->game->finished) disabled @endif>
                                             <x-icon name="delete" size="2" />
                                             <span>
                                                 @lang('app.dashboard.players.quit')
