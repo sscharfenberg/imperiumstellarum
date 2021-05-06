@@ -45,6 +45,8 @@ Route::get('/terms-of-use', function() {
 // Hall of Fame
 Route::get('/hall-of-fame', [\App\Http\Controllers\HallOfFameController::class, 'index'])
     ->name('halloffame');
+Route::post('/hall-of-fame', [\App\Http\Controllers\HallOfFameController::class, 'sortFilter'])
+    ->name('halloffame');
 
 /**
  * Fortify Overrides

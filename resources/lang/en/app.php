@@ -458,7 +458,15 @@ return [
     'halloffame' => [
         'navTitle' => 'Hall of Fame',
         'title' => 'Hall of Fame',
-        'description' => 'All of the games that where finished and the empires that won them.'
+        'description' => 'All of the games that where finished and the empires that won them.',
+        'thead' => [
+            'number' => 'Game',
+            'turns' => 'Turns',
+            'end' => 'End date',
+            'dimensions' => 'Dimensions',
+            'players' => 'Players',
+            'winner' => 'winner'
+        ]
     ]
 
 ];

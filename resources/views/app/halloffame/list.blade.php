@@ -17,4 +17,82 @@
         </aside>
     </header>
 
+    <form action="{{ route('halloffame') }}" METHOD="POST">
+    @csrf
+
+        <div class="pagination">
+            <div class="pagination__meta">
+                @lang('admin.games.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
+                @lang('admin.games.pagination.sort', ['sort' => __('admin.games.thead.'.$sortBy), 'dir' => __('admin.games.sort.'.$order) ])
+            </div>
+            <div class="pagination__perpage">
+                @lang('admin.games.perPage.showing')
+                <select name="perPage" data-perpage>
+                    <option value="10"{{ $perPage == '10' ? ' selected' : '' }}>10</option>
+                    <option value="20"{{ $perPage == '20' ? ' selected' : '' }}>20</option>
+                    <option value="50"{{ $perPage == '50' ? ' selected' : '' }}>50</option>
+                    <option value="100"{{ $perPage == '100' ? ' selected' : '' }}>100</option>
+                </select>
+                @lang('admin.games.perPage.results')
+            </div>
+            {{ $games->appends(['sortBy' => $sortBy, 'order' => $order, 'perPage' => $perPage])->links('shared.pagination') }}
+        </div>
+
+        <table class="admin-table" data-tr-href="/hall-of-fame/">
+            <thead>
+            <tr>
+                <th class="sortable{{ $sortBy == 'number' ? ' sorted' : '' }}">
+                    @lang('app.halloffame.thead.number')
+                    <div class="sort">
+                        <input type="radio" name="sort" value="number--asc" id="sort_number_asc" {{ $sortBy == 'number' && $order == 'asc' ? 'checked' : '' }} />
+                        <label class="asc" for="sort_number_asc"></label>
+                        <input type="radio" name="sort" value="number--desc" id="sort_number_desc" {{ $sortBy == 'number' && $order == 'desc' ? 'checked' : '' }} />
+                        <label class="desc" for="sort_number_desc"></label>
+                    </div>
+                </th>
+                <th>@lang('app.halloffame.thead.turns')</th>
+                <th class="sortable{{ $sortBy == 'end_date' ? ' sorted' : '' }}">
+                    @lang('app.halloffame.thead.end')
+                    <div class="sort">
+                        <input type="radio" name="sort" value="end_date--asc" id="sort_end_date_asc" {{ $sortBy == 'end_date' && $order == 'asc' ? 'checked' : '' }} />
+                        <label class="asc" for="sort_end_date_asc"></label>
+                        <input type="radio" name="sort" value="end_date--desc" id="sort_end_date_desc" {{ $sortBy == 'end_date' && $order == 'desc' ? 'checked' : '' }} />
+                        <label class="desc" for="sort_end_date_desc"></label>
+                    </div>
+                </th>
+                <th>@lang('app.halloffame.thead.dimensions')</th>
+                <th>@lang('app.halloffame.thead.players')</th>
+                <th>@lang('app.halloffame.thead.winner')</th>
+            </tr>
+            </thead>
+            <tbody>
+                @if($games->count() > 0)
+                    @foreach ($games as $game)
+                        <tr data-id="{{ $game->id }}">
+                            <td>g{{ $game->number }}</td>
+                            <td>{{ $game->turns }}</td>
+                            <td>{{ $game->end_date->format($format) }}</td>
+                            <td>{{ $game->dimensions }}x{{ $game->dimensions }}</td>
+                            <td>{{ $game->participants->count() }}</td>
+                            <td>[{{ $game->winner->ticker }}] {{ $game->winner->name }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="9">no games yet.</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <div class="pagination__meta">
+                @lang('admin.games.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
+                @lang('admin.games.pagination.sort', ['sort' => __('admin.games.thead.'.$sortBy), 'dir' => __('admin.games.sort.'.$order) ])
+            </div>
+            {{ $games->appends(['sortBy' => $sortBy, 'order' => $order, 'perPage' => $perPage])->links('shared.pagination') }}
+        </div>
+
+    </form>
+
 @endsection
