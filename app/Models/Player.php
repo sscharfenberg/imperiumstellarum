@@ -16,6 +16,7 @@ use \App\Http\Traits\UsesUuid;
  * @property string $colour
  * @property float $research_priority
  * @property bool $dead
+ * @property int $died_turn
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
@@ -29,6 +30,7 @@ use \App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereTicker($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereColour($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereDead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereDiedTurn($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  * @mixin \Eloquent
@@ -105,6 +107,7 @@ class Player extends Model
         'ticker',
         'research_priority',
         'dead',
+        'died_turn',
         'colour'
     ];
 

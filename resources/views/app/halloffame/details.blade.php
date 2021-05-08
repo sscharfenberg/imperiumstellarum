@@ -126,6 +126,7 @@
                         <label class="desc" for="sort_stars_desc"></label>
                     </div>
                 </th>
+                <th>@lang('app.halloffameDetails.thead.died')</th>
                 <th>@lang('app.halloffameDetails.thead.ships')</th>
                 <th>@lang('app.halloffameDetails.thead.shipyards')</th>
             </tr>
@@ -138,7 +139,15 @@
                         <td>[{{$player->ticker}}]</td>
                         <td>{{$player->name}}</td>
                         <td>{{ number_format($player->population, 2, ",", ".") }}</td>
-                        <td>{{ $player->stars }}</td>
+                        <td>{{ $player->stars > 0 ? $player->stars : '' }}</td>
+                        <td>
+                            @if($player->died !== null)
+                                <div class="icon-left">
+                                    <x-icon name="delete" size="2" />
+                                    t{{ $player->died }}
+                                </div>
+                            @endif
+                        </td>
                         <td>
                             @if($player->ships)
                                 <ul class="hof__ships">

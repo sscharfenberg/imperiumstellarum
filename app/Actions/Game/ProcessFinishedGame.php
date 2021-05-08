@@ -73,7 +73,7 @@ class ProcessFinishedGame {
                 'name' => $player->name,
                 'ticker' => $player->ticker,
                 'colour' => $player->colour,
-                'died' => $player->dead,
+                'died' => $player->dead ? $player->died_turn : null,
                 'population' => $player->population,
                 'stars' => count($player->stars),
                 'ships' => count($player->ships) > 0

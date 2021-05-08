@@ -22,7 +22,7 @@ class CreateFinishedGameParticipantsTable extends Migration
             $table->string('name', config('rules.player.name.max'));
             $table->string('ticker', config('rules.player.ticker.max'));
             $table->string('colour', 6);
-            $table->boolean('died')->default(false);
+            $table->unsignedSmallInteger('died')->nullable();
             $table->float('population', 10,6);
             $table->unsignedTinyInteger('stars')->default(0);
             $table->longText('ships')->nullable();

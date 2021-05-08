@@ -11,6 +11,7 @@ use App\Models\PlayerRelationChange;
 use App\Models\PlayerResource;
 use App\Models\Research;
 use App\Models\StorageUpgrade;
+use App\Models\Turn;
 use App\Services\MessageService;
 
 use Exception;
@@ -65,9 +66,13 @@ class ProcessDeadPlayers
      */
     private function handleDeadPlayer (Game $game, Player $player, string $turnSlug)
     {
+        $turn = Turn::where('game_id', '=', $game->id)
+            ->get()
+            ->max('number');
         $player->dead = true;
+        $player->died_turn = $turn;
         $player->save();
-        Log::channel('turn')->notice("$turnSlug player [$player->ticker] $player->name is now dead.");
+        Log::channel('turn')->notice("$turnSlug player [$player->ticker] $player->name died on turn t$turn.");
 
         // fleets
         $deletedFleets = Fleet::where('game_id','=', $game->id)

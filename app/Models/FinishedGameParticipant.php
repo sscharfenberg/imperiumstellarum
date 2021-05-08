@@ -39,7 +39,7 @@ use App\Http\Traits\UsesUuid;
  * @property string $name
  * @property string $ticker
  * @property string $colour
- * @property int $died
+ * @property int $died_turn
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereColour($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereDied($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereGameId($value)
@@ -49,6 +49,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereShipyards($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereStars($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FinishedGameParticipant whereTicker($value)
+ * @property int $died
  */
 class FinishedGameParticipant extends Model
 {

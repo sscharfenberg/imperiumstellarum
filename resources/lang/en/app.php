@@ -506,6 +506,7 @@ return [
             'name' => 'Empire',
             'population' => 'Population',
             'stars' => 'Stars',
+            'died' => 'Died',
             'ships' => 'Ships',
             'shipyards' => 'Shipyards',
         ]

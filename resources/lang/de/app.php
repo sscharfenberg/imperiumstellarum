@@ -506,6 +506,7 @@ return [
             'name' => 'Imperium',
             'population' => 'Bevölkerung',
             'stars' => 'Sterne',
+            'died' => 'Tod',
             'ships' => 'Schiffe',
             'shipyards' => 'Werften',
         ]

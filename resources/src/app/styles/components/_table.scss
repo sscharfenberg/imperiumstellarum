@@ -87,6 +87,24 @@
         }
     }
 
+    .icon-left {
+        display: flex;
+        align-items: center;
+
+        .icon {
+            margin-right: 8px;
+        }
+    }
+
+    .icon-right {
+        display: flex;
+        align-items: center;
+
+        .icon {
+            margin-left: 8px;
+        }
+    }
+
     td.suspension svg {
         @include themed() {
             color: t("s-warning");

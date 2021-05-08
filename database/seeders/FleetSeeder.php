@@ -51,9 +51,9 @@ class FleetSeeder extends Seeder
         foreach($games as $game) {
             $players = $game->players;
             // the players that are not userId 1,2,3
-            //$players = $players->filter(function($player) {
-            //    return !in_array($player['user_id'], [1,2,3]);
-            //})->values();
+            $players = $players->filter(function($player) {
+                return !in_array($player['user_id'], [1,2,3]);
+            })->values();
             // the fleets of the rest of the players
             foreach($players as $player) {
                 $star = $player->stars->first();
