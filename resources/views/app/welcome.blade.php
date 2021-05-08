@@ -118,7 +118,4 @@
         @endforeach
     </ul>
 
-    <!--{{ $activeGames->count() }}-->
-
-
 @endsection

@@ -1,0 +1,90 @@
+/**
+ *
+ * app header component
+ *
+ **/
+
+.hof {
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+
+        padding: 8px;
+        margin: 0 0 8px 0;
+        gap: 8px;
+
+        list-style: none;
+
+        @include respond-to("medium") {
+            padding: 16px;
+            margin: 0 0 16px 0;
+            gap: 16px;
+        }
+    }
+
+    &__detail {
+        display: flex;
+        align-items: center;
+
+        padding: 8px;
+        border: 1px solid;
+
+        @include themed() {
+            background-color: t("g-bunker");
+            border-color: t("g-deep");
+        }
+
+        @include respond-to("medium") {
+            padding: 16px;
+        }
+
+        .icon {
+            margin: 0 8px;
+        }
+
+        > span {
+            @include themed() {
+                color: t("b-christine");
+            }
+        }
+    }
+
+    &__ships {
+        display: flex;
+        align-items: center;
+
+        padding: 0;
+        margin: 0;
+
+        list-style: none;
+    }
+
+    &__ship {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        margin-right: 4px;
+
+        @include respond-to("medium") {
+            margin-right: 8px;
+        }
+
+        .icon {
+            margin-left: 2px;
+
+            @include respond-to("medium") {
+                margin-left: 4px;
+            }
+        }
+    }
+
+    &__winner.hof__winner.hof__winner td {
+        @include themed() {
+            background-color: t("b-viking");
+            color: t("t-dark");
+        }
+    }
+
+}

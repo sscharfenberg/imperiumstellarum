@@ -458,7 +458,57 @@ return [
     'halloffame' => [
         'navTitle' => 'Ruhmeshalle',
         'title' => 'Halle der vergangenen Imperatoren',
-        'description' => 'Alle beendeten Spiele und die Imperien die sie gewonnen haben.'
+        'description' => 'Alle beendeten Spiele und die Imperien die sie gewonnen haben.',
+        'pagination' => [
+            'num' => 'Zeige :games von :total Spielen',
+            'sort' => 'Sortiert nach \':sort\' :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Zeige',
+            'results' => 'Ergebnisse pro Seite'
+        ],
+        'sort' => [
+            'asc' => 'Aufsteigend',
+            'desc' => 'Absteigend'
+        ],
+        'thead' => [
+            'number' => 'Spiel',
+            'turns' => 'Runden',
+            'end_date' => 'Geendet',
+            'dimensions' => 'Kartengröße',
+            'players' => 'Spieler',
+            'winner' => 'Gewinner'
+        ],
+        'none' => 'Bislang keine Spiele.'
+    ],
+
+    'halloffameDetails' => [
+        'navTitle' => 'Ruhmeshalle g:game',
+        'title' => 'Ruhmeshalle g:game',
+        'description' => 'Alle Imperien die an Spiel g:game teilgenommen haben.',
+        'headline' => 'Die Daten zu Spiel g:game',
+        'turns' => 'Runden',
+        'dimensions' => 'Karte',
+        'players' => 'Spieler',
+        'endDate' => 'Geendet',
+        'startDate' => 'Gestartet',
+        'winner' => 'Imperator',
+        'pagination' => [
+            'num' => 'Zeige :participants von :total Spielern',
+            'sort' => 'Sortiert nach \':sort\' :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Zeige',
+            'results' => 'Ergebnisse pro Seite'
+        ],
+        'thead' => [
+            'ticker' => 'Ticker',
+            'name' => 'Imperium',
+            'population' => 'Bevölkerung',
+            'stars' => 'Sterne',
+            'ships' => 'Schiffe',
+            'shipyards' => 'Werften',
+        ]
     ]
 
 

@@ -8,7 +8,7 @@
                 <x-icon name="home" size="2" />
             </a>
             <a class="page-head__crumb" href="{{ route('halloffame') }}" aria-label="@lang('app.halloffame.title')">
-                @lang('app.halloffame.title')
+                @lang('app.halloffame.navTitle')
             </a>
         </nav>
         <h1 class="page-head__title">@lang('app.halloffame.title')</h1>
@@ -22,23 +22,24 @@
 
         <div class="pagination">
             <div class="pagination__meta">
-                @lang('admin.games.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
-                @lang('admin.games.pagination.sort', ['sort' => __('admin.games.thead.'.$sortBy), 'dir' => __('admin.games.sort.'.$order) ])
+                @lang('app.halloffame.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
+                @lang('app.halloffame.pagination.sort', ['sort' => __('app.halloffame.thead.'.$sortBy), 'dir' => __('app.halloffame.sort.'.$order) ])
             </div>
             <div class="pagination__perpage">
-                @lang('admin.games.perPage.showing')
+                @lang('app.halloffame.perPage.showing')
                 <select name="perPage" data-perpage>
                     <option value="10"{{ $perPage == '10' ? ' selected' : '' }}>10</option>
                     <option value="20"{{ $perPage == '20' ? ' selected' : '' }}>20</option>
                     <option value="50"{{ $perPage == '50' ? ' selected' : '' }}>50</option>
                     <option value="100"{{ $perPage == '100' ? ' selected' : '' }}>100</option>
                 </select>
-                @lang('admin.games.perPage.results')
+                @lang('app.halloffame.perPage.results')
             </div>
             {{ $games->appends(['sortBy' => $sortBy, 'order' => $order, 'perPage' => $perPage])->links('shared.pagination') }}
         </div>
 
         <table class="admin-table" data-tr-href="/hall-of-fame/">
+
             <thead>
             <tr>
                 <th class="sortable{{ $sortBy == 'number' ? ' sorted' : '' }}">
@@ -52,7 +53,7 @@
                 </th>
                 <th>@lang('app.halloffame.thead.turns')</th>
                 <th class="sortable{{ $sortBy == 'end_date' ? ' sorted' : '' }}">
-                    @lang('app.halloffame.thead.end')
+                    @lang('app.halloffame.thead.end_date')
                     <div class="sort">
                         <input type="radio" name="sort" value="end_date--asc" id="sort_end_date_asc" {{ $sortBy == 'end_date' && $order == 'asc' ? 'checked' : '' }} />
                         <label class="asc" for="sort_end_date_asc"></label>
@@ -65,6 +66,7 @@
                 <th>@lang('app.halloffame.thead.winner')</th>
             </tr>
             </thead>
+
             <tbody>
                 @if($games->count() > 0)
                     @foreach ($games as $game)
@@ -74,21 +76,22 @@
                             <td>{{ $game->end_date->format($format) }}</td>
                             <td>{{ $game->dimensions }}x{{ $game->dimensions }}</td>
                             <td>{{ $game->participants->count() }}</td>
-                            <td>[{{ $game->winner->ticker }}] {{ $game->winner->name }}</td>
+                            <td class="highlight">[{{ $game->winner->ticker }}] {{ $game->winner->name }}</td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="9">no games yet.</td>
+                        <td colspan="6">@lang('app.halloffame.none')</td>
                     </tr>
                 @endif
             </tbody>
+
         </table>
 
         <div class="pagination">
             <div class="pagination__meta">
-                @lang('admin.games.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
-                @lang('admin.games.pagination.sort', ['sort' => __('admin.games.thead.'.$sortBy), 'dir' => __('admin.games.sort.'.$order) ])
+                @lang('app.halloffame.pagination.num', ['games' => $games->count(), 'total' => $games->total() ]),
+                @lang('app.halloffame.pagination.sort', ['sort' => __('app.halloffame.thead.'.$sortBy), 'dir' => __('app.halloffame.sort.'.$order) ])
             </div>
             {{ $games->appends(['sortBy' => $sortBy, 'order' => $order, 'perPage' => $perPage])->links('shared.pagination') }}
         </div>

@@ -43,6 +43,12 @@
             background: t("g-bunker");
             border-color: t("g-abbey");
         }
+
+        &.highlight {
+            @include themed() {
+                color: t("b-gorse");
+            }
+        }
     }
 
     tbody tr:nth-child(2n) td {

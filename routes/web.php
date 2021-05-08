@@ -47,6 +47,10 @@ Route::get('/hall-of-fame', [\App\Http\Controllers\HallOfFameController::class, 
     ->name('halloffame');
 Route::post('/hall-of-fame', [\App\Http\Controllers\HallOfFameController::class, 'sortFilter'])
     ->name('halloffame');
+Route::get('/hall-of-fame/{id}', [\App\Http\Controllers\HallOfFameController::class, 'details'])
+    ->name('halloffame-details');
+Route::post('/hall-of-fame/{id}', [\App\Http\Controllers\HallOfFameController::class, 'detailsSortFilter'])
+    ->name('halloffame-details');
 
 /**
  * Fortify Overrides

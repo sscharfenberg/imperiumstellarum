@@ -459,13 +459,55 @@ return [
         'navTitle' => 'Hall of Fame',
         'title' => 'Hall of Fame',
         'description' => 'All of the games that where finished and the empires that won them.',
+        'pagination' => [
+            'num' => 'Show :games of :total games',
+            'sort' => 'Sorted by \':sort\' :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Show',
+            'results' => 'results per page'
+        ],
+        'sort' => [
+            'asc' => 'ascending',
+            'desc' => 'descending'
+        ],
         'thead' => [
             'number' => 'Game',
             'turns' => 'Turns',
-            'end' => 'End date',
+            'end_date' => 'End date',
             'dimensions' => 'Dimensions',
             'players' => 'Players',
-            'winner' => 'winner'
+            'winner' => 'Winner'
+        ],
+        'none' => 'No games yet.'
+    ],
+
+    'halloffameDetails' => [
+        'navTitle' => 'Hall of Fame g:game',
+        'title' => 'Hall of Fame g:game',
+        'description' => 'All empires that participated in game g:game.',
+        'headline' => 'The data of game g:game',
+        'turns' => 'Turns',
+        'dimensions' => 'Map',
+        'players' => 'Players',
+        'endDate' => 'End date',
+        'startDate' => 'Start date',
+        'winner' => 'Emperor',
+        'pagination' => [
+            'num' => 'Show :participants of :total players',
+            'sort' => 'Sorted by \':sort\' :dir'
+        ],
+        'perPage' => [
+            'showing' => 'Show',
+            'results' => 'results per page'
+        ],
+        'thead' => [
+            'ticker' => 'Ticker',
+            'name' => 'Empire',
+            'population' => 'Population',
+            'stars' => 'Stars',
+            'ships' => 'Ships',
+            'shipyards' => 'Shipyards',
         ]
     ]
 
