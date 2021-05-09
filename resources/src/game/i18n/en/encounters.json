@@ -1,4 +1,8 @@
 {
     "title": "Encounters",
-    "navTitle": "Encounters"
+    "navTitle": "Encounters",
+    "list": {
+        "headline": "Encounters with involvement of our empire",
+        "none": "Bislang fanden keine Gefechte statt."
+    }
 }

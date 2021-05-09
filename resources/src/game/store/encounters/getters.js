@@ -21,4 +21,7 @@ export default {
     /**
      * multiples
      */
+
+    // get encounters
+    inbox: (state) => state.encounters || [],
 };

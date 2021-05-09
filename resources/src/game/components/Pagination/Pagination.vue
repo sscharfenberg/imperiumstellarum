@@ -1,22 +1,24 @@
 <script>
 /******************************************************************************
- * PageComponent: MailboxPagination
+ * Component: Pagination
  *****************************************************************************/
 import { computed, ref } from "vue";
 import VueSelect from "vue-next-select";
 import Icon from "Components/Icon/Icon";
 export default {
-    name: "MailboxPagination",
+    name: "Pagination",
     props: {
         currentPage: Number,
         perPage: Number,
-        numMessages: Number,
+        numItems: Number,
+        messageKey: String,
+        perPageKey: String,
     },
     components: { VueSelect, Icon },
     emits: ["changepage", "changeperpage"],
     setup(props, { emit }) {
         const numPages = computed(() =>
-            Math.ceil(props.numMessages / props.perPage)
+            Math.ceil(props.numItems / props.perPage)
         );
         const model = ref(props.perPage);
         const perPageOptions = [5, 10, 20, 50];
@@ -43,11 +45,7 @@ export default {
 <template>
     <div class="pagination__wrapper">
         <aside class="pagination__meta">
-            {{
-                $tc("messages.mailbox.pagination.messages", numMessages, {
-                    num: numMessages,
-                })
-            }}
+            {{ $tc(messageKey, numItems, { num: numItems }) }}
             <vue-select
                 class="perpage"
                 style="width: 80px"
@@ -56,7 +54,7 @@ export default {
                 :close-on-select="true"
                 @selected="changePerPage"
             />
-            {{ $t("messages.mailbox.pagination.perPage") }}
+            {{ $t(perPageKey) }}
         </aside>
         <nav class="pagination" v-if="numPages > 1">
             <button
@@ -92,6 +90,7 @@ export default {
     flex-wrap: wrap;
 
     padding: 4px;
+    margin: 0;
 
     @include respond-to("medium") {
         padding: 8px;
@@ -126,6 +125,7 @@ export default {
     }
 
     &__link {
+        height: 41px;
         padding: 4px 8px;
         border: 0;
         margin: 0 2px 0 0;

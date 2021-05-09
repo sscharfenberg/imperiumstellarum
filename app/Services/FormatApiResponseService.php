@@ -503,7 +503,7 @@ class FormatApiResponseService {
     {
         return [
             'id' => $encounter->id,
-            'turn' => $encounter->gameTurn->number,
+            'turn' => ($encounter->gameTurn->number + 1),
             'starId' => $encounter->star_id,
             'ownerId' => $encounter->owner_id
         ];

@@ -11,7 +11,7 @@ import StarDragHandle from "./StarDragHandle";
 import StarLocation from "./StarLocation";
 import StarName from "./StarName/StarName";
 import StarNameEdit from "./StarName/StarNameEdit";
-import StarSpectral from "./StarSpectral";
+import Spectral from "Components/Spectral/Spectral";
 export default {
     name: "ShowStar",
     props: {
@@ -19,7 +19,7 @@ export default {
     },
     components: {
         StarNameEdit,
-        StarSpectral,
+        Spectral,
         StarDragHandle,
         StarName,
         ShortStarSummary,
@@ -52,7 +52,7 @@ export default {
 <template>
     <div class="system">
         <div class="star">
-            <star-spectral :spectral="star.spectral" />
+            <spectral :spectral="star.spectral" />
             <star-drag-handle />
             <star-name
                 v-if="!isStarEditing && !isStarChanging"

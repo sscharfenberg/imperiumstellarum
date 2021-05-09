@@ -1,4 +1,8 @@
 {
     "title": "Gefechte",
-    "navTitle": "Gefechte"
+    "navTitle": "Gefechte",
+    "list": {
+        "headline": "Gefechte mit Beteiligung unseres Imperiums",
+        "none": "No encounters have happened so far."
+    }
 }

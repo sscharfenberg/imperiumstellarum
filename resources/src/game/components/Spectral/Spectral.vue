@@ -1,11 +1,11 @@
 <script>
 /******************************************************************************
- * PageComponent: StarSpectral
+ * Component: Spectral
  *****************************************************************************/
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 export default {
-    name: "StarSpectral",
+    name: "Spectral",
     props: {
         spectral: String,
     },

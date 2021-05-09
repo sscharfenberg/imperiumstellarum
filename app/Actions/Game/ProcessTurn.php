@@ -329,7 +329,7 @@ class ProcessTurn
     public function handle(Game $game, Turn $turn)
     {
         $start = hrtime(true);
-        $turnSlug = 'g'.$game->number.'t'.$turn->number;
+        $turnSlug = 'g'.$game->number.'t'.($turn->number + 1);
         Log::channel('turn')->info("TURN PROCESSING $turnSlug - START");
         if (!$this->dryRun) {
             $game->processing = true;

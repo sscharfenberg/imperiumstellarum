@@ -7,7 +7,7 @@ import { computed, ref } from "vue";
 import AppCheckbox from "Components/Checkbox/AppCheckbox";
 import Icon from "Components/Icon/Icon";
 import MailboxOverviewRenderMessage from "../Mailbox/MailboxOverviewRenderMessage";
-import MailboxPagination from "Pages/Messages/Mailbox/MailboxPagination";
+import Pagination from "Components/Pagination/Pagination";
 import ReportMessageModal from "Pages/Messages/Report/ReportMessageModal";
 export default {
     name: "MailboxOverview",
@@ -19,7 +19,7 @@ export default {
         AppCheckbox,
         Icon,
         MailboxOverviewRenderMessage,
-        MailboxPagination,
+        Pagination,
         ReportMessageModal,
     },
     setup(props) {
@@ -101,11 +101,13 @@ export default {
 </script>
 
 <template>
-    <mailbox-pagination
+    <pagination
         v-if="messages.length > 0"
         :current-page="page"
         :per-page="perPage"
-        :num-messages="messages.length"
+        :num-items="messages.length"
+        message-key="messages.mailbox.pagination.messages"
+        per-page-key="messages.mailbox.pagination.perPage"
         @changepage="onPageChange"
         @changeperpage="onPerPageChange"
     />
