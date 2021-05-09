@@ -218,7 +218,8 @@ class FormatApiResponseService {
             'id' => $player->id,
             'ticker' => $player->ticker,
             'name' => $player->name,
-            'colour' => $player->colour
+            'colour' => $player->colour,
+            'dead' => $player->dead
         ];
         if ($withLocale) $formattedPlayer['locale'] = $player->user->locale;
         return $formattedPlayer;
@@ -503,7 +504,8 @@ class FormatApiResponseService {
         return [
             'id' => $encounter->id,
             'turn' => $encounter->gameTurn->number,
-            'starId' => $encounter->star_id
+            'starId' => $encounter->star_id,
+            'ownerId' => $encounter->owner_id
         ];
     }
 

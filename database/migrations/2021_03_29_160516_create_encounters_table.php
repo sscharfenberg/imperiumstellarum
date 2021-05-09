@@ -21,6 +21,7 @@ class CreateEncountersTable extends Migration
             $table->uuid('game_id');
             $table->uuid('turn_id');
             $table->uuid('star_id');
+            $table->uuid('owner_id');
             $table->timestamp('processed_at')->nullable();
             $table->enum('winner', ['attacker','defender','draw'])->nullable();
             $table->foreign('game_id')->references('id')->on('games')
@@ -28,6 +29,8 @@ class CreateEncountersTable extends Migration
             $table->foreign('turn_id')->references('id')->on('turns')
                 ->onDelete('cascade');
             $table->foreign('star_id')->references('id')->on('stars')
+                ->onDelete('cascade');
+            $table->foreign('owner_id')->references('id')->on('players')
                 ->onDelete('cascade');
             $table->timestamps();
         });

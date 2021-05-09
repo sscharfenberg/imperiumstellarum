@@ -41,6 +41,24 @@ export default {
     },
 
     /**
+     * @function SET encounter stars
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Array} payload
+     */
+    SET_STARS: (state, payload) => {
+        state.stars = payload;
+    },
+
+    /**
+     * @function SET player relations
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Array} payload
+     */
+    SET_RELATIONS: (state, payload) => {
+        state.relations = payload;
+    },
+
+    /**
      * @function SET encounter turn
      * @param {Object} state - vuex module "encounters" state
      * @param {Array} payload

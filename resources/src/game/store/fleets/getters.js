@@ -26,6 +26,7 @@ export default {
     shipById: (state) => (shipId) =>
         state.ships.find((ship) => ship.id === shipId) || {},
 
+    // get player by id
     playerById: (state) => (playerId) =>
         state.players.find((player) => player.id === playerId) || {},
 

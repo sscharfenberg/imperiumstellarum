@@ -4,10 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
+import EncounterListRenderSingle from "./List/EncounterListRenderSingle";
 import GameHeader from "Components/Header/GameHeader";
 export default {
     name: "PageEncounters",
-    components: { GameHeader },
+    components: { EncounterListRenderSingle, GameHeader },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.encounters.requesting);
@@ -27,15 +28,10 @@ export default {
     <game-header area="encounters" />
     {{ encounters }}
     <ul>
-        <li v-for="encounter in encounters" :key="encounter.id">
-            <router-link
-                :to="{
-                    name: 'EncounterDetails',
-                    params: { encounterId: encounter.id },
-                }"
-            >
-                {{ encounter.id }}
-            </router-link>
-        </li>
+        <encounter-list-render-single
+            v-for="encounter in encounters"
+            :key="encounter.id"
+            :encounter="encounter"
+        />
     </ul>
 </template>

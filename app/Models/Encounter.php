@@ -12,11 +12,13 @@ use App\Http\Traits\UsesUuid;
  * @property string $game_id
  * @property string $turn_id
  * @property string $star_id
+ * @property string $owner_id
  * @property \Illuminate\Support\Carbon $processed_at
  * @property string $winner
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Star $star
  * @property-read \App\Models\Turn $turn
+ * @property-read \App\Models\Player $originalOwner
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter query()
@@ -24,6 +26,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereTurnId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereStarId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereProcessedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereWinner($value)
  * @mixin \Eloquent
@@ -67,6 +70,7 @@ class Encounter extends Model
         'game_id',
         'turn_id',
         'star_id',
+        'owner_id',
         'processed_at',
     ];
 
@@ -126,6 +130,14 @@ class Encounter extends Model
     public function participants()
     {
         return $this->hasMany(EncounterParticipant::class, 'encounter_id', 'id');
+    }
+
+    /**
+     * Get the original owner of the star, pre-encounter processing
+     */
+    public function originalOwner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
 }

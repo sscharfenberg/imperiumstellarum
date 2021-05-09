@@ -7,6 +7,7 @@ use App\Models\Encounter;
 use App\Models\MessageReport;
 use App\Models\Player;
 use App\Models\PlayerRelation;
+use App\Models\Star;
 use App\Services\ApiService;
 use App\Services\EncounterService;
 use App\Services\FormatApiResponseService;
@@ -33,12 +34,16 @@ class EncountersController extends Controller
         $player = Player::find(Auth::user()->selected_player);
         $gameId = $request->route('game');
         $allPlayers = Player::where('game_id', $gameId)
-            ->where('dead', false)
             ->with('user')
             ->get();
         $gameRelations = PlayerRelation::where('game_id', $gameId)->get();
         $encounters = $e->getPlayerEncounters($player, $gameId);
-
+        $encounterStarIds = $encounters->map( function ($encounter) {
+            return $encounter->star_id;
+        });
+        $stars = Star::where('game_id', '=', $gameId)
+            ->whereIn('id', $encounterStarIds)
+            ->get();
         $returnData = [
             'encounters' => $encounters->map(function ($encounter) use ($f) {
                 return $f->formatEncounter($encounter);
@@ -47,6 +52,9 @@ class EncountersController extends Controller
                 return $f->formatPlayer($player);
             })->values(),
             'relations' => $p->formatAllPlayerRelations($player, $gameRelations, $allPlayers),
+            'stars' => $stars->map( function ($star) use ($f) {
+                return $f->formatStar($star);
+            })
         ];
 
         return response()->json(array_merge($a->defaultData($request), $returnData));

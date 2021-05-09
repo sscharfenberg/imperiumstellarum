@@ -14,6 +14,8 @@ export default {
     encounters: [],
     encounterDetails: {},
     players: [],
+    stars: [],
+    relations: [],
     renderTurn: 0,
     playing: false,
 };
