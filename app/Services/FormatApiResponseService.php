@@ -505,7 +505,8 @@ class FormatApiResponseService {
             'id' => $encounter->id,
             'turn' => ($encounter->gameTurn->number + 1),
             'starId' => $encounter->star_id,
-            'ownerId' => $encounter->owner_id
+            'ownerId' => $encounter->original_owner_id,
+            'starName' => $encounter->original_name
         ];
     }
 

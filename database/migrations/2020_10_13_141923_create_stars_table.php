@@ -24,7 +24,7 @@ class CreateStarsTable extends Migration
             $table->unsignedTinyInteger('coord_y');
             $table->boolean('home_system');
             $table->char('spectral', 1);
-            $table->string('name', 40);
+            $table->string('name', config('rules.stars.name.max'));
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
             $table->foreign('player_id')->references('id')->on('players')

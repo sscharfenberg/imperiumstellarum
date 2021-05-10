@@ -12,7 +12,8 @@ use App\Http\Traits\UsesUuid;
  * @property string $game_id
  * @property string $turn_id
  * @property string $star_id
- * @property string $owner_id
+ * @property string $original_owner_id
+ * @property string $original_name
  * @property \Illuminate\Support\Carbon $processed_at
  * @property string $winner
  * @property-read \App\Models\Game $game
@@ -26,7 +27,8 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereTurnId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereStarId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereOriginalOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereOriginalName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereProcessedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereWinner($value)
  * @mixin \Eloquent
@@ -41,6 +43,8 @@ use App\Http\Traits\UsesUuid;
  * @property-read int|null $participants_count
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereUpdatedAt($value)
+ * @property string $owner_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Encounter whereOwnerId($value)
  */
 class Encounter extends Model
 {
@@ -70,7 +74,8 @@ class Encounter extends Model
         'game_id',
         'turn_id',
         'star_id',
-        'owner_id',
+        'original_owner_id',
+        'original_name',
         'processed_at',
     ];
 

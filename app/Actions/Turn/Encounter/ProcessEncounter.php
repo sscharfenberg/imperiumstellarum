@@ -53,7 +53,8 @@ class ProcessEncounter
             'game_id' => $encounter['game_id'],
             'turn_id' => $turnId,
             'star_id' => $encounter['star']['id'],
-            'owner_id' => $encounter['star']['owner']['id']
+            'original_owner_id' => $encounter['star']['owner']['id'],
+            'original_name' => $encounter['star']['name']
         ]);
 
         // create the encounter participants

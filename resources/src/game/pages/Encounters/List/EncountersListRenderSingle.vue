@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import EncountersListStar from "./EncountersListStar";
 import Spectral from "Components/Spectral/Spectral";
 export default {
     name: "EncountersListRenderSingle",
@@ -13,7 +14,7 @@ export default {
             required: true,
         },
     },
-    components: { Spectral },
+    components: { EncountersListStar, Spectral },
     setup(props) {
         const store = useStore();
         const star = computed(() =>
@@ -36,14 +37,20 @@ export default {
         class="encounter"
     >
         <spectral :spectral="star.spectral" />
-        {{ star }}<br />
-        {{ starOwner }}
+        <encounters-list-star
+            :name="encounter.starName"
+            :coord-x="star.x"
+            :coord-y="star.y"
+        />
     </router-link>
 </template>
 
 <style lang="scss" scoped>
 .encounter {
     display: flex;
+    align-items: center;
+
+    min-height: 48px;
 
     text-decoration: none;
 
