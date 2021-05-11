@@ -506,7 +506,10 @@ class FormatApiResponseService {
             'turn' => ($encounter->gameTurn->number + 1),
             'starId' => $encounter->star_id,
             'ownerId' => $encounter->original_owner_id,
-            'starName' => $encounter->original_name
+            'starName' => $encounter->original_name,
+            'participantIds' => $encounter->participants->map( function ($participant) {
+                return $participant->player_id;
+            })
         ];
     }
 

@@ -24,6 +24,7 @@ class EncounterService {
             ->whereHas('participants', function (Builder $query) use ($player) {
                 $query->where('player_id', '=', $player->id);
             })
+            ->with('participants')
             ->get();
     }
 

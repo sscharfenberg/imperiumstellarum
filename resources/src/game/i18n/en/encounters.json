@@ -3,6 +3,7 @@
     "navTitle": "Encounters",
     "list": {
         "headline": "Encounters with involvement of our empire",
-        "none": "No encounters have happened so far."
+        "none": "No encounters have happened so far.",
+        "starOwner": "star owner when the encounter occured: {name}"
     }
 }

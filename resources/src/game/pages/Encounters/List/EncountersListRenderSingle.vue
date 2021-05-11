@@ -4,7 +4,11 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
-import EncountersListStar from "./EncountersListStar";
+import EncountersListStarLocation from "./EncountersListStarLocation";
+import EncountersListStarName from "./EncountersListStarName";
+import EncountersListStarOwner from "./EncountersListStarOwner";
+import EncountersListTurn from "./EncountersListTurn";
+import EncountersListParticipants from "./EncountersListParticipants";
 import Spectral from "Components/Spectral/Spectral";
 export default {
     name: "EncountersListRenderSingle",
@@ -14,7 +18,14 @@ export default {
             required: true,
         },
     },
-    components: { EncountersListStar, Spectral },
+    components: {
+        EncountersListStarLocation,
+        EncountersListStarName,
+        EncountersListStarOwner,
+        EncountersListTurn,
+        EncountersListParticipants,
+        Spectral,
+    },
     setup(props) {
         const store = useStore();
         const star = computed(() =>
@@ -37,10 +48,16 @@ export default {
         class="encounter"
     >
         <spectral :spectral="star.spectral" />
-        <encounters-list-star
-            :name="encounter.starName"
-            :coord-x="star.x"
-            :coord-y="star.y"
+        <encounters-list-turn :number="encounter.turn" />
+        <encounters-list-star-owner
+            :ticker="starOwner.ticker"
+            :name="starOwner.name"
+            :colour="starOwner.colour"
+        />
+        <encounters-list-star-name :name="encounter.starName" />
+        <encounters-list-star-location :coord-x="star.x" :coord-y="star.y" />
+        <encounters-list-participants
+            :participants="encounter.participantIds"
         />
     </router-link>
 </template>
@@ -49,8 +66,11 @@ export default {
 .encounter {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     min-height: 48px;
+    padding: 0 4px 0 0;
+    gap: 4px;
 
     text-decoration: none;
 
@@ -67,6 +87,11 @@ export default {
         color: t("t-light");
     }
 
+    @include respond-to("medium") {
+        padding: 0 8px 0 0;
+        gap: 8px;
+    }
+
     &:hover {
         @include themed() {
             background: radial-gradient(
@@ -76,6 +101,24 @@ export default {
                 t("g-bunker") 100%
             );
             color: t("b-christine");
+        }
+    }
+
+    .encounter-item {
+        display: flex;
+        align-items: center;
+
+        height: 40px;
+        padding: 4px;
+        border: 1px solid;
+
+        @include respond-to("medium") {
+            padding: 8px;
+        }
+
+        @include themed() {
+            background-color: t("g-bunker");
+            border-color: t("g-deep");
         }
     }
 }

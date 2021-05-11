@@ -18,6 +18,15 @@ export default {
     playerById: (state) => (playerId) =>
         state.players.find((player) => player.id === playerId) || {},
 
+    // get relation to player
+    playerRelationByPlayerId: (state) => (playerId) => {
+        const rel = state.relations.find(
+            (player) => player.playerId === playerId
+        );
+        if (!rel) return 1;
+        return rel.effective;
+    },
+
     /**
      * multiples
      */
