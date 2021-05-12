@@ -45,8 +45,8 @@ class EncountersController extends Controller
             ->whereIn('id', $encounterStarIds)
             ->get();
         $returnData = [
-            'encounters' => $encounters->map(function ($encounter) use ($f) {
-                return $f->formatEncounter($encounter);
+            'encounters' => $encounters->map(function ($encounter) use ($f, $player) {
+                return $f->formatPlayerEncounter($encounter, $player);
             }),
             'players' => $allPlayers->map(function ($player) use ($f) {
                 return $f->formatPlayer($player);

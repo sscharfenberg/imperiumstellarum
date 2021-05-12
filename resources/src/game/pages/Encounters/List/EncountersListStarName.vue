@@ -12,5 +12,10 @@ export default {
 </script>
 
 <template>
-    <span class="star__name encounter-item">{{ name }}</span>
+    <span
+        class="star__name encounter-item"
+        :title="$t('encounters.list.starName', { name })"
+        :aria-label="$t('encounters.list.starName', { name })"
+        >{{ name }}</span
+    >
 </template>

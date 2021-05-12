@@ -2,6 +2,7 @@
     "title": "Diplomacy",
     "navTitle": "Diplomacy",
     "explanation": "Each empire can set diplomatic relations to each other, the lowest value is the effective relation. 0 = hostile, 1 = neutral (default), 2 = allied.",
+    "you": "you",
     "status": {
         "0": "Hostile",
         "1": "Neutral",

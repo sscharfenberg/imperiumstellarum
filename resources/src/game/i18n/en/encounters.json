@@ -4,6 +4,9 @@
     "list": {
         "headline": "Encounters with involvement of our empire",
         "none": "No encounters have happened so far.",
-        "starOwner": "star owner when the encounter occured: {name}"
+        "turn": "Encounter occured during turn t{turn}",
+        "starName": "Encounter occured in star system '{name}'",
+        "coords": "Encounter location {x}/{y}",
+        "starOwner": "Star was owned by {name} before the encounter occured."
     }
 }

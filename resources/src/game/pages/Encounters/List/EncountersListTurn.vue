@@ -13,7 +13,11 @@ export default {
 </script>
 
 <template>
-    <span class="encounter-item turn">
+    <span
+        class="encounter-item turn"
+        :title="$t('encounters.list.turn', { turn: number })"
+        :aria-label="$t('encounters.list.turn', { turn: number })"
+    >
         <icon name="turn" />
         {{ number }}
     </span>

@@ -14,7 +14,11 @@ export default {
 </script>
 
 <template>
-    <span class="star__location encounter-item">
+    <span
+        class="star__location encounter-item"
+        :title="$t('encounters.list.coords', { x: coordX, y: coordY })"
+        :aria-label="$t('encounters.list.coords', { x: coordX, y: coordY })"
+    >
         <icon name="location" />
         {{ coordX }}/{{ coordY }}
     </span>

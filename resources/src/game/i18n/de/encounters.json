@@ -4,6 +4,9 @@
     "list": {
         "headline": "Gefechte mit Beteiligung unseres Imperiums",
         "none": "Bislang fanden keine Gefechte statt.",
-        "starOwner": "Besitzer des Sterns zum Zeitpunkt des Gefechtes: :name"
+        "turn": "Gefecht fand während Runde t{turn} statt",
+        "starName": "Gefecht fand in Sternensystem '{name}' statt",
+        "coords": "Gefecht Koordinaten {x}/{y}",
+        "starOwner": "Besitzer des Sterns zum Zeitpunkt des Gefechtes: {name}"
     }
 }

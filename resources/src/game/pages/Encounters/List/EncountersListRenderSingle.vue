@@ -46,6 +46,7 @@ export default {
             params: { encounterId: encounter.id },
         }"
         class="encounter"
+        :class="{ read: encounter.read }"
     >
         <spectral :spectral="star.spectral" />
         <encounters-list-turn :number="encounter.turn" />
@@ -90,6 +91,17 @@ export default {
     @include respond-to("medium") {
         padding: 0 8px 0 0;
         gap: 8px;
+    }
+
+    &.read {
+        @include themed() {
+            background: radial-gradient(
+                ellipse 35px 35px at 25px 25px,
+                transparent 0%,
+                transparent 99%,
+                t("g-deep") 100%
+            );
+        }
     }
 
     &:hover {

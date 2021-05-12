@@ -45,8 +45,8 @@ class EncounterDetailsController extends Controller
         }
 
         $returnData = [
-            'encounters' => $encounters->map(function ($encounter) use ($f) {
-                return $f->formatEncounter($encounter);
+            'encounters' => $encounters->map(function ($encounter) use ($f, $player) {
+                return $f->formatPlayerEncounter($encounter, $player);
             }),
             'encounterDetails' => $f->formatEncounterDetails($encounter),
             'players' => $allPlayers->map(function ($player) use ($f) {

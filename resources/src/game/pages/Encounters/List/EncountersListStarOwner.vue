@@ -21,6 +21,9 @@ export default {
         :title="
             $t('encounters.list.starOwner', { name: `[${ticker}] ${name}` })
         "
+        :aria-label="
+            $t('encounters.list.starOwner', { name: `[${ticker}] ${name}` })
+        "
         >[{{ ticker }}]</span
     >
 </template>

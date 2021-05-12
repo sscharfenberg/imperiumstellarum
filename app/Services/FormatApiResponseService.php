@@ -495,12 +495,16 @@ class FormatApiResponseService {
     }
 
     /**
-     * @function format api response for an encounter
+     * @function format api response for a player's encounter
      * @param Encounter $encounter
+     * @param Player $player
      * @return array
      */
-    public function formatEncounter (Encounter $encounter): array
+    public function formatPlayerEncounter (Encounter $encounter, Player $player): array
     {
+        $participant = $encounter->participants->filter( function($participant) use ($player) {
+            return $participant->player_id === $player->id;
+        })->first();
         return [
             'id' => $encounter->id,
             'turn' => ($encounter->gameTurn->number + 1),
@@ -509,7 +513,8 @@ class FormatApiResponseService {
             'starName' => $encounter->original_name,
             'participantIds' => $encounter->participants->map( function ($participant) {
                 return $participant->player_id;
-            })
+            }),
+            'read' => !!$participant->read
         ];
     }
 

@@ -2,6 +2,7 @@
     "title": "Diplomatie",
     "navTitle": "Diplomatie",
     "explanation": "Jedes Imperium kann diplomatische Beziehungen zum anderen setzen, der niedrigere Wert bestimmt die effektive Beziehung. 0 = Verfeindet, 1 = Neutral (Standard), 2 = Verbündet.",
+    "you": "Sie",
     "status": {
         "0": "Verfeindet",
         "1": "Neutral",
