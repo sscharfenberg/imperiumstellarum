@@ -16,7 +16,7 @@ export default {
     stars: [],
     relations: [],
     // encounters list
-    perPage: savedState.encountersPerPage || 5,
+    perPage: savedState.encountersPerPage || 10,
     // encounter details
     renderTurn: 0,
     playing: false,

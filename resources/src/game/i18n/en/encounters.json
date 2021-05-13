@@ -3,6 +3,7 @@
     "navTitle": "Encounters",
     "list": {
         "headline": "Encounters with involvement of our empire",
+        "explanation": "This page lists all encounters that we have participated in. Encounters are always sorted by turn descending. Encounters you haven't read are marked with a darker background.",
         "none": "No encounters have happened so far.",
         "turn": "Encounter occured during turn t{turn}",
         "starName": "Encounter occured in star system '{name}'",

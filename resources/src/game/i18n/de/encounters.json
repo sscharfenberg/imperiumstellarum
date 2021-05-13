@@ -3,6 +3,7 @@
     "navTitle": "Gefechte",
     "list": {
         "headline": "Gefechte mit Beteiligung unseres Imperiums",
+        "explanation": "Diese Seite listet alle Gefechte auf an denen unser Imperium teilgenommen hat. Gefechte werden immer nach der Runde sortiert in der Sie stattgefunden haben (absteigend). Gefechte die Sie nicht betrachtet haben haben einen dunkleren Hintergrund.",
         "none": "Bislang fanden keine Gefechte statt.",
         "turn": "Gefecht fand während Runde t{turn} statt",
         "starName": "Gefecht fand in Sternensystem '{name}' statt",

@@ -7,9 +7,10 @@ import { onBeforeMount, computed } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
 import EncountersList from "./List/EncountersList";
 import GameHeader from "Components/Header/GameHeader";
+import Popover from "Components/Popover/Popover";
 export default {
     name: "PageEncounters",
-    components: { AreaSection, EncountersList, GameHeader },
+    components: { AreaSection, EncountersList, GameHeader, Popover },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.encounters.requesting);
@@ -30,9 +31,19 @@ export default {
 <template>
     <game-header area="encounters" />
     <area-section
-        :headline="$t('encounters.list.headline')"
+        :headline="
+            $t('encounters.list.headline') +
+            (encounters.length && encounters.length > 0
+                ? ` (${encounters.length})`
+                : '')
+        "
         :requesting="requesting"
     >
+        <template v-slot:aside>
+            <popover align="right">
+                {{ $t("encounters.list.explanation") }}
+            </popover>
+        </template>
         <encounters-list :encounters="encounters" />
     </area-section>
 </template>
