@@ -1,6 +1,6 @@
 <script>
 /******************************************************************************
- * PageComponent: EncountersListRenderSingle
+ * PageComponent: EncounterDetailsMeta
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -11,12 +11,12 @@ import EncountersListTurn from "../EncounterMeta/EncountersListTurn";
 import EncountersListParticipants from "../EncounterMeta/EncountersListParticipants";
 import Spectral from "Components/Spectral/Spectral";
 export default {
-    name: "EncountersListRenderSingle",
+    name: "EncounterDetailsMeta",
     props: {
-        encounter: {
-            type: Object,
-            required: true,
-        },
+        star: Object,
+        turn: Number,
+        participants: Array,
+        ownerId: String,
     },
     components: {
         EncountersListStarLocation,
@@ -28,49 +28,38 @@ export default {
     },
     setup(props) {
         const store = useStore();
-        const star = computed(() =>
-            store.getters["encounters/starById"](props.encounter.starId)
-        );
         const starOwner = computed(() =>
-            store.getters["encounters/playerById"](props.encounter.ownerId)
+            store.getters["encounters/playerById"](props.ownerId)
         );
-        return { star, starOwner };
+        return { starOwner };
     },
 };
 </script>
 
 <template>
-    <router-link
-        :to="{
-            name: 'EncounterDetails',
-            params: { encounterId: encounter.id },
-        }"
-        class="encounter"
-        :class="{ read: encounter.read }"
-    >
+    <div class="encounter-meta">
         <spectral :spectral="star.spectral" />
-        <encounters-list-turn :number="encounter.turn" />
+        <encounters-list-turn :number="turn" />
         <encounters-list-star-owner
             :ticker="starOwner.ticker"
             :name="starOwner.name"
             :colour="starOwner.colour"
         />
-        <encounters-list-star-name :name="encounter.starName" />
+        <encounters-list-star-name :name="star.name" />
         <encounters-list-star-location :coord-x="star.x" :coord-y="star.y" />
-        <encounters-list-participants
-            :participants="encounter.participantIds"
-        />
-    </router-link>
+        <encounters-list-participants :participants="participants" />
+    </div>
 </template>
 
 <style lang="scss" scoped>
-.encounter {
+.encounter-meta {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 
     min-height: 48px;
     padding: 0 4px 0 0;
+    margin: 0 0 8px 0;
     gap: 4px;
 
     text-decoration: none;
@@ -90,48 +79,26 @@ export default {
 
     @include respond-to("medium") {
         padding: 0 8px 0 0;
+        margin: 0 0 16px 0;
         gap: 8px;
     }
+}
 
-    &.read {
-        @include themed() {
-            background: radial-gradient(
-                ellipse 35px 35px at 25px 25px,
-                transparent 0%,
-                transparent 99%,
-                t("g-deep") 100%
-            );
-        }
+.encounter-item {
+    display: flex;
+    align-items: center;
+
+    height: 40px;
+    padding: 4px;
+    border: 1px solid;
+
+    @include respond-to("medium") {
+        padding: 8px;
     }
 
-    &:hover {
-        @include themed() {
-            background: radial-gradient(
-                ellipse 35px 35px at 25px 25px,
-                transparent 0%,
-                transparent 99%,
-                t("g-bunker") 100%
-            );
-            color: t("b-christine");
-        }
-    }
-
-    .encounter-item {
-        display: flex;
-        align-items: center;
-
-        height: 40px;
-        padding: 4px;
-        border: 1px solid;
-
-        @include respond-to("medium") {
-            padding: 8px;
-        }
-
-        @include themed() {
-            background-color: t("g-bunker");
-            border-color: t("g-deep");
-        }
+    @include themed() {
+        background-color: t("g-bunker");
+        border-color: t("g-deep");
     }
 }
 </style>
