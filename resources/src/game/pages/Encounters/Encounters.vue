@@ -13,7 +13,9 @@ export default {
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.encounters.requesting);
-        const encounters = computed(() => store.state.encounters.encounters);
+        const encounters = computed(
+            () => store.getters["encounters/sortedEncounters"]
+        );
         onBeforeMount(() => {
             store.dispatch("encounters/GET_GAME_DATA");
         });

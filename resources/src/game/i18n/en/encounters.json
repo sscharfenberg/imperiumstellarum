@@ -7,6 +7,10 @@
         "turn": "Encounter occured during turn t{turn}",
         "starName": "Encounter occured in star system '{name}'",
         "coords": "Encounter location {x}/{y}",
-        "starOwner": "Star was owned by {name} before the encounter occured."
+        "starOwner": "Star was owned by {name} before the encounter occured.",
+        "pagination": {
+            "messages": "One Encounter|{num} Encounters",
+            "perPage": "per page"
+        }
     }
 }

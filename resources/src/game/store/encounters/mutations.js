@@ -1,7 +1,7 @@
 /******************************************************************************
  * Vuex mutations
  *****************************************************************************/
-//import { saveState } from "@/game/store/persistState";
+import { saveState } from "@/game/store/persistState";
 
 export default {
     /**
@@ -56,6 +56,16 @@ export default {
      */
     SET_RELATIONS: (state, payload) => {
         state.relations = payload;
+    },
+
+    /**
+     * @function SET relations of this player
+     * @param {Object} state - vuex module "messages" state
+     * @param {Number} payload
+     */
+    SET_PER_PAGE: (state, payload) => {
+        state.perPage = payload;
+        saveState(state.perPage, "encountersPerPage");
     },
 
     /**

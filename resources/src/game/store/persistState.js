@@ -27,6 +27,7 @@ const defaultState = {
         out: 10,
         sys: 10,
     },
+    encountersPerPage: 5,
 };
 
 /**

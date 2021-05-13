@@ -7,6 +7,10 @@
         "turn": "Gefecht fand während Runde t{turn} statt",
         "starName": "Gefecht fand in Sternensystem '{name}' statt",
         "coords": "Gefecht Koordinaten {x}/{y}",
-        "starOwner": "Besitzer des Sterns zum Zeitpunkt des Gefechtes: {name}"
+        "starOwner": "Besitzer des Sterns zum Zeitpunkt des Gefechtes: {name}",
+        "pagination": {
+            "messages": "Ein Gefecht|{num} Gefechte",
+            "perPage": "pro Seite"
+        }
     }
 }

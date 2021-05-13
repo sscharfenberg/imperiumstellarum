@@ -32,5 +32,6 @@ export default {
      */
 
     // get encounters
-    inbox: (state) => state.encounters || [],
+    sortedEncounters: (state) =>
+        state.encounters.sort((a, b) => b.turn - a.turn) || [],
 };

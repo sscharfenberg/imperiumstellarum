@@ -1,8 +1,8 @@
 /******************************************************************************
  * Vuex module "messages" state
  *****************************************************************************/
-//import { getState } from "@/game/store/persistState";
-//const savedState = getState();
+import { getState } from "@/game/store/persistState";
+const savedState = getState();
 
 /*
  * get initial module state
@@ -10,12 +10,14 @@
  */
 export default {
     requesting: false,
-    // area meta data
     encounters: [],
     encounterDetails: {},
     players: [],
     stars: [],
     relations: [],
+    // encounters list
+    perPage: savedState.encountersPerPage || 5,
+    // encounter details
     renderTurn: 0,
     playing: false,
 };

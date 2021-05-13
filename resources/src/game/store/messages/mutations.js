@@ -69,7 +69,7 @@ export default {
     },
 
     /**
-     * @function SET relations of this player
+     * @function SET messages per page
      * @param {Object} state - vuex module "messages" state
      * @param {Object} payload
      */
