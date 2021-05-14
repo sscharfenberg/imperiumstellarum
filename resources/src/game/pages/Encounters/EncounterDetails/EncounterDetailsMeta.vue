@@ -57,9 +57,8 @@ export default {
     align-items: center;
     flex-wrap: wrap;
 
-    min-height: 48px;
+    min-height: 56px;
     padding: 0 4px 0 0;
-    margin: 0 0 8px 0;
     gap: 4px;
 
     text-decoration: none;
@@ -68,19 +67,16 @@ export default {
         color map-get($animation-speeds, "fast") linear;
 
     @include themed() {
-        background: radial-gradient(
-            ellipse 35px 35px at 25px 25px,
-            transparent 0%,
-            transparent 99%,
-            t("g-sunken") 100%
-        );
         color: t("t-light");
     }
 
     @include respond-to("medium") {
         padding: 0 8px 0 0;
-        margin: 0 0 16px 0;
         gap: 8px;
+    }
+
+    .spectral {
+        align-self: flex-start;
     }
 }
 

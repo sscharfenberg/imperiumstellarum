@@ -10,8 +10,9 @@ import AreaSection from "Components/AreaSection/AreaSection";
 import GameButton from "Components/Button/GameButton";
 import GameHeader from "Components/Header/GameHeader";
 import EncounterDetailsMeta from "./EncounterDetailsMeta";
-import EncounterDetailsRenderTurn from "Pages/Encounters/EncounterDetails/Turn/EncounterDetailsRenderTurn";
-import EncounterTape from "Pages/Encounters/EncounterDetails/Tape/EncounterTape";
+import EncounterDetailsRenderTurn from "./Turn/EncounterDetailsRenderTurn";
+import EncounterDetailsTurnsNav from "./EncounterDetailsTurnsNav";
+import EncounterTape from "./Tape/EncounterTape";
 import Popover from "Components/Popover/Popover";
 export default {
     name: "EncounterDetails",
@@ -21,6 +22,7 @@ export default {
         GameHeader,
         EncounterDetailsMeta,
         EncounterDetailsRenderTurn,
+        EncounterDetailsTurnsNav,
         EncounterTape,
         Popover,
     },
@@ -46,7 +48,6 @@ export default {
             store.commit("encounters/SET_ENCOUNTER_DETAILS", {});
             store.commit("encounters/SET_TURN", 0);
         });
-        const onTurnClick = (turn) => store.commit("encounters/SET_TURN", turn);
         const currentTurn = computed(() => store.state.encounters.renderTurn);
         const sortedTurnNumbers = computed(() =>
             encounter.value.turns.map((t) => t.turn).sort((a, b) => a - b)
@@ -58,7 +59,6 @@ export default {
             encounterId,
             encounter,
             encounterStar,
-            onTurnClick,
             onListviewClick,
             currentTurn,
             sortedTurnNumbers,
@@ -84,43 +84,44 @@ export default {
                 {{ $t("encounters.details.explanation") }}
             </popover>
         </template>
-        <encounter-details-meta
-            v-if="encounterStar && encounterStar.name"
-            :star="encounterStar"
-            :turn="encounter.turn"
-            :participants="encounter.participantIds"
-            :owner-id="encounter.ownerId"
-        />
-        <div v-if="encounter.turns">
-            {{ encounter.turns.length - 1 }} Turns
-            <button
-                v-for="turn in sortedTurnNumbers"
-                :key="turn"
-                @click="onTurnClick(turn)"
-                :class="{ active: turn === currentTurn }"
-            >
-                {{ turn }}
-            </button>
-            <encounter-tape />
-            <br />
-            <encounter-details-render-turn :turn="currentTurn" />
+        <div class="encounter-meta">
+            <encounter-details-meta
+                v-if="encounterStar && encounterStar.name"
+                :star="encounterStar"
+                :turn="encounter.turn"
+                :participants="encounter.participantIds"
+                :owner-id="encounter.ownerId"
+            />
+            <encounter-details-turns-nav
+                v-if="encounter.turns"
+                :turns="sortedTurnNumbers"
+                :current-turn="currentTurn"
+            />
+            <encounter-tape v-if="encounter.turns" />
         </div>
+        <encounter-details-render-turn
+            v-if="encounter.turns"
+            :turn="currentTurn"
+        />
     </area-section>
 </template>
 
 <style lang="scss" scoped>
-.active {
-    @include themed() {
-        background-color: t("b-viking");
-        color: t("t-dark");
-    }
-}
-
 .listview {
     margin-right: 4px;
 
     @include respond-to("medium") {
         margin-right: 8px;
+    }
+}
+.encounter-meta {
+    @include themed() {
+        background: radial-gradient(
+            ellipse 35px 35px at 25px 25px,
+            transparent 0%,
+            transparent 99%,
+            t("g-sunken") 100%
+        );
     }
 }
 </style>

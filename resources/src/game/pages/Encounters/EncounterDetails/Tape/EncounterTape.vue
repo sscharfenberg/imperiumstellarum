@@ -4,9 +4,10 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
+import GameButton from "Components/Button/GameButton";
 export default {
     name: "EncounterTape",
-    components: {},
+    components: { GameButton },
     setup() {
         const store = useStore();
         const timer = ref(null);
@@ -65,29 +66,40 @@ export default {
 
 <template>
     <nav class="encounter-tape">
-        <button
-            :class="{ active: playing }"
+        <game-button
+            text-string="Play"
+            icon-name="play"
+            :primary="playing"
             @click="onPlayClicked"
             :disabled="currentTurn === maxTurn"
-        >
-            Play
-        </button>
-        <button
-            :class="{ active: !playing && currentTurn !== 0 }"
+        />
+        <game-button
+            text-string="Pause"
+            icon-name="pause"
+            :primary="!playing && currentTurn !== 0"
             @click="onPauseClicked"
-        >
-            Pause
-        </button>
-        <button
+        />
+        <game-button
+            text-string="Stop"
+            icon-name="stop"
             @click="onStopClicked"
-            :class="{ active: !playing && currentTurn === 0 }"
-        >
-            Stop
-        </button>
+            :primary="!playing && currentTurn === 0"
+        />
     </nav>
 </template>
 
 <style lang="scss" scoped>
+.encounter-tape {
+    display: flex;
+
+    padding: 0 8px 8px 8px;
+    gap: 2px;
+
+    @include respond-to("medium") {
+        padding: 0 16px 16px 16px;
+        gap: 4px;
+    }
+}
 .active {
     @include themed() {
         background-color: t("b-viking");
