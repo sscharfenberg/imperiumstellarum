@@ -3,7 +3,7 @@
  * Page: EncounterTape
  *****************************************************************************/
 import { useStore } from "vuex";
-import { computed, ref } from "vue";
+import { computed, ref, onUnmounted } from "vue";
 import GameButton from "Components/Button/GameButton";
 export default {
     name: "EncounterTape",
@@ -51,6 +51,13 @@ export default {
             store.commit("encounters/SET_TAPE_PLAYING", false);
             window.clearInterval(timer.value);
         };
+
+        /**
+         * clean up when unmounted
+         */
+        onUnmounted(() => {
+            window.clearInterval(timer.value);
+        });
 
         return {
             playing,

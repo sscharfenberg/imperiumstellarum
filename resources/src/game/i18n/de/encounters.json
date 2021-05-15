@@ -21,6 +21,9 @@
         "turns": {
             "label": "{num} Runden",
             "turn": "Springe zu Gefechtsrunde {number}"
-        }
+        },
+        "turn": "Runde {turn}",
+        "attacker": "Angreifer",
+        "defender": "Verteidiger"
     }
 }

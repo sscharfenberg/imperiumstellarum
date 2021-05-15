@@ -21,6 +21,9 @@
         "turns": {
             "label": "{num} Turns",
             "turn": "Go to encounter turn {number}"
-        }
+        },
+        "turn": "Turn {turn}",
+        "attacker": "Attacker",
+        "defender": "Defender"
     }
 }

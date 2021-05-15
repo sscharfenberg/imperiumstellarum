@@ -84,6 +84,16 @@ export default {
                 color: t("t-dark");
             }
         }
+
+        &:hover:not(.turns__turn--active) {
+            cursor: pointer;
+
+            @include themed() {
+                background: t("g-bunker");
+                color: t("b-viking");
+                border-color: t("g-raven");
+            }
+        }
     }
 }
 </style>
