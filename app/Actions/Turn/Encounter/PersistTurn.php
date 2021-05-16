@@ -80,7 +80,7 @@ class PersistTurn
                     'acc' => $fleet['turn_acceleration']
                 ];
             })->toArray()),
-            'damage' => $encounter['damage_log']
+            'damage' => $encounter['damage_log']->values()->toArray()
         ]);
         Log::channel('encounter')
             ->notice(

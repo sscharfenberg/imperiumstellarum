@@ -9,6 +9,7 @@ export default {
         fleetId: String,
         row: Number,
         col: Number,
+        damage: Number,
         name: String,
         ships: Object,
         ownerId: String,
@@ -43,6 +44,7 @@ export default {
             :name="name"
             :ships="ships"
             :owner-id="ownerId"
+            :damage="damage"
             :column-width="columnWidth[col]"
         />
     </div>

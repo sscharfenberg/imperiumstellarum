@@ -25,7 +25,6 @@ export default {
         });
         const attacker = computed(() => {
             const data = turnData.value.attacker;
-            console.log(data);
             return data.sort((a, b) => a.row - b.row);
         });
 
@@ -38,7 +37,9 @@ export default {
          */
         const updateColumnWidths = () => {
             if (fleetRow.value) {
-                rowWidth.value = fleetRow.value.clientWidth;
+                // for some reason, padding is not subtracted from clientWidth
+                const padding = window.innerWidth > 768 ? 16 : 8;
+                rowWidth.value = fleetRow.value.clientWidth - padding;
                 let width = rowWidth.value;
                 let columns = 11;
                 columnWidth.value = [];
@@ -53,8 +54,19 @@ export default {
                     columns--;
                     columnWidth.value.push(a);
                 }
-                console.log("updated column widths to", columnWidth.value);
             }
+        };
+
+        /**
+         * @function get fleet damage from damage array
+         */
+        const getFleetDamage = (id) => {
+            const f = turnData.value.damage.find(
+                (fleet) => fleet.fleetId === id
+            );
+            let dmg = 0;
+            if (f && f.damage) dmg = f.damage;
+            return dmg;
         };
 
         /**
@@ -66,15 +78,34 @@ export default {
                 "resize",
                 debounce(() => updateColumnWidths(), 500)
             );
+            // since the drawer potentially changes how much space the arena has,
+            // update the columnWidths
+            document
+                .getElementById("toggleDrawerBtn")
+                .addEventListener("click", updateColumnWidths);
         });
+
+        /**
+         * @function remove event listeners when unmounted to prevent memory leaks
+         */
         onUnmounted(() => {
             window.removeEventListener(
                 "resize",
                 debounce(() => updateColumnWidths(), 500)
             );
+            document
+                .getElementById("toggleDrawerBtn")
+                .removeEventListener("click", updateColumnWidths);
         });
 
-        return { fleetRow, columnWidth, turnData, defender, attacker };
+        return {
+            fleetRow,
+            columnWidth,
+            turnData,
+            defender,
+            attacker,
+            getFleetDamage,
+        };
     },
 };
 </script>
@@ -93,6 +124,7 @@ export default {
                 :name="fleet.name"
                 :row="fleet.row"
                 :col="fleet.col"
+                :damage="getFleetDamage(fleet.fleetId)"
                 :ships="fleet.ships"
                 :owner-id="fleet.playerId"
                 :column-width="columnWidth"
@@ -110,6 +142,7 @@ export default {
                 :name="fleet.name"
                 :row="fleet.row"
                 :col="fleet.col"
+                :damage="getFleetDamage(fleet.fleetId)"
                 :ships="fleet.ships"
                 :owner-id="fleet.playerId"
                 :column-width="columnWidth"
