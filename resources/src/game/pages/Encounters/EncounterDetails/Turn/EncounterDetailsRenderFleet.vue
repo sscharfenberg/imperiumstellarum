@@ -56,7 +56,8 @@ export default {
     overflow: hidden;
 
     border: 1px solid transparent;
-    // this is set on the parent EocuntgerDetailsFleetRow.vue
+
+    /* this is set on the parent EocunterDetailsFleetRow.vue */
     margin-left: var(--fleet-margin);
 
     transition: margin-left map-get($animation-speeds, "fast") linear;
@@ -149,37 +150,19 @@ export default {
 
     &__damage {
         display: block;
-        position: absolute;
-        right: 0;
-        bottom: 0;
+
+        border-top: 1px solid transparent;
 
         font-weight: 600;
         text-align: center;
 
-        //animation: fleet-damage map-get($animation-speeds, "delayed") ease-out;
-        //animation-fill-mode: forwards;
-
         @include themed() {
             color: t("s-error");
+            border-color: t("g-deep");
 
             text-shadow: 1px 1px t("s-warning"), -1px 1px t("s-warning"),
                 1px -1px t("s-warning"), -1px -1px t("s-warning");
         }
-    }
-}
-</style>
-
-<style lang="scss">
-@keyframes fleet-damage {
-    0% {
-        bottom: 0;
-    }
-    80% {
-        bottom: 80%;
-        opacity: 0;
-    }
-    100% {
-        bottom: 100%;
     }
 }
 </style>
