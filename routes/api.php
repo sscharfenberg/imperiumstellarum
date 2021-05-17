@@ -107,6 +107,9 @@ Route::middleware([
         [\App\Http\Controllers\Game\Encounters\EncountersController::class, 'gameData']);
     Route::get('/game/{game}/encounters/{encounter}/details',
         [\App\Http\Controllers\Game\Encounters\EncounterDetailsController::class, 'getDetails']);
+    // mark encounter as read
+    Route::post('/game/{game}/encounters/{encounter}/read',
+        [\App\Http\Controllers\Game\Encounters\ReadEncounterController::class, 'handle']);
 
 });
 

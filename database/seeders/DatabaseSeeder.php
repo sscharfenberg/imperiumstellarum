@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
              * is commented out, otherwise userid 1,2,3 will not get any fleets/ships
              * if you use either EncounterSeeder, uncomment $players->filter function.
              */
-            EncounterSeeder::class,
+            //EncounterSeeder::class,
             //EncounterSeederKillPlayer::class,
             /**
              * => use WinnerSeeder to simulate a game that ends once the turn is calculated.

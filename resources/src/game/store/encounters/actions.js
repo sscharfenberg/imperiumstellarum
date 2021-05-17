@@ -47,9 +47,10 @@ export default {
     /**
      * @function GET encounter details
      * @param {Function} commit - Vuex commit
+     * @param {Function} dispatch - Vuex dispatch
      * @param {String} payload - encounterId
      */
-    GET_ENCOUNTER_DETAILS: function ({ commit }, payload) {
+    GET_ENCOUNTER_DETAILS: function ({ commit, dispatch }, payload) {
         commit("SET_REQUESTING", true);
         window.axios
             .get(`/api/game/${getGameId()}/encounters/${payload}/details`)
@@ -65,6 +66,48 @@ export default {
                     commit("SET_STARS", response.data.stars);
                     commit("SET_RELATIONS", response.data.relations);
                     commit("SET_TURN", 0);
+                    if (!response.data.encounterDetails.read) {
+                        dispatch("SET_ENCOUNTER_READ", {
+                            encounterId: payload,
+                            status: true,
+                        });
+                    }
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                if (e.response.data.error)
+                    notify(e.response.data.error, "error");
+                else if (e.response.data.message)
+                    notify(e.response.data.message, "error");
+            })
+            .finally(() => {
+                commit("SET_REQUESTING", false);
+            });
+    },
+
+    /**
+     * @function SET READ/UNREAD for an encounter
+     * @param {Function} commit - Vuiex commit
+     * @param {Object} payload
+     * @param {String} payload.encounterId
+     * @param {Boolean} payload.status
+     * @constructor
+     */
+    SET_ENCOUNTER_READ: function ({ commit }, payload) {
+        commit("SET_REQUESTING", true);
+        window.axios
+            .post(
+                `/api/game/${getGameId()}/encounters/${
+                    payload.encounterId
+                }/read`,
+                {
+                    status: payload.status,
+                }
+            )
+            .then((response) => {
+                if (response.status === 200) {
+                    commit("SET_ENCOUNTERS", response.data.encounters);
                 }
             })
             .catch((e) => {
