@@ -87,7 +87,7 @@ export default {
     },
 
     /**
-     * @function SET READ/UNREAD for an encounter
+     * @function SET READ for an encounter
      * @param {Function} commit - Vuiex commit
      * @param {Object} payload
      * @param {String} payload.encounterId
@@ -106,8 +106,12 @@ export default {
                 }
             )
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 200 && payload.status) {
                     commit("SET_ENCOUNTERS", response.data.encounters);
+                }
+                if (response.status === 200 && !payload.status) {
+                    commit("SET_ENCOUNTERS", response.data.encounters);
+                    notify(response.data.message, "success");
                 }
             })
             .catch((e) => {

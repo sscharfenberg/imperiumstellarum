@@ -18,6 +18,7 @@
         "headline": "Encounter Details",
         "explanation": "Use the play/pause buttons to view what's happend in this encounter, or check specific turns by clicking on the appropriate turn. Click on 'Stop' resets the turn back to 0.",
         "toListview": "Overview",
+        "markunread": "Mark unread",
         "turns": {
             "label": "{num} Turns",
             "turn": "Go to encounter turn {number}"

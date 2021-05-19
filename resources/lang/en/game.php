@@ -289,6 +289,9 @@ For now, you can still check the starmap, view encounters or read messages, but 
         'navTitle' => 'Encounters',
         'errors' => [
             'noEncounter' => 'This encounter does not exist or you are not involved.',
+        ],
+        'success' => [
+            'markunread' => 'Encounter has been set to unread'
         ]
     ],
 

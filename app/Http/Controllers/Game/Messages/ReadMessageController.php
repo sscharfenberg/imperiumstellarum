@@ -55,7 +55,7 @@ class ReadMessageController extends Controller
         // return fresh json to client
         $inbox = $m->getPlayerInbox($player->id, $gameId);
         return response()->json([
-            'inbox' => $inbox = $inbox->map(function ($message) use ($f, $player) {
+            'inbox' => $inbox->map(function ($message) use ($f, $player) {
                 return $f->formatInboxMessage($message, $player->id);
             }),
             'unreadMessages' => $a->unreadMessages($player->id, $gameId)

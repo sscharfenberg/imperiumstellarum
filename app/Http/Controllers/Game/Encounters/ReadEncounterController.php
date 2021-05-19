@@ -55,6 +55,7 @@ class ReadEncounterController extends Controller
                 return $f->formatPlayerEncounter($encounter, $player);
             }),
         ];
+        if ($status === false) $returnData['message'] = __('game.encounters.success.markunread');
 
         return response()->json(array_merge($a->defaultData($request), $returnData));
 

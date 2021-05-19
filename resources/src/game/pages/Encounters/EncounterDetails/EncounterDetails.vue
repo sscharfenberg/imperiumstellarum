@@ -30,7 +30,6 @@ export default {
         const store = useStore();
         const route = useRoute();
         const requesting = computed(() => store.state.encounters.requesting);
-        const encounterId = route.params.encounterId;
         const encounter = computed(
             () => store.state.encounters.encounterDetails
         );
@@ -53,15 +52,20 @@ export default {
             encounter.value.turns.map((t) => t.turn).sort((a, b) => a - b)
         );
         const onListviewClick = () => router.push({ name: "Encounters" });
+        const onUnreadClick = () =>
+            store.dispatch("encounters/SET_ENCOUNTER_READ", {
+                encounterId: route.params.encounterId,
+                status: false,
+            });
 
         return {
             requesting,
-            encounterId,
             encounter,
             encounterStar,
-            onListviewClick,
             currentTurn,
             sortedTurnNumbers,
+            onListviewClick,
+            onUnreadClick,
         };
     },
 };
@@ -75,10 +79,16 @@ export default {
     >
         <template v-slot:aside>
             <game-button
-                class="listview"
+                class="action"
                 icon-name="chevron_left"
                 :text-string="$t('encounters.details.toListview')"
                 @click="onListviewClick"
+            />
+            <game-button
+                class="action"
+                icon-name="markunread"
+                :text-string="$t('encounters.details.markunread')"
+                @click="onUnreadClick"
             />
             <popover align="right">
                 {{ $t("encounters.details.explanation") }}
@@ -107,7 +117,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.listview {
+.action {
     margin-right: 4px;
 
     @include respond-to("medium") {

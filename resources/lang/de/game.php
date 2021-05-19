@@ -289,6 +289,9 @@ Sie können nach wie vor die Sternenkarte betrachten und sich Gefechte anschauen
         'navTitle' => 'Gefechte',
         'errors' => [
             'noEncounter' => 'Dieses Gefecht existiert nicht oder Sie haben nicht teilgenommen.',
+        ],
+        'success' => [
+            'markunread' => 'Gefecht wurde als \'nicht gelesen\' markiert.'
         ]
     ],
 

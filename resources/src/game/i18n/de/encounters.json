@@ -18,6 +18,7 @@
         "headline": "Gefechtsdetails",
         "explanation": "Nutzen Sie die play/pause buttons um die Ereignisse des Gefechts zu betrachten; oder schauen Sie sich die Situation in bestimmten Gefechtsrunden an indem Sie auf die entsprechende Runde klicken. Ein Klick auf 'Stop' setzt die Gefechtsrunde auf 0 zurück.",
         "toListview": "Übersicht",
+        "markunread": "Als ungelesen markieren",
         "turns": {
             "label": "{num} Runden",
             "turn": "Springe zu Gefechtsrunde {number}"
