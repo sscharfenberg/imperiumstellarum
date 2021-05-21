@@ -92,6 +92,7 @@ export default {
             <game-button
                 :text-string="$t('starchart.focus.go')"
                 icon-name="location"
+                :disabled="!focusCoordX || !focusCoordY"
                 @click="handleSubmitCoords"
             />
         </nav>
