@@ -19,6 +19,7 @@ class GameSeeder extends Seeder
             'id' => '0dd7c0fa-d049-46c9-bf31-1cdc819663f9',
             'number' => 2,
             'active' => false,
+            'can_enlist' => true,
             'turn_duration' => 1,
             'max_players' => 32,
             'dimensions' => 40,

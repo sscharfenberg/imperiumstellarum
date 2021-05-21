@@ -52,11 +52,11 @@ class DashboardController extends Controller
             ->where('active', 'false')
             ->with('stars')
             ->with('players')
-            ->get()
-            ->reject( function($game) {
-                return count($game->players) >= $game->max_players
-                    || $game->players->contains('user_id', Auth::user()->id);
-            });
+            ->get();
+        $availableGames = $availableGames->filter(function ($game) {
+            return count($game->players) < $game->max_players
+                && !$game->players->contains('user_id', Auth::user()->id);
+        });
         $players = Auth::user()->players;
         return View::make('app.dashboard', compact('sessions', 'availableGames', 'players'));
     }

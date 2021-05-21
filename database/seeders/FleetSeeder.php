@@ -45,8 +45,7 @@ class FleetSeeder extends Seeder
     public function run()
     {
         $games = [
-            Game::find('6c28e221-2bed-4b79-8847-e21aa640dbf9'),
-            Game::find('0dd7c0fa-d049-46c9-bf31-1cdc819663f9')
+            Game::find('6c28e221-2bed-4b79-8847-e21aa640dbf9')
         ];
         foreach($games as $game) {
             $players = $game->players;

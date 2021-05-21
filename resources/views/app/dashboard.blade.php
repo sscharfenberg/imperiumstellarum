@@ -162,13 +162,13 @@
                                         </time>
                                     </td>
                                     <td class="games__enlist">
-                                        <button class="app-btn small both" data-modal="quitGameModal" @if($player->game->finished) disabled @endif>
+                                        <button class="app-btn small both" data-modal="quitGameModal-{{ $player->game->id }}" @if($player->game->finished) disabled @endif>
                                             <x-icon name="delete" size="2" />
                                             <span>
                                                 @lang('app.dashboard.players.quit')
                                             </span>
                                         </button>
-                                        <x-modal title="{{ __('app.dashboard.players.quitTitle', ['game' => $player->game->number]) }}" ref-id="quitGameModal">
+                                        <x-modal title="{{ __('app.dashboard.players.quitTitle', ['game' => $player->game->number]) }}" ref-id="quitGameModal-{{ $player->game->id }}">
                                             @lang('app.dashboard.players.quitWarning')
                                             <div class="app-form in-section">
                                                 <div class="form-row">

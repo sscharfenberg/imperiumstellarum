@@ -123,7 +123,7 @@ class EnlistController extends Controller
     public function delete (Request $request, $playerId): RedirectResponse
     {
         $player = Player::find($playerId);
-        if (!$player || !$player->game->finished) {
+        if (!$player || $player->game->finished) {
             return redirect()->back()
                 ->with('status', __('app.quit.notFound'))
                 ->with('severity', 'error');

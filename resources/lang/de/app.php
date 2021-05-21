@@ -104,7 +104,7 @@ return [
                 'game' => 'Spiel g:game',
                 'start' => 'Spiel startet am :start',
                 'players' => ':players/:max eingeschriebene Spieler',
-                'none' => 'Keine demnächst startenden SpieleNo upcoming games yet.'
+                'none' => 'Keine demnächst startenden Spiele.'
             ],
             'finished' => [
                 'headline' => 'Zuletzt beendete Spiele',
