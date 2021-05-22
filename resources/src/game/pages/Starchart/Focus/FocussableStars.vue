@@ -68,7 +68,6 @@ export default {
         <nav class="focus-coords">
             <label for="focusX">{{ $t("starchart.focus.coords") }}</label>
             <input
-                id="focusX"
                 class="coord"
                 type="number"
                 v-model="focusCoordX"
