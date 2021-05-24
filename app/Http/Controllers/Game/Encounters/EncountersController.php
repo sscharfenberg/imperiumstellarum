@@ -40,7 +40,7 @@ class EncountersController extends Controller
         $encounters = $e->getPlayerEncounters($player, $gameId);
         $encounterStarIds = $encounters->map( function ($encounter) {
             return $encounter->star_id;
-        });
+        })->unique();
         $stars = Star::where('game_id', '=', $gameId)
             ->whereIn('id', $encounterStarIds)
             ->get();

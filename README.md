@@ -8,17 +8,14 @@ A turn-based multiplayer browser game of galactic conquest. Check [https://imper
 * PHP 7.3+
 * NodeJS ^15.8.0, npm ^7.5.1
 
-## WIP
+## Project Status
 
-This is a rough and early work in progress, it is far from ready to be used in any implementation whatsoever - the game is not yet in a playable state. 
-There are lots of areas that don't work yet - including elementary stuff like fleet combat etc - lots of stuff will break again and again. 
-I will create pre-releases whenever one or more areas are done.
+The game is in pre-Alpha - it is playable and contains all major features. It is not stress tested, though - so there probably are lots of bugs.
  
 Use at your own risk.
 
-Latest Pre-release is 0.5.0.
-* [Github release](https://github.com/sscharfenberg/imperiumstellarum/releases/tag/0.5.0)
-* [Blog Post](https://discuss.imperiumstellarum.io/index.php?/blogs/entry/7-050-pre-release-encounters/)
+* [Releases](https://github.com/sscharfenberg/imperiumstellarum/releases/)
+* [Devblog](https://discuss.imperiumstellarum.io/index.php?/blogs/blog/1-devblog/)
 
 ## Usage: npm Scripts
 
