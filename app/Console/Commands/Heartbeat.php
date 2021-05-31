@@ -59,8 +59,9 @@ class Heartbeat extends Command
             // check if game needs to be started
             if (now() > $game->start_date && count($game->turns) === 0) {
                 // skip if the game has no players.
-                if (count($game->players) === 0) {
-                    Log::channel('game')->notice("HEARTBEAT: Game g$game->number has no players, skipping.");
+                $numPlayers = count($game->players);
+                if (config('rules.game.minPlayersToStart') > $numPlayers) {
+                    Log::channel('game')->notice("HEARTBEAT: Game g$game->number does not have enough players ($numPlayers), skipping.");
                     break;
                 } else {
                     Log::channel('game')->notice('HEARTBEAT: starting game g'.$game->number);
