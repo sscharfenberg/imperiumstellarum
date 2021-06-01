@@ -92,9 +92,13 @@ class Heartbeat extends Command
                 ->where('due', '<=', now())->first();
             // check if we need to process a turn.
             if (count($game->turns) > 0 && $dueTurn) {
-                Log::channel('game')->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
+                Log::channel('game')
+                    ->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
                 $t = new ProcessTurn;
                 $t->handle($game, $dueTurn);
+            } else {
+                Log::channel('game')
+                    ->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' turn is not yet due for processing.');
             }
         }
 
