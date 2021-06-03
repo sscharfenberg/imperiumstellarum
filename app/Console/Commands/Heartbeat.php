@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Game;
+use App\Models\Turn;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Actions\Game\StartGame;
@@ -43,12 +44,14 @@ class Heartbeat extends Command
     public function handle()
     {
         $start = hrtime(true);
-        Log::channel('turn')->info('HEARTBEAT: startup.');
+        Log::channel('game')
+            ->info('HEARTBEAT: startup.');
 
         /**
          * #1 - start games
          */
-        Log::channel('game')->info("HEARTBEAT: #1 Checking non-active and non-finished games if any need to be started.");
+        Log::channel('game')
+            ->info("HEARTBEAT: #1 Checking non-active and non-finished games if any need to be started.");
         $gamesToStart = Game::where('processing', false)
             ->where('finished', false)
             ->where('active', false)
@@ -61,10 +64,12 @@ class Heartbeat extends Command
                 // skip if the game has no players.
                 $numPlayers = count($game->players);
                 if (config('rules.game.minPlayersToStart') > $numPlayers) {
-                    Log::channel('game')->notice("HEARTBEAT: Game g$game->number does not have enough players ($numPlayers), skipping.");
+                    Log::channel('game')
+                        ->notice("HEARTBEAT: Game g$game->number does not have enough players ($numPlayers), skipping.");
                     break;
                 } else {
-                    Log::channel('game')->notice('HEARTBEAT: starting game g'.$game->number);
+                    Log::channel('game')
+                        ->notice('HEARTBEAT: starting game g'.$game->number);
                     $g = new StartGame;
                     $g->handle($game);
                 }
@@ -87,24 +92,27 @@ class Heartbeat extends Command
             ->get();
         foreach($gamesToProcessTurns as $game) {
             Log::channel('game')->notice('HEARTBEAT: checking g'.$game->number);
-            $dueTurn = $game->turns
+            Log::channel('game')->notice('NOW: '.now());
+            $dueTurn = Turn::where('game_id', '=', $game->id)
                 ->whereNull('processed')
-                ->where('due', '<=', now())->first();
+                ->first();
+
             // check if we need to process a turn.
-            if (count($game->turns) > 0 && $dueTurn) {
+            if (count($game->turns) > 0 && $dueTurn && $dueTurn->due->isPast()) {
                 Log::channel('game')
                     ->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' needs to be processed.');
                 $t = new ProcessTurn;
                 $t->handle($game, $dueTurn);
             } else {
                 Log::channel('game')
-                    ->info('HEARTBEAT: g'.$game->number.'t'.$dueTurn->number.' turn is not yet due for processing.');
+                    ->info('HEARTBEAT: g'.$game->number.' is not yet due for processing.');
             }
         }
 
         // log execution time of heartbeat process.
         $execution = hrtime(true) - $start;
-        Log::channel('game')->info('HEARTBEAT finished in '.$execution/1e+9.' seconds.');
+        Log::channel('game')
+            ->info('HEARTBEAT finished in '.$execution/1e+9.' seconds.');
 
     }
 }

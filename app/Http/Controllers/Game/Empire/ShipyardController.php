@@ -72,7 +72,8 @@ class ShipyardController extends Controller
             'notified' => false
         ]);
 
-        Log::info("Empire $player->ticker has started building a shipyard: ".json_encode($shipyard, JSON_PRETTY_PRINT));
+        Log::channel('api')
+            ->info("Empire $player->ticker has started building a shipyard: ".json_encode($shipyard, JSON_PRETTY_PRINT));
 
         // provide information to client about new shipyard and resources
         return response()->json([

@@ -43,9 +43,11 @@ class DeleteController extends Controller
         // do delete
         try {
             $job->delete();
-            Log::info("Empire $player->ticker has deleted research job $job->type TL $job->level");
+            Log::channel('api')
+                ->info("Empire $player->ticker has deleted research job $job->type TL $job->level");
         } catch (\Exception $e) {
-            Log::error('Exception while attempting to delete a research job:\n'. $e->getMessage());
+            Log::channel('api')
+                ->error('Exception while attempting to delete a research job:\n'. $e->getMessage());
         }
 
         // send update research jobs to client

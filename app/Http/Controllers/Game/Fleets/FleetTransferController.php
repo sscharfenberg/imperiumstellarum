@@ -37,11 +37,12 @@ class FleetTransferController extends Controller
         $game = Game::find($request->route('game'));
         $f = new FormatApiResponseService;
 
-        Log::info(
-            "Player $player->ticker in g$game->number requests ship transfer between $sourceType $sourceId and $targetType $targetId.\n"
-            .'Source shipIds: '.json_encode($sourceShipIds, JSON_PRETTY_PRINT)."\n"
-            .'Target shipIds: '.json_encode($targetShipIds, JSON_PRETTY_PRINT)
-        );
+        Log::channel('api')
+            ->info(
+                "Player $player->ticker in g$game->number requests ship transfer between $sourceType $sourceId and $targetType $targetId.\n"
+                .'Source shipIds: '.json_encode($sourceShipIds, JSON_PRETTY_PRINT)."\n"
+                .'Target shipIds: '.json_encode($targetShipIds, JSON_PRETTY_PRINT)
+            );
 
         // verification
         if (!$this->holdersBelongToPlayer($player, $sourceId, $targetId, $sourceType, $targetType)) {

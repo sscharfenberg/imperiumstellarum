@@ -120,7 +120,8 @@ class StorageUpgradeController extends Controller
             'until_complete' => $untilComplete
         ]);
 
-        Log::info('API: Empire ['.$player->ticker.'] ordered a '.$input['type'].' storage upgrade @ lvl'.$input['level']);
+        Log::channel('api')
+            ->info('API: Empire ['.$player->ticker.'] ordered a '.$input['type'].' storage upgrade @ lvl'.$input['level']);
 
         $r = new ResourceService();
         $a = new ApiService();

@@ -40,7 +40,8 @@ class DeleteConstructionContractController extends Controller
         try {
             $name = $contract->blueprint->name;
             $contract->delete();
-            Log::info("Empire $player->ticker has deleted construction contract that uses bp $name");
+            Log::channel('api')
+                ->info("Empire $player->ticker has deleted construction contract that uses bp $name");
             $updatedPlayer = Player::find(Auth::user()->selected_player);
             $f = new FormatApiResponseService;
             return response()->json([
@@ -50,7 +51,8 @@ class DeleteConstructionContractController extends Controller
                 'message' => __('game.shipyards.constructionContractDeleted')
             ]);
         } catch (Exception $e) {
-            Log::error('Exception while attempting to delete a construction contract:\n'. $e->getMessage());
+            Log::channel('api')
+                ->error('Exception while attempting to delete a construction contract:\n'. $e->getMessage());
             return response()->json(['error' => __('game.common.errors.deletion')], 419);
         }
 

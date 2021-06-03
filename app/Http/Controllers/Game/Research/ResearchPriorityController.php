@@ -35,7 +35,8 @@ class ResearchPriorityController extends Controller
         $player->research_priority = $priority;
         $player->save();
 
-        Log::info("Empire $player->ticker has changed research priority to $priority");
+        Log::channel('api')
+            ->info("Empire $player->ticker has changed research priority to $priority");
 
         return response()->json([]);
 

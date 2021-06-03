@@ -45,7 +45,8 @@ class DeleteFleetController extends Controller
         // do delete
         try {
             $fleet->delete();
-            Log::info("Empire $player->ticker has deleted fleet $fleet->name");
+            Log::channel('api')
+                ->info("Empire $player->ticker has deleted fleet $fleet->name");
             // send answer to client
             $updatedPlayer = Player::find(Auth::user()->selected_player);
             return response()->json([
@@ -55,7 +56,8 @@ class DeleteFleetController extends Controller
                 'message' => __('game.fleets.deleted')
             ]);
         } catch (Exception $e) {
-            Log::error('Exception while attempting to delete a fleet:\n'. $e->getMessage());
+            Log::channel('api')
+                ->error('Exception while attempting to delete a fleet:\n'. $e->getMessage());
             return response()->json(['error' => __('game.common.errors.deletion')], 419);
         }
     }

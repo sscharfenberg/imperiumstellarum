@@ -43,7 +43,8 @@ class DeleteBlueprintController extends Controller
         // do delete
         try {
             $blueprint->delete();
-            Log::info("Empire $player->ticker has deleted blueprint $blueprint->name");
+            Log::channel('api')
+                ->info("Empire $player->ticker has deleted blueprint $blueprint->name");
             $updatedPlayer = Player::find(Auth::user()->selected_player);
             $f = new FormatApiResponseService;
             return response()->json([
@@ -53,7 +54,8 @@ class DeleteBlueprintController extends Controller
                 'message' => __('game.shipyards.blueprintDeleted')
             ]);
         } catch (Exception $e) {
-            Log::error('Exception while attempting to delete a blueprint:\n'. $e->getMessage());
+            Log::channel('api')
+                ->error('Exception while attempting to delete a blueprint:\n'. $e->getMessage());
             return response()->json(['error' => __('game.common.errors.deletion')], 419);
         }
 

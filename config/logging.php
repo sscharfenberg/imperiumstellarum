@@ -60,21 +60,28 @@ return [
 
         'game' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/is-game.log'),
+            'path' => storage_path('logs/game.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
 
         'turn' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/is-turn.log'),
+            'path' => storage_path('logs/turn.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
 
         'encounter' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/is-encounter.log'),
+            'path' => storage_path('logs/encounter.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'api' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/api.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],

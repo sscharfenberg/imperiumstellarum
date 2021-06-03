@@ -82,7 +82,8 @@ class HarvesterController extends Controller
             'until_complete' => $harvesterRules['costs']['turns'],
         ]);
 
-        Log::info("Empire $player->ticker has started building a harvester: ".json_encode($f->formatHarvester($harvester), JSON_PRETTY_PRINT));
+        Log::channel('api')
+            ->info("Empire $player->ticker has started building a harvester: ".json_encode($f->formatHarvester($harvester), JSON_PRETTY_PRINT));
 
         return response()->json([
             'harvester' => $f->formatHarvester($harvester),

@@ -48,7 +48,8 @@ class ChangeFleetNameController extends Controller
         // all good, change fleet
         $fleet->name = $name;
         $fleet->save();
-        Log::info("Empire $player->ticker in g".$player->game->number." renamed a fleet from '$oldName' to '$name'.");
+        Log::channel('api')
+            ->info("Empire $player->ticker in g".$player->game->number." renamed a fleet from '$oldName' to '$name'.");
 
         // send answer to client
         $updatedPlayer = Player::find(Auth::user()->selected_player);

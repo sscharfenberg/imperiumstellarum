@@ -62,7 +62,8 @@ class EnqueueController extends Controller
             'order' => $jobOrder
         ]);
 
-        Log::info("Empire $player->ticker has queued research job $job->type TL $job->level");
+        Log::channel('api')
+            ->info("Empire $player->ticker has queued research job $job->type TL $job->level");
 
         $f = new FormatApiResponseService;
         return response()->json([
