@@ -69,6 +69,11 @@ class ProcessResearch
                     }
                 } else {
                     $job->save();
+                    Log::channel('turn')
+                        ->info(
+                            "$turnSlug - Empire $player->ticker research for $job->type TL$job->level "
+                            ."invested $research research points, $job->remaining remaining."
+                        );
                 }
             } else {
                 Log::channel('turn')->info("$turnSlug - Empire $player->ticker can\'t afford the assigned research, skipping.");
