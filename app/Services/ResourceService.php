@@ -64,10 +64,32 @@ class ResourceService {
             if ($resType !== 'population') {
                 $playerResource = $player->resources->where('resource_type', $resType)->first();
                 $playerResource->storage -= $amount;
+                if ($playerResource->storage < 0) $playerResource->storage = 0;
                 $playerResource->save();
             }
         }
     }
+
+
+    /**
+     * @function add array of resources to playerResources and save.
+     * @param Collection $resources
+     * @param array $costs
+     */
+    public function addResources(Collection $resources, array $costs)
+    {
+        foreach($costs as $resType => $amount) {
+            if ($resType !== 'population') {
+                $playerResource = $resources->where('resource_type', $resType)->first();
+                $max = config('rules.player.resourceTypes.'.$playerResource->resource_type.'.'.$playerResource->storage_level.'.amount');
+                $playerResource->storage += $amount;
+                if ($playerResource->storage < 0) $playerResource->storage = 0;
+                if ($playerResource->storage > $max) $playerResource->storage = $max;
+                $playerResource->save();
+            }
+        }
+    }
+
 
     /**
      * @function calculate ship resource costs from hullType and modules

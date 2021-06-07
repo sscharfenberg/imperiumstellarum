@@ -249,7 +249,12 @@ class FindEncounters
                     ->notice("$turnSlug found valid encounter ".$encounter['id']." @ [".$star->owner->ticker."] $star->name.");
                 $encounter['fleets'] = $this->assignRows($encounter);
                 $p->handle($encounter, $turnSlug);
-            } else {
+            }
+            elseif (count($e->getAttackers($encounter)) > 0 && count($e->getDefenders($encounter)) === 0) {
+                $r = new ProcessEncounterRaid;
+                $r->handle($star, $encounter, $turnSlug, $turn->number);
+            }
+            else {
                 Log::channel('turn')
                     ->notice("$turnSlug no encounter @ [".$star->owner->ticker."] $star->name.");
             }

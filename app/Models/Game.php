@@ -84,6 +84,10 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $encounter_participants_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlayerResource[] $playerResources
  * @property-read int|null $player_resources_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\RaidPlayer[] $raidPlayers
+ * @property-read int|null $raid_players_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Raid[] $raids
+ * @property-read int|null $raids_count
  */
 class Game extends Model
 {
@@ -325,6 +329,22 @@ class Game extends Model
     public function encounterParticipants()
     {
         return $this->hasMany(EncounterParticipant::class, 'game_id', 'id');
+    }
+
+    /**
+     * Get the raids for this game
+     */
+    public function raids()
+    {
+        return $this->hasMany(Raid::class, 'game_id', 'id');
+    }
+
+    /**
+     * Get the raidPlayers for this game
+     */
+    public function raidPlayers()
+    {
+        return $this->hasMany(RaidPlayer::class, 'game_id', 'id');
     }
 
 }

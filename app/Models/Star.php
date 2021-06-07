@@ -44,6 +44,8 @@ use \App\Http\Traits\UsesUuid;
  * @property-read int|null $shipyards_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Encounter[] $encounters
  * @property-read int|null $encounters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Raid[] $raids
+ * @property-read int|null $raids_count
  */
 class Star extends Model
 {
@@ -141,6 +143,14 @@ class Star extends Model
     public function encounters()
     {
         return $this->hasMany(Encounter::class, 'star_id', 'id');
+    }
+
+    /**
+     * Get the raids where this player was raided
+     */
+    public function raids()
+    {
+        return $this->hasMany(Raid::class, 'star_id', 'id');
     }
 
 }

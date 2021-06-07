@@ -23,7 +23,7 @@ return [
     'game' => [
         'minPlayersToStart' => 3
     ],
-        
+
     /**
     |
     |--------------------------------------------------------------------------
@@ -1374,7 +1374,9 @@ return [
                 'xlarge' => 20
             ],
             'fleet' => 2
-        ]
+        ],
+        // how many resources does a raid net of a stars total production?
+        'raidFactor' => 1 // = 100%
     ],
 
     /**
@@ -1385,7 +1387,7 @@ return [
     |
     */
     'winner' => [
-        'populationShare' => 0.4 // = 40% of total population
+        'populationShare' => 0.8 // = 80% of total population
     ]
 
 ];
