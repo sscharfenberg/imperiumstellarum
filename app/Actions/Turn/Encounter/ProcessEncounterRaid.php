@@ -116,6 +116,14 @@ class ProcessEncounterRaid
     }
 
 
+
+    private function updateRaid (Raid $raid, Collection $raidPlayers, Collection $raidResources, int $turnNumber)
+    {
+        Log::channel('encounter')->debug("updating raid #$raid->id.");
+        // TODO: update the raid. this works only when processTurn does not have dryRun = true.
+    }
+
+
     /**
      * @function create raid players
      * @param Raid $raid
@@ -146,10 +154,10 @@ class ProcessEncounterRaid
             'raid_id' => $raid->id,
             'player_id' => $starOwner->id,
             'raider' => false,
-            'energy' => $raidedResources['energy'],
-            'minerals' => $raidedResources['minerals'],
-            'food' => $raidedResources['food'],
-            'research' => $raidedResources['research']
+            'energy' => -1 * abs($raidedResources['energy']),
+            'minerals' => -1 * abs($raidedResources['minerals']),
+            'food' => -1 * abs($raidedResources['food']),
+            'research' => -1 * abs($raidedResources['research'])
         ]);
         Log::channel('encounter')
             ->debug("created raided player #$raidedPlayer->id with resources -$raidedResources");
@@ -174,12 +182,49 @@ class ProcessEncounterRaid
         $attackingPlayers = $e->getAttackers($encounter)->map(function ($fleet) {
             return $fleet['player_id'];
         })->unique();
-        $raiderResources = $this->transferResources($starOwner, $attackingPlayers, $raidResources, $turnSlug);
-        // TODO: find out if it is a new raid or an existing raid.
-        $raid = $this->createNewRaid($star, $starOwner, $turnNumber);
-        Log::channel('encounter')
-            ->debug("created new raid #$raid->id");
-        $this->createRaidPlayers($raid, $attackingPlayers, $starOwner, $raidResources, $raiderResources, $turnSlug);
+
+
+        // find out if it is a new raid or an existing raid.
+        $raid = Raid::where('game_id', '=', $star->game_id)
+            ->where('star_id', '=', $star->id)
+            ->where('end_turn', '=', $turnNumber)
+            ->with('players')
+            ->first();
+        $existingRaid = true;
+        if ($raid) {
+            $raidedPlayer = $raid->players->where('raider', '=', false)->first();
+            if ($raidedPlayer->player_id !== $starOwner->id) {
+                $existingRaid = false;
+                Log::channel('encounter')
+                    ->debug("raided player and owner of star are different => new raid.");
+            }
+            $raidingPlayers = $raid->players->where('raider', '=', true)->map(function ($raidPlayer) {
+                return $raidPlayer->player_id;
+            });
+            if ($raidingPlayers->values() != $raidingPlayers->values()) {
+                $existingRaid = false;
+                Log::channel('encounter')
+                    ->debug("raiding players and current attackers are different => new raid.");
+            }
+        } else {
+            $existingRaid = false;
+        }
+
+        if ($existingRaid) {
+            Log::channel('encounter')
+                ->debug("found existing raid #$raid->id, updating ...");
+            $raiderResources = $this->transferResources($starOwner, $attackingPlayers, $raidResources, $turnSlug);
+            $this->updateRaid($raid, $raid->players, $raidResources, $turnNumber);
+        } else {
+            Log::channel('encounter')
+                ->debug("creating new raid.");
+            $raiderResources = $this->transferResources($starOwner, $attackingPlayers, $raidResources, $turnSlug);
+            $raid = $this->createNewRaid($star, $starOwner, $turnNumber);
+            Log::channel('encounter')
+                ->debug("created new raid #$raid->id");
+            $this->createRaidPlayers($raid, $attackingPlayers, $starOwner, $raidResources, $raiderResources, $turnSlug);
+        }
+
     }
 
 

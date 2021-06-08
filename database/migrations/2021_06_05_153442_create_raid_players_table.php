@@ -22,10 +22,10 @@ class CreateRaidPlayersTable extends Migration
             $table->uuid('raid_id');
             $table->uuid('player_id');
             $table->boolean('raider');
-            $table->unsignedSmallInteger('energy')->default(0);
-            $table->unsignedSmallInteger('minerals')->default(0);
-            $table->unsignedSmallInteger('food')->default(0);
-            $table->unsignedSmallInteger('research')->default(0);
+            $table->smallInteger('energy')->default(0);
+            $table->smallInteger('minerals')->default(0);
+            $table->smallInteger('food')->default(0);
+            $table->smallInteger('research')->default(0);
             $table->timestamps();
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');
