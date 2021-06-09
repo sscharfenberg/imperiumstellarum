@@ -22,7 +22,7 @@ class ProcessEncounterRaid
      * set this to "true" if you want to test something and not actually write to db
      * @var bool
      */
-    private $dryRun = true;
+    private $dryRun = false;
 
 
     /**
@@ -110,17 +110,50 @@ class ProcessEncounterRaid
             'game_id' => $star->game_id,
             'star_owner_id' => $owner->id,
             'star_id' => $star->id,
-            'start_turn' => $turnNumber,
-            'end_turn' => $turnNumber
+            'start_turn' => $turnNumber + 1,
+            'end_turn' => $turnNumber + 1
         ]);
     }
 
 
-
-    private function updateRaid (Raid $raid, Collection $raidPlayers, Collection $raidResources, int $turnNumber)
+    /**
+     * @function update raid and raidPlayers
+     * @param Raid $raid
+     * @param Collection $raidPlayers
+     * @param Collection $raidResources
+     * @param Collection $raiderResources
+     * @param int $turnNumber
+     */
+    private function updateRaid (Raid $raid, Collection $raidPlayers, Collection $raidResources, Collection $raiderResources, int $turnNumber)
     {
-        Log::channel('encounter')->debug("updating raid #$raid->id.");
-        // TODO: update the raid. this works only when processTurn does not have dryRun = true.
+        Log::channel('encounter')->debug("updating raid #$raid->id to endturn ".($turnNumber + 1).".");
+        $raid->end_turn = $turnNumber + 1;
+        $raid->save();
+        foreach($raidPlayers as $raidPlayer) {
+            $player = '['.$raidPlayer->player->ticker.'] '.$raidPlayer->player->name;
+            if ($raidPlayer->raider) {
+                $raidPlayer->energy += $raiderResources['energy'];
+                $raidPlayer->minerals += $raiderResources['minerals'];
+                $raidPlayer->food += $raiderResources['food'];
+                $raidPlayer->research += $raiderResources['research'];
+                Log::channel('encounter')
+                    ->debug(
+                        "raid #$raid->id updating raiding player $player: "
+                        .json_encode($raidPlayer, JSON_PRETTY_PRINT)
+                    );
+            } else {
+                $raidPlayer->energy -= $raidResources['energy'];
+                $raidPlayer->minerals -= $raidResources['minerals'];
+                $raidPlayer->food -= $raidResources['food'];
+                $raidPlayer->research -= $raidResources['research'];
+                Log::channel('encounter')
+                    ->debug(
+                        "raid #$raid->id updating raided player $player: "
+                        .json_encode($raidPlayer, JSON_PRETTY_PRINT)
+                    );
+            }
+            $raidPlayer->save();
+        }
     }
 
 
@@ -201,7 +234,7 @@ class ProcessEncounterRaid
             $raidingPlayers = $raid->players->where('raider', '=', true)->map(function ($raidPlayer) {
                 return $raidPlayer->player_id;
             });
-            if ($raidingPlayers->values() != $raidingPlayers->values()) {
+            if ($raidingPlayers->values() != $attackingPlayers->values()) {
                 $existingRaid = false;
                 Log::channel('encounter')
                     ->debug("raiding players and current attackers are different => new raid.");
@@ -214,7 +247,7 @@ class ProcessEncounterRaid
             Log::channel('encounter')
                 ->debug("found existing raid #$raid->id, updating ...");
             $raiderResources = $this->transferResources($starOwner, $attackingPlayers, $raidResources, $turnSlug);
-            $this->updateRaid($raid, $raid->players, $raidResources, $turnNumber);
+            $this->updateRaid($raid, $raid->players, $raidResources, $raiderResources, $turnNumber);
         } else {
             Log::channel('encounter')
                 ->debug("creating new raid.");

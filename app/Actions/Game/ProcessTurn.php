@@ -16,7 +16,7 @@ class ProcessTurn
      * set this to "true" if you want to test something and not actually write to db
      * @var bool
      */
-    private $dryRun = true;
+    private $dryRun = false;
 
     /**
      * @function create the new turn
