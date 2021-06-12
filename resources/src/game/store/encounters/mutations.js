@@ -85,4 +85,22 @@ export default {
     SET_TAPE_PLAYING: (state, payload) => {
         state.playing = payload;
     },
+
+    /**
+     * @function SET raids
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Array} payload
+     */
+    SET_RAIDS: (state, payload) => {
+        state.raids = payload;
+    },
+
+    /**
+     * @function SET raid details
+     * @param {Object} state - vuex module "encounters" state
+     * @param {Object} payload
+     */
+    SET_RAID_DETAILS: (state, payload) => {
+        state.raidDetails = payload;
+    },
 };

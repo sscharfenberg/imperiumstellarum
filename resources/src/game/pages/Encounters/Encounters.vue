@@ -17,12 +17,20 @@ export default {
         const encounters = computed(
             () => store.getters["encounters/sortedEncounters"]
         );
+        const raiderRaids = computed(
+            () => store.getters["encounters/raiderRaids"]
+        );
+        const raidedRaids = computed(
+            () => store.getters["encounters/raidedRaids"]
+        );
         onBeforeMount(() => {
             store.dispatch("encounters/GET_GAME_DATA");
         });
         return {
             requesting,
             encounters,
+            raiderRaids,
+            raidedRaids,
         };
     },
 };
@@ -45,5 +53,11 @@ export default {
             </popover>
         </template>
         <encounters-list :encounters="encounters" />
+    </area-section>
+    <area-section headline="Raids as Raider" :requesting="requesting">
+        {{ raiderRaids }}
+    </area-section>
+    <area-section headline="Raids as Raided" :requesting="requesting">
+        {{ raidedRaids }}
     </area-section>
 </template>

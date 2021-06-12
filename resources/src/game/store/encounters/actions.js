@@ -22,6 +22,7 @@ export default {
                 if (response.status === 200) {
                     commit("SET_GAME_META_DATA", response.data, { root: true });
                     commit("SET_ENCOUNTERS", response.data.encounters);
+                    commit("SET_RAIDS", response.data.raids);
                     commit("SET_PLAYERS", response.data.players);
                     commit("SET_STARS", response.data.stars);
                     commit("SET_RELATIONS", response.data.relations);

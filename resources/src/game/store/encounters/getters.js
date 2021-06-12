@@ -34,4 +34,10 @@ export default {
     // get encounters
     sortedEncounters: (state) =>
         state.encounters.sort((a, b) => b.turn - a.turn) || [],
+
+    // raids as raider
+    raiderRaids: (state) => state.raids.filter((r) => r.raider) || [],
+
+    // raids as raided
+    raidedRaids: (state) => state.raids.filter((r) => !r.raider) || [],
 };

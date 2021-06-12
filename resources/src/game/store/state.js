@@ -23,6 +23,7 @@ export default {
     collapsibleExpandedIds: savedState.collapsibleExpandedIds || [],
     unreadMessages: 0,
     unreadEncounters: 0,
+    unreadRaids: 0,
     dead: false,
     gameEnded: false,
     winner: undefined,

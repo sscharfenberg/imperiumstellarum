@@ -14,8 +14,14 @@ export default {
         const route = useRoute();
         const unreadMessages = computed(() => store.state.unreadMessages);
         const unreadEncounters = computed(() => store.state.unreadEncounters);
+        const unreadRaids = computed(() => store.state.unreadRaids);
         const withinEncounters = computed(() => !!route.params.encounterId);
-        return { unreadMessages, unreadEncounters, withinEncounters };
+        return {
+            unreadMessages,
+            unreadEncounters,
+            withinEncounters,
+            unreadRaids,
+        };
     },
 };
 </script>
@@ -29,9 +35,11 @@ export default {
                     class="drawer-list__link"
                 >
                     <icon name="messages" /> {{ $t("messages.navTitle") }}
-                    <span v-if="unreadMessages > 0" class="unread">{{
-                        unreadMessages
-                    }}</span>
+                    <aside class="aside">
+                        <span v-if="unreadMessages > 0" class="unread">{{
+                            unreadMessages
+                        }}</span>
+                    </aside>
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -75,9 +83,14 @@ export default {
                     :class="{ active: withinEncounters }"
                 >
                     <icon name="encounters" /> {{ $t("encounters.navTitle") }}
-                    <span v-if="unreadEncounters > 0" class="unread">{{
-                        unreadEncounters
-                    }}</span>
+                    <aside class="aside">
+                        <span v-if="unreadEncounters > 0" class="unread">{{
+                            unreadEncounters
+                        }}</span>
+                        <span v-if="unreadRaids > 0" class="unread raids">{{
+                            unreadRaids
+                        }}</span>
+                    </aside>
                 </router-link>
             </li>
             <li class="drawer-list__item">
@@ -95,7 +108,7 @@ export default {
 <style lang="scss" scoped>
 .unread {
     padding: 2px 4px;
-    margin-left: auto;
+    margin: 0 4px 0 0;
 
     clip-path: polygon(
         5px 0,
@@ -114,5 +127,20 @@ export default {
         background-color: t("s-error");
         color: t("s-warning");
     }
+
+    &.raids {
+        @include themed() {
+            background-color: t("s-warning");
+            color: t("t-dark");
+        }
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.aside {
+    margin-left: auto;
 }
 </style>

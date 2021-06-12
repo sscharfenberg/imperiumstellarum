@@ -6,6 +6,7 @@ use App\Models\EncounterParticipant;
 use App\Models\FinishedGame;
 use App\Models\MessageRecipient;
 use App\Models\Player;
+use App\Models\RaidPlayer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -64,6 +65,21 @@ class ApiService {
         );
     }
 
+    /**
+     * @function get number of unread raids
+     * @param string $playerId
+     * @param string $gameId
+     * @return int
+     */
+    public function unreadRaids (string $playerId, string $gameId): int
+    {
+        return count(
+            RaidPlayer::where('game_id', '=', $gameId)
+                ->where('player_id', '=', $playerId)
+                ->where('read', false)
+                ->get()
+        );
+    }
 
     /**
      * @function create default stores of a player
@@ -115,7 +131,8 @@ class ApiService {
             'resources' => $r->getResources($player),
             'storageUpgrades' => $this->storageUpgrades($player),
             'unreadMessages' => $this->unreadMessages($player->id, $game->id),
-            'unreadEncounters' => $this->unreadEncounters($player->id, $game->id)
+            'unreadEncounters' => $this->unreadEncounters($player->id, $game->id),
+            'unreadRaids' => $this->unreadRaids($player->id, $game->id)
         ];
 
         if ($game->finished) {

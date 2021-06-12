@@ -8,12 +8,22 @@ export default {
      * SET GAME NUMBER
      * @param {Object} state - Vuex state
      * @param {Object} payload
-     * @param {Number} payload.game.gameNumber
-     * @param {Number} payload.game.gameTurn
-     * @param {Number} payload.game.dueInSeconds
-     * @param {Number} payload.player.empireName
-     * @param {Number} payload.player.empireTicker
+     * @param {Number} payload.game.number
+     * @param {Number} payload.game.turn
+     * @param {Number} payload.game.turnDue
+     * @param {Boolean} payload.game.finished
+     * @param {String} payload.player.empireName
+     * @param {String} payload.player.empireTicker
+     * @param {String} payload.player.id
      * @param {Number} payload.player.researchPriority
+     * @param {String} payload.player.colour
+     * @param {Boolean} payload.player.dead
+     * @param {Array} payload.resources
+     * @param {Array} payload.storageUpgrades
+     * @param {Number} payload.unreadMessages
+     * @param {Number} payload.unreadEncounters
+     * @param {Number} payload.unreadRaids
+     * @param {String} payload.winner
      */
     SET_GAME_META_DATA: (state, payload) => {
         // game
@@ -21,18 +31,21 @@ export default {
         state.gameTurn = payload.game.turn;
         state.turnDue = payload.game.turnDue;
         state.gameEnded = payload.game.finished;
+        if (payload.winner) state.winner = payload.winner;
         // empire
         state.empireName = payload.player.empireName;
         state.empireTicker = payload.player.empireTicker;
         state.empireId = payload.player.id;
         state.empireResearchPriority = payload.player.researchPriority;
         state.colour = payload.player.colour;
+        state.dead = payload.player.dead;
+        // resources, storageUpgrades
         state.resources = payload.resources;
         state.storageUpgrades = payload.storageUpgrades;
+        // unread stuff
         state.unreadMessages = payload.unreadMessages;
         state.unreadEncounters = payload.unreadEncounters;
-        state.dead = payload.player.dead;
-        if (payload.winner) state.winner = payload.winner;
+        state.unreadRaids = payload.unreadRaids;
     },
 
     /**

@@ -26,6 +26,7 @@ class CreateRaidPlayersTable extends Migration
             $table->smallInteger('minerals')->default(0);
             $table->smallInteger('food')->default(0);
             $table->smallInteger('research')->default(0);
+            $table->boolean('read')->default(false);
             $table->timestamps();
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

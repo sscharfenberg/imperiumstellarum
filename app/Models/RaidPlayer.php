@@ -17,6 +17,7 @@ use App\Http\Traits\UsesUuid;
  * @property int $minerals
  * @property int $food
  * @property int $research
+ * @property boolean $read
  * @property-read \App\Models\Game $game
  * @property-read \App\Models\Player $player
  * @property-read \App\Models\Raid $raid
@@ -32,6 +33,7 @@ use App\Http\Traits\UsesUuid;
  * @method static \Illuminate\Database\Eloquent\Builder|RaidPlayer whereMinerals()
  * @method static \Illuminate\Database\Eloquent\Builder|RaidPlayer whereFood()
  * @method static \Illuminate\Database\Eloquent\Builder|RaidPlayer whereResearch()
+ * @method static \Illuminate\Database\Eloquent\Builder|RaidPlayer whereRead()
  * @mixin \Eloquent
  */
 class RaidPlayer extends Model
@@ -67,6 +69,7 @@ class RaidPlayer extends Model
         'minerals',
         'food',
         'research',
+        'read'
     ];
 
     /**

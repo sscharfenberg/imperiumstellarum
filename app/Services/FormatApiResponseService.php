@@ -12,6 +12,7 @@ use App\Models\Message;
 use App\Models\MessageReport;
 use App\Models\Player;
 use App\Models\PlayerRelationChange;
+use App\Models\Raid;
 use App\Models\Research;
 use App\Models\Ship;
 use App\Models\Star;
@@ -558,6 +559,26 @@ class FormatApiResponseService {
             'turns' => $encounter->encounterTurns->map(function ($turn) {
                 return $this->formatEncounterTurn($turn);
             })
+        ];
+    }
+
+    /**
+     * @function format api response for a raid
+     * @param Raid $raid
+     * @param Player $player
+     * @return array
+     */
+    public function formatPlayerRaid (Raid $raid, Player $player): array
+    {
+        $raidPlayer = $raid->players->filter (function($raidPlayer) use ($player) {
+            return $raidPlayer->player_id === $player->id;
+        })->first();
+        return [
+            'id' => $raid->id,
+            'startTurn' => $raid->start_turn,
+            'endTurn' => $raid->end_turn,
+            'starId' => $raid->star_id,
+            'raider' => $raidPlayer->raider
         ];
     }
 

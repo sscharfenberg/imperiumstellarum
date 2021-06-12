@@ -152,6 +152,7 @@ class ProcessEncounterRaid
                         .json_encode($raidPlayer, JSON_PRETTY_PRINT)
                     );
             }
+            $raidPlayer->read = false;
             $raidPlayer->save();
         }
     }
@@ -234,7 +235,7 @@ class ProcessEncounterRaid
             $raidingPlayers = $raid->players->where('raider', '=', true)->map(function ($raidPlayer) {
                 return $raidPlayer->player_id;
             });
-            if ($raidingPlayers->values() != $attackingPlayers->values()) {
+            if (count($raidingPlayers->values()->diff($attackingPlayers->values())->all()) > 0) {
                 $existingRaid = false;
                 Log::channel('encounter')
                     ->debug("raiding players and current attackers are different => new raid.");

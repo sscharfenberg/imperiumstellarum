@@ -20,4 +20,7 @@ export default {
     // encounter details
     renderTurn: 0,
     playing: false,
+    // raids
+    raids: [],
+    raidDetails: {},
 };
