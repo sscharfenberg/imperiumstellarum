@@ -49,6 +49,7 @@ class EncountersController extends Controller
                 $query->where('player_id', '=', $playerId);
             })
             ->with('players')
+            ->with('star')
             ->get();
         $raidStarIds = $raids->map( function ($raid) {
             return $raid->star_id;

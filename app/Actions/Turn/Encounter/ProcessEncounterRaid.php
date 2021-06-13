@@ -117,14 +117,50 @@ class ProcessEncounterRaid
 
 
     /**
+     * @function count the shiptypes and return array of ship type numbers
+     * @param Collection $fleets
+     * @return array
+     */
+    private function getPlayerShips (Collection $fleets): array
+    {
+        $playerShips = [
+            'ark' => 0,
+            'small' => 0,
+            'medium' => 0,
+            'large' => 0,
+            'xlarge' => 0
+        ];
+        $fleets->each( function ($fleet) use (&$playerShips) {
+            $playerShips['ark'] += count($fleet['ships']->filter(function ($ship) {
+                return $ship['hull_type'] === 'ark';
+            }));
+            $playerShips['small'] += count($fleet['ships']->filter(function ($ship) {
+                return $ship['hull_type'] === 'small';
+            }));
+            $playerShips['medium'] += count($fleet['ships']->filter(function ($ship) {
+                return $ship['hull_type'] === 'medium';
+            }));
+            $playerShips['large'] += count($fleet['ships']->filter(function ($ship) {
+                return $ship['hull_type'] === 'large';
+            }));
+            $playerShips['xlarge'] += count($fleet['ships']->filter(function ($ship) {
+                return $ship['hull_type'] === 'xlarge';
+            }));
+        });
+        return $playerShips;
+    }
+
+
+    /**
      * @function update raid and raidPlayers
      * @param Raid $raid
      * @param Collection $raidPlayers
      * @param Collection $raidResources
      * @param Collection $raiderResources
+     * @param Collection $encounter
      * @param int $turnNumber
      */
-    private function updateRaid (Raid $raid, Collection $raidPlayers, Collection $raidResources, Collection $raiderResources, int $turnNumber)
+    private function updateRaid (Raid $raid, Collection $raidPlayers, Collection $raidResources, Collection $raiderResources, Collection $encounter, int $turnNumber)
     {
         Log::channel('encounter')->debug("updating raid #$raid->id to endturn ".($turnNumber + 1).".");
         $raid->end_turn = $turnNumber + 1;
@@ -165,11 +201,17 @@ class ProcessEncounterRaid
      * @param Player $starOwner
      * @param Collection $raidedResources
      * @param Collection $raiderResources
+     * @param Collection $encounter
      * @param string $turnSlug
      */
-    private function createRaidPlayers (Raid $raid, Collection $attackerIds, Player $starOwner, Collection $raidedResources, Collection $raiderResources, string $turnSlug)
+    private function createRaidPlayers (Raid $raid, Collection $attackerIds, Player $starOwner, Collection $raidedResources, Collection $raiderResources, Collection $encounter, string $turnSlug)
     {
+        $e = new EncounterService;
         foreach ($attackerIds as $playerId) {
+            $playerFleets = $e->getAttackers($encounter)->filter( function ($fleet) use ($playerId) {
+                return $fleet['player_id'] === $playerId;
+            });
+            $playerShips = $this->getPlayerShips($playerFleets);
             $raidPlayer = RaidPlayer::create([
                 'game_id' => $raid->game_id,
                 'raid_id' => $raid->id,
@@ -178,7 +220,12 @@ class ProcessEncounterRaid
                 'energy' => $raiderResources['energy'],
                 'minerals' => $raiderResources['minerals'],
                 'food' => $raiderResources['food'],
-                'research' => $raiderResources['research']
+                'research' => $raiderResources['research'],
+                'ark' => $playerShips['ark'],
+                'small' => $playerShips['small'],
+                'medium' => $playerShips['medium'],
+                'large' => $playerShips['large'],
+                'xlarge' => $playerShips['xlarge']
             ]);
             Log::channel('encounter')
                 ->debug("created raid player #$raidPlayer->id with resources +$raiderResources");
@@ -217,7 +264,6 @@ class ProcessEncounterRaid
             return $fleet['player_id'];
         })->unique();
 
-
         // find out if it is a new raid or an existing raid.
         $raid = Raid::where('game_id', '=', $star->game_id)
             ->where('star_id', '=', $star->id)
@@ -248,7 +294,7 @@ class ProcessEncounterRaid
             Log::channel('encounter')
                 ->debug("found existing raid #$raid->id, updating ...");
             $raiderResources = $this->transferResources($starOwner, $attackingPlayers, $raidResources, $turnSlug);
-            $this->updateRaid($raid, $raid->players, $raidResources, $raiderResources, $turnNumber);
+            $this->updateRaid($raid, $raid->players, $raidResources, $raiderResources, $encounter, $turnNumber);
         } else {
             Log::channel('encounter')
                 ->debug("creating new raid.");
@@ -256,7 +302,7 @@ class ProcessEncounterRaid
             $raid = $this->createNewRaid($star, $starOwner, $turnNumber);
             Log::channel('encounter')
                 ->debug("created new raid #$raid->id");
-            $this->createRaidPlayers($raid, $attackingPlayers, $starOwner, $raidResources, $raiderResources, $turnSlug);
+            $this->createRaidPlayers($raid, $attackingPlayers, $starOwner, $raidResources, $raiderResources, $encounter, $turnSlug);
         }
 
     }

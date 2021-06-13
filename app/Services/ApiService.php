@@ -76,7 +76,7 @@ class ApiService {
         return count(
             RaidPlayer::where('game_id', '=', $gameId)
                 ->where('player_id', '=', $playerId)
-                ->where('read', false)
+                ->where('read', '=', false)
                 ->get()
         );
     }

@@ -578,7 +578,22 @@ class FormatApiResponseService {
             'startTurn' => $raid->start_turn,
             'endTurn' => $raid->end_turn,
             'starId' => $raid->star_id,
-            'raider' => $raidPlayer->raider
+            'starOwnerId' => $raid->star->owner->id,
+            'raider' => $raidPlayer->raider,
+            'players' => $raid->players->map( function ($raidPlayer) {
+                return [
+                    'playerId' => $raidPlayer->player_id,
+                    'energy' => $raidPlayer->energy,
+                    'minerals' => $raidPlayer->minerals,
+                    'food' => $raidPlayer->food,
+                    'research' => $raidPlayer->research,
+                    'ark' => $raidPlayer->ark,
+                    'small' => $raidPlayer->small,
+                    'medium' => $raidPlayer->medium,
+                    'large' => $raidPlayer->large,
+                    'xlarge' => $raidPlayer->xlarge,
+                ];
+            })
         ];
     }
 

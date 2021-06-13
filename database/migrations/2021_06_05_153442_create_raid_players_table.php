@@ -27,6 +27,11 @@ class CreateRaidPlayersTable extends Migration
             $table->smallInteger('food')->default(0);
             $table->smallInteger('research')->default(0);
             $table->boolean('read')->default(false);
+            $table->unsignedSmallInteger('ark')->default(0);
+            $table->unsignedSmallInteger('small')->default(0);
+            $table->unsignedSmallInteger('medium')->default(0);
+            $table->unsignedSmallInteger('large')->default(0);
+            $table->unsignedSmallInteger('xlarge')->default(0);
             $table->timestamps();
             $table->foreign('game_id')->references('id')->on('games')
                 ->onDelete('cascade');

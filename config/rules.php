@@ -1387,7 +1387,7 @@ return [
     |
     */
     'winner' => [
-        'populationShare' => 0.8 // = 80% of total population
+        'populationShare' => 1 // = 80% of total population
     ]
 
 ];
