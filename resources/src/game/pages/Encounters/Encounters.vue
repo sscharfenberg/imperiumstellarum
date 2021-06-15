@@ -4,33 +4,26 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { onBeforeMount, computed } from "vue";
-import AreaSection from "Components/AreaSection/AreaSection";
-import EncountersList from "./List/EncountersList";
+import EncountersList from "./EncountersList/EncountersList";
+import EncountersNavigation from "./EncountersNavigation";
 import GameHeader from "Components/Header/GameHeader";
-import Popover from "Components/Popover/Popover";
+import RaidsAsRaiderList from "./Raids/AsRaider/RaidsAsRaiderList";
 export default {
     name: "PageEncounters",
-    components: { AreaSection, EncountersList, GameHeader, Popover },
+    components: {
+        EncountersList,
+        EncountersNavigation,
+        GameHeader,
+        RaidsAsRaiderList,
+    },
     setup() {
         const store = useStore();
-        const requesting = computed(() => store.state.encounters.requesting);
-        const encounters = computed(
-            () => store.getters["encounters/sortedEncounters"]
-        );
-        const raiderRaids = computed(
-            () => store.getters["encounters/raiderRaids"]
-        );
-        const raidedRaids = computed(
-            () => store.getters["encounters/raidedRaids"]
-        );
+        const pageIndex = computed(() => store.state.encounters.page);
         onBeforeMount(() => {
             store.dispatch("encounters/GET_GAME_DATA");
         });
         return {
-            requesting,
-            encounters,
-            raiderRaids,
-            raidedRaids,
+            pageIndex,
         };
     },
 };
@@ -38,26 +31,7 @@ export default {
 
 <template>
     <game-header area="encounters" />
-    <area-section
-        :headline="
-            $t('encounters.list.headline') +
-            (encounters.length && encounters.length > 0
-                ? ` (${encounters.length})`
-                : '')
-        "
-        :requesting="requesting"
-    >
-        <template v-slot:aside>
-            <popover align="right">
-                {{ $t("encounters.list.explanation") }}
-            </popover>
-        </template>
-        <encounters-list :encounters="encounters" />
-    </area-section>
-    <area-section headline="Raids as Raider" :requesting="requesting">
-        {{ raiderRaids }}
-    </area-section>
-    <area-section headline="Raids as Raided" :requesting="requesting">
-        {{ raidedRaids }}
-    </area-section>
+    <encounters-navigation />
+    <encounters-list v-if="pageIndex === 0" />
+    <raids-as-raider-list v-else-if="pageIndex === 1" />
 </template>

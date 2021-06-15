@@ -15,6 +15,7 @@ export default {
     players: [],
     stars: [],
     relations: [],
+    page: savedState.encountersPage || 0,
     // encounters list
     perPage: savedState.encountersPerPage || 10,
     // encounter details

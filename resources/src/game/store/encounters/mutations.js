@@ -96,11 +96,11 @@ export default {
     },
 
     /**
-     * @function SET raid details
+     * @function SET player relations
      * @param {Object} state - vuex module "encounters" state
-     * @param {Object} payload
+     * @param {Number} payload
      */
-    SET_RAID_DETAILS: (state, payload) => {
-        state.raidDetails = payload;
+    SET_PAGE: (state, payload) => {
+        state.page = payload;
     },
 };

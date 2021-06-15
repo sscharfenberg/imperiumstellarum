@@ -1,6 +1,11 @@
 {
     "title": "Encounters",
     "navTitle": "Encounters",
+    "nav": {
+        "encounters": "Encounters",
+        "raidsRaider": "Raids on other territories",
+        "raidsRaided": "Raids on our territory"
+    },
     "list": {
         "headline": "Encounters with involvement of our empire",
         "explanation": "This page lists all encounters that we have participated in. Encounters are always sorted by turn descending. Encounters you haven't read are marked with a darker background.",
