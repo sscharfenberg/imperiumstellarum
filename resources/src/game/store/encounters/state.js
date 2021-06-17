@@ -23,5 +23,6 @@ export default {
     playing: false,
     // raids
     raids: [],
-    raidDetails: {},
+    raidsAsRaiderPerPage: savedState.raidsAsRaiderPerPage || 10,
+    raidsAsRaidedPerPage: savedState.raidsAsRaidedPerPage || 10,
 };

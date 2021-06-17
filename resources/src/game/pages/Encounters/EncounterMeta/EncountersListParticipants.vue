@@ -17,9 +17,10 @@ export default {
             props.participants.map(function (player) {
                 const data = store.getters["encounters/playerById"](player);
                 if (store.state.empireId !== data.id) {
-                    data.relation = store.getters[
-                        "encounters/playerRelationByPlayerId"
-                    ](player);
+                    data.relation =
+                        store.getters["encounters/playerRelationByPlayerId"](
+                            player
+                        );
                 }
                 return data;
             })

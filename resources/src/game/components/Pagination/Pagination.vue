@@ -59,7 +59,11 @@ export default {
         <nav class="pagination" v-if="numPages > 1">
             <button
                 :disabled="currentPage === 1"
-                class="pagination__link pagination__link--icon pagination__link--prev"
+                class="
+                    pagination__link
+                    pagination__link--icon
+                    pagination__link--prev
+                "
                 @click="changePage(currentPage - 1)"
             >
                 <icon name="expand_more" />
@@ -75,7 +79,11 @@ export default {
             </button>
             <button
                 :disabled="currentPage === numPages"
-                class="pagination__link pagination__link--icon pagination__link--next"
+                class="
+                    pagination__link
+                    pagination__link--icon
+                    pagination__link--next
+                "
                 @click="changePage(currentPage + 1)"
             >
                 <icon name="expand_more" />

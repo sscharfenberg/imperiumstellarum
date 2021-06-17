@@ -208,9 +208,8 @@ export default {
      */
     TRANSFER_ALL_SOURCE_TO_TARGET: (state, payload) => {
         state.transferSourceShipIds = [];
-        state.transferTargetShipIds = state.transferTargetShipIds.concat(
-            payload
-        );
+        state.transferTargetShipIds =
+            state.transferTargetShipIds.concat(payload);
     },
 
     /**
@@ -220,9 +219,8 @@ export default {
      * @constructor
      */
     TRANSFER_ALL_TARGET_TO_SOURCE: (state, payload) => {
-        state.transferSourceShipIds = state.transferSourceShipIds.concat(
-            payload
-        );
+        state.transferSourceShipIds =
+            state.transferSourceShipIds.concat(payload);
         state.transferTargetShipIds = [];
     },
 

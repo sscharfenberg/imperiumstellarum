@@ -59,13 +59,33 @@ export default {
     },
 
     /**
-     * @function SET relations of this player
+     * @function SET encounters per page
      * @param {Object} state - vuex module "messages" state
      * @param {Number} payload
      */
     SET_PER_PAGE: (state, payload) => {
         state.perPage = payload;
         saveState(state.perPage, "encountersPerPage");
+    },
+
+    /**
+     * @function SET raids as raider per page
+     * @param {Object} state - vuex module "messages" state
+     * @param {Number} payload
+     */
+    SET_RAIDS_RAIDER_PER_PAGE: (state, payload) => {
+        state.raidsAsRaiderPerPage = payload;
+        saveState(state.perPage, "raidsAsRaiderPerPage");
+    },
+
+    /**
+     * @function SET raids as raided per page
+     * @param {Object} state - vuex module "messages" state
+     * @param {Number} payload
+     */
+    SET_RAIDS_RAIDED_PER_PAGE: (state, payload) => {
+        state.raidsAsRaidedPerPage = payload;
+        saveState(state.perPage, "raidsAsRaidedPerPage");
     },
 
     /**
@@ -96,11 +116,12 @@ export default {
     },
 
     /**
-     * @function SET player relations
+     * @function SET encounters page
      * @param {Object} state - vuex module "encounters" state
      * @param {Number} payload
      */
     SET_PAGE: (state, payload) => {
         state.page = payload;
+        saveState(state.page, "encountersPage");
     },
 };

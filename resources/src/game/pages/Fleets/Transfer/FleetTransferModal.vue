@@ -132,7 +132,11 @@ export default {
         />
         <ul class="fleet-transfer__grid">
             <li
-                class="fleet-transfer__grid-item fleet-transfer__grid-head fleet-transfer__grid-head--left"
+                class="
+                    fleet-transfer__grid-item
+                    fleet-transfer__grid-head
+                    fleet-transfer__grid-head--left
+                "
             >
                 <icon v-if="transferSource.name" name="fleets" />
                 <icon v-if="transferSource.planetName" name="shipyards" />
@@ -144,7 +148,11 @@ export default {
             </li>
             <fleet-transfer-mass-actions />
             <li
-                class="fleet-transfer__grid-item fleet-transfer__grid-head fleet-transfer__grid-head--right"
+                class="
+                    fleet-transfer__grid-item
+                    fleet-transfer__grid-head
+                    fleet-transfer__grid-head--right
+                "
             >
                 <icon v-if="transferTarget.id" :name="transferTarget.icon" />
                 <span v-if="transferTarget.id">{{ transferTarget.name }}</span>

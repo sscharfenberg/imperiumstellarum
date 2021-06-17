@@ -11,6 +11,7 @@
     "scripts": {
         "prod": "node --trace-deprecation ./resources/build/buildProd.js",
         "dev": "node ./resources/build/serveDev.js",
+        "prettier": "npx prettier \"resources/src/game/**/*.{js,vue}\" --write",
         "icons": "node ./resources/build/icons.js",
         "cleanup": "node ./resources/build/cleanup.js",
         "db:testdata": "php artisan migrate:fresh && php artisan db:seed",
@@ -72,7 +73,7 @@
         "node-sass": "^6.0.0",
         "postcss-loader": "^5.3.0",
         "postcss-preset-env": "^6.7.0",
-        "prettier": "^2.3.0",
+        "prettier": "^2.3.1",
         "rimraf": "^3.0.2",
         "sass-loader": "^11.1.1",
         "semver": "^7.3.5",

@@ -35,9 +35,8 @@ export default {
         const max = computed(() => store.state.fleets.maxFleets);
         const holderShips = (holderId) => {
             const fleetShips = store.getters["fleets/shipsByFleetId"](holderId);
-            const shipyardShips = store.getters["fleets/shipsByShipyardId"](
-                holderId
-            );
+            const shipyardShips =
+                store.getters["fleets/shipsByShipyardId"](holderId);
             return fleetShips.length ? fleetShips : shipyardShips;
         };
         return {

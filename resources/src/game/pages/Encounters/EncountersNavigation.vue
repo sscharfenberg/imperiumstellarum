@@ -4,10 +4,8 @@
  *****************************************************************************/
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Icon from "Components/Icon/Icon";
 export default {
     name: "EncountersNavigation",
-    components: { Icon },
     setup() {
         const store = useStore();
         const pageIndex = computed({
@@ -16,8 +14,20 @@ export default {
                 store.commit("encounters/SET_PAGE", value);
             },
         });
+        const raidsRaided = computed(
+            () => store.getters["encounters/raidedRaids"].length
+        );
+        const raidsRaider = computed(
+            () => store.getters["encounters/raiderRaids"].length
+        );
+        const encounters = computed(
+            () => store.getters["encounters/sortedEncounters"].length
+        );
         return {
+            encounters,
             pageIndex,
+            raidsRaided,
+            raidsRaider,
         };
     },
 };
@@ -30,24 +40,30 @@ export default {
             @click="pageIndex = 0"
             :class="{ active: pageIndex === 0 }"
         >
-            <icon name="encounters" />
             {{ $t("encounters.nav.encounters") }}
+            <span v-if="encounters > 0" class="pill">
+                {{ encounters }}
+            </span>
         </button>
         <button
             class="encounters-nav__link"
             @click="pageIndex = 1"
             :class="{ active: pageIndex === 1 }"
         >
-            <icon name="encounters" />
             {{ $t("encounters.nav.raidsRaider") }}
+            <span v-if="raidsRaider > 0" class="pill">
+                {{ raidsRaider }}
+            </span>
         </button>
         <button
             class="encounters-nav__link"
             @click="pageIndex = 2"
             :class="{ active: pageIndex === 2 }"
         >
-            <icon name="encounters" />
             {{ $t("encounters.nav.raidsRaided") }}
+            <span v-if="raidsRaided > 0" class="pill">
+                {{ raidsRaided }}
+            </span>
         </button>
     </nav>
 </template>
@@ -69,6 +85,7 @@ export default {
 
     &__link {
         display: flex;
+        position: relative;
         align-items: center;
         justify-content: center;
 
@@ -92,7 +109,7 @@ export default {
         }
 
         @include respond-to("medium") {
-            padding: 16px;
+            padding: 20px 16px;
 
             font-size: 24px;
         }
@@ -123,11 +140,24 @@ export default {
                 margin-right: 16px;
             }
         }
+    }
 
-        &:nth-of-type(2) .icon {
-            @include themed() {
-                color: t("b-christine");
-            }
+    .pill {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        padding: 2px 4px;
+
+        font-size: 16px;
+
+        @include respond-to("medium") {
+            padding: 4px 8px;
+        }
+
+        @include themed() {
+            background-color: t("g-raven");
+            color: t("t-light");
         }
     }
 }

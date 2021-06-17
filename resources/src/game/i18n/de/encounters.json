@@ -1,6 +1,11 @@
 {
     "title": "Gefechte",
     "navTitle": "Gefechte",
+    "nav": {
+        "encounters": "Gefechte",
+        "raidsRaider": "Überfälle auf fremde Sterne",
+        "raidsRaided": "Überfälle auf unsere Sterne"
+    },
     "list": {
         "headline": "Gefechte mit Beteiligung unseres Imperiums",
         "explanation": "Diese Seite listet alle Gefechte auf an denen unser Imperium teilgenommen hat. Gefechte werden immer nach der Runde sortiert in der Sie stattgefunden haben (absteigend). Gefechte die Sie nicht betrachtet haben haben einen dunkleren Hintergrund.",
@@ -26,5 +31,23 @@
         "turn": "Runde {turn}",
         "attacker": "Angreifer",
         "defender": "Verteidiger"
+    },
+    "raidsAsRaider": {
+        "headline": "Unsere Überfälle auf fremde Sternensysteme",
+        "explanation": "Diese Seite listet alle Überfälle auf bei denen unsere Flotten fremde Sternensysteme überfallen haben.",
+        "pagination": {
+            "messages": "Ein Überfall|{num} Überfälle",
+            "perPage": "pro Seite"
+        },
+        "none": "Wir haben bislang noch keine feindlichen Imperien überfallen."
+    },
+    "raidsAsRaided": {
+        "headline": "Überfälle auf unsere Sternensysteme",
+        "explanation": "Diese Seite listet alle Überfälle auf bei denen feindliche Flotten unsere Sterne überfallen haben.",
+        "pagination": {
+            "messages": "Ein Überfall|{num} Überfälle",
+            "perPage": "pro Seite"
+        },
+        "none": "Wir wurden bislang noch nicht von feindlichen Imperien überfallen."
     }
 }

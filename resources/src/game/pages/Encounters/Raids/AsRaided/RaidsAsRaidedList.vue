@@ -1,25 +1,25 @@
 <script>
 /******************************************************************************
- * Page: RaidsAsRaiderList.vue
+ * Page: RaidsAsRaidedList.vue
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed, ref } from "vue";
 import AreaSection from "Components/AreaSection/AreaSection";
 import Pagination from "Components/Pagination/Pagination";
 import Popover from "Components/Popover/Popover";
-import RaidsAsRaiderRenderSingle from "./RaidsAsRaiderRenderSingle";
+import RaidsAsRaidedRenderSingle from "./RaidsAsRaidedRenderSingle";
 export default {
-    name: "RaidsAsRaiderList",
-    components: { AreaSection, Pagination, Popover, RaidsAsRaiderRenderSingle },
+    name: "RaidsAsRaidedList",
+    components: { AreaSection, Pagination, Popover, RaidsAsRaidedRenderSingle },
     setup() {
         const store = useStore();
         const requesting = computed(() => store.state.encounters.requesting);
-        const raids = computed(() => store.getters["encounters/raiderRaids"]);
+        const raids = computed(() => store.getters["encounters/raidedRaids"]);
         const page = ref(1);
         const perPage = computed({
             get: () => store.state.encounters.perPage,
             set: (value) =>
-                store.commit("encounters/SET_RAIDS_RAIDER_PER_PAGE", value),
+                store.commit("encounters/SET_RAIDS_RAIDED_PER_PAGE", value),
         });
         const onPageChange = (changedPage) => (page.value = changedPage);
         const onPerPageChange = (changedPerPage) => {
@@ -45,12 +45,12 @@ export default {
 
 <template>
     <area-section
-        :headline="$t('encounters.raidsAsRaider.headline')"
+        :headline="$t('encounters.raidsAsRaided.headline')"
         :requesting="requesting"
     >
         <template v-slot:aside>
             <popover align="right">
-                {{ $t("encounters.raidsAsRaider.explanation") }}
+                {{ $t("encounters.raidsAsRaided.explanation") }}
             </popover>
         </template>
         <pagination
@@ -58,16 +58,16 @@ export default {
             :current-page="page"
             :per-page="perPage"
             :num-items="raids.length"
-            message-key="encounters.raidsAsRaider.pagination.messages"
-            per-page-key="encounters.raidsAsRaider.pagination.perPage"
+            message-key="encounters.raidsAsRaided.pagination.messages"
+            per-page-key="encounters.raidsAsRaided.pagination.perPage"
             @changepage="onPageChange"
             @changeperpage="onPerPageChange"
         />
         <ul v-if="raids.length > 0">
-            <raids-as-raider-render-single v-for="raid in paginatedRaids" :key="raid.id" :raid="raid" />
+            <raids-as-raided-render-single v-for="raid in paginatedRaids" :key="raid.id" :raid="raid" />
         </ul>
         <p v-else-if="raids.length === 0">
-            {{ $t("encounters.raidsAsRaider.none") }}
+            {{ $t("encounters.raidsAsRaided.none") }}
         </p>
     </area-section>
 </template>

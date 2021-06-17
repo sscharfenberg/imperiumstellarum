@@ -3,8 +3,8 @@
     "navTitle": "Encounters",
     "nav": {
         "encounters": "Encounters",
-        "raidsRaider": "Raids on other territories",
-        "raidsRaided": "Raids on our territory"
+        "raidsRaider": "Raids on hostile empires",
+        "raidsRaided": "Raids on our stars"
     },
     "list": {
         "headline": "Encounters with involvement of our empire",
@@ -31,5 +31,23 @@
         "turn": "Turn {turn}",
         "attacker": "Attacker",
         "defender": "Defender"
+    },
+    "raidsAsRaider": {
+        "headline": "Our raids on hostile empires",
+        "explanation": "This page lists all raids where our fleets raided star systems of our enemies.",
+        "pagination": {
+            "messages": "One Raid|{num} Raids",
+            "perPage": "per page"
+        },
+        "none": "We have not yet raided hostile empires."
+    },
+    "raidsAsRaided": {
+        "headline": "Raids on our stars",
+        "explanation": "This page lists all raids where fleets of our enemies raided our star systems.",
+        "pagination": {
+            "messages": "One Raid|{num} Raids",
+            "perPage": "per page"
+        },
+        "none": "Our empire was not yet raided."
     }
 }

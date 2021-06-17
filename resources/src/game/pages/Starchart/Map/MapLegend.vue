@@ -29,9 +29,8 @@ export default {
         });
         onMounted(() => {
             window.setTimeout(() => {
-                viewPortSize.value = document.getElementById(
-                    "mapWrapper"
-                ).offsetWidth;
+                viewPortSize.value =
+                    document.getElementById("mapWrapper").offsetWidth;
             }, 1000);
         });
         return { zoom, viewPortSize, coords };

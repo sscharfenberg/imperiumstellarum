@@ -19,9 +19,10 @@ export default {
         const showModal = ref(false);
         const empireTicker = computed(() => store.state.empireTicker);
         const relationChangePending = computed(() => {
-            const relationChangePending = store.state.diplomacy.relationChanges.find(
-                (r) => r.playerId === props.player.id
-            );
+            const relationChangePending =
+                store.state.diplomacy.relationChanges.find(
+                    (r) => r.playerId === props.player.id
+                );
             if (relationChangePending) {
                 return relationChangePending.untilDone;
             } else {

@@ -30,8 +30,8 @@ export default {
         const population = computed(() => {
             let num = 0;
             planetIds.value.forEach((id) => {
-                const population = store.getters["empire/planetById"](id)
-                    .population;
+                const population =
+                    store.getters["empire/planetById"](id).population;
                 if (population) num += population;
             });
             return num;

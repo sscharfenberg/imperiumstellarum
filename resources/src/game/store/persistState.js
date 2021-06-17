@@ -29,6 +29,8 @@ const defaultState = {
     },
     encountersPerPage: 10,
     encountersPage: 0,
+    raidsAsRaiderPerPage: 10,
+    raidsAsRaidedPerPage: 10,
 };
 
 /**

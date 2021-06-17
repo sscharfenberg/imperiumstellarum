@@ -38,8 +38,8 @@ export default {
          */
         const checkDragPossible = () => {
             const _map = document.getElementById("draggableMap");
-            const currentViewPortSize = document.getElementById("mapWrapper")
-                .offsetWidth;
+            const currentViewPortSize =
+                document.getElementById("mapWrapper").offsetWidth;
             const currentMapSize = props.dimensions * props.tileSize;
             if (currentMapSize <= currentViewPortSize) {
                 if (!_map.classList.contains("disabled"))
