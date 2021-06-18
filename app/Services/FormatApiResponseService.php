@@ -592,6 +592,7 @@ class FormatApiResponseService {
                     'medium' => $raidPlayer->medium,
                     'large' => $raidPlayer->large,
                     'xlarge' => $raidPlayer->xlarge,
+                    'raider' => $raidPlayer->raider
                 ];
             })
         ];

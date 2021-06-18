@@ -63,9 +63,13 @@ export default {
             @changepage="onPageChange"
             @changeperpage="onPerPageChange"
         />
-        <ul v-if="raids.length > 0">
-            <raids-as-raider-render-single v-for="raid in paginatedRaids" :key="raid.id" :raid="raid" />
-        </ul>
+        <div v-if="raids.length > 0">
+            <raids-as-raider-render-single
+                v-for="raid in paginatedRaids"
+                :key="raid.id"
+                :raid="raid"
+            />
+        </div>
         <p v-else-if="raids.length === 0">
             {{ $t("encounters.raidsAsRaider.none") }}
         </p>
