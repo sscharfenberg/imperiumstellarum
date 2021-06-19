@@ -6,6 +6,7 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import CollapsibleItem from "Components/Collapsible/CollapsibleItem";
 import Icon from "Components/Icon/Icon";
+import RaidDetails from "../RaidDetails";
 export default {
     name: "RaidsAsRaiderRenderSingle",
     props: {
@@ -14,7 +15,7 @@ export default {
             required: true,
         },
     },
-    components: { CollapsibleItem, Icon },
+    components: { CollapsibleItem, Icon, RaidDetails },
     setup(props) {
         const store = useStore();
         const star = computed(() =>
@@ -64,8 +65,7 @@ export default {
                 </span>
             </div>
         </template>
-        {{ raidedPlayer }}
-        {{ raid }}
+        <raid-details :raid-players="raid.players" />
     </collapsible-item>
 </template>
 
