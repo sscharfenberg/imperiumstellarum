@@ -4,6 +4,7 @@
  *****************************************************************************/
 import { useStore } from "vuex";
 import { computed } from "vue";
+import RaidDetailsRaiderShips from "./RaidDetailsRaiderShips";
 import RaidDetailsResources from "./RaidDetailsResources";
 import SubHeadline from "Components/SubHeadline/SubHeadline";
 export default {
@@ -14,7 +15,7 @@ export default {
             required: true,
         },
     },
-    components: { RaidDetailsResources, SubHeadline },
+    components: { RaidDetailsRaiderShips, RaidDetailsResources, SubHeadline },
     setup(props) {
         const store = useStore();
         const playerData = (id) => store.getters["encounters/playerById"](id);
@@ -52,16 +53,41 @@ export default {
         </header>
         <sub-headline headline="Raiders" />
         <ul class="raid__raiders">
-            {{
-                raiders
-            }}
+            <li
+                class="raid__raider"
+                v-for="raider in raiders"
+                :key="raider.playerId"
+            >
+                <span
+                    class="ticker"
+                    :class="{
+                        hostile: playerRelation(raider.playerId) === 0,
+                        allied: playerRelation(raider.playerId) === 2,
+                    }"
+                    >[{{ playerData(raider.playerId).ticker }}]</span
+                >
+                <raid-details-raider-ships
+                    :ark="raider.ark"
+                    :small="raider.small"
+                    :medium="raider.medium"
+                    :large="raider.large"
+                    :xlarge="raider.xlarge"
+                />
+                <raid-details-resources
+                    :energy="raider.energy"
+                    :minerals="raider.minerals"
+                    :food="raider.food"
+                    :research="raider.research"
+                />
+            </li>
         </ul>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .raid {
-    &__raided {
+    &__raided,
+    &__raider {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -78,32 +104,44 @@ export default {
             padding: 8px;
             margin-bottom: 16px;
         }
+    }
 
-        .ticker {
-            display: flex;
-            align-items: center;
+    &__raiders {
+        padding: 0;
+        margin: 0;
+        gap: 4px;
 
-            padding: 2px;
-            border: 2px solid transparent;
+        list-style: none;
 
+        @include respond-to("medium") {
+            gap: 8px;
+        }
+    }
+
+    .ticker {
+        display: flex;
+        align-items: center;
+
+        padding: 2px;
+        border: 2px solid transparent;
+
+        @include themed() {
+            background-color: t("g-ebony");
+            border-color: t("g-deep");
+        }
+
+        @include respond-to("medium") {
+            padding: 4px 8px;
+        }
+
+        &.allied {
             @include themed() {
-                background-color: t("g-ebony");
-                border-color: t("g-deep");
+                border-color: t("s-success");
             }
-
-            @include respond-to("medium") {
-                padding: 4px;
-            }
-
-            &.allied {
-                @include themed() {
-                    border-color: t("s-success");
-                }
-            }
-            &.hostile {
-                @include themed() {
-                    border-color: t("s-error");
-                }
+        }
+        &.hostile {
+            @include themed() {
+                border-color: t("s-error");
             }
         }
     }
