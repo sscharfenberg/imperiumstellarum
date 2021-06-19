@@ -17,5 +17,5 @@ export default {
 </script>
 
 <template>
-    <li>{{raid}}</li>
+    <li>{{ raid }}</li>
 </template>

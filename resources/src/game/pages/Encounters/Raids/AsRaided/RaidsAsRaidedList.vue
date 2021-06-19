@@ -64,7 +64,11 @@ export default {
             @changeperpage="onPerPageChange"
         />
         <ul v-if="raids.length > 0">
-            <raids-as-raided-render-single v-for="raid in paginatedRaids" :key="raid.id" :raid="raid" />
+            <raids-as-raided-render-single
+                v-for="raid in paginatedRaids"
+                :key="raid.id"
+                :raid="raid"
+            />
         </ul>
         <p v-else-if="raids.length === 0">
             {{ $t("encounters.raidsAsRaided.none") }}
