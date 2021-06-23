@@ -19,7 +19,11 @@ export default {
 </script>
 
 <template>
-    <ul class="res">
+    <ul
+        class="res"
+        :title="$t('encounters.raids.resources')"
+        :aria-label="$t('encounters.raids.resources')"
+    >
         <li v-if="energy && energy !== 0">
             <icon name="res-energy" />{{ energy }}
         </li>

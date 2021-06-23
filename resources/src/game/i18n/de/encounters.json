@@ -32,22 +32,34 @@
         "attacker": "Angreifer",
         "defender": "Verteidiger"
     },
+    "raids": {
+        "turns": "Überfall fand statt während Runde {start} - {end}",
+        "starName": "Überfallener Stern: {name}",
+        "starLocation": "Sternenposition {x}/{y}",
+        "owner": "Besitzer des überfallenen Sterns: [{ticker}] {name}",
+        "ownerHeadline": "Besitzer des überfallenen Sterns",
+        "raidersHeadline": "Plünderer|Plünderer",
+        "ships": "Schiffe auf diesem Raubzug",
+        "resources": "Resourcen geändert während des kompletten Raubzugs"
+    },
     "raidsAsRaider": {
-        "headline": "Unsere Überfälle auf fremde Sternensysteme",
-        "explanation": "Diese Seite listet alle Überfälle auf bei denen unsere Flotten fremde Sternensysteme überfallen haben.",
+        "headline": "Unsere Raubzüge auf fremde Sternensysteme",
+        "explanation": "Diese Seite listet alle Raubzüge auf bei denen unsere Flotten fremde Sternensysteme überfallen haben.",
         "pagination": {
-            "messages": "Ein Überfall|{num} Überfälle",
+            "messages": "Ein Raubzug|{num} Raubzüge",
             "perPage": "pro Seite"
         },
-        "none": "Wir haben bislang noch keine feindlichen Imperien überfallen."
+        "none": "Wir haben bislang noch keine feindlichen Imperien überfallen.",
+        "resources": "Ressourcen erobert auf dem Raubzug"
     },
     "raidsAsRaided": {
         "headline": "Überfälle auf unsere Sternensysteme",
-        "explanation": "Diese Seite listet alle Überfälle auf bei denen feindliche Flotten unsere Sterne überfallen haben.",
+        "explanation": "Diese Seite listet alle Raubzüge auf bei denen feindliche Flotten unsere Sterne überfallen haben.",
         "pagination": {
-            "messages": "Ein Überfall|{num} Überfälle",
+            "messages": "Ein Raubzug|{num} Raubzüge",
             "perPage": "pro Seite"
         },
-        "none": "Wir wurden bislang noch nicht von feindlichen Imperien überfallen."
+        "none": "Wir wurden bislang noch nicht von feindlichen Imperien überfallen.",
+        "resources": "Ressourcen verloren durch den Raubzug"
     }
 }

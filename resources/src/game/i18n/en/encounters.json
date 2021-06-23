@@ -32,6 +32,16 @@
         "attacker": "Attacker",
         "defender": "Defender"
     },
+    "raids": {
+        "turns": "Raid occured on turns {start} - {end}",
+        "starName": "Star raided: {name}",
+        "starLocation": "Star location {x}/{y}",
+        "owner": "Star owner: [{ticker}] {name}",
+        "ownerHeadline": "Owner of raided star",
+        "raidersHeadline": "Raider|Raiders",
+        "ships": "Ships on this raid",
+        "resources": "Resources changed during all turns of the raid"
+    },
     "raidsAsRaider": {
         "headline": "Our raids on hostile empires",
         "explanation": "This page lists all raids where our fleets raided star systems of our enemies.",
@@ -39,7 +49,8 @@
             "messages": "One Raid|{num} Raids",
             "perPage": "per page"
         },
-        "none": "We have not yet raided hostile empires."
+        "none": "We have not yet raided hostile empires.",
+        "resources": "Resources conquered on raid"
     },
     "raidsAsRaided": {
         "headline": "Raids on our stars",
@@ -48,6 +59,7 @@
             "messages": "One Raid|{num} Raids",
             "perPage": "per page"
         },
-        "none": "Our empire was not yet raided."
+        "none": "Our empire was not yet raided.",
+        "resources": "Resources lost because of the raid"
     }
 }

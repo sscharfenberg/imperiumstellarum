@@ -20,7 +20,11 @@ export default {
 </script>
 
 <template>
-    <ul class="ships">
+    <ul
+        class="ships"
+        :title="$t('encounters.raids.ships')"
+        :aria-label="$t('encounters.raids.ships')"
+    >
         <li v-if="ark > 0"><icon name="hull-ark" />{{ ark }}</li>
         <li v-if="small > 0"><icon name="hull-small" />{{ small }}</li>
         <li v-if="medium > 0"><icon name="hull-medium" />{{ medium }}</li>

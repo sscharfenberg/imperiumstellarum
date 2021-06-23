@@ -41,16 +41,72 @@ export default {
 <template>
     <collapsible-item :key="raid.id" :collapsible-id="raid.id">
         <template v-slot:topic>
-            <div class="topic-item">
+            <div
+                class="topic-item"
+                :title="
+                    $t('encounters.raids.turns', {
+                        start: raid.startTurn,
+                        end: raid.endTurn,
+                    })
+                "
+                :aria-label="
+                    $t('encounters.raids.turns', {
+                        start: raid.startTurn,
+                        end: raid.endTurn,
+                    })
+                "
+            >
                 <icon name="res-turns" /> {{ raid.startTurn }} -
                 {{ raid.endTurn }}
             </div>
-            <div class="topic-item hide-for-mobile">{{ star.name }}</div>
-            <div class="topic-item">
+            <div
+                class="topic-item hide-for-mobile"
+                :title="$t('encounters.raids.starName', { name: star.name })"
+                :aria-label="
+                    $t('encounters.raids.starName', { name: star.name })
+                "
+            >
+                {{ star.name }}
+            </div>
+            <div
+                class="topic-item"
+                :title="
+                    $t('encounters.raids.starLocation', {
+                        x: star.x,
+                        y: star.y,
+                    })
+                "
+                :aria-label="
+                    $t('encounters.raids.starLocation', {
+                        x: star.x,
+                        y: star.y,
+                    })
+                "
+            >
                 <icon name="location" /> {{ star.x }}/{{ star.y }}
             </div>
-            <div class="topic-item">[{{ raidedPlayer.ticker }}]</div>
-            <div class="topic-item topic-item--resources hide-for-mobile">
+            <div
+                class="topic-item"
+                :title="
+                    $t('encounters.raids.owner', {
+                        ticker: raidedPlayer.ticker,
+                        name: raidedPlayer.name,
+                    })
+                "
+                :aria-label="
+                    $t('encounters.raids.owner', {
+                        ticker: raidedPlayer.ticker,
+                        name: raidedPlayer.name,
+                    })
+                "
+            >
+                [{{ raidedPlayer.ticker }}]
+            </div>
+            <div
+                class="topic-item topic-item--resources hide-for-mobile"
+                :title="$t('encounters.raidsAsRaider.resources')"
+                :aria-label="$t('encounters.raidsAsRaider.resources')"
+            >
                 <span v-if="ourRaidPlayer.energy > 0">
                     <icon name="res-energy" /> {{ ourRaidPlayer.energy }}
                 </span>

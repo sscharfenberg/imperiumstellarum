@@ -34,7 +34,7 @@ export default {
 
 <template>
     <div class="raid">
-        <sub-headline headline="Owner of raided star" />
+        <sub-headline :headline="$t('encounters.raids.ownerHeadline')" />
         <header class="raid__raided">
             <span
                 class="ticker"
@@ -51,7 +51,9 @@ export default {
                 :research="raided.research"
             />
         </header>
-        <sub-headline headline="Raiders" />
+        <sub-headline
+            :headline="$tc('encounters.raids.raidersHeadline', raiders.length)"
+        />
         <ul class="raid__raiders">
             <li
                 class="raid__raider"
