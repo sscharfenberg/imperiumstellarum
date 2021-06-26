@@ -25,14 +25,20 @@ export default {
         :aria-label="$t('encounters.raids.resources')"
     >
         <li v-if="energy && energy !== 0">
-            <icon name="res-energy" />{{ energy }}
+            <icon name="res-energy" />{{ energy > 0 ? "+" + energy : energy }}
         </li>
         <li v-if="minerals && minerals !== 0">
-            <icon name="res-minerals" />{{ minerals }}
+            <icon name="res-minerals" />{{
+                minerals > 0 ? "+" + minerals : minerals
+            }}
         </li>
-        <li v-if="food && food !== 0"><icon name="res-food" />{{ food }}</li>
+        <li v-if="food && food !== 0">
+            <icon name="res-food" />{{ food > 0 ? "+" + food : food }}
+        </li>
         <li v-if="research && research !== 0">
-            <icon name="res-research" />{{ research }}
+            <icon name="res-research" />{{
+                research > 0 ? "+" + research : research
+            }}
         </li>
     </ul>
 </template>
