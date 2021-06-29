@@ -45,7 +45,7 @@ export default {
         // unread stuff
         state.unreadMessages = payload.unreadMessages;
         state.unreadEncounters = payload.unreadEncounters;
-        state.unreadRaids = payload.unreadRaids;
+        //state.unreadRaids = payload.unreadRaids;
     },
 
     /**

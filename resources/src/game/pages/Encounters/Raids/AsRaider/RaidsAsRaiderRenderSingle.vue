@@ -39,7 +39,7 @@ export default {
 </script>
 
 <template>
-    <collapsible-item :key="raid.id" :collapsible-id="raid.id">
+    <collapsible-item :key="raid.id" :collapsible-id="`raid-raider-${raid.id}`">
         <template v-slot:topic>
             <div
                 class="topic-item"

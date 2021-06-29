@@ -132,7 +132,7 @@ class ApiService {
             'storageUpgrades' => $this->storageUpgrades($player),
             'unreadMessages' => $this->unreadMessages($player->id, $game->id),
             'unreadEncounters' => $this->unreadEncounters($player->id, $game->id),
-            'unreadRaids' => $this->unreadRaids($player->id, $game->id)
+            //'unreadRaids' => $this->unreadRaids($player->id, $game->id)
         ];
 
         if ($game->finished) {

@@ -14,13 +14,11 @@ export default {
         const route = useRoute();
         const unreadMessages = computed(() => store.state.unreadMessages);
         const unreadEncounters = computed(() => store.state.unreadEncounters);
-        const unreadRaids = computed(() => store.state.unreadRaids);
         const withinEncounters = computed(() => !!route.params.encounterId);
         return {
             unreadMessages,
             unreadEncounters,
             withinEncounters,
-            unreadRaids,
         };
     },
 };
@@ -87,9 +85,6 @@ export default {
                         <span v-if="unreadEncounters > 0" class="unread">{{
                             unreadEncounters
                         }}</span>
-                        <span v-if="unreadRaids > 0" class="unread raids">{{
-                            unreadRaids
-                        }}</span>
                     </aside>
                 </router-link>
             </li>
@@ -126,13 +121,6 @@ export default {
     @include themed() {
         background-color: t("s-error");
         color: t("s-warning");
-    }
-
-    &.raids {
-        @include themed() {
-            background-color: t("s-warning");
-            color: t("t-dark");
-        }
     }
 
     &:last-child {

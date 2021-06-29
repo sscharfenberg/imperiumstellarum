@@ -84,12 +84,15 @@ class ProcessEncounterRaid
             $playerResources = PlayerResource::where('game_id', '=', $owner->game_id)
                 ->where('player_id', '=', $attackerId)
                 ->get();
+            $raider = Player::where('game_id', '=', $owner->game_id)
+                ->where('id', '=', $attackerId)
+                ->first();
             if (!$this->dryRun) {
                 $r->addResources($playerResources, $raidResources->toArray());
             }
             Log::channel('encounter')
                 ->info(
-                    "$turnSlug Encounter raid: added resources to raiding player [$owner->ticker] $owner->name:"
+                    "$turnSlug Encounter raid: added resources to raiding player [$raider->ticker] $raider->name:"
                     .json_encode($resources, JSON_PRETTY_PRINT)
                 );
         }
@@ -281,7 +284,10 @@ class ProcessEncounterRaid
             $raidingPlayers = $raid->players->where('raider', '=', true)->map(function ($raidPlayer) {
                 return $raidPlayer->player_id;
             });
-            if (count($raidingPlayers->values()->diff($attackingPlayers->values())->all()) > 0) {
+            if (
+                count(array_diff($raidingPlayers->toArray(), $attackingPlayers->toArray())) > 0
+                || count(array_diff($attackingPlayers->toArray(), $raidingPlayers->toArray())) > 0
+            ) {
                 $existingRaid = false;
                 Log::channel('encounter')
                     ->debug("raiding players and current attackers are different => new raid.");
