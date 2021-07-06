@@ -18,7 +18,7 @@ module.exports = merge(common, {
 
     output: {
         filename: "[name].js",
-        publicPath: "http://localhost:7777/",
+        publicPath: "http://localhost:8888/",
     },
 
     // https://webpack.js.org/configuration/module/

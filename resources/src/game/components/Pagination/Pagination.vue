@@ -3,7 +3,7 @@
  * Component: Pagination
  *****************************************************************************/
 import { computed, ref } from "vue";
-import VueSelect from "vue-next-select";
+import Dropdown from "Components/Dropdown/Dropdown";
 import Icon from "Components/Icon/Icon";
 export default {
     name: "Pagination",
@@ -14,14 +14,12 @@ export default {
         messageKey: String,
         perPageKey: String,
     },
-    components: { VueSelect, Icon },
+    components: { Dropdown, Icon },
     emits: ["changepage", "changeperpage"],
     setup(props, { emit }) {
         const numPages = computed(() =>
             Math.ceil(props.numItems / props.perPage)
         );
-        const model = ref(props.perPage);
-        const perPageOptions = [5, 10, 20, 50];
         const changePage = (page) => {
             emit("changepage", page);
         };
@@ -32,11 +30,9 @@ export default {
 
         return {
             numPages,
-            perPageOptions,
             changePage,
             changePerPage,
             messagesPerPage,
-            model,
         };
     },
 };
@@ -46,13 +42,15 @@ export default {
     <div class="pagination__wrapper">
         <aside class="pagination__meta">
             {{ $tc(messageKey, numItems, { num: numItems }) }}
-            <vue-select
-                class="perpage"
-                style="width: 80px"
-                v-model="model"
-                :options="perPageOptions"
-                :close-on-select="true"
-                @selected="changePerPage"
+            <dropdown
+                :selected-option="perPage.toString()"
+                :options="[
+                    { val: '5', label: '5' },
+                    { val: '10', label: '10' },
+                    { val: '20', label: '20' },
+                    { val: '50', label: '50' },
+                ]"
+                @valuechanged="changePerPage"
             />
             {{ $t(perPageKey) }}
         </aside>
@@ -129,6 +127,10 @@ export default {
 
         @include respond-to("medium") {
             padding: 8px;
+        }
+
+        :deep(.select) {
+            margin: 0 8px;
         }
     }
 

@@ -39,6 +39,12 @@ module.exports = {
                 ignoreMediaFeatureNames: ["/device-pixel-ratio/"],
             },
         ],
+        "selector-pseudo-class-no-unknown": [
+            "always",
+            {
+                "ignorePseudoClasses": ["deep"]
+            }
+        ],
         "at-rule-no-unknown": [
             true,
             {

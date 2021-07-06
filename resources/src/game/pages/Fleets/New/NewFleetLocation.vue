@@ -4,10 +4,10 @@
  *****************************************************************************/
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import VueSelect from "vue-next-select";
+import Dropdown from "Components/Dropdown/Dropdown";
 export default {
     name: "NewFleetLocation",
-    components: { VueSelect },
+    components: { Dropdown },
     setup() {
         const store = useStore();
         const sortOrder = computed(() => store.state.empire.starsSorted);
@@ -24,10 +24,8 @@ export default {
             const stars = store.state.fleets.stars;
             let options = stars.map((star) => {
                 return {
-                    id: star.id,
-                    name: `${star.name} (${star.x}/${star.y})`,
-                    x: star.x,
-                    y: star.y,
+                    val: star.id,
+                    label: `${star.name} (${star.x}/${star.y})`,
                 };
             });
             if (!sortOrder.value.length) {
@@ -62,7 +60,7 @@ export default {
         });
 
         const onSelected = (selectedStar) => {
-            store.commit("fleets/SET_CREATE_FLEET_LOCATION", selectedStar.id);
+            store.commit("fleets/SET_CREATE_FLEET_LOCATION", selectedStar);
         };
 
         return { options, focusSelectModel, onSelected };
@@ -71,43 +69,27 @@ export default {
 </script>
 
 <template>
-    <div class="form-row">
-        <div class="label">
-            <label for="fleetLocation">{{
-                $t("fleets.new.locationLabel")
-            }}</label>
-        </div>
-        <div class="input">
-            <vue-select
-                v-model="focusSelectModel"
-                :options="options"
-                :close-on-select="true"
-                :track-by="(option) => option.name"
-                label-by="name"
-                :place-holder="$t('common.dropdown.placeHolder')"
-                @selected="onSelected"
-            />
-        </div>
+    <div class="label">
+        <label for="fleetLocation">{{
+            $t("fleets.new.locationLabel")
+        }}</label>
+    </div>
+    <div class="input">
+        <dropdown
+            ref-id="fleetLocation"
+            :options="options"
+            @valuechanged="onSelected"
+        />
     </div>
 </template>
 
 <style lang="scss" scoped>
-.form-row {
-    padding: 0 0 16px 0;
-}
-.form-row .label {
+.label {
     margin-bottom: 8px;
     flex-basis: 100%;
 }
-.form-row .input {
-    flex-basis: 100%;
-}
-.input .vue-select {
+.input :deep(.select) {
     width: 100%;
-    padding: 9px;
-
-    > ul.vue-dropdown {
-        top: 54px !important;
-    }
+    max-width: 100%;
 }
 </style>

@@ -9,7 +9,7 @@ module.exports = {
     chunks: ["app", "game", "admin"],
     devServerProto: "http",
     devServerHost: "localhost",
-    devServerPort: 7777,
+    devServerPort: 8888,
     webpackStats: {
         //preset: "minimal",
         excludeAssets: [
