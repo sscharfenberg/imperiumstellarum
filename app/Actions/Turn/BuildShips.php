@@ -5,6 +5,7 @@ namespace App\Actions\Turn;
 use App\Models\ConstructionContract;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Raid;
 use App\Models\Ship;
 use App\Services\FormatApiResponseService;
 use App\Services\MessageService;
@@ -272,15 +273,41 @@ class BuildShips
     /**
      * @function build ships
      * @param Game $game
+     * @param int $newTurn
      * @param string $turnSlug
      * @throws Exception
      * @return void
      */
-    public function handle(Game $game, string $turnSlug)
+    public function handle(Game $game, int $newTurn, string $turnSlug)
     {
+        $contractsToDecrement = ConstructionContract::where('game_id', $game->id)
+            ->where('turns_left', '>', '0')
+            ->with('shipyard')
+            ->get();
+        // get raid star IDs so we can check if the construction is at a star that has a raid.
+        $raidStarIds = Raid::where('game_id', $game->id)
+            ->where('end_turn', '=', $newTurn)
+            ->get()
+            ->map( function($raid) {
+                return $raid->star_id;
+            });
+        Log::channel('turn')->debug("$turnSlug - current raid IDs: ".json_encode($raidStarIds, JSON_PRETTY_PRINT));
+        $contractIdsToDecrement = $contractsToDecrement->filter( function ($contract) use ($raidStarIds, $turnSlug) {
+            $starId = $contract->shipyard->star->id;
+            if (!$raidStarIds->contains($starId)) {
+                Log::channel('turn')->notice("$turnSlug - Contract $contract->id has no raid in system, proceeding.");
+                return true;
+            } else {
+                Log::channel('turn')->notice("$turnSlug - Contract $contract->id has a raid in system, skipping.");
+                return false;
+            }
+        })->map( function ($contract) {
+            return $contract->id;
+        });
+
         // decrement 'turns_left'
         $decrementedContracts = ConstructionContract::where('game_id', $game->id)
-            ->where('turns_left', '>', '0')
+            ->whereIn('id', $contractIdsToDecrement)
             ->decrement('turns_left');
         if ($decrementedContracts) {
             Log::channel('turn')->notice("$turnSlug - Decreased 'turns_left' for $decrementedContracts contracts.");

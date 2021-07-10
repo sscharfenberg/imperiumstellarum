@@ -146,12 +146,4 @@ class ConstructionContract extends Model
         return $this->belongsTo('App\Models\Shipyard');
     }
 
-    /**
-     * Get the planet where the ships are delivered to
-     */
-    public function planet(): BelongsTo
-    {
-        return $this->belongsTo('App\Models\Planet');
-    }
-
 }
